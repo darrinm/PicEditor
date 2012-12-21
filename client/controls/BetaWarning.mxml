@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox xmlns="*" xmlns:mx="http://www.adobe.com/2006/mxml" styleName="extrabeta">
+	<mx:Text color="#000000" condenseWhite="true" textAlign="center" selectable="false" fontSize="13" width="220" htmlText="@Resource(key='Text_1', bundle='BetaWarning')">
+	</mx:Text>
+	<mx:LinkButton label="@Resource(key='LinkButton_1', bundle='BetaWarning')" color="#000000" click="(Picnik)(PicnikBase.app).ShowDialog('feedback');" fontSize="13"/>
+</mx:VBox>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MultiColorPaletteBase xmlns="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" _cntButtons="{_bxButtons}" _cntPalettes="{_cnvPalettes}" verticalGap="7">
+	<mx:Script>
+		<![CDATA[
+			import icons.HueGradientIcon;
+			import icons.SolidColorIcon;
+		]]>
+	</mx:Script>
+<mx:HBox id="_bxButtons" width="191" horizontalGap="8">
+	<mx:Button width="42" height="27" icon="{icons.SolidColorIcon}" 
+		data="{{iconColor:0xfe7782, iconWidth:32, iconHeight:17}}" 
+		click="OnButtonClick(event)"
+		/>
+	<mx:Button width="42" height="27" icon="{icons.SolidColorIcon}" 
+		data="{{iconColor:0x973610, iconWidth:32, iconHeight:17}}"
+		click="OnButtonClick(event)"
+		/>
+	<mx:Button width="42" height="27" icon="{icons.SolidColorIcon}"
+		data="{{iconColor:0xc7000a, iconWidth:32, iconHeight:17}}"
+		click="OnButtonClick(event)"
+		/>
+	<mx:Button width="41" height="27" icon="{icons.HueGradientIcon}" 
+		data="{{iconWidth:31, iconHeight:17}}" 
+		click="OnButtonClick(event)"
+		/>
+</mx:HBox>
+<mx:Canvas id="_cnvPalettes">
+	<LipstickColorPalette colors="{[0xe10034, 0xff5365, 0xed3a82, 0xf3789d, 0xfe7782, 0xe2465c, 0xe7546f, 0xd9404e, 0xff6281, 0xe6385c, 0xfd3947]}"/>
+	<LipstickColorPalette colors="{[0x973610, 0xdf5d2e, 0xfc7d15, 0xdc7b55, 0xe18146, 0xd55139, 0xffa09c, 0xbd726d, 0xf37995, 0x9b6358, 0xad4f45]}"/>
+	<LipstickColorPalette colors="{[0xc7000a, 0xb1194b, 0xaa0a1e, 0xf60075, 0xcd0021, 0x930000, 0xbe0047, 0x74000a, 0x7e001f, 0x970048, 0x970038]}"/>
+	<HSBColorSwatch width="191" height="67" hueStart="180"
+		topGray="255" grayscaleSize="5" color="0xee626a"/>
+</mx:Canvas>
+</MultiColorPaletteBase>

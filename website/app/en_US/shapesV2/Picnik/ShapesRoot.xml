@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory area="Picnik" id="root">
+	<ShapeCategory flickrPremium="false" id="picnikSection" numShapes="0" picnikPremium="false" showHeader="false">
+		<ShapeCategory flickrPremium="false" id="picnik" numShapes="39" picnikPremium="false" previewUrls="60|48|../clipart/bundles/PicnikArea_groupPreviews_picnik.png?ver=6618804d" thumbUrl="60|48|0|../clipart/bundles/PicnikArea_groupThumbs.png?ver=70883968" title="Picnik"/>
+	</ShapeCategory>
+</ShapeCategory>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CamoFrameEffectBase xmlns="effects.*" xmlns:cnt="containers.*" xmlns:ctrl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%"
+	xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*"  premium="true" urlid="DigitalCamouflage">
+	<mx:Script>
+		<![CDATA[
+	   		
+			override protected function GetStylesArray(): Array {
+				return kaobStyles;
+			}
+		]]>
+	</mx:Script>
+
+	<ctrl:EffectButton id="_efbtn" strTitle="@Resource(key='digitalCamoFrame', bundle='CamoFrameEffect')" strAuthor="@Resource(key='byPicnik', bundle='EffectCanvas')" strImageSource="../graphics/effects/MemorialDay/digital_camo_frame.jpg" premium="{premium}"/>
+	<mx:String id="_strHelpText">{Resource.getString('CamoFrameEffect', '_strHelpText2')}</mx:String>
+	
+	<mx:VBox x="0" y="70" verticalGap="0" paddingLeft="8" paddingRight="8">
+	    <mx:Label text="Styles" styleName="sliderTitle"/>
+	    <mx:HBox width="190">
+			<ctrl:ResizingComboBox dataProvider="{GetStyles()}" id="_cbStyles" selectedIndex="0" change="callLater(OnParamChange)" height="26" width="100%" rowCount="20" dropdownWidth="190">
+				<ctrl:itemRenderer>
+					<mx:Component>
+		            	<mx:HBox verticalAlign="middle" width="100%">
+		                	<mx:Label text="{data.label}" fontSize="13" width="100%" minWidth="90" paddingRight="5" styleName="deviceFonts"/>
+		                	<ctrl:ImageVer source="{data.url}" height="36" width="36" verticalAlign="middle"/>
+		            	</mx:HBox>
+					</mx:Component>
+	            </ctrl:itemRenderer>
+			</ctrl:ResizingComboBox>
+	    	<mx:Image source="{IconNameToUrl(selectedStyleIconUrl)}" width="36" height="36"/>
+	    </mx:HBox>
+
+		<!--<ctrl:LabelHSlidePlus id="_sldrSeed" minimum="1" maximum="20" value="{zeroR + seed}" label="@Resource(key='variation', bundle='CamoFrameEffect')" change="seed=_sldrSeed.value; OnParamChange()" labelValueMultiplier="1"/>-->
+
+		<ctrl:LabelHSlidePlus id="_sldrFrameSize" minimum="1" maximum="100" value="{zeroR + frameSize}" label="@Resource(key='frameSize', bundle='CamoFrameEffect')" change="frameSize=_sldrFrameSize.value; OnParamChange()" labelValueMultiplier="1"/>
+
+		<ctrl:ApplyCancelEffectButtons addBoxPadding="true" premium="{premium}"/>
+	</mx:VBox>
+
+</CamoFrameEffectBase>

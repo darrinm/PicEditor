@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ct:SpecialEffectsCanvasBase xmlns="*" xmlns:ct="creativeTools.*" xmlns:mx="http://www.adobe.com/2006/mxml" 
+		xmlns:eff="effects.*" xmlns:filters="flash.filters.*" xmlns:cnt="containers.*"
+		width="100%" verticalLineScrollSize="38" horizontalScrollPolicy="off" verticalScrollPolicy="on" xmlns:controls="controls.*" xmlns:sectionList="containers.sectionList.*">
+	<filters:DropShadowFilter blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1"
+		quality="3" angle="90" id="_fiWhiteShad"/>
+<mx:Script>
+	<![CDATA[
+		import picnik.util.LocaleInfo;		
+	]]>
+</mx:Script>
+	<cnt:IncrementalInitVBox verticalGap="0" width="100%" x="0" id="_vb">
+		<!-- movember month effects, only visible in November, remember to make free when live
+		<mx:HBox backgroundImage="@Embed('/theme/pngs/effects_bg_header.png')" backgroundSize="100%"
+				borderSides="bottom" borderStyle="solid" borderColor="#d1d1d1" width="100%" paddingLeft="8" height="20" paddingTop="1">
+			<mx:Label text="@Resource(key='movember', bundle='SpecialEffectsCanvas')" color="#354d13" filters="{[_fiWhiteShad]}" fontWeight="{LocaleInfo.BoldWeight()}"/>
+		</mx:HBox>
+		<eff:BeardBrushEffect/>
+		<controls:ShapeArea imgd="{_imgd}" imgv="{_imgv}" area="Beards" verticalScrollPolicy="off" ignoreErrors="true" width="210"/>-->
+
+		<!-- bca month effects, only visible in October
+		<mx:HBox backgroundImage="@Embed('/theme/pngs/effects_bg_header.png')" backgroundSize="100%"
+				borderSides="bottom" borderStyle="solid" borderColor="#d1d1d1" width="100%" paddingLeft="8" height="20" paddingTop="1">
+			<mx:Label text="@Resource(key='breastCancerAwareness', bundle='SpecialEffectsCanvas')" color="#354d13" filters="{[_fiWhiteShad]}" fontWeight="{LocaleInfo.BoldWeight()}"/>
+		</mx:HBox>
+		<eff:GoPinkEffect/>
+		<eff:PinkFrameEffect/>-->
+		<mx:HBox backgroundImage="@Embed('/theme/pngs/effects_bg_header.png')" backgroundSize="100%"
+				borderSides="bottom" borderStyle="solid" borderColor="#d1d1d1" width="100%" paddingLeft="8" height="20" paddingTop="1">
+			<mx:Label text="@Resource(key='Label_1', bundle='SpecialEffectsCanvas')" color="#354d13" filters="{[_fiWhiteShad]}" fontWeight="{LocaleInfo.BoldWeight()}"/>
+		</mx:HBox>
+		<eff:BWEffect tags="effect"/>
+		<eff:SepiaEffect tags="effect"/>
+		<eff:BoostEffect tags="effect"/>
+		<eff:SoftenEffect tags="effect"/>
+		<eff:VignetteEffect tags="effect"/>
+		<eff:MatteEffect tags="effect"/>
+		<mx:HBox backgroundImage="@Embed('/theme/pngs/effects_bg_header.png')" backgroundSize="100%"
+				borderSides="bottom" borderStyle="solid" borderColor="#d1d1d1" width="100%" paddingLeft="8" height="20" paddingTop="1">
+			<mx:Label text="@Resource(key='Label_2', bundle='SpecialEffectsCanvas')" color="#354d13" filters="{[_fiWhiteShad]}" fontWeight="{LocaleInfo.BoldWeight()}"/>
+		</mx:HBox>
+		<eff:IREffect tags="effect"/>
+		<eff:LomoEffect tags="effect"/>
+		<eff:HolgaEffect tags="effect"/>
+		<!--<eff:GritEffect tags="effect"/>-->
+		<eff:HDREfffect tags="effect"/>
+		<eff:NightVisionEffect tags="effect"/>
+		<eff:CinemascopeEffect tags="effect"/>
+		<eff:OrtonEffect tags="effect"/>
+		<eff:SixtiesEffect tags="effect"/>
+		<mx:HBox backgroundImage="@Embed('/theme/pngs/effects_bg_header.png')" backgroundSize="100%" 
+				borderSides="bottom" borderStyle="solid" borderColor="#d1d1d1" width="100%" paddingLeft="8" height="20" paddingTop="1">
+			<mx:Label text="@Resource(key='Label_3', bundle='SpecialEffectsCanvas')" color="#354d13" filters="{[_fiWhiteShad]}" fontWeight="{LocaleInfo.BoldWeight()}"/>
+		</mx:HBox>
+		<eff:TintEffect tags="effect"/>
+		<!--<eff:VibranceEffect tags="effect"/>-->
+		<eff:InvertEffect tags="effect"/>
+		<eff:TwoToneEffect tags="effect"/>
+		<eff:HeatMapEffect tags="effect"/>
+		<eff:CrossProcessEffect tags="effect"/>
+		<mx:HBox backgroundImage="@Embed('/theme/pngs/effects_bg_header.png')" backgroundSize="100%"
+				borderSides="bottom" borderStyle="solid" borderColor="#d1d1d1" width="100%" paddingLeft="8" height="20" paddingTop="1">
+			<mx:Label text="@Resource(key='Label_4', bundle='SpecialEffectsCanvas')" color="#354d13" filters="{[_fiWhiteShad]}" fontWeight="{LocaleInfo.BoldWeight()}"/>
+		</mx:HBox>
+		<eff:FocalBWEffect tags="effect"/>
+		<!--<eff:FocalAttentionEffect tags="effect"/>-->
+		<eff:FocalSoftenEffect tags="effect"/>
+		<eff:FocalPixelateEffect tags="effect"/>
+		<eff:FocalZoomEffect tags="effect"/>
+		<mx:HBox backgroundImage="@Embed('/theme/pngs/effects_bg_header.png')" backgroundSize="100%"
+				borderSides="bottom" borderStyle="solid" borderColor="#d1d1d1" width="100%" paddingLeft="8" height="20" paddingTop="1">
+			<mx:Label text="@Resource(key='Label_5', bundle='SpecialEffectsCanvas')" color="#354d13" filters="{[_fiWhiteShad]}" fontWeight="{LocaleInfo.BoldWeight()}"/>
+		</mx:HBox>
+		<!--<eff:TextureOverlayEffect tags="effect,texture"/>-->
+		<!--<eff:DotsEffect tags="effect"/>-->
+		<!--<eff:ScatteredPartsEffect tags="effect"/>-->
+		<eff:PencilSketchEffect tags="effect"/>
+		<eff:NeonEffect tags="effect"/>
+		<mx:HBox backgroundImage="@Embed('/theme/pngs/effects_bg_header.png')" backgroundSize="100%"
+			borderSides="bottom" borderStyle="solid" borderColor="#d1d1d1" width="100%" paddingLeft="8" height="20" paddingTop="1">
+			<mx:Label text="@Resource(key='Label_6', bundle='SpecialEffectsCanvas')" color="#354d13" filters="{[_fiWhiteShad]}" fontWeight="{LocaleInfo.BoldWeight()}"/>
+		</mx:HBox>
+		<eff:DoodleEffect tags="effect"/>
+		<eff:GooifyEffect tags="effect"/>
+		<eff:PixelateEffect tags="effect"/>
+		<!--<eff:PuzzleEffect tags="effect"/>-->
+		<eff:QuantizePaletteEffect tags="effect"/>
+		<eff:GrainEffect tags="effect"/>
+
+		<controls:SandboxEffects/>
+
+	</cnt:IncrementalInitVBox>
+</ct:SpecialEffectsCanvasBase>

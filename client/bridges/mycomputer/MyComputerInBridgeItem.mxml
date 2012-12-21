@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<BridgeItemBase xmlns="bridges.*" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:controls="controls.*" 
+	horizontalAlign="center" verticalAlign="middle" currentState="NotSelected" 
+	initialize="OnInitialize()">
+    <states>
+        <mx:State name="Selected">
+            <mx:SetStyle name="backgroundColor" value="#bbe57f"/>
+            <mx:SetProperty target="{_btnMenu}" name="alpha" value="1.0"/>
+        </mx:State>
+        <mx:State name="NotSelected">
+            <mx:SetProperty target="{_btnMenu}" name="alpha" value="0.0"/>
+        </mx:State>
+        <mx:State name="Highlight">
+            <mx:SetStyle name="backgroundColor" value="#d6efb2"/>
+            <mx:SetProperty target="{_btnMenu}" name="alpha" value="1.0"/>
+        </mx:State>
+        <mx:State name="ReadOnly"/>
+        
+        <mx:State name="SelectedReadOnly" basedOn="ReadOnly">
+            <mx:SetStyle name="backgroundColor" value="#bbe57f"/>
+            <mx:SetProperty target="{_btnMenu}" name="alpha" value="1.0"/>
+        </mx:State>
+        <mx:State name="NotSelectedReadOnly" basedOn="ReadOnly">
+            <mx:SetProperty target="{_btnMenu}" name="alpha" value="0.0"/>
+        </mx:State>
+        <mx:State name="HighlightReadOnly" basedOn="ReadOnly">
+            <mx:SetStyle name="backgroundColor" value="#d6efb2"/>
+            <mx:SetProperty target="{_btnMenu}" name="alpha" value="1.0"/>
+        </mx:State>
+        
+        <mx:State name="DisabledSelectedReadOnly" basedOn="ReadOnly">
+            <mx:SetStyle name="backgroundColor" value="#bbe57f"/>
+            <mx:SetProperty target="{_btnMenu}" name="alpha" value="1.0"/>
+            <mx:SetProperty target="{_vbxThumbnail}" name="alpha" value="0.4"/>
+            
+        </mx:State>
+        <mx:State name="DisabledNotSelectedReadOnly" basedOn="ReadOnly">
+            <mx:SetProperty target="{_btnMenu}" name="alpha" value="0.0"/>
+            <mx:SetProperty target="{_vbxThumbnail}" name="alpha" value="0.4"/>
+            
+        </mx:State>
+        <mx:State name="DisabledHighlightReadOnly" basedOn="ReadOnly">
+            <mx:SetStyle name="backgroundColor" value="#d6efb2"/>
+            <mx:SetProperty target="{_btnMenu}" name="alpha" value="1.0"/>
+            <mx:SetProperty target="{_vbxThumbnail}" name="alpha" value="0.4"/>
+            
+        </mx:State>
+    </states>
+    
+    <mx:Fade alphaFrom="0" alphaTo="1" duration="150" id="_efFadeIn"/>
+    
+    <mx:Canvas>
+	    <mx:VBox id="_vbxThumbnail" horizontalAlign="center" verticalAlign="middle" horizontalCenter="0" verticalCenter="0"
+	    		backgroundColor="#FFFFFF" backgroundAlpha="1.0" cornerRadius="8" borderStyle="solid" borderThickness="0"
+	    		dropShadowEnabled="true" dropShadowColor="#666666" shadowDistance="0"
+	    		paddingTop="10" paddingRight="10" paddingBottom="10" paddingLeft="10">
+	        <controls:ImagePreview id="_imgThumbnail" width="100%" height="100%" maxHeight="160" maxWidth="160" horizontalAlign="center" verticalAlign="middle"
+	        	source="{data}"
+	        	slowLoadCompleteEffect="{_efFadeIn}"/>
+	    </mx:VBox>
+	    <mx:Button bottom="5" right="5" width="32" height="22" id="_btnMenu" icon="@Embed('/theme/pngs/thumbMenuIcon.png')"/>
+    </mx:Canvas>
+</BridgeItemBase>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SectionListBase xmlns="containers.sectionList.*" xmlns:mx="http://www.adobe.com/2006/mxml"
+		verticalGap="0" width="226" height="100%" minHeight="73" backgroundColor="#fafafa"
+		verticalScrollPolicy="on" horizontalScrollPolicy="off" verticalLineScrollSize="38" 
+		borderSides="bottom" borderStyle="solid" borderColor="#d1d1d1">
+	<!-- add section list style extras to this file/class -->
+</SectionListBase>

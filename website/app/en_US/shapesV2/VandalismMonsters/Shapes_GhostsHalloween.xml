@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/reanimated_wounds.png" flickrPremium="false" id="GhostsHalloween" numShapes="12" picnikPremium="false" previewUrls="60|48|../clipart/bundles/VandalismMonstersArea_groupPreviews_GhostsHalloween.png?ver=c53414ec" title="Wounds">
+	<Shapes>
+		<Clipart blendMode="multiply" cHeight="340" cWidth="549" flickrPremium="false" picnikPremium="false" previewUrl="40|40|0|../clipart/bundles/VandalismMonstersArea_shapes_GhostsHalloween.png?ver=18d580ea" url="shapes/Wounds/Wound_1.swf"/>
+		<Clipart blendMode="multiply" cHeight="390" cWidth="1035" flickrPremium="false" picnikPremium="false" previewUrl="40|40|1|../clipart/bundles/VandalismMonstersArea_shapes_GhostsHalloween.png?ver=18d580ea" url="shapes/Wounds/Wound_2b.swf"/>
+		<Clipart blendMode="multiply" cHeight="1030" cWidth="480" flickrPremium="false" picnikPremium="false" previewUrl="40|40|2|../clipart/bundles/VandalismMonstersArea_shapes_GhostsHalloween.png?ver=18d580ea" url="shapes/Wounds/Wound_3b.swf"/>
+		<Clipart blendMode="multiply" cHeight="564" cWidth="700" flickrPremium="false" picnikPremium="false" previewUrl="40|40|3|../clipart/bundles/VandalismMonstersArea_shapes_GhostsHalloween.png?ver=18d580ea" url="shapes/Wounds/Wound_4.swf"/>
+		<Clipart blendMode="multiply" cHeight="734" cWidth="1542" flickrPremium="false" isVector="false" picnikPremium="false" previewUrl="40|40|4|../clipart/bundles/VandalismMonstersArea_shapes_GhostsHalloween.png?ver=18d580ea" url="shapes/Wounds/Wound_05.swf"/>
+		<Clipart cHeight="1780" cWidth="1800" flickrPremium="false" isVector="false" picnikPremium="false" previewUrl="40|40|5|../clipart/bundles/VandalismMonstersArea_shapes_GhostsHalloween.png?ver=18d580ea" url="shapes/Wounds/Wound_06.swf"/>
+		<Clipart blendMode="multiply" cHeight="1808" cWidth="1872" flickrPremium="false" isVector="false" picnikPremium="false" previewUrl="40|40|6|../clipart/bundles/VandalismMonstersArea_shapes_GhostsHalloween.png?ver=18d580ea" url="shapes/Wounds/Wound_07.swf"/>
+		<Clipart blendMode="multiply" cHeight="777" cWidth="1104" flickrPremium="false" isVector="false" picnikPremium="false" previewUrl="40|40|7|../clipart/bundles/VandalismMonstersArea_shapes_GhostsHalloween.png?ver=18d580ea" url="shapes/Wounds/Wound_08.swf"/>
+		<Clipart blendMode="multiply" cHeight="1502" cWidth="840" flickrPremium="false" isVector="false" picnikPremium="false" previewUrl="40|40|8|../clipart/bundles/VandalismMonstersArea_shapes_GhostsHalloween.png?ver=18d580ea" url="shapes/Wounds/Wound_09.swf"/>
+		<Clipart blendMode="multiply" cHeight="1998" cWidth="907" flickrPremium="false" isVector="false" picnikPremium="false" previewUrl="40|40|9|../clipart/bundles/VandalismMonstersArea_shapes_GhostsHalloween.png?ver=18d580ea" url="shapes/Wounds/Wound_10.swf"/>
+		<Clipart blendMode="darken" cHeight="1794" cWidth="1500" flickrPremium="false" isVector="false" picnikPremium="false" previewUrl="40|40|10|../clipart/bundles/VandalismMonstersArea_shapes_GhostsHalloween.png?ver=18d580ea" url="shapes/Wounds/Wound_11.swf"/>
+		<Clipart blendMode="multiply" cHeight="904" cWidth="2376" flickrPremium="false" isVector="false" picnikPremium="false" previewUrl="40|40|11|../clipart/bundles/VandalismMonstersArea_shapes_GhostsHalloween.png?ver=18d580ea" url="shapes/Wounds/Wound_12.swf"/>
+	</Shapes>
+</ShapeCategory>

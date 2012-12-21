@@ -1,0 +1,12 @@
+fileName: vtks_Rascunho_Errado.ttf
+name: vtks Rascunho  Errado
+subfamilyDisplayName: Regular
+fullName: vtks Rascunho  Errado
+displayName: vtks Rascunho  Errado
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 0
+pkName: pkvtks0Rascunho0Errado
+authorName: Douglas Vitkauskas
+authorUrl: http://www.vtks.com.br/

@@ -1,0 +1,12 @@
+fileName: dz_tombat_smilies.ttf
+name: Tombats Smilies
+subfamilyDisplayName: Regular
+fullName: Tombats Smilies
+displayName: Tombats Smilies
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 4
+pkName: pkdz0tombat0smilies
+authorUrl: http://fonts.tom7.com/
+authorName: Divide by Zero

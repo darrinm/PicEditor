@@ -1,0 +1,12 @@
+fileName: TURBO_ripped.ttf
+name: TURBO ripped
+subfamilyDisplayName: Normal
+fullName: turbo ripped
+displayName: TURBO ripped
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 0
+pkName: pkTURBO0ripped
+authorName: Gyom.Typo
+authorUrl: http://gyom.nebullus.com/

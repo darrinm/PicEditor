@@ -1,0 +1,928 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:ViewStack xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:documentObjects="documentObjects.*" 
+		creationPolicy="all" width="1024" height="1024">
+
+	<!-- 3x3 with one large photo -->
+	<mx:HBox name="3x3_large-left" width="100%" height="100%">
+		<documentObjects:TargetTemplate height="100%" width="67%" tabIndex="1"/>
+		<mx:VBox height="100%" width="34%">
+			<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="2"/>
+			<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="3"/>
+			<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="4"/>
+		</mx:VBox>
+	</mx:HBox>
+	<mx:VBox name="3x3_large-top" width="100%" height="100%">
+		<documentObjects:TargetTemplate height="67%" width="100%" tabIndex="1"/>
+		<mx:HBox height="34%" width="100%">
+			<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="2"/>
+			<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="3"/>
+			<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="4"/>
+		</mx:HBox>
+	</mx:VBox>
+	<mx:HBox name="3x3_large-right" width="100%" height="100%">
+		<mx:VBox height="100%" width="34%">
+			<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="2"/>
+			<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="3"/>
+			<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="4"/>
+		</mx:VBox>
+		<documentObjects:TargetTemplate height="100%" width="67%" tabIndex="1"/>
+	</mx:HBox>
+	<mx:VBox name="3x3_large-bottom" width="100%" height="100%">
+		<mx:HBox height="34%" width="100%">
+			<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="2"/>
+			<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="3"/>
+			<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="4"/>
+		</mx:HBox>
+		<documentObjects:TargetTemplate height="67%" width="100%" tabIndex="1"/>
+	</mx:VBox>	
+	
+	<!-- 4x4 grid, large center -->
+	<mx:Grid name="4x4_large-middle" width="100%" height="100%">
+		<mx:GridRow height="25%" width="100%">
+			<mx:GridItem width="25%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="2"/>
+			</mx:GridItem>
+			<mx:GridItem width="25%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="3"/>
+			</mx:GridItem>
+			<mx:GridItem width="25%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="4"/>
+			</mx:GridItem>
+			<mx:GridItem width="25%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="5"/>
+			</mx:GridItem>
+		</mx:GridRow>
+		<mx:GridRow height="25%" width="100%">
+			<mx:GridItem width="25%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="13"/>
+			</mx:GridItem>
+			<mx:GridItem colSpan="2" rowSpan="2" width="50%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="1"/>
+			</mx:GridItem>
+			<mx:GridItem width="25%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="6"/>
+			</mx:GridItem>
+		</mx:GridRow>
+		<mx:GridRow height="25%" width="100%">
+			<mx:GridItem width="25%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="12"/>
+			</mx:GridItem>
+			<mx:GridItem width="25%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="7"/>
+			</mx:GridItem>
+		</mx:GridRow>
+		<mx:GridRow height="25%" width="100%">
+			<mx:GridItem width="25%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="11"/>
+			</mx:GridItem>
+			<mx:GridItem width="25%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="10"/>
+			</mx:GridItem>
+			<mx:GridItem width="25%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="9"/>
+			</mx:GridItem>
+			<mx:GridItem width="25%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="8"/>
+			</mx:GridItem>
+		</mx:GridRow>
+	</mx:Grid>
+	
+	<!-- 5x5 grid, large center -->
+	<mx:Grid name="5x5_large-middle" width="100%" height="100%">
+		<mx:GridRow height="20%" width="100%">
+			<mx:GridItem width="20%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="2"/>
+			</mx:GridItem>
+			<mx:GridItem width="20%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="3"/>
+			</mx:GridItem>
+			<mx:GridItem width="20%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="4"/>
+			</mx:GridItem>
+			<mx:GridItem width="20%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="5"/>
+			</mx:GridItem>
+			<mx:GridItem width="20%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="6"/>
+			</mx:GridItem>
+		</mx:GridRow>
+		<mx:GridRow height="20%" width="100%">
+			<mx:GridItem width="20%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="17"/>
+			</mx:GridItem>
+			<mx:GridItem colSpan="3" rowSpan="3" width="60%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="1"/>
+			</mx:GridItem>
+			<mx:GridItem width="20%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="7"/>
+			</mx:GridItem>
+		</mx:GridRow>
+		<mx:GridRow height="20%" width="100%">
+			<mx:GridItem width="20%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="16"/>
+			</mx:GridItem>
+			<mx:GridItem width="20%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="8"/>
+			</mx:GridItem>
+		</mx:GridRow>
+		<mx:GridRow height="20%" width="100%">
+			<mx:GridItem width="20%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="15"/>
+			</mx:GridItem>
+			<mx:GridItem width="20%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="9"/>
+			</mx:GridItem>
+		</mx:GridRow>
+		<mx:GridRow height="20%" width="100%">
+			<mx:GridItem width="20%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="14"/>
+			</mx:GridItem>
+			<mx:GridItem width="20%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="13"/>
+			</mx:GridItem>
+			<mx:GridItem width="20%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="12"/>
+			</mx:GridItem>
+			<mx:GridItem width="20%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="11"/>
+			</mx:GridItem>
+			<mx:GridItem width="20%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="10"/>
+			</mx:GridItem>
+		</mx:GridRow>
+	</mx:Grid>
+	
+	<!-- 6x6 grid, large center -->
+	<mx:Grid name="6x6_large-middle" width="100%" height="100%">
+		<mx:GridRow width="100%" height="16.7%">
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="2" width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="3" width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="4" width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="5" width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="6" width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="7" width="100%" height="100%"/>
+			</mx:GridItem>
+		</mx:GridRow>
+		<mx:GridRow width="100%" height="16.7%">
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="21" width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem colSpan="4" rowSpan="4" width="66.7%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="1" width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="8" width="100%" height="100%"/>
+			</mx:GridItem>
+		</mx:GridRow>
+		<mx:GridRow width="100%" height="16.7%">
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="20" width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="9" width="100%" height="100%"/>
+			</mx:GridItem>
+		</mx:GridRow>
+		<mx:GridRow width="100%" height="16.7%">
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="19" width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="10" width="100%" height="100%"/>
+			</mx:GridItem>
+		</mx:GridRow>
+		<mx:GridRow width="100%" height="16.7%">
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="18" width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="11" width="100%" height="100%"/>
+			</mx:GridItem>
+		</mx:GridRow>
+		<mx:GridRow width="100%" height="16.7%">
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="17" width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="16" width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="15" width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="14" width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="13" width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="12" width="100%" height="100%"/>
+			</mx:GridItem>
+		</mx:GridRow>
+	</mx:Grid>
+	
+	<!-- 8x8 grid, large center -->
+	<mx:Grid name="8x8_large-middle" width="100%" height="100%">
+		<mx:GridRow width="100%" height="12.5%">
+			<mx:GridItem width="12.5%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="2" width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="12.5%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="3" width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="12.5%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="4" width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="12.5%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="5" width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="12.5%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="6" width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="12.5%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="7" width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="12.5%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="8" width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="12.5%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="9" width="100%" height="100%"/>
+			</mx:GridItem>
+		</mx:GridRow>
+		<mx:GridRow width="100%" height="12.5%">
+			<mx:GridItem width="12.5%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="29" width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem colSpan="6" rowSpan="6" width="75%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="1" width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="12.5%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="10" width="100%" height="100%"/>
+			</mx:GridItem>
+		</mx:GridRow>
+		<mx:GridRow width="100%" height="12.5%">
+			<mx:GridItem width="12.5%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="28" width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="12.5%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="11" width="100%" height="100%"/>
+			</mx:GridItem>
+		</mx:GridRow>
+		<mx:GridRow width="100%" height="12.5%">
+			<mx:GridItem width="12.5%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="27" width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="12.5%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="12" width="100%" height="100%"/>
+			</mx:GridItem>
+		</mx:GridRow>
+		<mx:GridRow width="100%" height="12.5%">
+			<mx:GridItem width="12.5%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="26" width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="12.5%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="13" width="100%" height="100%"/>
+			</mx:GridItem>
+		</mx:GridRow>
+		<mx:GridRow width="100%" height="12.5%">
+			<mx:GridItem width="12.5%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="25" width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="12.5%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="14" width="100%" height="100%"/>
+			</mx:GridItem>
+		</mx:GridRow>
+		<mx:GridRow width="100%" height="12.5%">
+			<mx:GridItem width="12.5%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="24" width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="12.5%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="15" width="100%" height="100%"/>
+			</mx:GridItem>
+		</mx:GridRow>
+		<mx:GridRow width="100%" height="12.5%">
+			<mx:GridItem width="12.5%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="23" width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="12.5%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="22" width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="12.5%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="21" width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="12.5%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="20" width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="12.5%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="19" width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="12.5%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="18" width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="12.5%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="17" width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="12.5%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="16" width="100%" height="100%"/>
+			</mx:GridItem>
+		</mx:GridRow>
+	</mx:Grid>
+	
+	<!-- 4x4 grid, one large 3x3 in corner -->
+	<mx:Grid name="4x4_large-tl" width="100%" height="100%">
+		<mx:GridRow height="25%" width="100%">
+			<mx:GridItem colSpan="3" rowSpan="3" width="75%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="1"/>
+			</mx:GridItem>
+			<mx:GridItem width="25%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="2"/>
+			</mx:GridItem>
+		</mx:GridRow>
+		<mx:GridRow height="25%" width="100%">
+			<mx:GridItem width="25%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="3"/>
+			</mx:GridItem>
+		</mx:GridRow>
+		<mx:GridRow height="25%" width="100%">
+			<mx:GridItem width="25%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="4"/>
+			</mx:GridItem>
+		</mx:GridRow>
+		<mx:GridRow height="25%" width="100%">
+			<mx:GridItem width="25%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="5"/>
+			</mx:GridItem>
+			<mx:GridItem width="25%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="6"/>
+			</mx:GridItem>
+			<mx:GridItem width="25%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="7"/>
+			</mx:GridItem>
+			<mx:GridItem width="25%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="8"/>
+			</mx:GridItem>
+		</mx:GridRow>
+	</mx:Grid>
+	
+	<mx:Grid name="4x4_large-br" width="100%" height="100%">
+		<mx:GridRow height="25%" width="100%">
+			<mx:GridItem width="25%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="5"/>
+			</mx:GridItem>
+			<mx:GridItem width="25%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="6"/>
+			</mx:GridItem>
+			<mx:GridItem width="25%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="7"/>
+			</mx:GridItem>
+			<mx:GridItem width="25%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="8"/>
+			</mx:GridItem>
+		</mx:GridRow>
+		<mx:GridRow height="25%" width="100%">
+			<mx:GridItem width="25%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="2"/>
+			</mx:GridItem>
+			<mx:GridItem colSpan="3" rowSpan="3" width="75%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="1"/>
+			</mx:GridItem>
+		</mx:GridRow>
+		<mx:GridRow height="25%" width="100%">
+			<mx:GridItem width="25%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="3"/>
+			</mx:GridItem>
+		</mx:GridRow>
+		<mx:GridRow height="25%" width="100%">
+			<mx:GridItem width="25%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="4"/>
+			</mx:GridItem>
+		</mx:GridRow>
+	</mx:Grid>
+	
+	<mx:Grid name="4x4_large-bl" width="100%" height="100%">
+		<mx:GridRow height="25%" width="100%">
+			<mx:GridItem width="25%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="5"/>
+			</mx:GridItem>
+			<mx:GridItem width="25%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="6"/>
+			</mx:GridItem>
+			<mx:GridItem width="25%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="7"/>
+			</mx:GridItem>
+			<mx:GridItem width="25%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="8"/>
+			</mx:GridItem>
+		</mx:GridRow>
+		<mx:GridRow height="25%" width="100%">
+			<mx:GridItem colSpan="3" rowSpan="3" width="75%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="1"/>
+			</mx:GridItem>
+			<mx:GridItem width="25%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="2"/>
+			</mx:GridItem>
+		</mx:GridRow>
+		<mx:GridRow height="25%" width="100%">
+			<mx:GridItem width="25%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="3"/>
+			</mx:GridItem>
+		</mx:GridRow>
+		<mx:GridRow height="25%" width="100%">
+			<mx:GridItem width="25%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="4"/>
+			</mx:GridItem>
+		</mx:GridRow>
+	</mx:Grid>
+	
+	<mx:Grid name="4x4_large-tr" width="100%" height="100%">
+		<mx:GridRow height="25%" width="100%">
+			<mx:GridItem width="25%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="2"/>
+			</mx:GridItem>
+			<mx:GridItem colSpan="3" rowSpan="3" width="75%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="1"/>
+			</mx:GridItem>
+		</mx:GridRow>
+		<mx:GridRow height="25%" width="100%">
+			<mx:GridItem width="25%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="3"/>
+			</mx:GridItem>
+		</mx:GridRow>
+		<mx:GridRow height="25%" width="100%">
+			<mx:GridItem width="25%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="4"/>
+			</mx:GridItem>
+		</mx:GridRow>
+		<mx:GridRow height="25%" width="100%">
+			<mx:GridItem width="25%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="5"/>
+			</mx:GridItem>
+			<mx:GridItem width="25%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="6"/>
+			</mx:GridItem>
+			<mx:GridItem width="25%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="7"/>
+			</mx:GridItem>
+			<mx:GridItem width="25%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="8"/>
+			</mx:GridItem>
+		</mx:GridRow>
+	</mx:Grid>
+	
+	<!-- 3x3 grid, 2 up photo somewhere in center -->
+	<mx:HBox name="4"  width="100%" height="100%">
+		<mx:VBox height="100%" width="66.7%">
+			<mx:HBox width="100%" height="33.3%">
+				<documentObjects:TargetTemplate width="50%" height="100%" tabIndex="2"/>
+				<documentObjects:TargetTemplate width="50%" height="100%" tabIndex="3"/>
+			</mx:HBox> 
+			<documentObjects:TargetTemplate width="100%" height="33.3%" tabIndex="1"/>
+			<mx:HBox width="100%" height="33.4%">
+				<documentObjects:TargetTemplate width="50%" height="100%" tabIndex="8"/>
+				<documentObjects:TargetTemplate width="50%" height="100%" tabIndex="7"/>
+			</mx:HBox> 
+		</mx:VBox>
+		<mx:VBox height="100%" width="33.3%">
+			<documentObjects:TargetTemplate width="100%" height="33.3%" tabIndex="4"/>
+			<documentObjects:TargetTemplate width="100%" height="33.3%" tabIndex="5"/>
+			<documentObjects:TargetTemplate width="100%" height="33.4%" tabIndex="6"/>
+		</mx:VBox>
+	</mx:HBox>
+	
+	<!-- 2x2 skewed -->
+	<mx:HBox name="2x2_skewed1" width="100%" height="100%">
+		<mx:VBox width="50%" height="100%">
+			<documentObjects:TargetTemplate width="100%" height="66.7%" tabIndex="1"/>
+			<documentObjects:TargetTemplate width="100%" height="33.3%" tabIndex="3"/>
+		</mx:VBox>
+		<mx:VBox width="50%" height="100%">
+			<documentObjects:TargetTemplate width="100%" height="33.3%" tabIndex="4"/>
+			<documentObjects:TargetTemplate width="100%" height="66.7%" tabIndex="2"/>
+		</mx:VBox>
+	</mx:HBox>
+	<mx:VBox name="2x2_skewed2" width="100%" height="100%">
+		<mx:HBox width="100%" height="50%">
+			<documentObjects:TargetTemplate width="33.3%" height="100%" tabIndex="3"/>
+			<documentObjects:TargetTemplate width="66.7%" height="100%" tabIndex="1"/>
+		</mx:HBox>
+		<mx:HBox width="100%" height="50%">
+			<documentObjects:TargetTemplate width="66.7%" height="100%" tabIndex="2"/>
+			<documentObjects:TargetTemplate width="33.3%" height="100%" tabIndex="4"/>
+		</mx:HBox>
+	</mx:VBox>
+	<mx:HBox name="2x2_skewed3" width="100%" height="100%">
+		<mx:VBox width="50%" height="100%">
+			<documentObjects:TargetTemplate width="100%" height="33.3%" tabIndex="4"/>
+			<documentObjects:TargetTemplate width="100%" height="66.7%" tabIndex="2"/>
+		</mx:VBox>
+		<mx:VBox width="50%" height="100%">
+			<documentObjects:TargetTemplate width="100%" height="66.7%" tabIndex="1"/>
+			<documentObjects:TargetTemplate width="100%" height="33.3%" tabIndex="3"/>
+		</mx:VBox>
+	</mx:HBox>
+	<mx:VBox name="2x2_skewed4" width="100%" height="100%">
+		<mx:HBox width="100%" height="50%">
+			<documentObjects:TargetTemplate width="66.7%" height="100%" tabIndex="1"/>
+			<documentObjects:TargetTemplate width="33.3%" height="100%" tabIndex="3"/>
+		</mx:HBox>
+		<mx:HBox width="100%" height="50%">
+			<documentObjects:TargetTemplate width="33.3%" height="100%" tabIndex="4"/>
+			<documentObjects:TargetTemplate width="66.7%" height="100%" tabIndex="2"/>
+		</mx:HBox>
+	</mx:VBox>
+		
+	<!-- 2x1 60/40 split -->
+	<mx:HBox name="2x1_sq-tall" width="100%" height="100%">
+		<documentObjects:TargetTemplate width="60%" height="100%"/>
+		<documentObjects:TargetTemplate width="40%" height="100%"/>
+	</mx:HBox>
+	<mx:HBox name="2x1_tall-sq" width="100%" height="100%">
+		<documentObjects:TargetTemplate width="40%" height="100%"/>
+		<documentObjects:TargetTemplate width="60%" height="100%"/>
+	</mx:HBox>
+
+	<!-- 2x2 base jigsaws -->
+	<mx:HBox name="2x2_jigsaw1" width="100%" height="100%">
+		<mx:VBox width="50%" height="100%">
+			<documentObjects:TargetTemplate width="100%" height="50%" tabIndex="1"/>
+			<mx:HBox width="100%" height="50%">
+				<documentObjects:TargetTemplate width="50%" height="100%" tabIndex="3"/>
+				<mx:VBox width="50%" height="100%">
+					<documentObjects:TargetTemplate width="100%" height="50%" tabIndex="5"/>
+					<documentObjects:TargetTemplate width="100%" height="50%" tabIndex="6"/>
+				</mx:VBox>
+			</mx:HBox>
+		</mx:VBox>
+		<mx:VBox width="50%" height="100%">
+			<mx:HBox width="100%" height="50%">
+				<mx:VBox width="50%" height="100%">
+					<documentObjects:TargetTemplate width="100%" height="50%" tabIndex="7"/>
+					<documentObjects:TargetTemplate width="100%" height="50%" tabIndex="8"/>
+				</mx:VBox>
+				<documentObjects:TargetTemplate width="50%" height="100%" tabIndex="4"/>
+			</mx:HBox>
+			<documentObjects:TargetTemplate width="100%" height="50%" tabIndex="2"/>
+		</mx:VBox>
+	</mx:HBox>
+	<mx:HBox name="2x2_jigsaw2" width="100%" height="100%">
+		<mx:VBox width="50%" height="100%">
+			<mx:HBox width="100%" height="50%">
+				<documentObjects:TargetTemplate width="50%" height="100%" tabIndex="4"/>
+				<mx:VBox width="50%" height="100%">
+					<documentObjects:TargetTemplate width="100%" height="50%" tabIndex="7"/>
+					<documentObjects:TargetTemplate width="100%" height="50%" tabIndex="8"/>
+				</mx:VBox>
+			</mx:HBox>
+			<documentObjects:TargetTemplate width="100%" height="50%" tabIndex="2"/>
+		</mx:VBox>
+		<mx:VBox width="50%" height="100%">
+			<documentObjects:TargetTemplate width="100%" height="50%" tabIndex="1"/>
+			<mx:HBox width="100%" height="50%">
+				<mx:VBox width="50%" height="100%">
+					<documentObjects:TargetTemplate width="100%" height="50%" tabIndex="5"/>
+					<documentObjects:TargetTemplate width="100%" height="50%" tabIndex="6"/>
+				</mx:VBox>
+				<documentObjects:TargetTemplate width="50%" height="100%" tabIndex="3"/>
+			</mx:HBox>
+		</mx:VBox>
+	</mx:HBox>
+	<mx:HBox name="2x2_jigsaw3" width="100%" height="100%">
+		<mx:VBox width="50%" height="100%">
+			<documentObjects:TargetTemplate width="100%" height="50%" tabIndex="1"/>
+			<mx:VBox width="100%" height="50%">
+				<mx:HBox width="100%" height="50%">
+					<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="5"/>
+					<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="6"/>
+				</mx:HBox>
+				<documentObjects:TargetTemplate width="100%" height="50%" tabIndex="4"/>
+			</mx:VBox>
+		</mx:VBox>
+		<mx:VBox width="50%" height="100%">
+			<mx:VBox width="100%" height="50%">
+				<documentObjects:TargetTemplate width="100%" height="50%" tabIndex="3"/>
+				<mx:HBox width="100%" height="50%">
+					<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="7"/>
+					<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="8"/>
+				</mx:HBox>
+			</mx:VBox>
+			<documentObjects:TargetTemplate width="100%" height="50%" tabIndex="2"/>
+		</mx:VBox>
+	</mx:HBox>
+	<mx:HBox name="2x2_jigsaw4" width="100%" height="100%">
+		<mx:VBox width="50%" height="100%">
+			<mx:VBox width="100%" height="50%">
+				<documentObjects:TargetTemplate width="100%" height="50%" tabIndex="3"/>
+				<mx:HBox width="100%" height="50%">
+					<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="7"/>
+					<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="8"/>
+				</mx:HBox>
+			</mx:VBox>
+			<documentObjects:TargetTemplate width="100%" height="50%" tabIndex="2"/>
+		</mx:VBox>
+		<mx:VBox width="50%" height="100%">
+			<documentObjects:TargetTemplate width="100%" height="50%" tabIndex="1"/>
+			<mx:VBox width="100%" height="50%">
+				<mx:HBox width="100%" height="50%">
+					<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="5"/>
+					<documentObjects:TargetTemplate width="100%" height="100%" tabIndex="6"/>
+				</mx:HBox>
+				<documentObjects:TargetTemplate width="100%" height="50%" tabIndex="4"/>
+			</mx:VBox>
+		</mx:VBox>
+	</mx:HBox>
+	
+	<!-- 6x6 grids with one large 6x3 -->
+	<mx:Grid name="6x6_large-top" width="100%" height="100%">
+		<mx:GridRow height="18%" width="100%">
+			<mx:GridItem colSpan="6" rowSpan="3" width="100%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%"/>
+			</mx:GridItem>
+		</mx:GridRow>
+		<mx:GridRow height="17%" width="100%"/>
+		<mx:GridRow height="17%" width="100%"/>
+		<mx:GridRow height="17%" width="100%">
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%"/>
+			</mx:GridItem>
+		</mx:GridRow>
+		<mx:GridRow height="17%" width="100%">
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%"/>
+			</mx:GridItem>
+		</mx:GridRow>
+		<mx:GridRow height="17%" width="100%">
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%"/>
+			</mx:GridItem>
+		</mx:GridRow>
+	</mx:Grid>
+	
+	<mx:Grid name="6x6_large-bottom" width="100%" height="100%">
+		<mx:GridRow height="17%" width="100%">
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="2" width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="3" width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="4" width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="5" width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="6" width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="7" width="100%" height="100%"/>
+			</mx:GridItem>
+		</mx:GridRow>
+		<mx:GridRow height="17%" width="100%">
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="8" width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="9" width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="10" width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="11" width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="12" width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="13" width="100%" height="100%"/>
+			</mx:GridItem>
+		</mx:GridRow>
+		<mx:GridRow height="17%" width="100%">
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="14" width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="15" width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="16" width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="17" width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="18" width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="19" width="100%" height="100%"/>
+			</mx:GridItem>
+		</mx:GridRow>
+		<mx:GridRow height="18%" width="100%">
+			<mx:GridItem colSpan="6" rowSpan="3" width="100%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="1" width="100%" height="100%"/>
+			</mx:GridItem>
+		</mx:GridRow>
+		<mx:GridRow height="17%" width="100%"/>
+		<mx:GridRow height="17%" width="100%"/>
+	</mx:Grid>
+	
+	<mx:Grid name="6x6_large-left" width="100%" height="100%">
+		<mx:GridRow width="100%" height="17%">
+			<mx:GridItem colSpan="3" rowSpan="6" width="50%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%"/>
+			</mx:GridItem>
+		</mx:GridRow>
+		<mx:GridRow width="100%" height="17%">
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%"/>
+			</mx:GridItem>
+		</mx:GridRow>
+		<mx:GridRow width="100%" height="17%">
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%"/>
+			</mx:GridItem>
+		</mx:GridRow>
+		<mx:GridRow width="100%" height="17%">
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%"/>
+			</mx:GridItem>
+		</mx:GridRow>
+		<mx:GridRow width="100%" height="17%">
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%"/>
+			</mx:GridItem>
+		</mx:GridRow>
+		<mx:GridRow width="100%" height="17%">
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate width="100%" height="100%"/>
+			</mx:GridItem>
+		</mx:GridRow>
+	</mx:Grid>
+	
+	<mx:Grid name="6x6_large-right" width="100%" height="100%">
+		<mx:GridRow width="100%" height="17%">
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="2" width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="3" width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="4" width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem colSpan="3" rowSpan="6" width="50%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="1" width="100%" height="100%"/>
+			</mx:GridItem>
+		</mx:GridRow>
+		<mx:GridRow width="100%" height="17%">
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="5" width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="6" width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="7" width="100%" height="100%"/>
+			</mx:GridItem>
+		</mx:GridRow>
+		<mx:GridRow width="100%" height="17%">
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="8" width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="9" width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="10" width="100%" height="100%"/>
+			</mx:GridItem>
+		</mx:GridRow>
+		<mx:GridRow width="100%" height="17%">
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="11" width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="12" width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="13" width="100%" height="100%"/>
+			</mx:GridItem>
+		</mx:GridRow>
+		<mx:GridRow width="100%" height="17%">
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="14" width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="15" width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="16" width="100%" height="100%"/>
+			</mx:GridItem>
+		</mx:GridRow>
+		<mx:GridRow width="100%" height="17%">
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="17" width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="18" width="100%" height="100%"/>
+			</mx:GridItem>
+			<mx:GridItem width="16.7%" height="100%">
+				<documentObjects:TargetTemplate tabIndex="19" width="100%" height="100%"/>
+			</mx:GridItem>
+		</mx:GridRow>
+	</mx:Grid>
+</mx:ViewStack>

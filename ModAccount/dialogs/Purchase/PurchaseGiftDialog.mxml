@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<purchase:PurchaseDialogBase xmlns="containers.*" xmlns:purchase="dialogs.Purchase.*" xmlns:mx="http://www.adobe.com/2006/mxml"	xmlns:controls="controls.*"
+	 width="{PicnikBase.app.yahoomail?640:690}" styleName="BlueStripeDialogStyle" layout="absolute" height="380" fIsGift="true"
+	 subscriptionSkuId="{CreditCardTransaction.kSku12Months}">
+	<mx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import mx.resources.ResourceBundle;
+			import mx.utils.ObjectProxy;
+			import mx.validators.CreditCardValidatorCardType;
+			
+			import util.ABTest;
+			import util.CreditCard;
+			import util.CreditCardTransaction;
+			import util.LocUtil;
+			
+			import validators.PicnikCreditCardValidator;
+			
+			[Bindable] [ResourceBundle("PurchaseGiftDialog")] private var rb:ResourceBundle;		
+			
+			override protected function OnResize(evt:Event): void {
+				var nSize:int = 380;				
+				if (fCollectState)
+					nSize += 60;
+				nSize = Math.min(nSize, parentHeight);
+				height = nSize;
+				super.OnResize(evt);
+			}			
+   		]]>
+	</mx:Script>
+	
+	<mx:Style source="PurchaseDialog.css"/>
+	<mx:Style source="../BlueStripeDialog.css"/>
+	<mx:DropShadowFilter id="_fiWhiteShine" blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1" quality="3" angle="90"/>
+	<mx:DropShadowFilter id="_fiInnerShad" blurX="1" blurY="1" distance="1" color="#000000" alpha=".2" quality="3" angle="90" inner="true"/>
+	
+	<mx:Fade id="_efFadeIn" duration="300" alphaFrom="0" alphaTo="1"/>
+	<mx:Fade id="_efFadeOut" duration="100" alphaFrom="1" alphaTo="0"/>
+
+	<mx:Canvas width="100%" height="100%" resize="OnResize(event)" move="OnResize(event)" clipContent="false">
+		<!-- Header -->
+		<mx:HBox id="_hbxPurchaseHeader" top="0" left="0" width="100%" horizontalGap="-8" verticalAlign="middle" paddingTop="-4">
+			<controls:ImageVer source="../graphics/premium_sun-large.png" width="63" height="63"/>
+			<mx:VBox width="100%" verticalGap="-5" verticalAlign="top" paddingTop="8">
+				<controls:ResizingLabel text="@Resource(key='purchaseGiftHead',bundle='PurchaseGiftDialog')" styleName="upsellHead"
+										width="100%" fontSize="24" autoFontSizeGap="1"
+										filters="{[_fiWhiteShine,_fiInnerShad]}" paddingTop="2" paddingRight="30"/>
+				<mx:Text htmlText="@Resource(key='purchaseGiftSubHead',bundle='PurchaseGiftDialog')" horizontalCenter="0" width="80%"
+							 color="#000000" fontSize="13" textAlign="left" leading="-1" selectable="false"
+							 filters="{[_fiWhiteShine]}"/>				
+			</mx:VBox>
+		</mx:HBox>
+		<!-- Subeader -->
+		
+		<!-- Main Content-->
+		<mx:Box right="0" bottom="110" left="0" top="60" creationPolicy="auto">
+			<purchase:CCBox id="_ccbox" showEffect="_efFadeIn" blendMode="layer" gift="true" height="100%" _fCollectState="{fCollectState}"/>
+		</mx:Box>
+
+		<purchase:TierBox height="60" top="235" id="_tierBox" hideTiers="true" selectedSku="{CreditCardTransaction.kSku12Months}"/>
+		
+		
+		<!-- Close button-->
+		<mx:Button width="22" height="22" right="4" top="4" tabEnabled="false" click="Hide()" styleName="dialogCloseButton"/>
+		
+		<!-- Footer -->
+		<controls:ResizingButton styleName="basketButton"
+								 label="{LocUtil.rbSubst('PurchaseGiftDialog', 'purchase', _tierBox.strPrice)}"
+								 click="Purchase();" id="_btnPurchase1"
+								 minWidth="234" height="38" fontSize="22" bottom="6" horizontalCenter="0" paddingLeft="30" paddingRight="30"/>
+		
+		<!-- cancel/close -->
+		<controls:ResizingButton styleName="basketButtonDarkBlue" label="{Resource.getString('PurchaseDialog',showCCBox ? 'cancel':'close')}"
+							 click="CancelClick()"
+							 bottom="11" right="11" height="28" minWidth="97" paddingLeft="-9" paddingRight="-9"/>
+		
+		<!-- shadow dealies, drawn on top of all elements -->
+		<controls:ImageVer source="../graphics/upsellPremiumPanelShadow.png" bottom="50" left="0" right="0" scaleContent="true" maintainAspectRatio="false"/>
+	</mx:Canvas>
+</purchase:PurchaseDialogBase>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<controls:WelcomeTipBase xmlns="containers.*" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:controls="controls.*" xmlns:filters="flash.filters.*">
+	<mx:Fade duration="300" id="efFadeInOut" target="{this}" effectEnd="OnFadeFinished()"/>
+	<controls:TipRenderer id="_tr" tipPath="{tipPath}" width="385" footer="{footer}" content="{content}"
+			verticalGap="0" verticalScrollPolicy="off"
+			paddingLeft="12" paddingRight="12" paddingTop="8" paddingBottom="14"
+			horizontalAlign="center">
+		<controls:filters>
+			<filters:DropShadowFilter angle="90" blurX="2" blurY="2" distance="1" color="0x000000" alpha=".5" quality="3"/>
+		</controls:filters>
+	</controls:TipRenderer>
+</controls:WelcomeTipBase>

@@ -1,0 +1,6 @@
+Thanks to the hard work of beta users like you, we are now ready to release Picnik to the world.  We would now like to upgrade your previous beta account to a full Picnik account.  
+
+Please visit this page to upgrade your beta account to a full Picnik account:
+
+$upgradeurl
+

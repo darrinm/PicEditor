@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CancelPaypalDialogBase xmlns="dialogs.*"
+		xmlns:mx="http://www.adobe.com/2006/mxml"
+		xmlns:ctrl="controls.*"
+		xmlns:flash="flash.filters.*"
+		xmlns:ctr="containers.*"
+		xmlns:bridges="gallery.bridges.*"
+		xmlns:vld="validators.*"
+		xmlns:RegisterHelper="dialogs.RegisterHelper.*"
+		xmlns:ds="com.darronschall.effects.*"
+		layout="absolute"
+	 	width="550" height="220" verticalScrollPolicy="off" horizontalScrollPolicy="off" styleName="TargetedUpsellDialogStyle">
+
+	<mx:Script>
+		<![CDATA[
+			import dialogs.DialogManager;
+			
+			import mx.resources.ResourceBundle;
+			import mx.utils.ObjectProxy;
+			
+			import picnik.util.LocaleInfo;
+			
+			import util.LocUtil;
+			
+			[Bindable] [ResourceBundle("CancelPaypalDialog")] protected var rb:ResourceBundle;
+			
+		]]>
+	</mx:Script>
+
+	<!-- Close button-->
+	<mx:Button width="22" height="22" top="4" right="4" click="Hide()" styleName="dialogCloseButton"/>
+	
+	<mx:VBox width="100%" height="100%" paddingTop="7" paddingLeft="12" paddingRight="25" verticalGap="0">
+		<ctrl:ResizingLabel htmlText="{Resource.getString('CancelPaypalDialog', cancelOnly ? 'title' : (renewall ? 'renewallTitle' : 'changeTitle'))}"
+							fontSize="28" color="#005580" autoFontSizeGap="1" width="100%"/>
+		
+		<ctrl:ResizingText htmlText="{LocUtil.iff('CancelPaypalDialog', cancelOnly, 'description', 'changeDescription')}"
+							styleName="publishForm" color="#333333" autoFontSizeGap="1" width="100%"/>
+		
+		<mx:Canvas width="100%" height="100%">
+			<ctrl:Gears id="_swfGears" width="28" height="17" 
+						verticalCenter="0" horizontalCenter="0" 
+						visible="{updatingSubscriptionStatus}"/>
+			<ctrl:ImageEx source="../graphics/thirdpartylogos/ccards/paypal.png" width="68" height="19" 
+						  verticalCenter="0" horizontalCenter="0" 
+						  visible="{!updatingSubscriptionStatus}"/>
+		</mx:Canvas>
+		
+		<!-- Footer -->
+		<mx:Canvas height="50" width="100%">
+			<mx:Button id="_btnDone" height="39" fontSize="22" paddingLeft="15" paddingRight="15" horizontalCenter="0" verticalCenter="0" styleName="basketButton"
+					   click="trace(_btnDone.width); LaunchPaypal()"
+					   visible="{!updatingSubscriptionStatus}" mouseFocusEnabled="false" 
+					   label="@Resource(key='ok',bundle='CancelPaypalDialog')"/>
+			<ctrl:ResizingButton fontSize="22" horizontalCenter="0" verticalCenter="0" styleName="basketButton"
+								 width="{_btnDone.width}" height="{_btnDone.height}" autoFontSizeGap="1"
+					   visible="{updatingSubscriptionStatus}" enabled="false" mouseFocusEnabled="false" 
+					   label="@Resource(key='updating',bundle='CancelPaypalDialog')"/>
+			
+			<!-- cancel -->
+			<ctrl:ResizingButton styleName="basketButtonDarkBlue" label="@Resource(key='cancel',bundle='CancelPaypalDialog')"
+								 click="Hide()"
+								 verticalCenter="0" right="11" height="28" minWidth="97" paddingLeft="-9" paddingRight="-9"/>
+		</mx:Canvas>
+	</mx:VBox>
+
+	<!-- shadow dealies, drawn on top of all elements -->
+	<ctrl:ImageVer source="../graphics/upsellPremiumPanelShadow.png" bottom="50" left="0" right="0" scaleContent="true" maintainAspectRatio="false"/>
+
+	<mx:Style source="../dialogs/Upsell/TargetedUpsellDialog.css"/>
+</CancelPaypalDialogBase>

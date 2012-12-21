@@ -1,0 +1,12 @@
+fileName: fs_CoBd____.ttf
+name: Cocon-Bold
+subfamilyDisplayName: Regular
+fullName: Cocon-Bold
+displayName: Cocon-Bold
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 5
+pkName: pkfs0CoBd0000
+authorName: FontShop
+authorUrl: http://www.fontshop.com/

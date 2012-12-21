@@ -1,0 +1,12 @@
+fileName: georgia.ttf
+name: Georgia
+subfamilyDisplayName: Normal
+fullName: Georgia
+displayName: Georgia
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 5
+pkName: pkgeorgia
+authorName: Matthew Carter
+authorUrl: http://carterandcone.com/

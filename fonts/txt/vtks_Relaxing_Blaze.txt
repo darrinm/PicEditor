@@ -1,0 +1,12 @@
+fileName: vtks_Relaxing_Blaze.ttf
+name: Vtks Relaxing Blaze
+subfamilyDisplayName: Regular
+fullName: Vtks Relaxing Blaze
+displayName: Vtks Relaxing Blaze
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 0
+pkName: pkvtks0Relaxing0Blaze
+authorName: Douglas Vitkauskas
+authorUrl: http://www.vtks.com.br/

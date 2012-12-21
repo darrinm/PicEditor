@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<EmailOutBridgeBase xmlns="bridges.email.*" xmlns:pk="*" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:ctl="controls.*"
+		xmlns:itempicker="controls.itempicker.*"  
+		width="100%" height="100%" xmlns:flash="flash.filters.*" horizontalScrollPolicy="off">
+	<mx:Script>
+		import mx.resources.ResourceBundle;
+   		[Bindable] [ResourceBundle("EmailOutBridge")] private var rb:ResourceBundle;
+	</mx:Script>
+	<flash:DropShadowFilter blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1"
+		quality="3" angle="90" id="_fiWhiteShad"/>
+
+	<ctl:ImageVer source="@Embed('/assets/bitmaps/page_blueGrad.png')" left="0" top="0" width="100%" scaleContent="true" maintainAspectRatio="false"/>
+	<!-- headline -->
+	<ctl:ResizingLabel text="@Resource(key='Label_1', bundle='EmailOutBridge')" color="#005580" fontWeight="bold" fontSize="30" styleName="publishForm"
+		filters="{[_fiWhiteShad]}" width="100%" autoFontSizeGap="1"
+		top="13" x="29" paddingRight="29"/>
+	<mx:HBox width="100%" height="100%" top="55" paddingRight="30" paddingLeft="30" x="0" horizontalGap="20">
+		<!-- left column, controls -->
+  		<mx:Box width="55%" height="100%" verticalGap="0" maxWidth="450">
+  			<mx:VBox verticalGap="0" width="100%" minWidth="350" id="leftCol">
+				<mx:VBox verticalGap="0" width="100%">
+					
+					<!-- email to field -->
+					<mx:Label text="@Resource(key='Label_2', bundle='EmailOutBridge')" styleName="publishForm" paddingBottom="-3"/>
+					<EmailItemPicker width="100%" prompt="@Resource(key='textPrompt', bundle='EmailOutBridge')" id="_itemPicker"
+						listItemRenderer="{EmailListItem}" pickedItemRenderer="{EmailPickedItem}">		
+					</EmailItemPicker>
+					<mx:Text text="@Resource(key='limitNote', bundle='EmailOutBridge')" width="100%" fontSize="12" selectable="false" color="#999999" fontWeight="bold" paddingLeft="-2" paddingTop="2"/>
+					
+					<!-- email from field -->
+					<mx:Label text="@Resource(key='Label_3', bundle='EmailOutBridge')" styleName="publishForm" paddingTop="10" paddingBottom="-3"/>
+					<ctl:TextInputPlus width="300" id="_tiFrom" height="26" styleName="publishFormField"/>
+					
+					<!-- send me a copy checkbox -->
+					<mx:Box paddingTop="10" paddingLeft="-1" paddingBottom="10">
+						<mx:CheckBox label="@Resource(key='_chkCcMe', bundle='EmailOutBridge')" id="_chkCcMe" selected="true" enabled="{_tiFrom.text != ''}"/>
+					</mx:Box>
+					<!-- image size drop down -->
+					<mx:Label text="@Resource(key='Label_4', bundle='EmailOutBridge')" styleName="publishForm" height="20"/>
+					<mx:ComboBox width="200" id="_cmboImageSize" height="26" />
+					<!-- your name field -->
+					<mx:Text styleName="publishForm" condenseWhite="true" selectable="false" htmlText="@Resource(key='Text_1', bundle='EmailOutBridge')" 
+						paddingTop="10" paddingBottom="-3"/>
+					<ctl:TextInputPlus width="320" id="_tiName" height="26" styleName="publishFormField"/>
+					<!-- subject field -->
+					<mx:Text styleName="publishForm" condenseWhite="true" selectable="false" htmlText="@Resource(key='Text_2', bundle='EmailOutBridge')"
+						paddingTop="10" paddingBottom="-3"/>
+					<ctl:TextInputPlus width="100%" maxWidth="430" id="_tiSubject" height="26" styleName="publishFormField"/>
+					<!-- message box -->
+					<mx:Text styleName="publishForm" condenseWhite="true" selectable="false" htmlText="@Resource(key='Text_3', bundle='EmailOutBridge')"
+						paddingTop="10" paddingBottom="-3"/>
+					<ctl:TextAreaPlus width="100%" maxWidth="430" height="64" minHeight="64" maxHeight="142" styleName="publishFormField" id="_taMessage" maxChars="1200"/>
+				</mx:VBox>
+				<!-- big button vbox -->
+				<mx:VBox verticalGap="8" paddingTop="20" paddingBottom="20" width="100%" horizontalAlign="center">
+					<ctl:ImageVer source="@Embed('/assets/bitmaps/saveshad_top.png')" scaleContent="true" width="100%" height="3" maintainAspectRatio="false"/>
+					<ctl:ResizingButton label="@Resource(key='_btnSend', bundle='EmailOutBridge')" minWidth="200" maxWidth="350" autoFontSizeGap="1" height="34" fontSize="18" id="_btnSend" styleName="BigButton"
+						enabled="{(_imgd != null) &amp;&amp; _itemPicker.pickedItems.length > 0 &amp;&amp; _tiFrom.text != ''}"/>
+					<ctl:ImageVer source="@Embed('/assets/bitmaps/saveshad_bot.png')" scaleContent="true" width="100%" height="3" maintainAspectRatio="false"/>
+				</mx:VBox>
+  			</mx:VBox>
+		</mx:Box>
+		<!-- right column, preview -->
+		<mx:Box width="45%" height="100%" paddingTop="5" paddingBottom="20">
+			<pk:ImageView id="_imgvPreview" width="100%" height="100%" verticalAlign="top" horizontalAlign="left" minWidth="75" minHeight="75"/>
+			<mx:filters>
+				<flash:DropShadowFilter distance="1" angle="90" blurX="4" blurY="4" alpha=".5" quality="3"/>
+  			</mx:filters>
+		</mx:Box>		
+	</mx:HBox>
+	<!-- notification messages -->
+	<mx:String id="_strEmailSentNotifyMessage">{Resource.getString('EmailOutBridge', '_strEmailSentNotifyMessage')}</mx:String>
+	<mx:String id="_strInvalidEmailText">{Resource.getString('EmailOutBridge', '_strInvalidEmailText')}</mx:String>
+	<mx:String id="_strTooManyRecipients">{Resource.getString('EmailOutBridge', '_strTooManyRecipients')}</mx:String>
+	<!-- array for photo size drop down menu -->
+	<mx:Array id="_aobSizes">
+	    <mx:Object label="{Resource.getString('EmailOutBridge', 'Object_1')}" data="480"/>
+	    <mx:Object label="{Resource.getString('EmailOutBridge', 'Object_2')}" data="800"/>
+	    <mx:Object label="{Resource.getString('EmailOutBridge', 'Object_3')}" data="1024"/>
+	    <mx:Object label="{Resource.getString('EmailOutBridge', 'Object_4')}" data="0"/><!-- Data = 0 means full image size. Do not remove this - otherwise, images smaller than your smallest size will break -->
+	</mx:Array>	
+</EmailOutBridgeBase>

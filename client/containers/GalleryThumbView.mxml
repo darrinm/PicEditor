@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="200" height="190" xmlns:flash="flash.filters.*" xmlns:ctl="controls.*">
+	<mx:Script>
+		<![CDATA[
+			[Bindable] private var _url1:String = PicnikBase.StaticUrl("http://www.mywebsite.com/graphics/testimages/picnik_sample1.jpg");
+			[Bindable] private var _url2:String = PicnikBase.StaticUrl("http://www.mywebsite.com/graphics/testimages/picnik_sample2.jpg");
+			[Bindable] private var _url3:String = PicnikBase.StaticUrl("http://www.mywebsite.com/graphics/testimages/picnik_sample3.jpg");
+			
+			public function SetImages(url1:String, url2:String, url3:String) : void {
+
+				if (url1 != null)
+					_url1 = url1;
+				else {
+					trace("UNDONE: need better placeholder URL");
+					PicnikBase.StaticUrl("http://www.mywebsite.com/graphics/testimages/picnik_sample1.jpg");
+				}
+				
+				_url2 = (url2 != null) ? url2 : _url1;
+				_url3 = (url3 != null) ? url3 : _url1;
+			}
+		]]>
+	</mx:Script>
+	<flash:DropShadowFilter id="_fiDropShad" blurX="7" blurY="7" distance="2" color="#000000" alpha=".35" quality="3" angle="90"/>
+	<mx:Canvas width="100%" height="100%">
+		<ctl:ImageVer id="_img1" filters="{[_fiDropShad]}" horizontalCenter="-30" verticalCenter="-30" width="50%" height="50%" source="{_url1}"/>
+		<ctl:ImageVer id="_img2" filters="{[_fiDropShad]}" horizontalCenter="0" verticalCenter="0" width="50%" height="50%" source="{_url2}"/>
+		<ctl:ImageVer id="_img3" filters="{[_fiDropShad]}" horizontalCenter="30" verticalCenter="30" width="50%" height="50%" source="{_url3}"/>
+	</mx:Canvas>
+</mx:Canvas>

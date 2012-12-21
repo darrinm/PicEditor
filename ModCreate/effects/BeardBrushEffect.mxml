@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<BeardBrushEffectBase xmlns="effects.*" xmlns:cnt="containers.*" xmlns:ctrl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="434" xmlns:local="*" 
+	xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*" beardColors="{GetDefaultColors(zeroR)}"
+	xmlns:flash.geom="flash.geom.*" premium="true" xmlns:paintMask="imagine.imageOperations.paintMask.*"
+	 urlid="FakeBeard">
+	<mx:Script>
+		import imagine.imageOperations.paintMask.BeardHairBrush;
+		
+		import util.LocUtil;
+		
+
+		protected function GetDefaultColors(nIgnore:Number): Array {
+			return kclrDarkBrown;
+		}
+		
+		protected function DoEyeDropper(): void {
+			_edb.dispatchEvent(new MouseEvent(MouseEvent.CLICK));
+		}
+		
+		protected function GetCurvature(nSliderVal:Number, fSanta:Boolean): Number {
+			if (fSanta)
+				return 55-_sldrCurve.value*0.55;
+			else
+				return 100-_sldrCurve.value;
+		}
+		
+		protected function GetDensity(fSanta:Boolean): Number {
+			return fSanta ? 0.4 : 0.1;
+		}
+		
+		[Bindable] public var santaStyle:Boolean = false;
+		[Bindable] public var includeSanta:Boolean = false;
+	</mx:Script>
+
+	<ctrl:EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='BeardBrushEffect')" strAuthor="@Resource(key='byPicnik', bundle='EffectCanvas')" strImageSource="../graphics/effects/Halloween/beardbrush.jpg" premium="{premium}"/>
+	<mx:String id="_strHelpText">{Resource.getString('BeardBrushEffect', '_strHelpText')}</mx:String>
+
+	<mx:VBox x="9" y="70" verticalGap="0">
+		<mx:Spacer width="10" height="3"/>
+		<!-- color selection -->
+		<mx:HBox width="100%" horizontalGap="6" paddingTop="3" paddingBottom="6">
+			<mx:VBox verticalGap="5">
+				<ctrl:ResizingButton width="43" height="29" icon="@Embed('/assets/bitmaps/beard_paint/blonde2.png')" offsetDown="1"
+								click="beardColors = kclrBlonde; santaStyle=false;"/>
+				<ctrl:ResizingButton width="43" height="29" icon="@Embed('/assets/bitmaps/beard_paint/red2.png')" offsetDown="1"
+								click="beardColors = kclrRed; santaStyle=false;"/>
+			</mx:VBox>
+			<mx:VBox verticalGap="5">
+				<ctrl:ResizingButton width="43" height="29" icon="@Embed('/assets/bitmaps/beard_paint/lightbrown2.png')" offsetDown="1"
+								click="beardColors = kclrLightBrown; santaStyle=false;"/>
+				<ctrl:ResizingButton width="43" height="29" icon="@Embed('/assets/bitmaps/beard_paint/darkbrown2.png')" offsetDown="1"
+									 click="beardColors = kclrDarkBrown; santaStyle=false;" 
+									 includeInLayout="{!includeSanta}" visible="{!includeSanta}"/>
+				<ctrl:ResizingButton width="43" height="29" icon="@Embed('/assets/bitmaps/beard_paint/white2.png')" offsetDown="1"
+									 click="beardColors = kclrSanta; santaStyle=true;" 
+									 includeInLayout="{includeSanta}" visible="{includeSanta}"/>
+			</mx:VBox>
+			<mx:VBox verticalGap="5">
+				<ctrl:ResizingButton width="43" height="29" icon="@Embed('/assets/bitmaps/beard_paint/black2.png')" offsetDown="1"
+								click="beardColors = kclrBlack; santaStyle=false;"/>
+				<ctrl:MultiColorEyeDropperButton width="0" height="0" id="_edb" includeInLayout="false"
+												 lightPercent="50" contrastBoost="60"
+												 change="swatchColors = _edb.colors" 
+												 complete="beardColors = _edb.colors; santaStyle=false;" />
+				<ctrl:ResizingButton width="43" height="29" icon="@Embed('/assets/bitmaps/beard_paint/eyedropper_noshadow.png')" offsetDown="1"
+								click="DoEyeDropper()"/>
+			</mx:VBox>
+			<mx:HBox width="44" paddingLeft="5" backgroundImage="../graphics/halloween/beardbackground2.png" borderStyle="solid" borderThickness="1" borderColor="#d4d4d4" borderSides="top">
+				<ctrl:BeardHairSwatch colors="{swatchColors}" width="36" height="{5 + 29*2}" />
+			</mx:HBox>
+		</mx:HBox>
+		
+		<!-- Brush Curvature -->
+		<ctrl:LabelHSlidePlus id="_sldrCurve" label="@Resource(key='Curviness', bundle='BeardBrushEffect')" 
+							  labelValueMultiplier="1" isPercent="true" change="InvalidateBrush()"
+							  minimum="0" maximum="100" value="{0 + zeroR}"/>
+		
+		<ctrl:BrushSizeAndEraserButton id="_brshbtn" selected="{_fSelected}"
+									   minimum="5" maximum="240" startValue="35"
+								  imageWidth="{origImageWidth}" imageHeight="{origImageHeight}"
+								  thumbPress="ShowBrushPreview()" thumbDrag="UpdateBrushPreview()" thumbRelease="HideBrushPreview(); InvalidateBrush()"
+								  />
+
+		<ctrl:ApplyCancelEffectButtons premium="{premium}" addBoxPadding="true"/>
+	</mx:VBox>
+
+	<mx:Number id="_cxyBrush">{_brshbtn.value}</mx:Number>
+
+</BeardBrushEffectBase>

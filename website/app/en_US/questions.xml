@@ -1,0 +1,234 @@
+﻿<questions>
+<question id="Gender" priority="0" type="button">
+	<prompt>Are you a lass or a lad?</prompt>
+	<options>
+		<option value="M">I’m a Gal</option>
+		<option value="F">I’m a Guy</option>
+	</options>
+</question>
+<question id="PostalCode" priority="1" type="text">
+	<prompt>What’s your zip or postal code?</prompt>
+</question>
+<question id="YearBorn" priority="1" type="text" minChars="2" maxChars="4">
+	<prompt>What year were you born?</prompt>
+</question>
+<question id="EyeColor" priority="5" type="combobox">
+	<prompt>What color are your eyes?</prompt>
+	<options>
+		<option>Brown</option>
+		<option>Blue</option>
+		<option>Green</option>
+		<option>Hazel</option>
+		<option>Do antennae count as eyes?</option>
+	</options>
+</question>
+<question id="HairColor" priority="5" type="combobox">
+	<prompt>What color is your hair?</prompt>
+	<options>
+		<option>Black</option>
+		<option>Brown</option>
+		<option>Blond</option>
+		<option>Red</option>
+		<option>Green</option>
+		<option>I've been dying it so long I don't remember</option>
+		<option>I haven't had hair for years</option>
+	</options>
+</question>
+<question id="Education" priority="2" type="combobox">
+	<prompt>How much schooling have you had so far?</prompt>
+	<options>
+		<option>Kindergarten</option>
+		<option>Elementary school</option>
+		<option>A bit of high school</option>
+		<option>Finished high school</option>
+		<option>Some college</option>
+		<option>College Diploma</option>
+		<option>Grad school</option>
+		<option>PhD</option>
+	</options>
+</question>
+<question id="Season" priority="5" type="combobox">
+	<prompt>What's your favorite season?</prompt>
+	<options>
+		<option>Winter</option>
+		<option>Spring</option>
+		<option>Summer</option>
+		<option>Fall</option>
+	</options>
+</question>
+<question id="DogsOrCats" priority="5" type="combobox">
+	<prompt>Dogs or cats?</prompt>
+	<options>
+		<option>Dogs</option>
+		<option>Cats</option>
+		<option>Achoo!</option>
+	</options>
+</question>
+<question id="FishOrTurtles" priority="5" type="combobox">
+	<prompt>Fish or turtles?</prompt>
+	<options>
+		<option>Fish</option>
+		<option>Turtles</option>
+		<option>I prefer snakes</option>
+	</options>
+</question>
+<question id="RabbitsOrHamsters" priority="5" type="combobox">
+	<prompt>Rabbits or hamsters?</prompt>
+	<options>
+		<option>Bunnies</option>
+		<option>Hamsters</option>
+		<option>Hedgehogs, hedgehogs!</option>
+	</options>
+</question>
+<question id="PopOrRock" priority="5" type="combobox">
+	<prompt>Pop or rock?</prompt>
+	<options>
+		<option>Pop</option>
+		<option>Rawk</option>
+		<option>More poprocks, please</option>
+		<option>Lord how parochial you all are, I only listen to post-modern synth-punk revival</option>
+	</options>
+</question>
+<question id="Joke" priority="5" type="textarea">
+	<prompt>What is your favorite joke?</prompt>
+</question>
+<question id="InvisibleOrFly" priority="5" type="combobox">
+	<prompt>If you could be invisible or fly, which would you choose?</prompt>
+	<options>
+		<option>Invisibility</option>
+		<option>Flight</option>
+		<option>I'm fine the way I am</option>
+	</options>
+</question>
+<question id="MoviesOrGames" priority="5" type="combobox">
+	<prompt>Moves or videogames?</prompt>
+	<options>
+		<option>Movies</option>
+		<option>Gordon Freeman is like a father to me</option>
+		<option>Video games</option>
+		<option>Neither, I prefer books</option>
+	</options>
+</question>
+<question id="BooksOrMagazines" priority="5" type="combobox">
+	<prompt>Books or magazines?</prompt>
+	<options>
+		<option>Books</option>
+		<option>Magazines</option>
+		<option>I think poetry periodicals count as both</option>
+	</options>
+</question>
+<question id="NewspaperOrInternet" priority="5" type="button">
+	<prompt>Newspaper or internet?</prompt>
+	<options>
+		<option>Newspaper</option>
+		<option>Internet</option>
+	</options>
+</question>
+<question id="GoogleOrYahoo" priority="5" type="button">
+	<prompt>Google or Yahoo?</prompt>
+	<options>
+		<option>Google</option>
+		<option>Yahoo</option>
+	</options>
+</question>
+<question id="GoogleOrYahoo" priority="5" type="combobox">
+	<prompt>Google or Yahoo?</prompt>
+	<options>
+		<option>Google</option>
+		<option>Yahoo</option>
+		<option>I've never heard of either one</option>
+	</options>
+</question>
+<question id="CroutonsOrBacobits" priority="5" type="combobox">
+	<prompt>Croutons or Bacobits?</prompt>
+	<options>
+		<option>Croutons</option>
+		<option>Bacobits</option>
+		<option>Just raw spinach, please</option>
+	</options>
+</question>
+<question id="BeachOrMountain" priority="5" type="combobox">
+	<prompt>Beach vacation or mountain getaway?</prompt>
+	<options>
+		<option>Ahh, a sweet ocean breeze</option>
+		<option>Ahh, the wind delicately rustling the pine boughs in a silent forest</option>
+		<option>I'd rather stay home and create vacation postcards with Picnik</option>
+	</options>
+</question>
+<question id="Radio" priority="5" type="combobox">
+	<prompt>Listen to the radio?</prompt>
+	<options>
+		<option>AM</option>
+		<option>FM</option>
+		<option>Satellite</option>
+		<option>Internet radio</option>
+		<option>I'm a DJ, I mix my own tunes</option>
+	</options>
+</question>
+<question id="SunOrRain" priority="5" type="combobox">
+	<prompt>Sun or rain?</prompt>
+	<options>
+		<option>Sun</option>
+		<option>Rain</option>
+		<option>Both, please</option>
+	</options>
+</question>
+<question id="CelestialBody" priority="5" type="combobox">
+	<prompt>Sun or moon?</prompt>
+	<options>
+		<option>Sun</option>
+		<option>Moon</option>
+		<option>Just the stars</option>
+	</options>
+</question>
+<question id="LadybugsOrButterflies" priority="5" type="combobox">
+	<prompt>Ladybugs or butterflies?</prompt>
+	<options>
+		<option>Ladybugs</option>
+		<option>Butterflies</option>
+		<option>I like scorpions!</option>
+	</options>
+</question>
+<question id="FoodOnAPicnic" priority="5" type="combobox">
+	<prompt>When you go on a picnic, you bring...</prompt>
+	<options>
+		<option>Sandwiches</option>
+		<option>Chicken</option>
+		<option>Whole pig</option>
+		<option>Potato salad</option>
+	</options>
+</question>
+<question id="WordForSoda" priority="5" type="combobox">
+	<prompt>What do you call sweet fizzy drinks?</prompt>
+	<options>
+		<option>Soda</option>
+		<option>Pop</option>
+		<option>Coke</option>
+		<option>Sarsaparilla</option>
+	</options>
+</question>
+<question id="OnTheWater" priority="5" type="combobox">
+	<prompt>On the water...</prompt>
+	<options>
+		<option>Canoe</option>
+		<option>Rowboat</option>
+		<option>Neither, I prefer to swim</option>
+	</options>
+</question>
+<question id="WhereWatchMovies" priority="5" type="combobox">
+	<prompt>Where do you prefer to watch movies?</prompt>
+	<options>
+		<option>Theater</option>
+		<option>Home</option>
+		<option>I'm too busy using Picnik to have time for movies</option>
+	</options>
+</question>
+<question id="Relaxation" priority="5" type="combobox">
+	<prompt>Would you rather...</prompt>
+	<options>
+		<option>Relax</option>
+		<option>Chillax</option>
+		<option>Shellac</option>
+	</options>
+</question>
+</questions>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<eff:PaintOnEffectBase xmlns:eff="effects.*" xmlns:cnt="containers.*" xmlns="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="269" _nBrushHardness="0"
+	xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*" urlid="grinchfacepaint">
+<mx:Script>
+	<![CDATA[
+		import imagine.imageOperations.FacePaintImageOperation;
+		import imagine.imageOperations.ISimpleOperation;
+		import imagine.imageOperations.paintMask.OperationStrokes;
+		import imagine.imageOperations.paintMask.PaintMaskController;
+
+		import util.LocUtil;
+		
+		private static const kanPaletteColors:Array = [0x678E2E, 0xf7f359];
+			
+		[Bindable] public var opStrokes:OperationStrokes;
+
+		override protected function InitController(): void {
+			opStrokes = new OperationStrokes();
+			_mctr = new PaintMaskController(opStrokes);
+		}
+
+		private function get currentOp(): ISimpleOperation {
+			var opNew:FacePaintImageOperation = new FacePaintImageOperation();
+			opNew.Color = _clrsw.color;
+			return opNew;
+		}
+		
+		public override function OnOverlayPress(evt:MouseEvent): Boolean {
+			this._nBrushHardness = 0;
+			
+			_mctr.erase = _brshbtn._btnEraser.selected;
+			_mctr.additive = false;
+
+			_mctr.brushAlpha = 1; // = brushAlpha
+			
+			_mctr.brushSpacing = 0.25;
+			_mctr.extraStrokeParams = {strokeOperation:currentOp};
+			return super.OnOverlayPress(evt);
+		}
+		
+		override public function OnOverlayRelease():Boolean {
+			return super.OnOverlayRelease();
+		}
+		
+		private function OnColorClick(): void {
+			if (_brshbtn) {
+				_brshbtn.eraseMode = false;
+			}
+		}
+						
+	]]>
+</mx:Script>
+	
+	<!-- <EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='SoccerFacePaintEffect')" strAuthor="@Resource(key='byPicnik', bundle='EffectCanvas')"
+	strImageSource="../graphics/effects/soccerFever/facePaintSoccer.png" premium="{premium}"/> -->
+	<EffectButton id="_efbtn" strTitle="Grinch Face Paint" strAuthor="@Resource(key='byPicnik', bundle='EffectCanvas')"
+	strImageSource="../graphics/effects/soccerFever/facePaintSoccer.png" premium="{premium}"/> 
+	<mx:String id="_strHelpText">{Resource.getString('SoccerFacePaintEffect', '_strHelpText')}</mx:String>
+
+	<mx:VBox x="10" y="73" verticalGap="0">
+		<BlushColorPalette id="_clrsw" numSwatches="6" wet="true" 
+				colors="{kanPaletteColors}" click="OnColorClick()"
+				selected="{_fSelected}"/> 
+    
+    	<!-- brush size / eraser toggle -->
+    	<BrushSizeAndEraserButton id="_brshbtn" selected="{_fSelected}" paddingTop="2"
+    		imageWidth="{origImageWidth}" imageHeight="{origImageHeight}"
+    		 thumbPress="ShowBrushPreview()" thumbDrag="UpdateBrushPreview()" thumbRelease="HideBrushPreview()"
+    		/>
+
+		<!-- Fade label/percent/slider box -->
+		<mx:HBox paddingBottom="-5" paddingTop="3" width="190">
+			<mx:Label text="@Resource(key='fade', bundle='EffectCanvas')" styleName="sliderTitle"/>
+			<mx:Label text="{LocUtil.pct((_sldrFade.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<HSliderPlus width="190" minimum="0" maximum="100" value="{30 + zeroR}" id="_sldrFade" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+
+		<ApplyCancelEffectButtons addBoxPadding="true" premium="{premium}"/>
+	</mx:VBox>
+
+	<mx:Number id="_cxyBrush">{_brshbtn.value}</mx:Number>
+	<imageOperations:OperationStrokeImageOperation id="_op" strokes="{opStrokes}" BlendAlpha="{(1-_sldrFade.value/100)}"/>
+</eff:PaintOnEffectBase>

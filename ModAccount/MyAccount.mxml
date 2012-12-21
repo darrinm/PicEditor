@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MyAccountBase xmlns="*" xmlns:mx="http://www.adobe.com/2006/mxml" label="@Resource(key='CreativeToolsBase_1', bundle='CreativeTools')"
+			   width="100%" height="100%"
+			   xmlns:flash="flash.filters.*" xmlns:bk="controls.*"
+			   xmlns:bkctr="containers.*"
+			   horizontalScrollPolicy="off" verticalScrollPolicy="off">
+	
+	<mx:Script>
+		import mx.resources.ResourceBundle;
+		
+		import util.AutoResizeMode;
+		import util.LocUtil;
+		
+		[Bindable] [ResourceBundle("MyAccount")] private var rb:ResourceBundle;
+	</mx:Script>
+	
+	
+	<mx:String id="urlkit"/> <!-- used by UrlKit to compose the URL including this 'page' -->
+	
+	<bk:ImageEx source="../graphics/bluegrad_short.gif" left="0" top="0" width="100%" height="702" maintainAspectRatio="false" includeInLayout="false"/>
+	<bk:ImageEx source="../graphics/clouds.jpg" horizontalCenter="0" top="0" width="983" height="177" includeInLayout="false" horizontalAlign="center"/>
+	
+	<MyAccountContent id="_myAccount" bottom="0" top="25" left="0" right="0" horizontalScrollPolicy="off" verticalLineScrollSize="38"/>
+	
+</MyAccountBase>

@@ -1,0 +1,285 @@
+// Vibrance filter, take 2
+
+<languageVersion : 1.0;>
+
+kernel HSLFilter
+<
+    title       : "Vibrance Filter";
+    namespace   : "Picnik::Filters";
+    vendor      : "Picnik";
+    version     : 1;
+    description : "Increase vibrance of an image.";
+    websiteURL: "http://www.picnik.com";
+>
+{
+    input       image4      source;
+    output      pixel4      result;
+    
+    void evaluatePixel()
+    {
+      float4 samp;
+        float4 clrOut;
+        float min1;
+        float mid1;
+        float max1;
+        float min2;
+        float mid2;
+        
+        int hueArea;
+        float hue;
+        
+        samp     = sampleNearest(source, outCoord());
+        float skin = 0.0;
+        
+        if (samp.r > samp.g) {
+            if (samp.g >= samp.b) { // RGB
+                max1 = samp.r; // Custom
+                mid1 = samp.g; // Custom
+                min1 = samp.b; // Custom
+                hueArea = 0;
+                hue = 60.0 * (samp.g - samp.b) / (max1-min1);
+                // calculate skin (0 to 1), hue <= 60
+                // 0,45 to 100,40, 10 pixel ramp
+                skin = (50.0 - (hue + 5.0 * max1 )) / 10.0;
+                if (skin < 0.0) skin = 0.0;
+                else if (skin > 1.0) skin = 1.0;
+            } else if (samp.r > samp.b) { // RBG
+                max1 = samp.r; // Custom
+                mid1 = samp.b; // Custom
+                min1 = samp.g; // Custom
+                hueArea = 1;
+                hue = 360.0 + 60.0 * (samp.g - samp.b) / (max1-min1);
+                // hue >= 300
+                // 305,0 to 360,65, 25 pixel ramp
+                skin = ((hue - max1 * 55.0 / 65.0) - 280.0) / 50.0;
+                
+                if (skin < 0.0) skin = 0.0;
+                else if (skin > 1.0) skin = 1.0;
+            } else { // BRG
+                max1 = samp.b; // Custom
+                mid1 = samp.r; // Custom
+                min1 = samp.g; // Custom
+                hueArea = 2;
+            }
+        } else { // R is less than G or equal to G
+            if (samp.b > samp.g) { // BGR
+                max1 = samp.b; // Custom
+                mid1 = samp.g; // Custom
+                min1 = samp.r; // Custom
+                hueArea = 3;
+            } else if (samp.r > samp.b) { // GRB
+                max1 = samp.g; // Custom
+                mid1 = samp.r; // Custom
+                min1 = samp.b; // Custom
+                hueArea = 4;
+            } else { // GBR
+                max1 = samp.g; // Custom
+                mid1 = samp.b; // Custom
+                min1 = samp.r; // Custom
+                hueArea = 5;
+            }
+        }
+        
+        // float dsSkin = 0;
+        // float dsNotSkin = 0;
+
+        // Calculate dsNotSkin if needed
+        /*
+        if (skin < 1.0) {
+        }
+        
+        // Calculate dsSkin if needed
+        if (skin > 0.0) {
+        }
+        */
+        
+        // Calcuate ds
+        
+        // float ds = (skin * dsSkin) + ((1.0-skin) * dsNotSkin);
+        
+        if (min1 == max1 || min1 == 0.0) {
+            clrOut = samp;
+        } else {
+            float s1 = (max1 - min1) / max1;
+            float s2;
+            
+            // Curve values
+            float ds1;
+            float ds2;
+            
+            // Nearest curves, curve pos
+            float dsPos; // 0 for dsA, 1 for dsB, else inbetween
+            float a;
+            float b;
+
+            float dsSkin = 0.0;
+            float dsNotSkin = 0.0;
+            const float knCurveMid = 0.270588235;
+            
+            if (skin > 0.0) {
+                // Calculate dsSkin
+                if (max1 < 1.0) {
+                    // Apply a curve to calculate ds1
+                    if (s1 < 0.541176471) {
+                        if (s1 < 0.333333333) {
+                            a = (0.333333333 - s1) / 0.333333333;
+                            b = 1.0 - a;
+                            ds1 = b * 0.156930411 + ((b * b * b - b) * -1.193636097458837) * 0.01851851848148148;
+                        } else { // s1 >= 0.333333333
+                            a = (0.541176471 - s1) / 0.20784313799999998;
+                            b = 1.0 - a;
+                            ds1 = a * 0.156930411 + b * 0.202229912 + ((a * a * a - a) * -1.193636097458837 + (b * b * b - b) * -1.0830729841705442) * 0.007199795002281173;
+                        }
+                    } else { // s1 >= 0.541176471
+                        if (s1 < 0.690196078) {
+                            a = (0.690196078 - s1) / 0.14901960700000005;
+                            b = 1.0 - a;
+                            ds1 = a * 0.202229912 + b * 0.195758554 + ((a * a * a - a) * -1.0830729841705442 + (b * b * b - b) * -3.6716914258975195) * 0.0037011405450724107;
+                        } else { // s1 >= 0.690196078
+                            a = (1.0 - s1) / 0.30980392199999995;
+                            b = 1.0 - a;
+                            ds1 = a * 0.195758554 + ((a * a * a - a) * -3.6716914258975195) * 0.01599641168109701;
+                        }
+                    }
+
+                } else {
+                    ds1 = 0.0;
+                }
+                
+                if (max1 >= knCurveMid) {
+                    // Apply a curve to calculate ds2
+                    if (s1 < 0.643137255) {
+                        if (s1 < 0.57254902) {
+                            if (s1 < 0.121568627) {
+                                a = (0.121568627 - s1) / 0.121568627;
+                                b = 1.0 - a;
+                                ds2 = b * 0.013751634 + ((b * b * b - b) * 1.676138666996223) * 0.002463155178444188;
+                            } else { // s1 >= 0.121568627
+                                a = (0.57254902 - s1) / 0.450980393;
+                                b = 1.0 - a;
+                                ds2 = a * 0.013751634 + b * 0.141560938 + ((a * a * a - a) * 1.676138666996223 + (b * b * b - b) * -1.990404381684186) * 0.033897219145072405;
+                            }
+                        } else { // s1 >= 0.57254902
+                            a = (0.643137255 - s1) / 0.070588235;
+                            b = 1.0 - a;
+                            ds2 = a * 0.141560938 + b * 0.144796617 + ((a * a * a - a) * -1.990404381684186 + (b * b * b - b) * -1.4878885443885643) * 0.0008304498200692041;
+                        }
+                    } else { // s1 >= 0.643137255
+                        if (s1 < 0.933333333) {
+                            a = (0.933333333 - s1) / 0.290196078;
+                            b = 1.0 - a;
+                            ds2 = a * 0.144796617 + b * 0.048535179 + ((a * a * a - a) * -1.4878885443885643 + (b * b * b - b) * -3.6223444977491766) * 0.014035627281097016;
+                        } else { // s1 >= 0.933333333
+                            a = (0.992156863 - s1) / 0.05882353000000007;
+                            b = 1.0 - a;
+                            ds2 = a * 0.048535179 + ((a * a * a - a) * -3.6223444977491766) * 0.000576701280276818;
+                        }
+                    }
+                    
+                    // 0 at knCurveMid, 1 at 1.0
+                    dsPos = (max1 - knCurveMid) / (1.0 - knCurveMid);
+                    dsSkin = ds1 + (ds2 - ds1) * dsPos;
+                } else {
+                    // Go from ds1 down to 0
+                    dsSkin = ds1 * (max1 / knCurveMid);
+                }
+            }
+            if (skin < 1.0) {
+                // Calculate dsNotSkin
+                if (max1 < 1.0) {
+                    // Apply a curve to calculate ds1
+                    if (s1 < 0.333333333) {
+                        if (s1 < 0.019607843) {
+                            a = (0.019607843 - s1) / 0.019607843;
+                            b = 1.0 - a;
+                            ds1 = b * 0.050257593 + ((b * b * b - b) * -14.004789188321896) * 0.00006407791785210816;
+                        } else { // s1 >= 0.019607843
+                            a = (0.333333333 - s1) / 0.31372549;
+                            b = 1.0 - a;
+                            ds1 = a * 0.050257593 + b * 0.337254902 + ((a * a * a - a) * -14.004789188321896 + (b * b * b - b) * -1.7641980936418225) * 0.016403947179290015;
+                        }
+                    } else { // s1 >= 0.333333333
+                        if (s1 < 0.929411765) {
+                            a = (0.929411765 - s1) / 0.596078432;
+                            b = 1.0 - a;
+                            ds1 = a * 0.337254902 + b * 0.062160707 + ((a * a * a - a) * -1.7641980936418225 + (b * b * b - b) * -1.0972645751253614) * 0.05921824951592977;
+                        } else { // s1 >= 0.929411765
+                            a = (1.0 - s1) / 0.070588235;
+                            b = 1.0 - a;
+                            ds1 = a * 0.062160707 + ((a * a * a - a) * -1.0972645751253614) * 0.0008304498200692041;
+                        }
+                    }
+                } else {
+                    ds1 = 0.0;
+                }
+                
+                if (max1 >= knCurveMid) {
+                    // Apply a curve to calculate ds2
+                     if (s1 < 0.619607843) {
+                        if (s1 < 0.447058824) {
+                            if (s1 < 0.08627451) {
+                                a = (0.08627451 - s1) / 0.08627451;
+                                b = 1.0 - a;
+                                ds2 = b * 0.021161092 + ((b * b * b - b) * 2.0747931277099445) * 0.00124054851262335;
+                            } else { // s1 >= 0.08627451
+                                a = (0.447058824 - s1) / 0.360784314;
+                                b = 1.0 - a;
+                                ds2 = a * 0.021161092 + b * 0.166643599 + ((a * a * a - a) * 2.0747931277099445 + (b * b * b - b) * -2.5148808633488637) * 0.021694220204741765;
+                            }
+                        } else { // s1 >= 0.447058824
+                            a = (0.619607843 - s1) / 0.17254901900000003;
+                            b = 1.0 - a;
+                            ds2 = a * 0.166643599 + b * 0.17325644 + ((a * a * a - a) * -2.5148808633488637 + (b * b * b - b) * -1.480762141042952) * 0.004962193992977062;
+                        }
+                    } else { // s1 >= 0.619607843
+                        if (s1 < 0.925490196) {
+                            a = (0.925490196 - s1) / 0.305882353;
+                            b = 1.0 - a;
+                            ds2 = a * 0.17325644 + b * 0.055547866 + ((a * a * a - a) * -1.480762141042952 + (b * b * b - b) * -2.249293267117628) * 0.015594002312802767;
+                        } else { // s1 >= 0.925490196
+                            a = (1.0 - s1) / 0.07450980399999996;
+                            b = 1.0 - a;
+                            ds2 = a * 0.055547866 + ((a * a * a - a) * -2.249293267117628) * 0.0009252851486864017;
+                        }
+                    }
+                   
+                    // 0 at knCurveMid, 1 at 1.0
+                    dsPos = (max1 - knCurveMid) / (1.0 - knCurveMid);
+                    dsNotSkin = ds1 + (ds2 - ds1) * dsPos;
+                } else {
+                    // Go from ds1 down to 0
+                    dsNotSkin = ds1 * (max1 / knCurveMid);
+                }
+            }
+        
+            //s2 = s1 + (skin * dsSkin) + ((1.0-skin) * dsNotSkin);
+            s2 = s1 + 1.5 * (dsNotSkin + (dsSkin - dsNotSkin) * skin);
+            if (s2 > 1.0) s2 = 1.0;
+            
+            min2 = max1 * (1.0 - s2);
+            mid2 = min2 + (max1 - min2) * (mid1 - min1) / (max1 - min1);
+            
+            if (hueArea < 3) {
+                if (hueArea == 0) {
+                    clrOut = float4(max1, mid2, min2, samp.a);
+                } else if (hueArea == 1) {
+                    clrOut = float4(max1, min2, mid2, samp.a);
+                } else if (hueArea == 2) {
+                    clrOut = float4(mid2, min2, max1, samp.a);
+                }
+            } else { // R is less than G or equal to G
+                if (hueArea == 3) {
+                    clrOut = float4(min2, mid2, max1, samp.a);
+                } else if (hueArea == 4) {
+                    clrOut = float4(mid2, max1, min2, samp.a);
+                } else if (hueArea == 5) {
+                    clrOut = float4(min2, max1, mid2, samp.a);
+                }
+            }
+        }
+        
+        // clrOut = float4(hue/360.0, skin, 0, 1.0);
+        result = clrOut;        
+        
+    }
+}

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ctrl:TemplateFilterPanelBase xmlns:ctrl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical"
+	title="Template Filter" showCloseButton="true" close="Hide()" headerHeight="18" verticalAlign="middle" horizontalAlign="center"
+	verticalGap="8">
+
+	<mx:HBox horizontalGap="10" verticalAlign="middle">
+		<mx:CheckBox id="_cbxLive" label="Show Live Templates" 
+			selected="{_fLive}" 
+			change="_fLive=CheckBox(event.target).selected"/>
+		<mx:CheckBox id="_cbxHidden" label="Show Hidden Templates" 
+			selected="{_fShowHidden}"
+			change="_fShowHidden = CheckBox(event.target).selected"/>
+	</mx:HBox>
+	<mx:HBox verticalAlign="middle" horizontalGap="4" width="100%" horizontalAlign="left">
+		<mx:Label text="And also show:" fontSize="13" fontWeight="normal" color="#333333"/>
+		<mx:ComboBox id="_cbExtra" dataProvider="{_acobExtraCMSStages}"  height="26" width="100%"
+			selectedIndex="{IndexOfValue(_acobExtraCMSStages, _strExtraStage)}"
+			change="_strExtraStage = String(ComboBox(event.target).value); if (_strExtraStage == 'private') _cbxHidden.selected = true"/>
+		
+	</mx:HBox>
+	<mx:HBox width="100%" horizontalAlign="center" borderStyle="solid" borderSides="top" borderColor="#e5e5e5" paddingTop="8">
+		<mx:Button label="Apply!" click="ApplyFilter()" styleName="BigButton" minWidth="120" height="26" fontSize="14"/>
+	</mx:HBox>
+	
+</ctrl:TemplateFilterPanelBase>

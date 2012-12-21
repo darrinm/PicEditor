@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WebCamSelectorBase xmlns="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" cameraOb="{_cbCamera.selectedItem}">
+   <mx:Metadata>
+        [Event(name="change", type="flash.events.Event")]
+    </mx:Metadata>
+	<ComboBoxPlus id="_cbCamera" dataProvider="{cameraList}" change="cameraOb=_cbCamera.selectedItem" width="250" y="50" horizontalCenter="0" height="26"/>
+	<mx:Text x="0" y="0" text="@Resource(key='Text_1', bundle='WebCamSelector')" 
+		width="400" height="45" fontSize="16" textAlign="center" selectable="false"/>
+</WebCamSelectorBase>

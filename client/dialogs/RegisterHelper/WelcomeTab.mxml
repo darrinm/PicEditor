@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RegisterBoxBase xmlns="dialogs.RegisterHelper.*" xmlns:filters="flash.filters.*"
+		xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:ctrl="controls.*" xmlns:ds="com.darronschall.effects.*"  logEventBase=""
+>		
+	<mx:Script>
+		<![CDATA[
+			import picnik.util.LocaleInfo;
+		]]>
+	</mx:Script>
+	<mx:Fade alphaFrom="0" alphaTo="1" duration="500" id="_efFadeIn"/>
+	<mx:Fade alphaFrom="1" alphaTo="0" duration="500" id="_efFadeOut"/>
+
+	<filters:DropShadowFilter blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1"
+		quality="3" angle="90" id="_fiWhiteShad"/>
+	<mx:Canvas width="510" >
+		<ctrl:ImageVer source="{PicnikBase.StaticUrl('/apicontent/' + _app.AsService().apikey + '/welcome_dialog_header.png')}" x="0" y="10"/>		
+		<ctrl:TextLoader id="_tldrWelcomeBody" url="{PicnikBase.StaticUrl('/apicontent/' + _app.AsService().apikey + '/welcome_body.html')}" />
+		<ctrl:TextLoader id="_tldrWelcomeTitle" url="{PicnikBase.StaticUrl('/apicontent/' + _app.AsService().apikey + '/welcome_title.html')}" />
+		<ctrl:TextLoader id="_tldrWelcomeSignin" url="{PicnikBase.StaticUrl('/apicontent/' + _app.AsService().apikey + '/welcome_signin.html')}" />
+		<ctrl:TextLoader id="_tldrWelcomeRegister" url="{PicnikBase.StaticUrl('/apicontent/' + _app.AsService().apikey + '/welcome_register.html')}" />
+		<mx:VBox width="100%" verticalGap="0" horizontalAlign="center" height="100%">
+			<mx:HBox width="100%" right="0" top="0" horizontalAlign="right" horizontalGap="0">
+				<mx:HBox width="100%" right="0" top="0" horizontalAlign="right" horizontalGap="0">
+					<ctrl:ImageVer source="@Embed('/assets/bitmaps/reghead_left.png')" width="59" height="27"/>
+					<mx:HBox backgroundImage="@Embed('/assets/bitmaps/reghead_middle.png')" backgroundSize="100%" height="27" paddingLeft="-8" clipContent="false">
+						<mx:Text id="_lbHeadtext" condenseWhite="false" fontSize="12" paddingTop="4" fontWeight="normal" color="#333333" 
+								htmlText="{_tldrWelcomeSignin.text}" visible="{!AccountMgr.GetInstance().hasCredentials}" includeInLayout="{!AccountMgr.GetInstance().hasCredentials}" />
+					</mx:HBox>
+					<mx:HBox width="26" height="27" backgroundImage="@Embed('/assets/bitmaps/reghead_right.png')" paddingLeft="6" paddingTop="4">
+						<mx:Button click="Hide()" height="16" width="16" icon="@Embed('/theme/pngs/closeIcon.png')" paddingLeft="0"/>
+					</mx:HBox>
+				</mx:HBox>					
+			</mx:HBox>		
+			<mx:VBox width="100%" verticalGap="0" paddingTop="30" paddingLeft="15" paddingRight="15" horizontalAlign="center" height="100%">
+				<mx:VBox verticalGap="-8" paddingLeft="-3" width="100%">
+					<mx:Text fontSize="30" color="#005580" filters="{[_fiWhiteShad]}" condenseWhite="false" fontWeight="bold" width="100%"
+							htmlText="{_tldrWelcomeTitle.text}" />
+					<mx:Text fontSize="15" color="#000000" width="100%" leading="-2" selectable="false" condenseWhite="false"
+							htmlText="{_tldrWelcomeBody.text}" />
+				</mx:VBox>
+				<mx:VBox paddingBottom="15" paddingTop="15">
+					<ctrl:ImageVer source="{PicnikBase.StaticUrl('/apicontent/' + _app.AsService().apikey + '/welcome_dialog_thumbs.png')}" horizontalCenter="0"/>
+				</mx:VBox>
+				<mx:Spacer height="18" includeInLayout="{AccountMgr.GetInstance().hasCredentials}"/>
+				<mx:Button label="@Resource(key='Button_1', bundle='WelcomeTab')" width="220"
+						fontSize="18" styleName="BigButton" click="Hide()" keyDown="Hide()"/>
+			</mx:VBox>
+		</mx:VBox>			
+		<mx:VBox height="100%" width="100%" x="0" y="295" paddingLeft="15" paddingRight="15" paddingBottom="8" paddingTop="30" verticalAlign="bottom"
+			 visible="{!AccountMgr.GetInstance().hasCredentials}" includeInLayout="{!AccountMgr.GetInstance().hasCredentials}" >
+			<ctrl:ImageEx source="../graphics/page_divider.png" scaleContent="true" width="100%" height="2" maintainAspectRatio="false"/>
+			<mx:Text condenseWhite="false" fontSize="13" paddingLeft="-3" fontWeight="{LocaleInfo.BoldWeight()}" color="#4d4d4d" width="100%" leading="-1"
+					htmlText="{_tldrWelcomeRegister.text}" />					
+		</mx:VBox>
+	</mx:Canvas>
+</RegisterBoxBase>

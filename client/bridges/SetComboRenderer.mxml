@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml" verticalAlign="middle" horizontalScrollPolicy="off" verticalScrollPolicy="off">
+	<mx:Label text="{data.label}" fontSize="14" width="100%" minWidth="90" paddingRight="5" styleName="deviceFonts"/>
+	<mx:Image source="{data.icon}" height="36" width="36" includeInLayout="{data.hasIcons}" visible="{data.hasIcons}"/>
+</mx:HBox>

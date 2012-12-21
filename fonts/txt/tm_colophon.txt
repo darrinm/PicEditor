@@ -1,0 +1,12 @@
+fileName: tm_colophon.ttf
+name: Colophon DBZ
+subfamilyDisplayName: Regular
+fullName: Colophon DBZ
+displayName: Colophon DBZ
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 4
+pkName: pktm0colophon
+authorName: Tom Murphy
+authorUrl: http://fonts.tom7.com/

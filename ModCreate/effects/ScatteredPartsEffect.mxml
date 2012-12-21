@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cnt:EffectCanvas xmlns:cnt="containers.*" xmlns="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%"
+	xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*" premium="true" urlid="Panographyish">
+<mx:Script>
+	<![CDATA[
+		import util.LocUtil;
+		import mx.resources.ResourceBundle;
+   		[Bindable] [ResourceBundle("ScatteredPartsEffect")] private var rb:ResourceBundle;
+	]]>
+</mx:Script>
+
+<EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='ScatteredPartsEffect')" strAuthor="@Resource(key='_efbtn_1', bundle='ScatteredPartsEffect')"
+	strImageSource="../graphics/effects/FeaturedEffects/scattered_parts.png" premium="{premium}"/>
+<mx:String id="_strHelpText">{Resource.getString('ScatteredPartsEffect', '_strHelpText')}</mx:String>
+
+<mx:VBox x="9" y="70" verticalGap="0">
+	<mx:Spacer width="10" height="3"/>
+	<mx:HBox paddingTop="5" paddingLeft="5" paddingRight="8" paddingBottom="5" horizontalGap="5" width="190" horizontalScrollPolicy="off"
+			cornerRadius="5" backgroundColor="#ffffff" borderColor="#d9d9d9" borderStyle="solid" backgroundAlpha=".4" verticalAlign="middle">
+		<ResizingLabel text="@Resource(key='BackgroundColor', bundle='ScatteredPartsEffect')" styleName="sliderTitle" paddingTop="2" width="100%" autoFontSizeGap="1"/>
+		<HSBColorPicker id="_cpkrBG" selectedColor="{0xffffff + zeroR}" liveColorChange="OnBufferedOpChange()" width="50"/>
+	</mx:HBox>
+
+	<mx:HBox width="190" paddingBottom="-5" paddingTop="5">
+		<mx:Label text="@Resource(key='randomize', bundle='ScatteredPartsEffect')" styleName="sliderTitle"/>
+		<mx:Label text="{_sldrRandomize.value}" styleName="sliderValue" textAlign="right" width="100%"/>
+	</mx:HBox>
+	<HSliderPlus width="190" minimum="1" maximum="30" value="{1 + zeroR}" id="_sldrRandomize" change="OnOpChange()" liveDragging="true" showDataTip="false"
+		snapInterval="1"/>
+
+	<mx:HBox width="190" paddingBottom="-5" paddingTop="5">
+		<mx:Label text="@Resource(key='kookiness', bundle='ScatteredPartsEffect')" styleName="sliderTitle"/>
+		<mx:Label text="{LocUtil.pct((_sldrKookiness.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+	</mx:HBox>
+	<HSliderPlus width="190" minimum="0" maximum="100" value="{10 + zeroR}" id="_sldrKookiness" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+	
+	<mx:HBox width="190" paddingBottom="-5" paddingTop="5">
+		<mx:Label text="@Resource(key='partAlpha', bundle='ScatteredPartsEffect')" styleName="sliderTitle"/>
+		<mx:Label text="{LocUtil.pct((_sldrPartAlpha.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+	</mx:HBox>
+	<HSliderPlus width="190" minimum="30" maximum="100" value="{60 + zeroR}" id="_sldrPartAlpha" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+	
+	<mx:Box width="190" horizontalAlign="center" paddingTop="4">
+		<mx:CheckBox label="@Resource(key='rotated', bundle='ScatteredPartsEffect')" id="_cbRotated" selected="{zeroR == 0}" change="OnOpChange()"/>
+	</mx:Box>
+	
+	<ApplyCancelEffectButtons addBoxPadding="true" premium="{premium}"/>
+</mx:VBox>
+
+
+</cnt:EffectCanvas>

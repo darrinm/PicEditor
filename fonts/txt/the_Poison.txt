@@ -1,0 +1,12 @@
+fileName: the_Poison.ttf
+name: the Poison
+subfamilyDisplayName: Normal
+fullName: the Poison
+displayName: the Poison
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 0
+pkName: pkthe0Poison
+authorName: Gyom.Typo
+authorUrl: http://gyom.nebullus.com/

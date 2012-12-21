@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/xmas_costume.png" flickrPremium="true" id="HolidayCostumes" numShapes="7" picnikPremium="true" previewUrls="60|48|../clipart/bundles/HolidayHumorArea_groupPreviews_HolidayCostumes.png?ver=2486fa30" title="Holiday Costumes">
+	<Shapes>
+		<Clipart cHeight="1068" cWidth="1544" flickrPremium="true" isVector="false" picnikPremium="true" previewUrl="40|40|0|../clipart/bundles/HolidayHumorArea_shapes_HolidayCostumes.png?ver=5db4a150" url="shapes/HolidayCostumes/x_brown-antlers_cut.swf"/>
+		<Clipart cHeight="1060" cWidth="1501" flickrPremium="true" isVector="false" picnikPremium="true" previewUrl="40|40|1|../clipart/bundles/HolidayHumorArea_shapes_HolidayCostumes.png?ver=5db4a150" url="shapes/HolidayCostumes/x_red-antlers_cut.swf"/>
+		<Clipart cHeight="304" cWidth="376" flickrPremium="true" isVector="false" picnikPremium="true" previewUrl="40|40|2|../clipart/bundles/HolidayHumorArea_shapes_HolidayCostumes.png?ver=5db4a150" url="shapes/HolidayCostumes/reindeernose_red.swf"/>
+		<Clipart cHeight="305" cWidth="378" flickrPremium="true" isVector="false" picnikPremium="true" previewUrl="40|40|3|../clipart/bundles/HolidayHumorArea_shapes_HolidayCostumes.png?ver=5db4a150" url="shapes/HolidayCostumes/reindeernose_black.swf"/>
+		<Clipart cHeight="1423" cWidth="1158" flickrPremium="true" isVector="false" picnikPremium="true" previewUrl="40|40|4|../clipart/bundles/HolidayHumorArea_shapes_HolidayCostumes.png?ver=5db4a150" url="shapes/HolidayCostumes/x_beard-1-masked.swf"/>
+		<Clipart cHeight="1095" cWidth="1506" flickrPremium="true" isVector="false" picnikPremium="true" previewUrl="40|40|5|../clipart/bundles/HolidayHumorArea_shapes_HolidayCostumes.png?ver=5db4a150" url="shapes/HolidayCostumes/x_beard-2-masked.swf"/>
+		<Clipart cHeight="1224" cWidth="1347" flickrPremium="true" isVector="false" picnikPremium="true" previewUrl="40|40|6|../clipart/bundles/HolidayHumorArea_shapes_HolidayCostumes.png?ver=5db4a150" url="shapes/HolidayCostumes/x_wig.swf"/>
+	</Shapes>
+</ShapeCategory>

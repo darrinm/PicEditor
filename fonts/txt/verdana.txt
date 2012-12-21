@@ -1,0 +1,12 @@
+fileName: verdana.ttf
+name: Verdana
+subfamilyDisplayName: Normal
+fullName: Verdana
+displayName: Verdana
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 6
+pkName: pkverdana
+authorName: Matthew Carter
+authorUrl: http://carterandcone.com/

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<NestedControlsCanvasBase xmlns="creativeTools.*" xmlns:mx="http://www.adobe.com/2006/mxml"
+	xmlns:filters="flash.filters.*" xmlns:cnt="containers.*" xmlns:ctrl="controls.*"  
+	width="100%"
+	verticalLineScrollSize="38" horizontalScrollPolicy="off" verticalScrollPolicy="on" xmlns:sectionList="containers.sectionList.*">
+<mx:Script>
+	<![CDATA[
+		import controls.TemplateGroupItemRenderer;
+		import controls.TemplateSectionHeader;
+		
+		import events.HelpEvent;
+		
+		import util.TemplateGroup;
+		import util.TemplateSection;
+		
+		public function get selectedItem(): Object {
+			return null;
+		}
+		
+		private var _aobData:Array = null;
+		
+		override protected function PostEffectCleanup(efcnv:NestedControlCanvasBase):void {
+			// Do nothing
+		}
+
+		public function set dataProvider(ob:Object): void {
+			if (_aobData == ob)
+				return;
+			_vb2.removeAllChildren();
+			_aobData = ob as Array;
+			callLater(CreateDynamicChildren, [_aobData]);
+		}
+		
+		private function CreateDynamicChildren(aobData:Array): void {
+			if (aobData != _aobData) return;
+			
+			if (_aobData == null) return;
+			
+			var iNext:Number = _vb2.numChildren;
+			if (CreateChild(iNext)) { // Returns true if a child was created
+				callLater(CreateDynamicChildren, [aobData]);
+			}
+		} 
+
+		// Creates the iPos child if we have that many children
+		// Returns true if a child is created
+		private function CreateChild(iPos:Number):Boolean {
+			if (_aobData == null || _aobData.length == 0 || iPos < 0) return false;
+			for each (var tsect:TemplateSection in _aobData) {
+				if (iPos == 0) {
+					CreateHeader(tsect);
+					return true;				
+				}
+				iPos -= 1; // Now it might be a group index within this template section
+				if (iPos < tsect.children.length) {
+					CreateGroup(tsect.children[iPos]);
+					return true;
+				}
+				// Nope. Move on
+				iPos -= tsect.children.length;
+			}
+			return false;
+		}
+		
+		private function CreateHeader(tsect:TemplateSection): void {
+			var hdr:TemplateSectionHeader = new TemplateSectionHeader();
+			hdr.data = tsect;
+			_vb2.addChild(hdr);
+		}
+		
+		private function CreateGroup(tgrp:TemplateGroup): void {
+			var grp:TemplateGroupItemRenderer = new TemplateGroupItemRenderer();
+			grp.data = tgrp;
+			_vb2.addChild(grp);
+		}
+		
+	]]>
+</mx:Script>
+
+<mx:VBox verticalGap="0" width="100%" x="0" id="_vb2">
+	
+</mx:VBox>
+				
+</NestedControlsCanvasBase>

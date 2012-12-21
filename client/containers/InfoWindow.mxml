@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PaletteWindow xmlns="containers.*" xmlns:mx="http://www.adobe.com/2006/mxml"  xmlns:flash.filters="flash.filters.*"
+		isPopUp="true" visible="false" layout="vertical" backgroundColor="#ffffff"
+		alpha=".95" showCloseButton="true" headerHeight="18"
+		horizontalScrollPolicy="off" verticalScrollPolicy="off" title="@Resource(key='PaletteWindow_1', bundle='InfoWindow')" paddingBottom="2"
+		resizeEffect="{_efResize}" rollOverEffect="{_efSoftFadeIn}" rollOutEffect="{_efSoftFadeOut}" showEffect="{_efFadeIn}" hideEffect="{_efFadeOut}"
+		filters="{[_fiInnerShadow]}">	
+	<mx:Script>
+		<![CDATA[
+			[Bindable] public var serial:String = "";
+	    ]]>
+  	</mx:Script>
+	<mx:Resize duration="200" id="_efResize"/>
+	<mx:Fade id="_efFadeIn" duration="150" suspendBackgroundProcessing="true"/>
+	<mx:Fade id="_efFadeOut" duration="200" suspendBackgroundProcessing="true"/>
+	<mx:Fade id="_efSoftFadeIn" duration="300" alphaFrom=".95" alphaTo="1" suspendBackgroundProcessing="true"/>
+	<mx:Fade id="_efSoftFadeOut" duration="500" alphaFrom="1" alphaTo=".95" suspendBackgroundProcessing="true"/>
+	
+	<flash.filters:DropShadowFilter id="_fiInnerShadow" alpha=".15" blurX="4" blurY="4" angle="-90" distance="2" quality="3" inner="true"/>
+</PaletteWindow>

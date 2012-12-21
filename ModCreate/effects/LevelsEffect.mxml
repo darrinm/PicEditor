@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<effects:LevelsEffectBase xmlns:effects="effects.*" xmlns:cnt="containers.*" xmlns="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="348"
+	xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*" premium="true" reset="Reset()" urlid="Levels">
+	<mx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import util.LocUtil;
+			import mx.resources.ResourceBundle;
+	   		[Bindable] [ResourceBundle("LevelsEffect")] private var rb:ResourceBundle;
+		]]>
+	</mx:Script>
+	<mx:ArrayCollection id="_acPresets">
+		<mx:Object label="{Resource.getString('LevelsEffect', 'default')}" fReset="true"/>
+		<mx:Object label="{Resource.getString('LevelsEffect', 'custom')}" fCustom="true"/>
+		<mx:Object label="{Resource.getString('LevelsEffect', 'monochrome')}" fPerChannel="false"/>
+		<mx:Object label="{Resource.getString('LevelsEffect', 'preserveMidTones')}" fPerChannel="false" fNeutralMidtones="true"/>
+		<mx:Object label="{Resource.getString('LevelsEffect', 'perChannel')}" fPerChannel="true"/>
+		<mx:Object label="{Resource.getString('LevelsEffect', 'preserveMidTones')}" fPerChannel="true" fNeutralMidtones="true"/>
+	</mx:ArrayCollection>
+
+	<EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='LevelsEffect')" strAuthor="@Resource(key='_efbtn_1', bundle='LevelsEffect')" strImageSource="../graphics/effects/levels.png" premium="{premium}"/>
+	<mx:String id="_strHelpText">{Resource.getString('LevelsEffect', '_strHelpText')}</mx:String>
+
+	<mx:VBox x="10" y="70" verticalGap="0">
+		<!-- presets combox box -->
+		<mx:Label text="@Resource(key='presets', bundle='LevelsEffect')" styleName="sliderTitle" paddingBottom="-3"/>
+		<mx:ComboBox id="_cboxAutoLevels" rowCount="10" width="190" height="26"
+			dataProvider="{_acPresets}"
+			change="AutoLevel(_cboxAutoLevels.selectedItem)"/>
+		<!-- channel picker -->
+		<mx:HBox width="190" horizontalGap="4" paddingTop="5" paddingBottom="5" verticalAlign="middle">
+			<mx:Label text="@Resource(key='channel', bundle='LevelsEffect')" styleName="sliderTitle"/>
+			<mx:ComboBox id="_cboxChannel" width="100%" height="22" fontSize="12" styleName="shortComboBox"
+				dataProvider="{[{label:Resource.getString('LevelsEffect', 'rgb'),data:_lvlRGB},
+						{label:Resource.getString('LevelsEffect', 'red'),data:_lvlR},
+						{label:Resource.getString('LevelsEffect', 'green'),data:_lvlG},
+						{label:Resource.getString('LevelsEffect', 'blue'),data:_lvlB}]}"
+				change="ShowSelectedChannel();"/>
+		</mx:HBox>
+		<mx:Canvas id="_cnv">
+			<SingleLevel change="OnLevelChange()" 
+				edited="OnEdit()" 
+				id="_lvlR" lineColor="0xeb0707"/>
+			<SingleLevel change="OnLevelChange()" 
+				edited="OnEdit()" 
+				id="_lvlG" lineColor="0x47e807"/>
+			<SingleLevel change="OnLevelChange()" 
+				edited="OnEdit()" 
+				id="_lvlB"   lineColor="0x004df2"/>
+			<SingleLevel change="OnLevelChange()" 
+				edited="OnEdit()" 
+				id="_lvlRGB" lineColor="0x404040"/>
+		</mx:Canvas>
+
+		<ApplyCancelEffectButtons addBoxPadding="true" premium="{premium}" paddingTop="0"/>
+	</mx:VBox>
+</effects:LevelsEffectBase>

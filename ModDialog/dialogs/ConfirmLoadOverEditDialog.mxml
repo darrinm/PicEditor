@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ConfirmLoadOverEditDialogBase xmlns="dialogs.*" xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" verticalGap="5"
+		width="370" defaultButton="{_btnYes}" xmlns:ns1="*" styleName="DialogNoCloseBox" xmlns:controls="controls.*"
+		xmlns:ct="mx.containers.*">
+	<!-- header -->
+	<mx:HBox horizontalGap="0" verticalAlign="top">
+		<controls:ImageVer x="5" y="3" source="@Embed('../theme/pngs/alertIcon.png')"/>
+		<mx:Text id="_txtHeader2" x="37" y="3" width="314" fontSize="13" leading="-1" condenseWhite="true" selectable="false" htmlText="@Resource(key='_txtHeader2', bundle='ConfirmLoadOverEditDialog')"/>
+		<!-- alternate header in case we have an image name.  hidden by default -->
+		<mx:Text id="_txtHeader" x="37" y="3" width="314" fontSize="13" leading="-1" condenseWhite="true" selectable="false" htmlText="@Resource(key='_txtHeader', bundle='ConfirmLoadOverEditDialog')" visible="false" includeInLayout="false"/>
+	</mx:HBox>
+	<!-- photo preview -->
+	<mx:Grid left="5" right="5" top="50" width="100%" height="190">
+		<mx:GridRow width="100%" height="100%">
+			<mx:GridItem width="100%" height="100%"
+					borderStyle="solid" borderThickness="1" borderColor="#CCCCCC" backgroundColor="#f7f7f7" cornerRadius="5" clipContent="true">
+<!--				<ns1:ImageView id="_imgv" height="100%" width="100%" paddingTop="5" paddingLeft="5" paddingBottom="5" paddingRight="5"/> -->
+				<ct:Canvas id="_cnv1" height="100%" width="100%" paddingTop="5" paddingLeft="5" paddingBottom="5" paddingRight="5"/>
+			</mx:GridItem>
+		</mx:GridRow>
+	</mx:Grid>
+	<!-- save / discard / cancel -->
+	<mx:HBox width="100%" horizontalGap="5">
+		<controls:ResizingButton label="@Resource(key='_btnYes', bundle='ConfirmLoadOverEditDialog')" id="_btnYes" bottom="5" styleName="BigButton" tabIndex="1" emphasized="true" left="5" minWidth="100" height="25" leading="1" icon="@Embed('../theme/pngs/yesIcon.png')" horizontalGap="2"/>
+		<controls:ResizingButton label="@Resource(key='_btnNo', bundle='ConfirmLoadOverEditDialog')" id="_btnNo" bottom="5" styleName="dialogButton" tabIndex="2" left="110" minWidth="90" height="25" leading="1"/>
+		<mx:Spacer width="100%"/>
+		<controls:ResizingButton label="@Resource(key='_btnCancel', bundle='ConfirmLoadOverEditDialog')" id="_btnCancel" right="5" bottom="5" minWidth="70" styleName="dialogButton" tabIndex="3" height="25" leading="1"/>
+	</mx:HBox>
+</ConfirmLoadOverEditDialogBase>

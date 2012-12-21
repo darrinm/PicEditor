@@ -1,0 +1,12 @@
+fileName: kg_Joyful_Juliana.ttf
+name: Joyful Juliana
+subfamilyDisplayName: Normal
+fullName: Joyful Juliana
+displayName: Joyful Juliana
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 0
+pkName: pkkg0Joyful0Juliana
+authorName: Kimberly Geswein
+authorUrl: http://www.dafont.com/kimberly-geswein.d1468

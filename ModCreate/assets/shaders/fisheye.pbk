@@ -1,0 +1,69 @@
+
+/////////////////////////////////////////////////////
+//  fisheye
+//
+//	author 	   : frank reitberger
+//	blog 	   : http://www.prinzipiell.com
+//  copyright 2008
+//
+/////////////////////////////////s////////////////////
+
+<languageVersion: 1.0;>
+
+kernel fisheye
+
+<   
+    namespace:          "fisheye";
+    vendor:             "Frank Reitberger";
+    version:            1;
+    description:        "so what might a fisheye filter do?";
+>
+
+ {
+
+    parameter float center_x
+    <
+        minValue:float(-200.0);
+        maxValue:float(2048.0);
+        defaultValue:float(210.0);
+        description: "center point x";
+    >;
+    
+    parameter float center_y
+    <
+        minValue:float(-200.0);
+        maxValue:float(2048.0);
+        defaultValue:float(160.0);
+        description: "center point y";
+    >;  
+    
+     parameter float radius
+    <
+        minValue:float(0.1);
+        maxValue:float(400.0);
+        defaultValue:float(200.0);
+        description: "radius";
+    >;    
+    
+    input image4 src;
+    output pixel4 pxl; 
+    
+    void
+    evaluatePixel() {
+    
+        float2 center;
+        center.x = center_x;
+        center.y = center_y;
+    
+    
+        float2 pos  = outCoord() - center;
+        float step  = length(pos) / radius;
+
+        step *= 1.0;
+        pos *= step;
+    
+        pxl = sampleLinear( src, center + pos );
+  
+    }    
+    
+}

@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/shape_spring.png" flickrPremium="true" id="Spring" numShapes="11" picnikPremium="true" previewUrls="60|48|../clipart/bundles/groupPreviews_Spring.png?ver=b925ab7c" title="Spring">
+	<Shapes>
+		<Clipart cHeight="116" cWidth="173" flickrPremium="true" picnikPremium="true" previewUrl="40|40|0|../clipart/bundles/shapes_Spring.png?ver=8ec7cd79" url="shapes/spring_illustration_butterfly1.swf"/>
+		<Clipart cHeight="134" cWidth="198" flickrPremium="true" picnikPremium="true" previewUrl="40|40|1|../clipart/bundles/shapes_Spring.png?ver=8ec7cd79" url="shapes/spring_illustration_butterfly2.swf"/>
+		<Clipart cHeight="149" cWidth="235" flickrPremium="true" picnikPremium="true" previewUrl="40|40|2|../clipart/bundles/shapes_Spring.png?ver=8ec7cd79" url="shapes/spring_illustration_butterfly3.swf"/>
+		<Clipart cHeight="135" cWidth="117" flickrPremium="true" picnikPremium="true" previewUrl="40|40|3|../clipart/bundles/shapes_Spring.png?ver=8ec7cd79" url="shapes/spring_illustration_grass.swf"/>
+		<Clipart cHeight="210" cWidth="197" flickrPremium="true" picnikPremium="true" previewUrl="40|40|4|../clipart/bundles/shapes_Spring.png?ver=8ec7cd79" url="shapes/spring_illustration_sun.swf"/>
+		<Clipart cHeight="228" cWidth="179" flickrPremium="true" picnikPremium="true" previewUrl="40|40|5|../clipart/bundles/shapes_Spring.png?ver=8ec7cd79" url="shapes/flower_icon01.swf"/>
+		<Clipart cHeight="225" cWidth="90" flickrPremium="true" picnikPremium="true" previewUrl="40|40|6|../clipart/bundles/shapes_Spring.png?ver=8ec7cd79" url="shapes/flower_icon02.swf"/>
+		<Clipart cHeight="217" cWidth="159" flickrPremium="true" picnikPremium="true" previewUrl="40|40|7|../clipart/bundles/shapes_Spring.png?ver=8ec7cd79" url="shapes/flower_icon03.swf"/>
+		<Clipart cHeight="242" cWidth="190" flickrPremium="true" picnikPremium="true" previewUrl="40|40|8|../clipart/bundles/shapes_Spring.png?ver=8ec7cd79" url="shapes/flower_icon04.swf"/>
+		<Clipart cHeight="222" cWidth="106" flickrPremium="true" picnikPremium="true" previewUrl="40|40|9|../clipart/bundles/shapes_Spring.png?ver=8ec7cd79" url="shapes/flower_icon05.swf"/>
+		<Clipart cHeight="222" cWidth="120" flickrPremium="true" picnikPremium="true" previewUrl="40|40|10|../clipart/bundles/shapes_Spring.png?ver=8ec7cd79" url="shapes/flower_icon06.swf"/>
+	</Shapes>
+</ShapeCategory>

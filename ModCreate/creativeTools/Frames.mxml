@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ct:SpecialEffectsCanvasBase xmlns="*" xmlns:ct="creativeTools.*" xmlns:mx="http://www.adobe.com/2006/mxml" 
+		xmlns:eff="effects.*" xmlns:filters="flash.filters.*" xmlns:ctr="containers.*"
+		width="100%" verticalLineScrollSize="38" horizontalScrollPolicy="off" verticalScrollPolicy="on">
+	<filters:DropShadowFilter blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1"
+		quality="3" angle="90" id="_fiWhiteShad"/>
+	
+<mx:Script>
+	<![CDATA[
+		import picnik.util.LocaleInfo;		
+	]]>
+</mx:Script>
+	<ctr:IncrementalInitVBox verticalGap="0" width="100%" x="0" id="_vb">
+		<mx:HBox backgroundImage="@Embed('/theme/pngs/effects_bg_header.png')" backgroundSize="100%"
+				borderSides="bottom" borderStyle="solid" borderColor="#d1d1d1" width="100%" paddingLeft="8" height="20" paddingTop="1">
+			<mx:Label text="@Resource(key='featured', bundle='LocUtil')" color="#354d13" filters="{[_fiWhiteShad]}" fontWeight="{LocaleInfo.BoldWeight()}"/>
+		</mx:HBox>
+<!--		<eff:CamoFrameEffect tags="frame"/>
+		<eff:DigitalCamoFrameEffect tags="frame"/>
+-->		<eff:DaisyFrameEffect tags="frame"/>
+		<eff:BeforeAfterEffect tags="frame"/>
+<!--		<eff:ReflectionEffect tags="frame"/>
+		<eff:PostageStampEffect tags="frame"/>
+		<eff:SelfFrameEffect tags="frame"/>
+-->		<mx:HBox backgroundImage="@Embed('/theme/pngs/effects_bg_header.png')" backgroundSize="100%"
+				borderSides="bottom" borderStyle="solid" borderColor="#d1d1d1" width="100%" paddingLeft="8" height="20" paddingTop="1">
+			<mx:Label text="@Resource(key='Frames_1', bundle='CreativeTools')" color="#354d13" filters="{[_fiWhiteShad]}" fontWeight="{LocaleInfo.BoldWeight()}"/>
+		</mx:HBox>
+		<eff:BorderEffect tags="frame"/>
+		<eff:RoundedEdgesEffect tags="frame"/>
+		<eff:DropShadowEffect tags="frame"/>
+		<eff:MuseumMatteEffect tags="frame"/>
+		<eff:PolaroidEffect tags="frame"/>
+	</ctr:IncrementalInitVBox>
+</ct:SpecialEffectsCanvasBase>

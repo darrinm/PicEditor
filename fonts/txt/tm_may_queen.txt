@@ -1,0 +1,12 @@
+fileName: tm_may_queen.ttf
+name: May Queen
+subfamilyDisplayName: Regular
+fullName: May Queen
+displayName: May Queen
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 4
+pkName: pktm0may0queen
+authorName: Tom Murphy
+authorUrl: http://fonts.tom7.com/

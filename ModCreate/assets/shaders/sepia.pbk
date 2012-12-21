@@ -1,0 +1,94 @@
+/*****************************************************************************
+ *
+ * Copyright (C) 2008 Adobe Systems Incorporated
+ * All Rights Reserved.
+ *
+ * NOTICE:  All information contained  herein is,  and remains the property of
+ * Adobe Systems Incorporated and its suppliers, if any.  The intellectual and
+ * technical  concepts  contained  herein  are  proprietary  to  Adobe Systems
+ * Incorporated  and  its suppliers  and may  be covered  by U.S.  and Foreign
+ * Patents, patents in process, and are protected by trade secret or copyright
+ * law.  Dissemination of this information or reproduction of this material is
+ * strictly forbidden  unless prior  written permission is obtained from Adobe
+ * Systems Incorporated.
+ *
+ *****************************************************************************/
+
+<languageVersion: 1.0;>
+ 
+// sepia: A simple example to demonstrate the use of the hydra to perform 
+//        pointwise pixel processing on an image.  The filter uses matrix math
+//        to perform a simple color space transformation to achieve the sepia 
+//        coloration.
+kernel sepia
+<   namespace : "AIF";
+    vendor : "Adobe Systems";
+    version : 2;
+    description : "a variable sepia filter"; >
+{
+    // An input parameter used to specify the intensity of the sepia coloration.  
+    // The parameters come directly from the user by way of the UI that gets 
+    // created for the filter.
+    parameter float intensity;
+
+    input image4 src;
+    output float4 dst;
+
+    // evaluatePixel(): The function of the filter that actually does the 
+    //                  processing of the image.  This function is called once 
+    //                  for each pixel of the output image.
+    void
+    evaluatePixel()
+    {
+        // temporary variables to hold the colors.
+        float4 rgbaColor;
+        float4 yiqaColor;
+
+        // The language implements matrices in column major order.  This means
+        // that mathematically, the transform will look like the following:
+        // |Y|   |0.299     0.587   0.114   0.0| |R|
+        // |I| = |0.596     -0.275  -0.321  0.0| |G|
+        // |Q|   |0.212     -0.523  0.311   0.0| |B|
+        // |A|   |0.0       0.0     0.0     1.0| |A|
+        float4x4 YIQMatrix = float4x4(
+            0.299,  0.596,  0.212, 0.000,
+            0.587, -0.275, -0.523, 0.000,
+            0.114, -0.321,  0.311, 0.000,
+            0.000,  0.000,  0.000, 1.000
+        );
+        
+        // Similar to the above matrix, the matrix is in column order.  Thus, 
+        // the transform will look like the following:
+        // |R|   |1.0   0.956   0.621   0.0| |Y|
+        // |G| = |1.0   -0.272  -0.647  0.0| |I|
+        // |B|   |1.0   -1.11   1.70    0.0| |Q|
+        // |A|   |0.0   0.0     0.0     1.0| |A|
+        float4x4 inverseYIQ = float4x4(
+            1.0,    1.0,    1.0,    0.0,
+            0.956, -0.272, -1.10,  0.0,
+            0.621, -0.647,  1.70,   0.0,
+            0.0,    0.0,    0.0,    1.0
+        );
+
+        // get the pixel value at our current location
+        rgbaColor = sampleNearest(src, outCoord());
+
+        yiqaColor = YIQMatrix * rgbaColor;
+
+        // Here we set the I value of the YIQ color to the intensity
+        // specified in the UI.  This is a good demonstration of how 
+        // to use swizzling to access vector elements.  The different
+        // options are the following:
+        //    rgba, xyzw, stuv  where:
+        //    r, x, or s correspond to the first element
+        //    g, y, or t correspond to the second element
+        //    etc.
+        yiqaColor.y = intensity; 
+        // zero out the Q to apply the sepia tone
+        yiqaColor.z = 0.0;
+
+        // convert back to RGBA and set the output value to the modified color.
+        dst = inverseYIQ * yiqaColor;
+    }
+}
+

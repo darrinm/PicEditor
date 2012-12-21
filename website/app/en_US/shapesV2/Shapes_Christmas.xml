@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/shape_Christmas.png" flickrPremium="false" id="Christmas" numShapes="0" picnikPremium="false" previewUrls="60|48|../clipart/bundles/groupPreviews_Christmas.png?ver=66b6edae" title="Christmas">
+	<ShapeCategory flickrPremium="false" id="ChristmasIcons" numShapes="8" picnikPremium="false" title="Christmas Icons">
+		<Shapes>
+			<Clipart cHeight="162" cWidth="71" flickrPremium="false" picnikPremium="false" previewUrl="40|40|0|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/xmas_ornament.swf"/>
+			<Clipart cHeight="212" cWidth="173" flickrPremium="false" picnikPremium="false" previewUrl="40|40|1|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/xmas_snowman.swf"/>
+			<Clipart cHeight="109" cWidth="153" flickrPremium="false" picnikPremium="false" previewUrl="40|40|2|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/xmas_holly.swf"/>
+			<Clipart cHeight="225" cWidth="169" flickrPremium="false" picnikPremium="false" previewUrl="40|40|3|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/xmas_tree.swf"/>
+			<Clipart cHeight="110" cWidth="168" flickrPremium="false" picnikPremium="false" previewUrl="40|40|4|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/xmas_bells.swf"/>
+			<Clipart cHeight="131" cWidth="122" flickrPremium="false" picnikPremium="false" previewUrl="40|40|5|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/xmas_mistletoe.swf"/>
+			<Clipart cHeight="209" cWidth="168" flickrPremium="false" picnikPremium="false" previewUrl="40|40|6|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/xmas_gingerbreadman.swf"/>
+			<Clipart cHeight="188" cWidth="105" flickrPremium="false" picnikPremium="false" previewUrl="40|40|7|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/xmas_candycane.swf"/>
+		</Shapes>
+	</ShapeCategory>
+	<ShapeCategory flickrPremium="true" id="ChristmasStickers" numShapes="16" picnikPremium="true" title="Premium Christmas Stickers">
+		<Shapes>
+			<Clipart cHeight="32" cWidth="32" flickrPremium="true" picnikPremium="true" previewUrl="40|40|8|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/xmas_sticker_tree.swf"/>
+			<Clipart cHeight="32" cWidth="33" flickrPremium="true" picnikPremium="true" previewUrl="40|40|9|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/xmas_sticker_snowman.swf"/>
+			<Clipart cHeight="33" cWidth="32" flickrPremium="true" picnikPremium="true" previewUrl="40|40|10|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/xmas_sticker_stocking.swf"/>
+			<Clipart cHeight="32" cWidth="29" flickrPremium="true" picnikPremium="true" previewUrl="40|40|11|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/xmas_sticker_candycane.swf"/>
+			<Clipart cHeight="32" cWidth="32" flickrPremium="true" picnikPremium="true" previewUrl="40|40|12|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/xmas_sticker_present.swf"/>
+			<Clipart cHeight="33" cWidth="33" flickrPremium="true" picnikPremium="true" previewUrl="40|40|13|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/xmas_sticker_holly.swf"/>
+			<Clipart cHeight="33" cWidth="33" flickrPremium="true" picnikPremium="true" previewUrl="40|40|14|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/xmas_sticker_bell.swf"/>
+			<Clipart cHeight="32" cWidth="32" flickrPremium="true" picnikPremium="true" previewUrl="40|40|15|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/xmas_sticker_ball.swf"/>
+			<Clipart cHeight="33" cWidth="33" flickrPremium="true" picnikPremium="true" previewUrl="40|40|16|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/xmas_sticker_rudolph.swf"/>
+			<Clipart cHeight="32" cWidth="32" flickrPremium="true" picnikPremium="true" previewUrl="40|40|17|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/xmas_sticker_santa.swf"/>
+			<Clipart cHeight="32" cWidth="31" flickrPremium="true" picnikPremium="true" previewUrl="40|40|18|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/xmas_sticker_gingerbreadman.swf"/>
+			<Clipart cHeight="25" cWidth="32" flickrPremium="true" picnikPremium="true" previewUrl="40|40|19|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/xmas_sticker_cake.swf"/>
+			<Clipart cHeight="32" cWidth="32" color="49395" flickrPremium="true" picnikPremium="true" previewUrl="40|40|20|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/xmas_sticker_snowflake1.swf"/>
+			<Clipart cHeight="32" cWidth="32" color="12242410" flickrPremium="true" picnikPremium="true" previewUrl="40|40|21|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/xmas_sticker_snowflake2.swf"/>
+			<Clipart cHeight="32" cWidth="32" color="6014143" flickrPremium="true" picnikPremium="true" previewUrl="40|40|22|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/xmas_sticker_snowflake3.swf"/>
+			<Clipart cHeight="32" cWidth="32" color="8234968" flickrPremium="true" picnikPremium="true" previewUrl="40|40|23|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/xmas_sticker_snowflake4.swf"/>
+		</Shapes>
+	</ShapeCategory>
+	<ShapeCategory flickrPremium="true" id="ChristmasHats" numShapes="8" picnikPremium="true" title="Christmas Hats">
+		<Shapes>
+			<Clipart cHeight="125" cWidth="97" flickrPremium="true" picnikPremium="true" previewUrl="40|40|24|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/xmas_cap1.swf"/>
+			<Clipart cHeight="132" cWidth="94" flickrPremium="true" picnikPremium="true" previewUrl="40|40|25|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/xmas_cap2.swf"/>
+			<Clipart cHeight="95" cWidth="107" flickrPremium="true" picnikPremium="true" previewUrl="40|40|26|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/xmas_cap3.swf"/>
+			<Clipart cHeight="85" cWidth="91" flickrPremium="true" picnikPremium="true" previewUrl="40|40|27|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/xmas_cap4.swf"/>
+			<Clipart cHeight="137" cWidth="98" flickrPremium="true" picnikPremium="true" previewUrl="40|40|28|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/xmas_cap5.swf"/>
+			<Clipart cHeight="52" cWidth="91" flickrPremium="true" picnikPremium="true" previewUrl="40|40|29|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/xmas_cap6.swf"/>
+			<Clipart cHeight="149" cWidth="160" flickrPremium="true" picnikPremium="true" previewUrl="40|40|30|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/xmas_cap7.swf"/>
+			<Clipart cHeight="236" cWidth="295" flickrPremium="true" picnikPremium="true" previewUrl="40|40|31|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/xmas_cap8.swf"/>
+		</Shapes>
+	</ShapeCategory>
+	<ShapeCategory flickrPremium="true" id="Ornaments" numShapes="20" picnikPremium="true" title="Ornaments">
+		<Shapes>
+			<Clipart cHeight="112" cWidth="93" flickrPremium="true" picnikPremium="true" previewUrl="40|40|32|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/ornament_01.swf"/>
+			<Clipart cHeight="140" cWidth="118" flickrPremium="true" picnikPremium="true" previewUrl="40|40|33|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/ornament_02.swf"/>
+			<Clipart cHeight="178" cWidth="109" flickrPremium="true" picnikPremium="true" previewUrl="40|40|34|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/ornament_03.swf"/>
+			<Clipart cHeight="132" cWidth="96" flickrPremium="true" picnikPremium="true" previewUrl="40|40|35|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/ornament_04.swf"/>
+			<Clipart cHeight="143" cWidth="119" flickrPremium="true" picnikPremium="true" previewUrl="40|40|36|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/ornament_05.swf"/>
+			<Clipart cHeight="122" cWidth="85" flickrPremium="true" picnikPremium="true" previewUrl="40|40|37|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/ornament_06.swf"/>
+			<Clipart cHeight="111" cWidth="92" flickrPremium="true" picnikPremium="true" previewUrl="40|40|38|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/ornament_07.swf"/>
+			<Clipart cHeight="99" cWidth="82" flickrPremium="true" picnikPremium="true" previewUrl="40|40|39|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/ornament_08.swf"/>
+			<Clipart cHeight="119" cWidth="90" flickrPremium="true" picnikPremium="true" previewUrl="40|40|40|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/ornament_09.swf"/>
+			<Clipart cHeight="161" cWidth="106" flickrPremium="true" picnikPremium="true" previewUrl="40|40|41|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/ornament_10.swf"/>
+			<Clipart cHeight="158" cWidth="104" flickrPremium="true" picnikPremium="true" previewUrl="40|40|42|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/ornament_11.swf"/>
+			<Clipart cHeight="162" cWidth="106" flickrPremium="true" picnikPremium="true" previewUrl="40|40|43|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/ornament_12.swf"/>
+			<Clipart cHeight="160" cWidth="126" flickrPremium="true" picnikPremium="true" previewUrl="40|40|44|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/ornament_13.swf"/>
+			<Clipart cHeight="213" cWidth="197" flickrPremium="true" picnikPremium="true" previewUrl="40|40|45|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/ornament_14.swf"/>
+			<Clipart cHeight="157" cWidth="211" flickrPremium="true" picnikPremium="true" previewUrl="40|40|46|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/ornament_15.swf"/>
+			<Clipart cHeight="151" cWidth="134" flickrPremium="true" picnikPremium="true" previewUrl="40|40|47|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/ornament_16.swf"/>
+			<Clipart cHeight="68" cWidth="103" flickrPremium="true" picnikPremium="true" previewUrl="40|40|48|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/ornament_bow1.swf"/>
+			<Clipart cHeight="80" cWidth="93" flickrPremium="true" picnikPremium="true" previewUrl="40|40|49|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/ornament_bow2.swf"/>
+			<Clipart cHeight="213" cWidth="250" flickrPremium="true" picnikPremium="true" previewUrl="40|40|50|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/confetti.swf"/>
+			<Clipart cHeight="153" cWidth="471" flickrPremium="true" picnikPremium="true" previewUrl="40|40|51|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/streamers.swf"/>
+		</Shapes>
+	</ShapeCategory>
+	<ShapeCategory flickrPremium="true" id="Presents" numShapes="12" picnikPremium="true" title="Premium Presents">
+		<Shapes>
+			<Clipart cHeight="405" cWidth="340" flickrPremium="true" picnikPremium="true" previewUrl="40|40|52|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/present_red-silver.swf"/>
+			<Clipart cHeight="405" cWidth="340" flickrPremium="true" picnikPremium="true" previewUrl="40|40|53|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/present_green-red.swf"/>
+			<Clipart cHeight="405" cWidth="340" flickrPremium="true" picnikPremium="true" previewUrl="40|40|54|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/present_blue-gold.swf"/>
+			<Clipart cHeight="405" cWidth="340" flickrPremium="true" picnikPremium="true" previewUrl="40|40|55|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/present_silver-blue.swf"/>
+			<Clipart cHeight="405" cWidth="340" flickrPremium="true" picnikPremium="true" previewUrl="40|40|56|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/present_gold-green.swf"/>
+			<Clipart cHeight="405" cWidth="340" flickrPremium="true" picnikPremium="true" previewUrl="40|40|57|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/present_silver.swf"/>
+			<Clipart cHeight="405" cWidth="340" flickrPremium="true" picnikPremium="true" previewUrl="40|40|58|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/present_red.swf"/>
+			<Clipart cHeight="245" cWidth="340" flickrPremium="true" picnikPremium="true" previewUrl="40|40|59|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/bow_gold.swf"/>
+			<Clipart cHeight="245" cWidth="340" flickrPremium="true" picnikPremium="true" previewUrl="40|40|60|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/bow_red.swf"/>
+			<Clipart cHeight="245" cWidth="340" flickrPremium="true" picnikPremium="true" previewUrl="40|40|61|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/bow_green.swf"/>
+			<Clipart cHeight="245" cWidth="340" flickrPremium="true" picnikPremium="true" previewUrl="40|40|62|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/bow_silver.swf"/>
+			<Clipart cHeight="245" cWidth="340" flickrPremium="true" picnikPremium="true" previewUrl="40|40|63|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/bow_blue.swf"/>
+		</Shapes>
+	</ShapeCategory>
+	<ShapeCategory flickrPremium="true" id="Stockings" numShapes="8" picnikPremium="true" title="Stockings">
+		<Shapes>
+			<Clipart cHeight="281" cWidth="148" flickrPremium="true" picnikPremium="true" previewUrl="40|40|64|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/stockings1.swf"/>
+			<Clipart cHeight="376" cWidth="129" flickrPremium="true" picnikPremium="true" previewUrl="40|40|65|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/stockings2.swf"/>
+			<Clipart cHeight="267" cWidth="241" flickrPremium="true" picnikPremium="true" previewUrl="40|40|66|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/stockings3.swf"/>
+			<Clipart cHeight="344" cWidth="201" flickrPremium="true" picnikPremium="true" previewUrl="40|40|67|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/stockings4.swf"/>
+			<Clipart cHeight="365" cWidth="153" flickrPremium="true" picnikPremium="true" previewUrl="40|40|68|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/stockings5.swf"/>
+			<Clipart cHeight="42" cWidth="24" flickrPremium="true" picnikPremium="true" previewUrl="40|40|69|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/clip1.swf"/>
+			<Clipart cHeight="42" cWidth="24" flickrPremium="true" picnikPremium="true" previewUrl="40|40|70|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/clip2.swf"/>
+			<Clipart cHeight="8" cWidth="575" flickrPremium="true" picnikPremium="true" previewUrl="40|40|71|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/string.swf"/>
+		</Shapes>
+	</ShapeCategory>
+	<ShapeCategory flickrPremium="true" id="ChristmasLetter" numShapes="8" picnikPremium="true" title="Premium Christmas Letter">
+		<Shapes>
+			<Clipart cHeight="135" cWidth="226" flickrPremium="true" picnikPremium="true" previewUrl="40|40|72|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/letter_rubberstamp1.swf"/>
+			<Clipart cHeight="123" cWidth="270" flickrPremium="true" picnikPremium="true" previewUrl="40|40|73|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/letter_airmail.swf"/>
+			<Clipart cHeight="114" cWidth="114" flickrPremium="true" picnikPremium="true" previewUrl="40|40|74|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/letter_xmas_rubberstamp1.swf"/>
+			<Clipart cHeight="118" cWidth="280" flickrPremium="true" picnikPremium="true" previewUrl="40|40|75|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/letter_xmas_rubberstamp2.swf"/>
+			<Clipart cHeight="184" cWidth="183" flickrPremium="true" picnikPremium="true" previewUrl="40|40|76|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/letter_xmas_stamp1.swf"/>
+			<Clipart cHeight="143" cWidth="118" flickrPremium="true" picnikPremium="true" previewUrl="40|40|77|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/letter_xmas_stamp2.swf"/>
+			<Clipart cHeight="219" cWidth="380" flickrPremium="true" picnikPremium="true" previewUrl="40|40|78|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/letter_xmas_stamp3.swf"/>
+			<Clipart cHeight="113" cWidth="141" flickrPremium="true" picnikPremium="true" previewUrl="40|40|79|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/letter_xmas_stamp4.swf"/>
+		</Shapes>
+	</ShapeCategory>
+	<ShapeCategory flickrPremium="false" id="HollyBorders" numShapes="8" picnikPremium="false" title="Holly Borders">
+		<Shapes>
+			<Clipart cHeight="179" cWidth="713" flickrPremium="false" picnikPremium="false" previewUrl="40|40|80|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/holly_bottom.swf"/>
+			<Clipart cHeight="169" cWidth="1195" flickrPremium="false" picnikPremium="false" previewUrl="40|40|81|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/holly_edging.swf"/>
+			<Clipart cHeight="494" cWidth="578" flickrPremium="false" picnikPremium="false" previewUrl="40|40|82|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/holly_wreath.swf"/>
+			<Clipart cHeight="654" cWidth="822" flickrPremium="false" picnikPremium="false" previewUrl="40|40|83|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/holly_open-corner.swf"/>
+			<Clipart cHeight="883" cWidth="672" flickrPremium="false" picnikPremium="false" previewUrl="40|40|84|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/holly_big-corner.swf"/>
+			<Clipart cHeight="465" cWidth="268" flickrPremium="false" picnikPremium="false" previewUrl="40|40|85|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/holly_left-rounded.swf"/>
+			<Clipart cHeight="90" cWidth="562" flickrPremium="false" picnikPremium="false" previewUrl="40|40|86|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/holly_scroll1.swf"/>
+			<Clipart cHeight="105" cWidth="709" flickrPremium="false" picnikPremium="false" previewUrl="40|40|87|../clipart/bundles/shapes_Christmas.png?ver=f9c65b33" url="shapes/holly_scroll2.swf"/>
+		</Shapes>
+	</ShapeCategory>
+</ShapeCategory>

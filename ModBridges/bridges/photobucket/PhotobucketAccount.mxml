@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PhotobucketAccountBase xmlns="bridges.photobucket.*" xmlns:ctrl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml"
+		width="100%" height="100%" xmlns:components="bridges.components.*" xmlns:filters="flash.filters.*">
+	<states>
+		<mx:State name="LoginError">
+			<mx:RemoveChild target="{text1}"/>
+			<mx:AddChild position="firstChild" relativeTo="{vbox1}">
+				<mx:Text text="@Resource(key='Text_1', bundle='PhotobucketAccount')"
+					width="330" fontSize="16" selectable="false" textAlign="center" color="#666666"/>
+			</mx:AddChild>
+		</mx:State>
+		<mx:State name="Connecting">
+			<mx:RemoveChild target="{vbox1}"/>
+			<mx:AddChild position="lastChild">
+				<mx:Label y="15" text="@Resource(key='Label_1', bundle='PhotobucketAccount')" horizontalCenter="0" fontSize="16" color="#333333"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<ctrl:Gears y="55" horizontalCenter="-4" id="image1"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:Button label="@Resource(key='_btnCancel', bundle='PhotobucketAccount')" id="_btnCancel" horizontalCenter="0" width="90" 
+						styleName="smallDialogButton" height="20" y="120" click="OnLogInCancelClick(event)" />
+			</mx:AddChild>
+		</mx:State>
+		<mx:State name="BasketConnecting">
+			<mx:RemoveChild target="{vbox1}"/>
+			<mx:AddChild>
+				<mx:HBox y="20" horizontalCenter="0" verticalAlign="middle" horizontalGap="0">
+					<ctrl:ImageVer source="@Embed('/assets/swfs/gearsGreen.swf')" width="75" height="45" filters="{[_efEmboss]}"/>
+					<mx:Label text="@Resource(key='Label_1', bundle='PhotobucketAccount')" paddingRight="15"
+						fontSize="16" color="#FFFFFF" filters="{[_efEmboss]}"/>
+					<mx:Button label="@Resource(key='_btnCancel', bundle='PhotobucketAccount')" width="90" 
+						styleName="basketButton" height="22" click="OnLogInCancelClick(event)" />
+				</mx:HBox>
+			</mx:AddChild>
+		</mx:State>
+		<mx:State name="BasketLoginError" basedOn="LoginError">
+			<mx:RemoveChild target="{vbox1}"/>
+			<mx:AddChild position="firstChild">
+				<components:BasketConnect bridgeName="{_tpa.name}" bridgeTab="_brgPhotobucketIn"/>
+			</mx:AddChild>
+		</mx:State>
+	</states>
+	
+	<filters:DropShadowFilter id="_efEmboss" alpha="0.35" quality="3" blurX="0" blurY="0" angle="-90" color="#000000" distance="1"/>
+	
+	<mx:VBox width="100%" verticalGap="10" verticalAlign="middle" paddingBottom="10" top="15" id="vbox1" horizontalAlign="center" horizontalCenter="0">
+		<mx:VBox width="100%" horizontalCenter="0" horizontalAlign="center" verticalGap="25" verticalAlign="middle" paddingTop="10" paddingBottom="10" top="60">
+			<mx:VBox verticalGap="0" id="_vboxOneConnection" horizontalAlign="center">
+				<!-- htmlText and visiblity for _txtOneConnection & _txtOneConnectionUpsell is set in the .as file -->
+				<mx:Text width="450" fontSize="20" fontWeight="bold" color="#000000" id="_txtOneConnectionUpsell" textAlign="center" condenseWhite="true"/>
+				<mx:Text width="360" fontSize="15" id="_txtOneConnection" textAlign="center" condenseWhite="true" leading="0"/>
+			</mx:VBox>
+			<mx:Button id="_btnAuthorize" label="@Resource(key='_btnAuthorize', bundle='PhotobucketAccount')" fontSize="26" 
+					width="250" height="46" styleName="BigButton"/>
+			<mx:Text width="380" fontSize="16" id="text1" selectable="false" textAlign="center" condenseWhite="true" htmlText="@Resource(key='text1', bundle='PhotobucketAccount')">
+			</mx:Text>
+		</mx:VBox>
+	</mx:VBox>
+</PhotobucketAccountBase>

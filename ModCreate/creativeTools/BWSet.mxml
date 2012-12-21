@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<controls:EffectSetBase xmlns="*" xmlns:ct="creativeTools.*" xmlns:mx="http://www.adobe.com/2006/mxml" 
+		xmlns:eff="effects.*" xmlns:filters="flash.filters.*" xmlns:ctr="containers.*"
+		xmlns:controls="controls.*">
+		
+		<filters:DropShadowFilter id="_fiHeaderShadow" blurX="2" blurY="2" distance="1" color="#000000" alpha=".6" quality="3" angle="90"/>
+		
+	<mx:Style>
+		.promoTextBG {
+		   border-style: solid;
+		   border-thickness: 0;
+		   border-skin: ClassReference("skins.GradientBackground");
+		   gradient-fill-colors: #6b0b4a, #ae0173;
+		   gradient-fill-alphas: .8,.8;
+		   gradient-fill-ratios: 0,255;
+		   gradient-rotation: 90;
+		}
+	</mx:Style>
+	
+	
+	<!-- this expands and collapses -->
+			<mx:VBox verticalGap="0" width="100%">
+				<!-- Black and White Effects -->
+				<mx:HBox backgroundImage="{PicnikBase.StaticUrl('../graphics/Effects/BlackAndWhite/bg_BW.jpg')}" verticalAlign="middle" id="_hbxBWProj"
+						borderSides="bottom" borderStyle="solid" borderColor="#d1d1d1" width="210" height="30" paddingTop="1">
+					<mx:Label text="@Resource(key='BWHeader', bundle='Seasonal')" color="#ffffff" filters="{[_fiHeaderShadow]}" fontSize="15"
+						paddingLeft="8" paddingTop="2"/>
+				</mx:HBox>
+				<eff:DuoBWEffect tags="effect"/>
+				<!--<eff:AdvancedBWEffect tags="effect"/>-->
+				<eff:SilverScreenEffect tags="effect"/>
+				<eff:PastelPaintEffect tags="effect"/>
+				<eff:BWEffect tags="effect"/>
+				<eff:FocalBWEffect tags="effect"/>
+				<eff:HolgaEffect tags="effect"/>
+				<eff:IREffect tags="effect"/>
+				<!--<eff:TwoToneEffect/>-->
+				<!--<controls:ShapeArea imgd="{_imgd}" imgv="{_imgv}" area="July4th" verticalScrollPolicy="off" ignoreErrors="true" width="210"/>-->
+			
+			<!-- Fancy Collage promo 
+			<mx:Box backgroundImage="{PicnikBase.StaticUrl('../graphics/BlackAndWhite/promo_fancycollage.jpg')}" backgroundColor="#FFFFFF" width="210" height="73"
+						verticalAlign="middle" horizontalAlign="center"
+						borderSides="bottom" borderStyle="solid" borderColor="#CCCCCC" verticalGap="0"
+						horizontalScrollPolicy="off"
+						buttonMode="true" mouseChildren="false"
+						rollOver="{_hbPromoText.visible = true}" rollOut="{_hbPromoText.visible = false}"
+						rollOverEffect="{_efBGdim}" rollOutEffect="{_efBGbrighten}"
+						visible="{!PicnikBase.app.singleDocMode}" includeInLayout="{!PicnikBase.app.singleDocMode}"
+						click="{OnAdvancedCollageClick(null,'july4th')}">	
+
+					<mx:HBox id="_hbPromoText" width="95%" paddingLeft="8" paddingRight="8" cornerRadius="6" borderStyle="solid" borderThickness="0"
+							horizontalScrollPolicy="off"
+							verticalAlign="middle" visible="false" styleName="promoTextBG"
+							showEffect="{_efFadeFast}" hideEffect="{_efFadeSlow}">
+					<controls:ResizingLabel text="@Resource(key='promoFancyCollageBW', bundle='Seasonal')" fontSize="13" autoFontSizeGap="1"
+							width="100%" color="#ffffff" filters="{[_fiHeadShad]}" textAlign="center" paddingBottom="-2"/>
+						<controls:ImageEx source="../graphics/arrow_right_white.png" width="7" height="11" filters="{[_fiHeadShad]}"/>
+					</mx:HBox>
+					</mx:Box>-->
+			</mx:VBox>
+			
+			
+			<!--Header icon -->
+			<controls:ImageVer id="_imgBWProjIcon" right="0" y="{_hbxBWProj.y}"
+					includeInLayout="true"
+					source="../graphics/Effects/BlackAndWhite/icon_BW.png" filters="{[_fiHeaderShadow]}"/>
+					
+</controls:EffectSetBase>
+
+<!-- Promo Text-->
+			

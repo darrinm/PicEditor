@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cnt:PaintEffectCanvas xmlns="effects.*" xmlns:cnt="containers.*" xmlns:ctrl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%"
+	xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" flash10="true" xmlns:flash.filters="flash.filters.*" urlid="HandTinted">
+	<mx:Script>
+		<![CDATA[
+			import effects.components.Color;
+			import overlays.helpers.RGBColor;
+			import util.LocUtil;
+			import mx.resources.ResourceBundle;
+	   		[Bindable] [ResourceBundle("PastelPaintEffect")] private var rb:ResourceBundle;
+			[Embed("/assets/shaders/Effects/HueClamp.pbj", mimeType="application/octet-stream")]
+			private static var _clsHueClamp:Class;
+			
+			// this method is used if we inherit from ColorPickerEffectBase
+//			override public function set clickColor( c:uint ): void {
+//				super.clickColor = c;
+//				var r:uint = RGBColor.RedFromUint(c);
+//				var g:uint = RGBColor.GreenFromUint(c);
+//				var b:uint = RGBColor.BlueFromUint(c);
+//				
+//				if (r > g && r > b) {
+//					_sldrRed.value = Math.min(100, 2 * (r - Math.max(g,b)));
+//				} else if (g < r && g < b) {
+//					_sldrRed.value = Math.min(100, 2 * (Math.min(r,b)-g));					
+//				} else {
+//					_sldrRed.value = 0;
+//				}
+//				
+//				if (g > b && g > r) {
+//					_sldrYellow.value = Math.min(100, 2 * (g - Math.max(r,b)));
+//				} else if (b < r && b < g) {
+//					_sldrYellow.value = Math.min(100, 2 * (Math.min(r,g)-b));					
+//				} else {
+//					_sldrYellow.value = 0;
+//				}
+//				
+//				if (b > g && b > r) {
+//					_sldrCyan.value = Math.min(100, 2 * (b - Math.max(g,r)));
+//				} else if (r < b && r < g) {
+//					_sldrCyan.value = Math.min(100, 2 * (Math.min(g,b)-r));					
+//				} else {
+//					_sldrCyan.value = 0;
+//				}
+//			}			
+		]]>   		
+	</mx:Script>
+
+	<mx:Array id="_resetValues">
+		<local:StoredValue target="_sldrRed.value"/>
+		<local:StoredValue target="_sldrCyan.value"/>
+		<local:StoredValue target="_sldrYellow.value"/>
+		<local:StoredValue target="_sldrFade.value"/>
+	</mx:Array>
+	
+	<ctrl:EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='PastelPaintEffect')" 
+			strAuthor="@Resource(key='_efbtn_1', bundle='PastelPaintEffect')" strImageSource="../graphics/effects/pastel_painting.png" newEffect="true"/>
+	<mx:String id="_strHelpText">{Resource.getString('PastelPaintEffect', '_strHelpText')}</mx:String>
+	
+	<mx:VBox x="0" y="70" verticalGap="0" paddingLeft="8">
+	
+		<mx:HBox width="100%" verticalAlign="middle" horizontalGap="8">
+			<mx:VBox verticalGap="0" width="190" horizontalScrollPolicy="off">
+				<mx:HBox width="100%" paddingBottom="-5">
+					<mx:Label text="@Resource(key='Red', bundle='PastelPaintEffect')" styleName="sliderTitle"/>
+					<mx:Label text="{LocUtil.pct((_sldrRed.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+				</mx:HBox>
+				<ctrl:HSliderPlus width="190" minimum="0" maximum="100" value="50" 
+						id="_sldrRed" liveDragging="true" showDataTip="false"
+					  	sliderThumbClass="{controls.ShadowedSliderThumb}"
+					  	trackInfo="0xFF4444" change="OnOpChange()"
+					  	trackSkin="skins.RoundedValueSliderTrack"
+			  			/>
+
+			</mx:VBox>
+		</mx:HBox>
+		
+		<mx:HBox width="100%" verticalAlign="middle" horizontalGap="8">
+			<mx:VBox verticalGap="0" width="190" horizontalScrollPolicy="off">
+				<mx:HBox width="100%" paddingBottom="-5">
+					<mx:Label text="@Resource(key='Cyan', bundle='PastelPaintEffect')" styleName="sliderTitle"/>
+					<mx:Label text="{LocUtil.pct((_sldrCyan.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+				</mx:HBox>
+				<ctrl:HSliderPlus width="190" minimum="0" maximum="100" value="0" 
+								  id="_sldrCyan" liveDragging="true" showDataTip="false"
+								  sliderThumbClass="{controls.ShadowedSliderThumb}"
+								  trackInfo="0x4444FF" change="OnOpChange()"
+								  trackSkin="skins.RoundedValueSliderTrack"
+								  />
+			</mx:VBox>
+		</mx:HBox>
+		
+		<mx:HBox width="100%" verticalAlign="middle" horizontalGap="8">
+			<mx:VBox verticalGap="0" width="190" horizontalScrollPolicy="off">
+				<mx:HBox width="100%" paddingBottom="-5">
+					<mx:Label text="@Resource(key='Yellow', bundle='PastelPaintEffect')" styleName="sliderTitle"/>
+					<mx:Label text="{LocUtil.pct((_sldrYellow.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+				</mx:HBox>
+				<ctrl:HSliderPlus width="190" minimum="0" maximum="100" value="0" 
+								  id="_sldrYellow" liveDragging="true" showDataTip="false"
+								  sliderThumbClass="{controls.ShadowedSliderThumb}"
+								  trackInfo="0x88FF44" change="OnOpChange()"
+								  trackSkin="skins.RoundedValueSliderTrack"
+								  />
+			</mx:VBox>
+		</mx:HBox>	
+
+		<mx:HBox horizontalGap="5" paddingTop="5" verticalAlign="middle">
+			<!-- Fade label/percent/slider box -->
+			<mx:VBox verticalGap="0" width="157" horizontalScrollPolicy="off">
+				<mx:HBox width="100%" paddingBottom="-5">
+					<mx:Label text="@Resource(key='Label_2', bundle='BWEffect')" styleName="sliderTitle"/>
+					<mx:Label text="{LocUtil.pct((_sldrFade.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+				</mx:HBox>
+				<ctrl:HSliderPlus width="157" minimum="0" maximum="100" value="0" id="_sldrFade" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+			</mx:VBox>
+			<mx:Button id="_btnBrushPalette" width="30" height="30" selected="false" toggle="true" icon="@Embed('/assets/bitmaps/icon_paintTall.png')" paddingLeft="0"
+					   toolTip="@Resource(key='_btnBrushPalette', bundle='BWEffect')"/>
+		</mx:HBox>
+
+		<ctrl:ApplyCancelEffectButtons addBoxPadding="true" premium="{premium}"/>
+	</mx:VBox>
+	
+	<imageOperations:NestedImageOperation id="_op" BlendAlpha="{1-(_sldrFade.value/100)}">
+		<imageOperations:children>
+			<imageOperations:ShaderImageOperation bytecode="{new _clsHueClamp()}" 
+									params="{{rSaturation:[_sldrRed.value/100.0], gSaturation:[_sldrYellow.value/100.0], bSaturation:[_sldrCyan.value/100.0], 
+									cSaturation:[_sldrCyan.value/100.0], mSaturation:[_sldrRed.value/100.0], ySaturation:[_sldrYellow.value/100.0], 
+									bleed:[15], grayblend:[0.1], cutoff:[0.75]}}"/>
+			<imageOperations:SetVar Name="PastelPaint_result"/>
+			<imageOperations:BWImageOperation/>
+			<imageOperations:GetVarImageOperation Name="PastelPaint_result" Mask="{_mctr.mask}"/>
+		</imageOperations:children>
+	</imageOperations:NestedImageOperation>
+</cnt:PaintEffectCanvas>

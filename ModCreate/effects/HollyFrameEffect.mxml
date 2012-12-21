@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameEffectBase xmlns="effects.*" xmlns:cnt="containers.*" xmlns:ctrl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="193"
+	xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*" xmlns:objectOperations="imagine.objectOperations.*"
+	urlid="hollyframe">
+	
+	<mx:Script>
+		<![CDATA[
+			import util.LocUtil;
+			
+			private function GetGlowBlur(nImageWidth:Number, nImageHight:Number): Number {
+				return 20;
+			}
+		]]>
+	</mx:Script>
+<mx:XML xmlns="" id="_xmlFrame">
+<frames>
+	<backgroundFilters>
+		<DropShadowFilter alpha="1" angle="45"
+			blurX="{Math.min(imagewidth, imageheight) * 0.081578947 -3.157894737}"
+			blurY="{Math.min(imagewidth, imageheight) * 0.081578947 -3.157894737}"
+			color="0x193f0b" distance="0" quality="3" strength="3" inner="true"/>
+	</backgroundFilters>
+	<frame cornerRounding="0" fillEndToEnd="false" density="2" size="{_sldrSize.value}" inset="0"
+		positionJitter=".3" positionJitterOrder="1.75" rotationJitter="1" rotationJitterOrder="2">
+        <Clipart url="shapes/Holly/x_holly-1.swf" cWidth="670" cHeight="729"/>
+        <Clipart url="shapes/Holly/x_holly-2.swf" cWidth="740" cHeight="661"/>
+        <Clipart url="shapes/Holly/x_holly-3.swf" cWidth="754" cHeight="648"/>
+        <Clipart url="shapes/Holly/x_holly-4.swf" cWidth="741" cHeight="659"/>
+        <Clipart url="shapes/Holly/x_holly-5.swf" cWidth="782" cHeight="625"/>
+        <Clipart url="shapes/Holly/x_holly-6.swf" cWidth="781" cHeight="627"/>
+        <Clipart url="shapes/Holly/x_holly-7.swf" cWidth="775" cHeight="631"/>
+        <Clipart url="shapes/Holly/x_holly-8.swf" cWidth="806" cHeight="606"/>
+	</frame>
+	
+</frames>
+</mx:XML>
+	<mx:DropShadowFilter id="_fiWhiteShad" blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1" quality="3" angle="90"/>
+
+	<ctrl:EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='HollyFrameEffect')" strAuthor="@Resource(key='_efbtn_1', bundle='HollyFrameEffect')"
+		strImageSource="../graphics/effects/Holiday/holly_frame.jpg" cornerRadius="0"/>
+	<mx:String id="_strHelpText">{Resource.getString('HollyFrameEffect', '_strHelpText')}</mx:String>
+
+	<mx:VBox x="0" y="72" verticalGap="0" paddingLeft="10" paddingRight="10">
+	<!-- .2 / 2 / -.1 -->
+		<ctrl:LabelHSlidePlus id="_sldrSize" minimum=".1" maximum=".3" value="{zeroR + .2}" label="@Resource(key='size', bundle='EffectCanvas')"
+			change="OnFrameParamChange()" labelValueMultiplier="{100/.2}" isPercent="true"/>
+		<!--
+		<ctrl:LabelHSlidePlus id="_sldrDensity" minimum=".1" maximum="3" value="2" label="density" change="OnFrameParamChange()"/>
+		<ctrl:LabelHSlidePlus id="_sldrInset" minimum="-.5" maximum=".5" value="0" label="inset" change="OnFrameParamChange()"/>
+		<ctrl:LabelHSlidePlus id="_sldrVignette" minimum="1" maximum="250" value="50" label="vignette" change="OnFrameParamChange()" labelValueMultiplier="1"/>
+		-->
+		
+		<ctrl:ApplyCancelEffectButtons addBoxPadding="true" premium="{premium}"/>
+	</mx:VBox>
+
+	<objectOperations:CreateObjectOperation id="_op" type="FrameObject" props="{{name:_strFrameName, layout:_strFrameLayout, x:imagewidth/2, y:imageheight/2, color:frameColor, interactiveMode:true}}"/>
+
+</FrameEffectBase>

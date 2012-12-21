@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/shape_autumn.png" flickrPremium="true" id="Autumn" numShapes="10" picnikPremium="true" previewUrls="60|48|../clipart/bundles/groupPreviews_Autumn.png?ver=14c50cf8" title="Autumn">
+	<Shapes>
+		<Clipart cHeight="81" cWidth="40" flickrPremium="true" picnikPremium="true" previewUrl="40|40|0|../clipart/bundles/shapes_Autumn.png?ver=2a9a2089" url="shapes/autumn_leaf.swf"/>
+		<Clipart cHeight="40" cWidth="70" flickrPremium="true" picnikPremium="true" previewUrl="40|40|1|../clipart/bundles/shapes_Autumn.png?ver=2a9a2089" url="shapes/autumn_leaf2.swf"/>
+		<Clipart cHeight="100" cWidth="65" flickrPremium="true" picnikPremium="true" previewUrl="40|40|2|../clipart/bundles/shapes_Autumn.png?ver=2a9a2089" url="shapes/autumn_acorn.swf"/>
+		<Clipart cHeight="194" cWidth="147" flickrPremium="true" picnikPremium="true" previewUrl="40|40|3|../clipart/bundles/shapes_Autumn.png?ver=2a9a2089" url="shapes/autumn_acorn2.swf"/>
+		<Clipart cHeight="142" cWidth="207" flickrPremium="true" picnikPremium="true" previewUrl="40|40|4|../clipart/bundles/shapes_Autumn.png?ver=2a9a2089" url="shapes/autumn_acornpinecone.swf"/>
+		<Clipart cHeight="159" cWidth="172" flickrPremium="true" picnikPremium="true" previewUrl="40|40|5|../clipart/bundles/shapes_Autumn.png?ver=2a9a2089" url="shapes/autumn_pinecone.swf"/>
+		<Clipart cHeight="127" cWidth="131" flickrPremium="true" picnikPremium="true" previewUrl="40|40|6|../clipart/bundles/shapes_Autumn.png?ver=2a9a2089" url="shapes/autumn_pinecone2.swf"/>
+		<Clipart cHeight="95" cWidth="75" flickrPremium="true" picnikPremium="true" previewUrl="40|40|7|../clipart/bundles/shapes_Autumn.png?ver=2a9a2089" url="shapes/autumn_pineneedles.swf"/>
+		<Clipart cHeight="145" cWidth="113" flickrPremium="true" picnikPremium="true" previewUrl="40|40|8|../clipart/bundles/shapes_Autumn.png?ver=2a9a2089" url="shapes/autumn_corn1.swf"/>
+		<Clipart cHeight="189" cWidth="194" flickrPremium="true" picnikPremium="true" previewUrl="40|40|9|../clipart/bundles/shapes_Autumn.png?ver=2a9a2089" url="shapes/autumn_corn2.swf"/>
+	</Shapes>
+</ShapeCategory>

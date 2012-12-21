@@ -1,0 +1,12 @@
+fileName: vtks_ANIMAL_2.ttf
+name: vtks animal 2
+subfamilyDisplayName: Regular
+fullName: vtks animal 2
+displayName: vtks animal 2
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 0
+pkName: pkvtks0ANIMAL02
+authorName: Douglas Vitkauskas
+authorUrl: http://www.vtks.com.br/

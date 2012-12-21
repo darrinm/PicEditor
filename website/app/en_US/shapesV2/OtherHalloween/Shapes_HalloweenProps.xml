@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/halloween_realistic.png" flickrPremium="true" id="HalloweenProps" numShapes="0" picnikPremium="true" previewUrls="60|48|../clipart/bundles/OtherHalloweenArea_groupPreviews_HalloweenProps.png?ver=4e1a9c2c" title="Halloween Props">
+	<ShapeCategory flickrPremium="true" id="HalloweenFullMoon" numShapes="6" picnikPremium="true" title="Full Moon">
+		<Shapes>
+			<Clipart blendMode="screen" cHeight="750" cWidth="750" flickrPremium="true" picnikPremium="true" previewUrl="40|40|0|../clipart/bundles/OtherHalloweenArea_shapes_HalloweenProps.png?ver=b0d4343c" url="shapes/HalloweenPhotoReal/Moon1.swf"/>
+			<Clipart blendMode="screen" cHeight="749" cWidth="749" flickrPremium="true" picnikPremium="true" previewUrl="40|40|1|../clipart/bundles/OtherHalloweenArea_shapes_HalloweenProps.png?ver=b0d4343c" url="shapes/HalloweenPhotoReal/Moon2.swf"/>
+			<Clipart blendMode="screen" cHeight="750" cWidth="750" flickrPremium="true" picnikPremium="true" previewUrl="40|40|2|../clipart/bundles/OtherHalloweenArea_shapes_HalloweenProps.png?ver=b0d4343c" url="shapes/HalloweenPhotoReal/Moon3.swf"/>
+			<Clipart blendMode="screen" cHeight="750" cWidth="750" flickrPremium="true" picnikPremium="true" previewUrl="40|40|3|../clipart/bundles/OtherHalloweenArea_shapes_HalloweenProps.png?ver=b0d4343c" url="shapes/HalloweenPhotoReal/Moon4.swf"/>
+			<Clipart blendMode="screen" cHeight="750" cWidth="750" flickrPremium="true" picnikPremium="true" previewUrl="40|40|4|../clipart/bundles/OtherHalloweenArea_shapes_HalloweenProps.png?ver=b0d4343c" url="shapes/HalloweenPhotoReal/Moon5.swf"/>
+			<Clipart blendMode="screen" cHeight="750" cWidth="750" flickrPremium="true" picnikPremium="true" previewUrl="40|40|5|../clipart/bundles/OtherHalloweenArea_shapes_HalloweenProps.png?ver=b0d4343c" url="shapes/HalloweenPhotoReal/Moon6.swf"/>
+		</Shapes>
+	</ShapeCategory>
+	<ShapeCategory flickrPremium="true" id="HalloweenBlackWidow" numShapes="4" picnikPremium="true" title="Black Widows">
+		<Shapes>
+			<Clipart cHeight="1020" cWidth="1470" flickrPremium="true" picnikPremium="true" previewUrl="40|40|6|../clipart/bundles/OtherHalloweenArea_shapes_HalloweenProps.png?ver=b0d4343c" url="shapes/HalloweenPhotoReal/Spider1.swf"/>
+			<Clipart cHeight="1580" cWidth="2790" flickrPremium="true" picnikPremium="true" previewUrl="40|40|7|../clipart/bundles/OtherHalloweenArea_shapes_HalloweenProps.png?ver=b0d4343c" url="shapes/HalloweenPhotoReal/Spider2.swf"/>
+			<Clipart cHeight="470" cWidth="1410" flickrPremium="true" picnikPremium="true" previewUrl="40|40|8|../clipart/bundles/OtherHalloweenArea_shapes_HalloweenProps.png?ver=b0d4343c" url="shapes/HalloweenPhotoReal/Spider3.swf"/>
+			<Clipart cHeight="600" cWidth="2560" flickrPremium="true" picnikPremium="true" previewUrl="40|40|9|../clipart/bundles/OtherHalloweenArea_shapes_HalloweenProps.png?ver=b0d4343c" url="shapes/HalloweenPhotoReal/Spider4.swf"/>
+		</Shapes>
+	</ShapeCategory>
+	<ShapeCategory flickrPremium="true" id="HalloweenPumpkins" numShapes="8" picnikPremium="true" title="Jack-o&apos;-Lanterns">
+		<Shapes>
+			<Clipart cHeight="643" cWidth="559" flickrPremium="true" picnikPremium="true" previewUrl="40|40|10|../clipart/bundles/OtherHalloweenArea_shapes_HalloweenProps.png?ver=b0d4343c" url="shapes/HalloweenPhotoReal/Pumpkin1.swf"/>
+			<Clipart cHeight="627" cWidth="548" flickrPremium="true" picnikPremium="true" previewUrl="40|40|11|../clipart/bundles/OtherHalloweenArea_shapes_HalloweenProps.png?ver=b0d4343c" url="shapes/HalloweenPhotoReal/Pumpkin2.swf"/>
+			<Clipart cHeight="660" cWidth="565" flickrPremium="true" picnikPremium="true" previewUrl="40|40|12|../clipart/bundles/OtherHalloweenArea_shapes_HalloweenProps.png?ver=b0d4343c" url="shapes/HalloweenPhotoReal/Pumpkin3.swf"/>
+			<Clipart cHeight="685" cWidth="582" flickrPremium="true" picnikPremium="true" previewUrl="40|40|13|../clipart/bundles/OtherHalloweenArea_shapes_HalloweenProps.png?ver=b0d4343c" url="shapes/HalloweenPhotoReal/Pumpkin4.swf"/>
+			<Clipart cHeight="555" cWidth="481" flickrPremium="true" picnikPremium="true" previewUrl="40|40|14|../clipart/bundles/OtherHalloweenArea_shapes_HalloweenProps.png?ver=b0d4343c" url="shapes/HalloweenPhotoReal/Pumpkin5.swf"/>
+			<Clipart cHeight="850" cWidth="595" flickrPremium="true" picnikPremium="true" previewUrl="40|40|15|../clipart/bundles/OtherHalloweenArea_shapes_HalloweenProps.png?ver=b0d4343c" url="shapes/HalloweenPhotoReal/Pumpkin6.swf"/>
+			<Clipart cHeight="705" cWidth="549" flickrPremium="true" picnikPremium="true" previewUrl="40|40|16|../clipart/bundles/OtherHalloweenArea_shapes_HalloweenProps.png?ver=b0d4343c" url="shapes/HalloweenPhotoReal/Pumpkin7.swf"/>
+			<Clipart cHeight="730" cWidth="610" flickrPremium="true" picnikPremium="true" previewUrl="40|40|17|../clipart/bundles/OtherHalloweenArea_shapes_HalloweenProps.png?ver=b0d4343c" url="shapes/HalloweenPhotoReal/Pumpkin8.swf"/>
+		</Shapes>
+	</ShapeCategory>
+	<ShapeCategory flickrPremium="true" id="HalloweenHats" numShapes="3" picnikPremium="true" title="Accessories">
+		<Shapes>
+			<Clipart cHeight="1810" cWidth="2716" flickrPremium="true" isVector="false" picnikPremium="true" previewUrl="40|40|18|../clipart/bundles/OtherHalloweenArea_shapes_HalloweenProps.png?ver=b0d4343c" url="shapes/HalloweenPhotoReal/VikingHat.swf"/>
+			<Clipart cHeight="2388" cWidth="2592" flickrPremium="true" isVector="false" picnikPremium="true" previewUrl="40|40|19|../clipart/bundles/OtherHalloweenArea_shapes_HalloweenProps.png?ver=b0d4343c" url="shapes/HalloweenPhotoReal/WitchesHat.swf"/>
+			<Clipart cHeight="1085" cWidth="450" flickrPremium="true" isVector="false" picnikPremium="true" previewUrl="40|40|20|../clipart/bundles/OtherHalloweenArea_shapes_HalloweenProps.png?ver=b0d4343c" url="shapes/HalloweenPhotoReal/Broomstick.swf"/>
+		</Shapes>
+	</ShapeCategory>
+	<ShapeCategory flickrPremium="true" id="HalloweenSkulls" numShapes="2" picnikPremium="true" title="Skulls">
+		<Shapes>
+			<Clipart cHeight="1965" cWidth="1492" flickrPremium="true" isVector="false" picnikPremium="true" previewUrl="40|40|21|../clipart/bundles/OtherHalloweenArea_shapes_HalloweenProps.png?ver=b0d4343c" url="shapes/HalloweenPhotoReal/SkullFront.swf"/>
+			<Clipart cHeight="2124" cWidth="2542" flickrPremium="true" isVector="false" picnikPremium="true" previewUrl="40|40|22|../clipart/bundles/OtherHalloweenArea_shapes_HalloweenProps.png?ver=b0d4343c" url="shapes/HalloweenPhotoReal/SkullSide.swf"/>
+		</Shapes>
+	</ShapeCategory>
+</ShapeCategory>

@@ -1,0 +1,12 @@
+fileName: gs_BIRTH_OF_A_HERO.ttf
+name: BIRTH OF A HERO
+subfamilyDisplayName: Normal
+fullName: BIRTH OF A HERO
+displayName: BIRTH OF A HERO
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 0
+pkName: pkgs0BIRTH0OF0A0HERO
+authorName: Guillaume Seguin
+authorUrl: http://lastsoundtrack.fontspace.com/

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SectionHeaderBase xmlns="containers.sectionList.*" xmlns:mx="http://www.adobe.com/2006/mxml" 
+		width="100%" height="{knHeight}"
+		backgroundSize="100%" backgroundImage="@Embed('/theme/pngs/subgroup_bg_header.png')" 
+		backgroundAlpha="1"
+		borderSides="{_fBorderOnBottom ? 'bottom' : 'top'}" borderStyle="solid" borderColor="#e6e6e6"  
+		rollOver="{this.setStyle('backgroundImage', _imgbgOver),_lbTitle1.setStyle('color','#252525')}" 
+		rollOut="{this.setStyle('backgroundImage', _imgbgHeader),_lbTitle1.setStyle('color','#4d4d4d')}" 
+		paddingLeft="8" paddingTop="1" paddingBottom="0"
+		mouseDown="parentExpanded = !parentExpanded;this.setStyle('backgroundImage', _imgbgDown)"
+		mouseUp="this.setStyle('backgroundImage', _imgbgHeader)"
+		xmlns:ctl="controls.*" xmlns:containers="containers.*">
+		
+	<mx:Script>
+		<![CDATA[
+			import mx.utils.ObjectProxy;
+			public static const knHeight:Number = 16;
+			
+			[Bindable] public var _fShowExpandCollapseArrow:Boolean = true;
+			[Bindable] public var _fBorderOnBottom:Boolean = true;
+	
+	        [Embed(source="/theme/pngs/subgroup_bg_header.png")]
+	        [Bindable] public var _imgbgHeader:Class;
+	        
+	        [Embed(source="/theme/pngs/subgroup_bg_header_over.png")] 
+	        [Bindable] public var _imgbgOver:Class;
+	
+	        [Embed(source="/theme/pngs/subgroup_bg_header_down.png")] 
+	        [Bindable] public var _imgbgDown:Class;
+
+			private var _sprOverlay:Sprite = null;
+
+	        protected override function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void {
+	        	super.updateDisplayList(unscaledWidth, unscaledHeight);
+	        	var fOverlayVisible:Boolean = (dataProxy != null && ('premium' in dataProxy) && dataProxy.premium);
+	        	if (fOverlayVisible) {
+		        	if (_sprOverlay == null) {
+		        		_sprOverlay = new Sprite();
+		        		_sprOverlay.blendMode = BlendMode.OVERLAY;
+		        		this.rawChildren.addChild(_sprOverlay);
+		        	} else {
+		        		if (rawChildren.getChildAt(rawChildren.numChildren - 1) != _sprOverlay)
+		        			rawChildren.setChildIndex(_sprOverlay, rawChildren.numChildren-1);
+		        	}
+		        	_sprOverlay.visible = true;
+		        	_sprOverlay.graphics.clear();
+		        	_sprOverlay.graphics.beginFill(0x609fbf, 1);
+		        	_sprOverlay.graphics.drawRect(0, 0, unscaledWidth, knHeight);
+		        	_sprOverlay.graphics.endFill();
+		        } else {
+		        	if (_sprOverlay != null)
+		        		_sprOverlay.visible = false;
+		        }
+	        }
+	        
+	        private function UpdatePremiumness(fPremium:Boolean): Boolean {
+	        	invalidateDisplayList();
+	        	return false;
+	        }
+		]]>
+	</mx:Script>
+
+	<mx:Boolean id="_fTriggerRedraw">{UpdatePremiumness(dataProxy.premium)}</mx:Boolean>
+	<mx:DropShadowFilter blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1" quality="3" angle="90" id="_fiWhiteShad"/>
+	<mx:DropShadowFilter blurX="1" blurY="1" distance="1" color="#005580" alpha="0.5" quality="3" angle="-90" id="_fiBlueShad"/>
+			
+	<mx:HBox width="{width-14}" horizontalGap="0" verticalAlign="middle" height="{knHeight}">
+		<mx:Label width="100%" id="_lbTitle1" text="{dataProxy.title1}" color="#4d4d4d" filters="{[_fiWhiteShad]}" mouseEnabled="false"
+				textAlign="left" paddingRight="-2" verticalCenter="-4" fontSize="11"/>
+		<mx:Label id="_lbTitle2" maxWidth="80" text="{dataProxy.title2}" color="#555555" filters="{[_fiWhiteShad]}" 
+				textAlign="right" paddingLeft="-2" paddingRight="6" verticalCenter="0"
+				fontSize="11"
+				visible="{dataProxy.premium}"/>
+		<mx:Canvas height="8" width="6" clipContent="false"
+				visible="{_fShowExpandCollapseArrow}" includeInLayout="{_fShowExpandCollapseArrow}">
+			<ctl:ImageVer x="0" y="-2" height="8" width="6" id="_imgDropDownArrow" source="@Embed('/assets/bitmaps/dropDownArrowGrey.png')" filters="{[_fiWhiteShad]}" />				
+		</mx:Canvas>					
+	</mx:HBox>
+</SectionHeaderBase>

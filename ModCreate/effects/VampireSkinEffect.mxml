@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PaintOnEffectBase xmlns="effects.*" xmlns:cnt="containers.*" xmlns:ctrl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%"
+	xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*" urlid="DraculanDermis">
+	<mx:Script>
+		<![CDATA[
+			import util.BlendModeMath;
+			import util.SplineInterpolator;
+			import util.LocUtil;
+			
+			private var _siThresholdMap:SplineInterpolator = null;
+			
+			private static const kaanBlurToThresh:Array = [
+				[5,100],
+				[10,85],
+				[15,80],
+				[20,80],
+				[25,70],
+				[30,60],
+				[35,55],
+				[40,50]];
+			
+			private function get siThresholdMap(): SplineInterpolator {
+				if (_siThresholdMap == null) {
+					_siThresholdMap = new SplineInterpolator();
+					for each (var anMap:Array in kaanBlurToThresh)
+						_siThresholdMap.add(anMap[0],anMap[0] * 3.5 * anMap[1] / 100);
+				}
+				return _siThresholdMap;
+			}
+			
+			private function MapBlurToThreshold(nBlur:Number): Number {
+				return siThresholdMap.Interpolate(nBlur);
+			}
+			
+			// Size of 1 corresponds to a 133x200 image
+			private static const kaanNormalSizeToBlurMap:Array = 
+				[[1, 3], [4, 12], [20, 12]];
+			
+			private function GetBlurForImageSize(nImageWidth:Number, nImageHeight:Number): Number {
+				var nImageSizeFactor:Number = Math.sqrt(nImageWidth * nImageHeight) / Math.sqrt(200 * 133);
+				if (nImageSizeFactor < 1) nImageSizeFactor = 1;
+				var aanSizeToBlurMap:Array = kaanNormalSizeToBlurMap;
+				var iNext:Number = 0;
+				while (iNext < aanSizeToBlurMap.length && aanSizeToBlurMap[iNext][0] < nImageSizeFactor)
+					iNext += 1;
+					
+				if (iNext <= 0) return aanSizeToBlurMap[0][1]; // At or before first item
+				if (iNext >= aanSizeToBlurMap.length) return aanSizeToBlurMap[aanSizeToBlurMap.length-1][1]; // After last item
+				
+				var nSizePrev:Number = aanSizeToBlurMap[iNext-1][0];
+				var nSizeNext:Number = aanSizeToBlurMap[iNext][0];
+				
+				var nValPrev:Number = aanSizeToBlurMap[iNext-1][1];
+				var nValNext:Number = aanSizeToBlurMap[iNext][1];
+				
+				// Interpolate between the two points based on image size factor
+				return nValPrev + (nValNext - nValPrev) * (nImageSizeFactor - nSizePrev) / (nSizeNext - nSizePrev);
+			}
+		]]>
+	</mx:Script>
+	
+	<mx:Number id="blurValue">{GetBlurForImageSize(origImageWidth, origImageHeight)}</mx:Number>
+
+	<ctrl:EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='VampireSkinEffect')" strAuthor="@Resource(key='byPicnik', bundle='EffectCanvas')"
+		strImageSource="../graphics/effects/Halloween/vampire_skin.jpg" premium="{premium}" />
+	<mx:String id="_strHelpText">{Resource.getString('VampireSkinEffect', '_strHelpText')}</mx:String>
+	
+	<mx:VBox x="10" y="70" verticalGap="0">
+		<mx:HBox paddingTop="3" width="190" horizontalGap="0" paddingBottom="4">
+			<ctrl:ResizingButton id="_btnStrong" styleName="buttonLeft" width="100%"
+				label="@Resource(key='pale', bundle='VampireSkinEffect')" 
+				selected="{!_btnNatural.selected}" height="28"
+				click="_btnNatural.selected = false; OnOpChange();"/>
+			<ctrl:ResizingButton id="_btnNatural" styleName="buttonRight" width="100%" 
+				label="@Resource(key='natural', bundle='VampireSkinEffect')" 
+				selected="{zeroR == 1}" height="28"
+				click="_btnNatural.selected = true; OnOpChange();"/>
+		</mx:HBox>
+
+    	<!-- brush size / eraser toggle -->
+    	<ctrl:BrushSizeAndEraserButton id="_brshbtn" selected="{_fSelected}"
+    		imageWidth="{origImageWidth}" imageHeight="{origImageHeight}"
+    		change="OnOpChange()" thumbPress="ShowBrushPreview()" thumbDrag="UpdateBrushPreview()" thumbRelease="HideBrushPreview()"
+    		/>
+
+		<!-- Fade label/percent/slider box -->
+		<mx:HBox paddingBottom="-5" paddingTop="3" width="190">
+			<mx:Label text="@Resource(key='fade', bundle='EffectCanvas')" styleName="sliderTitle"/>
+			<mx:Label text="{LocUtil.pct((_sldrFade.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<ctrl:HSliderPlus width="190" minimum="0" maximum="100" value="{10 + zeroR}" id="_sldrFade" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+
+
+		<ctrl:ApplyCancelEffectButtons addBoxPadding="true" premium="{premium}"/>
+	</mx:VBox>
+	
+	<mx:Number id="_cxyBrush">{_brshbtn.value}</mx:Number>
+	
+	<imageOperations:NestedImageOperation Mask="{_mctr.mask}" id="_op" BlendAlpha="{1-_sldrFade.value/100}"
+			dynamicAlphaCachePriority="4">
+		<imageOperations:children>
+			<imageOperations:BlurImageOperation 
+					surfaceThreshold="{MapBlurToThreshold(blurValue)}" 
+					xblur="{blurValue}" yblur="{blurValue}" quality="3"/>
+			<imageOperations:PaletteMapImageOperation BlendAlpha="{_btnNatural.selected ? .12 : .32}"
+				ColorMaps="{BlendModeMath.GetColorMaps(BlendModeMath.Normal, 0xf0f9ff)}"
+				/>
+			<imageOperations:LocalContrastImageOperation 
+					
+					Radius="80" Strength="1.4"/>
+			
+		</imageOperations:children>
+	</imageOperations:NestedImageOperation>
+			
+	<!--
+	-->
+	
+</PaintOnEffectBase>

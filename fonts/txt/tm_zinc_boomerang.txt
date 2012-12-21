@@ -1,0 +1,12 @@
+fileName: tm_zinc_boomerang.ttf
+name: Zinc Boomerang
+subfamilyDisplayName: Regular
+fullName: Zinc Boomerang
+displayName: Zinc Boomerang
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 4
+pkName: pktm0zinc0boomerang
+authorName: Tom Murphy
+authorUrl: http://fonts.tom7.com/

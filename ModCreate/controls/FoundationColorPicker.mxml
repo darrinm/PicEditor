@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<HSBColorPickerBase xmlns="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" initialize="Init()">
+<mx:Script>
+	<![CDATA[
+		import overlays.helpers.RGBColor;
+		
+		public function Init(): void {
+			setStyle("columnCount", 32);
+			setStyle("swatchBorderSize", 0);
+			setStyle("swatchWidth", 8);
+			setStyle("swatchHeight", 8);
+		}
+		
+		private static var _aclrFoundation:Array;
+		
+		public override function get colors():Array {
+			if (_aclrFoundation == null) {
+				_aclrFoundation = InitFoundationColors();
+			}
+			return _aclrFoundation;
+		}
+		
+		private function InitFoundationColors(): Array {
+			var anData:Array = [];
+			
+			var nWidth:Number = 32;
+			var nHeight:Number = 32;
+			var bmd:BitmapData = new BitmapData(nWidth, nHeight,false);
+			
+			var nTotalRadians:Number = 16;
+			
+			for (var x:Number = 0; x < nWidth; x++) {
+				for (var y:Number = 0; y < nHeight; y++) {
+					var obRadialLoc:Object = CalcRadialLoc(new Point(x,y), nWidth, nHeight, nTotalRadians);
+					anData.push(ColorForLoc(obRadialLoc, nTotalRadians));
+				}
+			}
+			return anData;
+		}
+
+		private function CalcRadialLoc(pt:Point, nWidth:Number, nHeight:Number, nTotalRadians:Number): Object {   
+			var ptCenter:Point = new Point((nWidth-1)/2, (nHeight-1)/2);
+			
+			var ptOffset:Point = pt.subtract(ptCenter);
+			var nThetas:Number = Math.atan2(ptOffset.y, ptOffset.x);
+			var ptAbs:Point = new Point(Math.abs(ptOffset.x), Math.abs(ptOffset.y));
+			var nXMax:Number = (nWidth-1)/2;
+			var nYMax:Number = (nHeight-1)/2;
+			var ptMax:Point;
+			if ((ptAbs.x * nYMax / ptAbs.y) > nXMax) {
+				// x is limiting factor
+				ptMax = new Point(nXMax, ptAbs.y * nXMax / ptAbs.x); 
+			} else {
+				// y is limiting factor
+				ptMax = new Point(ptAbs.x * nYMax / ptAbs.y, nYMax); 
+			}
+			var nLengthPct:Number = ptAbs.length / ptMax.length;
+			var nPctAround:Number = nThetas / (2 * Math.PI);
+			while (nPctAround > 1) nPctAround -= 1;
+			while (nPctAround < 0) nPctAround += 1;
+			var nConvertedRads:Number = nTotalRadians * nPctAround;
+			return {lengthPct:nLengthPct, newRads:nConvertedRads};
+		}
+		
+		private function ColorForLoc(obLoc:Object, nTotalRads:Number): Number {
+			var nLengthPct:Number = obLoc.lengthPct;
+			var nRads:Number = obLoc.newRads; // This is between 0 and nTotalRads
+			
+			// Val = nLengthPct
+			var nVal:Number = 50 + 50 * nLengthPct;
+			var nHue:Number = 4 + (41-4) * Math.floor(nRads) / nTotalRads;
+			var nRemainder:Number = nRads - Math.floor(nRads);
+			
+			// For nRemainder = 0.5, nSaturation is:
+			var nSat:Number = 112.14 - 0.8445 * nVal;
+			// Now factor in the remainder.
+			nSat += 20 - nRemainder * 40;
+			
+			return RGBColor.HSVtoUint(nHue, nSat, nVal); 
+		}
+	]]>
+</mx:Script>
+</HSBColorPickerBase>

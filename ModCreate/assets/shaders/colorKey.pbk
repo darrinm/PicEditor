@@ -1,0 +1,46 @@
+/*****************************************************************************
+ *
+ * by Florian Plag
+ * www.video-flash.de
+ *
+ *****************************************************************************/
+<languageVersion: 1.0;>
+// color keying
+kernel colorKey
+<  namespace : "AIF";
+	vendor : "Florian Plag";
+	version : 1;
+	description : "Color keying";>
+{
+	input image4 src;
+	output float4 dst;
+	// Threshold
+	parameter float threshold
+	<minValue: 0.0;
+	 maxValue: 1.0;
+	 defaultValue: 0.1;>;
+	// key color (RGB)
+	parameter float3 keyColor;
+	void
+	evaluatePixel()
+	{
+		// Obtain the input pixel color
+		float4 inputColor = sampleNearest(src, outCoord());
+		// tolerance for key color
+		float3 keyCMinusThr = float3 ( (keyColor.r - threshold), (keyColor.g - threshold), (keyColor.b - threshold));
+		float3 keyCPlusThr = float3 ( (keyColor.r + threshold), (keyColor.g + threshold), (keyColor.b + threshold));
+		// if color is the key color (or similar)
+		if (  ((inputColor.r> keyCMinusThr.r) && (inputColor.r <keyCPlusThr.r)) &&  ((inputColor.g> keyCMinusThr.g) && (inputColor.g <keyCPlusThr.g)) &&  ((inputColor.b> keyCMinusThr.b) && (inputColor.b <keyCPlusThr.b))		)  {
+		  // transparent pixel
+		  dst.rgba = float4(1.0, 1.0, 0.0, 0.0);
+		}
+		else {
+		 // keep source pixel
+		 dst.rgb = inputColor.rgb;
+		 // and source alpha
+		 dst.a = inputColor.a;
+		}
+	}
+}
+
+

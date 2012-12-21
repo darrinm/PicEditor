@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FirstRunBase xmlns="*" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:ctl="controls.*" width="100%" height="100%" backgroundColor="#FFFFFF">
+	<states>
+		<mx:State name="8x6">
+		</mx:State>
+	</states>
+	<ctl:ImageVer x="0" source="@Embed('assets/bitmaps/page_blueGrad.png')" width="100%" top="6" scaleContent="true" maintainAspectRatio="false"/>
+	<mx:Canvas x="0" width="100%" top="0" bottom="0">
+	</mx:Canvas>
+	<ctl:ImageVer x="0" source="@Embed('assets/bitmaps/firstrun_bar.png')" width="100%" top="0" scaleContent="true" maintainAspectRatio="false"/>
+</FirstRunBase>

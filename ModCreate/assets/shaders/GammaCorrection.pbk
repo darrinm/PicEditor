@@ -1,0 +1,19 @@
+kernel GammaCorrection
+<   nameSpace : "popforge::ImageProcessing";
+    vendor : "joa ebert";
+    version : 1;
+    description : "simple v^gamma filter";
+>
+{
+    parameter float3 gamma<
+        minValue: float3(0.0,0.0,0.0);
+        maxValue: float3(4.0,4.0,4.0);
+        defaultValue: float3(1.5,1.5,1.5);
+        description: "exponent";
+    >;
+    
+    void evaluatePixel(in image3 source, out pixel3 result)
+    {
+        result = pow(sampleNearest(source,outCoord()), gamma);
+    }
+}

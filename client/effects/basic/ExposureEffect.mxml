@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ExposureEffectBase xmlns="effects.basic.*" xmlns:ctl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%"
+					xmlns:flash="flash.filters.*" xmlns:bkctr="containers.*" xmlns:ut="util.*" xmlns:imageOperations="imagine.imageOperations.*"
+					title="@Resource(key='_btnExposure', bundle='Adjustments')" styleName="exposureEffect" help="{LocUtil.getString('ExposureOverlay', 'AboutExp')}">
+	<mx:Script>
+		import mx.resources.ResourceBundle;
+		
+		import util.LocUtil;
+		[Bindable] [ResourceBundle("ExposureOverlay")] private var rb:ResourceBundle;
+	</mx:Script>
+
+	<mx:String id="_strAutoFixNotifyMessage">{Resource.getString('ExposureOverlay', '_strAutoFixNotifyMessage')}</mx:String>
+
+	<editControls>
+		<!-- Auto exposure -->
+		<ctl:CenteredButtonPlus label="@Resource(key='_btnAutoFix', bundle='ExposureOverlay')" id="_btnAutoFix" labelPlacement="right"
+								top="10" left="10" right="10" height="40" width="100%" paddingLeft="-8"
+								styleName="autoFixButton"
+								click="OnAutoFixClick(event)"/>
+
+		<!-- Exposure -->
+		<mx:HBox width="100%" paddingBottom="-8">
+			<mx:Label width="50%" text="@Resource(key='label4', bundle='ExposureOverlay')" id="label4" styleName="sliderTitle"/>
+			<mx:Label width="50%" text="{Math.round(_sldrExposure.value)}" id="_lbExposure" styleName="sliderValue" textAlign="right"/>
+		</mx:HBox>
+		<ctl:HSliderPlus id="_sldrExposure" minimum="-100" maximum="100" value="0" liveDragging="true" width="100%" tickOffset="4" showDataTip="false"
+										 change="OnExposureSliderChange(event)"/>
+
+		<!-- Highlights -->
+		<mx:HBox width="100%" paddingTop="0" paddingBottom="-8">
+			<mx:Label width="50%" text="@Resource(key='Label_1', bundle='ExposureOverlay')" styleName="sliderTitle"/>
+			<mx:Label width="50%" text="{Math.round(_sldrHighlights.value)}" styleName="sliderValue" textAlign="right"/>
+		</mx:HBox>
+		<ctl:HSliderPlus id="_sldrHighlights" enabled="true" minimum="0" maximum="100" value="0" liveDragging="true"
+										 width="100%" showDataTip="false" change="HighlightsUpdated(_sldrHighlights.value)"/>
+
+		<!-- Shadows -->
+		<mx:HBox width="100%" paddingTop="0" paddingBottom="-8">
+			<mx:Label width="50%" text="@Resource(key='Label_2', bundle='ExposureOverlay')" styleName="sliderTitle"/>
+			<mx:Label width="50%" text="{Math.round(_sldrShadows.value)}" styleName="sliderValue" textAlign="right"/>
+		</mx:HBox>
+		<ctl:HSliderPlus id="_sldrShadows" enabled="true" minimum="0" maximum="100" value="0" liveDragging="true"
+										 width="100%" showDataTip="false" change="ShadowsUpdated(_sldrShadows.value)"/>
+
+		<!-- Contrast -->
+		<mx:HBox width="100%" paddingTop="0" paddingBottom="-8">
+			<mx:Label width="50%" text="@Resource(key='label5', bundle='ExposureOverlay')" styleName="sliderTitle" id="label5"/>
+			<mx:Label width="50%" text="{Math.round(_sldrContrast.value)}" id="_lbContrast" styleName="sliderValue" textAlign="right"/>
+		</mx:HBox>
+		<ctl:HSliderPlus id="_sldrContrast" minimum="-100" maximum="100" value="0" liveDragging="true" width="100%" tickOffset="4" showDataTip="false"
+						 change="OnContrastSliderChange(event)" />
+		
+		<!-- Local Contrast Move Tip -->
+		<mx:HBox width="100%" paddingTop="4" paddingBottom="0">
+			<mx:Text width="100%" htmlText="@Resource(key='moved', bundle='ExposureOverlay')" color="#555555"/>
+		</mx:HBox>
+
+	</editControls>
+
+	<imageOperations:NestedImageOperation id="_op" />
+
+</ExposureEffectBase>

@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/shape_memoriam.png" flickrPremium="false" id="memorialDayMemoriam" numShapes="4" picnikPremium="false" previewUrls="60|48|../clipart/bundles/MemorialDayArea_groupPreviews_memorialDayMemoriam.png?ver=99654362" title="Memoriam">
+	<Shapes>
+		<Clipart cHeight="200" cWidth="120" flickrPremium="false" picnikPremium="false" previewUrl="40|40|0|../clipart/bundles/MemorialDayArea_shapes_memorialDayMemoriam.png?ver=6e732d4c" url="shapes/ribbon_yellow.swf"/>
+		<Clipart cHeight="708" cWidth="690" flickrPremium="false" isVector="false" picnikPremium="false" previewUrl="40|40|1|../clipart/bundles/MemorialDayArea_shapes_memorialDayMemoriam.png?ver=6e732d4c" url="shapes/Roses/23x.swf"/>
+		<Clipart cHeight="263" cWidth="95" flickrPremium="false" picnikPremium="false" previewUrl="40|40|2|../clipart/bundles/MemorialDayArea_shapes_memorialDayMemoriam.png?ver=6e732d4c" url="shapes/poppy_1.swf"/>
+		<Clipart cHeight="908.35" cWidth="330.65" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|3|../clipart/bundles/MemorialDayArea_shapes_memorialDayMemoriam.png?ver=6e732d4c" url="shapes/shapes/memday_memorial_02.swf"/>
+	</Shapes>
+</ShapeCategory>

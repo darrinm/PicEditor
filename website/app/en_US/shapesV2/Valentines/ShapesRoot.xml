@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory area="Valentines" id="root">
+	<ShapeCategory flickrPremium="false" id="valentinesSection" numShapes="0" picnikPremium="false" showHeader="false">
+		<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/valentines_roses.png" flickrPremium="true" id="roses" numShapes="0" picnikPremium="true" previewUrls="60|48|../clipart/bundles/ValentinesArea_groupPreviews_roses.png?ver=957894b5" thumbUrl="66|54|0|../clipart/bundles/ValentinesArea_groupThumbs.png?ver=8297c19d" title="Roses">
+			<ShapeCategory flickrPremium="true" id="roses" numShapes="25" picnikPremium="true" title="Roses"/>
+			<ShapeCategory flickrPremium="true" id="stemmedRoses" numShapes="16" picnikPremium="true" title="With Stems"/>
+		</ShapeCategory>
+		<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/valentines_tattoos.png" flickrPremium="true" id="heartTattoos" numShapes="8" picnikPremium="true" previewUrls="60|48|../clipart/bundles/ValentinesArea_groupPreviews_heartTattoos.png?ver=5142cfc7" thumbUrl="66|54|1|../clipart/bundles/ValentinesArea_groupThumbs.png?ver=8297c19d" title="Heart Tattoos"/>
+		<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/valentines_sketches.png" flickrPremium="true" id="ValentinesSketches" numShapes="43" picnikPremium="true" previewUrls="60|48|../clipart/bundles/ValentinesArea_groupPreviews_ValentinesSketches.png?ver=0e87f7cf" thumbUrl="66|54|2|../clipart/bundles/ValentinesArea_groupThumbs.png?ver=8297c19d" title="Valentine&apos;s Sketches"/>
+		<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/shape_hearts.png" flickrPremium="true" id="HandDrawnHearts" numShapes="21" picnikPremium="true" previewUrls="60|48|../clipart/bundles/ValentinesArea_groupPreviews_HandDrawnHearts.png?ver=30dbed69" thumbUrl="66|54|3|../clipart/bundles/ValentinesArea_groupThumbs.png?ver=8297c19d" title="Hand-Drawn Hearts!"/>
+		<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/shape_valentines.png" flickrPremium="true" id="ValentinesDay" numShapes="0" picnikPremium="true" previewUrls="60|48|../clipart/bundles/ValentinesArea_groupPreviews_ValentinesDay.png?ver=311c84ff" thumbUrl="66|54|4|../clipart/bundles/ValentinesArea_groupThumbs.png?ver=8297c19d" title="Valentine&apos;s Day">
+			<ShapeCategory flickrPremium="true" id="Kisses" numShapes="6" picnikPremium="true" title="Romance"/>
+			<ShapeCategory flickrPremium="true" id="Hearts" numShapes="9" picnikPremium="true" title="Hearts"/>
+			<ShapeCategory flickrPremium="true" id="ValentinesStamps" numShapes="9" picnikPremium="true" title="Valentine&apos;s Stamps"/>
+			<ShapeCategory flickrPremium="true" id="CandyHearts" numShapes="16" picnikPremium="true" title="Candy Hearts"/>
+			<ShapeCategory flickrPremium="true" id="ValentinesIcons" numShapes="7" picnikPremium="true" title="Valentine&apos;s Icons"/>
+			<ShapeCategory flickrPremium="true" id="ValentinesTags" numShapes="11" picnikPremium="true" title="Valentine&apos;s Tags"/>
+			<ShapeCategory flickrPremium="true" id="Presents" numShapes="4" picnikPremium="true" title="Premium Presents"/>
+		</ShapeCategory>
+		<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/shape_Romance.png" flickrPremium="false" id="Kisses" numShapes="16" picnikPremium="false" previewUrls="60|48|../clipart/bundles/ValentinesArea_groupPreviews_Kisses.png?ver=812a3727" thumbUrl="66|54|5|../clipart/bundles/ValentinesArea_groupThumbs.png?ver=8297c19d" title="Romance"/>
+	</ShapeCategory>
+</ShapeCategory>

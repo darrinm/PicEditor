@@ -1,0 +1,12 @@
+fileName: tm_32768_no.ttf
+name: 32768 NO
+subfamilyDisplayName: Regular
+fullName: 32768 NO
+displayName: 32768 NO
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 4
+pkName: pktm0327680no
+authorName: Tom Murphy
+authorUrl: http://fonts.tom7.com/

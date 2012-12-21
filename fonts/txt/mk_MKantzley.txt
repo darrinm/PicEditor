@@ -1,0 +1,12 @@
+fileName: mk_MKantzley.ttf
+name: MKantzley
+subfamilyDisplayName: Regular
+fullName: MKantzley
+displayName: MKantzley
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 6
+pkName: pkmk0MKantzley
+authorName: Manfred Kelin
+authorUrl: http://moorstation.org/typoasis/designers/klein/

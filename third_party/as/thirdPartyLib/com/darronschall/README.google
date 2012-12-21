@@ -1,0 +1,27 @@
+URL: http://darronschall.com/weblog/
+Version: Unknown
+License: MIT
+License File: LICENSE
+
+Description:
+Color utilities
+
+Local Modifications:
+ColorUtil.as:
+ - Added new function:
+	public static function calculateNewColor(startValues: Object, delta: Object, playheadTime: Number) : int {
+		return ( ( startValues.r - playheadTime * delta.r ) << 16 )
+				+ ( (startValues.g - playheadTime * delta.g ) << 8 )
+				+ ( startValues.b - playheadTime * delta.b );
+	}
+	
+AnimateColorInstance.onTweenUpdate()
+Change colorValue calculation from:
+	var colorValue:int = ColorUtil.calculateNewColor(startValues, delta, playheadTime);
+
+to:
+	var colorValue:int = ( ( startValues.r - playheadTime * delta.r ) << 16 )
+						+ ( (startValues.g - playheadTime * delta.g ) << 8 )
+						+ ( startValues.b - playheadTime * delta.b );
+
+	

@@ -1,0 +1,191 @@
+// For use with dodge and burn effect
+
+<languageVersion : 1.0;>
+
+kernel HSLFilter
+<
+    title       : "lighten midtones";
+    namespace   : "Picnik::Filters";
+    vendor      : "Brian Terry";
+    version     : 1;
+    description : "Lighten midtones";
+    websiteURL: "http://www.picnik.com";
+>
+{
+    parameter   float       strength
+    <
+        minValue        :   0.0;
+        maxValue        :   2.0;
+        defaultValue    :   0.3;
+    >;
+
+    input       image4      source;
+    output      pixel4      result;
+    
+    void evaluatePixel()
+    {
+        // Convert sampled pixel from RGB space to HSL space.
+        
+        float4 samp;
+        float4 clrOut;
+        float min1;
+        float mid1;
+        float max1;
+        float min2;
+        float mid2;
+        float s1;
+        float s2;
+        
+        float ds;
+        float ds1;
+        float midOff;
+        float nDist;
+        int hueArea;
+        
+        samp     = sampleNearest(source, outCoord());
+        
+        if (samp.r > samp.g) {
+            if (samp.g > samp.b) { // RGB
+                max1 = samp.r; // Custom
+                mid1 = samp.g; // Custom
+                min1 = samp.b; // Custom
+                hueArea = 0;
+            } else if (samp.r > samp.b) { // RBG
+                max1 = samp.r; // Custom
+                mid1 = samp.b; // Custom
+                min1 = samp.g; // Custom
+                hueArea = 1;
+            } else { // BRG
+                max1 = samp.b; // Custom
+                mid1 = samp.r; // Custom
+                min1 = samp.g; // Custom
+                hueArea = 2;
+            }
+        } else { // R is less than G or equal to G
+            if (samp.b > samp.g) { // BGR
+                max1 = samp.b; // Custom
+                mid1 = samp.g; // Custom
+                min1 = samp.r; // Custom
+                hueArea = 3;
+            } else if (samp.r > samp.b) { // GRB
+                max1 = samp.g; // Custom
+                mid1 = samp.r; // Custom
+                min1 = samp.b; // Custom
+                hueArea = 4;
+            } else { // GBR
+                max1 = samp.g; // Custom
+                mid1 = samp.b; // Custom
+                min1 = samp.r; // Custom
+                hueArea = 5;
+            }
+        }
+        
+        // Apply a curve to calculate max2
+        float max2;
+        float a;
+        float b;
+        if (max1 < 0.5294117647058824) {
+            if (max1 < 0.2) {
+                a = (0.2 - max1) / 0.2;
+                b = 1.0 - a;
+                max2 = b * 0.23921568627450981 + ((b * b * b - b) * 1.6159389642983246) * 0.006666666666666668;
+            } else { // max1 >= 0.2
+                a = (0.5294117647058824 - max1) / 0.32941176470588235;
+                b = 1.0 - a;
+                max2 = a * 0.23921568627450981 + b * 0.6705882352941176 + ((a * a * a - a) * 1.6159389642983246 + (b * b * b - b) * -3.127762997489516) * 0.018085351787773932;
+            }
+        } else { // max1 >= 0.5294117647058824
+            if (max1 < 0.8549019607843137) {
+                a = (0.8549019607843137 - max1) / 0.3254901960784313;
+                b = 1.0 - a;
+                max2 = a * 0.6705882352941176 + b * 0.9098039215686274 + ((a * a * a - a) * -3.127762997489516 + (b * b * b - b) * 0.35928157728087107) * 0.01765731129052928;
+            } else { // max1 >= 0.8549019607843137
+                a = (1.0 - max1) / 0.14509803921568631;
+                b = 1.0 - a;
+                max2 = a * 0.9098039215686274 + b * 1.0 + ((a * a * a - a) * 0.35928157728087107) * 0.0035089068307061406;
+            }
+        }
+
+        max2 = max1 + (max2 - max1) * strength;
+
+        if (max2 < 0.0) max2 = 0.0;
+        else if (max2 > 1.0) max2 = 1.0;
+
+        if (min1 == max1) {
+            clrOut = float4(max2, max2, max2, samp.a);
+        } else {
+            s1 = (max1 - min1) / max1;
+            
+            // Calculate ds
+            midOff = min1 - (-0.842975207 * max1 + 0.766099498);
+            if (midOff > 0.0) {
+                // red area (+14)
+                // Calculate distance from 247,128.
+                nDist = (0.968627451-max1)*(0.968627451-max1) + (0.5-min1) * (0.5-min1);
+                
+                // If nDist == 103 * 103 => 0. If nDist == 0 => 1
+                ds = 1.0 - nDist / (0.163152634);
+                
+                // angled side
+                ds1 = (max1 - min1) / 0.325490196;
+                // if (ds1 < ds) ds = ds1; // min
+                if (ds1 < 1.0 && ds < 1.0) ds = ds * ds1;
+                else if (ds1 < ds) ds = ds1;
+                
+                if (ds < 0.0) ds = 0.0;
+                else if (ds > 1.0) ds = 1.0;
+                ds = -0.13 * ds;
+            } else {
+                // green area (-7)
+                // ds = 0 to 1 => -7
+                // Top side:
+                ds = min1 / 0.078431373;
+                
+                // angled side
+                ds1 = (max1 - min1) / 0.141176471;
+                
+                if (ds1 < 1.0 && ds < 1.0) ds = ds * ds1;
+                else if (ds1 < ds) ds = ds1;
+                
+                // Middle side
+                // at midOff == 0, ds = 0
+                // at midOff = -63.2, ds = 1
+                ds1 = midOff / -0.247058824;
+
+                if (ds1 < 1.0 && ds < 1.0) ds = ds * ds1;
+                else if (ds1 < ds) ds = ds1;
+                
+                
+                if (ds < 0.0) ds = 0.0;
+                else if (ds > 1.0) ds = 1.0;
+                ds = 0.05 * ds;
+            }
+            
+            s2 = s1 + ds * strength;
+            if (s2 < 0.0) s2 = 0.0;
+            else if (s2 > 1.0) s2 = 1.0;
+            
+            min2 = max2 - s2 * max2;
+            mid2 = min2 + (max2 - min2) * (mid1 - min1) / (max1 - min1);
+            
+            if (hueArea < 3) {
+                if (hueArea == 0) {
+                    clrOut = float4(max2, mid2, min2, samp.a);
+                } else if (hueArea == 1) {
+                    clrOut = float4(max2, min2, mid2, samp.a);
+                } else if (hueArea == 2) {
+                    clrOut = float4(mid2, min2, max2, samp.a);
+                }
+            } else { // R is less than G or equal to G
+                if (hueArea == 3) {
+                    clrOut = float4(min2, mid2, max2, samp.a);
+                } else if (hueArea == 4) {
+                    clrOut = float4(mid2, max2, min2, samp.a);
+                } else if (hueArea == 5) {
+                    clrOut = float4(min2, max2, mid2, samp.a);
+                }
+            }
+        }
+        result = clrOut;
+    }
+}

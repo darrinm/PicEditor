@@ -1,0 +1,12 @@
+fileName: st_phonetica.ttf
+name: Phonetica
+subfamilyDisplayName: Regular
+fullName: Phonetica
+displayName: Phonetica
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 4
+pkName: pkst0phonetica
+authorName: Clément Nicolle
+authorUrl: http://www.stereo-type.net/

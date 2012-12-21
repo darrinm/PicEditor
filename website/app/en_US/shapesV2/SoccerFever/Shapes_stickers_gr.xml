@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory flickrPremium="false" id="stickers_gr" numShapes="3" picnikPremium="false" previewUrls="60|48|../clipart/bundles/SoccerFeverArea_groupPreviews_stickers_gr.png?ver=9d211dcd" title="Greece Stickers">
+	<Shapes>
+		<Clipart cHeight="540" cWidth="810" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|0|../clipart/bundles/SoccerFeverArea_shapes_stickers_gr.png?ver=d3749da3" url="shapes/gr/flag_gr.swf"/>
+		<Clipart cHeight="294.6" cWidth="464.2" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|1|../clipart/bundles/SoccerFeverArea_shapes_stickers_gr.png?ver=d3749da3" url="shapes/gr/flagwave_gr.swf"/>
+		<Clipart cHeight="223.55" cWidth="95.95" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|2|../clipart/bundles/SoccerFeverArea_shapes_stickers_gr.png?ver=d3749da3" url="shapes/gr/scarf_gr.swf"/>
+	</Shapes>
+</ShapeCategory>

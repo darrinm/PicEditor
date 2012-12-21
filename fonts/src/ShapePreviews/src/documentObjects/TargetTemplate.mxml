@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Button xmlns:mx="http://www.adobe.com/2006/mxml" width="200" height="200" minWidth="1" minHeight="1"
+		fillAlphas="[1.0, 1.0]" fillColors="[#C5C2C2, #C5C2C2]">
+</mx:Button>

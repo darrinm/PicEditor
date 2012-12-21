@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory area="StPatricksDay" id="root">
+	<ShapeCategory flickrPremium="false" id="stPatricksDaySection" numShapes="0" picnikPremium="false" showHeader="false">
+		<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/shape_saint_patricks_day.png" flickrPremium="true" id="StPatricksDay" numShapes="0" picnikPremium="true" previewUrls="60|48|../clipart/bundles/StPatricksDayArea_groupPreviews_StPatricksDay.png?ver=952764de" thumbUrl="66|54|0|../clipart/bundles/StPatricksDayArea_groupThumbs.png?ver=f0f7e516" title="St. Patrick&apos;s Day">
+			<ShapeCategory flickrPremium="true" id="StPatricksDay" numShapes="12" picnikPremium="true" title="St. Patrick&apos;s Day"/>
+			<ShapeCategory flickrPremium="true" id="StPatricksDayStickers" numShapes="4" picnikPremium="true" title="Stickers"/>
+			<ShapeCategory flickrPremium="true" id="StPatricksDayIcons" numShapes="14" picnikPremium="true" title="Icons"/>
+			<ShapeCategory flickrPremium="true" id="Beer" numShapes="6" picnikPremium="true" title="Beer"/>
+		</ShapeCategory>
+		<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/shape_spd_clovers.png" flickrPremium="true" id="Clover" numShapes="8" picnikPremium="true" previewUrls="60|48|../clipart/bundles/StPatricksDayArea_groupPreviews_Clover.png?ver=f0f03666" thumbUrl="66|54|1|../clipart/bundles/StPatricksDayArea_groupThumbs.png?ver=f0f7e516" title="Clovers"/>
+	</ShapeCategory>
+</ShapeCategory>

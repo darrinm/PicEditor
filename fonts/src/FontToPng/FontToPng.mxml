@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:WindowedApplication xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" initialize="Init()"
+	applicationComplete="Complete()" width="500" height="250" invoke="OnInvoke(event)">
+<mx:Script>
+	<![CDATA[
+		import mx.controls.Alert;
+		import mx.collections.ArrayCollection;
+		import flash.filesystem.FileMode;
+		import flash.filesystem.FileStream;
+		import flash.filesystem.File;
+		import mx.graphics.codec.PNGEncoder;
+		// 210x30, 18pt
+		
+		[Bindable] public var _strDebug:String = "";
+		
+		[Bindable] public var _acStatus:ArrayCollection = new ArrayCollection();
+		
+		private var _bmd:BitmapData;
+		private var _fGoing:Boolean = false;
+	
+		private var _aobFonts:Array = [
+			//{url:"albumavantquelombre.swf", name:"Avant que...", style:"pkalbumavantquelombre", outputbase:"C:\\src\\picnik\\website\\fonts\\pngs\\albumavantquelombre"},
+			{url:"arial.swf", name:"Arial", style:"pkArial", outputbase:"C:\\src\\picnik\\website\\fonts\\pngs\\arial"},
+			//{url:"trebuc.swf", name:"Trebuchet", style:"pktrebuc", outputbase:"C:\\src\\picnik\\website\\fonts\\pngs\\trebuc"},
+			];
+
+		public function Complete(): void {
+			for each (var ob:Object in _aobFonts) {
+				_acStatus.addItem(new FontLoader(ob.name, ob.style, ob.url, ob.outputbase));
+			}
+			Go();
+		}
+	
+		public function Init(): void {
+		}
+		
+		private function ArgsToOb(astrArgs:Array): Object {
+			var ob:Object = new Object();
+			
+			for each (var str:String in astrArgs) {
+				var nBreakPos:Number = str.indexOf(':');
+				if (nBreakPos <= 0) {
+					return null;
+				}
+				var strKey:String = str.substr(0, nBreakPos).toLowerCase();
+				var strVal:String = str.substr(nBreakPos+1);
+				
+				ob[strKey] = strVal;
+			}
+			return ob;
+		}
+		
+		public function OnInvoke(evt:InvokeEvent): void {
+			// Sample args:
+			// "albumavantquelombre.swf" "Avant que..." "pkalbumavantquelombre" "C:\\src\\picnik\\website\\fonts\\pngs\\albumavantquelombre"
+			// url, name, style, outputbase
+			
+			if (evt.arguments.length != 4) {
+				//_acStatus.addItem(new FontLoader("Bleeding Cowboys", "pkBleeding0Cowboys", "Bleeding_Cowboys.swf", "C:\\temp\\FontToPng\\bleedingCowboys"));
+				//_acStatus.addItem(new FontLoader("All used up", "pkall0used0up", "all_used_up.swf", "C:\\temp\\FontToPng\\allUsedUp"));
+				//_acStatus.addItem(new FontLoader("arial", "pkarial", "arial.swf", "C:\\temp\\FontToPng\\arial"));
+				//_acStatus.addItem(new FontLoader("arial", "pkarial", "arial.swf", "C:\\temp\\FontToPng\\arial"));
+				//Go();
+				//return;
+				Alert.show("Incorrect number of arguments.\n Expected 4, found " + evt.arguments.length);
+				return;
+			}
+
+			var obArgs:Object = ArgsToOb(evt.arguments);
+			if (obArgs == null) {
+				Alert.show("Unable to parse arguments. Expecting arguments like: url:asdf.swf");
+				return;
+			}
+
+			_acStatus.addItem(new FontLoader(obArgs.name, obArgs.style, obArgs.url, obArgs.outputbase));
+			Go();
+		}
+		
+		private function OnLoadComplete(fldr:FontLoader, fSuccess:Boolean): void {
+			if (fSuccess) {
+				fldr.label = "Installing " + fldr.fontName;
+				_lbl1.text = fldr.fontName;
+				_lbl1.styleName = fldr.fontStyle;
+				_cnv1.validateNow();
+				
+				fldr.label = "Rendering " + fldr.fontName;
+				
+				callLater(function():void {FinishRender(fldr)});
+			} else {
+				Alert.show(fldr.errorText, "Error reading font: " + fldr.swfUrl);
+				RemoveLoader(fldr);
+			}
+		}
+		private function RemoveLoader(fldr:FontLoader): void {
+			var i:Number = _acStatus.getItemIndex(fldr);
+			if (i > -1) {
+				_acStatus.removeItemAt(i);
+				// Start the next one
+				if (_acStatus.length > 0) {
+					(_acStatus.getItemAt(0) as FontLoader).Load(OnLoadComplete);
+				} else {
+					_fGoing = false; // All done (for now)
+				}
+			}
+		}
+		
+		private static var _bmdHeight:BitmapData = new BitmapData(400, 400, false, 0xffffff);
+		
+		private function BoundingRect(lbl:Label): Rectangle {
+			_bmdHeight.fillRect(_bmdHeight.rect, 0xffffff);
+			var mat:Matrix = new Matrix();
+			mat.translate(100, 100);
+			_bmdHeight.draw(lbl, mat);
+			var rc:Rectangle = _bmdHeight.getColorBoundsRect(0xff, 0xff, false);
+			rc.x -= 100;
+			rc.y -= 100;
+			return rc;
+		}
+		
+		private function Log(rc:Rectangle, y:Number, nSize:Number): void {
+			_ta.text += y + ", " + rc + ", " + nSize + "\n";
+		}
+		
+		private function FinishRender(fldr:FontLoader): void {
+			var nFontSize:Number = 18;
+			_lbl1.setStyle("fontSize", nFontSize);
+			_cnv1.validateNow();
+			
+			while (BoundingRect(_lbl1).height < (_cnv1.height-10) && nFontSize < 35) {
+				trace("bounding rect: " + BoundingRect(_lbl1) + ", size = " + nFontSize);
+				nFontSize += 1;
+				_lbl1.setStyle("fontSize", nFontSize);
+				_cnv1.validateNow();
+			}
+			trace("bounding rect: " + BoundingRect(_lbl1) + ", size = " + nFontSize);
+			var rc:Rectangle = BoundingRect(_lbl1);
+			var strShift:String = "<none>";
+			// Center the label, account for rc offset
+			_lbl1.y = (_cnv1.height - rc.height) / 2 - rc.y;
+			
+			Log(rc, _lbl1.y, nFontSize);
+			
+			_cnv1.validateNow();
+			
+			var bmd:BitmapData = new BitmapData(_cnv1.width, _cnv1.height, true, 0x00000000);
+			
+			bmd.draw(_cnv1, null, null, null, null, true);
+			
+			fldr.label = "Saving " + fldr.fontName;
+
+			var enc:PNGEncoder = new PNGEncoder();
+			var ba:ByteArray = enc.encode(bmd);
+			
+			var file:File = new File(fldr.outputBase + "_pkSmall.png");
+			var fOut:FileStream = new FileStream();
+			fOut.open(file, FileMode.WRITE);
+			fOut.writeBytes(ba);
+			fOut.close();
+			fldr.Unload();
+			RemoveLoader(fldr);
+			_lbl1.text = strShift + "Idle 2: " + rc + ", " + nFontSize;
+			_lbl1.styleName = "";
+		}
+		
+		public function Go(): void {
+			if (!_fGoing && _acStatus.length > 0) {
+				_fGoing = true;
+				var fldr:FontLoader = _acStatus.getItemAt(0) as FontLoader;
+				fldr.Load(OnLoadComplete);
+			}
+		}
+	]]>
+</mx:Script>
+<mx:HBox width="100%" height="100%">
+	<mx:VBox width="200" height="230">
+		<mx:List width="200" height="200" dataProvider="{_acStatus}"></mx:List>
+	</mx:VBox>
+	<mx:VBox width="100%" height="100%">
+		<mx:Canvas width="194" height="30" id="_cnv1" clipContent="true" backgroundAlpha="0" horizontalScrollPolicy="off">
+			<mx:Label x="3" y="{(30-_lbl1.height)/2}" id="_lbl1" text="Font 2 Png" fontSize="18" color="0x000000" maxWidth="191" width="191"
+				/>
+		</mx:Canvas>
+		<mx:TextArea id="_ta" width="100%" height="100%"/>
+	</mx:VBox>
+</mx:HBox>
+</mx:WindowedApplication>

@@ -1,0 +1,157 @@
+﻿<!-- Tip attributes:
+quasiModal="true|false" - defaults to false
+relativeTo="component id" | pointAt="component id"
+position="center|left|right|above|below" - defaults to center
+draggable="true|false" - defaults to true
+-->
+<Tips>
+<Tip id="ResizePhoto" quasiModal="true">
+	<TipTextHeader>I want to resize my photo</TipTextHeader>
+	<VBox percentWidth="100">
+		<TipText>As with any image editor, when you Resize under our Edit tab, you're resizing for your screen, which is measured in pixels.  If you know your computer is running a resolution of 1024x768, a pixel resize in your image editor of 640x480 (for example) hopefully makes relative sense. We recommend using this in conjunction with Crop. If, say, you want a small square, first go to Crop and crop a square, then go to Resize and reduce the size.<br/>
+		<br/>
+		If you want to resize for paper, then you'd want to use it's correct measurement method: inches.  We recommend you crop to the correct orientation first, or select "Scale my Photo" so you don't lose edges. Then head to Save/Share:Print. You'll see a drop-down menu set to "Fill Page" with a series of inch-oriented sizing options.<br/>
+		<br/>
+		There is a great tutorial here: <a href="http://flickr.com/groups/picnikers/discuss/72157606426583352/"><font size="12" color="#618430">http://flickr.com/groups/picnikers/discuss/72157606426583352/</font></a>
+		</TipText>
+	</VBox>
+</Tip>
+<Tip id="GiftCode" quasiModal="true">
+	<TipTextHeader>What is a Gift Code and where do I get one?</TipTextHeader>
+	<VBox percentWidth="100">
+		<TipText>A gift code is an easy way for friends and family to purchase Picnik Premium for you or a friend! If you want premium, but can't afford it or don't have a way to pay, ask a friend or family member to purchase a gift code for you for only $24.95 USD at <a href="http://www.mywebsite.com/go/give"><font size="12" color="#618430">http://www.mywebsite.com/go/give</font></a>  You can redeem that gift code worth a full year of Picnik Premium at <a href="http://www.mywebsite.com/go/give"><font size="12" color="#618430">http://www.Picnik.com/go/gift</font></a>
+		</TipText>
+	</VBox>
+</Tip>
+
+
+
+<Tip id="ActingStrange" quasiModal="true">
+	<TipTextHeader>Picnik is acting strange</TipTextHeader>
+	<VBox percentWidth="100">
+		<TipText>Begin by resetting Picnik to a fresh state: Force refresh Picnik by going to Picnik.com and pressing Ctrl+F5 (Mac users: hit Command-R).
+		If that doesn't work, in IE please go to Tools: Options: and Delete Files, then reload Picnik.com.
+		If you're running Firefox, please go to Tools: Clear Private Data, then reload Picnik.com.
+		Safari users: go to Safari menu: Empty Cache.
+		If you on a network with a firewall, you need to make sure that port 443 is not blocked.
+		<br/>
+		<br/>
+		Also, updating your flash player can often help.
+		This takes about 3 minutes and is totally free since you are updating software that is already on your computer.
+		<br/>
+		<br/>
+		<b>Here's what to do:</b>
+		<br/>
+		1. Please uninstall your current flash player first:
+		<br/>
+		<a href="http://kb.adobe.com/selfservice/viewContent.do?externalId=tn_14157">
+			<font size="12" color="#618430">http://kb.adobe.com/selfservice/viewContent.do?externalId=tn_14157</font>
+		</a>
+		<br/><br/>
+		2. Then go here to install the most recent version (currently Flash 10):
+		<br/>
+		<a href="http://www.adobe.com/products/flashplayer/"><font size="12" color="#618430">http://www.adobe.com/products/flashplayer/</font></a><br/>
+		 It's always best to run the latest version of your browser: Microsoft Internet Explorer: 
+		 <a href="http://www.microsoft.com/windows/downloads/ie/getitnow.mspx"><font size="12" color="#618430">
+			http://www.microsoft.com/windows/downloads/ie/getitnow.mspx
+		</font></a><br/>
+		<br/>
+		 Firefox: <a href="http://www.mozilla.com/en-US/firefox/"><font size="12" color="#618430">http://www.mozilla.com/en-US/firefox/</font></a><br/>
+		<br/>
+		 Google Chrome: <a href="http://www.mozilla.com/en-US/firefox/"><font size="12" color="#618430">http://www.google.com/chrome</font></a>
+		</TipText>
+	</VBox>
+</Tip>
+
+<Tip id="CreateLoadFails" quasiModal="true">
+	<TipTextHeader>The create tab won’t load</TipTextHeader>
+	<VBox percentWidth="100">
+		<TipText>First please reset Picnik in a fresh state and try again (you may lose your edits):  Force refresh Picnik by going to http://www.Picnik.com and pressing Ctrl+F5.  If that doesn't work, in IE please go to Tools:Options: and Delete Files.  Then reload Picnik.com.<br/>
+		<br/>
+		  If you're running Firefox, please go to Tools:Clear Private Data. Then reload Picnik.com. Another possible problem is your flash player needs to be reinstalled. Please reinstall flash, then the page should appear. This takes about 3 minutes and is totally free.<br/>
+		<br/>
+		<b>Here's what to do:</b>1. Please uninstall your current flash player first: <a href="http://kb.adobe.com/selfservice/viewContent.do?externalId=tn_14157"><font size="12" color="#618430">http://kb.adobe.com/selfservice/viewContent.do?externalId=tn_14157</font></a><br/>
+		2. Then go here to install the most recent version (currently Flash 10):<br/>
+		<a href="http://www.adobe.com/products/flashplayer/"><font size="12" color="#618430">http://www.adobe.com/products/flashplayer/</font></a>
+		</TipText>
+	</VBox>
+</Tip>
+
+
+
+<Tip id="SaveTrouble" quasiModal="true">
+	<TipTextHeader>I can't save</TipTextHeader>
+	<VBox percentWidth="100">
+		<TipText>If you have trouble saving Photos with the big green Save Photo button under the "Save &amp; Share" tab, try the Basic Downloader.  This link beneath the big green button gives you two additional ways to save. First, your browser will try to download it for you. If that doesn't work, click the "here" link and it gives you the option to right click and "Save picture as..."<br/>
+		<br/>
+		 Try emailing the photo to yourself. If you are still unable to save, reset Picnik in a fresh state and try again (you may lose your edits):  Force refresh Picnik by going to <a href="http://www.Picnik.com"><font size="12" color="#618430">http://www.Picnik.com</font></a> and pressing Ctrl+F5.  If that doesn't work, in IE please go to Tools:Options: and Delete Files.  Then reload Picnik.com. If you're running Firefox, please go to Tools:Clear Private Data. Then reload Picnik.com.<br/>
+		<br/>
+		Virus detectors sometimes prevent Picnik from talking to our servers.  Temporarily disable it and try your Save again. Be cautious about the other sites you navigate to while the detector is off. 
+		</TipText>
+	</VBox>
+</Tip>
+
+
+
+<Tip id="FailedUpload" quasiModal="true">
+	<TipTextHeader>I can't upload to Picnik</TipTextHeader>
+	<VBox percentWidth="100">
+		<TipText>If you are uploading a very large picture file Picnik may time out before the operation is done. One option is to resize it in a different program before opening it. It is worth trying to upload a different picture or the same picture from a different source (Flickr, Picasa, etc.) as a test.<br/>
+		<br/>
+		Please also try our Basic Uploader which is in the middle of the Get from Computer page.<br/>
+		<br/>
+		Try resetting Picnik in a fresh state:  Force refresh Picnik by going to Picnik.com and pressing Ctrl+F5.  If that doesn't work, in IE please go to Tools:Options: and Delete Files.  Then reload Picnik.com.  If you're running Firefox, please go to Tools:Clear Private Data. Then reload Picnik.com.<br/>
+		<br/>
+		 One more thing that gets some people is their virus detector is preventing Picnik from talking to our servers.  Temporarily disable it and try your upload again. Be cautious about the other sites you navigate to while the detector is off. 
+		</TipText>
+	</VBox>
+</Tip>
+
+
+
+<Tip id="PicnikSlow" quasiModal="true">
+	<TipTextHeader>Picnik is too slow</TipTextHeader>
+	<VBox percentWidth="100">
+		<TipText>Sometimes Picnik drags if you're using a dial-up connection or if you have too many tabs or programs open and running. We also recommend updating to most recent versions of your browser and Adobe Flash Player (<a href="http://www.adobe.com/products/flashplayer/"><font size="12" color="#618430">http://www.adobe.com/products/flashplayer/</font></a>).<br/>
+		<br/>
+		Even if your connection is rated at sufficient bandwidth, sometimes there are issues that cause your actual throughput (a measure of how fast data is able to move across your internet connection) to fall below the minimum required for Picnik to perform well. Verify you're getting at least 150 kbps from your broadband connection by visiting a speed-test site such as: <a href="http://www.bandwidthplace.com/"><font size="12" color="#618430">http://www.bandwidthplace.com/</font></a>  or  <a href="http://www.speakeasy.net/speedtest/"><font size="12" color="#618430">http://www.speakeasy.net/speedtest/</font></a>  (choose Seattle as your server). As a comparison, note that computers in the Picnik office download at around 8000kbps and upload at around 6000kbps (transfer rate of around 1000KB/sec). 150kbps is a very low minimum and if you're below that Picnik will run very slowly. Also try temporarily disabling your virus detector for some added speed (be cautious about the sites you navigate to while the detector is off) or invest a squishy stress ball for those long, slow waits.
+		</TipText>
+	</VBox>
+</Tip>
+
+
+
+<Tip id="ForgotPassName" quasiModal="true">
+	<TipTextHeader>I forgot my user name and/or password</TipTextHeader>
+	<VBox percentWidth="100">
+		<TipText>Click the Sign in link in the upper right corner or hover your mouse over the "Hi, Guest! Welcome to Picnik" message to open the sign in box. Click on the "Forgot your Password?" link. Enter the email you used to register with Picnik and we'll send you an email with your user name and a link to change your password!  If you don’t need to change your password, ignore the link… your username is in the top of the email.
+		</TipText>
+	</VBox>
+</Tip>
+
+
+
+<Tip id="TryPremium" quasiModal="true">
+	<TipTextHeader>What exactly do I get with Picnik Premium?</TipTextHeader>
+	<VBox percentWidth="100">
+		<TipText>If you want to take a look at the premium features most of them are available for viewing to non-premium users. For example, check out fonts in the text field by opening the blue Premium Fonts tab or look at the Advance features under the Create tab. You can test anything that has a Premium label to see if you are interested in upgrading. Other Premium tools and features will be announced on the Welcome page or the blog: <a href="http://blog.Picnik.com"><font size="12" color="#618430">http://blog.Picnik.com</font></a>
+		</TipText>
+	</VBox>
+</Tip>
+
+
+
+<Tip id="DistortedPrints" quasiModal="true">
+	<TipTextHeader>My prints are cropped or distorted</TipTextHeader>
+	<VBox percentWidth="100">
+		<TipText>We have perfected sizing primarily for online use and secondarily for printing. The main issue we run into is printing from external sites. Since we do not print ourselves it is difficult to standardize instructions. Some places auto-set your photos to crop, others auto-set to scale. If you have this option, better results come from “set to scale.”<br/>
+		<br/>
+		We recommend you use QOOP (Save&amp;Share: Print Photo then Prints in the QOOP banner). QOOP offers you thumbnail preview images and lots of useful information before you print. There will be a check mark next to the sizes that your photo has a high enough resolution to print at and if you click the small crop symbol you can see what will be cut off if you print and adjust it. This will help you avoid unpleasant surprises when printing.
+		</TipText>
+	</VBox>
+</Tip>
+
+
+
+</Tips>
+

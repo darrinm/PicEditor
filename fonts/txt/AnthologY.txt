@@ -1,0 +1,12 @@
+fileName: AnthologY.ttf
+name: AnthologY
+subfamilyDisplayName: Normal
+fullName: AnthologY
+displayName: AnthologY
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 0
+pkName: pkAnthologY
+authorName: Gyom.Typo
+authorUrl: http://gyom.nebullus.com/

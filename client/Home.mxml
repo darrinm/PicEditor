@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PageContainer xmlns="containers.*" xmlns:bk="controls.*" xmlns:ctr="containers.*" xmlns:pp="pages.*" 
+		xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:url="urlkit.rules.*"
+		width="100%" height="100%" 
+		currentState="{AccountMgr.GetInstance().isGuest ? '' : 'Registered'}">
+
+	<states>
+		<mx:State name="Registered"/>
+	</states>
+	
+	
+	<url:UrlNavigatorRule id="urls" viewStack="{_vstk}" urlFormat="/*" useChildLabelForTitle="false" urlField="urlkit"/>
+	<bk:ImageVer source="@Embed('assets/bitmaps/bar_bg_x30.png')" left="0" top="0" width="100%" scaleContent="true" maintainAspectRatio="false"/>
+	<bk:ThumbToggleButtonBar x="0" y="0" dataProvider="_vstk" id="_tbbar" 
+		height="30" selectedButtonTextStyleName="buttonBarButtonSelectedText" focusEnabled="false">
+		<bk:selectedThumbSkin>@Embed('theme/pngs/buttonbar/pointerSelectedUp.png')</bk:selectedThumbSkin>
+	</bk:ThumbToggleButtonBar>
+	<mx:ViewStack id="_vstk" left="0" top="30" bottom="0" right="0">
+		<pp:WelcomeNew urlkit="welcome" label="@Resource(key='_pagWelcome', bundle='Home')" width="100%" height="100%" id="_pagWelcome"
+			icon="@Embed('theme/gifs/blank.gif')" name="_pagWelcome"/>
+	</mx:ViewStack>
+	<bk:ImageVer x="0" source="@Embed('assets/bitmaps/panel_shadow.png')" width="100%" top="30" scaleContent="true" maintainAspectRatio="false"/>
+	<bk:Gears id="_grsBusy" y="2" width="45" height="24" right="5" visible="false"/>
+</PageContainer>

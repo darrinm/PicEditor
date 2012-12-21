@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory area="thanksgiving" id="root">
+	<ShapeCategory flickrPremium="false" id="thanksgivingSection" numShapes="0" picnikPremium="false" showHeader="false">
+		<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/shape_autumnleaves.png" flickrPremium="true" id="autumnLeaves" numShapes="18" picnikPremium="true" previewUrls="60|48|../clipart/bundles/thanksgivingArea_groupPreviews_autumnLeaves.png?ver=6455c3a4" thumbUrl="66|54|0|../clipart/bundles/thanksgivingArea_groupThumbs.png?ver=3f5ac9f6" title="Autumn Leaves"/>
+		<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/shape_thanksgiving.png" flickrPremium="true" id="Thanksgiving" numShapes="16" picnikPremium="true" previewUrls="60|48|../clipart/bundles/thanksgivingArea_groupPreviews_Thanksgiving.png?ver=27465da0" thumbUrl="66|54|1|../clipart/bundles/thanksgivingArea_groupThumbs.png?ver=3f5ac9f6" title="Thanksgiving"/>
+		<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/shape_autumn.png" flickrPremium="false" id="Autumn" numShapes="17" picnikPremium="false" previewUrls="60|48|../clipart/bundles/thanksgivingArea_groupPreviews_Autumn.png?ver=14c50cf8" thumbUrl="66|54|2|../clipart/bundles/thanksgivingArea_groupThumbs.png?ver=3f5ac9f6" title="Autumn"/>
+		<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/shape_thanksgivingFeast.png" flickrPremium="false" id="thanksgivingFeast" numShapes="26" picnikPremium="false" previewUrls="60|48|../clipart/bundles/thanksgivingArea_groupPreviews_thanksgivingFeast.png?ver=d4c5347f" thumbUrl="66|54|3|../clipart/bundles/thanksgivingArea_groupThumbs.png?ver=3f5ac9f6" title="Turkey Dinner"/>
+	</ShapeCategory>
+</ShapeCategory>

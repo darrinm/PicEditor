@@ -1,0 +1,23 @@
+/*
+ * Copyright 2011 Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an Apache 2.0 License.
+ * See the COPYING file for details.
+ */
+
+
+@font-face {
+    src:local("VTKS ROCK GARAGE BAND");
+    font-family: "pkvtks0ROCK0GARAGE0BAND";
+    unicodeRange: U+0000-U+00FF;
+    flashType: true;
+    fontWeight: normal;
+    fontStyle: normal;
+}
+
+.pkvtks0ROCK0GARAGE0BAND
+{
+    font-family: "pkvtks0ROCK0GARAGE0BAND";
+    fontWeight: normal;
+    fontStyle: normal;
+}

@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory flickrPremium="false" id="soccer_py" numShapes="3" picnikPremium="false" previewUrls="60|48|../clipart/bundles/SoccerFeverArea_groupPreviews_soccer_py.png?ver=ab08c59f" title="Paraguay Stickers">
+	<Shapes>
+		<Clipart cHeight="600" cWidth="1000" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|0|../clipart/bundles/SoccerFeverArea_shapes_soccer_py.png?ver=ee8b3808" url="shapes/py/flag_py.swf"/>
+		<Clipart cHeight="223.55" cWidth="95.95" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|1|../clipart/bundles/SoccerFeverArea_shapes_soccer_py.png?ver=ee8b3808" url="shapes/py/scarf_py.swf"/>
+		<Clipart cHeight="295.75" cWidth="464.2" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|2|../clipart/bundles/SoccerFeverArea_shapes_soccer_py.png?ver=ee8b3808" url="shapes/py/wavingflag_py.swf"/>
+	</Shapes>
+</ShapeCategory>

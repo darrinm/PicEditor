@@ -1,0 +1,64 @@
+<languageVersion : 1.0;>
+
+/*  
+ * RotoZoom effect
+ * Author: David Lenaerts (www.derschmale.com)
+ * Gradually increment the a, b, c and d parameters
+ */
+
+kernel RotoZoom
+<   namespace : "derschmale.com";
+    vendor : "DerSchmale";
+    version : 1;
+    description : "A RotoZoom effect";
+>
+{
+    input image4 src;
+    output pixel4 dst;
+    
+    // texel coordinates to map from
+    parameter float2 a < minValue : float2(.0, .0); maxValue : float2(2080.0, 2080.0); >;
+    parameter float2 b < minValue : float2(.0, .0); maxValue : float2(2080.0, 2080.0); >;
+    parameter float2 c < minValue : float2(.0, .0); maxValue : float2(2080.0, 2080.0); >;
+    parameter float2 d < minValue : float2(.0, .0); maxValue : float2(2080.0, 2080.0); >;
+    
+    // rotation of the image
+    parameter float rotation < minValue : -1000.0; maxValue : 1000.0; >;
+    
+    // width and height of the source image
+    parameter float width < minValue : .0; maxValue : 2080.0; >;
+    parameter float height < minValue : .0; maxValue : 2080.0; >;
+    
+    void evaluatePixel()
+    {
+        float2 deltaB, deltaC, deltaD;
+        float2 atr, btr, ctr;
+        float2 destPos;
+        float2 pos = outCoord();
+        
+        // vertical interpolation
+        deltaC = (c-a)/height;
+        deltaD = (d-b)/height;
+        
+        // interpolated positions
+        atr = a + deltaC*pos.y; 
+        btr = b + deltaD*pos.y;
+        
+        // horizontal interpolation
+        deltaB = (btr-atr)/width;
+        
+        // interpolated final position
+        ctr = atr+deltaB*pos.x;
+        
+        // rotate image according to rotation parameter
+        destPos.x = abs(ctr.x*cos(rotation)-ctr.y*sin(rotation));
+        destPos.y = abs(ctr.y*cos(rotation)+ctr.x*sin(rotation));
+        
+        // keep within bounds of source image
+        destPos.y -= height*floor(destPos.y/height);
+        destPos.x -= width*floor(destPos.x/width);
+        
+        
+        dst = sampleLinear(src,destPos);
+    }
+}

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<EmailShareBridgeBase xmlns="bridges.email.*" xmlns:pk="*" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:ctl="controls.*"
+		xmlns:itempicker="controls.itempicker.*" width="100%" height="100%" top="25" xmlns:flash="flash.filters.*" horizontalScrollPolicy="off">
+	<mx:Script>
+		import util.LocUtil;
+		import mx.effects.easing.Bounce;
+		import mx.effects.easing.Quadratic;
+		import mx.resources.ResourceBundle;
+   		
+		[Bindable] [ResourceBundle("EmailShareBridge")] private var rb:ResourceBundle;
+	</mx:Script>
+
+	<flash:DropShadowFilter id="_fiDropShad" distance="1" angle="90" blurX="4" blurY="4" alpha=".2" quality="3"/>
+	<mx:DropShadowFilter id="_fiWhiteShine" blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1" quality="3" angle="90"/>
+	<mx:DropShadowFilter id="_fiInnerShad" blurX="1" blurY="1" distance="1" color="#000000" alpha=".2" quality="3" angle="90" inner="true"/>
+	
+
+	<mx:Glow id="_efGlowIn" alphaFrom="0" alphaTo=".5" blurXFrom="0" blurYFrom="0" blurXTo="5" blurYTo="5" color="#618430" duration="150"/>
+	<mx:Glow id="_efGlowOut" alphaFrom=".5" alphaTo="0" blurXFrom="5" blurYFrom="5" blurXTo="0" blurYTo="0" color="#618430" duration="300"/>
+
+	<mx:HBox width="100%" top="0" bottom="{footerHeight*2}" paddingLeft="30" horizontalGap="20">
+		<!-- left column, preview -->
+		<mx:Box width="45%" height="100%" paddingTop="{paddingTop}">
+		</mx:Box>		
+		<!-- right column, controls -->		
+  		<mx:Box width="55%" paddingRight="30" paddingTop="-1" height="{height-footerHeight*2}" verticalGap="0" maxWidth="440" horizontalScrollPolicy="off">
+  			<mx:VBox verticalGap="0" width="100%" paddingTop="{paddingTop}" id="leftCol">
+				<!-- email to field -->
+				<mx:Label text="@Resource(key='Label_2', bundle='EmailShareBridge')" styleName="publishForm" paddingBottom="-3"/>
+				<EmailItemPicker width="100%" prompt="@Resource(key='textPrompt', bundle='EmailShareBridge')" id="_itemPicker"
+					listItemRenderer="{EmailListItem}" pickedItemRenderer="{EmailPickedItem}">		
+				</EmailItemPicker>
+				<mx:Text text="@Resource(key='limitNote', bundle='EmailShareBridge')" width="100%" fontSize="12" selectable="false" color="#999999" fontWeight="bold" paddingLeft="-2" paddingTop="2"/>
+				
+				<!-- email from field -->
+				<mx:Label text="@Resource(key='Label_3', bundle='EmailShareBridge')" styleName="publishForm" paddingTop="10" paddingBottom="-3"/>
+				<mx:HBox verticalAlign="middle">
+					<ctl:TextInputPlus width="175" id="_tiFrom" height="26" styleName="publishFormField"/>
+					<!-- send me a copy checkbox -->
+					<ctl:ResizingCheckbox autoFontSizeGap="1" label="@Resource(key='_chkCcMe', bundle='EmailShareBridge')" id="_chkCcMe" selected="true" enabled="{_tiFrom.text != ''}" maxWidth="165"/>
+				</mx:HBox>
+				<mx:Spacer height="4"/>
+					
+				<!-- image size drop down -->
+				<mx:Label visible="{showImageSize &amp;&amp; item.species != 'gallery'}" includeInLayout="{showImageSize &amp;&amp; item.species != 'gallery'}" text="@Resource(key='Label_4', bundle='EmailShareBridge')" styleName="publishForm" height="20"/>
+				<mx:ComboBox visible="{showImageSize &amp;&amp; item.species != 'gallery'}" includeInLayout="{showImageSize &amp;&amp; item.species != 'gallery'}"  width="200" id="_cmboImageSize" height="26" />
+				
+				<!-- your name field -->
+				<mx:Text styleName="publishForm" condenseWhite="true" selectable="false" htmlText="@Resource(key='Text_1', bundle='EmailShareBridge')" 
+					paddingTop="10" paddingBottom="-3"/>
+				<ctl:TextInputPlus width="320" id="_tiName" height="26" styleName="publishFormField"/>
+				<!-- subject field -->
+				<mx:Text styleName="publishForm" condenseWhite="true" selectable="false" htmlText="@Resource(key='Text_2', bundle='EmailShareBridge')"
+					paddingTop="10" paddingBottom="-3"/>
+				<ctl:TextInputPlus width="100%" maxWidth="430" id="_tiSubject" height="26" styleName="publishFormField"
+					 text=""/>
+				<!-- message box -->
+				<mx:Text styleName="publishForm" condenseWhite="true" selectable="false" htmlText="@Resource(key='Text_3', bundle='EmailShareBridge')"
+					paddingTop="10" paddingBottom="-3"/>
+				<ctl:TextAreaPlus width="100%" maxWidth="430" height="48" minHeight="48" maxHeight="142" styleName="publishFormField" id="_taMessage" maxChars="1200"
+					text=""/>
+  			</mx:VBox>
+		</mx:Box>
+	</mx:HBox>
+
+	<mx:Canvas width="100%" height="{footerHeight}" bottom="{footerHeight}" clipContent="false">
+		<ctl:ImageVer top="-3" right="0" source="@Embed('/assets/bitmaps/saveshad_top.png')"
+					  scaleContent="true" width="55%" height="3" maintainAspectRatio="false"/>
+		<mx:HBox width="100%" height="100%">			
+			<!-- left column, share buttons -->
+			<mx:VBox width="45%" height="100%" visible="{showShareButtons}">
+				<mx:HBox width="100%" height="100%" horizontalAlign="center" verticalAlign="middle" paddingBottom="8">
+					
+					<mx:Label text="{Resource.getString('EmailShareBridge', (!itemIsReady) ? 'processing':'shareWith')}" fontSize="18" color="#005580"
+						filters="{[_fiWhiteShine,_fiInnerShad]}" minWidth="120" textAlign="right"/>
+					
+					<ctl:ImageEx source="/graphics/thirdpartylogos/Button_Buzz.png" filters="{[_fiDropShad]}"
+						    alpha="{itemIsReady ? 1.0 : 0.2}"
+							rollOverEffect="{_efGlowIn}" rollOutEffect="{_efGlowOut}" enabled="{!itemIsReady}"
+							buttonMode="true" click="DoBuzzShare()" width="40" height="40"
+							toolTip="@Resource(key='shareWithBuzz', bundle='EmailShareBridge')"/>
+					<ctl:ImageEx source="/graphics/thirdpartylogos/Button_FB.png" filters="{[_fiDropShad]}"
+						 	alpha="{itemIsReady ? 1.0 : 0.2}"
+							rollOverEffect="{_efGlowIn}" rollOutEffect="{_efGlowOut}" enabled="{!itemIsReady}"
+							buttonMode="true" click="DoFacebookShare()" width="40" height="40"
+							toolTip="@Resource(key='shareWithFB', bundle='EmailShareBridge')"/>
+					<ctl:ImageEx source="/graphics/thirdpartylogos/Button_Twitter.png" filters="{[_fiDropShad]}"
+						 	alpha="{itemIsReady ? 1.0 : 0.2}"
+							rollOverEffect="{_efGlowIn}" rollOutEffect="{_efGlowOut}" enabled="{!itemIsReady}"
+							buttonMode="true" click="DoTwitterShare()" width="40" height="40"
+							toolTip="@Resource(key='shareWithTwitter', bundle='EmailShareBridge')"/>
+				</mx:HBox>				
+			</mx:VBox>
+		
+		<!-- right column, email button -->
+			<!-- big button vbox -->
+			<mx:VBox verticalGap="8" paddingTop="8" paddingBottom="8" width="55%" paddingRight="30" 
+					height="100%" horizontalAlign="center">
+				<ctl:ResizingButton label="" 
+									minWidth="200" maxWidth="350" autoFontSizeGap="1" height="34" fontSize="18" id="_btnSend" styleName="BigButton"
+									enabled="{_itemPicker.pickedItems.length > 0 &amp;&amp; _tiFrom.text != ''}"/>
+			</mx:VBox>
+		</mx:HBox>
+	</mx:Canvas>
+	
+	<!-- notification messages -->
+	<mx:String id="_strEmailSentNotifyMessage">{Resource.getString('EmailShareBridge', '_strEmailSentNotifyMessage')}</mx:String>
+	<mx:String id="_strInvalidEmailText">{Resource.getString('EmailShareBridge', '_strInvalidEmailText')}</mx:String>
+	<mx:String id="_strTooManyRecipients">{Resource.getString('EmailShareBridge', '_strTooManyRecipients')}</mx:String>
+	<!-- array for photo size drop down menu -->
+	<mx:Array id="_aobSizes">
+	    <mx:Object label="{Resource.getString('EmailShareBridge', 'Object_1')}" data="480"/>
+	    <mx:Object label="{Resource.getString('EmailShareBridge', 'Object_2')}" data="800"/>
+	    <mx:Object label="{Resource.getString('EmailShareBridge', 'Object_3')}" data="1024"/>
+	    <mx:Object label="{Resource.getString('EmailShareBridge', 'Object_4')}" data="0"/><!-- Data = 0 means full image size. Do not remove this - otherwise, images smaller than your smallest size will break -->
+	</mx:Array>	
+</EmailShareBridgeBase>

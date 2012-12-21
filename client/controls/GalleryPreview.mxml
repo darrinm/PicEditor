@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ctl:GalleryPreviewBase xmlns="*" xmlns:mx="http://www.adobe.com/2006/mxml" 
+		width="100%" height="100%"
+		xmlns:flash="flash.filters.*" xmlns:url="urlkit.rules.*" xmlns:ut="util.*" xmlns:ctl="controls.*" xmlns:ctr="containers.*">
+
+	<mx:Canvas id="_cnvPreview" width="100%" height="100%" verticalCenter="0" horizontalCenter="0" 
+			minWidth="4" minHeight="3" backgroundAlpha="0" clipContent="true"
+			horizontalScrollPolicy="off" verticalScrollPolicy="off">
+		<ctl:ImageVer id="_imgPreview" width="100%" height="100%" scaleContent="false" maintainAspectRatio="false"/>	
+	</mx:Canvas>
+</ctl:GalleryPreviewBase>

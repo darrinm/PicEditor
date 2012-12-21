@@ -1,0 +1,90 @@
+/*****************************************************************************
+ *
+ * Petri Leskinen, Espoo, Finland, Jan 2008
+ * Tube-View 'James Bond-like effect
+ * leskinen.petri@luukku.com 
+ * - please send me a note if you use the code for anything cool !
+ *
+ *****************************************************************************/
+<languageVersion: 1.0;>
+kernel TubeView
+<   namespace : "by Petri Leskinen";
+    vendor : "Petri Leskinen";
+    version : 1;
+    description : "TubeView -filter";
+>
+{
+    parameter float radius 
+    <       
+        minValue:float(0.1);
+        maxValue:float(300.0); 
+        defaultValue:float(50.0);
+    >;
+
+    parameter float turbulence
+     <       
+        minValue:float(-3.14);
+        maxValue:float(3.14); 
+        defaultValue:float(1.0);
+        description: "Turbulence";
+    >;    
+    parameter float fade1
+     <       
+        minValue:float(-1.0);
+        maxValue:float(1.0); 
+        defaultValue:float(0.2);
+        description: "Fading on the edge of the tube";
+    >;
+    parameter float fade2
+     <       
+        minValue:float(0.0);
+        maxValue:float(2.0); 
+        defaultValue:float(0.4);
+        description: "Fading by distance";
+    >;
+    
+    parameter float2 center
+    <
+        minValue:float2(-200.0, -200.0);
+        maxValue:float2(2048.0, 2048.0);
+        defaultValue:float2(64.0, 128.0);
+        description: "Center point";
+    >;
+    parameter float4 bgColor
+    <
+        minValue:float4(0.0, 0.0, 0.0, 0.0);
+        maxValue:float4(1.0, 1.0,1.0,1.0);
+        defaultValue:float4(0.0, 0.0, 0.0, 1.0);
+        description: "Background color";
+    >;
+    
+    input image4 src;
+    output float4 pxl;
+    
+    void evaluatePixel()
+    {
+        // point relative to center
+        float2 p = outCoord() -center;
+        
+        // relative distance from center, rel<0.0 if inside the circle
+        float rel = length(p) /radius;
+        float tmp = rel*rel;
+        rel -= 1.0;
+        
+        // if outside, modify point location, new coordinates inside circle
+        p /= (rel < 0.0) ? 1.0 : tmp ;
+        
+        // 'turbulence'-rotation
+        float rotAngle =  turbulence *( rel < 0.0 ? 0.0 : rel ) ;
+        p = float2(p.x*cos(rotAngle)-p.y*sin(rotAngle),
+            p.x*sin(rotAngle)+p.y*cos(rotAngle) );
+        
+        // sample pixel from new location
+        pxl= sample(src, center+p);
+        
+        // mix with bgColor according to distance
+        float mx = fade1+ rel*fade2;
+        pxl= mix(pxl, bgColor, rel < 0.0 ? 0.0 : mx );
+        
+   }
+}

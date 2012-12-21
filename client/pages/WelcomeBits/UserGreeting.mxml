@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox xmlns="pages.Welcome.*" verticalAlign="middle" width="100%" xmlns:containers="containers.*"
+		xmlns:filters="flash.filters.*" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:ctl="controls.*" 
+	    initialize="OnInitialize(event)">
+	<mx:Style source="Welcome.css"/>
+	<mx:Script>
+		<![CDATA[
+			import events.AccountEvent;
+			
+			import mx.events.FlexEvent;
+			import mx.resources.ResourceBundle;
+			import mx.resources.ResourceManager;
+			
+			import picnik.util.LocaleInfo;
+							
+ 			protected function OnInitialize(evt:FlexEvent): void {
+				AccountMgr.GetInstance().addEventListener(AccountEvent.USER_CHANGE, OnUserChange);
+				OnUserChange(null);
+			}
+
+			private function OnLink(evt:TextEvent): void {
+				if (evt.text.toLowerCase() == "register") {
+					PicnikBase.app.ShowDialog("register");
+				}
+			}	
+				   		
+			public function OnActivate(): void {
+				// update the greeting in case the clock has changed
+				UpdateGreetings();
+			}			
+			
+			public function OnUserChange(evt:AccountEvent): void {
+				UpdateGreetings();
+			}			
+			
+			private function UpdateGreetings():void {
+				if (_lblGreetingRegistered) _lblGreetingRegistered.htmlText = GetGreeting();
+				if (_lblGreetingPremium) _lblGreetingPremium.htmlText = GetGreeting();				
+			}
+			
+			private function GetGreeting():String {
+				var dtNow:Date = new Date();
+				if (dtNow.getHours() < 12) {
+					return Resource.getString('UserGreeting', 'greetMorning',[AccountMgr.GetInstance().displayName]);
+				} else if (dtNow.getHours() < 18) {
+					return Resource.getString('UserGreeting', 'greetAfternoon',[AccountMgr.GetInstance().displayName]);
+				} else {
+					return Resource.getString('UserGreeting', 'greetEvening',[AccountMgr.GetInstance().displayName]);
+				}
+				// we'll never get here, but it's a useful fallback
+				return Resource.getString('UserGreeting', 'welcomeBack',[AccountMgr.GetInstance().displayName]);
+			}   		
+			protected static function hasGlyphs(str:String): Boolean {
+				if (str == null) return true;
+				var afntFonts:Array = Font.enumerateFonts(false);
+				if (afntFonts.length == 0) return false;
+				return afntFonts[0].hasGlyphs(str);
+			}
+   		]]>
+	</mx:Script>
+	<filters:DropShadowFilter id="_fiWhiteShad" blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1" quality="3" angle="90"/>
+	<filters:DropShadowFilter blurX="7" blurY="7" distance="2" color="#000000" alpha=".35" quality="3" angle="90" id="_fiDropShad"/>
+	
+	<mx:Boolean id="fRotateGreeting">{!LocaleInfo.UsingSystemFont() &amp;&amp; hasGlyphs(AccountMgr.GetInstance().displayName)}</mx:Boolean>
+	<mx:Number id="nGreetingRotation">{fRotateGreeting ? -2 : 0}</mx:Number>
+
+	<!-- glow effects -->
+	<mx:Parallel id="_efGlowOver">
+		<mx:Glow blurXFrom="0" blurYFrom="0" blurXTo="20" blurYTo="20" color="#ffffff" alphaFrom="0" alphaTo="1" duration="200" strength="2"/>	
+	</mx:Parallel>
+	<mx:Parallel id="_efGlowOut">
+		<mx:Glow blurXFrom="20" blurYFrom="20" blurXTo="0" blurYTo="0" color="#ffffff" alphaFrom="1" alphaTo="0" duration="100" strength="2"/>	
+	</mx:Parallel>
+
+	<!-- guest welcome -->	
+	<mx:VBox rotation="{nGreetingRotation}" width="100%"  
+			visible="{AccountMgr.GetInstance().isGuest}" includeInLayout="{AccountMgr.GetInstance().isGuest}"
+			verticalGap="0" id="_vboxGuest">
+		<mx:HBox buttonMode="true" mouseChildren="false" mouseEnabled="true"
+				width="100%" 
+				rollOverEffect="{_efGlowOver}" rollOutEffect="{_efGlowOut}"
+				click="PicnikBase.app.ShowDialog('register')" verticalAlign="middle">
+			<ctl:UserIcon width="64" height="64" iconStyle="{UserIcon.knWelcome}"/>
+			<ctl:TextPlus id="_txtGuestWelcome" condenseWhite="false" htmlText="@Resource(key='guestWelcome', bundle='UserGreeting')" width="100%" filters="{[_fiWhiteShad]}"
+				color="#005580" fontWeight="bold" fontThickness="100" leading="-3" height="53"/>
+		</mx:HBox>
+		<ctl:TextPlus htmlText="@Resource(key='guestWelcomeRegister', bundle='UserGreeting')" width="100%" styleName="greenHeader" filters="{[_fiWhiteShad]}" link="OnLink(event)" paddingBottom="20"/>
+	</mx:VBox>
+
+	<!-- registered welcome -->
+	<mx:VBox rotation="{nGreetingRotation}" width="100%" clipContent="false"
+			visible="{!AccountMgr.GetInstance().isGuest &amp;&amp; !AccountMgr.GetInstance().isPaid}" 
+			includeInLayout="{!AccountMgr.GetInstance().isGuest &amp;&amp; !AccountMgr.GetInstance().isPaid}"		
+			verticalGap="0" paddingBottom="8" rollOverEffect="{_efGlowOver}" rollOutEffect="{_efGlowOut}" 
+			buttonMode="true" mouseChildren="false" id="_vboxRegistered" mouseEnabled="true" click="PicnikBase.app.ShowDialog('usersettings')">
+		<mx:HBox verticalAlign="middle" width="100%">
+			<ctl:UserIcon width="64" height="64" iconStyle="{UserIcon.knWelcome}"/>
+			<mx:VBox verticalGap="-8" width="100%">
+				<!-- user greeting -->
+				<ctl:TextPlus id="_lblGreetingRegistered" condenseWhite="false" htmlText="{GetGreeting()}" width="100%" filters="{[_fiWhiteShad]}"
+					color="#4c99bf" fontWeight="bold" fontThickness="100" fontSize="20" leading="-3"/>
+			</mx:VBox>
+		</mx:HBox>
+	</mx:VBox>
+
+	<!-- premium welcome -->
+	<mx:VBox width="100%" verticalGap="0" rollOverEffect="{_efGlowOver}" rollOutEffect="{_efGlowOut}"
+			mouseChildren="false" paddingBottom="8"
+			rotation="{nGreetingRotation}" 
+			mouseEnabled="true" buttonMode="true" clipContent="false"	 
+			visible="{AccountMgr.GetInstance().isPaid}" 
+			includeInLayout="{AccountMgr.GetInstance().isPaid}"				
+			id="_vboxPremium" click="PicnikBase.app.ShowDialog('usersettings')">			
+		<mx:HBox verticalAlign="middle" width="100%">
+			<mx:Canvas clipContent="false">
+				<ctl:UserIcon width="64" height="64" x="0" y="0" iconStyle="{UserIcon.knWelcome}"/>
+				<ctl:ImagePlus source="/graphics/premium_sun-small.png" left="-10" bottom="-10" rotation="2"/>
+			</mx:Canvas>
+			<!-- user greeting -->
+			<ctl:TextPlus id="_lblGreetingPremium" condenseWhite="false" htmlText="{GetGreeting()}" width="100%" filters="{[_fiWhiteShad]}"
+				color="#4c99bf" fontWeight="bold" fontThickness="100" fontSize="20" leading="-3"/>
+		</mx:HBox>
+	</mx:VBox>
+	
+</mx:VBox>

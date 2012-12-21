@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:controls="controls.*"
+	width="100%" height="100%" paddingLeft="20" paddingRight="20" verticalGap="0" horizontalAlign="center"
+	xmlns:thumbnails="controls.thumbnails.*">
+	<mx:String id="area">touchup</mx:String>
+	
+<mx:Script>
+	<![CDATA[
+	private function GetFeatureList(): Array {
+				var astr:Array = [];
+				for (var i:Number = 1; i <= 7; i++) {
+					astr.push(Resource.getString("FeaturedFeatures", "TouchUpList_" + i));
+				}
+				return astr;
+			}
+	]]>
+</mx:Script>
+	
+	<mx:DropShadowFilter id="_fiWhiteShine" blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1" quality="3" angle="90"/>
+	<mx:DropShadowFilter id="_fiInnerShad" blurX="1" blurY="1" distance="1" color="#000000" alpha=".2" quality="3" angle="90" inner="true"/>
+	<mx:DropShadowFilter id="_fiDropShad" blurX="7" blurY="7" distance="2" color="#000000" alpha=".35" quality="3" angle="90"/>
+	<mx:DropShadowFilter id="_fiWhiteShad" blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha=".7" quality="3" angle="90"/>
+	<mx:GlowFilter id="_fiGlow" alpha=".8" blurX="20" blurY="20" color="#ffffff"/>
+	<mx:GlowFilter id="_bluGlow" alpha=".4" blurX="20" blurY="20" color="#005580"/>
+	
+
+
+	<mx:Canvas   width="100%" height="100%" clipContent="true" bottom="0" left="0" horizontalScrollPolicy="off" verticalScrollPolicy="off">
+		<controls:ImageVer top="20" left="0" source="../graphics/upsell/touchUpBackground3.png" filters="{[_fiDropShad]}"/>
+
+			
+			<mx:VBox paddingLeft="24" paddingTop="186" verticalGap="1">
+			<controls:LabelPlus htmlText="@Resource(key='TouchUp2Intro2', bundle='TouchUpUpsellBox')" height="30" maxWidth="600" autoFontSizeGap="1"/>
+			<controls:TextPlus  htmlText="@Resource(key='TouchUp2Subhead', bundle='TouchUpUpsellBox')" fontSize="17" color="333333" selectable="false" maxWidth="600"/>
+			</mx:VBox>
+		</mx:Canvas>
+
+	<!--<controls:ResizingLabel htmlText="{Resource.getString('PremiumTour', 'touchupIntro')}" styleName="targetedUpsellHead"
+		width="100%" autoFontSizeGap="1" filters="{[_fiWhiteShine,_fiInnerShad]}" paddingBottom="-8" paddingTop="-5"/>
+	<mx:Text htmlText="{Resource.getString('PremiumTour', 'touchupSubhead')}" width="100%" styleName="targetedUpsellSubhead"
+		filters="{[_fiWhiteShine,_fiInnerShad]}"/>-->
+	
+</mx:VBox>

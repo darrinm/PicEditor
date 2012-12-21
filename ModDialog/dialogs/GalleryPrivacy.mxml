@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GalleryPrivacyBase xmlns="dialogs.*" 
+		xmlns:mx="http://www.adobe.com/2006/mxml"
+		xmlns:controls="controls.*" 
+		xmlns:flash="flash.filters.*" 
+		xmlns:containers="containers.*" 
+		xmlns:bridges="gallery.bridges.*"
+	 	width="550" height="240" verticalScrollPolicy="off" horizontalScrollPolicy="off" styleName="TargetedUpsellDialogStyle">
+
+	<mx:Script>
+		<![CDATA[
+			import mx.resources.ResourceBundle;
+			import mx.utils.ObjectProxy;
+			import util.LocUtil;
+			import picnik.util.LocaleInfo;
+			import dialogs.DialogManager;		
+
+			[Bindable] public var upgradeSource:String = '/show/publicprivate';
+		]]>
+	</mx:Script>
+
+	<flash:DropShadowFilter id="_fiPremShadow" blurX="3" blurY="3" distance="1" color="#000000" alpha=".25" quality="3" angle="90"/>
+	<flash:DropShadowFilter id="_fiPremShine" blurX="0" blurY="0" distance="1" color="#FFFFFF" alpha=".9" inner="true" quality="3" angle="90"/>
+
+	<mx:Canvas height="100%" width="100%" verticalScrollPolicy="off" horizontalScrollPolicy="off">
+	
+		<!-- Close button-->
+		<mx:Button width="22" height="22" top="4" right="4" click="Hide()" styleName="dialogCloseButton"/>
+		
+	    <containers:AutoShrinkCanvas id="canvas1" width="550" height="240">
+			<mx:VBox width="100%" height="100%" paddingTop="7" paddingLeft="12" paddingRight="25" verticalGap="5">
+				<controls:ResizingLabel htmlText="@Resource(key='privacyTitle', bundle='GalleryPrivacy')" 
+					fontSize="28" color="#005580" autoFontSizeGap="1"/>
+					
+			<!--Public Button-->
+				<mx:HBox verticalAlign="middle" width="100%" horizontalGap="12">
+					<mx:Spacer width="1"/>
+					<mx:RadioButton label="@Resource(key='Public', bundle='GalleryPrivacy')" id="_rbtnPublic" 
+							selected="{_gald.isPublic}" width="80" groupName="grpPrivacy" />	
+					<controls:TextPlus htmlText="@Resource(key='aboutPublic', bundle='GalleryPrivacy')" selectable="false"
+						width="100%" fontSize="12"/>
+				</mx:HBox>
+				
+			<!--Private Button-->						
+				<mx:HBox verticalAlign="middle" width="100%" horizontalGap="12" paddingTop="15" paddingBottom="5">
+					<mx:Spacer width="1"/>
+					<mx:RadioButton label="@Resource(key='Private', bundle='GalleryPrivacy')" id="_rbtnPrivate" 
+							enabled="{AccountMgr.GetInstance().isPremium}" selected="{!_gald.isPublic}" width="80"
+							groupName="grpPrivacy"/>
+					<controls:TextPlus htmlText="@Resource(key='aboutPrivate', bundle='GalleryPrivacy')" selectable="false"
+							width="100%" fontSize="12"/>
+				</mx:HBox>									
+			</mx:VBox>
+			
+			<!--Premium Upsell-->
+				<!--<mx:VBox styleName="premiumGradient" cornerRadius="8" filters="{[_fiPremShine,_fiPremShadow]}"
+					paddingRight="10" paddingLeft="5" paddingTop="5" paddingBottom="5" top="160" right="40" width="390">
+					<mx:HBox width="100%" verticalAlign="middle">
+						<controls:ImageVer source="/graphics/premium_sun.png" width="38" height="38"/>
+						<mx:VBox width="100%" verticalGap="0">
+							<controls:TextPlus htmlText="@Resource(key='PrivatePrem', bundle='GalleryPrivacy')" selectable="false"
+								width="100%" styleName="subheadPrem" fontSize="13"/>
+							<controls:ResizingButton label="@Resource(key='UpgradeNow', bundle='GalleryPrivacy')"
+								styleName="basketButtonBlue" fontSize="15" autoFontSizeGap="1" height="24"
+								visible="{!AccountMgr.GetInstance().isPremium}" includeInLayout="{!AccountMgr.GetInstance().isPremium}" 
+								click="DialogManager.ShowUpgrade(upgradeSource,PicnikBase.app)"/>	
+						</mx:VBox>
+					</mx:HBox>
+				</mx:VBox>-->
+						
+			<!-- Footer -->
+			<mx:HBox width="100%" paddingTop="195" horizontalAlign="center" verticalAlign="middle">			
+				<mx:Button id="_btnDone" height="39" fontSize="22" paddingLeft="15" paddingRight="15" horizontalCenter="0" styleName="basketButton" 
+						mouseFocusEnabled="false" label="{Resource.getString('GalleryPrivacy', 'ok')}" />
+			</mx:HBox>
+		</containers:AutoShrinkCanvas>
+		
+		<!-- shadow dealies, drawn on top of all elements -->
+		<controls:ImageVer source="../graphics/upsellPremiumPanelShadow.png" bottom="50" left="0" right="0" scaleContent="true" maintainAspectRatio="false"/>
+		
+	</mx:Canvas>	
+	<mx:Style source="../dialogs/BlueBarDialog.css"/>	
+</GalleryPrivacyBase>

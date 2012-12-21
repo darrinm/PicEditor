@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<controls:EffectSetBase xmlns="*" xmlns:ct="creativeTools.*" xmlns:mx="http://www.adobe.com/2006/mxml" 
+		xmlns:eff="effects.*" xmlns:filters="flash.filters.*" xmlns:ctr="containers.*"
+		xmlns:controls="controls.*">
+	<mx:Style>
+		.promoTextBG {
+		   border-style: solid;
+		   border-thickness: 0;
+		   border-skin: ClassReference("skins.GradientBackground");
+		   gradient-fill-colors: #6b0b4a, #ae0173;
+		   gradient-fill-alphas: .8,.8;
+		   gradient-fill-ratios: 0,255;
+		   gradient-rotation: 90;
+		}
+	</mx:Style>
+	
+	<controls:ExpandingVBox id="_evbx1" expanded="{expanded}" width="100%" verticalGap="0" verticalScrollPolicy="off">
+		<mx:Spacer height="{_hsh.height}" />
+		<mx:Canvas height="0" width="100%" verticalScrollPolicy="off" horizontalScrollPolicy="off">
+	
+	<mx:VBox verticalGap="0" width="100%">
+		<!-- Memorial Day Effects & Stickers -->
+		<mx:HBox backgroundImage="{PicnikBase.StaticUrl('../graphics/holiday/bg_winterwonderland.jpg')}" verticalAlign="middle" id="_hbxMemDayProj"
+				borderSides="bottom" borderStyle="solid" borderColor="#d1d1d1" width="210" height="30" paddingTop="1">
+			<mx:Label text="Hockey Finals" color="#ffffff" filters="{[_fiHeadShad]}" fontSize="15"
+				paddingLeft="8" paddingTop="2"/>
+		</mx:HBox>
+		<eff:TeamColorsEffect colors="{[0x056D3C,0x012F57,0xFFFFFF]}" alphas="{[0.5,1.0,1.0]}" 
+							  iconPath="../graphics/effects/hockey/hockey_canucks_c.png"
+							  titleText="Go Canucks!"
+							  customHelpText="Show the world what team you're on during the big hockey finals.&lt;br&gt;&lt;br&gt;&lt;b&gt;Rotate and Fade&lt;/b&gt; the colors to get them just right, then save to your favorite social network and spread the word!" 
+							  text="C"/>
+		<eff:TeamColorsEffect colors="{[0xFFB82A,0x000000,0xFFFFFF]}" alphas="{[0.5,1.0,1.0]}" 
+							  iconPath="../graphics/effects/hockey/hockey_bruins_b.png"
+							  titleText="Go Bruins!"
+							  customHelpText="Show the world what team you're on during the big hockey finals.&lt;br&gt;&lt;br&gt;&lt;b&gt;Rotate and Fade&lt;/b&gt; the colors to get them just right, then save to your favorite social network and spread the word!" 
+							  text="B"/>
+	</mx:VBox>
+	
+</controls:EffectSetBase>
+			

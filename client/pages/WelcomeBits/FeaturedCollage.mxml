@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas width="100%" height="100%"
+		   xmlns:filters="flash.filters.*" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:ctl="controls.*" >
+	<mx:Script>
+		<![CDATA[
+		import bridges.projects.ProjectsInBridgeBase;
+		]]>
+	</mx:Script>
+	
+	<filters:DropShadowFilter id="_fiDropShad" blurX="7" blurY="7" distance="2" color="#000000" alpha=".35" quality="3" angle="90"/>
+	<filters:DropShadowFilter id="_fiWhiteShad" blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1" quality="3" angle="90"/>
+	<filters:GlowFilter id="_fiGlow" alpha=".8" blurX="20" blurY="20" color="#ffffff"/>
+	
+	<!-- contents -->
+	<mx:VBox verticalGap="10" width="100%" height="100%" horizontalAlign="center" paddingLeft="10" paddingRight="10" paddingBottom="20">
+		<!-- left col copy -->
+		<mx:VBox width="100%" verticalGap="0" clipContent="false" horizontalScrollPolicy="off" verticalScrollPolicy="off">
+			<ctl:TextPlus text="@Resource(key='collageIntro', bundle='FeaturedFeatures')" styleName="h1Featured" filters="{[_fiWhiteShad]}" paddingTop="8"/>
+			<ctl:TextPlus text="@Resource(key='collageSubhead', bundle='FeaturedFeatures')" styleName="subheadFeatured" paddingTop="-6" width="100%"/>
+		</mx:VBox>
+		<!-- photos -->
+		<mx:Canvas width="100%" height="100%" clipContent="false">
+			<ctl:ImagePlus source="/graphics/welcome/premium/collage_london.jpg"
+						   width="100%" height="100%"
+						   maxWidth="151" maxHeight="151" horizontalAlign="right"
+						   verticalCenter="2" right="175" rotation="-2"
+						   borderThickness="3" borderColor="#ffffff" filters="{[_fiDropShad]}"/>
+			<ctl:ImagePlus source="/graphics/welcome/guest_tour/collage_basic_2x2.jpg" width="100%" height="100%"
+						   horizontalAlign="center" verticalAlign="middle"
+						   maxWidth="151" maxHeight="151"
+						   verticalCenter="2" horizontalCenter="-80"
+						   filters="{[_fiDropShad]}" rotation="2"/>
+			<ctl:ImagePlus source="/graphics/welcome/premium/collage_botanical.jpg" width="100%" height="100%"
+						   maxWidth="149" maxHeight="149" horizontalAlign="left" left="5"
+						   verticalCenter="2" rotation="-3"
+						   borderThickness="1" borderColor="#001f02" filters="{[_fiDropShad]}"/>
+			<ctl:ResizingButton label="@Resource(key='getStarted', bundle='FeaturedFeatures')" styleName="basketButton" fontSize="20" height="36" minWidth="160"
+								right="0" verticalCenter="0"
+								click="ProjectsInBridgeBase.OnGridCollageClick(event)"
+								filters="{[_fiGlow]}"/>
+		</mx:Canvas>
+	</mx:VBox>
+	
+</mx:Canvas>

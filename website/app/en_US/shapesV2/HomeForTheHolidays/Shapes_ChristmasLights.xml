@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/xmas_lights.png" flickrPremium="true" id="ChristmasLights" numShapes="8" picnikPremium="true" previewUrls="60|48|../clipart/bundles/HomeForTheHolidaysArea_groupPreviews_ChristmasLights.png?ver=f85ad575" title="Christmas Lights">
+	<Shapes>
+		<Clipart cHeight="1205" cWidth="405" flickrPremium="true" isVector="false" picnikPremium="true" previewUrl="40|40|0|../clipart/bundles/HomeForTheHolidaysArea_shapes_ChristmasLights.png?ver=26f12e7b" url="shapes/christmas_lights_cutout/x_lights-yellow.swf"/>
+		<Clipart cHeight="1205" cWidth="405" flickrPremium="true" isVector="false" picnikPremium="true" previewUrl="40|40|1|../clipart/bundles/HomeForTheHolidaysArea_shapes_ChristmasLights.png?ver=26f12e7b" url="shapes/christmas_lights_cutout/x_lights-green.swf"/>
+		<Clipart cHeight="1212" cWidth="404" flickrPremium="true" isVector="false" picnikPremium="true" previewUrl="40|40|2|../clipart/bundles/HomeForTheHolidaysArea_shapes_ChristmasLights.png?ver=26f12e7b" url="shapes/christmas_lights_cutout/x_lights-cyan.swf"/>
+		<Clipart cHeight="1205" cWidth="405" flickrPremium="true" isVector="false" picnikPremium="true" previewUrl="40|40|3|../clipart/bundles/HomeForTheHolidaysArea_shapes_ChristmasLights.png?ver=26f12e7b" url="shapes/christmas_lights_cutout/x_lights-blue.swf"/>
+		<Clipart cHeight="1205" cWidth="405" flickrPremium="true" isVector="false" picnikPremium="true" previewUrl="40|40|4|../clipart/bundles/HomeForTheHolidaysArea_shapes_ChristmasLights.png?ver=26f12e7b" url="shapes/christmas_lights_cutout/x_lights-purple.swf"/>
+		<Clipart cHeight="1205" cWidth="405" flickrPremium="true" isVector="false" picnikPremium="true" previewUrl="40|40|5|../clipart/bundles/HomeForTheHolidaysArea_shapes_ChristmasLights.png?ver=26f12e7b" url="shapes/christmas_lights_cutout/x_lights-magenta.swf"/>
+		<Clipart cHeight="1205" cWidth="405" flickrPremium="true" isVector="false" picnikPremium="true" previewUrl="40|40|6|../clipart/bundles/HomeForTheHolidaysArea_shapes_ChristmasLights.png?ver=26f12e7b" url="shapes/christmas_lights_cutout/x_lights-red.swf"/>
+		<Clipart cHeight="1206" cWidth="405" flickrPremium="true" isVector="false" picnikPremium="true" previewUrl="40|40|7|../clipart/bundles/HomeForTheHolidaysArea_shapes_ChristmasLights.png?ver=26f12e7b" url="shapes/christmas_lights_cutout/x_lights-orange.swf"/>
+	</Shapes>
+</ShapeCategory>

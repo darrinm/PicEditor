@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml" 
+		backgroundImage="@Embed('/theme/pngs/effects_bg_header.png')" backgroundSize="100%" xmlns:filters="flash.filters.*"
+		borderSides="bottom" borderStyle="solid" borderColor="#d1d1d1" width="100%" paddingLeft="8" height="20" paddingTop="1">
+<mx:Script>
+	<![CDATA[
+		import picnik.util.LocaleInfo;
+	]]>
+</mx:Script>
+	<filters:DropShadowFilter blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1"
+		quality="3" angle="90" id="_fiWhiteShad"/>
+
+	<mx:Label text="{data.title}" color="#354d13" filters="{[_fiWhiteShad]}" fontWeight="{LocaleInfo.BoldWeight()}"/>
+</mx:HBox>

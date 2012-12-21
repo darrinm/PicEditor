@@ -1,0 +1,12 @@
+fileName: mk_ChildrensDarlings.ttf
+name: ChildrensDarlings
+subfamilyDisplayName: Regular
+fullName: ChildrensDarlings
+displayName: ChildrensDarlings
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 6
+pkName: pkmk0ChildrensDarlings
+authorName: Manfred Kelin
+authorUrl: http://moorstation.org/typoasis/designers/klein/

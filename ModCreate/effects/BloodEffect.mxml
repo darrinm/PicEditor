@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PaintOnEffectBase xmlns="effects.*" xmlns:cnt="containers.*" xmlns:ctrl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="189"
+	xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*" urlid="BloodStains">
+	<mx:Script>
+		import mx.resources.ResourceBundle;
+   		[Bindable] [ResourceBundle("BloodEffect")] private var rb:ResourceBundle;
+	</mx:Script>
+
+	
+	<mx:Array id="_resetValues">
+		<local:StoredValue target="_sldrBrushSize.value"/>
+		<local:StoredValue target="_btnEraser.selected" value="{false}"/>
+	</mx:Array>
+	
+	<ctrl:EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='BloodEffect')" strAuthor="@Resource(key='_efbtn_1', bundle='BloodEffect')"
+		strImageSource="../graphics/effects/Halloween/blood.png" premium="{premium}"/>
+	<mx:String id="_strHelpText">{Resource.getString('BloodEffect', '_strHelpText')}</mx:String>
+	
+	<mx:VBox x="8" y="70" verticalGap="0">
+		<mx:HBox width="190" paddingBottom="-5" paddingTop="3">
+			<mx:Label text="{_btnEraser.selected?'Eraser Size':'Brush Size'}" styleName="sliderTitle" width="100"/>
+			<mx:Label text="{_sldrBrushSize.value}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<ctrl:HSliderFastDrag id="_sldrBrushSize" width="190" snapInterval="1" thumbPress="ShowBrushPreview()" thumbDrag="UpdateBrushPreview()" thumbRelease="HideBrushPreview()"
+			globalShortcutsEnabled="{_fSelected}" globalShortcutKeys="[]" 
+			minimum="2" maximum="100" value="5" change="OnOpChange()" showDataTip="false"/>
+
+		<mx:Box width="190" horizontalAlign="center" paddingTop="5" paddingLeft="2">
+			<mx:Button label="@Resource(key='_btnEraser', bundle='BloodEffect')" id="_btnEraser" icon="@Embed('/assets/bitmaps/icon_eraser.png')" width="100" height="28"
+				textAlign="left" paddingLeft="20" styleName="applyStyle"
+				click="{_btnEraser.selected?_btnEraser.selected=false:_btnEraser.selected=true}" />
+		</mx:Box>
+
+		<!-- 
+		<mx:Label x="8" y="110" text="Strength" styleName="sliderTitle"/>
+		<mx:Label x="152" y="110" text="{LocUtil.pct((_sldrStrength.value))}" styleName="sliderValue" textAlign="right" width="50"/>
+		<ctrl:HSliderPlus x="9" y="115" width="190"  minimum="1" maximum="100" value="85" id="_sldrStrength" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+		-->
+
+		<ctrl:ApplyCancelEffectButtons addBoxPadding="true" premium="{premium}"/>
+	</mx:VBox>
+	
+	<mx:Number id="_cxyBrush">{_sldrBrushSize.value}</mx:Number>
+	
+	<imageOperations:ColorMatrixImageOperation  id="_op2"
+		Matrix="{[0,0,0,0,100,
+				 0,0,0,0,0,
+				 0,0,0,0,0,
+				 0,0,0,1,0]}"/>
+	
+	<imageOperations:NestedImageOperation Mask="{_mctr.mask}" id="_op">
+		<imageOperations:children>
+			<imageOperations:ColorMatrixImageOperation 
+				Matrix="{[0,0,0,0,140,
+						 0,0,0,0,0,
+						 0,0,0,0,0,
+						 0,0,0,1,0]}" BlendMode="{flash.display.BlendMode.OVERLAY}"/>
+			<imageOperations:ColorMatrixImageOperation 
+				Matrix="{[0,0,0,0,140,
+						 0,0,0,0,0,
+						 0,0,0,0,0,
+						 0,0,0,1,0]}" BlendMode="{flash.display.BlendMode.MULTIPLY}"/>
+
+		</imageOperations:children>
+	</imageOperations:NestedImageOperation>
+	
+</PaintOnEffectBase>

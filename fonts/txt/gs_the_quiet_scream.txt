@@ -1,0 +1,12 @@
+fileName: gs_the_quiet_scream.ttf
+name: the quiet scream
+subfamilyDisplayName: Normal
+fullName: the quiet scream
+displayName: the quiet scream
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 0
+pkName: pkgs0the0quiet0scream
+authorName: Guillaume Seguin
+authorUrl: http://lastsoundtrack.fontspace.com/

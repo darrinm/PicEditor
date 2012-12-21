@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory area="Reanimated" id="root">
+	<ShapeCategory flickrPremium="false" id="ReanimatedShapes" numShapes="0" picnikPremium="false" showHeader="false">
+		<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/reanimated_wounds.png" flickrPremium="true" id="GhostsHalloween" numShapes="12" picnikPremium="true" previewUrls="60|48|../clipart/bundles/ReanimatedArea_groupPreviews_GhostsHalloween.png?ver=c53414ec" thumbUrl="66|54|0|../clipart/bundles/ReanimatedArea_groupThumbs.png?ver=9045cc90" title="Wounds"/>
+		<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/shape_bloodspatters.png" flickrPremium="true" id="BloodSplatters" numShapes="8" picnikPremium="true" previewUrls="60|48|../clipart/bundles/ReanimatedArea_groupPreviews_BloodSplatters.png?ver=59c54d78" thumbUrl="66|54|1|../clipart/bundles/ReanimatedArea_groupThumbs.png?ver=9045cc90" title="Blood Splatters"/>
+	</ShapeCategory>
+</ShapeCategory>

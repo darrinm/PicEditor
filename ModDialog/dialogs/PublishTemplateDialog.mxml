@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ctr:CoreDialog xmlns:mx="http://www.adobe.com/2006/mxml" width="450" 
+		layout="vertical" verticalGap="12"
+		defaultButton="{_btnOk}" horizontalScrollPolicy="off" verticalScrollPolicy="off" showCloseButton="true"
+		xmlns:controls="controls.*" xmlns:ctr="containers.*" xmlns:flash="flash.filters.*"
+		filters="{[_fiInnerShadow]}" paddingTop="0">
+
+<mx:Script>
+	<![CDATA[
+		import bridges.BridgeItemEvent;
+		
+		import mx.controls.Alert;
+		import mx.core.Application;
+		import mx.core.UIComponent;
+		import mx.managers.PopUpManager;
+		
+		[Bindable] public var publishing:Boolean = false;
+		
+		[Bindable] protected var imageProperties:ImageProperties = null;
+		
+		// This is here because constructor arguments can't be passed to MXML-generated classes
+		override public function Constructor(fnComplete:Function, uicParent:UIComponent, obParams:Object=null): void {
+			super.Constructor(fnComplete, uicParent, obParams);
+			imageProperties = obParams['imgp'];
+		}
+		
+		private function Publish(): void {
+			var fidToPublish:String = imageProperties./*ss_item*/id;
+			var strTitle:String = _tiTitle.text;
+			
+			var nQuality:Number = -1;
+			var nSubSampling:Number = -1;
+			try {
+				if (_cbxCompress.selected) {
+					nSubSampling = _cbx1to1chroma.selected ? 1 : -1;
+					nQuality = Math.min(100, Math.max(0, Math.round(Number(_tiQuality.text))));
+				}
+			} catch (e:Error) {
+				Alert.show("Invalid number(" + e.toString() + "). Template not published.", "Error");
+				return;
+			}
+			
+			
+			var fnOnAddTemplate:Function = function(err:Number, strError:String): void {
+				Hide();
+				publishing = false;
+				if (err != PicnikService.errNone)
+					Alert.show("Error publishing template: " + err + ", " + strError, "Error");
+			}
+			
+			publishing = true;
+			PicnikService.AddTemplate(fidToPublish, strTitle, nQuality, nSubSampling, fnOnAddTemplate);
+		}
+	]]>
+</mx:Script>
+
+<flash:DropShadowFilter id="_fiInnerShadow" alpha=".15" blurX="4" blurY="4" angle="-90" distance="2" quality="3" inner="true"/>
+<mx:Canvas width="100%" height="100%">
+	<mx:VBox width="100%" id="_vbxPublish">
+		<controls:ResizingLabel text="Publish Template" maxWidth="400" fontSize="28" color="#005580"  
+			autoFontSizeGap="1" />
+		<mx:HBox width="100%">
+			<mx:Label text="Title:"/>
+			<mx:TextInput id="_tiTitle" text="{imageProperties.title}"/>
+		</mx:HBox>
+		<mx:HBox>
+			<mx:CheckBox id="_cbxCompress" label="Compress PNGs" selected="true"/>
+			<mx:Label text="Quality:"/>
+			<mx:TextInput id="_tiQuality" text="90" maxChars="3"/> 
+			<mx:CheckBox id="_cbx1to1chroma" label="1:1 Chroma Sampling" selected="true"/>
+		</mx:HBox>
+		<mx:Spacer height="18"/>
+		<controls:ImagePreview imageProperties="{imageProperties}"/>
+		
+		<mx:HBox width="100%" horizontalGap="5" horizontalAlign="right">
+			<controls:ResizingButton id="_btnOk" label="Publish" styleName="BigButton"
+				paddingLeft="7" paddingRight="7" minWidth="90" click="Publish()"
+				tabIndex="1" horizontalCenter="0" height="25" fontSize="14"/>
+			<controls:ResizingButton id="_btnCancel" label="Cancel"
+				paddingLeft="7" paddingRight="7" minWidth="70"
+				tabIndex="2" horizontalCenter="0" height="25" fontSize="14"/>
+		</mx:HBox>
+	</mx:VBox>
+	<mx:VBox width="{_vbxPublish.width}" height="{_vbxPublish.height}" horizontalAlign="center" verticalAlign="middle" verticalCenter="0" horizontalCenter="0" visible="{publishing}" includeInLayout="{publishing}" opaqueBackground="0xffffff" backgroundColor="0xffffff" backgroundAlpha="1">
+		<mx:Label text="Publishing..."/>
+	</mx:VBox>
+</mx:Canvas>
+</ctr:CoreDialog>

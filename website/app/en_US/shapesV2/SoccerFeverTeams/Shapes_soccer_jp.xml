@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory flickrPremium="false" id="soccer_jp" numShapes="3" picnikPremium="false" previewUrls="60|48|../clipart/bundles/SoccerFeverTeamsArea_groupPreviews_soccer_jp.png?ver=af7a56aa" title="Japan Stickers">
+	<Shapes>
+		<Clipart cHeight="295.55" cWidth="464.2" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|0|../clipart/bundles/SoccerFeverTeamsArea_shapes_soccer_jp.png?ver=b646c7c7" url="shapes/SoccerFever/jp/wavingflag_jp.swf"/>
+		<Clipart cHeight="600" cWidth="900" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|1|../clipart/bundles/SoccerFeverTeamsArea_shapes_soccer_jp.png?ver=b646c7c7" url="shapes/SoccerFever/jp/flag_jp.swf"/>
+		<Clipart cHeight="223.55" cWidth="95.95" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|2|../clipart/bundles/SoccerFeverTeamsArea_shapes_soccer_jp.png?ver=b646c7c7" url="shapes/SoccerFever/jp/scarf_jp.swf"/>
+	</Shapes>
+</ShapeCategory>

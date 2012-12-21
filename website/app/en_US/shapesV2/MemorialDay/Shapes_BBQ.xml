@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/shape_bbq.png" flickrPremium="true" id="BBQ" numShapes="20" picnikPremium="true" previewUrls="60|48|../clipart/bundles/MemorialDayArea_groupPreviews_BBQ.png?ver=23d77a78" title="BBQ">
+	<Shapes>
+		<Clipart cHeight="39" cWidth="59" flickrPremium="true" picnikPremium="true" previewUrl="40|40|0|../clipart/bundles/MemorialDayArea_shapes_BBQ.png?ver=f1b48e58" url="shapes/bbq_hotdog.swf"/>
+		<Clipart cHeight="55" cWidth="65" flickrPremium="true" picnikPremium="true" previewUrl="40|40|1|../clipart/bundles/MemorialDayArea_shapes_BBQ.png?ver=f1b48e58" url="shapes/bbq_burger.swf"/>
+		<Clipart cHeight="84" cWidth="51" flickrPremium="true" picnikPremium="true" previewUrl="40|40|2|../clipart/bundles/MemorialDayArea_shapes_BBQ.png?ver=f1b48e58" url="shapes/bbq_kabobs.swf"/>
+		<Clipart cHeight="87" cWidth="61" flickrPremium="true" picnikPremium="true" previewUrl="40|40|3|../clipart/bundles/MemorialDayArea_shapes_BBQ.png?ver=f1b48e58" url="shapes/bbq_apron.swf"/>
+		<Clipart cHeight="43" cWidth="63" flickrPremium="true" picnikPremium="true" previewUrl="40|40|4|../clipart/bundles/MemorialDayArea_shapes_BBQ.png?ver=f1b48e58" url="shapes/bbq_watermelon.swf"/>
+		<Clipart cHeight="21" cWidth="11" flickrPremium="true" picnikPremium="true" previewUrl="40|40|5|../clipart/bundles/MemorialDayArea_shapes_BBQ.png?ver=f1b48e58" url="shapes/bbq_canred.swf"/>
+		<Clipart cHeight="21" cWidth="11" flickrPremium="true" picnikPremium="true" previewUrl="40|40|6|../clipart/bundles/MemorialDayArea_shapes_BBQ.png?ver=f1b48e58" url="shapes/bbq_cansilver.swf"/>
+		<Clipart cHeight="61" cWidth="81" flickrPremium="true" picnikPremium="true" previewUrl="40|40|7|../clipart/bundles/MemorialDayArea_shapes_BBQ.png?ver=f1b48e58" url="shapes/bbq_cooler.swf"/>
+		<Clipart cHeight="84" cWidth="10" flickrPremium="true" picnikPremium="true" previewUrl="40|40|8|../clipart/bundles/MemorialDayArea_shapes_BBQ.png?ver=f1b48e58" url="shapes/bbq_fork.swf"/>
+		<Clipart cHeight="84" cWidth="16" flickrPremium="true" picnikPremium="true" previewUrl="40|40|9|../clipart/bundles/MemorialDayArea_shapes_BBQ.png?ver=f1b48e58" url="shapes/bbq_spatula.swf"/>
+		<Clipart cHeight="72" cWidth="23" flickrPremium="true" picnikPremium="true" previewUrl="40|40|10|../clipart/bundles/MemorialDayArea_shapes_BBQ.png?ver=f1b48e58" url="shapes/bbq_ketchup.swf"/>
+		<Clipart cHeight="72" cWidth="23" flickrPremium="true" picnikPremium="true" previewUrl="40|40|11|../clipart/bundles/MemorialDayArea_shapes_BBQ.png?ver=f1b48e58" url="shapes/bbq_mustard.swf"/>
+		<Clipart cHeight="66" cWidth="33" flickrPremium="true" picnikPremium="true" previewUrl="40|40|12|../clipart/bundles/MemorialDayArea_shapes_BBQ.png?ver=f1b48e58" url="shapes/bbq_icecreamchocolate.swf"/>
+		<Clipart cHeight="66" cWidth="33" flickrPremium="true" picnikPremium="true" previewUrl="40|40|13|../clipart/bundles/MemorialDayArea_shapes_BBQ.png?ver=f1b48e58" url="shapes/bbq_icecreamvanilla.swf"/>
+		<Clipart cHeight="132" cWidth="122" flickrPremium="true" picnikPremium="true" previewUrl="40|40|14|../clipart/bundles/MemorialDayArea_shapes_BBQ.png?ver=f1b48e58" url="shapes/bbq_grillgreen.swf"/>
+		<Clipart cHeight="132" cWidth="122" flickrPremium="true" picnikPremium="true" previewUrl="40|40|15|../clipart/bundles/MemorialDayArea_shapes_BBQ.png?ver=f1b48e58" url="shapes/bbq_grillred.swf"/>
+		<Clipart cHeight="176" cWidth="166" flickrPremium="true" picnikPremium="true" previewUrl="40|40|16|../clipart/bundles/MemorialDayArea_shapes_BBQ.png?ver=f1b48e58" url="shapes/bbq_tablechairs.swf"/>
+		<Clipart cHeight="280" cWidth="150" flickrPremium="true" picnikPremium="true" previewUrl="40|40|17|../clipart/bundles/MemorialDayArea_shapes_BBQ.png?ver=f1b48e58" url="shapes/spd_beer2.swf"/>
+		<Clipart cHeight="280" cWidth="150" flickrPremium="true" picnikPremium="true" previewUrl="40|40|18|../clipart/bundles/MemorialDayArea_shapes_BBQ.png?ver=f1b48e58" url="shapes/spd_beer3.swf"/>
+		<Clipart cHeight="280" cWidth="150" flickrPremium="true" picnikPremium="true" previewUrl="40|40|19|../clipart/bundles/MemorialDayArea_shapes_BBQ.png?ver=f1b48e58" url="shapes/spd_beer4.swf"/>
+	</Shapes>
+</ShapeCategory>

@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PicasaWebOutBridgeBase xmlns="bridges.picasaweb.*" xmlns:pk="*" xmlns:ctl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml"
+		width="100%" height="100%" fontSize="14" xmlns:flash="flash.filters.*" horizontalScrollPolicy="off">
+	<mx:Script>
+		import mx.resources.ResourceBundle;
+   		[Bindable] [ResourceBundle("PicasaWebOutBridge")] private var rb:ResourceBundle;
+	</mx:Script>
+
+	<states>
+		<mx:State name="AccountTypeUnknown">
+			<mx:AddChild relativeTo="{gridRow1}" position="after">
+				<mx:GridRow width="100%" height="100%">
+					<mx:GridItem width="100%" height="100%" horizontalAlign="center" paddingBottom="5">
+						<mx:Text condenseWhite="true" fontSize="13" htmlText="@Resource(key='Text_1', bundle='PicasaWebOutBridge')">
+						</mx:Text>
+					</mx:GridItem>
+				</mx:GridRow>
+			</mx:AddChild>
+			<mx:SetStyle target="{griditem1}" name="paddingBottom" value="5"/>
+		</mx:State>
+		<mx:State name="AccountTypePro"/>
+		<mx:State name="AccountTypeProWithImageID" basedOn="AccountTypePro">
+			<mx:AddChild relativeTo="{gridRow1}" position="before">
+				<mx:GridRow width="100%" height="100%" paddingTop="5">
+					<mx:GridItem width="100%" height="100%" horizontalAlign="center">
+						<mx:HBox width="100%" horizontalAlign="center">
+							<mx:RadioButton label="@Resource(key='_rbtnSaveNew', bundle='PicasaWebOutBridge')" id="_rbtnSaveNew" selected="true" groupName="grpSaveType"/>
+							<mx:RadioButton label="@Resource(key='_rbtnReplace', bundle='PicasaWebOutBridge')" id="_rbtnReplace" selected="false" groupName="grpSaveType"/>
+						</mx:HBox>
+					</mx:GridItem>
+				</mx:GridRow>
+			</mx:AddChild>
+		</mx:State>
+		<mx:State name="AccountTypeNonPro">
+			<mx:AddChild relativeTo="{gridRow1}" position="after">
+				<mx:GridRow width="100%" height="100%">
+					<mx:GridItem width="100%" height="100%" horizontalAlign="center" paddingBottom="5" id="griditem2">
+						<mx:Text id="_txtUpgrade1" condenseWhite="true" textAlign="center" color="#333333" fontSize="13" selectable="true" width="350" htmlText="@Resource(key='_txtUpgrade1', bundle='PicasaWebOutBridge')">
+						</mx:Text>
+					</mx:GridItem>
+				</mx:GridRow>
+			</mx:AddChild>
+			<!-- to be eventually changed to a visual indicator
+			<mx:AddChild relativeTo="{gridRow2}" position="after">
+				<mx:GridRow width="100%" height="100%">
+					<mx:GridItem width="100%" height="100%" horizontalAlign="center">
+						<mx:Text text="Upload bandwidth remaining: {_strBandwidthLeft}"/>
+						<mx:Text text="Upload bandwidth remaining: {_strBandwidthUsed}"/>
+					</mx:GridItem>
+				</mx:GridRow>
+			</mx:AddChild>
+			-->
+			<mx:SetStyle target="{griditem1}" name="paddingBottom" value="5"/>
+			<mx:SetEventHandler target="{_txtUpgrade1}" name="link" handlerFunction="OnUpgradeLinkClick"/>
+		</mx:State>
+		<!-- NOTE: there's no way to get to this state right now, so removing the code
+		<mx:State basedOn="AccountTypeNonPro" name="AccountTypeNonProOutOfSpace">
+			<mx:SetProperty target="{_btnSave}" name="enabled" value="false"/>
+			<mx:RemoveChild target="{_txtUpgrade1}"/>
+			<mx:RemoveChild target="{griditem2}"/>
+			<mx:SetProperty target="{_taTitle}" name="enabled" value="false"/>
+			<mx:SetProperty target="{_taTags}" name="enabled" value="false"/>
+			<mx:AddChild relativeTo="{gridrow2}" position="before">
+				<mx:GridRow width="100%" height="100%" paddingBottom="10">
+					<mx:GridItem width="100%" height="100%">
+						<mx:HBox width="100%" horizontalGap="0">
+							<ctl:ImageVer source="@Embed('/theme/pngs/alertIcon.png')"/>
+							<mx:Text id="_txtUpgrade2" condenseWhite="true" textAlign="left" color="#333333" fontSize="13" selectable="false" width="350" htmlText="@Resource(key='_txtUpgrade2', bundle='PicasaWebOutBridge')">
+							</mx:Text>
+						</mx:HBox>
+					</mx:GridItem>
+				</mx:GridRow>
+			</mx:AddChild>
+			<mx:SetStyle target="{griditem1}" name="paddingBottom" value="10"/>
+			<mx:SetStyle target="{label2}" name="color" value="#999999"/>
+			<mx:SetStyle target="{label3}" name="color" value="#999999"/>
+			<mx:SetStyle target="{gridrow2}" name="paddingBottom" value="0"/>
+			<mx:SetEventHandler target="{_txtUpgrade2}" name="link" handlerFunction="OnUpgradeLinkClick"/>
+		</mx:State>
+		-->
+		<mx:State name="NeedAuthorization">
+			<mx:RemoveChild target="{grid1}"/>
+			<mx:AddChild position="lastChild">
+				<PicasaWebAccount id="_ssa" _tpa="{_tpa}" horizontalCenter="0" paddingBottom="10" top="15"/>
+			</mx:AddChild>
+			<mx:AddChild relativeTo="{_ssa}" position="before">
+				<ctl:ImageEx left="0" top="0" source="../graphics/thirdpartylogos/picasa_crop.png" />
+			</mx:AddChild>
+			<mx:SetProperty name="verticalScrollPolicy" value="off"/>
+		</mx:State>
+	</states>
+	<ctl:ImageVer source="@Embed('/assets/bitmaps/page_blueGrad.png')" left="0" top="0" width="100%" scaleContent="true" maintainAspectRatio="false"/>
+	<mx:Binding source="_taTitle.text" destination="_imgd.properties.title"/>
+	<mx:Binding source="_taTags.text" destination="_imgd.properties.tags"/>
+	<mx:Grid width="100%" height="100%" paddingTop="20" paddingBottom="20" paddingLeft="20" paddingRight="26" id="grid1" y="0" x="0">
+		<mx:GridRow width="100%" height="100%">
+			<mx:GridItem width="50%" height="100%" horizontalAlign="center" paddingRight="20">
+				<pk:ImageView id="_imgvPreview" width="100%" height="100%" verticalAlign="top" minWidth="75" minHeight="75"/>
+				<mx:filters>
+					<flash:DropShadowFilter distance="1" angle="90" blurX="4" blurY="4" alpha=".5" quality="3"/>
+  				</mx:filters>
+			</mx:GridItem>
+			<mx:GridItem width="50%" height="100%">
+				<mx:Grid verticalGap="0" id="grid3">
+					<mx:GridRow width="100%" height="100%" paddingBottom="10" id="gridrow2">
+						<mx:GridItem width="100%" height="100%">
+							<mx:Label text="@Resource(key='Label_1', bundle='PicasaWebOutBridge')" color="#618430" fontWeight="bold" fontSize="21" styleName="publishForm"/>
+						</mx:GridItem>
+					</mx:GridRow>
+					<mx:GridRow width="100%" height="100%">
+						<mx:GridItem width="100%" height="100%">
+							<mx:Label text="@Resource(key='label2', bundle='PicasaWebOutBridge')" styleName="publishForm" height="20" id="label2"/>
+						</mx:GridItem>
+					</mx:GridRow>
+					<mx:GridRow width="100%" height="100%" paddingBottom="12">
+						<mx:GridItem width="100%" height="100%">
+							<ctl:TextAreaPlus width="390" height="64" minHeight="64" maxHeight="142" styleName="publishFormField" id="_taTitle" text="{_imgd.properties.title}"/>
+						</mx:GridItem>
+					</mx:GridRow>
+					<mx:GridRow width="100%" height="100%">
+						<mx:GridItem width="100%" height="100%">
+							<mx:Label text="@Resource(key='label3', bundle='PicasaWebOutBridge')" styleName="publishForm" height="20" id="label3"/>
+						</mx:GridItem>
+					</mx:GridRow>
+					<mx:GridRow width="100%" height="100%" paddingBottom="12">
+						<mx:GridItem>
+							<ctl:TextAreaPlus width="390" id="_taTags" height="26" styleName="publishFormField" text="{_imgd.properties.tags}" maxHeight="142"/>
+						</mx:GridItem>
+					</mx:GridRow>
+					<mx:GridRow width="100%" height="100%" paddingBottom="12">
+						<mx:GridItem>
+							<mx:CheckBox label="@Resource(key='_chkbPicnikTag', bundle='PicasaWebOutBridge')" id="_chkbPicnikTag" enabled="true">
+							</mx:CheckBox>
+						</mx:GridItem>
+					</mx:GridRow>
+					<mx:GridRow width="100%" height="100%">
+						<mx:GridItem width="100%" height="100%">
+							<mx:Label text="@Resource(key='label123', bundle='PicasaWebOutBridge')" styleName="publishForm" height="20" id="label123"/>
+						</mx:GridItem>
+					</mx:GridRow>
+					<mx:GridRow width="100%" height="100%" visible="{_cboxSets.dataProvider.length==0 &amp;&amp; _fRefreshed}" includeInLayout="{_cboxSets.dataProvider.length==0 &amp;&amp; _fRefreshed}" paddingBottom="12">
+						<mx:GridItem>
+							<mx:HBox width="100%" verticalAlign="middle">							
+			                	<mx:Label text="@Resource(key='Label_2', bundle='PicasaWebOutBridge')" fontSize="14" width="191" styleName="deviceFonts" textAlign="left"/>
+			                	<mx:Button fontSize="14" height="25" styleName="BigButton" label="@Resource(key='_btnCreateAlbum', bundle='PicasaWebOutBridge')" id="_btnCreateAlbum" textAlign="center"/>
+							</mx:HBox>
+						</mx:GridItem>
+					</mx:GridRow>
+					<mx:GridRow width="100%" height="100%" paddingBottom="12" visible="{_cboxSets.dataProvider.length>0}" includeInLayout="{_cboxSets.dataProvider.length>0}">
+						<mx:GridItem>
+							<ctl:ComboBoxPlus id="_cboxSets" rowCount="8" width="300" height="26" styleName="deviceFonts">
+								<ctl:itemRenderer>
+									<mx:Component>
+						            	<mx:HBox verticalAlign="middle">
+						                	<mx:Label text="{data.label}" fontSize="14" width="210" styleName="deviceFonts"/>
+											<mx:Spacer width="100%"/>
+						                	<ctl:ImageVer source="{data.icon}" height="36" width="36"/>
+						            	</mx:HBox>
+									</mx:Component>
+					            </ctl:itemRenderer>
+							</ctl:ComboBoxPlus>
+							<mx:Spacer width="10" height="40"/>
+							<ctl:ImageVer id="_imgPhotoSet" source="{_cboxSets.selectedItem.icon}" width="48" height="48">
+								<ctl:filters>
+									<flash:DropShadowFilter distance="1" angle="90" blurX="4" blurY="4" alpha=".5" quality="3"/>
+								</ctl:filters>
+							</ctl:ImageVer>
+						</mx:GridItem>
+					</mx:GridRow>
+					<mx:GridRow width="100%" height="100%" paddingTop="20">
+						<mx:GridItem width="100%" height="100%" horizontalAlign="center">
+							<mx:Grid id="grid2" verticalGap="0">
+								<mx:GridRow width="100%" height="100%">
+									<mx:GridItem width="100%" height="100%">
+										<ctl:ImageVer source="@Embed('/assets/bitmaps/saveshad_top.png')"/>
+									</mx:GridItem>
+								</mx:GridRow>
+								<mx:GridRow width="100%" height="100%" id="gridRow1">
+									<mx:GridItem width="100%" height="100%" horizontalAlign="center" paddingTop="10" paddingBottom="10" id="griditem1">
+										<mx:Button label="@Resource(key='_btnSave', bundle='PicasaWebOutBridge')" width="200" height="34" fontSize="18" id="_btnSave" styleName="BigButton" 
+												enabled="{_imgd &amp;&amp; _adctSetInfos &amp;&amp; _adctSetInfos.length > 0}"/>
+									</mx:GridItem>
+								</mx:GridRow>
+								<mx:GridRow width="100%" height="100%" id="gridRow2">
+									<mx:GridItem width="100%" height="100%">
+										<ctl:ImageVer source="@Embed('/assets/bitmaps/saveshad_bot.png')"/>
+									</mx:GridItem>
+								</mx:GridRow>
+							</mx:Grid>
+						</mx:GridItem>
+					</mx:GridRow>
+				</mx:Grid>
+			</mx:GridItem>
+		</mx:GridRow>
+	</mx:Grid>
+</PicasaWebOutBridgeBase>

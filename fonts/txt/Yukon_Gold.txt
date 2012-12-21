@@ -1,0 +1,12 @@
+fileName: Yukon_Gold.ttf
+name: Yukon Gold
+subfamilyDisplayName: Normal
+fullName: Yukon Gold
+displayName: Yukon Gold
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 0
+pkName: pkYukon0Gold
+authorName: Gyom.Typo
+authorUrl: http://gyom.nebullus.com/

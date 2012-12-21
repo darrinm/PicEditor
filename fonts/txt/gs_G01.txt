@@ -1,0 +1,12 @@
+fileName: gs_G01.ttf
+name: G01
+subfamilyDisplayName: Normal
+fullName: G01
+displayName: G01
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 0
+pkName: pkgs0G01
+authorName: Guillaume Seguin
+authorUrl: http://lastsoundtrack.fontspace.com/

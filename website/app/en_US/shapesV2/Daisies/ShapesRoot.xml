@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory area="Daisies" id="root">
+	<ShapeCategory flickrPremium="false" id="DaisiesSection" numShapes="0" picnikPremium="false" showHeader="false">
+		<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/shape_daisies.png" flickrPremium="true" id="Daisies" numShapes="16" picnikPremium="true" previewUrls="60|48|../clipart/bundles/DaisiesArea_groupPreviews_Daisies.png?ver=3ebd888e" thumbUrl="66|54|0|../clipart/bundles/DaisiesArea_groupThumbs.png?ver=de736491" title="Daisies"/>
+	</ShapeCategory>
+</ShapeCategory>

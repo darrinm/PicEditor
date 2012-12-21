@@ -1,0 +1,12 @@
+fileName: arialbd.ttf
+name: Arial
+subfamilyDisplayName: Negreta
+fullName: Arial Negreta
+displayName: Arial
+ital: 0
+bold: 1
+weight: 5
+panose.weight: 7
+pkName: pkarialbd
+authorName: Robin Nicholas and Patricia Saunders
+authorUrl: http://www.microsoft.com/typography/fonts/font.aspx?FID=8&FNAME=Arial

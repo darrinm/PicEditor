@@ -1,0 +1,12 @@
+fileName: couri.ttf
+name: Courier New
+subfamilyDisplayName: Cursiva
+fullName: Courier New Cursiva
+displayName: Courier New
+ital: 1
+bold: 0
+weight: 5
+panose.weight: 4
+pkName: pkcouri
+authorName: Howard "Bud" Kettler
+authorUrl: http://www.graphos.org/courier.html

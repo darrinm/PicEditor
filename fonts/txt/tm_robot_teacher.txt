@@ -1,0 +1,12 @@
+fileName: tm_robot_teacher.ttf
+name: Robot Teacher
+subfamilyDisplayName: Regular
+fullName: Robot Teacher
+displayName: Robot Teacher
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 4
+pkName: pktm0robot0teacher
+authorName: Tom Murphy
+authorUrl: http://fonts.tom7.com/

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<controls:TipBase xmlns="containers.*" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:controls="controls.*" xmlns:filters="flash.filters.*">
+	<mx:Boolean id="showFeedbackFooter">false</mx:Boolean>
+	<mx:Fade duration="300" id="efFadeInOut" target="{this}" effectEnd="OnFadeFinished()"/>
+	<controls:TipRenderer id="_tr" tipPath="{tipPath}" width="{contentWidth}" footer="{footer}" content="{content}"
+			verticalGap="0" verticalScrollPolicy="off"
+			paddingLeft="12" paddingRight="12" paddingTop="8" paddingBottom="10"
+			horizontalAlign="center" close="dispatchEvent(new Event(Event.CLOSE))">
+		<controls:filters>
+			<filters:DropShadowFilter angle="90" blurX="2" blurY="2" distance="1" color="0x000000" alpha=".5" quality="3"/>
+		</controls:filters>
+	</controls:TipRenderer>
+	<mx:HBox visible="{showFeedbackFooter}" includeInLayout="{showFeedbackFooter}">
+		<mx:LinkButton label="Need more help? Try feedback" click="ShowFeedback()"/>
+	</mx:HBox>
+</controls:TipBase>

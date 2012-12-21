@@ -1,0 +1,23 @@
+<languageVersion : 1.0;>
+
+kernel ScanLinesAdjustable
+<   namespace : "adobe";
+    vendor : "Kevin Goldsmith";
+    version : 1;
+    description : "Generates a TV Scanline effect - a riff on ScanLines from Mike Chambers";
+>
+{
+    input image4 src;
+    output pixel4 dst;
+    parameter float lineSize;
+
+    void
+    evaluatePixel()
+    {
+        //get the current pixel
+        dst = sampleNearest(src, outCoord());
+
+        float temp = mod(outCoord().y, 1.5 * lineSize);
+        dst = dst * float4( temp, temp, temp, 1.0 );
+    }
+}

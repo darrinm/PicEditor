@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<controls:EffectSetBase xmlns="*" xmlns:ct="creativeTools.*" xmlns:mx="http://www.adobe.com/2006/mxml" 
+		xmlns:eff="effects.*" xmlns:filters="flash.filters.*" xmlns:ctr="containers.*"
+		xmlns:controls="controls.*">
+	<mx:Script>
+		<![CDATA[
+			import picnik.util.LocaleInfo;
+		]]>
+	</mx:Script>
+	<filters:DropShadowFilter blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1"
+							  quality="3" angle="90" id="_fiWhiteShad"/>
+	
+	<mx:VBox verticalGap="0" width="100%">
+		<eff:DoodleEffect />
+		<eff:FacePaintEffect/>
+		<!--Speech Bubble Here-->
+		<controls:ShapeArea imgd="{_imgd}" imgv="{_imgv}" area="VandalismSpeechBubbles" verticalScrollPolicy="off" ignoreErrors="true" width="210"/>
+		
+		<eff:FocalPixelateEffect defaultReversed="true"/>
+		<eff:BeardBrushEffect tags="effect,seasonal" premium="false" includeSanta="true"/>
+		<!-- Fake Beards and Crowns Stickers here-->
+		<controls:ShapeArea imgd="{_imgd}" imgv="{_imgv}" area="VandalismHeadDecor" verticalScrollPolicy="off" ignoreErrors="true" width="210"/>
+		
+		<eff:HeartsDesireEffect />
+		<eff:HeartnocularsEffect premium="false" />
+		<eff:GooifyEffect />
+		<eff:VampireEyeColorEffect />
+		<!-- Famgs, Wounds, Eyeballs Stickers here-->
+		<controls:ShapeArea imgd="{_imgd}" imgv="{_imgv}" area="VandalismMonsters" verticalScrollPolicy="off" ignoreErrors="true" width="210"/>
+		
+		<!--Shapes -->
+		<mx:HBox backgroundImage="@Embed('/theme/pngs/effects_bg_header_googleplus.png')" backgroundSize="100%"
+				 borderSides="bottom" borderStyle="solid" borderColor="#d1d1d1" width="100%" paddingLeft="8" height="20" paddingTop="1">
+			<mx:Label text="@Resource(key='Label_9', bundle='SpecialEffectsCanvas')" color="#202020" filters="{[_fiWhiteShad]}" fontWeight="{LocaleInfo.BoldWeight()}"/>
+		</mx:HBox>
+		<controls:ShapeArea imgd="{_imgd}" imgv="{_imgv}" area="GooglePlusStickers" verticalScrollPolicy="off" ignoreErrors="true" width="210"/>					
+		
+	</mx:VBox>
+</controls:EffectSetBase>

@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="utf-8"?>
+<controls:TextPlus xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:controls="controls.*"
+		fontSize="15" color="#FFFFFF" selectable="false"/>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PrintChangeDialogBase xmlns="dialogs.*" xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" xmlns:ctl="controls.*"
+		defaultButton="{_btnPrint}" xmlns:ns1="*" styleName="DialogNoCloseBox" modalTransparencyDuration="0" modalTransparency="0" horizontalAlign="right">
+	<mx:Script>
+		import mx.resources.ResourceBundle;
+   		[Bindable] [ResourceBundle("PrintChangeDialog")] private var rb:ResourceBundle;
+	</mx:Script>
+	<states>
+		<mx:State name="OutOfBounds">
+			<mx:AddChild relativeTo="{hbox1}" position="before">
+				<mx:HBox horizontalGap="0">
+					<ctl:ImageVer source="@Embed('../theme/pngs/alertIcon.png')"/>
+					<mx:Text width="350" fontSize="13" condenseWhite="true" selectable="false" htmlText="@Resource(key='Text_1', bundle='PrintChangeDialog')">
+					</mx:Text>
+				</mx:HBox>
+			</mx:AddChild>
+			<mx:RemoveChild target="{_btnPrint}"/>
+			<mx:SetProperty target="{_btnCancel}" name="label" value="{Resource.getString('PrintChangeDialog', 'ok')}"/>
+			<mx:RemoveChild target="{hbox1}"/>
+			<mx:SetProperty name="defaultButton" value="{_btnCancel}"/>
+		</mx:State>
+		<mx:State name="Calibrate">
+			<mx:AddChild relativeTo="{hbox1}" position="before">
+				<mx:VBox>
+					<mx:HBox horizontalGap="0">
+						<ctl:ImageVer source="@Embed('../theme/pngs/alertIcon.png')"/>
+						<mx:Text width="350" fontSize="13" condenseWhite="true" selectable="false" htmlText="@Resource(key='Text_2', bundle='PrintChangeDialog')">
+						</mx:Text>
+					</mx:HBox>
+					<mx:Text width="100%" fontSize="13" condenseWhite="true" selectable="false" color="#000000" paddingTop="4" htmlText="@Resource(key='Text_3', bundle='PrintChangeDialog')">
+					</mx:Text>
+					<mx:Text width="100%" fontSize="13" condenseWhite="true" selectable="false" htmlText="@Resource(key='Text_4', bundle='PrintChangeDialog')">
+					</mx:Text>
+				</mx:VBox>
+			</mx:AddChild>
+			<mx:SetProperty target="{_btnPrint}" name="label" value="{Resource.getString('PrintChangeDialog', 'calibrate')}"/>
+			<mx:RemoveChild target="{hbox1}"/>
+			<mx:SetProperty target="{_btnPrint}" name="width" value="110"/>
+		</mx:State>
+	</states>
+
+	<mx:HBox id="hbox1" horizontalGap="0">
+		<ctl:ImageVer source="@Embed('../theme/pngs/alertIcon.png')"/>
+		<mx:Text width="350" fontSize="13" condenseWhite="true" selectable="false" htmlText="@Resource(key='Text_5', bundle='PrintChangeDialog')">
+		</mx:Text>
+	</mx:HBox>
+	<mx:HBox>
+		<mx:Button id="_btnPrint" label="@Resource(key='_btnPrint', bundle='PrintChangeDialog')" click="Complete(true)" styleName="BigButton" tabIndex="1" emphasized="true" minWidth="90" height="25" leading="1"/>
+		<mx:Button label="@Resource(key='_btnCancel', bundle='PrintChangeDialog')" id="_btnCancel" minWidth="70" styleName="dialogButton" tabIndex="3" height="25" leading="1"/>
+	</mx:HBox>
+</PrintChangeDialogBase>

@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/shape_Romance.png" flickrPremium="false" id="Kisses" numShapes="16" picnikPremium="false" previewUrls="60|48|../clipart/bundles/groupPreviews_Kisses.png?ver=812a3727" title="Romance">
+	<Shapes>
+		<Clipart cHeight="218" cWidth="458" color="14352425" flickrPremium="false" picnikPremium="false" previewUrl="40|40|0|../clipart/bundles/shapes_Kisses.png?ver=fb42c054" url="shapes/lips01.swf"/>
+		<Clipart cHeight="289" cWidth="357" color="14352425" flickrPremium="false" picnikPremium="false" previewUrl="40|40|1|../clipart/bundles/shapes_Kisses.png?ver=fb42c054" url="shapes/lips03.swf"/>
+		<Clipart cHeight="104" cWidth="120" flickrPremium="false" picnikPremium="false" previewUrl="40|40|2|../clipart/bundles/shapes_Kisses.png?ver=fb42c054" url="shapes/heart04.swf"/>
+		<Clipart cHeight="99" cWidth="114" flickrPremium="false" picnikPremium="false" previewUrl="40|40|3|../clipart/bundles/shapes_Kisses.png?ver=fb42c054" url="shapes/heart06.swf"/>
+		<Clipart cHeight="1100" cWidth="760" flickrPremium="false" picnikPremium="false" previewUrl="40|40|4|../clipart/bundles/shapes_Kisses.png?ver=fb42c054" url="shapes/valentines_icon06.swf"/>
+		<Clipart cHeight="850" cWidth="620" flickrPremium="false" picnikPremium="false" previewUrl="40|40|5|../clipart/bundles/shapes_Kisses.png?ver=fb42c054" url="shapes/valentines_icon09.swf"/>
+		<Clipart cHeight="850" cWidth="430" flickrPremium="false" picnikPremium="false" previewUrl="40|40|6|../clipart/bundles/shapes_Kisses.png?ver=fb42c054" url="shapes/valentines_icon08.swf"/>
+		<Clipart cHeight="835" cWidth="575" flickrPremium="false" picnikPremium="false" previewUrl="40|40|7|../clipart/bundles/shapes_Kisses.png?ver=fb42c054" url="shapes/valentines_icon07.swf"/>
+		<Clipart cHeight="405" cWidth="340" flickrPremium="false" picnikPremium="false" previewUrl="40|40|8|../clipart/bundles/shapes_Kisses.png?ver=fb42c054" url="shapes/present_red-silver.swf"/>
+		<Clipart cHeight="405" cWidth="340" flickrPremium="false" picnikPremium="false" previewUrl="40|40|9|../clipart/bundles/shapes_Kisses.png?ver=fb42c054" url="shapes/present_red.swf"/>
+		<Clipart cHeight="245" cWidth="340" flickrPremium="false" picnikPremium="false" previewUrl="40|40|10|../clipart/bundles/shapes_Kisses.png?ver=fb42c054" url="shapes/bow_red.swf"/>
+		<Clipart cHeight="245" cWidth="340" flickrPremium="false" picnikPremium="false" previewUrl="40|40|11|../clipart/bundles/shapes_Kisses.png?ver=fb42c054" url="shapes/bow_silver.swf"/>
+		<Clipart cHeight="112" cWidth="112" flickrPremium="false" picnikPremium="false" previewUrl="40|40|12|../clipart/bundles/shapes_Kisses.png?ver=fb42c054" url="shapes/candy_heart13.swf"/>
+		<Clipart cHeight="115" cWidth="116" flickrPremium="false" picnikPremium="false" previewUrl="40|40|13|../clipart/bundles/shapes_Kisses.png?ver=fb42c054" url="shapes/candy_heart14.swf"/>
+		<Clipart cHeight="108" cWidth="111" flickrPremium="false" picnikPremium="false" previewUrl="40|40|14|../clipart/bundles/shapes_Kisses.png?ver=fb42c054" url="shapes/candy_heart15.swf"/>
+		<Clipart cHeight="110" cWidth="112" flickrPremium="false" picnikPremium="false" previewUrl="40|40|15|../clipart/bundles/shapes_Kisses.png?ver=fb42c054" url="shapes/candy_heart16.swf"/>
+	</Shapes>
+</ShapeCategory>

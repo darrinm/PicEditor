@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<controls:EffectSetBase xmlns="*" xmlns:ct="creativeTools.*" xmlns:mx="http://www.adobe.com/2006/mxml" 
+		xmlns:eff="effects.*" xmlns:filters="flash.filters.*" xmlns:ctr="containers.*"
+		xmlns:controls="controls.*">
+		
+		<filters:DropShadowFilter id="_fiHeaderShadow" blurX="2" blurY="2" distance="1" color="#000000" alpha=".6" quality="3" angle="90"/>
+		
+	<mx:Style>
+		.promoTextBG {
+		   border-style: solid;
+		   border-thickness: 0;
+		   border-skin: ClassReference("skins.GradientBackground");
+		   gradient-fill-colors: #6b0b4a, #ae0173;
+		   gradient-fill-alphas: .8,.8;
+		   gradient-fill-ratios: 0,255;
+		   gradient-rotation: 90;
+		}
+	</mx:Style>
+	
+	
+	<controls:ExpandingVBox id="_evbx1" expanded="{expanded}" width="100%" verticalGap="0" verticalScrollPolicy="off">
+		<mx:Spacer height="{_hsh.height}" />
+	
+	<!-- this expands and collapses -->
+		<mx:Canvas height="0" width="100%" verticalScrollPolicy="off" horizontalScrollPolicy="off">
+
+			<mx:VBox verticalGap="0" width="100%">
+				<!-- Thanksgiving -->
+				<ctr:BoxPlus direction="horizontal" backgroundImage="{PicnikBase.StaticUrl('../graphics/effects/Thanksgiving/bg_thanksgiving.png')}" verticalAlign="middle" id="_hbxThanksgivingProj"
+						urlType="header" urlid="thanksgiving"
+						borderSides="bottom" borderStyle="solid" borderColor="#d1d1d1" width="210" height="30" paddingTop="1">
+					<mx:Label text="@Resource(key='thanks', bundle='Seasonal')" color="#ffffff" filters="{[_fiHeaderShadow]}" fontSize="15"
+						paddingLeft="8" paddingTop="2"/>
+				</ctr:BoxPlus>
+				<!--<eff:LeavesFrameEffect tags="frame,seasonal"/>-->
+				<controls:ShapeArea imgd="{_imgd}" imgv="{_imgv}" area="thanksgiving" verticalScrollPolicy="off" ignoreErrors="true" width="210"/>
+			</mx:VBox>
+			
+			<!--Header icon -->
+			<controls:ImageVer id="_imgThanksgivingIcon" right="0" y="{_hbxThanksgivingProj.y}"
+					includeInLayout="true"
+					source="../graphics/effects/Thanksgiving/icon_thanksgiving.png" filters="{[_fiHeaderShadow]}"/>
+	
+			</mx:Canvas>
+	</controls:ExpandingVBox>			
+		
+			<!-- Holiday header -->
+			<controls:EffectSetHeader id="_hsh" expanded="{_evbx1.expanded}" click="_evbx1.ToggleExpanded()" x="0" y="0"
+									  headText="@Resource(key='thanks', bundle='Seasonal')"
+									  subHeadText="@Resource(key='thanksSubhead', bundle='Seasonal')" 
+									  />
+
+</controls:EffectSetBase>
+
+<!-- Promo Text-->
+			

@@ -1,0 +1,12 @@
+fileName: fs_MkRg____.ttf
+name: Market-Regular
+subfamilyDisplayName: Regular
+fullName: Market-Regular
+displayName: Market-Regular
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 6
+pkName: pkfs0MkRg0000
+authorName: FontShop
+authorUrl: http://www.fontshop.com/

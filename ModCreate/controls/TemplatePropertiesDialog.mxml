@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ctrl:TemplatePropertiesDialogBase xmlns:ctrl="controls.*" xmlns="*" xmlns:mx="http://www.adobe.com/2006/mxml" headerHeight="18">
+	<mx:VBox width="100%" height="100%">
+	
+		<!-- change preview -->
+		<mx:HBox width="100%">
+			<mx:Label text="Preview: "/>
+			<ctrl:ImageVer width="52" height="52" source="{_cbPreview.selectedItem.url}"/>
+			<mx:VBox>
+				<mx:ComboBox id="_cbPreview" dataProvider="{_acPreviewInfo}" selectedIndex="0" rowCount="10" height="26">
+					<mx:itemRenderer>
+						<mx:Component>
+							<mx:HBox height="52" dropShadowEnabled="false" verticalAlign="middle" horizontalScrollPolicy="off" verticalScrollPolicy="off">
+								<ctrl:ImageVer height="52" width="52" scaleContent="true" source="{data.url}"/>
+			                	<mx:Label text="{data.label}" width="100%" fontSize="13" fontWeight="normal" color="#333333" minWidth="80" paddingTop="5"/>
+							</mx:HBox>
+						</mx:Component>
+		            </mx:itemRenderer>
+				</mx:ComboBox>
+				<mx:Button label="Save Preview" click="SavePreview(_cbPreview.selectedItem.fid)"/>
+			</mx:VBox>
+		</mx:HBox>
+		
+		<!-- eddit attributes -->
+		<mx:HRule width="100%" strokeColor="#e5e5e5" strokeWidth="1"/>
+		<mx:HBox width="100%">
+			<mx:Label text="Title"/>
+			<mx:TextInput id="_tiTitle" text="{_obTemplate.title}"/>
+			<mx:Spacer width="100%"/>
+			<mx:LinkButton label="fid:" 
+					click="PicnikBase.app.NavigateToURL(new URLRequest(PicnikService.serverURL + '/admin/file?fid=' + _fid), '_blank')"/>
+			<mx:Label selectable="true" text="{_fid}"/>
+		</mx:HBox>
+		<mx:HBox width="100%">
+			<mx:Label text="Author"/>
+			<mx:TextInput id="_tiAuthor" text="{_obTemplate.author}"/>
+			<mx:Spacer width="100%"/>
+			<mx:LinkButton label="owner id:" 
+					click="PicnikBase.app.NavigateToURL(new URLRequest(PicnikService.serverURL + '/admin/edituser?user=' + _strOwnerId), '_blank')"/>
+			<mx:Label selectable="true" text="{_strOwnerId}"/>
+		</mx:HBox>
+		<mx:HBox width="100%">
+			<mx:Label text="Author URL"/>
+			<mx:TextInput id="_tiAuthorUrl" text="{_obTemplate.authorurl}"/>
+		</mx:HBox>
+		<mx:HBox width="100%">
+			<mx:Label text="Group"/>
+			<mx:ComboBox id="_cbGroup" rowCount="15" height="26"/>
+		</mx:HBox>
+		<mx:CheckBox id="_cbxPremium" selected="{_obTemplate.premium}" label="Premium Template"/>
+		
+		<mx:HBox width="100%" horizontalAlign="center">
+			<mx:Button label="Save Properties" click="SaveProperties()" styleName="BigButton" fontSize="14" height="26" minWidth="160"/>			
+		</mx:HBox>
+		
+		<!-- Stage -->
+		<mx:HRule width="100%" strokeColor="#e5e5e5" strokeWidth="1"/>
+		<mx:HBox width="100%" verticalAlign="middle">
+			<mx:Label text="Current CMS stage:" color="#333333"/>
+			<mx:Label text="{FriendlyCMSStageName(_obTemplate.strCMSStage)}" fontSize="16"/>
+		</mx:HBox>
+
+		<mx:HBox>
+			<!-- promote -->
+			<mx:HBox width="100%" visible="{_obTemplate.strCMSStage != 'live'}" includeInLayout="{_obTemplate.strCMSStage != 'live'}" verticalAlign="middle" horizontalGap="4">
+				<mx:Label text="Promote to:" color="#333333"/>
+				<mx:Button click="GoToStage(GetNextStage(_obTemplate.strCMSStage))"
+					label="{FriendlyCMSStageName(GetNextStage(_obTemplate.strCMSStage))}"/>
+				<mx:Label text="{FriendlyCMSStageName('live')}" visible="{_obTemplate.strCMSStage == 'live'}" includeInLayout="{_obTemplate.strCMSStage == 'live'}"/>
+			</mx:HBox>	
+			<!-- demote -->
+			<mx:HBox width="100%" visible="{_obTemplate.strCMSStage != 'private'}" includeInLayout="{_obTemplate.strCMSStage != 'private'}" verticalAlign="middle" horizontalGap="4">
+				<mx:Label text="Demote to:" color="#333333"/>
+				<mx:Button click="GoToStage(GetPrevStage(_obTemplate.strCMSStage))"
+					label="{FriendlyCMSStageName(GetPrevStage(_obTemplate.strCMSStage))}"/>
+				<mx:Label text="{FriendlyCMSStageName('private')}" visible="{_obTemplate.strCMSStage == 'private'}" includeInLayout="{_obTemplate.strCMSStage == 'private'}"/>
+			</mx:HBox>			
+		</mx:HBox>		
+		
+		<!-- delete -->
+		<mx:HRule width="100%" strokeColor="#e5e5e5" strokeWidth="1"/>
+		<mx:HBox width="100%" horizontalAlign="center">
+			<mx:Button click="Delete()" label="Delete Forever" />
+		</mx:HBox>
+	</mx:VBox>
+</ctrl:TemplatePropertiesDialogBase>

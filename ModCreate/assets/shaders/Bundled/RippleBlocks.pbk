@@ -1,0 +1,50 @@
+<languageVersion : 1.0;>
+
+kernel RippleBlocks
+<
+    title: "Ripple Blocks";
+    namespace : "Allen Chou";
+    vendor : "Allen Chou";
+    version : 1;
+    description : "box-shaped ripple effect";
+    iconURL: "../graphics/effects/ripple_blocks.png";
+    websiteURL: "http://cjcat.blogspot.com";
+>
+{
+    parameter float2 amplitude
+    <
+    minValue:     float2(  0,   0);
+    maxValue:     float2(100, 100);
+    defaultValue: float2( 20,  20);
+    snapInterval: float2(1, 1);
+    >;
+    
+    parameter float2 wavelength
+    <
+    minValue:     float2(   1.0,    1.0);
+    maxValue:     float2( 100.0,  100.0);
+    defaultValue: float2(  10.0,   10.0);
+    snapInterval: float2(1, 1);
+    >;
+   
+    parameter float2 phase
+    <
+    minValue:     float2(  0.0,   0.0);
+    maxValue:     float2(6.283, 6.283);
+    defaultValue: float2(  0.0,   0.0);
+    visible: "false";
+    >;
+
+    input image4 src;
+    output pixel4 dst;
+
+    void
+    evaluatePixel()
+    {
+        float2 coord = outCoord();
+        coord.x += amplitude.x * sin((coord.x / wavelength.x) + phase.x);
+        coord.y += amplitude.y * cos((coord.y / wavelength.y) + phase.y);
+        
+        dst = sample(src, float2(coord.x, coord.y));
+    }
+}

@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/shape_geometric.png" flickrPremium="false" id="Geometric" numShapes="12" picnikPremium="false" previewUrls="60|48|../clipart/bundles/groupPreviews_Geometric.png?ver=b2795a15" title="Geometric">
+	<Shapes>
+		<Square flickrPremium="false" picnikPremium="false"/>
+		<PRectangle flickrPremium="false" picnikPremium="false"/>
+		<Circle flickrPremium="false" picnikPremium="false"/>
+		<Ellipse flickrPremium="false" picnikPremium="false"/>
+		<Polygon flickrPremium="false" picnikPremium="false" points="3"/>
+		<Star flickrPremium="false" innerRadiusPct="0.5" picnikPremium="false" points="5"/>
+		<Polygon flickrPremium="false" picnikPremium="false" points="5"/>
+		<Star flickrPremium="false" innerRadiusPct="0.3" picnikPremium="false" points="10"/>
+		<RoundedSquare flickrPremium="false" picnikPremium="false"/>
+		<RoundedRectangle flickrPremium="false" picnikPremium="false"/>
+		<Polygon flickrPremium="false" offsetAngle="22.5" picnikPremium="false" points="8"/>
+		<Burst flickrPremium="false" innerRadiusPct="0.75" picnikPremium="false" points="12"/>
+	</Shapes>
+</ShapeCategory>

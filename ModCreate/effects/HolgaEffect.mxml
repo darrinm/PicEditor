@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cnt:EffectCanvas xmlns:cnt="containers.*" xmlns="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="233"
+	xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*" premium="{PicnikBase.GetApp().freemiumModel}" urlid="Holgaish">
+	<mx:Script>
+		import util.LocUtil;
+		import mx.resources.ResourceBundle;
+   		[Bindable] [ResourceBundle("HolgaEffect")] private var rb:ResourceBundle;
+	</mx:Script>
+
+
+	<mx:Array id="_resetValues">
+		<local:StoredValue target="_sldrBlur.value"/>
+		<local:StoredValue target="_sldrGrain.value"/>
+		<local:StoredValue target="_sldrFade.value"/>
+	</mx:Array>
+	
+	<EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='HolgaEffect')" strAuthor="@Resource(key='_efbtn_1', bundle='HolgaEffect')"
+		strImageSource="../graphics/effects/Camera/holga.png" premium="{premium}"/>
+	<mx:String id="_strHelpText">{Resource.getString('HolgaEffect', '_strHelpText')}</mx:String>
+
+	<mx:VBox x="8" y="67" verticalGap="0">
+		<cnt:ResizingHBox width="194" paddingBottom="-5" paddingTop="3">
+			<ResizingLabel text="@Resource(key='Label_1', bundle='HolgaEffect')" styleName="sliderTitle" autoFontSizeGap="1"/>
+			<ResizingLabel text="{LocUtil.pct((_sldrBlur.liveValue))}" styleName="sliderValue" textAlign="right" width="100%" autoFontSizeGap="1"/>
+		</cnt:ResizingHBox>
+		<HSliderFastDrag updateSpeed="{updateSpeed}" width="191" minimum="0" maximum="100" value="70" id="_sldrBlur" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+
+		<mx:HBox width="194" paddingBottom="-5" paddingTop="3">
+			<mx:Label text="@Resource(key='Label_2', bundle='HolgaEffect')" styleName="sliderTitle"/>
+			<mx:Label text="{LocUtil.pct((_sldrGrain.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<HSliderPlus width="191" minimum="0" maximum="100" value="30" id="_sldrGrain" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+
+		<mx:HBox width="194" paddingBottom="-5" paddingTop="3">
+			<mx:Label text="@Resource(key='Label_3', bundle='HolgaEffect')" styleName="sliderTitle"/>
+			<mx:Label text="{LocUtil.pct((_sldrFade.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<HSliderPlus width="191" minimum="0" maximum="100" value="0" id="_sldrFade" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+
+		<ApplyCancelEffectButtons addBoxPadding="true" premium="{premium}"/>
+	</mx:VBox>
+
+	<imageOperations:CircularGradientImageMask 
+		width="{imagewidth}" height="{imageheight}" 
+		xCenter="{imagewidth/2}" yCenter="{imageheight/2}" 
+		innerRadius="{(Math.max(imagewidth,imageheight)/2)*.9}" 
+		outerRadius="{(Math.max(imagewidth,imageheight)/2)*(2-((_sldrBlur.liveValue/100)*1))}" 
+		id="_msk"/>
+
+	<imageOperations:NestedImageOperation id="_op" dynamicAlphaCachePriority="2" 
+			BlendAlpha="{1-(_sldrFade.value/100)}">
+		<imageOperations:children>
+			<imageOperations:AutoFixImageOperation />
+			<imageOperations:GlowImageOperation color="0" glowalpha="1" 
+				xblur="{.5*Math.max(imagewidth, imageheight)/2}" yblur="{.4*Math.max(imagewidth, imageheight)/2}" 
+				strength="1.4" quality="3" innerglow="true" knockout="false"/>
+			<imageOperations:BlurImageOperation xblur="18" yblur="20" quality="3"
+				BlendAlpha="1" Mask="{_msk}"/>
+			<imageOperations:BWImageOperation filtercolor="0xff6666"/>
+			<imageOperations:SimpleColorMatrixImageOperation Contrast="+25"/>
+			<imageOperations:NoiseImageOperation randomSeed="5" dynamicAlphaCachePriority="1"
+				low="{255-Math.round((_sldrGrain.value/200)*255)}" high="255" channelOptions="7"
+				grayScale="true" BlendAlpha=".6" BlendMode="multiply"/>
+		</imageOperations:children>
+	</imageOperations:NestedImageOperation>
+
+</cnt:EffectCanvas>

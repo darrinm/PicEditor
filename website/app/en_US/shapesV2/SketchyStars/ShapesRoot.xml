@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory area="SketchyStars" id="root">
+	<ShapeCategory flickrPremium="false" id="SketchyStarsSection" numShapes="0" picnikPremium="false" showHeader="false">
+		<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/shape_stars.png" flickrPremium="true" id="SketchyStars" numShapes="16" picnikPremium="true" previewUrls="60|48|../clipart/bundles/SketchyStarsArea_groupPreviews_SketchyStars.png?ver=4ce4711d" thumbUrl="66|54|0|../clipart/bundles/SketchyStarsArea_groupThumbs.png?ver=f6b7fca3" title="Sketchy Stars"/>
+	</ShapeCategory>
+</ShapeCategory>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DoodleEffectBase xmlns="effects.*" xmlns:cnt="containers.*" xmlns:ctrl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="434" xmlns:local="*" 
+	xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*"
+	xmlns:flash.geom="flash.geom.*" premium="false"
+	 urlid="Glitter">
+	<mx:Script>
+		<![CDATA[
+			import imagine.imageOperations.paintMask.GlitterBrush;
+			import imagine.imageOperations.paintMask.Brush;
+			import util.LocUtil;
+
+			override protected function CreateBrush(): Brush {
+				return new GlitterBrush(100);
+			}
+			
+		]]>
+	</mx:Script>
+
+	<mx:HRule x="0" width="100%" top="0" height="1" strokeColor="#FFFFFF"/>
+	<mx:HRule x="0" width="100%" height="1" bottom="0" strokeColor="#d4d4d4"/>
+	
+	<ctrl:EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='GlitterEffect')" strAuthor="@Resource(key='byPicnik', bundle='EffectCanvas')" strImageSource="../graphics/effects/Misc/glitter.png" premium="{premium}" newEffect="true"/>
+	<mx:String id="_strHelpText">{Resource.getString('GlitterEffect', '_strHelpText')}</mx:String>
+
+	<mx:VBox x="9" y="70" verticalGap="0">
+		<mx:Spacer width="10" height="3"/>
+		<!-- brush size -->
+		<mx:HBox width="190" paddingBottom="-5" paddingTop="5">
+			<mx:Label text="@Resource(key='brushSize', bundle='EffectCanvas')" styleName="sliderTitle" width="100"/>
+			<mx:Label text="{Math.round(SliderToBrushSize(_sldrBrushSize.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<ctrl:HSliderFastDrag id="_sldrBrushSize" width="190" thumbPress="ShowBrushPreview()" thumbDrag="UpdateBrushPreview()" thumbRelease="HideBrushPreview()"
+			globalShortcutsEnabled="{_fSelected}" globalShortcutKeys="[]" 
+			minimum="0" maximum="100" value="{BrushSizeToSlider(45+zeroR)}" change="OnOpChange()" showDataTip="false"/>
+
+		<!-- fade, from 0 to 1 --> 
+		<mx:HBox width="190" paddingBottom="-5" paddingTop="5">
+			<mx:Label text="@Resource(key='fade', bundle='EffectCanvas')" styleName="sliderTitle"/>
+			<mx:Label text="{LocUtil.pct((_sldrFade.value * 100))}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<ctrl:HSliderFastDrag id="_sldrFade" width="190" change="OnOpChange()" 
+			minimum="0" maximum="1" value="{zeroR}" liveDragging="true" snapInterval="0.01" showDataTip="false"/>
+
+		
+		<ctrl:ApplyCancelEffectButtons premium="{premium}" addBoxPadding="true"/>
+	</mx:VBox>
+
+	<mx:Number id="_nSpacing">0.1</mx:Number>
+	<mx:Number id="_cxyBrush">{Math.round(SliderToBrushSize(_sldrBrushSize.value))}</mx:Number>
+	
+	<imageOperations:DoodlePlusImageOperation id="_op" strokes="{doodleStrokes}" BlendAlpha="{1-_sldrFade.value}"/>
+</DoodleEffectBase>
+

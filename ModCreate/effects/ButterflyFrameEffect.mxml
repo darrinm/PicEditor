@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameEffectBase xmlns="effects.*" xmlns:cnt="containers.*" xmlns:ctrl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="343"
+	xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*" premium="true" xmlns:objectOperations="imagine.objectOperations.*" urlid="TastyFrame">
+	<mx:XML xmlns="" id="_xmlFrame">
+<frames> <!-- Heart Frame -->
+	<frame cornerRounding=".2" fillEndToEnd="false" density=".8" size="{_sldrSize.value}" inset="{0.5 + 0.015/_sldrSize.value}" autoRotate="true"
+			rotationJitter=".1" rotationJitterOrder="2"
+			noDoubles="true">
+        <Clipart url="shapes/butterflys/butterfly1.swf" cWidth="1500" cHeight="820" previewUrl="../clipart/previews/shapes/butterflys/butterfly1.png"/>
+        <Clipart url="shapes/butterflys/butterfly2.swf" cWidth="1490" cHeight="1250" previewUrl="../clipart/previews/shapes/butterflys/butterfly2.png"/>
+        <Clipart url="shapes/butterflys/butterfly3.swf" cWidth="1173" cHeight="800" previewUrl="../clipart/previews/shapes/butterflys/butterfly3.png"/>
+        <Clipart url="shapes/butterflys/butterfly4.swf" cWidth="1450" cHeight="1250" previewUrl="../clipart/previews/shapes/butterflys/butterfly4.png"/>
+        <Clipart url="shapes/butterflys/butterfly5.swf" cWidth="1173" cHeight="800" previewUrl="../clipart/previews/shapes/butterflys/butterfly5.png"/>
+        <Clipart url="shapes/butterflys/butterfly6.swf" cWidth="1490" cHeight="850" previewUrl="../clipart/previews/shapes/butterflys/butterfly6.png"/>
+	</frame>
+</frames>
+	</mx:XML>
+
+	<ctrl:EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='CandyHeartFrameEffect')" strAuthor="@Resource(key='byPicnik', bundle='EffectCanvas')"
+		strImageSource="../graphics/effects/Frames/candy_heart_frame.jpg" premium="{premium}" cornerRadius="0" newEffect="true"/>
+	<mx:String id="_strHelpText">{Resource.getString('CandyHeartFrameEffect', '_strHelpText')}</mx:String>
+	
+	<mx:VBox x="10" y="70" verticalGap="0">
+		<mx:HBox width="194" paddingBottom="-5" paddingTop="3">
+			<mx:Label text="@Resource(key='size', bundle='EffectCanvas')" styleName="sliderTitle"/>
+			<mx:Label text="{Math.round(_sldrSize.value * 100)}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<ctrl:HSliderPlus width="191" minimum="0.05" maximum="0.4" value="{zeroR + 0.075}" id="_sldrSize" change="OnFrameParamChange()" liveDragging="true" showDataTip="false"/>
+	
+		<ctrl:ApplyCancelEffectButtons addBoxPadding="true" premium="{premium}"/>
+	</mx:VBox>
+
+</FrameEffectBase>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<HelpDialogBase xmlns="dialogs.*" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:containers="containers.*"
+		xmlns:flickr="bridges.flickr.*" xmlns:flash="flash.filters.*" 
+		styleName="liteDialog" borderStyle="solid" borderThickness="0" cornerRadius="10" backgroundColor="#FFFFFF" backgroundAlpha="1"
+		horizontalScrollPolicy="off" verticalScrollPolicy="off"
+		paddingTop="1" paddingRight="0" paddingBottom="0" paddingLeft="0"
+		filters="{[_fiInnerShadow,_fiShadow]}">
+	<mx:Metadata>
+        [Event(name="canceled", type="flash.events.Event")]
+    </mx:Metadata>
+    <flash:DropShadowFilter id="_fiInnerShadow" alpha=".15" blurX="4" blurY="4" angle="-90" distance="2" quality="3" inner="true"/>
+    <flash:DropShadowFilter id="_fiShadow" alpha=".60" blurX="12" blurY="12" angle="90" distance="2" quality="3"/>
+    <containers:AutoShrinkCanvas id="canvas1" width="660" height="460" maximumHeight="{parentHeight - 8}">
+		<HelpDialogContent id="_hlp" width="100%" height="100%" canceled="Hide()" />
+	</containers:AutoShrinkCanvas>
+</HelpDialogBase>

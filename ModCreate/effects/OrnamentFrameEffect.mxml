@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameEffectBase xmlns="effects.*" xmlns:cnt="containers.*" xmlns:ctrl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="343"
+	xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*" premium="true" xmlns:objectOperations="imagine.objectOperations.*"
+	urlid="ornamentframe">
+	
+	<mx:Script>
+      <![CDATA[
+            private function InstallColors(xml:XML): void {
+                  // Replace the children of _xmlFrame.frame[0] with xml
+                  var xmlFrame:XML = _xmlFrame.frame[0];
+                  xmlFrame.setChildren(xml.Clipart);
+                  OnFrameParamChange();
+            }
+      ]]>
+	</mx:Script>
+      <mx:XML xmlns="" id="_xmlColor1">
+            <frame>
+                <!-- pink and white -->
+				<Clipart cHeight="716" cWidth="682" url="shapes/ornaments_cutout/x_ornaments-22.swf"/>
+				<Clipart cHeight="736" cWidth="665" url="shapes/ornaments_cutout/x_ornaments-34.swf"/>
+            </frame>
+      </mx:XML>
+      <mx:XML xmlns="" id="_xmlColor2">
+            <frame>
+				<!-- red and green -->
+				<Clipart cHeight="731" cWidth="669" url="shapes/ornaments_cutout/x_ornaments-16.swf"/>
+				<Clipart cHeight="726" cWidth="674" url="shapes/ornaments_cutout/x_ornaments-35.swf"/>
+            </frame>
+      </mx:XML>
+      <mx:XML xmlns="" id="_xmlColor3">
+            <frame>
+            	<!-- ornate gold and red -->
+				<Clipart cHeight="590" cWidth="584" url="shapes/misc_christmas_cutout/x_misc-ornaments-03.swf"/>
+				<Clipart cHeight="643" cWidth="682" url="shapes/misc_christmas_cutout/x_misc-ornaments-01.swf"/>
+            </frame>
+      </mx:XML>
+      <mx:XML xmlns="" id="_xmlColor4">
+            <frame>
+				<!-- pearl and blue -->
+				<Clipart cHeight="729" cWidth="670" url="shapes/ornaments_cutout/x_ornaments-3.swf"/>
+                <Clipart cHeight="722" cWidth="677" url="shapes/ornaments_cutout/x_ornaments-32.swf"/>
+            </frame>
+      </mx:XML>
+	
+	<mx:XML xmlns="" id="_xmlFrame">
+<frames> <!-- Ornament Frame -->
+	<groupFilters>
+		<GlowFilter alpha=".25"
+				blurX="{Math.min(imagewidth, imageheight) * 30/768}"
+				blurY="{Math.min(imagewidth, imageheight) * 30/768}"
+				color="0x000000" quality="3"/>
+	</groupFilters>
+	<frame cornerRounding="0" fillEndToEnd="false" autoRotate="false"
+			size="0.14" 
+			sizeJitter="0.13" 
+			sizeJitterOrder=".1"
+			inset=".08"
+			insetJitter=".28"
+			density="1.4"
+			positionJitter=".07"
+			rotationJitter=".64"
+			noDoubles="true">
+			
+			<!-- ornate gold and red -->
+			<Clipart cHeight="590" cWidth="584" url="shapes/misc_christmas_cutout/x_misc-ornaments-03.swf"/>
+			<Clipart cHeight="643" cWidth="682" url="shapes/misc_christmas_cutout/x_misc-ornaments-01.swf"/>
+	</frame>
+</frames>
+	</mx:XML>
+
+	<ctrl:EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='OrnamentFrameEffect')" strAuthor="@Resource(key='byPicnik', bundle='EffectCanvas')"
+		strImageSource="../graphics/effects/Holiday/ornament_frame.jpg" premium="{premium}" cornerRadius="0"/>
+	<mx:String id="_strHelpText">{Resource.getString('OrnamentFrameEffect', '_strHelpText')}</mx:String>
+	
+	<mx:VBox x="10" y="73" verticalGap="0">
+		<!--
+		<ctrl:LabelHSlidePlus label="@Resource(key='size', bundle='EffectCanvas')" id="_sldrSize" minimum="0.05" maximum="0.5" value="0.14" change="OnFrameParamChange()"/>
+		<ctrl:LabelHSlidePlus label="size jitter" id="_sldrSizeJitter" minimum="0" maximum="1" value="0.13" change="OnFrameParamChange()"/>
+		<ctrl:LabelHSlidePlus label="size jitter order" id="_sldrSizeJitterOrder" minimum="0.001" maximum="3" value=".1" change="OnFrameParamChange()"/>
+		<ctrl:LabelHSlidePlus label="inset" id="_sldrInset" minimum="0" maximum="1" value=".08" change="OnFrameParamChange()"/>
+		<ctrl:LabelHSlidePlus label="inset jitter" id="_sldrInsetJitter" minimum="0" maximum="1" value=".28" change="OnFrameParamChange()"/>
+		<ctrl:LabelHSlidePlus label="density" id="_sldrDensity" minimum="0.1" maximum="5" value="1.4" change="OnFrameParamChange()"/>
+		<ctrl:LabelHSlidePlus label="position jitter" id="_sldrPositionJitter" minimum="0" maximum="1" value=".07" change="OnFrameParamChange()"/>
+		<ctrl:LabelHSlidePlus label="rotation jitter" id="_sldrRotationJitter" minimum="0" maximum="1" value=".64" change="OnFrameParamChange()"/>
+		<ctrl:LabelHSlidePlus label="corner rounding" id="_sldrCornerRounding" minimum="0" maximum="4" value="0" change="OnFrameParamChange()"/>
+		
+		<ctrl:LabelHSlidePlus label="shadow" id="_sldrShadow" minimum="0" maximum="100" value="30" change="OnFrameParamChange()"/>
+		<ctrl:LabelHSlidePlus label="shadow alpha" id="_sldrShadowAlpha" minimum="0" maximum="1" value=".24" change="OnFrameParamChange()"/>
+		
+			
+		<mx:Label text="Sides"/>
+		<mx:ComboBox id="_cmboSides" selectedIndex="0" dataProvider="{['top,left,right,bottom','top,bottom','top,left','top','bottom','right,left','bottom,right']}" change="OnFrameParamChange()"/>
+		-->
+		
+		<mx:Canvas width="190" cornerRadius="5" backgroundColor="#ffffff" borderColor="#d9d9d9" borderStyle="solid" backgroundAlpha=".4" height="80" verticalScrollPolicy="off">
+			<mx:VBox width="100%" paddingLeft="0" paddingRight="0" verticalGap="0">
+				<mx:Spacer height="2"/>
+				<mx:HBox verticalAlign="middle" width="100%">
+					<mx:Spacer width="100%"/>
+					<mx:Canvas>
+						<ctrl:ImageVer source="../graphics/holiday/ornaments_goldRed.png" right="0" verticalCenter="0"/>
+						<mx:RadioButton id="_rbtn3" label="  " selected="true" groupName="rbgColor" click="InstallColors(_xmlColor3)" width="68" verticalCenter="0"/>
+					</mx:Canvas>
+					<mx:Spacer width="4"/>
+					<mx:Canvas>
+						<ctrl:ImageVer source="../graphics/holiday/ornaments_redGreen.png" right="0" verticalCenter="0"/>
+						<mx:RadioButton id="_rbtn2" label="  " groupName="rbgColor" click="InstallColors(_xmlColor2)" width="68" verticalCenter="0"/>
+					</mx:Canvas>
+					<mx:Spacer width="100%"/>
+				</mx:HBox>
+				<mx:Spacer height="0"/>
+				<mx:HBox verticalAlign="middle" width="100%">
+					<mx:Spacer width="100%"/>
+					<mx:Canvas>
+						<ctrl:ImageVer source="../graphics/holiday/ornaments_pinkWhite.png" right="0" verticalCenter="0"/>
+						<mx:RadioButton id="_rbtn1" label="  " groupName="rbgColor" click="InstallColors(_xmlColor1)" width="68" verticalCenter="0"/>
+					</mx:Canvas>
+					<mx:Spacer width="4"/>
+					<mx:Canvas>
+						<ctrl:ImageVer source="../graphics/holiday/ornaments_bluePearl.png" right="0" verticalCenter="0"/>
+						<mx:RadioButton id="_rbtn4" label="  " groupName="rbgColor" click="InstallColors(_xmlColor4)" width="68" verticalCenter="0"/>
+					</mx:Canvas>
+					<mx:Spacer width="100%"/>
+				</mx:HBox>
+				<mx:Spacer height="2"/>
+			</mx:VBox>
+		</mx:Canvas>
+				
+		<ctrl:ApplyCancelEffectButtons addBoxPadding="true" premium="{premium}"/>
+	</mx:VBox>
+
+</FrameEffectBase>

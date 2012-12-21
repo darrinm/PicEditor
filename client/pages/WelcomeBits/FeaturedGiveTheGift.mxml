@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas width="100%" height="100%"
+		xmlns:filters="flash.filters.*" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:ctl="controls.*" >
+	<filters:DropShadowFilter id="_fiDropShad" blurX="7" blurY="7" distance="2" color="#000000" alpha=".35" quality="3" angle="90"/>
+	<filters:DropShadowFilter id="_fiWhiteShad" blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1" quality="3" angle="90"/>
+	<filters:GlowFilter id="_fiGlow" alpha=".8" blurX="20" blurY="20" color="#ffffff"/>
+	
+	<!-- contents -->
+	<mx:VBox verticalGap="15" width="100%" height="100%" horizontalAlign="center" paddingLeft="10" paddingRight="10" paddingBottom="20">
+		<!-- right col copy -->
+		<mx:VBox width="100%" verticalGap="0" clipContent="false" horizontalScrollPolicy="off" verticalScrollPolicy="off">
+			<ctl:LabelPlus htmlText="@Resource(key='GiveTheGiftIntro', bundle='FeaturedFeatures')" styleName="h1" filters="{[_fiWhiteShad]}"/>
+			<ctl:TextPlus htmlText="@Resource(key='GiveTheGiftSubhead', bundle='FeaturedFeatures')" styleName="subhead" paddingTop="-6" width="100%" paddingRight="10"/>
+		</mx:VBox>
+		<!-- photos -->
+		<mx:Canvas width="100%" height="100%" clipContent="false" bottom="-20">
+			<ctl:ImagePlus source="/graphics/welcome/featured/givegift02.png" width="100%" height="100%"
+				horizontalAlign="left" left="50" bottom="-50"
+				maxWidth="338" maxHeight="200" minHeight="200" minWidth="338"
+				filters="{[_fiDropShad]}"/>
+			<ctl:ResizingButton label="@Resource(key='giveButton', bundle='FeaturedFeatures')" styleName="basketButton" fontSize="20" height="36" minWidth="160"
+				right="0" verticalCenter="0" paddingLeft="10" paddingRight="10"
+				click="PicnikBase.GetApp().OnGivePicnikClick()"
+				filters="{[_fiGlow]}"/>
+		</mx:Canvas>
+	</mx:VBox>
+
+</mx:Canvas>

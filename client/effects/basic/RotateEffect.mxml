@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RotateEffectBase xmlns="effects.basic.*" xmlns:bk="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%" 
+	xmlns:flash="flash.filters.*" xmlns:bkctr="containers.*" xmlns:ut="util.*" xmlns:imageOperations="imagine.imageOperations.*"
+	title="@Resource(key='_btnRotate', bundle='Adjustments')" styleName="rotateEffect" help="{Resource.getString('RotateOverlay', 'AboutRotate')}">
+
+	<mx:Script>
+		import picnik.util.LocaleInfo;
+		import mx.resources.ResourceBundle;
+		import util.LocUtil;
+   		[Bindable] [ResourceBundle("RotateOverlay")] private var rb:ResourceBundle;
+	</mx:Script>
+	
+	<!-- Would like to let buttons autosize, but the fact that the source icons are different sizes breaks that -->
+	<mx:Number id="buttonHeight">30</mx:Number>
+	<mx:Number id="buttonWidth">38</mx:Number>
+
+	<editControls>
+		<mx:HBox width="100%">
+		  <!-- left / right buttons -->
+		  <mx:Button id="_btnRotateLeft" styleName="rotateLeftButton"
+							 width="{buttonWidth}" height="{buttonHeight}" click="OnRotateLeftClick(event)"/>
+		  <mx:Button id="_btnRotateRight" styleName="rotateRightButton"
+							 width="{buttonWidth}" height="{buttonHeight}" click="OnRotateRightClick(event)"/>
+		  <mx:Button id="_btnFlipH" styleName="flipHButton" width="{buttonWidth}" height="{buttonHeight}"
+					 click="OnFlipHClick(event)" selected="{flipH}" />
+		  <mx:Button id="_btnFlipV" styleName="flipVButton" width="{buttonWidth}" height="{buttonHeight}"
+					 click="OnFlipVClick(event)" selected="{flipV}" />
+		</mx:HBox>
+		<mx:HBox width="100%" paddingTop="8" paddingBottom="-8">
+			<mx:Label width="50%" text="@Resource(key='label2', bundle='RotateOverlay')" styleName="sliderTitle" fontWeight="{LocaleInfo.BoldWeight()}"/>
+			<mx:Label width="50%" text="{LocUtil.deg(fineRotationDeg, 2)}" id="_lbDegrees" styleName="sliderValue" textAlign="right"/>
+		</mx:HBox>
+		<bk:HSliderPlus id="_sldrRotation" minimum="-45" maximum="45" width="120%" value="{fineRotationSliderValue}" liveDragging="true" tickOffset="4" showDataTip="false"
+										thumbPress="OnRotationSliderPress(event)" thumbRelease="OnRotationSliderRelease(event)" change="OnRotationSliderChange(event)"/>
+	</editControls>
+	
+	<imageOperations:RotateImageOperation id="_op" radAngle="{RadAngle}" flipH="{flipH}" flipV="{flipV}" />
+</RotateEffectBase>

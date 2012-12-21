@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory flickrPremium="false" id="soccer_nl" numShapes="3" picnikPremium="false" previewUrls="60|48|../clipart/bundles/SoccerFeverTeamsArea_groupPreviews_soccer_nl.png?ver=5c470029" title="Netherlands Stickers">
+	<Shapes>
+		<Clipart cHeight="294" cWidth="464.2" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|0|../clipart/bundles/SoccerFeverTeamsArea_shapes_soccer_nl.png?ver=b610788d" url="shapes/SoccerFever/nl/wavingflag_nl.swf"/>
+		<Clipart cHeight="600" cWidth="900" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|1|../clipart/bundles/SoccerFeverTeamsArea_shapes_soccer_nl.png?ver=b610788d" url="shapes/SoccerFever/nl/flag_nl.swf"/>
+		<Clipart cHeight="223.55" cWidth="95.95" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|2|../clipart/bundles/SoccerFeverTeamsArea_shapes_soccer_nl.png?ver=b610788d" url="shapes/SoccerFever/nl/scarf_nl.swf"/>
+	</Shapes>
+</ShapeCategory>

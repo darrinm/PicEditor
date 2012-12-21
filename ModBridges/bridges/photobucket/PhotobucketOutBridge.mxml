@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PhotobucketOutBridgeBase xmlns="bridges.photobucket.*" xmlns:pk="*" xmlns:ctl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml"
+		width="100%" height="100%" fontSize="14" xmlns:flash="flash.filters.*" horizontalScrollPolicy="off" verticalScrollPolicy="auto">
+	<mx:Script>
+		import mx.resources.ResourceBundle;
+   		[Bindable] [ResourceBundle("PhotobucketOutBridge")] private var rb:ResourceBundle;
+	</mx:Script>
+
+	<states>
+		<mx:State name="NeedAuthorization">
+			<mx:RemoveChild target="{mainBox}"/>
+			<mx:AddChild position="lastChild">
+				<PhotobucketAccount width="100%" id="_ssa" _tpa="{_tpa}" horizontalCenter="0" paddingBottom="10" top="15"/>
+			</mx:AddChild>
+		</mx:State>
+		<mx:State name="AccountTypePro"/>
+		<mx:State name="AccountTypeProWithImageID" basedOn="AccountTypePro">
+			<mx:AddChild relativeTo="{_btnSave}" position="before">
+				<mx:VBox>
+					<mx:HBox width="100%" horizontalAlign="center">
+						<mx:Text width="100%" condenseWhite="true" fontSize="14" paddingLeft="-3" htmlText="@Resource(key='Text_1', bundle='PhotobucketOutBridge')">
+						</mx:Text>				
+					</mx:HBox>
+					<mx:HBox width="100%" horizontalAlign="center">
+						<mx:RadioButton label="@Resource(key='_rbtnSaveNew', bundle='PhotobucketOutBridge')" id="_rbtnSaveNew" selected="true" groupName="grpSaveType"/>
+						<mx:RadioButton label="@Resource(key='_rbtnReplace', bundle='PhotobucketOutBridge')" id="_rbtnReplace" selected="false" groupName="grpSaveType"/>
+					</mx:HBox>
+					<mx:Spacer height="5"/>
+				</mx:VBox>					
+			</mx:AddChild>
+		</mx:State>
+	</states>
+	<ctl:ImageVer source="@Embed('/assets/bitmaps/page_blueGrad.png')" left="0" top="0" width="100%" scaleContent="true" maintainAspectRatio="false"/>
+	<mx:Binding source="_taTitle.text" destination="_imgd.properties.title"/>
+	<mx:Binding source="_taDescription.text" destination="_imgd.properties.description"/>
+	<mx:HBox width="100%" height="100%" paddingTop="20" paddingRight="26" paddingBottom="20" paddingLeft="20" y="0" x="0" horizontalGap="0" id="mainBox">
+		<!-- left column, image view vbox (drop shadow applied to contents) -->
+		<mx:VBox width="50%" height="100%" paddingRight="24">
+			<pk:ImageView id="_imgvPreview" width="100%" height="100%" verticalAlign="top" minWidth="75" minHeight="75"/>
+			<mx:filters>
+				<flash:DropShadowFilter distance="1" angle="90" blurX="4" blurY="4" alpha=".5" quality="3"/>
+  			</mx:filters>
+		</mx:VBox>
+		<!-- right column, form contents vbox -->
+  		<mx:VBox width="50%" height="100%" verticalGap="0" paddingLeft="4">
+			<mx:Label text="@Resource(key='Label_1', bundle='PhotobucketOutBridge')" color="#618430" fontWeight="bold" fontSize="21" styleName="publishForm" paddingBottom="-6"/>
+			<mx:VBox verticalGap="0" paddingBottom="12">
+				<mx:Label text="@Resource(key='label2', bundle='PhotobucketOutBridge')" styleName="publishForm" height="20" id="label2"/>
+				<ctl:TextAreaPlus width="390" height="26" minHeight="26" maxHeight="142" styleName="publishFormField" id="_taTitle" text="{_imgd.properties.title}"/>
+			</mx:VBox>
+			<!-- tags are disabled, but the code still depends on the existence of this control so we just make it invisible -->
+			<mx:CheckBox label="@Resource(key='_chkbPicnikTag', bundle='PhotobucketOutBridge')" id="_chkbPicnikTag" enabled="false" visible="false" includeInLayout="false"/>
+			<!-- disabling newsfeed post for now -->
+			<mx:VBox verticalGap="0" paddingBottom="12">
+				<mx:Label text="@Resource(key='Label_2', bundle='PhotobucketOutBridge')" styleName="publishForm" height="20"/>
+				<ctl:TextAreaPlus width="390" height="26" minHeight="26" maxHeight="142" styleName="publishFormField" id="_taDescription" text="{_imgd.properties.description}"/>
+			</mx:VBox>
+			<mx:HBox verticalGap="0" paddingTop="12">
+				<mx:VBox horizontalGap="10">
+					<mx:Label text="@Resource(key='Label_3', bundle='PhotobucketOutBridge')" styleName="publishForm" height="20"/>
+					<ctl:ComboBoxPlus id="_cboxSets" rowCount="8" width="300" height="26" styleName="deviceFonts">
+						<ctl:itemRenderer>
+							<mx:Component>
+				            	<mx:HBox verticalAlign="middle">
+				                	<mx:Label text="{data.label}" fontSize="14" width="210" styleName="deviceFonts"/>
+				            	</mx:HBox>
+							</mx:Component>
+			            </ctl:itemRenderer>
+					</ctl:ComboBoxPlus>
+				</mx:VBox>
+			</mx:HBox>
+			<!-- big button vbox -->
+			<mx:VBox verticalGap="0" horizontalAlign="center" paddingTop="20">			
+				<ctl:ImageVer source="@Embed('/assets/bitmaps/saveshad_top.png')"/>
+				<mx:Spacer height="10"/>
+				<mx:Button label="@Resource(key='_btnSave', bundle='PhotobucketOutBridge')" width="200" height="34" fontSize="18" id="_btnSave" styleName="BigButton" enabled="{_imgd &amp;&amp; _cboxSets.dataProvider.length!=0}" />
+				<mx:Spacer height="10"/>
+				<ctl:ImageVer source="@Embed('/assets/bitmaps/saveshad_bot.png')"/>
+			</mx:VBox>
+		</mx:VBox>
+	</mx:HBox>
+</PhotobucketOutBridgeBase>

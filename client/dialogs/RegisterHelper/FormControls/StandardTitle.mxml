@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Box xmlns="dialogs.RegisterHelper.*" width="100%"
+	xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:ctrl="controls.*" xmlns:cntr="containers.*"
+	xmlns:filters="flash.filters.*" xmlns:ds="com.darronschall.effects.*" xmlns:vld="validators.*" >
+
+	<mx:Script>
+		<![CDATA[
+			import picnik.util.LocaleInfo;
+			[Bindable] public var text:String = "";
+			[Bindable] public var subtext:String = "";
+			[Bindable] public var fontSize:Number = 26;
+			[Bindable] public var titleWidth:Number = 300;
+			[Bindable] public var color:uint = 0x005580;
+		]]>
+	</mx:Script>
+
+	<filters:DropShadowFilter blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1"
+		quality="3" angle="90" id="_fiWhiteShad"/>
+	
+	<cntr:ResizingVBox verticalGap="-10" paddingLeft="-3" paddingTop="10" width="100%">
+		<ctrl:ResizingLabel id="lbl" width="{titleWidth}" autoFontSizeGap="1" filters="{[_fiWhiteShad]}"
+			text="{text}" fontSize="{fontSize}" color="{color}" />	
+	</cntr:ResizingVBox>
+	<mx:Text condenseWhite="true" fontSize="13" paddingLeft="-3" paddingTop="-15" 
+		fontWeight="{LocaleInfo.BoldWeight()}" color="#4d4d4d" 
+		width="100%" leading="-1" id="lblSub" htmlText="{subtext}"
+		visible="{subtext.length > 0}" includeInLayout="{subtext.length > 0}">
+	</mx:Text>
+</mx:Box>		

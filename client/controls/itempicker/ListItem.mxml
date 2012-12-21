@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ListItemBase xmlns="controls.itempicker.*" xmlns:mx="http://www.adobe.com/2006/mxml" 
+		width="100%" height="100%" mouseEnabled="false" mouseChildren="false">
+	<mx:HBox width="200">
+		<mx:Text htmlText="{ApplyFilter(data.label, textFilter)}" fontSize="12" color="#333333"/>
+	</mx:HBox>
+</ListItemBase>

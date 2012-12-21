@@ -1,0 +1,23 @@
+/*
+ * Copyright 2011 Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an Apache 2.0 License.
+ * See the COPYING file for details.
+ */
+
+
+@font-face {
+    src:local("laundromat 1967");
+    font-family: "pklaundromat01967";
+    unicodeRange: U+0000-U+00FF;
+    flashType: true;
+    fontWeight: normal;
+    fontStyle: normal;
+}
+
+.pklaundromat01967
+{
+    font-family: "pklaundromat01967";
+    fontWeight: normal;
+    fontStyle: normal;
+}

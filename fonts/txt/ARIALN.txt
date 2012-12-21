@@ -1,0 +1,12 @@
+fileName: ARIALN.TTF
+name: Arial Narrow
+subfamilyDisplayName: Normal
+fullName: Arial Narrow
+displayName: Arial Narrow
+ital: 0
+bold: 0
+weight: 3
+panose.weight: 5
+pkName: pkARIALN
+authorName: Robin Nicholas and Patricia Saunders
+authorUrl: http://www.microsoft.com/typography/fonts/font.aspx?FID=8&FNAME=Arial

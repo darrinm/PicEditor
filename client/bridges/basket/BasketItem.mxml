@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<basket:BasketItemBase xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:basket="bridges.basket.*" 
+		horizontalAlign="left" verticalAlign="middle" currentState="NotSelected" horizontalScrollPolicy="off" verticalScrollPolicy="off" 
+		initialize="OnInitialize()" direction="horizontal" xmlns:controls="controls.*" xmlns:thumbnails="controls.thumbnails.*" xmlns:filters="flash.filters.*">
+    <mx:Number id="thumbSize">{Math.min(height,width)-8}</mx:Number>
+    <mx:Number id="canvasSize">{thumbSize}</mx:Number>
+    <mx:Script>
+    	<![CDATA[
+    		public override function isLoaded():Boolean {
+    			return _thumb.isLoaded();
+    		} 
+    	]]>
+    </mx:Script>
+    <filters:GlowFilter id="_efGlow" alpha="0.75" blurX="5" blurY="5" strength="2" quality="3" color="#eeffcc"/>
+    <filters:DropShadowFilter id="_efHighlight" alpha="0.70" distance="1" blurX="0" blurY="0" color="#ffffff" quality="3" angle="90" inner="true"/>
+	<filters:BevelFilter id="_efDarkBevel" distance="1" angle="90" highlightAlpha="0" shadowAlpha="0.20" blurX="1" blurY="1" quality="3" 
+		highlightColor="0xffffff" shadowColor="#000000"/>
+	<filters:DropShadowFilter id="_efShad" alpha=".5" angle="90" distance="1" blurX="3" blurY="3" quality="3" color="0"/>
+    
+    <basket:states>
+        <mx:State name="WithBorder">
+        	<!--
+        	<mx:SetProperty target="{_thumb}" name="x" value="0"/>
+        	<mx:SetProperty target="{_thumb}" name="y" value="0"/>
+            <mx:SetStyle target="{_vbxThumbnail}" name="borderStyle" value="solid"/>
+            <mx:SetStyle target="{_vbxThumbnail}" name="borderThickness" value="1"/>
+			-->
+        	<mx:SetProperty target="{_cnvBorder}" name="visible" value="false"/>
+        	<mx:SetProperty target="{_vbxThumbnail}" name="filters" value="{[_efHighlight,_efGlow]}"/>
+        </mx:State>
+        <mx:State name="WithoutBorder">
+            <mx:SetProperty target="{_cnvDarken}" name="visible" value="false"/>
+        	<mx:SetProperty target="{_cnvBorder}" name="visible" value="false"/>
+        	<mx:SetProperty target="{_vbxThumbnail}" name="filters" value="{[_efDarkBevel,_efHighlight,_efShad]}"/>
+			<!--
+        	<mx:SetProperty target="{_thumb}" name="x" value="1"/>
+        	<mx:SetProperty target="{_thumb}" name="y" value="1"/>
+            <mx:SetStyle target="{_vbxThumbnail}" name="borderStyle" value="none"/>
+            <mx:SetStyle target="{_vbxThumbnail}" name="borderThickness" value="0"/>
+            -->
+        </mx:State>
+        <mx:State name="Selected" basedOn="WithBorder">
+			<!--
+			<mx:SetStyle target="{_tiName}" name="backgroundAlpha" value="1"/>
+            <mx:SetStyle name="backgroundColor" value="#bbe57f"/>
+            -->
+            <mx:SetProperty target="{_cnvDarken}" name="visible" value="true"/>
+            <!--
+            <mx:SetProperty target="{_btnMenu}" name="alpha" value="1.0"/>
+            -->
+            <mx:SetStyle target="{_cnvBorder}" name="borderColor" value="#bbe57f"/>
+        </mx:State>
+        <mx:State name="NotSelected" basedOn="WithoutBorder">
+        	<!--
+            <mx:SetProperty target="{_btnMenu}" name="alpha" value="0.0"/>
+            -->
+        </mx:State>
+        <mx:State name="Highlight" basedOn="WithBorder">
+            <mx:SetStyle target="{_cnvBorder}" name="borderColor" value="#d6efb2"/>
+            <!--
+            <mx:SetStyle name="backgroundColor" value="#d6efb2"/>
+            <mx:SetProperty target="{_btnMenu}" name="alpha" value="1.0"/>
+            -->
+        </mx:State>
+        <mx:State name="ReadOnly" basedOn="WithoutBorder">
+        </mx:State>
+        <mx:State name="Disabled" basedOn="WithoutBorder">
+            <mx:SetProperty target="{_vbxThumbnail}" name="alpha" value="0.4"/>
+        </mx:State>
+        
+        <mx:State name="SelectedReadOnly" basedOn="Selected">
+        </mx:State>
+        <mx:State name="NotSelectedReadOnly" basedOn="NotSelected">
+        </mx:State>
+        <mx:State name="HighlightReadOnly" basedOn="Highlight">
+        </mx:State>
+        
+        <mx:State name="DisabledSelectedReadOnly" basedOn="Selected">
+        </mx:State>
+        <mx:State name="DisabledNotSelectedReadOnly" basedOn="NotSelected">
+        </mx:State>
+        <mx:State name="DisabledHighlightReadOnly" basedOn="Highlight">
+        </mx:State>
+    </basket:states>
+    <mx:Canvas width="100%" height="100%" id="_cnvOuter">
+	    <mx:Canvas id="_vbxThumbnail" cornerRadius="{thumbSize * .16}" 
+		    		width="{canvasSize}" height="{canvasSize}"
+		    		verticalScrollPolicy="off" horizontalScrollPolicy="off"
+		    		x="{Math.round((width-thumbSize)/2)}" y="{Math.round((height-thumbSize)/2)}">
+	    	<thumbnails:Thumbnail width="{thumbSize}" height="{thumbSize}" id="_thumb" 
+	    		shrinkToFit="false" scaleUp="false" loadedStateChange="UpdateProgress()"
+	    		cornerRadius="16%" toolTip="{data.description ? data.description : data.title}"/>
+		    <mx:Canvas id="_cnvDarken" cornerRadius="{_cnvDarken.width * .16}" 
+		    		borderStyle="solid" borderThickness="0"
+		    		width="{thumbSize}" height="{thumbSize}"
+		    		visible="false" mouseEnabled="false"
+		    		backgroundAlpha="0.3" backgroundColor="0"/>
+			<mx:Canvas id="_cnvBorder" cornerRadius="{_cnvDarken.width * .16}" 
+		    		width="{_vbxThumbnail.width}" height="{_vbxThumbnail.height}"
+		    		visible="false" borderStyle="solid" borderThickness="2" mouseEnabled="false">
+		    </mx:Canvas>
+		    <!--
+		    <mx:Button id="_btnMenu" right="3" bottom="3" width="32" height="22" icon="@Embed('/theme/pngs/thumbMenuIcon.png')"/>
+		    -->
+		    <controls:ImageVer id="_imgLoading" source="@Embed('/assets/bitmaps/icon_ellipses.png')" horizontalCenter="0" verticalCenter="0" visible="{_thumb.state != Thumbnail.LOADED &amp;&amp; _prgb == null}"/>
+	    </mx:Canvas>
+    </mx:Canvas>
+</basket:BasketItemBase>

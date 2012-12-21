@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:debug="debug.*" width="100%">
+<mx:Script>
+	<![CDATA[
+		import mx.events.CloseEvent;
+		import util.BitmapCache;
+		import imagine.imageOperations.ImageOperation;
+		import imagine.imageOperations.engine.BitmapReference;
+		import imagine.imageOperations.engine.OpEngine;
+		import imagine.ImageDocument;
+		
+		[Bindable] public var _nState:Number = 0; // 0: not ready, 1 = ready for init, 2 = ready to run, 3 = done.
+		
+		[Bindable] public var _op:ImageOperation;
+		[Bindable] public var _imgd:ImageDocument;
+		[Bindable] public var _fDoObjects:Boolean = true;
+		[Bindable] public var _fUseCache:Boolean = true;
+		
+		private var _bmdOrig:BitmapData = null;
+		
+		public function Init(op:ImageOperation, imgd:ImageDocument): void {
+			_op = op;
+			_imgd = imgd;
+			_nState = 1;
+			_fUpdatingBitmapData = false;
+			_bmdOrig = imgd.background;
+		}
+		 
+		public function RequestToUpdate(imgd:ImageDocument, op:ImageOperation): void {
+			// Ignore for now
+		}
+		
+		private function Start(): void {
+			if (_op.opEngine == null) {
+				_op.opEngine = new OpEngine(_op);
+			}
+			_op.opEngine.Reset(_imgd, _fDoObjects, _fUseCache);
+			_op.opEngine.stateMachine.start();
+			_opengst.UpdateDynamicData();
+			_nState = 2;
+			
+			_fUpdatingBitmapData = true;
+			_imgd.EndUndoTransaction(false); // rollback, don't clear cache
+			_imgd.BeginUndoTransaction("debug effect", true, true); // fCacheInUse == true
+		}
+		
+		private function Step(): void {
+			_op.opEngine.stateMachine.runNext();
+			_opengst.UpdateDynamicData();
+			if (!_op.opEngine.stateMachine.hasInstructionsLeft)
+				_nState = 3; 
+			_opengst.OnStep();
+		}
+		
+		public var _fUpdatingBitmapData:Boolean = false;
+		
+		private function Return(): void {
+					 // Use caching - the final EndUndoTransaction will clear it
+			var bmdrResult:BitmapReference = _op.opEngine.stateMachine.GetResult();
+			BitmapCache.AddDisposable(_op.opEngine);
+
+			_imgd.interactiveBackground = bmdrResult;
+			bmdrResult.dispose(); 
+			_imgd.RecordImageOperation(_op);
+			_opengst.UpdateDynamicData();
+			_nState = 1;
+			_fUpdatingBitmapData = false;
+		}
+		
+		private function RunToEnd(): void {
+			while (_nState == 2)
+				Step();
+		}
+		
+		public function UpdateSoon(): void {
+			callLater(UpdateNow);
+		}
+		
+		public function UpdateNow(): void {
+			_opengst.UpdateDynamicData();
+		}
+		
+		private function RunToSelected(): void {
+			while (_nState == 2 && _opengst.futureInstructionSelected)
+				Step();
+		}
+		
+		private function RevertOriginal(): void {
+			_imgd.background = _bmdOrig;
+		}
+	]]>
+</mx:Script>
+<mx:HBox width="100%">
+	<mx:Button label="Start" click="Start()" enabled="{_nState > 0}"/>
+	<mx:Button label="Step" click="Step()" enabled="{_nState == 2}"/>
+	<mx:Button label="Run To Selected" click="RunToSelected()" enabled="{_nState == 2 &amp;&amp;_opengst.futureInstructionSelected }"/>
+	<mx:Button label="Run To End" click="RunToEnd()" enabled="{_nState == 2}"/>
+	<mx:Button label="Return" click="Return()" enabled="{_nState == 3}"/>
+	<mx:Button label="Revert Original" click="RevertOriginal()" enabled="{_nState > 0}"/>
+	<mx:Spacer width="100%"/>
+	<mx:Button label="X" click="dispatchEvent(new CloseEvent(CloseEvent.CLOSE, true))"/>
+</mx:HBox>
+
+<debug:OpEngineState stateMachine="{_op.opEngine.stateMachine}" id="_opengst"/>
+</mx:VBox>

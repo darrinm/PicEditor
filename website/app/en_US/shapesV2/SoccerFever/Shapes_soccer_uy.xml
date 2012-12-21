@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory flickrPremium="false" id="soccer_uy" numShapes="3" picnikPremium="false" previewUrls="60|48|../clipart/bundles/SoccerFeverArea_groupPreviews_soccer_uy.png?ver=53052aab" title="Uraguay Stickers">
+	<Shapes>
+		<Clipart cHeight="900" cWidth="1350" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|0|../clipart/bundles/SoccerFeverArea_shapes_soccer_uy.png?ver=e96f34c1" url="shapes/uy/flag_uy.swf"/>
+		<Clipart cHeight="223.55" cWidth="95.95" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|1|../clipart/bundles/SoccerFeverArea_shapes_soccer_uy.png?ver=e96f34c1" url="shapes/uy/scarf_uy.swf"/>
+		<Clipart cHeight="295.45" cWidth="464.2" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|2|../clipart/bundles/SoccerFeverArea_shapes_soccer_uy.png?ver=e96f34c1" url="shapes/uy/wavingflag_uy.swf"/>
+	</Shapes>
+</ShapeCategory>

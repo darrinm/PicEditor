@@ -1,0 +1,60 @@
+<html>
+<!--
+Copyright 2011 Google Inc. All Rights Reserved.
+
+Use of this source code is governed by an Apache 2.0 License.
+See the COPYING file for details.
+-->
+    <head>
+        <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+        <META HTTP-EQUIV="Expires" CONTENT="-1">
+    </head>
+	<title>
+		History
+	</title>
+    <body>
+
+    <script>
+				try {
+					document.domain = "mywebsite.com";
+				} catch (err) {}
+
+        function processUrl()
+        {
+            var pos = url.indexOf("?");
+
+            url = pos != -1 ? url.substr(pos + 1) : "";
+
+            parent.setBrowserUrl(url);
+
+            // This is so IE can show human readable history entries
+            // Check if the main app page has a title
+            if (parent.getTitle() == '')
+            {
+                // Create a generic entry instead of a blank page title
+                document.title = 'Untitled';
+            }
+            else
+            {
+                // Get the parent page title to set history entry
+                document.title = parent.getTitle();
+            }
+
+            try
+            {
+                parent.getPlayer().setPlayerUrl(url);
+            }
+            catch (err)
+            {
+                /* On IE6, timing issues can cause getPlayer() to fail to
+                   return the player object on a page reload. */
+            }
+        }
+
+        var url = document.location.href;
+        processUrl();
+        document.write(url);
+    </script>
+
+    </body>
+</html>

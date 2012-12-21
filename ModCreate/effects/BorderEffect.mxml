@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cnt:EffectCanvas xmlns="effects.*" xmlns:cnt="containers.*" xmlns:ctrl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="362"
+		xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*" urlid="Border">
+	<mx:Script>
+		import mx.resources.ResourceBundle;
+   		[Bindable] [ResourceBundle("BorderEffect")] private var rb:ResourceBundle;
+	</mx:Script>
+
+	<mx:Array id="_resetValues">
+		<local:StoredValue target="_cpkrOuter.selectedColor"/>
+		<local:StoredValue target="_cpkrInner.selectedColor"/>
+		<local:StoredValue target="_sldrCornerRadius.value"/>
+		<local:StoredValue target="_sldrOuterThickness.value"/>
+		<local:StoredValue target="_sldrInnerThickness.value"/>
+		<local:StoredValue target="_sldrCaptionHeight.value"/>
+	</mx:Array>
+
+	<ctrl:EffectButton id="_efbtn" cornerRadius="0" strTitle="@Resource(key='_efbtn', bundle='BorderEffect')" strAuthor="@Resource(key='_efbtn_1', bundle='BorderEffect')" strImageSource="../graphics/effects/Frames/border.png"/>
+	<mx:String id="_strHelpText">{Resource.getString('BorderEffect', '_strHelpText')}</mx:String>
+	
+	<mx:Canvas alpha=".4" y="73" height="75" left="10" right="10" cornerRadius="5" backgroundColor="#ffffff" borderColor="#999999" borderStyle="solid"/>
+	<mx:HBox x="15" y="80" verticalAlign="middle" horizontalGap="3">
+		<mx:Label text="@Resource(key='Label_1', bundle='BorderEffect')" styleName="sliderTitle"/>
+		<ctrl:HSBColorPicker id="_cpkrOuter" selectedColor="0x000000" liveColorChange="OnBufferedOpChange()" width="50"/>
+	</mx:HBox>
+	<mx:Label x="15" y="105" text="@Resource(key='Label_2', bundle='BorderEffect')" styleName="sliderTitle"/>
+	<mx:Label x="144" y="105" text="{Math.round(_sldrOuterThickness.liveValue)}" styleName="sliderValue" textAlign="right" width="50"/>
+	<ctrl:HSliderFastDrag updateSpeed="{updateSpeed}" x="17" y="120" width="175" minimum="0" maximum="100" value="20" id="_sldrOuterThickness" change="OnOpChange()" liveDragging="true" showDataTip="false" snapInterval="1"/>
+
+	<mx:Canvas alpha=".4" y="153" height="75" left="10" right="10" cornerRadius="5" backgroundColor="#ffffff" borderColor="#999999" borderStyle="solid"/>
+	<mx:HBox x="15" y="160" verticalAlign="middle" horizontalGap="3">
+		<mx:Label text="@Resource(key='Label_3', bundle='BorderEffect')" styleName="sliderTitle"/>
+		<ctrl:HSBColorPicker id="_cpkrInner" selectedColor="0xffffff" liveColorChange="OnBufferedOpChange()" width="50"/>
+	</mx:HBox>
+	<mx:Label x="15" y="185" text="@Resource(key='Label_4', bundle='BorderEffect')" styleName="sliderTitle"/>
+	<mx:Label x="144" y="185" text="{Math.round(_sldrInnerThickness.liveValue)}" styleName="sliderValue" textAlign="right" width="50"/>
+	<ctrl:HSliderFastDrag updateSpeed="{updateSpeed}" x="17" y="200" width="175"  minimum="0" maximum="100" value="5" id="_sldrInnerThickness" change="OnOpChange()" liveDragging="true" showDataTip="false" snapInterval="1"/>
+
+	<mx:Label x="8" y="233" text="@Resource(key='Label_5', bundle='BorderEffect')" styleName="sliderTitle"/>
+	<mx:Label x="152" y="233" text="{Math.round(_sldrCornerRadius.liveValue)}" styleName="sliderValue" textAlign="right" width="50"/>
+	<ctrl:HSliderFastDrag updateSpeed="{updateSpeed}" x="9" y="248" width="190" minimum="0" maximum="{Math.min(imagewidth, imageheight)/2}" value="0" id="_sldrCornerRadius" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+
+	<mx:Label x="8" y="273" text="@Resource(key='_lbCaptionHeight', bundle='BorderEffect')" styleName="sliderTitle"/>
+	<mx:Label x="152" y="273" text="{Math.round(_sldrCaptionHeight.liveValue)}" styleName="sliderValue" textAlign="right" width="50"/>
+	<ctrl:HSliderFastDrag updateSpeed="{updateSpeed}" x="9" y="288" width="190" minimum="0" maximum="{imageheight/6}" value="0" id="_sldrCaptionHeight" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+
+	<ctrl:ApplyCancelEffectButtons y="318" premium="{premium}"/>
+
+	<imageOperations:BorderImageOperation id="_op" outercolor="{0xff000000 + _cpkrOuter.liveColor}"
+			innercolor="{0xff000000 + _cpkrInner.liveColor}" outerthickness="{_sldrOuterThickness.value}" 
+			innerthickness="{_sldrInnerThickness.value}" cornerradius="{_sldrCornerRadius.value}"
+			captionheight="{_sldrCaptionHeight.value}" />	
+</cnt:EffectCanvas>

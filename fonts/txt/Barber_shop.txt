@@ -1,0 +1,12 @@
+fileName: Barber_shop.ttf
+name: Barber shop
+subfamilyDisplayName: Normal
+fullName: Barber shop
+displayName: Barber shop
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 0
+pkName: pkBarber0shop
+authorName: Gyom.Typo
+authorUrl: http://gyom.nebullus.com/

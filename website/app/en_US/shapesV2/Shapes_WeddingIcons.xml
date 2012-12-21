@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/shape_weddings.png" flickrPremium="false" id="WeddingIcons" numShapes="12" picnikPremium="false" previewUrls="60|48|../clipart/bundles/groupPreviews_WeddingIcons.png?ver=75ec2c1e" title="Wedding Icons">
+	<Shapes>
+		<Clipart cHeight="232" cWidth="176" flickrPremium="false" picnikPremium="false" previewUrl="40|40|0|../clipart/bundles/shapes_WeddingIcons.png?ver=1cc5cb2c" url="shapes/wedding01.swf"/>
+		<Clipart cHeight="225" cWidth="79" flickrPremium="false" picnikPremium="false" previewUrl="40|40|1|../clipart/bundles/shapes_WeddingIcons.png?ver=1cc5cb2c" url="shapes/wedding02.swf"/>
+		<Clipart cHeight="90" cWidth="60" flickrPremium="false" picnikPremium="false" previewUrl="40|40|2|../clipart/bundles/shapes_WeddingIcons.png?ver=1cc5cb2c" url="shapes/wedding03.swf"/>
+		<Clipart cHeight="45" cWidth="65" flickrPremium="false" picnikPremium="false" previewUrl="40|40|3|../clipart/bundles/shapes_WeddingIcons.png?ver=1cc5cb2c" url="shapes/wedding04.swf"/>
+		<Clipart cHeight="110" cWidth="135" flickrPremium="false" picnikPremium="false" previewUrl="40|40|4|../clipart/bundles/shapes_WeddingIcons.png?ver=1cc5cb2c" url="shapes/wedding05.swf"/>
+		<Clipart cHeight="55" cWidth="60" flickrPremium="false" picnikPremium="false" previewUrl="40|40|5|../clipart/bundles/shapes_WeddingIcons.png?ver=1cc5cb2c" url="shapes/wedding06.swf"/>
+		<Clipart cHeight="52" cWidth="54" flickrPremium="false" picnikPremium="false" previewUrl="40|40|6|../clipart/bundles/shapes_WeddingIcons.png?ver=1cc5cb2c" url="shapes/wedding07.swf"/>
+		<Clipart cHeight="47" cWidth="69" flickrPremium="false" picnikPremium="false" previewUrl="40|40|7|../clipart/bundles/shapes_WeddingIcons.png?ver=1cc5cb2c" url="shapes/wedding08.swf"/>
+		<Clipart cHeight="15" cWidth="35" flickrPremium="false" picnikPremium="false" previewUrl="40|40|8|../clipart/bundles/shapes_WeddingIcons.png?ver=1cc5cb2c" url="shapes/wedding09.swf"/>
+		<Clipart cHeight="15" cWidth="35" flickrPremium="false" picnikPremium="false" previewUrl="40|40|9|../clipart/bundles/shapes_WeddingIcons.png?ver=1cc5cb2c" url="shapes/wedding10.swf"/>
+		<Clipart cHeight="37" cWidth="61" flickrPremium="false" picnikPremium="false" previewUrl="40|40|10|../clipart/bundles/shapes_WeddingIcons.png?ver=1cc5cb2c" url="shapes/wedding11.swf"/>
+		<Clipart cHeight="84" cWidth="237" flickrPremium="false" picnikPremium="false" previewUrl="40|40|11|../clipart/bundles/shapes_WeddingIcons.png?ver=1cc5cb2c" url="shapes/wedding12.swf"/>
+	</Shapes>
+</ShapeCategory>

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FlickrSaveDialogBridgeBase xmlns="bridges.flickr.*" xmlns:pk="*" xmlns:ctrl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml"
+		width="100%" fontSize="14" xmlns:flash="flash.filters.*" horizontalScrollPolicy="off" verticalScrollPolicy="off">
+	<mx:Script>
+		import mx.resources.ResourceBundle;
+		import picnik.util.LocaleInfo;
+   		[Bindable] [ResourceBundle("FlickrSaveDialogBridge")] private var rb:ResourceBundle;
+	</mx:Script>
+
+	<states>
+		<mx:State name="AccountTypeUnknown">
+			<mx:AddChild relativeTo="{_hbSaveCancel}" position="after">
+				<mx:Text condenseWhite="true" fontSize="13" htmlText="@Resource(key='checking_permissions', bundle='FlickrSaveDialogBridge')"/>
+			</mx:AddChild>
+		</mx:State>
+		<mx:State name="AccountTypePro"/>
+		<mx:State name="AccountTypeProWithImageID" basedOn="AccountTypePro">
+			<mx:AddChild relativeTo="{_hbSaveCancel}" position="before">
+				<mx:HBox width="100%" horizontalAlign="center">
+					<mx:RadioButton label="@Resource(key='_rbtnSaveNew', bundle='FlickrSaveDialogBridge')" id="_rbtnSaveNew" selected="false" groupName="grpSaveType"/>
+					<mx:RadioButton label="@Resource(key='_rbtnReplace', bundle='FlickrSaveDialogBridge')" id="_rbtnReplace" selected="true" groupName="grpSaveType"/>
+				</mx:HBox>
+			</mx:AddChild>
+		</mx:State>
+		<mx:State name="AccountTypeNonPro">
+			<mx:AddChild relativeTo="{_hbSaveCancel}" position="after">
+				<mx:Text id="_txtUpgrade1" condenseWhite="true" textAlign="center" color="#333333" fontSize="13" selectable="true" width="500"
+					htmlText="@Resource(key='_txtUpgrade1', bundle='FlickrSaveDialogBridge')"/>
+			</mx:AddChild>
+			<!-- to be eventually changed to a visual indicator
+			<mx:AddChild relativeTo="{gridRow2}" position="after">
+				<mx:GridRow width="100%" height="100%">
+					<mx:GridItem width="100%" height="100%" horizontalAlign="center">
+						<mx:Text text="Upload bandwidth remaining: {_strBandwidthLeft}"/>
+						<mx:Text text="Upload bandwidth remaining: {_strBandwidthUsed}"/>
+					</mx:GridItem>
+				</mx:GridRow>
+			</mx:AddChild>
+			-->
+			<mx:SetEventHandler target="{_txtUpgrade1}" name="link" handlerFunction="OnUpgradeLinkClick"/>
+		</mx:State>
+		<mx:State basedOn="AccountTypeNonPro" name="AccountTypeNonProOutOfSpace">
+			<mx:SetProperty target="{_btnSave}" name="enabled" value="false"/>
+			<mx:RemoveChild target="{_txtUpgrade1}"/>
+
+			<mx:SetProperty target="{_taTitle}" name="enabled" value="false"/>
+			<mx:SetProperty target="{_taDescription}" name="enabled" value="false"/>
+			<mx:SetProperty target="{_taTags}" name="enabled" value="false"/>
+			<mx:AddChild relativeTo="{_hbSaveCancel}" position="before">
+				<mx:HBox width="100%" horizontalGap="0">
+					<ctrl:ImageVer source="@Embed('/theme/pngs/alertIcon.png')"/>
+					<mx:Text id="_txtUpgrade2" condenseWhite="true" textAlign="left" color="#333333" fontSize="13" selectable="false" width="350" htmlText="@Resource(key='_txtUpgrade2', bundle='FlickrSaveDialogBridge')">
+					</mx:Text>
+				</mx:HBox>
+			</mx:AddChild>
+			
+			<mx:SetStyle target="{label1}" name="color" value="#999999"/>
+			<mx:SetStyle target="{label2}" name="color" value="#999999"/>
+			<mx:SetStyle target="{label3}" name="color" value="#999999"/>
+			<mx:SetStyle target="{label4}" name="color" value="#999999"/>
+			
+			<mx:SetProperty target="{_taTitle}" name="editable" value="false"/>
+			<mx:SetEventHandler target="{_txtUpgrade2}" name="link" handlerFunction="OnUpgradeLinkClick"/>
+		</mx:State>
+		<mx:State name="NeedAuthorization">
+			<mx:AddChild position="lastChild">
+				<FlickrAccount width="100%" id="_ssa" _tpa="{_tpa}" horizontalCenter="0" paddingBottom="10" top="15"/>
+			</mx:AddChild>
+		</mx:State>
+	</states>
+	
+	<mx:Binding source="_taTitle.text" destination="_imgd.properties.title"/>
+	<mx:Binding source="_taDescription.text" destination="_imgd.properties.description"/>
+	<mx:Binding source="_taTags.text" destination="_imgd.properties.tags"/>
+	
+	<flash:DropShadowFilter id="_photoShadow" distance="1" angle="90" blurX="4" blurY="4" alpha=".5" quality="3"/>
+	<flash:DropShadowFilter id="_fiWhiteShad" blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1" quality="3" angle="90"/>
+	
+	<!-- grey boxes for header -->
+	<mx:Box width="100%" height="43" backgroundColor="#f2f2f2" x="0" top="0" cornerRadius="10"
+		borderStyle="solid" borderThickness="0"/>
+	<mx:Box width="100%" height="23" backgroundColor="#f2f2f2" x="0" top="20"/>
+	<!-- header text -->
+	<ctrl:ResizingLabel text="@Resource(key='page_title', bundle='FlickrSaveDialogBridge')" maxWidth="370" fontSize="28" color="#005580" filters="{[_fiWhiteShad]}" autoFontSizeGap="1"
+		top="3" left="9"/>
+	<mx:VBox width="100%" height="100%" verticalGap="0" horizontalAlign="center" top="42" left="0" right="0">
+		<!-- save form -->
+		<mx:VBox verticalGap="0" height="100%" width="100%" minHeight="180"
+				verticalScrollPolicy="auto"
+				paddingLeft="15" paddingBottom="10"
+				borderColor="#d9d9d9" borderSides="top,bottom" borderStyle="solid">
+			<!-- photo title -->
+			<mx:VBox verticalGap="0" paddingTop="10" paddingBottom="10">
+				<mx:Label text="@Resource(key='title', bundle='FlickrSaveDialogBridge')" styleName="publishForm" height="20" id="label1"/>
+				<ctrl:TextAreaPlus width="270" id="_taTitle" height="26" maxHeight="142" styleName="publishFormField" text="{_imgd.properties.title}"/>
+			</mx:VBox>
+			<!-- photo description -->
+			<mx:VBox verticalGap="0" paddingBottom="10">
+				<mx:Label text="@Resource(key='description', bundle='FlickrSaveDialogBridge')" styleName="publishForm" height="20" id="label2"/>
+				<ctrl:TextAreaPlus width="340" height="64" minHeight="64" maxHeight="142" styleName="publishFormField" id="_taDescription" text="{_imgd.properties.description}"/>
+			</mx:VBox>
+			<!-- tags -->
+			<mx:VBox verticalGap="0" paddingBottom="10">
+				<mx:HBox width="340" verticalAlign="bottom">
+					<mx:Label text="@Resource(key='tags', bundle='FlickrSaveDialogBridge')" styleName="publishForm" height="20" id="label3" width="100%"/>
+					<mx:Button id="_btnAddPicnikTag" styleName="clearButton" label="@Resource(key='addPicnikTag', bundle='FlickrSaveDialogBridge')" fontSize="12" paddingBottom="-1"/>
+				</mx:HBox>
+				<ctrl:TextAreaPlus width="340" id="_taTags" height="26" maxHeight="142" styleName="publishFormField" text="{_imgd.properties.tags}"/>
+			</mx:VBox>
+			<!-- add to set -->
+			<mx:HBox horizontalGap="10" paddingBottom="10">
+				<mx:VBox verticalGap="0">
+					<mx:Label text="@Resource(key='photo_set', bundle='FlickrSaveDialogBridge')" styleName="publishForm" height="20" id="label123"/>
+					<ctrl:ComboBoxPlus id="_cboxSets" rowCount="4" width="280" dropdownWidth="340" height="26" styleName="deviceFonts">
+						<ctrl:itemRenderer>
+							<mx:Component>
+				            	<mx:HBox verticalAlign="middle" horizontalGap="5">
+				                	<mx:Label text="{data.label}" fontSize="14" width="260" styleName="deviceFonts"/>
+				                	<ctrl:ImageVer source="{data.icon}" height="36" width="36"/>
+				            	</mx:HBox>
+							</mx:Component>
+				        </ctrl:itemRenderer>
+					</ctrl:ComboBoxPlus>
+				</mx:VBox>
+				<ctrl:ImageVer id="_imgPhotoSet" source="{_cboxSets.selectedItem.icon}" width="48" height="48" filters="{[_photoShadow]}"/>
+			</mx:HBox>
+			<!-- set privacy -->
+			<mx:VBox verticalGap="0" paddingBottom="10">
+				<mx:Label text="@Resource(key='privacy_settings', bundle='FlickrSaveDialogBridge')" styleName="publishForm" height="20" id="label4"/>
+				<ctrl:ComboBoxPlus id="_cboxPrivacy" rowCount="8" width="250" dropdownWidth="250" height="26" styleName="deviceFonts">
+					<mx:Array>
+						<mx:Object label="{Resource.getString('FlickrSaveDialogBridge', 'privacy_1')}" data="public"/>
+						<mx:Object label="{Resource.getString('FlickrSaveDialogBridge', 'privacy_2')}" data="private"/>
+						<mx:Object label="{Resource.getString('FlickrSaveDialogBridge', 'privacy_4')}" data="friends"/>
+						<mx:Object label="{Resource.getString('FlickrSaveDialogBridge', 'privacy_3')}" data="family"/>
+						<mx:Object label="{Resource.getString('FlickrSaveDialogBridge', 'privacy_5')}" data="friends_and_family"/>
+					</mx:Array>
+				</ctrl:ComboBoxPlus>
+			</mx:VBox>
+			
+			<!-- hide this until we've implemented a workaround to FP 10's increased clipboard security -->
+			<mx:CheckBox id="_chkbBeforeAfter" label="@Resource(key='copyBeforeAfter', bundle='FlickrSaveDialogBridge')" selected="false"
+					visible="false" includeInLayout="false"/>
+		</mx:VBox>
+		<!-- save / cancel cluster -->
+		<mx:VBox verticalGap="8" horizontalAlign="center" paddingBottom="8" paddingTop="5">
+			<mx:HBox horizontalGap="10" verticalAlign="middle" id="_hbSaveCancel">
+				<mx:Button label="@Resource(key='_btnSave', bundle='FlickrSaveDialogBridge')" minWidth="160" height="34" fontSize="18" id="_btnSave" styleName="BigButton"/>
+				<mx:Button id="_btnCancel" label="@Resource(key='_btnCancel', bundle='FlickrSaveDialogBridge')" minWidth="100" height="29" fontSize="16"/>
+			</mx:HBox>
+		</mx:VBox>
+	</mx:VBox>
+	<!-- preview thumbnail, here so it floats above everything -->
+	<pk:ImageView id="_imgvPreview" width="100%" maxWidth="240" height="100%" maxHeight="240" verticalAlign="top" minWidth="75" minHeight="75" filters="{[_photoShadow]}"
+		top="20" right="36"/>
+		
+	<mx:VBox top="275" right="36" width="240" visible="{LocaleInfo.IsEnglish()}" rotation="4" paddingTop="8" paddingRight="10" paddingBottom="8" paddingLeft="10" verticalGap="0"
+			backgroundColor="#ffffb2" backgroundAlpha=".75" cornerRadius="8" borderStyle="solid" borderThickness="0" 
+			horizontalScrollPolicy="off" verticalScrollPolicy="off">
+		<mx:Label styleName="publishForm" width="100%" text="@Resource(key='picnikersTitle', bundle='FlickrSaveDialogBridge')" paddingLeft="0"/>									
+		<mx:Text width="100%" htmlText="@Resource(key='picnikersBody', bundle='FlickrSaveDialogBridge')" paddingTop="-6" paddingBottom="4"/>
+		<mx:Button height="28" label="@Resource(key='picnikersButton', bundle='FlickrSaveDialogBridge')" 
+			styleName="clearButton" fontSize="13" paddingLeft="0" textAlign="left"
+			click="PicnikBase.app.NavigateToURL(new URLRequest('http://www.flickr.com/groups/picnikers/'), '_blank', true)"/>
+	</mx:VBox>
+</FlickrSaveDialogBridgeBase>

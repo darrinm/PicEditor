@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flexlib:FlowBox xmlns:filters="flash.filters.*" xmlns:mx="http://www.adobe.com/2006/mxml" 
+		xmlns:ctl="controls.*" xmlns:flexlib="flexlib.containers.*" horizontalGap="0" verticalGap="-5" width="100%" filters="{[_fiWhiteShad]}">
+	<filters:DropShadowFilter id="_fiWhiteShad" blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1" quality="3" angle="90"/>
+	<mx:Script>
+		<![CDATA[
+			import util.LocUtil;
+			import mx.utils.ObjectProxy;
+			import com.adobe.utils.StringUtil;
+			import controls.TextPlus;
+			import controls.LabelPlus;
+			import mx.effects.easing.*;
+			import mx.resources.ResourceBundle;
+							
+			protected function OnLink(evt:TextEvent): void {
+				if (StringUtil.beginsWith(evt.text.toLowerCase(), "locale=")) {
+					var strNewLocale:String = evt.text.substr("locale=".length);
+					if (PicnikBase.Locale() != strNewLocale)
+						PicnikBase.app.SwitchLocale(strNewLocale);
+				}
+			}
+			
+			// note, this text is already pre-localized
+			[Bindable] private var aobLangs:Array = LocUtil.localesOP;
+					
+   		]]>
+	</mx:Script>
+	<mx:Repeater id="rpLangs" dataProvider="{PicnikBase.app.canNavParentFrame ? aobLangs : []}">
+		<ctl:LabelPlus text="·" fontSize="11" color="#999999" visible="{rpLangs.currentIndex}" includeInLayout="{rpLangs.currentIndex}"/>
+		<!-- removing flags for now
+		<ctl:ImageEx source="{'../graphics/flags/'+rpLangs.currentItem.flag+'.png'}" 
+			visible="{rpLangs.currentItem.locale==PicnikBase.Locale()}" 
+			includeInLayout="{rpLangs.currentItem.locale==PicnikBase.Locale()}"/>
+		-->
+		<ctl:TextPlus htmlText="&lt;a href='event:locale={rpLangs.currentItem.locale}'&gt;{rpLangs.currentItem.label}&lt;/a&gt;" 
+			data="{rpLangs.currentItem.locale}"
+			color="{rpLangs.currentItem.locale==PicnikBase.Locale()? 0x000000 : 0x618430}" 
+			fontSize="11" fontWeight="{rpLangs.currentItem.locale==PicnikBase.Locale()? 'bold':'normal'}"
+			useHandCursor="{rpLangs.currentItem.locale==PicnikBase.Locale()? false : true}" 
+			buttonMode="{rpLangs.currentItem.locale==PicnikBase.Locale()? false : true}"
+			mouseChildren="true"  
+			rollOver="{event.target.data!=PicnikBase.Locale()?(event.target as TextPlus).setStyle('color','#2d4006'):null}" 
+			rollOut="{event.target.data!=PicnikBase.Locale()?(event.target as TextPlus).setStyle('color','#618430'):null}" 
+			link="OnLink(event)" />
+	</mx:Repeater>
+</flexlib:FlowBox>

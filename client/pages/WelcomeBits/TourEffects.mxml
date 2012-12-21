@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox verticalGap="0" width="100%" height="100%"
+		xmlns:filters="flash.filters.*" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:ctl="controls.*" >
+
+	<mx:Script>
+		<![CDATA[
+		
+			import mx.collections.ArrayCollection;
+			import mx.utils.ObjectProxy;
+		
+			// UNDONE: load this dynamically from the server
+			[Bindable] private var _aobpChecksLeft:ArrayCollection = new ArrayCollection([
+						new ObjectProxy({ label: "blackAndWhite" }),
+						new ObjectProxy({ label: "sepia" }),
+						new ObjectProxy({ label: "boost" }),
+						new ObjectProxy({ label: "vignette" }),
+						new ObjectProxy({ label: "orton" })
+					]);
+			[Bindable] private var _aobpChecksRight:ArrayCollection = new ArrayCollection([
+						new ObjectProxy({ label: "lomo" }),
+						new ObjectProxy({ label: "crossProcess" }),
+						new ObjectProxy({ label: "tint" }),
+						new ObjectProxy({ label: "focalBW" }),
+						new ObjectProxy({ label: "more" })
+					]);
+   		]]>
+	</mx:Script>
+				
+	<filters:DropShadowFilter id="_fiDropShad" blurX="7" blurY="7" distance="2" color="#000000" alpha=".35" quality="3" angle="90"/>
+	<filters:DropShadowFilter id="_fiWhiteShad" blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1" quality="3" angle="90"/>
+
+	<!-- contents -->
+	<mx:HBox horizontalGap="15" width="100%" height="100%" paddingLeft="10" paddingRight="10">
+		<!-- right col copy -->
+		<mx:VBox width="100%" minWidth="240" verticalGap="0" clipContent="false" horizontalScrollPolicy="off" verticalScrollPolicy="off">
+			<ctl:ResizingLabel width="100%" autoFontSizeGap="1" text="@Resource(key='effectsIntro', bundle='GuestTour')" styleName="h1" filters="{[_fiWhiteShad]}"/>
+			<ctl:TextPlus text="@Resource(key='effectsSubhead', bundle='GuestTour')" styleName="subhead" paddingTop="-6" width="100%"/>
+			<mx:HBox paddingTop="4" paddingLeft="3" horizontalGap="25">
+				<mx:VBox verticalGap="3">
+				<mx:Repeater id="rpChecksLeft" dataProvider="{_aobpChecksLeft}">
+					<mx:HBox horizontalGap="0" filters="{[_fiWhiteShad]}">
+						<ctl:ImageVer source="@Embed('/assets/bitmaps/checkmark.png')" />
+						<ctl:LabelPlus text="{Resource.getString('GuestTour',rpChecksLeft.currentItem.label)}" fontSize="13"/>
+					</mx:HBox>
+				</mx:Repeater>
+				</mx:VBox>
+				<mx:VBox verticalGap="3">
+				<mx:Repeater id="rpChecksRight" dataProvider="{_aobpChecksRight}">
+					<mx:HBox horizontalGap="0" filters="{[_fiWhiteShad]}">
+						<ctl:ImageVer source="@Embed('/assets/bitmaps/checkmark.png')" />
+						<ctl:LabelPlus text="{Resource.getString('GuestTour',rpChecksRight.currentItem.label)}" fontSize="13"/>
+					</mx:HBox>
+				</mx:Repeater>
+				</mx:VBox>
+			</mx:HBox>
+		</mx:VBox>
+		<!-- photos -->
+		<mx:Canvas width="100%" maxWidth="245" height="100%" clipContent="false">
+			<ctl:ImagePopForward id="_img1960s" bundled="true" autoPopForward="false" source="../graphics/welcome/guest_tour/TourEffects/1960s.jpg" horizontalCenter="-4" top="15"
+				borderThickness="3" borderColor="#ffffff" filters="{[_fiDropShad]}" rotation="2"/>
+			<ctl:ImagePopForward id="_imgPanography" bundled="true" autoPopForward="false" source="../graphics/welcome/guest_tour/TourEffects/panography.jpg" left="7" verticalCenter="5"
+				borderThickness="3" borderColor="#ffffff" filters="{[_fiDropShad]}" rotation="-6"/>
+			<ctl:ImagePopForward id="_imgVignette" bundled="true" autoPopForward="false" source="../graphics/welcome/guest_tour/TourEffects/vignette.jpg" bottom="12" left="0"
+				borderThickness="3" borderColor="#ffffff" filters="{[_fiDropShad]}" rotation="-5"/>
+			<ctl:ImagePopForward id="_imgCrossProcess" bundled="true" autoPopForward="false" source="../graphics/welcome/guest_tour/TourEffects/cross_process.jpg" horizontalCenter="3" bottom="25"
+				borderThickness="3" borderColor="#ffffff" filters="{[_fiDropShad]}" rotation="6"/>
+			<ctl:ImagePopForward id="_imgBoost" bundled="true" autoPopForward="false" source="../graphics/welcome/guest_tour/TourEffects/boost.jpg" right="12" verticalCenter="-5"
+				borderThickness="3" borderColor="#ffffff" filters="{[_fiDropShad]}" rotation="6"/>
+			<ctl:ImagePopForward id="_imgFocalBW" bundled="true" autoPopForward="false" source="../graphics/welcome/guest_tour/TourEffects/focal_bw.jpg" bottom="18" right="3"
+				borderThickness="3" borderColor="#ffffff" filters="{[_fiDropShad]}" rotation="4"/>
+			<ctl:ImagePopForward id="_imgInfrared" bundled="true" autoPopForward="false" source="../graphics/welcome/guest_tour/TourEffects/infrared.jpg" top="8" left="0"
+				borderThickness="3" borderColor="#ffffff" filters="{[_fiDropShad]}" rotation="-2"/>
+			<ctl:ImagePopForward id="_imgSepia" bundled="true" autoPopForward="false" source="../graphics/welcome/guest_tour/TourEffects/sepia.jpg" top="4" right="0"
+				borderThickness="3" borderColor="#ffffff" filters="{[_fiDropShad]}" rotation="2"/>
+			<ctl:ImagePopForward id="_imtTintBlue" bundled="true" autoPopForward="false" source="../graphics/welcome/guest_tour/TourEffects/tint_blue.jpg" horizontalCenter="0" verticalCenter="-10"
+				borderThickness="3" borderColor="#ffffff" filters="{[_fiDropShad]}" rotation="3"/>				
+		</mx:Canvas>
+	</mx:HBox>
+</mx:VBox>

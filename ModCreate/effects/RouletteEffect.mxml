@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cnt:EffectCanvas xmlns:cnt="containers.*" xmlns="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="300"
+	xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*" premium="{PicnikBase.GetApp().freemiumModel}" xmlns:effects="effects.*" urlid="Roulette">
+	
+	<mx:Style>
+	.dimGradient {
+		border-style: solid;
+   		border-thickness: 0;
+   		border-skin: ClassReference("skins.GradientBackground");
+   		gradient-fill-colors: #eee1c2, #fff1d4, #eee1c2;
+   		gradient-fill-ratios: 0,64,255;
+   		gradient-rotation: 90;
+	}
+	.brightGradient {
+   		border-style: solid;
+   		border-thickness: 0;
+   		border-skin: ClassReference("skins.GradientBackground");
+   		gradient-fill-colors: #f7efd7, #fff9e6, #f7efd7;
+   		gradient-fill-ratios: 0,64,255;
+   		gradient-rotation: 90;
+	}
+	</mx:Style>
+	
+	<mx:Script>
+	
+		import containers.NestedControlCanvasBase;
+		
+		import imagine.imageOperations.BlendImageOperation;
+		
+		import mx.effects.Tween;
+		import mx.effects.easing.Linear;
+		import mx.resources.ResourceBundle;
+		
+		import util.LocUtil;
+		
+   		[Bindable] [ResourceBundle("RouletteEffect")] private var rb:ResourceBundle;
+   		
+   		private const _nMaxOps:int = 10;
+   		[Bindable] public var _nOpNumber:int = -1;
+   		[Bindable] public var _nNextOpNumber:int = -1;   		   		
+   		[Bindable] protected var _fSpinning:Boolean = false;
+   		
+   		private var _tmrSpinner:Timer;
+   		private var _nSpins:Number = 0;
+   		private var _nMaxSpins:Number = 25;
+	    private var _tween:Tween = null;
+   		
+   		private var _aLabels:Array = [   		
+   			Resource.getString("BWEffect", "_efbtn"),
+   			Resource.getString("BoostEffect", "_efbtn"),
+   			Resource.getString("LomoEffect", "_efbtn"),
+   			Resource.getString("VignetteEffect", "_efbtn"),
+   			Resource.getString("SixtiesEffect", "_efbtn"),
+   			Resource.getString("CrossProcessEffect", "_efbtn"),
+   			Resource.getString("NightVisionEffect", "_efbtn"),
+   			Resource.getString("CinemascopeEffect", "_efbtn"),
+   			Resource.getString("OrtonEffect", "_efbtn"),
+   			Resource.getString("HolgaEffect", "_efbtn"),
+   			Resource.getString("SepiaEffect", "_efbtn"),
+   			Resource.getString("HDREfffect", "_efbtn"),
+   			Resource.getString("IREffect", "_efbtn")
+   			 ];
+   		
+   		private function Spin():void {
+   			NewOp();
+   			StopSpinning();
+   			_tmrSpinner = new Timer(calcDelay(),0);
+   			_tmrSpinner.addEventListener(TimerEvent.TIMER, OnSpinnerTimer);
+   			_tmrSpinner.start();
+   			_fSpinning = true;
+   		}
+   		
+		private function OnSpinnerTimer(evt:TimerEvent): void {
+			NewOp();
+			FixLabels();
+			_nSpins++;
+			if (_nSpins >= _nMaxSpins) {
+				StopSpinning();
+			} else {
+				MoveLabels();				
+				_tmrSpinner.delay = calcDelay();
+				_tmrSpinner.start();
+			}
+		}
+   		
+   		private function calcDelay():int {
+   			return 150 + _nSpins*_nSpins*_nSpins*_nSpins*_nSpins / 13000;
+   		}
+   		   		
+   		private function StopSpinning():void {
+   			_nSpins = 0;
+   			_nMaxSpins = 24 + Math.round( Math.random() * 2 );
+   			if (_tmrSpinner) {
+	   			_tmrSpinner.stop();
+	   			_tmrSpinner.removeEventListener(TimerEvent.TIMER, OnSpinnerTimer);
+	   			_tmrSpinner = null;
+	   		}
+   			_fSpinning = false;
+   		}
+   		
+   		private function NewOp(): void {
+   			var oThis:Object = this;
+   			var fnOnNewOpTimer:Function = function(evt:TimerEvent): void {
+   					if (_fSpinning) {
+			   			_nOpNumber = _nNextOpNumber;
+			   			
+			   			var nNewOp:int = _nOpNumber;
+			   			while (nNewOp == _nOpNumber)
+			   				nNewOp = Math.round(Math.random() * (_nMaxOps - 1));
+			   			_nNextOpNumber = nNewOp;
+			   			
+			   			if (_nOpNumber != -1) {
+			   				_op = oThis['_op' + _nOpNumber];
+			   			}
+			   			
+			   			OnOpChange();
+			   		}     				
+   				} 
+   			
+   			var tmrNewOp:Timer = new Timer(calcDelay()/2,1);
+   			tmrNewOp.addEventListener(TimerEvent.TIMER, fnOnNewOpTimer);
+   			tmrNewOp.start();
+   		}
+   		
+   		private function FixLabels():void {
+   			if (_lblOp1){ 
+   				_lblOp1.text = _nOpNumber == -1 ? " " : _aLabels[_nOpNumber];
+   				_lblOp1.y = _cvsLabels.height * 0.5 - _lblOp1.textHeight / 2 - 1;	
+   			} 
+   			if (_lblOp2) {
+   				_lblOp2.text = _nNextOpNumber == -1 ? " " : _aLabels[_nNextOpNumber];	
+   				_lblOp2.y = _cvsLabels.height * 1.5 - _lblOp2.textHeight / 2 - 1;	
+   			}
+   		}
+   		
+   		private function MoveLabels():void {
+   			_tween = new Tween(this, 0, 1, calcDelay());
+   			_tween.easingFunction = Linear.easeNone;
+   		}
+
+		// Has to be public so Tween.as can find it	
+	    public function onTweenUpdate(value:Number): void {
+			_lblOp1.y = _cvsLabels.height * 0.5 - _lblOp1.textHeight / 2 - _cvsLabels.height * value - 1;	
+			_lblOp2.y = _cvsLabels.height * 1.5 - _lblOp2.textHeight / 2 - _cvsLabels.height * value - 1;	
+	    }
+
+		// Has to be public so Tween.as can find it	
+	    public function onTweenEnd(value:Number): void {
+	    }	   		
+   		
+		public override function Select(efcnvCleanup:NestedControlCanvasBase): Boolean {
+			Spin();
+			return super.Select(efcnvCleanup);
+		}
+   		
+		public override function Apply(): void {
+			StopSpinning();
+			return super.Apply();
+		}
+
+		public override function Deselect(fForceRollOutEffect:Boolean=true, efcvsNew:NestedControlCanvasBase=null): void {
+			StopSpinning();
+			super.Deselect(fForceRollOutEffect, efcvsNew);
+		}		
+
+		public override function Revert(): void {
+			StopSpinning();
+			super.Revert();
+		}
+		   		
+	</mx:Script>
+
+	<mx:DropShadowFilter id="_fiWhiteShad" blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1" quality="3" angle="90"/>
+	<mx:DropShadowFilter id="_efInnerShadow" blurX="0" blurY="2" distance="0" color="#000000" alpha=".2" quality="3" angle="90" inner="true"/>
+
+
+	<mx:Array id="_resetValues">
+		<local:StoredValue target="_nOpNumber"/>
+	</mx:Array>
+
+	<EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='RouletteEffect')" strAuthor="@Resource(key='_efbtn_1', bundle='RouletteEffect')"
+		strImageSource="../graphics/effects/Color/tint.png" premium="{premium}"
+		booleanAdmin="true"/>
+	<mx:String id="_strHelpText">{Resource.getString('RouletteEffect', '_strHelpText')}</mx:String>
+
+	<mx:VBox x="2" y="70" verticalGap="0" paddingLeft="8" paddingRight="8">
+	    <mx:HBox width="190" paddingBottom="0" paddingTop="3" horizontalAlign="center" verticalAlign="middle">
+			<mx:Box borderStyle="solid" borderColor="#c3c4c2" borderThickness="1" width="100%">
+				<mx:Canvas id="_cvsLabels" width="100%" height="23" verticalScrollPolicy="off" horizontalScrollPolicy="off"
+					filters="{[_efInnerShadow]}" styleName="{_fSpinning ? 'dimGradient' : 'brightGradient'}">
+					<mx:Label fontSize="13" x="0" y="5" id="_lblOp1" text=" " height="24" filters="{[_fiWhiteShad]}" alpha=".8"/>
+					<mx:Label fontSize="13" x="0" y="29" id="_lblOp2" text=" " height="24" filters="{[_fiWhiteShad]}" alpha=".8"/>
+				</mx:Canvas>
+			</mx:Box>
+			<ResizingButton id="_btnSpin" enabled="{!_fSpinning}" paddingLeft="0" paddingRight="0" label="@Resource(key='Spin', bundle='RouletteEffect')" styleName="BigButton" click="Spin()"/>
+		</mx:HBox>	
+		
+		<ApplyCancelEffectButtons addBoxPadding="true" premium="{premium}"/>
+	</mx:VBox>
+
+	<imageOperations:BlendImageOperation id="_op"/>
+
+	<imageOperations:CircularGradientImageMask 
+		width="{imagewidth}" height="{imageheight}" 
+		xCenter="{imagewidth/2}" yCenter="{imageheight/2}" 
+		innerRadius="{(Math.max(imagewidth,imageheight)/2)*.5}" 
+		outerRadius="{(Math.max(imagewidth,imageheight)/2)*(2-((100/100)*1))}" 
+		id="_mskCircle"/>
+
+	<!-- bw -->
+	<imageOperations:BWImageOperation id="_op0"  
+		filtercolor="{0xFFFFFF}"/>
+
+	<!--boost-->		
+	<imageOperations:SimpleColorMatrixImageOperation id="_op1" 
+		Brightness="{-30}" Saturation="{30}" Contrast="{60}" BlendAlpha="100"/>
+		
+	<!-- lomo -->		
+	<imageOperations:NestedImageOperation id="_op2">
+		<imageOperations:children>
+			<imageOperations:GlowImageOperation color="0" glowalpha="1" 
+				xblur="{35*.02*Math.max(imagewidth, imageheight)/2}" yblur="{35*.02*Math.max(imagewidth, imageheight)/2}" 
+				strength="1.1" quality="3" innerglow="true" knockout="false"/>
+			<imageOperations:BlurImageOperation xblur="20" yblur="20" quality="3"
+				BlendAlpha="1" Mask="{_mskCircle}"/>
+			<imageOperations:SimpleColorMatrixImageOperation Saturation="+20" Contrast="+35" Brightness="+5"/>
+		</imageOperations:children>
+	</imageOperations:NestedImageOperation>
+	
+	<!-- vignette -->
+	<imageOperations:GlowImageOperation id="_op3" color="0x000000" glowalpha="1"
+		xblur="{50*.02*Math.max(imagewidth, imageheight)/4}" yblur="{50*.02*Math.max(imagewidth, imageheight)/4}" 
+		strength="2" quality="3" innerglow="true" knockout="false"
+		BlendAlpha="0.8"/>
+		
+	<!-- 1960's -->
+	<imageOperations:NestedImageOperation id="_op4">
+		<imageOperations:children>
+			<imageOperations:NestedImageOperation>
+				<imageOperations:children>
+					<imageOperations:AutoFixImageOperation />
+					<imageOperations:AdjustCurvesImageOperation
+						MasterCurve="{[{x:0, y:0}, {x:150, y:104}, {x:243, y:255}]}"
+						RedCurve="{[{x:0, y:59}, {x:96, y:156}, {x:210, y:255}]}"
+						GreenCurve="{[{x:0, y:22}, {x:150, y:166}, {x:255, y:216}]}"
+						BlueCurve="{[{x:0, y:9}, {x:126, y:98}, {x:255, y:231}]}"
+					/>
+					<imageOperations:NoiseImageOperation randomSeed="5" 
+						low="235" high="255" channelOptions="7"
+						grayScale="true" BlendAlpha=".6" BlendMode="multiply"/>
+				</imageOperations:children>
+			</imageOperations:NestedImageOperation>
+			<imageOperations:BorderImageOperation outercolor="{0xffffffff}" innercolor="0" BlendAlpha="1"
+				outerthickness="0" innerthickness="0" cornerradius="{Math.min(imagewidth, imageheight)/14}" />
+		</imageOperations:children>
+	</imageOperations:NestedImageOperation>
+
+	<!-- cross process -->
+	<imageOperations:NestedImageOperation id="_op5">
+		<imageOperations:children>
+			<imageOperations:AdjustCurvesImageOperation
+				RedCurve="{[{x:0, y:0}, {x:60, y:30}, {x:210, y:255}, {x:255, y:255}]}"
+				GreenCurve="{[{x:0, y:0}, {x:47, y:38}, {x:101, y:111}, {x:187, y:206}, {x:255, y:255}]}"
+				BlueCurve="{[{x:0, y:32}, {x:255, y:216}]}"
+			/>
+			<imageOperations:SimpleColorMatrixImageOperation Contrast="10" Brightness="10"/>
+			<imageOperations:TintImageOperation Color="0xfcff00" BlendAlpha=".2" BlendMode="multiply"/>
+		</imageOperations:children>
+	</imageOperations:NestedImageOperation>
+
+	<!-- night vision -->
+	<imageOperations:NestedImageOperation id="_op6">
+		<imageOperations:children>
+			<imageOperations:AutoFixImageOperation />
+			<imageOperations:GradientMapImageOperation gradientArray="[0x000000,0x57cc29]" />
+			<imageOperations:GlowImageOperation color="0" glowalpha="1" 
+				xblur="{35*.02*Math.max(imagewidth, imageheight)/3}" yblur="{35*.02*Math.max(imagewidth, imageheight)/3}" 
+				strength="1.5" quality="3" innerglow="true" knockout="false"/>
+			<imageOperations:NoiseImageOperation randomSeed="30" 
+				low="0" high="180" channelOptions="7"
+				grayScale="false" BlendAlpha=".2" BlendMode="lighten"/>
+		</imageOperations:children>
+	</imageOperations:NestedImageOperation>
+
+	<!-- cinema scope -->
+	<imageOperations:NestedImageOperation id="_op7">
+		<imageOperations:children>
+			<imageOperations:NestedImageOperation BlendAlpha="1">
+				<imageOperations:children>
+					<imageOperations:AutoFixImageOperation />
+					<imageOperations:SimpleColorMatrixImageOperation Saturation="-25" />
+						<imageOperations:AdjustCurvesImageOperation
+							MasterCurve="{[{x:0, y:0}, {x:29, y:19}, {x:110, y:150}, {x:233, y:245}, {x:255, y:255}]}"
+							RedCurve="{[{x:0, y:0}, {x:111, y:141}, {x:255, y:255}]}"
+							BlueCurve="{[{x:0, y:0}, {x:136, y:121}, {x:255, y:255}]}"
+						/>
+					<imageOperations:NoiseImageOperation randomSeed="0" 
+						low="225" high="245" channelOptions="7"
+						grayScale="true" BlendMode="multiply" maskWithSourceAlpha="true"/>
+				</imageOperations:children>
+			</imageOperations:NestedImageOperation>
+		</imageOperations:children>
+	</imageOperations:NestedImageOperation>
+
+	<!-- orton -->	
+	<imageOperations:NestedImageOperation id="_op8">
+		<imageOperations:children>
+			<imageOperations:BlurImageOperation xblur="{25}" yblur="{25}" quality="3"
+				BlendAlpha="1" BlendMode="overlay"/>
+			<imageOperations:AdjustCurvesImageOperation MasterCurve="{[{x:0, y:0}, {x:128, y:(128 + (10)*75/50)}, {x:255, y:255}]}"/>
+		</imageOperations:children>
+	</imageOperations:NestedImageOperation>
+	
+	<!-- holga -->	
+	<imageOperations:NestedImageOperation id="_op9">
+		<imageOperations:children>
+			<imageOperations:AutoFixImageOperation />
+			<imageOperations:GlowImageOperation color="0" glowalpha="1" 
+				xblur="{.5*Math.max(imagewidth, imageheight)/2}" yblur="{.4*Math.max(imagewidth, imageheight)/2}" 
+				strength="1.4" quality="3" innerglow="true" knockout="false"/>
+			<imageOperations:BlurImageOperation xblur="18" yblur="20" quality="3"
+				BlendAlpha="1" Mask="{_mskCircle}"/>
+			<imageOperations:BWImageOperation filtercolor="0xff6666"/>
+			<imageOperations:SimpleColorMatrixImageOperation Contrast="+25"/>
+			<imageOperations:NoiseImageOperation randomSeed="5" dynamicAlphaCachePriority="1"
+				low="{255-Math.round((100/200)*255)}" high="255" channelOptions="7"
+				grayScale="true" BlendAlpha=".6" BlendMode="multiply"/>
+		</imageOperations:children>
+	</imageOperations:NestedImageOperation>
+	
+	<!-- sepia -->
+	<imageOperations:TintImageOperation id="_op10" Color="0xd2b991"/>
+
+	<!-- hdr -->
+	<imageOperations:LocalContrastImageOperation id="_op11"  Radius="20" Strength="3"/>
+
+	<!-- infrared -->
+	<imageOperations:IRImageOperation id="_op12" greenglow="5" greenglowalpha="0.25" redweight="-0.5"/>
+</cnt:EffectCanvas>

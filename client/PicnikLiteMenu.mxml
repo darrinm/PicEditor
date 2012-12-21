@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PicnikLiteMenuBase xmlns="*" xmlns:mx="http://www.adobe.com/2006/mxml" backgroundColor="#ffffff"
+		cornerRadius="8" dropShadowEnabled="true" dropShadowColor="#999999" shadowDistance="1"
+		borderStyle="solid" borderThickness="0" borderColor="#FFFFFF" backgroundAlpha="0.95">
+	<mx:VBox id="_ctnr" width="180" paddingTop="3" paddingBottom="3" paddingLeft="3" paddingRight="3" verticalGap="0">
+		
+		<mx:LinkButton label="@Resource(key='signIn', bundle='PicnikLiteMenu')" id="signIn" width="100%" height="20" styleName="helpMenu" useHandCursor="false"
+		 	visible="{!AccountMgr.GetInstance().hasCredentials}"
+		 	includeInLayout="{!AccountMgr.GetInstance().hasCredentials}"/>
+		<mx:LinkButton label="@Resource(key='register', bundle='PicnikLiteMenu')" id="register" width="100%" height="20" styleName="helpMenu" useHandCursor="false"
+		 	visible="{!AccountMgr.GetInstance().hasCredentials}"
+		 	includeInLayout="{!AccountMgr.GetInstance().hasCredentials}"/>
+		<mx:LinkButton label="@Resource(key='signOut', bundle='PicnikLiteMenu')" id="signOut" width="100%" height="20" styleName="helpMenu" useHandCursor="false"
+		 	visible="{AccountMgr.GetInstance().hasCredentials}"
+		 	includeInLayout="{AccountMgr.GetInstance().hasCredentials}"/>
+		<mx:Spacer height="2" />
+		<mx:HRule strokeColor="#e5e5e5" strokeWidth="1" width="100%" />
+		<mx:Spacer height="2" />
+
+		<mx:LinkButton label="@Resource(key='help', bundle='PicnikLiteMenu')" id="help" width="100%" height="20" styleName="helpMenu" useHandCursor="false"/>
+		<mx:LinkButton label="@Resource(key='contact', bundle='PicnikLiteMenu')" id="contact" width="100%" height="20" styleName="helpMenu" useHandCursor="false"/>
+		<mx:LinkButton label="@Resource(key='settings', bundle='PicnikLiteMenu')" visible="{!AccountMgr.GetInstance().isGuest}" includeInLayout="{!AccountMgr.GetInstance().isGuest}" id="settings" width="100%" height="20" styleName="helpMenu" useHandCursor="false"/>
+		<mx:Spacer height="2"/>
+		<mx:HRule strokeColor="#e5e5e5" strokeWidth="1" width="100%"/>
+		<mx:Spacer height="2"/>
+		<!-- UNDONE: show only if user is not premium and make these trigger the appropriate dialogs -->
+		<mx:LinkButton label="@Resource(key='upgrade', bundle='PicnikLiteMenu')" id="upgrade" width="100%" height="20" styleName="helpMenu" useHandCursor="false"
+			visible="{!AccountMgr.GetInstance().isPaid}" includeInLayout="{!AccountMgr.GetInstance().isPaid}"/>
+		<mx:LinkButton label="@Resource(key='gift', bundle='PicnikLiteMenu')" id="gift" width="100%" height="20" styleName="helpMenu" useHandCursor="false"/>
+		<mx:Spacer height="2"/>
+		<mx:HRule strokeColor="#e5e5e5" strokeWidth="1" width="100%"/>
+		<mx:Spacer height="2"/>
+		<mx:LinkButton label="@Resource(key='fullscreen', bundle='PicnikLiteMenu')" id="fullscreen" width="100%" height="20" styleName="helpMenu" useHandCursor="false"/>
+		<mx:LinkButton label="@Resource(key='openinpicnik2', bundle='PicnikLiteMenu')" id="openinpicnik" width="100%" height="20" styleName="helpMenu" useHandCursor="false"/>
+	</mx:VBox>
+</PicnikLiteMenuBase>

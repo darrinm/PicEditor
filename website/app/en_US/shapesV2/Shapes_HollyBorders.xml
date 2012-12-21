@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory flickrPremium="true" id="HollyBorders" numShapes="8" picnikPremium="true" previewUrls="60|48|../clipart/bundles/groupPreviews_HollyBorders.png?ver=bfb765a9" thumbUrl="66|54|33|../clipart/bundles/groupThumbs.png?ver=95aa0577" title="Holly Borders">
+	<Shapes>
+		<Clipart cHeight="179" cWidth="713" flickrPremium="true" picnikPremium="true" previewUrl="40|40|0|../clipart/bundles/shapes_HollyBorders.png?ver=76e80eb5" url="shapes/holly_bottom.swf"/>
+		<Clipart cHeight="169" cWidth="1195" flickrPremium="true" picnikPremium="true" previewUrl="40|40|1|../clipart/bundles/shapes_HollyBorders.png?ver=76e80eb5" url="shapes/holly_edging.swf"/>
+		<Clipart cHeight="494" cWidth="578" flickrPremium="true" picnikPremium="true" previewUrl="40|40|2|../clipart/bundles/shapes_HollyBorders.png?ver=76e80eb5" url="shapes/holly_wreath.swf"/>
+		<Clipart cHeight="654" cWidth="822" flickrPremium="true" picnikPremium="true" previewUrl="40|40|3|../clipart/bundles/shapes_HollyBorders.png?ver=76e80eb5" url="shapes/holly_open-corner.swf"/>
+		<Clipart cHeight="883" cWidth="672" flickrPremium="true" picnikPremium="true" previewUrl="40|40|4|../clipart/bundles/shapes_HollyBorders.png?ver=76e80eb5" url="shapes/holly_big-corner.swf"/>
+		<Clipart cHeight="465" cWidth="268" flickrPremium="true" picnikPremium="true" previewUrl="40|40|5|../clipart/bundles/shapes_HollyBorders.png?ver=76e80eb5" url="shapes/holly_left-rounded.swf"/>
+		<Clipart cHeight="90" cWidth="562" flickrPremium="true" picnikPremium="true" previewUrl="40|40|6|../clipart/bundles/shapes_HollyBorders.png?ver=76e80eb5" url="shapes/holly_scroll1.swf"/>
+		<Clipart cHeight="105" cWidth="709" flickrPremium="true" picnikPremium="true" previewUrl="40|40|7|../clipart/bundles/shapes_HollyBorders.png?ver=76e80eb5" url="shapes/holly_scroll2.swf"/>
+	</Shapes>
+</ShapeCategory>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cnt:EffectCanvas xmlns:cnt="containers.*" xmlns="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="379"
+	xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*" premium="true" urlid="Television">
+<mx:Script>
+	<![CDATA[
+		import util.LocUtil;
+		import mx.resources.ResourceBundle;
+   		[Bindable] [ResourceBundle("TelevisionEffect")] private var rb:ResourceBundle;
+	]]>
+</mx:Script>
+
+<EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='TelevisionEffect')" strAuthor="@Resource(key='_efbtn_1', bundle='TelevisionEffect')"
+	strImageSource="../graphics/effects/television.png" premium="{premium}"/>
+<mx:String id="_strHelpText">{Resource.getString('TelevisionEffect', '_strHelpText')}</mx:String>
+
+<mx:VBox x="9" y="70" verticalGap="0">
+	<mx:Spacer width="10" height="3"/>
+	<mx:HBox paddingTop="5" paddingLeft="5" paddingRight="8" paddingBottom="5" horizontalGap="5" width="190" horizontalScrollPolicy="off"
+			cornerRadius="5" backgroundColor="#ffffff" borderColor="#d9d9d9" borderStyle="solid" backgroundAlpha=".4" verticalAlign="middle">
+		<ResizingLabel text="@Resource(key='BackgroundColor', bundle='TelevisionEffect')" styleName="sliderTitle" paddingTop="2" width="100%" autoFontSizeGap="1"/>
+		<HSBColorPicker id="_cpkrBG" selectedColor="{0x000000 + zeroR}" liveColorChange="OnBufferedOpChange()" width="50"/>
+	</mx:HBox>
+
+	<mx:HBox width="190" paddingBottom="-5" paddingTop="5">
+		<mx:Label text="@Resource(key='ScanlineWidth', bundle='TelevisionEffect')" styleName="sliderTitle"/>
+		<mx:Label text="{(_sldrScanlineWidth.value/10.0).toPrecision(3)}" styleName="sliderValue" textAlign="right" width="100%"/>
+	</mx:HBox>
+	<HSliderPlus width="190" minimum="10" maximum="100" value="30" id="_sldrScanlineWidth" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+
+	<mx:HBox width="190" paddingBottom="-5" paddingTop="5">
+		<mx:Label text="@Resource(key='GapWidth', bundle='TelevisionEffect')" styleName="sliderTitle"/>
+		<mx:Label text="{(_sldrGapWidth.value/10.0).toPrecision(3)}" styleName="sliderValue" textAlign="right" width="100%"/>
+	</mx:HBox>
+	<HSliderPlus width="190" minimum="10" maximum="100" value="30" id="_sldrGapWidth" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+
+	<mx:HBox width="190" paddingBottom="-5" paddingTop="5">
+		<mx:Label text="@Resource(key='Fade', bundle='TelevisionEffect')" styleName="sliderTitle"/>
+		<mx:Label text="{LocUtil.pct((_sldrFade.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+	</mx:HBox>
+	<HSliderPlus width="190" minimum="0" maximum="100" value="25" id="_sldrFade" change="OnOpChange()" liveDragging="true" showDataTip="false"
+		snapInterval="1"/>
+
+	<mx:HBox width="190" paddingBottom="-5" paddingTop="5">
+		<mx:Label text="@Resource(key='Softness', bundle='TelevisionEffect')" styleName="sliderTitle"/>
+		<mx:Label text="{LocUtil.pct((_sldrSoftness.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+	</mx:HBox>
+	<HSliderPlus width="190" minimum="0" maximum="100" value="100" id="_sldrSoftness" change="OnOpChange()" liveDragging="true" showDataTip="false"
+		snapInterval="1"/>
+
+	<mx:HBox width="190" paddingBottom="-5" paddingTop="5">
+		<mx:Label text="@Resource(key='PhaseShift', bundle='TelevisionEffect')" styleName="sliderTitle"/>
+		<mx:Label text="{LocUtil.pct((_sldrPhaseShift.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+	</mx:HBox>
+	<HSliderPlus width="190" minimum="0" maximum="100" value="0" id="_sldrPhaseShift" change="OnOpChange()" liveDragging="true" showDataTip="false"
+		snapInterval="1"/>
+
+<!--
+	<mx:HBox width="190" paddingBottom="-5" paddingTop="5">
+		<mx:Label text="@Resource(key='Snow', bundle='TelevisionEffect')" styleName="sliderTitle"/>
+		<mx:Label text="{_sldrSnow.value}" styleName="sliderValue" textAlign="right" width="100%"/>
+	</mx:HBox>
+	<HSliderPlus width="190" minimum="0" maximum="100" value="0" id="_sldrSnow" change="OnOpChange()" liveDragging="true" showDataTip="false"
+		snapInterval="1"/>
+-->
+
+	<ApplyCancelEffectButtons addBoxPadding="true" premium="{premium}"/>
+</mx:VBox>
+
+
+</cnt:EffectCanvas>

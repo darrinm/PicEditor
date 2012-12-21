@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory flickrPremium="false" id="BreastCancerAwareness" numShapes="4" picnikPremium="false" previewUrls="60|48|../clipart/bundles/groupPreviews_BreastCancerAwareness.png?ver=941a565e" title="Breast Cancer Awareness">
+	<Shapes>
+		<Clipart cHeight="200" cWidth="120" flickrPremium="false" picnikPremium="false" previewUrl="40|40|0|../clipart/bundles/shapes_BreastCancerAwareness.png?ver=faba3df6" url="shapes/ribbon_pink.swf"/>
+		<Clipart cHeight="171" cWidth="123" flickrPremium="false" picnikPremium="false" previewUrl="40|40|1|../clipart/bundles/shapes_BreastCancerAwareness.png?ver=faba3df6" url="shapes/nbcamlogo.swf"/>
+		<Clipart cHeight="116" cWidth="133" color="16030401" flickrPremium="false" picnikPremium="false" previewUrl="40|40|2|../clipart/bundles/shapes_BreastCancerAwareness.png?ver=faba3df6" url="shapes/heart.swf"/>
+		<Clipart cHeight="289" cWidth="357" color="16030401" flickrPremium="false" picnikPremium="false" previewUrl="40|40|3|../clipart/bundles/shapes_BreastCancerAwareness.png?ver=faba3df6" url="shapes/lips03.swf"/>
+	</Shapes>
+</ShapeCategory>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ctrl:QuestionBase xmlns:ctrl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" horizontalAlign="center" verticalGap="0">
+	<ctrl:TipTextHeader text="{Prompt(data)}" fontSize="17"/>
+	<mx:HBox horizontalGap="5" paddingBottom="3">
+		<mx:Repeater id="rep" dataProvider="{OptionList(data)}">
+			<ctrl:TipButton label="{rep.currentItem.toString()}" name="{(rep.currentItem as XML).toXMLString()}" click="AnswerOption(XML(event.target.name))"
+				minWidth="130" maxWidth="170" autoFontSizeGap="1"/>
+		</mx:Repeater>
+	</mx:HBox>
+</ctrl:QuestionBase>

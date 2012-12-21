@@ -1,0 +1,12 @@
+fileName: timesbd.ttf
+name: Times New Roman
+subfamilyDisplayName: Negreta
+fullName: Times New Roman Negreta
+displayName: Times New Roman
+ital: 0
+bold: 1
+weight: 5
+panose.weight: 8
+pkName: pktimesbd
+authorName: Stanley Morison with Starling Burgess and Victor Lardent 
+authorUrl: http://www.linotype.com/510/stanleymorison.html

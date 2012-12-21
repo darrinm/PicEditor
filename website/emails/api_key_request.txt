@@ -1,0 +1,17 @@
+Thank you for requesting a Picnik API key.  The details for your new key are included below.
+
+contact name: $strContactName
+contact email: $strContactEmail
+site:	$strSite
+key:	$strApiKey
+comments: $strApiComments
+
+We'll review the details of your API key request over the next few days, and contact you if we have any questions.  In the 
+meantime, your key is fully activated and ready to go!  
+
+You can review the API reference, samples, tutorials, and more at $strApiDocsUrl.  If you've got questions about the
+Picnik API or need help with your app, you can join our lively API forum at $strApiForumUrl.
+
+Regards,
+Team Picnik
+

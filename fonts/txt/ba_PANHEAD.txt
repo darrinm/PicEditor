@@ -1,0 +1,12 @@
+fileName: ba_PANHEAD.TTF
+name: PANHEAD
+subfamilyDisplayName: Regular
+fullName: PANHEAD
+displayName: PANHEAD
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 4
+pkName: pkba0PANHEAD
+authorName: Billy Argel
+authorUrl: http://billyargel.blogspot.com/

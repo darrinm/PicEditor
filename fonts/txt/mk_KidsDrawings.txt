@@ -1,0 +1,12 @@
+fileName: mk_KidsDrawings.ttf
+name: KidsDrawings
+subfamilyDisplayName: Regular
+fullName: KidsDrawings
+displayName: KidsDrawings
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 6
+pkName: pkmk0KidsDrawings
+authorName: Manfred Kelin
+authorUrl: http://moorstation.org/typoasis/designers/klein/

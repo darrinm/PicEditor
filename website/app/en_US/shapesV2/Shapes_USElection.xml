@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/shape_us_election.png" flickrPremium="true" id="USElection" numShapes="13" picnikPremium="true" previewUrls="60|48|../clipart/bundles/groupPreviews_USElection.png?ver=c2b48712" title="US Election">
+	<Shapes>
+		<Clipart cHeight="158" cWidth="158" flickrPremium="true" picnikPremium="true" previewUrl="40|40|0|../clipart/bundles/shapes_USElection.png?ver=93647980" url="shapes/election_button1.swf"/>
+		<Clipart cHeight="158" cWidth="158" flickrPremium="true" picnikPremium="true" previewUrl="40|40|1|../clipart/bundles/shapes_USElection.png?ver=93647980" url="shapes/election_button2.swf"/>
+		<Clipart cHeight="158" cWidth="158" flickrPremium="true" picnikPremium="true" previewUrl="40|40|2|../clipart/bundles/shapes_USElection.png?ver=93647980" url="shapes/election_button3.swf"/>
+		<Clipart cHeight="158" cWidth="158" flickrPremium="true" picnikPremium="true" previewUrl="40|40|3|../clipart/bundles/shapes_USElection.png?ver=93647980" url="shapes/election_button4.swf"/>
+		<Clipart cHeight="158" cWidth="158" flickrPremium="true" picnikPremium="true" previewUrl="40|40|4|../clipart/bundles/shapes_USElection.png?ver=93647980" url="shapes/election_button5.swf"/>
+		<Clipart cHeight="158" cWidth="158" flickrPremium="true" picnikPremium="true" previewUrl="40|40|5|../clipart/bundles/shapes_USElection.png?ver=93647980" url="shapes/election_button6.swf"/>
+		<Clipart cHeight="158" cWidth="158" flickrPremium="true" picnikPremium="true" previewUrl="40|40|6|../clipart/bundles/shapes_USElection.png?ver=93647980" url="shapes/election_button7.swf"/>
+		<Clipart cHeight="160" cWidth="158" flickrPremium="true" picnikPremium="true" previewUrl="40|40|7|../clipart/bundles/shapes_USElection.png?ver=93647980" url="shapes/election_button8.swf"/>
+		<Clipart cHeight="158" cWidth="158" flickrPremium="true" picnikPremium="true" previewUrl="40|40|8|../clipart/bundles/shapes_USElection.png?ver=93647980" url="shapes/election_button9.swf"/>
+		<Clipart cHeight="85" cWidth="86" flickrPremium="true" picnikPremium="true" previewUrl="40|40|9|../clipart/bundles/shapes_USElection.png?ver=93647980" url="shapes/election_demicon.swf"/>
+		<Clipart cHeight="79" cWidth="88" flickrPremium="true" picnikPremium="true" previewUrl="40|40|10|../clipart/bundles/shapes_USElection.png?ver=93647980" url="shapes/election_gopicon.swf"/>
+		<Clipart cHeight="85" cWidth="86" flickrPremium="true" picnikPremium="true" previewUrl="40|40|11|../clipart/bundles/shapes_USElection.png?ver=93647980" url="shapes/election_demicon_blue.swf"/>
+		<Clipart cHeight="79" cWidth="88" flickrPremium="true" picnikPremium="true" previewUrl="40|40|12|../clipart/bundles/shapes_USElection.png?ver=93647980" url="shapes/election_gopicon_red.swf"/>
+	</Shapes>
+</ShapeCategory>

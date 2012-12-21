@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReceiptDialogBase xmlns="dialogs.Purchase.*" xmlns:filters="flash.filters.*"
+		width="630" height="423" styleName="BlueStripeDialogStyle" xmlns:ctr="containers.*"
+		xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:ctrl="controls.*" xmlns:ds="com.darronschall.effects.*">
+	<mx:Script>
+		<![CDATA[
+			import dialogs.DialogManager;
+			import dialogs.RegisterDialogBase;
+			
+			import mx.core.Application;
+			import mx.core.UIComponent;
+			
+			private const kMinSize:int = 300;
+			private const kMaxSize:int = 423;	
+			override protected function OnResize(evt:Event): void {
+				height = Math.max(Math.min(kMaxSize, parentHeight), kMinSize);
+				super.OnResize(evt);
+			}	
+			
+			private function OnMyAccountClick():void {
+				Hide();
+				PicnikBase.app.NavigateToMyAccount();
+			}
+		]]>
+	</mx:Script>
+	
+	<mx:Fade alphaFrom="0" alphaTo="1" duration="500" id="_efFadeIn"/>
+	<mx:Fade alphaFrom="1" alphaTo="0" duration="500" id="_efFadeOut"/>
+
+	<filters:DropShadowFilter blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1"
+		quality="3" angle="90" id="_fiWhiteShad"/>
+
+	<Balloons id="_blns" />
+
+	<mx:Canvas width="100%" height="100%" horizontalScrollPolicy="off" verticalScrollPolicy="off">
+		<ReceiptPrinter id="_rp" includeInLayout="false" visible="false"/>
+
+		<ctr:AutoShrinkCanvas id="canvas1" width="630" height="423">
+			
+			<!-- contents -->
+			<mx:VBox width="100%" verticalGap="0" paddingTop="8" horizontalAlign="center" height="{height-80}">
+				<mx:HBox width="100%" horizontalGap="0" verticalAlign="middle" paddingLeft="11" paddingRight="15" paddingBottom="3">
+					<ctrl:ImageVer source="../graphics/premium_sun-large.png" width="63" height="63"/>
+				
+					<mx:VBox verticalGap="-8"  width="100%">
+						<mx:Text fontSize="30" color="#005580" filters="{[_fiWhiteShad]}" condenseWhite="true" fontWeight="bold" width="100%" 
+								htmlText="{cct.fIsGift ? Resource.getString('ReceiptDialog', 'GiftTitle') : Resource.getString('ReceiptDialog', 'Text_1', [AccountMgr.GetInstance().displayName])}">
+						</mx:Text>
+						<mx:Text fontSize="18" color="#333333" width="100%" leading="-1" selectable="false" condenseWhite="true" fontWeight="bold" paddingTop="3"
+								htmlText="{cct.fIsGift ? Resource.getString('ReceiptDialog', 'GiftSubtitle') : Resource.getString('ReceiptDialog', 'Text_2')}">
+						</mx:Text>
+					</mx:VBox>
+				</mx:HBox>
+				
+				<!-- copy box -->
+				<mx:VBox paddingLeft="13" paddingTop="8" paddingRight="16" verticalGap="-5"
+						width="100%" height="100%" minHeight="50"
+						borderColor="0xc0dcf0" borderStyle="solid" borderSides="top,bottom" horizontalScrollPolicy="off">
+					
+					<mx:HBox width="100%" horizontalScrollPolicy="off" visible="{!cct.fIsGift}" includeInLayout="{!cct.fIsGift}" paddingBottom="5">
+						<mx:Text width="100%" htmlText="{Resource.getString('ReceiptDialog','paragraph'+cct.strSkuId)}" 
+								 color="#333333" fontSize="16" selectable="true" link="OnMyAccountClick()"/>
+					</mx:HBox>
+					
+					<mx:HBox paddingTop="15" width="100%" fontWeight="normal">
+						<mx:Label text="@Resource(key='orderNum', bundle='ReceiptDialog')" color="#005580" fontSize="16" selectable="true" fontWeight="normal"/>
+						<mx:Label text="{cct.strInvoice}" color="#666666" fontSize="16" fontWeight="normal" selectable="true"/>
+					</mx:HBox>
+	
+					<mx:HBox visible="{cct.fIsGift}" includeInLayout="{cct.fIsGift}" paddingTop="15" width="100%" fontWeight="normal">
+						<mx:Label text="@Resource(key='giftCode', bundle='ReceiptDialog')" color="#005580" fontSize="15" selectable="true"/>
+						<mx:Label text="{cct.strGiftCode}" color="#666666" fontSize="16" fontWeight="normal" selectable="true"/>
+					</mx:HBox>
+	
+					<!-- credit card details -->
+					<mx:HBox paddingTop="15">
+						<mx:Label text="@Resource(key='Label_2', bundle='ReceiptDialog')" color="#005580" fontSize="16" selectable="true" fontWeight="normal"/>
+						<mx:Label text="{'XXXX-XXXX-XXXX-' + cct.cc.strCCLast4}" color="#666666" fontSize="16" fontWeight="normal" selectable="true"/>					
+					</mx:HBox>
+	
+					<mx:HBox paddingTop="15" width="100%">
+						<mx:Label text="@Resource(key='Label_3', bundle='ReceiptDialog')" color="#005580" fontSize="16" selectable="true" fontWeight="normal"/>
+						<mx:Label text="{cct.cc.FullName()}" color="#666666" fontSize="16" fontWeight="normal" selectable="true"/>
+					</mx:HBox>
+					
+					<!--<mx:VBox paddingTop="15" verticalGap="-5" width="100%">
+						<mx:Label text="@Resource(key='Label_4', bundle='ReceiptDialog')" color="#005580" fontSize="16" selectable="true" fontWeight="normal"/>
+						<mx:Text color="#666666" fontSize="18" fontWeight="normal" condenseWhite="true" htmlText="{_strAddress}" selectable="true"/>
+					</mx:VBox>-->
+					
+					<mx:HBox paddingTop="15" width="100%">
+						<mx:Label text="@Resource(key='Label_5', bundle='ReceiptDialog')" color="#005580" fontSize="16" selectable="true" fontWeight="normal"/>
+						<mx:Label text="{_strTotal}" color="#666666" fontSize="16" fontWeight="normal" selectable="true"/>
+					</mx:HBox>
+					
+					<mx:HBox visible="{!cct.fIsGift}" includeInLayout="{!cct.fIsGift}" paddingTop="15" width="100%">
+						<mx:Label text="@Resource(key='renew', bundle='ReceiptDialog')" color="#005580" fontSize="16" selectable="true" fontWeight="normal"/>
+						<mx:Label text="{_strAccountExpires}" color="#666666" fontSize="16" fontWeight="normal" selectable="true"/>
+					</mx:HBox>
+					
+					<mx:HBox paddingTop="20" horizontalAlign="center" width="100%"
+						includeInLayout="{!AccountMgr.GetInstance().hasCredentials &amp;&amp; !cct.fIsGift}"
+						visible="{!AccountMgr.GetInstance().hasCredentials &amp;&amp; !cct.fIsGift}">
+						<mx:Label text="@Resource(key='createLoginQuestion', bundle='ReceiptDialog')" fontSize="14" fontWeight="normal"/>
+						<mx:LinkButton label="@Resource(bundle='Picnik',key='get_picnik_login')" styleName="clearButton" fontSize="14"
+							click="Hide(); RegisterDialogBase.Show(UIComponent(Application.application));"/>
+					</mx:HBox>
+				</mx:VBox>
+			</mx:VBox>
+		</ctr:AutoShrinkCanvas>
+
+		<mx:LinkButton bottom="50" width="100%" textAlign="center" label="@Resource(key='LinkButton_1', bundle='ReceiptDialog')" styleName="clearButton" click="PrintReceipt()"/>
+
+		<!-- Close button-->
+		<mx:Button width="22" height="22" right="4" top="4" tabEnabled="false" click="Hide()" styleName="dialogCloseButton"/>
+		
+		<!-- Footer -->
+		<ctrl:ResizingButton visible="{cct.fIsGift}" includeInLayout="{cct.fIsGift}"
+								 label="@Resource(key='sendOrPrint', bundle='ReceiptDialog')" 								 
+								 minWidth="234" height="38" fontSize="22" bottom="6" horizontalCenter="0" paddingLeft="30" paddingRight="30"
+								 styleName="basketButton" click="SendOrPrint()"/>
+		<ctrl:ResizingButton visible="{!cct.fIsGift}" includeInLayout="{!cct.fIsGift}"
+								 label="@Resource(key='Button_1', bundle='ReceiptDialog')" 
+								 minWidth="234" height="38" fontSize="22" bottom="6" horizontalCenter="0" paddingLeft="30" paddingRight="30"
+								 styleName="basketButton" click="Hide()"/>
+
+		<!-- shadow dealies, drawn on top of all elements -->
+		<ctrl:ImageVer source="../graphics/upsellPremiumPanelShadow.png" bottom="50" left="0" right="0" scaleContent="true" maintainAspectRatio="false"/>
+
+	</mx:Canvas>
+</ReceiptDialogBase>

@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/shape_NewYears.png" flickrPremium="false" id="NewYearsEve" numShapes="9" picnikPremium="false" previewUrls="60|48|../clipart/bundles/NewYearsArea_groupPreviews_NewYearsEve.png?ver=8c2af29e" title="New Year&apos;s Eve">
+	<Shapes>
+		<Clipart cHeight="1000" cWidth="520" flickrPremium="false" picnikPremium="false" previewUrl="40|40|0|../clipart/bundles/NewYearsArea_shapes_NewYearsEve.png?ver=fa3a7ccc" url="shapes/fireworks1.swf"/>
+		<Clipart cHeight="1000" cWidth="610" flickrPremium="false" picnikPremium="false" previewUrl="40|40|1|../clipart/bundles/NewYearsArea_shapes_NewYearsEve.png?ver=fa3a7ccc" url="shapes/fireworks2.swf"/>
+		<Clipart cHeight="990" cWidth="575" flickrPremium="false" picnikPremium="false" previewUrl="40|40|2|../clipart/bundles/NewYearsArea_shapes_NewYearsEve.png?ver=fa3a7ccc" url="shapes/fireworks3.swf"/>
+		<Clipart cHeight="355" cWidth="137" flickrPremium="false" picnikPremium="false" previewUrl="40|40|3|../clipart/bundles/NewYearsArea_shapes_NewYearsEve.png?ver=fa3a7ccc" url="shapes/bastilleday_wine.swf"/>
+		<Clipart cHeight="1091" cWidth="593" flickrPremium="false" picnikPremium="false" previewUrl="40|40|4|../clipart/bundles/NewYearsArea_shapes_NewYearsEve.png?ver=fa3a7ccc" url="shapes/newyears_partyhat3.swf"/>
+		<Clipart cHeight="1091" cWidth="593" flickrPremium="false" picnikPremium="false" previewUrl="40|40|5|../clipart/bundles/NewYearsArea_shapes_NewYearsEve.png?ver=fa3a7ccc" url="shapes/newyears_partyhat4.swf"/>
+		<Clipart cHeight="1091" cWidth="593" flickrPremium="false" picnikPremium="false" previewUrl="40|40|6|../clipart/bundles/NewYearsArea_shapes_NewYearsEve.png?ver=fa3a7ccc" url="shapes/newyears_partyhat1.swf"/>
+		<Clipart cHeight="1091" cWidth="593" flickrPremium="false" picnikPremium="false" previewUrl="40|40|7|../clipart/bundles/NewYearsArea_shapes_NewYearsEve.png?ver=fa3a7ccc" url="shapes/newyears_partyhat2.swf"/>
+		<Clipart cHeight="930" cWidth="329" flickrPremium="false" picnikPremium="false" previewUrl="40|40|8|../clipart/bundles/NewYearsArea_shapes_NewYearsEve.png?ver=fa3a7ccc" url="shapes/newyears_champglass.swf"/>
+	</Shapes>
+</ShapeCategory>

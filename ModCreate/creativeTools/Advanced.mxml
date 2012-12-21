@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ct:SpecialEffectsCanvasBase xmlns="*" xmlns:ct="creativeTools.*" xmlns:mx="http://www.adobe.com/2006/mxml" 
+		xmlns:eff="effects.*" xmlns:filters="flash.filters.*" xmlns:ctr="containers.*"
+		width="100%" verticalLineScrollSize="38" horizontalScrollPolicy="off" verticalScrollPolicy="on">
+	<filters:DropShadowFilter blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1"
+		quality="3" angle="90" id="_fiWhiteShad"/>
+<mx:Script>
+	<![CDATA[
+		import picnik.util.LocaleInfo;
+		private function OnMouseDown(evt:MouseEvent): void {
+			if (evt.shiftKey && evt.ctrlKey)
+				_pkst.expanded = !_pkst.expanded;
+		}
+	]]>
+</mx:Script>
+	<ctr:IncrementalInitVBox verticalGap="0" width="100%" x="0" id="_vb" mouseDown="OnMouseDown(event)">
+		<mx:HBox backgroundImage="@Embed('/theme/pngs/effects_bg_header.png')" backgroundSize="100%"
+				borderSides="bottom" borderStyle="solid" borderColor="#d1d1d1" width="100%" paddingLeft="8" height="20" paddingTop="1">
+			<mx:Label text="@Resource(key='_ctAdvanced', bundle='CreativeTools')" color="#354d13" filters="{[_fiWhiteShad]}" fontWeight="{LocaleInfo.BoldWeight()}"/>
+		</mx:HBox>
+<!--		<eff:CloneEffect id="_effClone" tags="advanced,effect"/>
+		<eff:CurvesEffect id="_effCurves" tags="advanced,effect"/>
+		<eff:LevelsEffect id="_effLevels" tags="advanced,effect"/>
+		<eff:DodgeEffect tags="advanced,effect"/>
+		<eff:BurnEffect tags="advanced,effect"/>
+-->		<ct:PicnikSet expanded="false" id="_pkst" _imgd="{_imgd}" _imgv="{_imgv}"/>
+	</ctr:IncrementalInitVBox>
+</ct:SpecialEffectsCanvasBase>

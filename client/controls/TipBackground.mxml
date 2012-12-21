@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TipBackgroundBase xmlns="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" alpha="0.96" xmlns:filters="flash.filters.*">
+	<filters>
+		<filters:DropShadowFilter angle="90" blurX="5" blurY="5" distance="2" color="0x000000" alpha=".5" quality="3"  />
+		<filters:BevelFilter angle="90" blurX="0" blurY="0" strength=".75"
+			distance="1" highlightAlpha=".4" shadowAlpha=".2" highlightColor="0xFFFFFF" shadowColor="0x000000" quality="3" />
+	</filters>
+</TipBackgroundBase>

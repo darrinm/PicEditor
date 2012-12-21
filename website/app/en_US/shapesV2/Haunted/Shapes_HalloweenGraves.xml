@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/shape_graves.png" flickrPremium="false" id="HalloweenGraves" numShapes="4" picnikPremium="false" previewUrls="60|48|../clipart/bundles/HauntedArea_groupPreviews_HalloweenGraves.png?ver=44316570" title="Graves">
+	<Shapes>
+		<Clipart cHeight="2000" cWidth="1334" flickrPremium="false" isVector="false" picnikPremium="false" previewUrl="40|40|0|../clipart/bundles/HauntedArea_shapes_HalloweenGraves.png?ver=c009814c" url="shapes/Halloween_Grave/Grave_03.swf"/>
+		<Clipart cHeight="2000" cWidth="1246" flickrPremium="false" isVector="false" picnikPremium="false" previewUrl="40|40|1|../clipart/bundles/HauntedArea_shapes_HalloweenGraves.png?ver=c009814c" url="shapes/Halloween_Grave/Grave_01.swf"/>
+		<Clipart cHeight="2000" cWidth="1334" flickrPremium="false" isVector="false" picnikPremium="false" previewUrl="40|40|2|../clipart/bundles/HauntedArea_shapes_HalloweenGraves.png?ver=c009814c" url="shapes/Halloween_Grave/Grave_04.swf"/>
+		<Clipart cHeight="2000" cWidth="1333" flickrPremium="false" isVector="false" picnikPremium="false" previewUrl="40|40|3|../clipart/bundles/HauntedArea_shapes_HalloweenGraves.png?ver=c009814c" url="shapes/Halloween_Grave/Grave_02.swf"/>
+	</Shapes>
+</ShapeCategory>

@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<basket:BasketBase xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:basket="bridges.basket.*" xmlns:bridges="bridges.*" xmlns:ctl="controls.*"
+		xmlns:flickr="bridges.flickr.*"
+		xmlns:photobucket="bridges.photobucket.*" 		
+		xmlns:yahoomail="bridges.yahoomail.*" 		
+		xmlns:flickrsearch="bridges.flickrsearch.*"
+		xmlns:multi="bridges.multi.*"
+		xmlns:history="bridges.history.*"
+		xmlns:gallery="bridges.gallery.*"
+ 		xmlns:mycomputer="bridges.mycomputer.*"
+ 		xmlns:web="bridges.web.*"
+ 		xmlns:mypicnik="bridges.mypicnik.*"
+ 		autoFillSource="{_vstk.selectedChild as IAutoFillSource}"
+		width="100%" height="110" opened="false" clipContent="false" styleName="basketGradient"
+		filters="{[_efShadow]}" xmlns:filters="flash.filters.*" xmlns:util="util.*" xmlns:containers="containers.*">
+	<mx:Number id="_cyDefault">110</mx:Number>
+	<mx:Number id="_cyShown">110</mx:Number>
+	
+	<filters:DropShadowFilter id="_efShadow" alpha="0.25" color="#000000" distance="1" blurX="4" blurY="4" angle="-90" quality="3"/>
+	<filters:DropShadowFilter id="_efEmboss" alpha="0.25" quality="3" blurX="0" blurY="0" angle="-90" color="#000000" distance="1"/>
+	<filters:GlowFilter id="_efGlow" alpha="0.5" blurX="5" blurY="5" quality="3" color="#ffffff"/>
+	
+	<mx:Fade id="_efFadeIn" duration="200" alphaFrom="0" alphaTo=".6"/>
+	<mx:Fade id="_efFadeOut" duration="200" alphaFrom=".6" alphaTo="0"/>
+	<mx:Number id="sizerWidth">{NaN}</mx:Number>
+	
+	<basket:states>
+		<mx:State name="down">
+			<mx:SetProperty target="{this}" name="height" value="0"/>
+		</mx:State>
+		<mx:State name="multi">
+			<mx:RemoveChild target="{_cmboService}"/>
+			<mx:RemoveChild target="{_imgService}"/>
+		</mx:State>
+		<mx:State name="up">
+			<mx:SetProperty target="{this}" name="height" value="{_cyShown}"/>
+		</mx:State>
+		<mx:State name="downmulti" basedOn="multi">
+			<mx:SetProperty target="{this}" name="height" value="0"/>
+		</mx:State>
+		<mx:State name="upmulti" basedOn="multi">
+			<mx:SetProperty target="{this}" name="height" value="{_cyShown}"/>
+		</mx:State>
+	</basket:states>
+	
+	<basket:transitions>
+		<mx:Transition id="down" fromState="up" toState="down">
+			<mx:Resize duration="400" suspendBackgroundProcessing="true" target="{this}"/>
+		</mx:Transition>
+		<mx:Transition id="up" fromState="down" toState="up" >
+			<mx:Resize duration="400" suspendBackgroundProcessing="true" target="{this}"/>
+		</mx:Transition>
+		<mx:Transition id="downmulti" fromState="upmulti" toState="downmulti">
+			<mx:Resize duration="400" suspendBackgroundProcessing="true" target="{this}"/>
+		</mx:Transition>
+		<mx:Transition id="upmulti" fromState="downmulti" toState="upmulti" >
+			<mx:Resize duration="400" suspendBackgroundProcessing="true" target="{this}"/>
+		</mx:Transition>
+	</basket:transitions>
+
+	<mx:Button id="_btnSizer" x="0" y="-24" styleName="basketTab" height="24" width="{sizerWidth}"/>
+	<ctl:ResizingLabel text="@Resource(key='photo_basket', bundle='Basket')" x="7" y="-22" maxWidth="200" fontSize="15" color="#e5ffb2"
+		filters="{[_efEmboss]}" mouseEnabled="false" mouseChildren="false"/>
+	<mx:ViewStack id="_vstk" left="0" top="0" bottom="0" right="0">
+		<!--
+		<mypicnik:MyPicnikBasket urlkit="picnik" label="@Resource(key='_brgMyPicnikIn', bundle='Basket')" width="100%" height="100%" id="_brgMyPicnikIn" 
+			icon="@Embed('/assets/bitmaps/thirdpartyfavicons/picnik.png')"/>
+		-->
+		<mycomputer:MyComputerBasket urlkit="upload" label="@Resource(key='_brgMyComputerIn', bundle='Basket')" width="100%" height="100%" id="_brgMyComputerIn" 
+			icon="@Embed('/assets/bitmaps/icon_computer.png')"/>
+		<containers:ActivatableModuleLoader urlkit="history"  icon="@Embed('/assets/bitmaps/icon_history.png')"
+								 label="@Resource(key='_brgHistory', bundle='InBridges')"
+								 activatableId="_brgHistoryInBasket" url="{PicnikBase.app.GetLocModuleName('ModBridges')}" 
+								 width="100%" height="100%" id="_brgHistoryIn" name="_brgHistoryIn"
+								 horizontalScrollPolicy="off" verticalScrollPolicy="off" creationPolicy="none"/>
+<!-- UNDONE: commented out since the visible/includeInLayout flags weren't quite right.  
+     works fine for the bridge tabs running across the top, but it'd break the bridges in the basket;
+     the bridge names in the dropdown and the actual bridge being shown would get out of sync.
+     
+		<gallery:GalleryBasket urlkit="show" label="Show" icon="@Embed('/assets/bitmaps/icon_gallery.png')" 
+			width="100%" height="100%" id="_brgGalleryIn" visible="{AccountMgr.GetInstance().isAdmin}" includeInLayout="{AccountMgr.GetInstance().isAdmin}"/>
+-->
+		<containers:ActivatableModuleLoader urlkit="yahoomail"
+											label="Yahoo! Mail" initParams="{{serviceid:'yahoomail'}}"
+											activatableId="_brgYahooMailInBasket" url="{PicnikBase.app.GetLocModuleName('ModBridges')}" 
+											width="100%" height="100%" id="_brgYahooMailIn" name="_brgYahooMailIn"
+											horizontalScrollPolicy="off" verticalScrollPolicy="off" creationPolicy="none"/>
+		<containers:ActivatableModuleLoader urlkit="flickr"
+											label="Flickr" initParams="{{serviceid:'flickr'}}"
+											icon="@Embed('/assets/bitmaps/thirdpartyfavicons/flickr.png')"
+											activatableId="_brgFlickrInBasket" url="{PicnikBase.app.GetLocModuleName('ModBridges')}" 
+											width="100%" height="100%" id="_brgFlickrIn" name="_brgFlickrIn"
+											horizontalScrollPolicy="off" verticalScrollPolicy="off" creationPolicy="none"/>
+		<containers:ActivatableModuleLoader urlkit="facebook" icon="@Embed('/assets/bitmaps/thirdpartyfavicons/facebook.png')"
+								 label="Facebook" initParams="{{serviceid:'facebook'}}"
+								 activatableId="_brgFacebookInBasket" url="{PicnikBase.app.GetLocModuleName('ModBridges')}" 
+								 width="100%" height="100%" id="_brgFacebookIn" name="_brgFacebookIn"
+								 horizontalScrollPolicy="off" verticalScrollPolicy="off" creationPolicy="none"/>
+		<containers:ActivatableModuleLoader urlkit="picasaweb" icon="@Embed('/assets/bitmaps/thirdpartyfavicons/picasa.png')"
+											label="Picasa Web Albums" initParams="{{serviceid:'picasaweb'}}"
+											activatableId="_brgPicasaWebInBasket" url="{PicnikBase.app.GetLocModuleName('ModBridges')}" 
+											width="100%" height="100%" id="_brgPicasaWebIn" name="_brgPicasaWebIn"
+											horizontalScrollPolicy="off" verticalScrollPolicy="off" creationPolicy="none"/>
+		<containers:ActivatableModuleLoader urlkit="photobucket" icon="@Embed('/assets/bitmaps/thirdpartyfavicons/photobucket.png')"
+								 label="Photobucket" initParams="{{serviceid:'photobucket'}}"
+								 activatableId="_brgPhotobucketInBasket" url="{PicnikBase.app.GetLocModuleName('ModBridges')}" 
+								 width="100%" height="100%" id="_brgPhotobucketIn" name="_brgPhotobucketIn"
+								 horizontalScrollPolicy="off" verticalScrollPolicy="off" creationPolicy="none"/>
+
+		<!-- Not ready for prime time
+		<bridges:LconInBridge urlkit="local" label="{Capabilities.version.substr(0, 3).toLowerCase()=='mac'?'My Mac':'My PC'}" 
+			icon="@Embed('theme/gifs/blank.gif')"
+			width="100%" height="100%" id="_brgLconIn"/>
+		-->
+		<containers:ActivatableModuleLoader urlkit="url" icon="@Embed('/assets/bitmaps/icon_web.png')"
+											label="@Resource(key='_brgWebIn', bundle='Basket')"
+											activatableId="_brgWebInBasket" url="{PicnikBase.app.GetLocModuleName('ModBridges')}" 
+											width="100%" height="100%" id="_brgWebIn" name="_brgWebIn"
+											horizontalScrollPolicy="off" verticalScrollPolicy="off" creationPolicy="none"/>
+		<multi:MultiBasket urlkit="multi" label="Multi" 
+			width="100%" height="100%" id="_brgMultiIn"/>
+		<!--
+		<flickrsearch:FlickrSearchBasket urlkit="flickrsearch" width="100%" height="100%" label="@Resource(key='_brgFlickrSearchIn', bundle='Basket')" id="_brgFlickrSearchIn"
+			icon="@Embed('/theme/gifs/blank.gif')"/>
+		<bridges:WebCamInBridge urlkit="webcam" width="100%" height="100%" label="@Resource(key='_brgWebCamIn', bundle='Basket')" id="_brgWebCamIn"
+			icon="@Embed('/theme/gifs/blank.gif')"/>
+		-->
+	</mx:ViewStack>
+	<ctl:ResizingComboBox id="_cmboService" x="10" y="3" width="170" height="24" styleName="greenComboBox"
+			rowCount="8" textIndent="20" dropdownWidth="180" paddingLeft="0">
+		<ctl:itemRenderer>
+			<mx:Component>
+            	<mx:HBox verticalAlign="middle" width="100%" horizontalGap="2" height="22" horizontalScrollPolicy="off">
+            		<ctl:ImageVer source="{data.icon}" width="22" height="20" verticalAlign="middle" horizontalAlign="right" scaleContent="false"/>
+                	<mx:Label text="{data.label}" fontSize="12" width="100%" textIndent="0"/>
+            	</mx:HBox>
+			</mx:Component>
+        </ctl:itemRenderer>
+        <!-- UNDONE: is there some way to bind the Combo to the contents of the ViewStack to avoid this duplicaton? -->
+		<mx:ArrayCollection>
+            <util:IconAndLabel label="{Resource.getString('Basket', '_brgMyComputerIn')}" icon="@Embed('/assets/bitmaps/icon_computer.png')" data="_brgMyComputerIn"/>
+            <!--
+            <util:IconAndLabel label="{Resource.getString('Basket', '_brgMyPicnikIn')}" icon="@Embed('/assets/bitmaps/thirdpartyfavicons/picnik.png')" data="_brgMyPicnikIn"/>
+           	-->
+            <util:IconAndLabel label="History" icon="@Embed('/assets/bitmaps/icon_history.png')" data="_brgHistoryIn"/>
+            <util:IconAndLabel label="Flickr" icon="@Embed('/assets/bitmaps/thirdpartyfavicons/flickr.png')" data="_brgFlickrIn"/>
+            <util:IconAndLabel label="Facebook" icon="@Embed('/assets/bitmaps/thirdpartyfavicons/facebook.png')" data="_brgFacebookIn"/>
+            <util:IconAndLabel label="Picasa Web Albums" icon="@Embed('/assets/bitmaps/thirdpartyfavicons/picasa.png')" data="_brgPicasaWebIn"/>
+            <util:IconAndLabel label="Photobucket" icon="@Embed('/assets/bitmaps/thirdpartyfavicons/photobucket.png')" data="_brgPhotobucketIn"/>
+			<util:IconAndLabel label="Yahoo! Mail" data="_brgYahooMailIn"/>   
+            <util:IconAndLabel label="{Resource.getString('Basket', '_brgWebIn')}" icon="@Embed('/assets/bitmaps/icon_web.png')" data="_brgWebIn"/>
+		</mx:ArrayCollection>
+	</ctl:ResizingComboBox>
+	<!-- UNDONE: make this hbox hide if thumbnails aren't visible -->
+	<mx:HBox right="4" top="3" horizontalGap="-1" visible="true">
+		<mx:RadioButton id="_btnSmallThumbs" width="23" height="24" click="{SetTileSize(64)}" toggle="true"
+			filters="{_btnSmallThumbs.selected?[_efGlow]:[]}" selected="true"
+			styleName="basketThumbSmall"/>
+		<mx:RadioButton id="_btnMedThumbs" width="22" height="24" click="{SetTileSize(90)}" toggle="true"
+			filters="{_btnMedThumbs.selected?[_efGlow]:[]}"
+			styleName="basketThumbMedium"/>
+		<mx:RadioButton id="_btnLargeThumbs" width="23" height="24" click="{SetTileSize(120)}" toggle="true" textAlign="left" paddingLeft="4"
+			filters="{_btnLargeThumbs.selected?[_efGlow]:[]}"
+			styleName="basketThumbLarge"/>
+	</mx:HBox>
+	<!-- display selected bridge icon over top drop down -->
+	<ctl:ImageVer source="{_cmboService.selectedItem.icon}" id="_imgService"
+		width="20" height="20" x="12" y="5" verticalAlign="middle" horizontalAlign="right" scaleContent="false"
+		mouseChildren="false" mouseEnabled="false"/>
+	<ctl:Gears source="@Embed('/assets/swfs/gearsGreen.swf')" id="_grsBusy" y="-22" left="175" width="38" height="18" visible="false" filters="{[_efEmboss]}" mouseEnabled="false" mouseChildren="false"/>
+	<mx:Canvas id="_cvsDisable" left="0" top="0" bottom="0" right="0" styleName="basketGradient" alpha=".6"
+			visible="{disabled}" showEffect="{_efFadeIn}" hideEffect="{_efFadeOut}"/>
+</basket:BasketBase>

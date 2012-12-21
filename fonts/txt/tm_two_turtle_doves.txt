@@ -1,0 +1,12 @@
+fileName: tm_two_turtle_doves.ttf
+name: Two Turtle Doves
+subfamilyDisplayName: Normal
+fullName: Two Turtle Doves
+displayName: Two Turtle Doves
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 0
+pkName: pktm0two0turtle0doves
+authorName: Tom Murphy
+authorUrl: http://fonts.tom7.com/

@@ -1,0 +1,12 @@
+fileName: mk_BirthdayDigits.ttf
+name: BirthdayDigits
+subfamilyDisplayName: Regular
+fullName: BirthdayDigits
+displayName: BirthdayDigits
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 6
+pkName: pkmk0BirthdayDigits
+authorName: Manfred Kelin
+authorUrl: http://moorstation.org/typoasis/designers/klein/

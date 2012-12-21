@@ -1,0 +1,12 @@
+fileName: BRUSHSCI.TTF
+name: Brush Script MT
+subfamilyDisplayName: Cursiva
+fullName: Brush Script MT Cursiva
+displayName: Brush Script MT
+ital: 1
+bold: 0
+weight: 5
+panose.weight: 8
+pkName: pkBRUSHSCI
+authorName: Robert E. Smith
+authorUrl: http://www.linotype.com/557/robertesmith.html

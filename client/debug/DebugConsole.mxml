@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DebugConsoleBase xmlns="debug.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%" 
+		backgroundColor="#dfefff" cornerRadius="7" borderColor="#000000" backgroundAlpha="0.7" xmlns:Purchase="dialogs.Purchase.*">
+	<mx:Script>
+		<![CDATA[
+			import imagine.ImageDocument;
+			import util.BitmapCache;
+			import util.VBitmapData;
+		]]>
+	</mx:Script>
+	<Purchase:Balloons id="_blns"/>
+	<mx:VBox width="100%" height="100%">
+		<mx:TextArea id="_taOutput" width="100%" height="100%" editable="false" borderStyle="none"/>
+		<mx:HBox>
+			<mx:Button label="Reset Tips" id="_btnResetTips"/>
+			<mx:Button label="@Resource(key='_btnCopyPikToClipboard', bundle='DebugConsole')" id="_btnCopyPikToClipboard"/>
+			<mx:Button label="Load .pik" id="_btnLoadPik"/>
+			<mx:Button label="@Resource(key='_btnCopyUrlLogToClipboard', bundle='DebugConsole')" id="_btnCopyUrlLogToClipboard"/>
+			<mx:Button label="@Resource(key='_btnCollectGarbage', bundle='DebugConsole')" id="_btnCollectGarbage"/>
+			<mx:Button label="Trace undisp. VBmds" toolTip="output to trace" click="{VBitmapData.TraceUndisposed()}"/>
+		</mx:HBox>
+		<mx:HBox>
+			<mx:Button label="Prepare F.C." click="PrepareFancyCollage()"/>
+			<mx:Button label="Embed Text" id="_btnEmbedText" click="{EmbedText()}"/>
+			<mx:Button label="Save Objects As PNG" click="{SaveObjects()}"/>
+			<mx:Button label="Dump Bmd Cache" click="{BitmapCache.DumpCaches()}"/>
+			<mx:Button label="Dump imgd Status" click="{ImageDocument.DumpStatus()}"/>
+			<mx:Button label="Dump Feature Usage" click="{DumpFeatureUsageString()}"/>
+		</mx:HBox>
+	</mx:VBox>
+</DebugConsoleBase>

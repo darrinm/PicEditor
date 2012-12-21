@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Image xmlns:mx="http://www.adobe.com/2006/mxml" initialize="OnInit()" maxWidth="40" maxHeight="40" scaleContent="true">
+<mx:Script>
+	<![CDATA[
+		import mx.graphics.codec.PNGEncoder;
+		[Bindable] public var url:String = "";
+		[Bindable] public var xmlShape:XML = null;
+		
+		public var fnComplete:Function = null;
+		
+		private var _clr:Number = 0;
+		private var _sectionId:String = '';
+		
+		public static function GetColorTransform(clr:Number): ColorTransform {
+			var mat:Array = new Array();
+			var nR:Number = RGBColor.RedFromUint(clr);
+			var nG:Number = RGBColor.GreenFromUint(clr);
+			var nB:Number = RGBColor.BlueFromUint(clr);
+			var nRM:Number = (255-nR)/255;
+			var nGM:Number = (255-nG)/255;
+			var nBM:Number = (255-nB)/255;
+			
+			return new ColorTransform(nRM, nGM, nBM, 1, nR, nG, nB);
+		}
+		
+		public function set color(n:Number): void {
+			this.transform.colorTransform = GetColorTransform(n);
+			_clr = n;			
+		}
+
+		public function get sectionId(): String {
+			return _sectionId;
+		}
+
+		public function set sectionId(s:String): void {
+			_sectionId = s;
+		}
+
+		private function OnInit(): void {
+			this.addEventListener(Event.COMPLETE, OnComplete);
+			this.addEventListener(IOErrorEvent.IO_ERROR, OnError);
+			this.addEventListener(SecurityErrorEvent.SECURITY_ERROR, OnError);
+			var flShape:File = ShapePreviews.GetWebsiteBaseFile().resolvePath(url);
+			source = flShape.nativePath;
+		}
+		
+		private function OnError(evt:Event): void {
+			fnComplete({url:url, error:evt.toString()});
+		}
+		
+		private static const knSmallPreviewSize:Number = 40;
+		public static const knLargePreviewWidth:Number = 60;
+		public static const knLargePreviewHeight:Number = 48;
+		
+		public var createSmall:Boolean = true;
+		public var createLarge:Boolean = true;
+
+		private function OnComplete(evt:Event=null): void {
+			var obRet:Object = {};
+			obRet.url = url;
+
+			obRet.width = content.loaderInfo.width;
+			obRet.height = content.loaderInfo.height;
+			
+			// Some objects (e.g. a '.' in a set of alphabet shapes) shouldn't try to fill their whole
+			// preview rect. Use previewFitSize, either on a shape or a whole category to specify the 
+			// box dimensions cWidth/cHeight are relative to when producing the small preview.
+			// For example, if previewFitSize is 240, cWidth is 100, cHeight is 100, and the 
+			// smallPreviewSize is 40 then the preview image will be drawn 16x16 centered inside
+			// the small preview image. 
+			var nScale:Number = 1.0;
+			var nFitSize:Number = 0;
+			if (xmlShape.hasOwnProperty("@previewFitSize"))
+				nFitSize = Number(xmlShape.@previewFitSize);
+			else if (xmlShape.parent().hasOwnProperty("@previewFitSize"))
+				nFitSize = Number(xmlShape.parent().@previewFitSize);
+			if (nFitSize != 0)
+				nScale = Math.max(obRet.width, obRet.height) / nFitSize;
+			
+			if (createSmall) CreatePreview(knSmallPreviewSize, knSmallPreviewSize, ShapePreviews.GetSmallPreviewFile(xmlShape), obRet, nScale);
+			if (createLarge) CreatePreview(knLargePreviewWidth, knLargePreviewHeight, ShapePreviews.GetLargePreviewFile(xmlShape), obRet);
+
+			fnComplete(obRet);
+		}
+			
+		private function CreatePreview(nWidth:Number, nHeight:Number, flOut:File, obRet:Object, nScaleParameter:Number=1.0): void {
+			// Render the preview.
+			var bmd:BitmapData = new BitmapData(nWidth, nHeight, true, 0);
+			
+			const knScaleFactor:Number = 2;
+			
+			nWidth *= knScaleFactor;
+			nHeight *= knScaleFactor;
+			var bmdLarge:BitmapData = new BitmapData(nWidth, nHeight, true, 0);
+			// UNDONE: Support color transformations
+			var mat:Matrix = new Matrix();
+			var nScale:Number = Math.min((nWidth/obRet.width) * nScaleParameter, (nHeight/obRet.height) * nScaleParameter);
+			mat.scale(nScale, nScale);
+			mat.translate((nWidth - obRet.width * nScale)/2, (nHeight - obRet.height * nScale)/2);
+			var ctr:ColorTransform = null;
+			if (_clr > 0 && RGBColor.LuminosityFromUint(_clr) < 200) {
+				ctr = GetColorTransform(_clr);
+			}
+			bmdLarge.draw(this, mat, ctr, null, null, true);
+			
+			nWidth /= knScaleFactor;
+			nHeight /= knScaleFactor;
+			
+			mat = new Matrix();
+			mat.scale(1/knScaleFactor, 1/knScaleFactor);
+			
+			bmd.draw(bmdLarge, mat, null, null, null, true);
+			
+			var pngenc:PNGEncoder = new PNGEncoder();
+			var ba:ByteArray = pngenc.encode(bmd);
+			
+			bmd.dispose();
+			bmdLarge.dispose();
+			
+			// Write the png
+			var fOut:FileStream = new FileStream();
+			fOut.open(flOut, FileMode.WRITE);
+			fOut.writeBytes(ba);
+			fOut.close();
+		}
+	]]>
+</mx:Script>
+</mx:Image>

@@ -1,0 +1,12 @@
+fileName: lb_oilcrisb.ttf
+name: Oil Crisis B
+subfamilyDisplayName: Regular
+fullName: Oil Crisis B
+displayName: Oil Crisis B
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 0
+pkName: pklb0oilcrisb
+authorName: Larabie Fonts
+authorUrl: http://www.larabiefonts.com/

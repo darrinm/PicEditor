@@ -1,0 +1,12 @@
+fileName: ba_GASMASK.TTF
+name: GASMASK
+subfamilyDisplayName: Regular
+fullName: GASMASK
+displayName: GASMASK
+ital: 0
+bold: 1
+weight: 5
+panose.weight: 4
+pkName: pkba0GASMASK
+authorName: Billy Argel
+authorUrl: http://billyargel.blogspot.com/

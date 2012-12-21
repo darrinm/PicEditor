@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml" backgroundColor="#000000" backgroundAlpha=".1"
+		borderStyle="solid" borderThickness="0" cornerRadius="8"
+		horizontalCenter="0" top="20" horizontalAlign="center" verticalAlign="middle" width="100%" maxWidth="600"
+		paddingTop="10" paddingBottom="10" paddingLeft="10" paddingRight="10" xmlns:controls="controls.*" xmlns:filters="flash.filters.*">
+	<mx:Script>
+		<![CDATA[
+			import util.LocUtil;
+			import mx.resources.ResourceBundle;
+	   		[Bindable] [ResourceBundle("BasketConnect")] private var rb:ResourceBundle;
+		]]>
+	</mx:Script>
+	<mx:String id="bridgeName"></mx:String>
+	<mx:String id="bridgeTab"></mx:String>
+	<controls:ResizingButton id="_btnConnect" label="@Resource(key='_btnAuthorize_new', bundle='BasketConnect')" fontSize="22" 
+			width="160" height="40" styleName="basketButton" click="PicnikBase.app.NavigateTo(PicnikBase.IN_BRIDGES_TAB, bridgeTab)"/>
+	<mx:Text width="100%" fontSize="14" selectable="false" textAlign="left" condenseWhite="true"
+		htmlText="{LocUtil.rbSubst('BasketConnect', 'reconnect_new', bridgeName)}" color="#ffffff" filters="{[_efEmboss]}"/>
+	<filters:DropShadowFilter id="_efEmboss" alpha="0.35" quality="3" blurX="0" blurY="0" angle="-90" color="#000000" distance="1"/>
+</mx:HBox>

@@ -1,0 +1,23 @@
+/*
+ * Copyright 2011 Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an Apache 2.0 License.
+ * See the COPYING file for details.
+ */
+
+
+@font-face {
+    src:local("king cooL KC");
+    font-family: "pkkg0King0Cool0KC";
+    unicodeRange: U+0000-U+00FF;
+    flashType: true;
+    fontWeight: normal;
+    fontStyle: normal;
+}
+
+.pkkg0King0Cool0KC
+{
+    font-family: "pkkg0King0Cool0KC";
+    fontWeight: normal;
+    fontStyle: normal;
+}

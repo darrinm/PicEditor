@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:ctrl="controls.*"
+		width="100%" verticalAlign="middle" horizontalGap="9">
+<mx:Metadata>
+	[Event(name="thumbDrag", type="mx.events.SliderEvent")]
+	[Event(name="thumbPress", type="mx.events.SliderEvent")]
+	[Event(name="thumbRelease", type="mx.events.SliderEvent")]
+	[Event(name="change", type="mx.events.SliderEvent")] 
+    [Event(name="eraseModeChange", type="flash.events.Event")]
+
+</mx:Metadata>
+	<mx:Script>
+		<![CDATA[
+			import mx.events.SliderEvent;
+			import util.LocUtil;
+			private var _fSelected:Boolean = false;
+			private var _nImageWidth:Number = 1000;
+			private var _nImageHeight:Number = 1000;
+			private var _nExplicitMax:Number = NaN;
+			
+			private var _nStartValueFactor:Number = 0.1; // 10% of sqrt(image width * image height)
+			private var _nMaxFactor:Number = 0.3; // 30% of sqrt(image width * image height)
+			
+			private var _nExplicitStart:Number = NaN;
+			
+			[Bindable] private var _nStartValue:Number = 150;
+			[Bindable] private var _nMaximum:Number = 400;
+
+			[Bindable] 
+			public function set selected(f:Boolean): void {
+				if (_fSelected == f) return;
+				_fSelected = f;
+				if (_fSelected) {
+					dispatchEvent(new Event("reset")); // Reset any values depending on the reset vars
+				}
+			}
+			
+			
+			[Bindable(event="eraseModeChange")]
+			public function get eraseMode(): Boolean {
+				return _btnEraser.selected;
+			}
+						
+			public function set eraseMode(f:Boolean): void {
+				_btnEraser.selected = f;
+				dispatchEvent(new Event("eraseModeChange"));
+			}
+			
+			public function set maximumFactor(n:Number): void {
+				_nMaxFactor = n;
+				UpdateVals();
+			}
+			
+			public function set startValueFactor(n:Number): void {
+				_nStartValueFactor = n;
+				UpdateVals();
+			}
+			
+			public function set imageWidth(n:Number): void {
+				_nImageWidth = n;
+				UpdateVals();
+			} 
+			
+			public function set imageHeight(n:Number): void {
+				_nImageHeight = n;
+				UpdateVals();
+			}
+			
+			public function set startValue(n:Number): void {
+				_nExplicitStart = n;
+				UpdateVals();
+			}
+			
+			public function set maximum(n:Number): void {
+				_nExplicitMax = n;
+				UpdateVals();
+			}
+			
+			private function UpdateVals(): void {
+				if (!isNaN(_nExplicitMax)) {
+					_nMaximum = _nExplicitMax;
+				} else {
+					// Calculate based on image size.
+					// Rule of thumb is 30% of image height or width = 30% of sqrt(height*width)
+					// Round up to nearest multiple of 50, minimum of 250
+					var nMax:Number = _nMaxFactor * Math.sqrt(_nImageHeight * _nImageWidth);
+					nMax = Math.ceil(nMax / 50) * 50;
+					nMax = Math.max(250, nMax);
+					_nMaximum = nMax;
+				}
+				if (!isNaN(_nExplicitStart)) {
+					_nStartValue = _nExplicitStart;
+				} else {
+					// Calculate based on image size.
+					// Rule of thumb is 10% of image height or width = 10% of sqrt(height*width)
+					// Round up to nearest multiple of 20, minimum of 20
+					var nStart:Number = _nStartValueFactor * Math.sqrt(_nImageHeight * _nImageWidth);
+					nStart = Math.round(nStart / 20) * 20;
+					nStart = Math.max(20, nStart);
+					_nStartValue = nStart;
+				}
+			}
+			
+			public function get selected(): Boolean {
+				return _fSelected;
+			}
+			
+			protected function SliderToBrushSize(nSlider:Number, nMin:Number, nMax:Number, nAccExp:Number): Number {
+				// Slider range, x, is 0 to 1
+				// Brush size range, y, is minimum to maximum
+				// Use this formula: Brush(slider) = a * exp(acc * slider) + k
+				// We know that Brush(0) = min and Brush(1) = max. We can use these
+				// to solve for a and k (nA, and nK)
+				var nA:Number = (nMax - nMin) / (Math.exp(nAccExp) - 1);
+				var nK:Number = -nA + nMin;
+				var nY:Number = nA * Math.exp(nSlider * nAccExp) + nK;
+				return nY;
+			}
+
+			protected function BrushSizeToSlider(nBrushSize:Number, nMin:Number, nMax:Number, nAccExp:Number): Number {
+				// Inverse of SliderToBrushSize
+				// See above for formula explanation
+				var nA:Number = (nMax - nMin) / (Math.exp(nAccExp) - 1);
+				var nK:Number = -nA + nMin;
+				var nX:Number = Math.log((nBrushSize - nK) / nA) / nAccExp;
+				return nX;
+			}
+
+			[Bindable(event="reset")]
+			public function get zeroR(): Number {
+				return 0;
+			}
+			
+			private function RelayEvent(evt:SliderEvent): void {
+				dispatchEvent(new SliderEvent(evt.type, evt.bubbles, evt.cancelable, 0, evt.value, evt.triggerEvent, evt.clickTarget, evt.keyCode));
+			}
+		]]>
+	</mx:Script>
+	<!-- These values are written by the parent but do not update to reflect internal changes -->
+	<!-- Acceleration component for brush size slider. 3 seems about right. Bigger numbers mean more acceleration -->
+	<mx:Number id="accelerationExponent">3</mx:Number>
+	
+	<mx:Number id="minimum">1</mx:Number>
+	<mx:Number id="value">{Math.round(SliderToBrushSize(_sldrBrushSize.value, minimum, _nMaximum, accelerationExponent))}</mx:Number>
+	
+	<mx:VBox verticalGap="0">
+		<mx:HBox width="150" paddingBottom="-5" paddingTop="3">
+			<ctrl:ResizingLabel autoFontSizeGap="1" text="{LocUtil.iff('EffectCanvas', _btnEraser.selected, 'eraserSize', 'brushSize')}" styleName="sliderTitle" width="100"/>
+			<mx:Label text="{value}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<ctrl:HSliderFastDrag id="_sldrBrushSize" width="150" 
+			change="RelayEvent(event)" thumbPress="RelayEvent(event)" thumbDrag="RelayEvent(event)" thumbRelease="RelayEvent(event)"
+			globalShortcutsEnabled="{selected}" globalShortcutKeys="[]" 
+			minimum="0" maximum="1" 
+			value="{BrushSizeToSlider(_nStartValue + zeroR, minimum, _nMaximum, accelerationExponent)}" 
+			showDataTip="false"/>
+	</mx:VBox>
+	<ctrl:ResizingButton id="_btnEraser" icon="@Embed('/assets/bitmaps/icon_eraser.png')" width="31" height="28"
+		styleName="applyStyle" selected="{zeroR==1}"
+		click="{eraseMode?eraseMode=false:eraseMode=true}" />
+</mx:HBox>

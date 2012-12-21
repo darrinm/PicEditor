@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory flickrPremium="false" id="soccer_za" numShapes="3" picnikPremium="false" previewUrls="60|48|../clipart/bundles/SoccerFeverArea_groupPreviews_soccer_za.png?ver=fc5e735a" title="South Africa Stickers">
+	<Shapes>
+		<Clipart cHeight="600" cWidth="900" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|0|../clipart/bundles/SoccerFeverArea_shapes_soccer_za.png?ver=e7a578a0" url="shapes/za/flag_za.swf"/>
+		<Clipart cHeight="223.55" cWidth="96.15" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|1|../clipart/bundles/SoccerFeverArea_shapes_soccer_za.png?ver=e7a578a0" url="shapes/za/scarf_za.swf"/>
+		<Clipart cHeight="294.7" cWidth="464.2" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|2|../clipart/bundles/SoccerFeverArea_shapes_soccer_za.png?ver=e7a578a0" url="shapes/za/wavingflag_za.swf"/>
+	</Shapes>
+</ShapeCategory>

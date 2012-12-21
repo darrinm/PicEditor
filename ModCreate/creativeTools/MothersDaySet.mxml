@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<controls:EffectSetBase xmlns="*" xmlns:ct="creativeTools.*" xmlns:mx="http://www.adobe.com/2006/mxml" 
+		xmlns:eff="effects.*" xmlns:filters="flash.filters.*" xmlns:ctr="containers.*"
+		xmlns:controls="controls.*">
+	<mx:Style>
+		.promoTextBG {
+		   border-style: solid;
+		   border-thickness: 0;
+		   border-skin: ClassReference("skins.GradientBackground");
+		   gradient-fill-colors: #6b0b4a, #ae0173;
+		   gradient-fill-alphas: .8,.8;
+		   gradient-fill-ratios: 0,255;
+		   gradient-rotation: 90;
+		}
+	</mx:Style>
+	<controls:ExpandingVBox id="_evbx1" expanded="{expanded}" width="100%" verticalGap="0" verticalScrollPolicy="off">
+		<mx:Spacer height="{_hsh.height}" />
+		<mx:Canvas height="0" width="100%" verticalScrollPolicy="off" horizontalScrollPolicy="off">
+	<!-- this expands and collapses -->
+	
+			<mx:VBox verticalGap="0" width="100%">
+				<!-- Mother's Day Effects & Stickers -->
+				<mx:HBox backgroundImage="{PicnikBase.StaticUrl('../graphics/mothersday/bg_mothersday.jpg')}" verticalAlign="middle" id="_hbxMothersDayProj"
+						borderSides="bottom" borderStyle="solid" borderColor="#d1d1d1" width="210" height="30" paddingTop="1">
+					<mx:Label text="@Resource(key='MothersDayProjHeader', bundle='Seasonal')" color="#ffffff" filters="{[_fiHeadShad]}" fontSize="15"
+						paddingLeft="8" paddingTop="2"/>
+				</mx:HBox>
+				<eff:DaisyFrameEffect tags="frame,seasonal"/>
+				<controls:ShapeArea imgd="{_imgd}" imgv="{_imgv}" area="MothersDay" verticalScrollPolicy="off" ignoreErrors="true" width="210"/>
+			
+			<mx:Box backgroundImage="{PicnikBase.StaticUrl('../graphics/mothersday/promo_fancycollage.jpg')}" backgroundColor="#FFFFFF" width="210" height="73"
+						verticalAlign="middle" horizontalAlign="center"
+						borderSides="bottom" borderStyle="solid" borderColor="#CCCCCC" verticalGap="0"
+						horizontalScrollPolicy="off"
+						buttonMode="true" mouseChildren="false"
+						rollOver="{_hbPromoText.visible = true}" rollOut="{_hbPromoText.visible = false}"
+						rollOverEffect="{_efBGdim}" rollOutEffect="{_efBGbrighten}"
+						visible="{!PicnikBase.app.singleDocMode}" includeInLayout="{!PicnikBase.app.singleDocMode}"
+						click="{OnAdvancedCollageClick(null,'mothersday')}">	
+
+					<mx:HBox id="_hbPromoText" width="95%" paddingLeft="8" paddingRight="8" cornerRadius="6" borderStyle="solid" borderThickness="0"
+							horizontalScrollPolicy="off"
+							verticalAlign="middle" visible="false" styleName="promoTextBG"
+							showEffect="{_efFadeFast}" hideEffect="{_efFadeSlow}">
+					<controls:ResizingLabel text="@Resource(key='promoFancyCollageMoms', bundle='Seasonal')" fontSize="13" autoFontSizeGap="1"
+							width="100%" color="#ffffff" filters="{[_fiHeadShad]}" textAlign="center" paddingBottom="-2"/>
+						<controls:ImageEx source="../graphics/arrow_right_white.png" width="7" height="11" filters="{[_fiHeadShad]}"/>
+					</mx:HBox>
+				</mx:Box>
+				</mx:VBox>
+			
+			
+			<!--Header icon -->
+			<controls:ImageVer id="_imgMothersDayProjIcon" right="0" y="{_hbxMothersDayProj.y}"
+					includeInLayout="false"
+					source="../graphics/mothersday/icon_mothersday.png"/>
+		</mx:Canvas>
+		
+	</controls:ExpandingVBox>
+					
+					<!-- Holiday header -->
+	<controls:EffectSetHeader id="_hsh" expanded="{_evbx1.expanded}" click="_evbx1.ToggleExpanded()" x="0" y="0"
+		headText="@Resource(key='MothersDayProjHeader', bundle='Seasonal')"
+		subHeadText="@Resource(key='MothersDayProjSubhead', bundle='Seasonal')" 
+		/>
+
+</controls:EffectSetBase>
+
+<!-- Promo Text-->
+			

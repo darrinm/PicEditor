@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory area="football" id="root">
+	<ShapeCategory flickrPremium="false" id="footballSection" numShapes="0" picnikPremium="false" showHeader="false">
+		<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/shape_football.png" flickrPremium="false" groupName="Superbowl" id="Superbowl" numShapes="28" picnikPremium="false" previewUrls="60|48|../clipart/bundles/footballArea_groupPreviews_Superbowl.png?ver=de08c845" thumbUrl="66|54|0|../clipart/bundles/footballArea_groupThumbs.png?ver=1081bd5d" title="Football!"/>
+	</ShapeCategory>
+</ShapeCategory>

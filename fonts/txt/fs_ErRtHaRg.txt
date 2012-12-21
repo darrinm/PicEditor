@@ -1,0 +1,12 @@
+fileName: fs_ErRtHaRg.ttf
+name: Erikrighthand-Regular
+subfamilyDisplayName: Regular
+fullName: Erikrighthand-Regular
+displayName: Erikrighthand-Regular
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 6
+pkName: pkfs0ErRtHaRg
+authorName: FontShop
+authorUrl: http://www.fontshop.com/

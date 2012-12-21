@@ -1,0 +1,12 @@
+fileName: kg_It_Aint_Rocket_Science.ttf
+name: It Ain't Rocket Science
+subfamilyDisplayName: Normal
+fullName: It Ain't Rocket Science
+displayName: It Ain't Rocket Science
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 0
+pkName: pkkg0It0Aint0Rocket0Science
+authorName: Kimberly Geswein
+authorUrl: http://www.dafont.com/kimberly-geswein.d1468

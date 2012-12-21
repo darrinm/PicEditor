@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FontItemRendererBase xmlns="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:ds="com.darronschall.effects.*"
+		horizontalScrollPolicy="off" currentState="{data.rendererState}" styleName="fontListItem"
+		width="100%" borderSides="bottom" borderStyle="solid" borderColor="#f0f0f0" backgroundColor="#fafafa">
+	<mx:Script>
+		import mx.utils.StringUtil;
+		import mx.resources.ResourceBundle;
+   		[Bindable] [ResourceBundle("FontItemRenderer")] private var rb:ResourceBundle;
+		[Bindable] [ResourceBundle("FontList")] private var rbFontList:ResourceBundle;
+	</mx:Script>
+
+	<states>
+		<mx:State name="FontShop">
+			<mx:SetEventHandler target="{_box}" name="rollOver" handler="_box.setStyle('backgroundAlpha',.5)" />
+			<mx:SetEventHandler target="{_box}" name="rollOut" handler="_box.setStyle('backgroundAlpha',.25)" />
+			<mx:SetStyle target="{_box}" name="backgroundAlpha" value="0.25"/>		
+			<mx:SetStyle target="{_box}" name="backgroundColor" value="#b2d6ef"/>		
+			<mx:SetStyle name="borderColor" value="#ffffff"/>		
+			<mx:SetProperty name="selectedColor" value="#b2d6ef"/>
+			<mx:SetProperty name="styleName" value="fontShopFontBox"/>
+			<mx:SetProperty target="{_imgPreview}" name="toolTip" value="{StringUtil.substitute(Resource.getString('FontItemRenderer', 'fsToolTip'), data.name, data.authorName)}"/>
+		</mx:State>
+		
+		<mx:State name="DeviceFont">
+			<mx:RemoveChild target="{_imgPreview}"/>
+			<mx:AddChild relativeTo="{_box}" position="lastChild">
+				<mx:Label text="{data.displayName}" fontSize="18" color="#0" fontWeight="normal" toolTip="{data.displayName}" paddingTop="2" paddingBottom="2"/>
+			</mx:AddChild>
+		</mx:State>
+		
+		<mx:State name="GlobalFont">
+			<mx:AddChild relativeTo="{_box}" position="lastChild">
+				<mx:Label text="{Resource.getString('FontList', 'universal_font')}" fontSize="18" color="#0" fontWeight="normal" toolTip="{Resource.getString('FontList', 'universal_font')}" paddingTop="2" paddingBottom="2"/>
+			</mx:AddChild>
+			<mx:SetProperty target="{_imgPreview}" name="includeInLayout" value="false"/>
+			<mx:SetProperty target="{_imgPreview}" name="toolTip" value="{Resource.getString('FontList', 'universal_font')}"/>
+		</mx:State>
+	</states>
+	
+	<mx:Box id="_box" width="100%" paddingLeft="5" horizontalScrollPolicy="off" backgroundAlpha="0"
+			styleName="fontBox"
+			rollOver="_box.setStyle('backgroundAlpha',.5)" rollOut="_box.setStyle('backgroundAlpha',0)">
+		<ImageEx id="_imgPreview" source="{data.smallPreviewUrl}" bundled="true" toolTip="{StringUtil.substitute(Resource.getString('FontItemRenderer', 'tooltip'), data.name, data.authorName)}" scaleContent="false" height="30"/>
+	</mx:Box>
+	
+	<!-- interaction effects
+	<ds:AnimateColor property="backgroundColor" toValue="0xd6efb2" id="_efOver" duration="150"/>
+	<ds:AnimateColor property="backgroundColor" toValue="0xfafafa" id="_efOut" duration="200"/>
+	<ds:AnimateColor property="backgroundColor" toValue="0xbbe57f" id="_efDown" duration="150"/>
+	<ds:AnimateColor property="backgroundColor" toValue="0xd6efb2" id="_efUp" duration="200"/>
+	-->
+</FontItemRendererBase>

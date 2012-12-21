@@ -1,0 +1,12 @@
+fileName: gs_OLYMPIQUES.ttf
+name: OLYMPIQUES
+subfamilyDisplayName: Normal
+fullName: OLYMPIQUES
+displayName: OLYMPIQUES
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 0
+pkName: pkgs0OLYMPIQUES
+authorName: Guillaume Seguin
+authorUrl: http://lastsoundtrack.fontspace.com/

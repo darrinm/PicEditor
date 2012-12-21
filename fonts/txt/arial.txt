@@ -1,0 +1,12 @@
+fileName: arial.ttf
+name: Arial
+subfamilyDisplayName: Normal
+fullName: Arial
+displayName: Arial
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 6
+pkName: pkarial
+authorName: Robin Nicholas and Patricia Saunders
+authorUrl: http://www.microsoft.com/typography/fonts/font.aspx?FID=8&FNAME=Arial

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<controls:InspirationTipBase xmlns="containers.*" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:controls="controls.*" xmlns:filters="flash.filters.*" xmlns:inspiration="inspiration.*"
+	width="{_tr.width+sidePadding*2}" height="{_tr.height+sidePadding*2}">
+	<mx:Number id="sidePadding">13</mx:Number>
+	<mx:Fade duration="300" id="efFadeInOut" target="{this}" effectEnd="OnFadeFinished()"/>
+	<inspiration:InspirationRenderer id="_tr" _nSize="{_nSize}" left="{sidePadding}" top="{sidePadding}">
+		<inspiration:filters>
+			<filters:DropShadowFilter angle="90" blurX="2" blurY="2" distance="1" color="0x000000" alpha=".5" quality="3"/>
+		</inspiration:filters>
+	</inspiration:InspirationRenderer>
+</controls:InspirationTipBase>

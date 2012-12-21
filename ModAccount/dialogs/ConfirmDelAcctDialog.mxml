@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ConfirmDelAcctDialogBase xmlns="dialogs.*"
+						 xmlns:mx="http://www.adobe.com/2006/mxml"
+						 xmlns:ctrl="controls.*"
+						 xmlns:flash="flash.filters.*"
+						 xmlns:ctr="containers.*"
+						 xmlns:bridges="gallery.bridges.*"
+						 xmlns:vld="validators.*"
+						 xmlns:RegisterHelper="dialogs.RegisterHelper.*"
+						 xmlns:ds="com.darronschall.effects.*"
+						 width="550" height="{AccountMgr.GetInstance().isPaid ? 280:240}" verticalScrollPolicy="off" horizontalScrollPolicy="off" styleName="TargetedUpsellDialogStyle">
+	
+	<mx:Script>
+		<![CDATA[
+			import picnik.util.LocaleInfo;
+		]]>
+	</mx:Script>
+	
+	<mx:Canvas height="100%" width="100%" verticalScrollPolicy="off" horizontalScrollPolicy="off">
+		
+		<ctr:AutoShrinkCanvas id="canvas1" width="550" height="{AccountMgr.GetInstance().isPaid ? 280:240}">
+			<mx:VBox width="100%" paddingTop="11" paddingLeft="11" paddingRight="11">				
+				<mx:HBox horizontalGap="0" width="100%">
+					<ctrl:ImageVer source="@Embed('../theme/pngs/alertIcon.png')"/>		
+					<mx:VBox width="100%">
+						<ctrl:ResizingLabel htmlText="@Resource(key='_txtHeader', bundle='ConfirmDelAcctDialog')" paddingTop="-3"
+											fontSize="28" color="#005580" autoFontSizeGap="1" width="100%"/>						
+						<mx:Text fontSize="14" condenseWhite="true" selectable="false" width="100%" leading="-1" paddingTop="-6"
+								 htmlText="@Resource(key='_txtHeader_1', bundle='ConfirmDelAcctDialog')"/>						
+						<mx:Text fontSize="14" condenseWhite="true" selectable="false" width="100%" leading="-1" 
+								 visible="{AccountMgr.GetInstance().isPaid}" includeInLayout="{AccountMgr.GetInstance().isPaid}"
+								 htmlText="@Resource(key='_txtHeader_3', bundle='ConfirmDelAcctDialog')"/>						
+						<mx:Text fontSize="14" condenseWhite="true" selectable="false" width="100%" leading="-1" 
+								 htmlText="@Resource(key='_txtHeader_2', bundle='ConfirmDelAcctDialog')"/>						
+					</mx:VBox>
+				</mx:HBox>
+			</mx:VBox>
+			
+			<!-- Footer -->
+			<mx:HBox width="100%" paddingTop="{AccountMgr.GetInstance().isPaid ? 235:195}" horizontalAlign="center" verticalAlign="middle">
+				<mx:Button height="39" fontSize="18" paddingLeft="5" paddingRight="5" horizontalCenter="0" styleName="basketButton"
+						   mouseFocusEnabled="false" click="Hide()"
+						   label="@Resource(key='_btnCancel', bundle='ConfirmDelAcctDialog')" id="_btnCancel"/>
+				<!-- cancel -->
+				<mx:Button height="33" fontSize="14" 
+						   label="@Resource(key='_btnYes', bundle='ConfirmDelAcctDialog')" id="_btnYes" 
+						   styleName="dialogButton"
+						   textRollOverColor="#FF0000" textSelectedColor="#CC0000"
+						   toolTip="@Resource(key='_btnYes_1', bundle='ConfirmCancelDialog')"
+						   paddingLeft="5" paddingRight="5"/>
+			</mx:HBox>
+			
+			
+		</ctr:AutoShrinkCanvas>
+		
+		<!-- Close button-->
+		<mx:Button width="22" height="22" top="4" right="4" click="Hide()" styleName="dialogCloseButton"/>
+		
+		<!-- shadow dealies, drawn on top of all elements -->
+		<ctrl:ImageVer source="../graphics/upsellPremiumPanelShadow.png" bottom="50" left="0" right="0" scaleContent="true" maintainAspectRatio="false"/>
+		
+	</mx:Canvas>
+	<mx:Style source="../dialogs/Upsell/TargetedUpsellDialog.css"/>
+</ConfirmDelAcctDialogBase>

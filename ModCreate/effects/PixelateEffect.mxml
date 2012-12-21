@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cnt:PaintEffectCanvas xmlns="effects.*" xmlns:cnt="containers.*" xmlns:ctrl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="249" xmlns:local="*" 
+	xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*"
+	premium="{PicnikBase.GetApp().freemiumModel}"
+	 urlid="Pixelate">
+	<mx:Script>
+		import util.LocUtil;
+		import mx.resources.ResourceBundle;
+   		[Bindable] [ResourceBundle("PixelateEffect")] private var rb:ResourceBundle;
+	</mx:Script>
+
+	
+	<mx:Array id="_resetValues">
+		<local:StoredValue target="_sldrFade.value"/>
+		<local:StoredValue target="_sldrImpact.value"/>
+		<local:StoredValue target="_cbBlendMode.selectedIndex"/>
+	</mx:Array>
+	
+	<mx:HRule x="0" width="100%" top="0" height="1" strokeColor="#FFFFFF"/>
+	<mx:HRule x="0" width="100%" height="1" bottom="0" strokeColor="#d4d4d4"/>
+	
+	<ctrl:EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='PixelateEffect')" strAuthor="@Resource(key='_efbtn_1', bundle='PixelateEffect')"
+		strImageSource="../graphics/effects/Misc/pixelate.png" premium="{premium}"/>
+	<mx:String id="_strHelpText">{Resource.getString('PixelateEffect', '_strHelpText')}</mx:String>
+
+	<mx:VBox x="8" y="70" verticalGap="0">
+		<mx:HBox width="190" paddingBottom="-5" paddingTop="3">
+			<mx:Label text="@Resource(key='Label_1', bundle='PixelateEffect')" styleName="sliderTitle"/>
+			<mx:Label text="{Math.round(_sldrImpact.liveValue)}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<ctrl:HSliderFastDrag updateSpeed="{updateSpeed}" width="190" minimum="2" maximum="150" value="{zeroR + 20}" id="_sldrImpact" liveDragging="true" showDataTip="false" change="OnOpChange()"/>
+	
+		<mx:Script>
+	        <![CDATA[
+	            [Bindable]
+	            public var aBlendModes:Array = [ 
+	                {label:Resource.getString('PixelateEffect', 'blend_Normal'), data:"normal"}, 
+	                {label:Resource.getString('PixelateEffect', 'blend_Add'), data:"add"}, 
+	                {label:Resource.getString('PixelateEffect', 'blend_Darken'), data:"darken"}, 
+	                {label:Resource.getString('PixelateEffect', 'blend_Difference'), data:"difference"}, 
+	                {label:Resource.getString('PixelateEffect', 'blend_Hardlight'), data:"hardlight"}, 
+	                {label:Resource.getString('PixelateEffect', 'blend_Lighten'), data:"lighten"}, 
+	                {label:Resource.getString('PixelateEffect', 'blend_Multiply'), data:"multiply"}, 
+	                {label:Resource.getString('PixelateEffect', 'blend_Overlay'), data:"overlay"}, 
+	                {label:Resource.getString('PixelateEffect', 'blend_Screen'), data:"screen"}, 
+	                {label:Resource.getString('PixelateEffect', 'blend_Subtract'), data:"subtract"}];
+	        ]]>
+	    </mx:Script>
+	   	    <mx:VBox verticalGap="-3" paddingTop="5" paddingBottom="5">
+		    <mx:Label text="@Resource(key='Label_2', bundle='PixelateEffect')" styleName="sliderTitle"/>
+			<mx:ComboBox dataProvider="{aBlendModes}" id="_cbBlendMode" change="OnOpChange()" height="26" width="191" />
+	    </mx:VBox>
+    
+	   <mx:HBox horizontalGap="5" paddingTop="3" verticalAlign="middle">
+			<!-- Fade label/percent/slider box -->
+			<mx:VBox verticalGap="0" width="157" horizontalScrollPolicy="off">
+				<mx:HBox width="100%" paddingBottom="-5">
+					<mx:Label text="@Resource(key='Label_3', bundle='PixelateEffect')" styleName="sliderTitle"/>
+					<mx:Label text="{LocUtil.pct((_sldrFade.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+				</mx:HBox>
+				<ctrl:HSliderPlus width="157" minimum="0" maximum="100" value="0" id="_sldrFade" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+			</mx:VBox>
+			<mx:Button id="_btnBrushPalette" width="30" height="30" selected="false" toggle="true" icon="@Embed('/assets/bitmaps/icon_paintTall.png')" paddingLeft="0"
+				toolTip="@Resource(key='_btnBrushPalette', bundle='PixelateEffect')"/>
+		</mx:HBox>
+		
+		<ctrl:ApplyCancelEffectButtons addBoxPadding="true" premium="{premium}"/>	
+	</mx:VBox>
+	
+	<imageOperations:NestedImageOperation id="_op" BlendAlpha="{1-(_sldrFade.value/100)}" BlendMode="{_cbBlendMode.value}" Mask="{_mctr.mask}" dynamicAlphaCachePriority="10">
+		<imageOperations:children>
+			<imageOperations:ResizeImageOperation width="{zeroR + imagewidth/_sldrImpact.value}" height="{zeroR + imageheight/_sldrImpact.value}" ignoreObjects="true"/>
+			<imageOperations:ResizeImageOperation width="{zeroR + imagewidth}" height="{zeroR + imageheight}" smoothing="false" ignoreObjects="true"/>
+		</imageOperations:children>		
+	</imageOperations:NestedImageOperation>
+</cnt:PaintEffectCanvas>

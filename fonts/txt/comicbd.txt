@@ -1,0 +1,12 @@
+fileName: comicbd.ttf
+name: Comic Sans MS
+subfamilyDisplayName: Negreta
+fullName: Comic Sans MS Negreta
+displayName: Comic Sans MS
+ital: 0
+bold: 1
+weight: 5
+panose.weight: 9
+pkName: pkcomicbd
+authorName: Vincent Connare
+authorUrl: http://www.connare.com/typography.htm

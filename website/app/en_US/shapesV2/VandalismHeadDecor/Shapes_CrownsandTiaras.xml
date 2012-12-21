@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/shape_crowns.png" flickrPremium="false" id="CrownsandTiaras" numShapes="8" picnikPremium="false" previewUrls="60|48|../clipart/bundles/VandalismHeadDecorArea_groupPreviews_CrownsandTiaras.png?ver=5659a875" title="Crowns &amp; Tiaras">
+	<Shapes>
+		<Clipart cHeight="149" cWidth="376" flickrPremium="false" picnikPremium="false" previewUrl="40|40|0|../clipart/bundles/VandalismHeadDecorArea_shapes_CrownsandTiaras.png?ver=bc4bebfb" url="shapes/princess_crown1.swf"/>
+		<Clipart cHeight="63" cWidth="308" flickrPremium="false" picnikPremium="false" previewUrl="40|40|1|../clipart/bundles/VandalismHeadDecorArea_shapes_CrownsandTiaras.png?ver=bc4bebfb" url="shapes/princess_crown2.swf"/>
+		<Clipart cHeight="182" cWidth="240" flickrPremium="false" picnikPremium="false" previewUrl="40|40|2|../clipart/bundles/VandalismHeadDecorArea_shapes_CrownsandTiaras.png?ver=bc4bebfb" url="shapes/princess_crown3.swf"/>
+		<Clipart cHeight="117" cWidth="190" flickrPremium="false" picnikPremium="false" previewUrl="40|40|3|../clipart/bundles/VandalismHeadDecorArea_shapes_CrownsandTiaras.png?ver=bc4bebfb" url="shapes/princess_crown4.swf"/>
+		<Clipart cHeight="119" cWidth="244" flickrPremium="false" picnikPremium="false" previewUrl="40|40|4|../clipart/bundles/VandalismHeadDecorArea_shapes_CrownsandTiaras.png?ver=bc4bebfb" url="shapes/princess_crown5.swf"/>
+		<Clipart cHeight="42" cWidth="80" flickrPremium="false" picnikPremium="false" previewUrl="40|40|5|../clipart/bundles/VandalismHeadDecorArea_shapes_CrownsandTiaras.png?ver=bc4bebfb" url="shapes/princess_pearlnecklace.swf"/>
+		<Clipart cHeight="385" cWidth="141" flickrPremium="false" picnikPremium="false" previewUrl="40|40|6|../clipart/bundles/VandalismHeadDecorArea_shapes_CrownsandTiaras.png?ver=bc4bebfb" url="shapes/princess_princess.swf"/>
+		<Clipart cHeight="251" cWidth="25" flickrPremium="false" picnikPremium="false" previewUrl="40|40|7|../clipart/bundles/VandalismHeadDecorArea_shapes_CrownsandTiaras.png?ver=bc4bebfb" url="shapes/princess_scepter.swf"/>
+	</Shapes>
+</ShapeCategory>

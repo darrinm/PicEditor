@@ -1,0 +1,12 @@
+fileName: vtks_Focus.ttf
+name: Vtks Focus
+subfamilyDisplayName: Regular
+fullName: Vtks Focus
+displayName: Vtks Focus
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 0
+pkName: pkvtks0Focus
+authorName: Douglas Vitkauskas
+authorUrl: http://www.vtks.com.br/

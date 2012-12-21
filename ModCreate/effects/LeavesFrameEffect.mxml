@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameEffectBase xmlns="effects.*" xmlns:cnt="containers.*" xmlns:ctrl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="343"
+	xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*" premium="true" xmlns:objectOperations="imagine.objectOperations.*" urlid="FallFrame">
+	
+	<mx:Script>
+		<![CDATA[
+			import util.LocUtil;
+			
+			private static const knMultiplier:Number = 260/700;
+			private static const knInset:Number = 0.4;
+			private static const knInsetJitter:Number = 0.7;
+			private static const knDensityMult:Number = knMultiplier * 1.6;
+			
+			private function GetGlowBlur(nImageWidth:Number, nImageHeight:Number): Number {
+				// 10 @ 180, 25 @ 738, 70 @ 2882
+				return 0.02222222 * Math.min(nImageWidth, nImageHeight) + 6;
+			}
+		]]>
+	</mx:Script>
+	
+	<mx:Number id="_nDensity">{0.6 + (_sldrSize.value - 0.2) * 0.9 / 0.2}</mx:Number>
+	
+	<mx:XML xmlns="" id="_xmlFrame">
+<frames> <!-- Daisy Frame -->
+	
+	<frame cornerRounding="0" fillEndToEnd="false" density="{3 *  _nDensity}" size="{_sldrSize.value*knMultiplier}" inset="{.8 + knInset}"
+			rotationJitter="1" rotationJitterOrder="1"
+			insetJitter="{knInsetJitter}" insetJitterOrder="1"
+			sizeJitter="0.1" sizeJitterOrder="2"
+			noDoubles="true">
+		<Clipart isVector="false" url="shapes/AutumnLeaves/autumnleaf01.swf" cWidth="1200" cHeight="1012" size="0.5">
+        <GlowFilter alpha="0.3" blurX="{GetGlowBlur(imagewidth, imageheight)}" blurY="{GetGlowBlur(imagewidth, imageheight)}" color="#000000" quality="3"/>
+        </Clipart>
+        <Clipart isVector="false" url="shapes/AutumnLeaves/autumnleaf02.swf" cWidth="1108" cHeight="1188">
+        <GlowFilter alpha="0.3" blurX="{GetGlowBlur(imagewidth, imageheight)}" blurY="{GetGlowBlur(imagewidth, imageheight)}" color="#000000" quality="3"/>
+        </Clipart>
+        <Clipart isVector="false" url="shapes/AutumnLeaves/autumnleaf03.swf" cWidth="712" cHeight="1200">
+        <GlowFilter alpha="0.3" blurX="{GetGlowBlur(imagewidth, imageheight)}" blurY="{GetGlowBlur(imagewidth, imageheight)}" color="#000000" quality="3"/>
+        </Clipart>
+        <Clipart isVector="false" url="shapes/AutumnLeaves/autumnleaf04.swf" cWidth="1200" cHeight="936" size="1.5">
+        <GlowFilter alpha="0.3" blurX="{GetGlowBlur(imagewidth, imageheight)}" blurY="{GetGlowBlur(imagewidth, imageheight)}" color="#000000" quality="3"/>
+        </Clipart>
+		<Clipart isVector="false" url="shapes/AutumnLeaves/autumnleaf05.swf" cWidth="676" cHeight="1200" size="0.5">
+			<GlowFilter alpha="0.3" blurX="{GetGlowBlur(imagewidth, imageheight)}" blurY="{GetGlowBlur(imagewidth, imageheight)}" color="#000000" quality="3"/>
+		</Clipart>
+		<Clipart isVector="false" url="shapes/AutumnLeaves/autumnleaf06.swf" cWidth="476" cHeight="1200">
+			<GlowFilter alpha="0.3" blurX="{GetGlowBlur(imagewidth, imageheight)}" blurY="{GetGlowBlur(imagewidth, imageheight)}" color="#000000" quality="3"/>
+		</Clipart>
+		<Clipart isVector="false" url="shapes/AutumnLeaves/autumnleaf07.swf" cWidth="1004" cHeight="1200">
+			<GlowFilter alpha="0.3" blurX="{GetGlowBlur(imagewidth, imageheight)}" blurY="{GetGlowBlur(imagewidth, imageheight)}" color="#000000" quality="3"/>
+		</Clipart>
+		<Clipart isVector="false" url="shapes/AutumnLeaves/autumnleaf08.swf" cWidth="1200" cHeight="1200" size="1.5">
+			<GlowFilter alpha="0.3" blurX="{GetGlowBlur(imagewidth, imageheight)}" blurY="{GetGlowBlur(imagewidth, imageheight)}" color="#000000" quality="3"/>
+		</Clipart>
+		<Clipart isVector="false" url="shapes/AutumnLeaves/autumnleaf09.swf" cWidth="1016" cHeight="1200" size="0.5">
+			<GlowFilter alpha="0.3" blurX="{GetGlowBlur(imagewidth, imageheight)}" blurY="{GetGlowBlur(imagewidth, imageheight)}" color="#000000" quality="3"/>
+		</Clipart>
+		<Clipart isVector="false" url="shapes/AutumnLeaves/autumnleaf10.swf" cWidth="1200" cHeight="664">
+			<GlowFilter alpha="0.3" blurX="{GetGlowBlur(imagewidth, imageheight)}" blurY="{GetGlowBlur(imagewidth, imageheight)}" color="#000000" quality="3"/>
+		</Clipart>
+		<Clipart isVector="false" url="shapes/AutumnLeaves/autumnleaf11.swf" cWidth="1024" cHeight="1200">
+			<GlowFilter alpha="0.3" blurX="{GetGlowBlur(imagewidth, imageheight)}" blurY="{GetGlowBlur(imagewidth, imageheight)}" color="#000000" quality="3"/>
+		</Clipart>
+		<Clipart isVector="false" url="shapes/AutumnLeaves/autumnleaf12.swf" cWidth="1200" cHeight="944" size="1.5">
+			<GlowFilter alpha="0.3" blurX="{GetGlowBlur(imagewidth, imageheight)}" blurY="{GetGlowBlur(imagewidth, imageheight)}" color="#000000" quality="3"/>
+		</Clipart>
+		<Clipart isVector="false" url="shapes/AutumnLeaves/autumnleaf13.swf" cWidth="1200" cHeight="1152" size="0.5">
+			<GlowFilter alpha="0.3" blurX="{GetGlowBlur(imagewidth, imageheight)}" blurY="{GetGlowBlur(imagewidth, imageheight)}" color="#000000" quality="3"/>
+		</Clipart>
+		<Clipart isVector="false" url="shapes/AutumnLeaves/autumnleaf14.swf" cWidth="836" cHeight="1152">
+			<GlowFilter alpha="0.3" blurX="{GetGlowBlur(imagewidth, imageheight)}" blurY="{GetGlowBlur(imagewidth, imageheight)}" color="#000000" quality="3"/>
+		</Clipart>
+		<Clipart isVector="false" url="shapes/AutumnLeaves/autumnleaf15.swf" cWidth="584" cHeight="1152">
+			<GlowFilter alpha="0.3" blurX="{GetGlowBlur(imagewidth, imageheight)}" blurY="{GetGlowBlur(imagewidth, imageheight)}" color="#000000" quality="3"/>
+		</Clipart>
+		<Clipart isVector="false" url="shapes/AutumnLeaves/autumnleaf16.swf" cWidth="1128" cHeight="1152" size="1.5">
+			<GlowFilter alpha="0.3" blurX="{GetGlowBlur(imagewidth, imageheight)}" blurY="{GetGlowBlur(imagewidth, imageheight)}" color="#000000" quality="3"/>
+		</Clipart>
+		<Clipart isVector="false" url="shapes/AutumnLeaves/autumnleaf17.swf" cWidth="700" cHeight="1152" size="0.5">
+			<GlowFilter alpha="0.3" blurX="{GetGlowBlur(imagewidth, imageheight)}" blurY="{GetGlowBlur(imagewidth, imageheight)}" color="#000000" quality="3"/>
+		</Clipart>
+		<Clipart isVector="false" url="shapes/AutumnLeaves/autumnleaf18.swf" cWidth="1060" cHeight="1152">
+			<GlowFilter alpha="0.3" blurX="{GetGlowBlur(imagewidth, imageheight)}" blurY="{GetGlowBlur(imagewidth, imageheight)}" color="#000000" quality="3"/>
+		</Clipart>
+
+	</frame>
+	
+	<frame cornerRounding="0" fillEndToEnd="false" density="{4 *  _nDensity}" size="{_sldrSize.value*knMultiplier}" inset="{.08 + knInset}"
+			rotationJitter="1" rotationJitterOrder="1"
+			insetJitter="{knInsetJitter}" insetJitterOrder="1"
+			sizeJitter="0.1" sizeJitterOrder="2"
+			noDoubles="true">
+		<Clipart isVector="false" url="shapes/AutumnLeaves/autumnleaf01.swf" cWidth="1200" cHeight="1012" size="0.5">
+			<GlowFilter alpha="0.3" blurX="{GetGlowBlur(imagewidth, imageheight)}" blurY="{GetGlowBlur(imagewidth, imageheight)}" color="#000000" quality="3"/>
+		</Clipart>
+		<Clipart isVector="false" url="shapes/AutumnLeaves/autumnleaf02.swf" cWidth="1108" cHeight="1188">
+			<GlowFilter alpha="0.3" blurX="{GetGlowBlur(imagewidth, imageheight)}" blurY="{GetGlowBlur(imagewidth, imageheight)}" color="#000000" quality="3"/>
+		</Clipart>
+		<Clipart isVector="false" url="shapes/AutumnLeaves/autumnleaf03.swf" cWidth="712" cHeight="1200">
+			<GlowFilter alpha="0.3" blurX="{GetGlowBlur(imagewidth, imageheight)}" blurY="{GetGlowBlur(imagewidth, imageheight)}" color="#000000" quality="3"/>
+		</Clipart>
+		<Clipart isVector="false" url="shapes/AutumnLeaves/autumnleaf04.swf" cWidth="1200" cHeight="936" size="1.5">
+			<GlowFilter alpha="0.3" blurX="{GetGlowBlur(imagewidth, imageheight)}" blurY="{GetGlowBlur(imagewidth, imageheight)}" color="#000000" quality="3"/>
+		</Clipart>
+		<Clipart isVector="false" url="shapes/AutumnLeaves/autumnleaf05.swf" cWidth="676" cHeight="1200" size="0.5">
+			<GlowFilter alpha="0.3" blurX="{GetGlowBlur(imagewidth, imageheight)}" blurY="{GetGlowBlur(imagewidth, imageheight)}" color="#000000" quality="3"/>
+		</Clipart>
+		<Clipart isVector="false" url="shapes/AutumnLeaves/autumnleaf06.swf" cWidth="476" cHeight="1200">
+			<GlowFilter alpha="0.3" blurX="{GetGlowBlur(imagewidth, imageheight)}" blurY="{GetGlowBlur(imagewidth, imageheight)}" color="#000000" quality="3"/>
+		</Clipart>
+		<Clipart isVector="false" url="shapes/AutumnLeaves/autumnleaf07.swf" cWidth="1004" cHeight="1200">
+			<GlowFilter alpha="0.3" blurX="{GetGlowBlur(imagewidth, imageheight)}" blurY="{GetGlowBlur(imagewidth, imageheight)}" color="#000000" quality="3"/>
+		</Clipart>
+		<Clipart isVector="false" url="shapes/AutumnLeaves/autumnleaf08.swf" cWidth="1200" cHeight="1200" size="1.5">
+			<GlowFilter alpha="0.3" blurX="{GetGlowBlur(imagewidth, imageheight)}" blurY="{GetGlowBlur(imagewidth, imageheight)}" color="#000000" quality="3"/>
+		</Clipart>
+		<Clipart isVector="false" url="shapes/AutumnLeaves/autumnleaf09.swf" cWidth="1016" cHeight="1200" size="0.5">
+			<GlowFilter alpha="0.3" blurX="{GetGlowBlur(imagewidth, imageheight)}" blurY="{GetGlowBlur(imagewidth, imageheight)}" color="#000000" quality="3"/>
+		</Clipart>
+		<Clipart isVector="false" url="shapes/AutumnLeaves/autumnleaf10.swf" cWidth="1200" cHeight="664">
+			<GlowFilter alpha="0.3" blurX="{GetGlowBlur(imagewidth, imageheight)}" blurY="{GetGlowBlur(imagewidth, imageheight)}" color="#000000" quality="3"/>
+		</Clipart>
+		<Clipart isVector="false" url="shapes/AutumnLeaves/autumnleaf11.swf" cWidth="1024" cHeight="1200">
+			<GlowFilter alpha="0.3" blurX="{GetGlowBlur(imagewidth, imageheight)}" blurY="{GetGlowBlur(imagewidth, imageheight)}" color="#000000" quality="3"/>
+		</Clipart>
+		<Clipart isVector="false" url="shapes/AutumnLeaves/autumnleaf12.swf" cWidth="1200" cHeight="944" size="1.5">
+			<GlowFilter alpha="0.3" blurX="{GetGlowBlur(imagewidth, imageheight)}" blurY="{GetGlowBlur(imagewidth, imageheight)}" color="#000000" quality="3"/>
+		</Clipart>
+		<Clipart isVector="false" url="shapes/AutumnLeaves/autumnleaf13.swf" cWidth="1200" cHeight="1152" size="0.5">
+			<GlowFilter alpha="0.3" blurX="{GetGlowBlur(imagewidth, imageheight)}" blurY="{GetGlowBlur(imagewidth, imageheight)}" color="#000000" quality="3"/>
+		</Clipart>
+		<Clipart isVector="false" url="shapes/AutumnLeaves/autumnleaf14.swf" cWidth="836" cHeight="1152">
+			<GlowFilter alpha="0.3" blurX="{GetGlowBlur(imagewidth, imageheight)}" blurY="{GetGlowBlur(imagewidth, imageheight)}" color="#000000" quality="3"/>
+		</Clipart>
+		<Clipart isVector="false" url="shapes/AutumnLeaves/autumnleaf15.swf" cWidth="584" cHeight="1152">
+			<GlowFilter alpha="0.3" blurX="{GetGlowBlur(imagewidth, imageheight)}" blurY="{GetGlowBlur(imagewidth, imageheight)}" color="#000000" quality="3"/>
+		</Clipart>
+		<Clipart isVector="false" url="shapes/AutumnLeaves/autumnleaf16.swf" cWidth="1128" cHeight="1152" size="1.5">
+			<GlowFilter alpha="0.3" blurX="{GetGlowBlur(imagewidth, imageheight)}" blurY="{GetGlowBlur(imagewidth, imageheight)}" color="#000000" quality="3"/>
+		</Clipart>
+		<Clipart isVector="false" url="shapes/AutumnLeaves/autumnleaf17.swf" cWidth="700" cHeight="1152" size="0.5">
+			<GlowFilter alpha="0.3" blurX="{GetGlowBlur(imagewidth, imageheight)}" blurY="{GetGlowBlur(imagewidth, imageheight)}" color="#000000" quality="3"/>
+		</Clipart>
+		<Clipart isVector="false" url="shapes/AutumnLeaves/autumnleaf18.swf" cWidth="1060" cHeight="1152">
+			<GlowFilter alpha="0.3" blurX="{GetGlowBlur(imagewidth, imageheight)}" blurY="{GetGlowBlur(imagewidth, imageheight)}" color="#000000" quality="3"/>
+		</Clipart>
+	</frame>
+	
+	<frame cornerRounding="0" fillEndToEnd="false" density="{2 * _nDensity}" size="{_sldrSize.value*knMultiplier}" inset="{-0.5 + knInset}"
+			rotationJitter="1" rotationJitterOrder="1"
+			sizeJitter="0.1" sizeJitterOrder="2"
+			insetJitter="{knInsetJitter}" insetJitterOrder="1"
+			noDoubles="true">
+		<Clipart isVector="false" url="shapes/AutumnLeaves/autumnleaf01.swf" cWidth="1200" cHeight="1012" size="0.5">
+			<GlowFilter alpha="0.3" blurX="{GetGlowBlur(imagewidth, imageheight)}" blurY="{GetGlowBlur(imagewidth, imageheight)}" color="#000000" quality="3"/>
+		</Clipart>
+		<Clipart isVector="false" url="shapes/AutumnLeaves/autumnleaf02.swf" cWidth="1108" cHeight="1188">
+			<GlowFilter alpha="0.3" blurX="{GetGlowBlur(imagewidth, imageheight)}" blurY="{GetGlowBlur(imagewidth, imageheight)}" color="#000000" quality="3"/>
+		</Clipart>
+		<Clipart isVector="false" url="shapes/AutumnLeaves/autumnleaf03.swf" cWidth="712" cHeight="1200">
+			<GlowFilter alpha="0.3" blurX="{GetGlowBlur(imagewidth, imageheight)}" blurY="{GetGlowBlur(imagewidth, imageheight)}" color="#000000" quality="3"/>
+		</Clipart>
+		<Clipart isVector="false" url="shapes/AutumnLeaves/autumnleaf04.swf" cWidth="1200" cHeight="936" size="1.5">
+			<GlowFilter alpha="0.3" blurX="{GetGlowBlur(imagewidth, imageheight)}" blurY="{GetGlowBlur(imagewidth, imageheight)}" color="#000000" quality="3"/>
+		</Clipart>
+		<Clipart isVector="false" url="shapes/AutumnLeaves/autumnleaf05.swf" cWidth="676" cHeight="1200" size="0.5">
+			<GlowFilter alpha="0.3" blurX="{GetGlowBlur(imagewidth, imageheight)}" blurY="{GetGlowBlur(imagewidth, imageheight)}" color="#000000" quality="3"/>
+		</Clipart>
+		<Clipart isVector="false" url="shapes/AutumnLeaves/autumnleaf06.swf" cWidth="476" cHeight="1200">
+			<GlowFilter alpha="0.3" blurX="{GetGlowBlur(imagewidth, imageheight)}" blurY="{GetGlowBlur(imagewidth, imageheight)}" color="#000000" quality="3"/>
+		</Clipart>
+		<Clipart isVector="false" url="shapes/AutumnLeaves/autumnleaf07.swf" cWidth="1004" cHeight="1200">
+			<GlowFilter alpha="0.3" blurX="{GetGlowBlur(imagewidth, imageheight)}" blurY="{GetGlowBlur(imagewidth, imageheight)}" color="#000000" quality="3"/>
+		</Clipart>
+		<Clipart isVector="false" url="shapes/AutumnLeaves/autumnleaf08.swf" cWidth="1200" cHeight="1200" size="1.5">
+			<GlowFilter alpha="0.3" blurX="{GetGlowBlur(imagewidth, imageheight)}" blurY="{GetGlowBlur(imagewidth, imageheight)}" color="#000000" quality="3"/>
+		</Clipart>
+		<Clipart isVector="false" url="shapes/AutumnLeaves/autumnleaf09.swf" cWidth="1016" cHeight="1200" size="0.5">
+			<GlowFilter alpha="0.3" blurX="{GetGlowBlur(imagewidth, imageheight)}" blurY="{GetGlowBlur(imagewidth, imageheight)}" color="#000000" quality="3"/>
+		</Clipart>
+		<Clipart isVector="false" url="shapes/AutumnLeaves/autumnleaf10.swf" cWidth="1200" cHeight="664">
+			<GlowFilter alpha="0.3" blurX="{GetGlowBlur(imagewidth, imageheight)}" blurY="{GetGlowBlur(imagewidth, imageheight)}" color="#000000" quality="3"/>
+		</Clipart>
+		<Clipart isVector="false" url="shapes/AutumnLeaves/autumnleaf11.swf" cWidth="1024" cHeight="1200">
+			<GlowFilter alpha="0.3" blurX="{GetGlowBlur(imagewidth, imageheight)}" blurY="{GetGlowBlur(imagewidth, imageheight)}" color="#000000" quality="3"/>
+		</Clipart>
+		<Clipart isVector="false" url="shapes/AutumnLeaves/autumnleaf12.swf" cWidth="1200" cHeight="944" size="1.5">
+			<GlowFilter alpha="0.3" blurX="{GetGlowBlur(imagewidth, imageheight)}" blurY="{GetGlowBlur(imagewidth, imageheight)}" color="#000000" quality="3"/>
+		</Clipart>
+		<Clipart isVector="false" url="shapes/AutumnLeaves/autumnleaf13.swf" cWidth="1200" cHeight="1152" size="0.5">
+			<GlowFilter alpha="0.3" blurX="{GetGlowBlur(imagewidth, imageheight)}" blurY="{GetGlowBlur(imagewidth, imageheight)}" color="#000000" quality="3"/>
+		</Clipart>
+		<Clipart isVector="false" url="shapes/AutumnLeaves/autumnleaf14.swf" cWidth="836" cHeight="1152">
+			<GlowFilter alpha="0.3" blurX="{GetGlowBlur(imagewidth, imageheight)}" blurY="{GetGlowBlur(imagewidth, imageheight)}" color="#000000" quality="3"/>
+		</Clipart>
+		<Clipart isVector="false" url="shapes/AutumnLeaves/autumnleaf15.swf" cWidth="584" cHeight="1152">
+			<GlowFilter alpha="0.3" blurX="{GetGlowBlur(imagewidth, imageheight)}" blurY="{GetGlowBlur(imagewidth, imageheight)}" color="#000000" quality="3"/>
+		</Clipart>
+		<Clipart isVector="false" url="shapes/AutumnLeaves/autumnleaf16.swf" cWidth="1128" cHeight="1152" size="1.5">
+			<GlowFilter alpha="0.3" blurX="{GetGlowBlur(imagewidth, imageheight)}" blurY="{GetGlowBlur(imagewidth, imageheight)}" color="#000000" quality="3"/>
+		</Clipart>
+		<Clipart isVector="false" url="shapes/AutumnLeaves/autumnleaf17.swf" cWidth="700" cHeight="1152" size="0.5">
+			<GlowFilter alpha="0.3" blurX="{GetGlowBlur(imagewidth, imageheight)}" blurY="{GetGlowBlur(imagewidth, imageheight)}" color="#000000" quality="3"/>
+		</Clipart>
+		<Clipart isVector="false" url="shapes/AutumnLeaves/autumnleaf18.swf" cWidth="1060" cHeight="1152">
+			<GlowFilter alpha="0.3" blurX="{GetGlowBlur(imagewidth, imageheight)}" blurY="{GetGlowBlur(imagewidth, imageheight)}" color="#000000" quality="3"/>
+		</Clipart>
+	</frame>
+	
+</frames>
+	</mx:XML>
+
+	<ctrl:EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='LeavesFrameEffect')" strAuthor="@Resource(key='byPicnik', bundle='EffectCanvas')"
+		strImageSource="../graphics/effects/Frames/leaf_frame.png" cornerRadius="3" premium="true"/>
+	<mx:String id="_strHelpText">{Resource.getString('LeavesFrameEffect', '_strHelpText')}</mx:String>
+	
+	<mx:VBox x="10" y="70" verticalGap="0">
+		<mx:HBox width="194" paddingBottom="-5" paddingTop="3">
+			<mx:Label text="@Resource(key='size', bundle='EffectCanvas')" styleName="sliderTitle"/>
+			<mx:Label text="{Math.round(_sldrSize.value * 100)}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<ctrl:HSliderPlus width="191" minimum="0.2" maximum="0.4" value="0.2" id="_sldrSize" change="OnFrameParamChange()" liveDragging="true" showDataTip="false"/>
+		<ctrl:ApplyCancelEffectButtons addBoxPadding="true" premium="{premium}"/>
+	</mx:VBox>
+
+</FrameEffectBase>

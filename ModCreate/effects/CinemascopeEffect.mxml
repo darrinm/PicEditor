@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cnt:EffectCanvas xmlns:cnt="containers.*" xmlns="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="139" 
+	xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" xmlns:util="util.*" premium="{PicnikBase.GetApp().freemiumModel}" urlid="CinemaScope">
+	<mx:Script>
+		import mx.resources.ResourceBundle;
+   		[Bindable] [ResourceBundle("CinemascopeEffect")] private var rb:ResourceBundle;
+	</mx:Script>
+
+
+	<mx:Array id="_resetValues">
+		<!--<local:StoredValue target="_sldrFade.value"/>-->
+		<local:StoredValue target="cbLetterbox.selected"/>
+	</mx:Array>
+	
+	<util:NumberPlus id="cropWidth" val="{zeroR + origImageWidth}"/>
+	<util:NumberPlus id="cropHeight" val="{zeroR + (cbLetterbox &amp;&amp; cbLetterbox.selected ? Math.min(Math.round(origImageWidth/1.7),origImageHeight) : origImageHeight) }"/>
+	<util:NumberPlus id="topBorder" val="{zeroR + (cbLetterbox &amp;&amp; cbLetterbox.selected ? Math.round(cropHeight.val * 0.15) : 0) }"/>
+	<util:NumberPlus id="bottomBorder" val="{zeroR + (cbLetterbox &amp;&amp; cbLetterbox.selected ? Math.round(cropHeight.val * 0.15) : 0) }"/>
+	
+	<EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='CinemascopeEffect')" strAuthor="@Resource(key='_efbtn_1', bundle='CinemascopeEffect')"
+		strImageSource="../graphics/effects/Camera/cinemascope.png" premium="{premium}"/>
+	<mx:String id="_strHelpText">{Resource.getString('CinemascopeEffect', '_strHelpText')}</mx:String>
+
+	<mx:VBox x="8" y="65" verticalGap="0">
+<!-- stripping fade for now due to shape shift bug
+		<mx:HBox width="190" paddingBottom="-5" paddingTop="3">
+			<mx:Label text="Fade" styleName="sliderTitle"/>
+			<mx:Label text="{LocUtil.pct((_sldrFade.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<HSliderPlus width="190" minimum="0" maximum="100" value="0" id="_sldrFade" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+-->
+		<mx:Box width="100%" horizontalAlign="center" paddingTop="8">
+			<mx:CheckBox label="@Resource(key='LetterBox', bundle='CinemascopeEffect')" id="cbLetterbox" selected="true" change="OnOpChange()" paddingRight="-5"/>
+		</mx:Box>
+		<ApplyCancelEffectButtons addBoxPadding="true" premium="{premium}"/>
+	</mx:VBox>
+
+	<imageOperations:NestedImageOperation id="_op">
+		<imageOperations:children>
+			<imageOperations:CropImageOperation width="{zeroR + cropWidth.val}" height="{zeroR + cropHeight.val}"
+				x="{zeroR + Math.floor((origImageWidth-cropWidth.val)/2)}" y="{zeroR + Math.floor((origImageHeight-cropHeight.val)/2)}"/>
+			<imageOperations:ResizeImageOperation height="{Math.round(cropHeight.val * (cbLetterbox.selected ? .95:1))}" width="{cropWidth.val}"/>
+			<imageOperations:NestedImageOperation BlendAlpha="1">
+				<imageOperations:children>
+					<imageOperations:AutoFixImageOperation />
+					<imageOperations:SimpleColorMatrixImageOperation Saturation="-25" />
+						<imageOperations:AdjustCurvesImageOperation
+							MasterCurve="{[{x:0, y:0}, {x:29, y:19}, {x:110, y:150}, {x:233, y:245}, {x:255, y:255}]}"
+							RedCurve="{[{x:0, y:0}, {x:111, y:141}, {x:255, y:255}]}"
+							BlueCurve="{[{x:0, y:0}, {x:136, y:121}, {x:255, y:255}]}"
+						/>
+					<imageOperations:NoiseImageOperation randomSeed="0" 
+						low="225" high="245" channelOptions="7"
+						grayScale="true" BlendMode="multiply" maskWithSourceAlpha="true"/>
+				</imageOperations:children>
+			</imageOperations:NestedImageOperation>
+			<imageOperations:SimpleBorderImageOperation  top="{zeroR + topBorder.val}" bottom="{zeroR + bottomBorder.val}"
+				left="0" right="0" color="0x000000"/>
+		</imageOperations:children>
+	</imageOperations:NestedImageOperation>
+</cnt:EffectCanvas>

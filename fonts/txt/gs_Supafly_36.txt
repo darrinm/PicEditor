@@ -1,0 +1,12 @@
+fileName: gs_Supafly_36.ttf
+name: Supafly 36
+subfamilyDisplayName: Normal
+fullName: Supafly 36
+displayName: Supafly 36
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 0
+pkName: pkgs0Supafly036
+authorName: Guillaume Seguin
+authorUrl: http://lastsoundtrack.fontspace.com/

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cnt:CircularOverlayEffectCanvas xmlns="effects.*" xmlns:cnt="containers.*" xmlns:ctrl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="335" xmlns:local="*" 
+		xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*" premium="true"
+		xFocus = "{zeroR + imagewidth/2}"
+		yFocus = "{zeroR + imageheight/2}"
+		liveUpdate="true" urlid="Heartnoculars">
+	<mx:Script>
+		import util.LocUtil;
+		import util.SVGPaths;
+		import mx.resources.ResourceBundle;
+   		[Bindable] [ResourceBundle("HeartnocularsEffect")] private var rb:ResourceBundle;
+   		
+		public override function UpdateOverlay(): void {
+			if (!_mcOverlay) return;
+			if (!effectMask) return;
+			// These are in document coordinates
+			var rcd:Rectangle = new Rectangle(effectMask.xCenter, effectMask.yCenter, effectMask.getWidthRadius(), effectMask.getHeightRadius());
+			var rcl:Rectangle = _imgv.RclFromRcd(rcd);
+			var xCenter:Number = rcl.x;
+			var yCenter:Number = rcl.y;
+			const cxyCrossHairRadius:Number = 10;
+
+			_mcOverlay.graphics.clear();
+			_mcOverlay.graphics.lineStyle(1, 0x000000, 0.3, true);						
+			_mcOverlay.graphics.moveTo(1+xCenter - cxyCrossHairRadius, 1+yCenter);
+			_mcOverlay.graphics.lineTo(1+xCenter + cxyCrossHairRadius, 1+yCenter);
+			_mcOverlay.graphics.moveTo(1+xCenter, 1+yCenter - cxyCrossHairRadius);
+			_mcOverlay.graphics.lineTo(1+xCenter, 1+yCenter + cxyCrossHairRadius);
+			
+			_mcOverlay.graphics.lineStyle(1, 0xffffff, 0.3, true);
+			_mcOverlay.graphics.moveTo(xCenter - cxyCrossHairRadius, yCenter);
+			_mcOverlay.graphics.lineTo(xCenter + cxyCrossHairRadius, yCenter);
+			_mcOverlay.graphics.moveTo(xCenter, yCenter - cxyCrossHairRadius);
+			_mcOverlay.graphics.lineTo(xCenter, yCenter + cxyCrossHairRadius);
+		}   		
+	</mx:Script>
+
+	<mx:Array id="_resetValues">
+		<local:StoredValue target="_cpkrTint.selectedColor"/>
+		<local:StoredValue target="_sldrFade.value"/>
+		<local:StoredValue target="_sldrSize.value"/>
+		<local:StoredValue target="_sldrRotation.value"/>
+		<local:StoredValue target="_sldrSeparation.value"/>
+	</mx:Array>
+	
+	<ctrl:EffectButton id="_efbtn" cornerRadius="0" strTitle="@Resource(key='_efbtn', bundle='HeartnocularsEffect')" strAuthor="@Resource(key='_efbtn_1', bundle='HeartnocularsEffect')"
+		strImageSource="../graphics/effects/Frames/heartnoculars.png" premium="{premium}"/>
+	<mx:String id="_strHelpText">{Resource.getString('HeartnocularsEffect', '_strHelpText')}</mx:String>
+
+	<mx:VBox x="10" y="67" verticalGap="0">
+		<mx:HBox width="194" paddingBottom="-5" paddingTop="3">
+			<mx:Label text="@Resource(key='Size', bundle='HeartnocularsEffect')" styleName="sliderTitle"/>
+			<mx:Label text="{Math.round(_sldrSize.value)}%" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<ctrl:HSliderPlus width="191" minimum="0" maximum="100" value="50"
+				id="_sldrSize" change="OnOpChange()" liveDragging="true" showDataTip="false"/>		
+			
+		<mx:HBox width="194" paddingBottom="-5" paddingTop="3">
+			<mx:Label text="@Resource(key='Rotation', bundle='HeartnocularsEffect')" styleName="sliderTitle"/>
+			<mx:Label text="{Math.round(_sldrRotation.value)}%" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<ctrl:HSliderPlus width="191" minimum="0" maximum="100" value="25"
+				id="_sldrRotation" change="OnOpChange()" liveDragging="true" showDataTip="false"/>		
+	
+		<mx:Spacer height="5"/>
+		<mx:HBox width="194" paddingBottom="-5" paddingTop="3">
+			<mx:Label text="@Resource(key='Separation', bundle='HeartnocularsEffect')" styleName="sliderTitle"/>
+			<mx:Label text="{Math.round(_sldrSeparation.value)}%" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<ctrl:HSliderPlus width="191" minimum="0" maximum="100" value="25"
+				id="_sldrSeparation" change="OnOpChange()" liveDragging="true" showDataTip="false"/>		
+	
+		<mx:Spacer height="5"/>
+			<mx:HBox paddingTop="5" paddingLeft="5" paddingRight="8" paddingBottom="5" horizontalGap="5" width="190" horizontalScrollPolicy="off"
+				cornerRadius="5" backgroundColor="#ffffff" borderColor="#d9d9d9" borderStyle="solid" backgroundAlpha=".4" verticalAlign="middle">
+			<ctrl:ResizingLabel text="@Resource(key='Tint', bundle='HeartnocularsEffect')" styleName="sliderTitle" paddingTop="2" width="100%" autoFontSizeGap="1"/>
+			<ctrl:HSBColorPicker id="_cpkrTint" selectedColor="{0x802040 + zeroR}" liveColorChange="OnBufferedOpChange()" width="50"/>
+		</mx:HBox>
+
+		<mx:Spacer height="5"/>
+		<mx:HBox width="194" paddingBottom="-5" paddingTop="3">
+			<mx:Label text="@Resource(key='Fade', bundle='HeartnocularsEffect')" styleName="sliderTitle"/>
+			<mx:Label text="{Math.round(_sldrFade.value*100)}%" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<ctrl:HSliderPlus width="191" minimum="0" maximum="1" value="0.25"
+				id="_sldrFade" change="OnOpChange()" liveDragging="true" showDataTip="false"/>		
+
+		<ctrl:ApplyCancelEffectButtons addBoxPadding="true" premium="{premium}"/>
+	</mx:VBox>
+	
+	<mx:Number id="_targetHeight">{imagewidth*_sldrSize.value/100}</mx:Number>
+	<mx:Number id="_targetWidth">{_targetHeight*1.85}</mx:Number>
+	
+</cnt:CircularOverlayEffectCanvas>
+
+
+

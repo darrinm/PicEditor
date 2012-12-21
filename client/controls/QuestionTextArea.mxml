@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ctrl:QuestionBase xmlns:ctrl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml">
+<mx:Script>
+	<![CDATA[
+		public function OnKeyUp(evt:KeyboardEvent): void {
+			if (evt.keyCode == 13) {
+				// UNDONE: Trim
+				if (_ta.text.length > 0) {
+					Answer(_ta.text);
+				}
+			}
+		}
+	]]>
+</mx:Script>
+	<mx:Label text="{Prompt(data)}"/>
+	<mx:TextArea id="_ta" keyUp="OnKeyUp(event)"/>
+</ctrl:QuestionBase>

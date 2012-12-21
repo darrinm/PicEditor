@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas width="100%" height="100%"
+		   xmlns:filters="flash.filters.*" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:ctl="controls.*" >
+	<mx:Boolean id="_fShowTryIt">{AccountMgr.GetInstance().isPremium}</mx:Boolean>
+	<mx:Script>
+		<![CDATA[
+			import bridges.projects.ProjectsInBridgeBase; 
+			/* import dialogs.DialogManager;
+			import util.KeyVault;
+			import util.Navigation;
+			
+			private function FeatureClick(): void {
+				if (_fShowTryIt || AccountMgr.GetInstance().isPremium) {
+					var strReport:String = "/featured/Autumn2010/";
+					if ('geoip' in KeyVault.GetInstance() && 'country' in KeyVault.GetInstance().geoip) {
+						strReport += KeyVault.GetInstance().geoip.country + "/";
+					}
+					Util.UrchinLogReport(strReport);
+					Navigation.DispatchNavEvent(this, PicnikBase.CREATIVE_TOOLS_TAB, '_ctFeatured', null);
+				} else {
+					DialogManager.ShowUpgrade('/home_welcome/Featured/Autumn2010');					
+				}
+			} */
+		]]>
+	</mx:Script>
+	
+	<mx:Style>
+		.barGradientWhite {
+			border-style: solid;
+			border-thickness: 0;
+			border-skin: ClassReference("skins.GradientBackground");
+			gradient-fill-colors: #FFFFFF, #FFFFFF;
+			gradient-fill-alphas: .9,.8;
+			gradient-fill-ratios: 0,150;
+			gradient-rotation: 0;
+		}
+	</mx:Style>
+	
+	<filters:DropShadowFilter id="_fiDropShad" blurX="7" blurY="7" distance="2" color="#000000" alpha=".35" quality="3" angle="90"/>
+	<filters:DropShadowFilter id="_fiWhiteShad" blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1" quality="3" angle="90"/>
+	<filters:GlowFilter id="_fiGlow" alpha=".8" blurX="20" blurY="20" color="#ffffff"/>
+	
+	<!-- contents -->
+	<mx:VBox width="100%" height="100%" horizontalAlign="center"> 
+		
+		<mx:Canvas  cornerRadius="8" width="100%" height="100%" clipContent="true" bottom="0" left="0" horizontalScrollPolicy="off" verticalScrollPolicy="off">
+			
+			<mx:Canvas width="100%" height="100%" clipContent="false">
+				<ctl:ImagePlus source="/graphics/welcome/featured/fancy_collage5.jpg" maxWidth="199" maxHeight="142" horizontalAlign="right" verticalCenter="-10" right="30" rotation="0" borderThickness="2" borderColor="#ffffff" filters="{[_fiDropShad]}"/>
+				<ctl:ImagePlus source="/graphics/welcome/featured/fancy_collage4.jpg" maxWidth="200" maxHeight="142" horizontalAlign="center" verticalCenter="-10" horizontalCenter="0" rotation="2" borderThickness="2" borderColor="#ffffff" filters="{[_fiDropShad]}"/>
+				<ctl:ImagePlus source="/graphics/welcome/featured/fancy_collage3.jpg" maxWidth="200" maxHeight="142" horizontalAlign="left" verticalCenter="-10" left="30" rotation="-2" borderThickness="2" borderColor="#ffffff" filters="{[_fiDropShad]}"/>
+			</mx:Canvas>
+		
+			<mx:Box styleName="barGradientWhite" width="100%" height="{copy.height+6}" bottom="0" left="0" />
+			
+			<mx:VBox bottom="13" right="10" verticalAlign="middle" verticalGap="0" horizontalScrollPolicy="off" verticalScrollPolicy="off">
+				<ctl:ResizingButton label="@Resource(key='getStarted', bundle='FeaturedFeatures')" styleName="basketButton" fontSize="20" height="36" minWidth="160" right="0" verticalCenter="0" click="ProjectsInBridgeBase.OnAdvancedCollageClick(event)" filters="{[_fiGlow]}"/>
+			</mx:VBox>
+						
+			<mx:VBox bottom="4" left="10" right="170" width="100%" verticalGap="0" clipContent="false" horizontalScrollPolicy="off" verticalScrollPolicy="off" id="copy">
+				<ctl:TextPlus text="@Resource(key='fancyCollageIntro', bundle='FeaturedFeatures')" selectable="false" width="100%" styleName="h1Featured" filters="{[_fiWhiteShad]}" leading="-2" paddingBottom="4" paddingTop="1"/>
+				<ctl:TextPlus htmlText="@Resource(key='fancyCollageSubhead', bundle='FeaturedFeatures')" styleName="subheadFeatured" paddingTop="-6" width="100%" paddingRight="10" filters="{[_fiWhiteShad]}"/>
+			</mx:VBox>
+			
+			
+		</mx:Canvas>		
+	</mx:VBox>
+	
+</mx:Canvas>

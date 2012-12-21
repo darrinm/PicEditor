@@ -1,0 +1,25 @@
+<languageVersion: 1.0;>
+kernel ColorQuantization
+<
+    namespace: "popforge::ImageProcessing";
+    vendor: "Joa Ebert";
+    version: 1;
+    description: "...";
+>
+{
+    parameter float3 levels
+    <
+        minValue: float3(0.0,0.0,0.0);
+        maxValue: float3(256.0,256.0,256.0);
+        defaultValue: float3(6.0,6.0,6.0);
+    >;
+    input image3 source;
+    output pixel3 result;
+    
+    void evaluatePixel()
+    {
+        pixel3 color = sampleLinear(source,outCoord());
+        
+        result = color - mod(color, float3(1.0,1.0,1.0) / levels);///float3(512.0,512.0,512.0);;
+    }
+}

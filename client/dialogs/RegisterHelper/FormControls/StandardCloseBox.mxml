@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:HBox xmlns="dialogs.RegisterHelper.*"  
+	xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:ctrl="controls.*" xmlns:cntr="containers.*" 
+	xmlns:ds="com.darronschall.effects.*" xmlns:vld="validators.*" 
+	width="100%" right="0" top="0" horizontalAlign="right" horizontalGap="0">
+	
+	<mx:Script>
+		<![CDATA[
+			[Bindable] public var text:String = "";
+			[Bindable] public var fnClose:Function = null;
+		]]>
+	</mx:Script>
+
+	<ctrl:ImageVer source="@Embed('/assets/bitmaps/reghead_left.png')" width="59" height="27"/>
+	<cntr:ResizingHBox maxWidth="200" backgroundImage="@Embed('/assets/bitmaps/reghead_middle.png')" backgroundSize="100%" height="27" paddingLeft="-8" clipContent="false" id="_hbSignIn">
+		<ctrl:ResizingLabel id="_lbHeadtext" condenseWhite="true" fontSize="12" paddingTop="4" fontWeight="normal" 
+				color="#333333" htmlText="{text.length > 0 ? text : ' '}" selectable="true" autoFontSizeGap="1"/>
+	</cntr:ResizingHBox>
+	<mx:HBox width="26" height="27" backgroundImage="@Embed('/assets/bitmaps/reghead_right.png')" paddingLeft="6" paddingTop="4">
+		<mx:Button click="{fnClose()}" height="16" width="16" icon="@Embed('/theme/pngs/closeIcon.png')" paddingLeft="0"/>
+	</mx:HBox>
+</mx:HBox>		

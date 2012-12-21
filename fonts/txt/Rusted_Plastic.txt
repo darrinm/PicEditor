@@ -1,0 +1,12 @@
+fileName: Rusted_Plastic.ttf
+name: rusted plastic
+subfamilyDisplayName: Normal
+fullName: rusted plastic
+displayName: rusted plastic
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 0
+pkName: pkRusted0Plastic
+authorName: Gyom.Typo
+authorUrl: http://gyom.nebullus.com/

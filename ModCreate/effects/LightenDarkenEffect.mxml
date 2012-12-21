@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PaintOnEffectBase xmlns="effects.*" xmlns:cnt="containers.*" xmlns:ctrl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="189"
+	premium="true" 
+	xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*" urlid="Zombify20">
+<mx:Script>
+	<![CDATA[
+		
+		public override function Select(): Boolean {
+			var fRet:Boolean = super.Select();
+			UpdateCurve();
+			return fRet;
+		}
+		
+		private function GetCurve(nExposure:Number): Array {
+			// Exposure -1 returns the darken curve, exposure +1 returns the lighten curve
+			// Everthing inbetween returns a curve inbetween
+			
+			var aobPoints:Array = [];
+			
+			var aanBase:Array;
+			
+			if (nExposure == 0)
+				aanBase = [[0,0],[255,255]];
+			else if (nExposure < 0)
+				aanBase = aanDarkenCurve;
+			else
+				aanBase = aanLightenCurve;
+			
+			nExposure = Math.abs(nExposure);
+			
+			for each (var anPt:Array in aanBase)
+				aobPoints.push(OffsetPoint(anPt, nExposure));
+			
+			return aobPoints;
+		}
+		
+		private function OffsetPoint(anPt:Array, nFactor:Number): Object {
+			var xPt:Number = anPt[0];
+			var yPt:Number = anPt[1];
+			
+			var nMid:Number = (xPt + yPt) / 2; 
+			// (nMid, nMid) is tangential point on normal line, f(x) = x. 
+			// Move towards or away from this point based on nFactor.
+			
+			return {x:nMid + (xPt - nMid) * nFactor, y:nMid + (yPt - nMid) * nFactor};
+		}
+		
+		private function UpdateCurve(): void {
+			_op.MasterCurve = GetCurve(_sldrExposure.value / 100);
+			OnOpChange(); 
+		}
+	]]>
+</mx:Script>
+	
+	<mx:Array id="_resetValues">
+		<local:StoredValue target="_sldrBrushSize.value"/>
+		<local:StoredValue target="_btnEraser.selected" value="{false}"/>
+	</mx:Array>
+	
+	<!--<ctrl:EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='ZombifyEffect')" strAuthor="@Resource(key='_efbtn_1', bundle='ZombifyEffect')"
+		strImageSource="../graphics/effects/Halloween/zombify.png" premium="{premium}"/>-->
+	<ctrl:EffectButton id="_efbtn" strTitle="Lighten/Darken" strAuthor="@Resource(key='_efbtn_1', bundle='ZombifyEffect')"
+		strImageSource="../graphics/effects/Halloween/zombify.png" premium="{premium}"/>
+		
+	<mx:String id="_strHelpText">{Resource.getString('ZombifyEffect', '_strHelpText')}</mx:String>
+	
+	<mx:VBox x="8" y="70" verticalGap="0">
+		<mx:HBox width="190" paddingBottom="-5" paddingTop="5">
+			<mx:Label text="@Resource(key='strength', bundle='EffectCanvas')" styleName="sliderTitle" width="100"/>
+			<mx:Label text="{Math.round(_sldrExposure.value)}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<ctrl:HSliderPlus width="190" minimum="-200" maximum="200" value="{zeroR + 100}" id="_sldrExposure" change="UpdateCurve()" liveDragging="true" showDataTip="false"/>
+	
+		<mx:HBox width="190" paddingBottom="-5" paddingTop="3">
+			<mx:Label text="{_btnEraser.selected?'Eraser Size':'Brush Size'}" styleName="sliderTitle" width="100"/>
+			<mx:Label text="{_sldrBrushSize.value}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<ctrl:HSliderFastDrag id="_sldrBrushSize" width="190" snapInterval="1" thumbPress="ShowBrushPreview()" thumbDrag="UpdateBrushPreview()" thumbRelease="HideBrushPreview()" 
+			minimum="2" maximum="200" value="45" change="OnOpChange()" showDataTip="false"/>
+
+		<mx:Box width="190" horizontalAlign="center" paddingTop="5" paddingLeft="2">
+			<mx:Button label="@Resource(key='_btnEraser', bundle='ZombifyEffect')" id="_btnEraser" icon="@Embed('/assets/bitmaps/icon_eraser.png')" width="100" height="28"
+				textAlign="left" paddingLeft="20" styleName="applyStyle"
+				click="{_btnEraser.selected?_btnEraser.selected=false:_btnEraser.selected=true}" />
+		</mx:Box>
+
+		<!-- 
+		<mx:Label x="8" y="110" text="Strength" styleName="sliderTitle"/>
+		<mx:Label x="152" y="110" text="{LocUtil.pct((_sldrStrength.value))}" styleName="sliderValue" textAlign="right" width="50"/>
+		<ctrl:HSliderPlus x="9" y="115" width="190"  minimum="1" maximum="100" value="85" id="_sldrStrength" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+		-->
+
+		<ctrl:ApplyCancelEffectButtons addBoxPadding="true" premium="{premium}"/>
+	</mx:VBox>
+	
+	<mx:Number id="_cxyBrush">{_sldrBrushSize.value}</mx:Number>
+
+	
+</PaintOnEffectBase>

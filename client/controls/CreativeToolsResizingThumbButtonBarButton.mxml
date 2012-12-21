@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ResizingThumbButtonBarButton xmlns="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml"
+	iconVisible_3="false" 
+	paddingLeft_3="-4" paddingLeft_4="-16" paddingLeft_5="-19" paddingLeft_6="-22"
+	paddingRight_3="4" paddingRight_4="14" paddingRight_5="17" paddingRight_6="20"
+	>
+<mx:Script>
+	<![CDATA[
+		private var _dobNew:DisplayObject = null;
+		
+		[Embed(source='/assets/bitmaps/newBanner.png')]
+      	private var _clNewBanner:Class;
+
+		public function set showNew(f:Boolean): void {
+			if ((_dobNew != null) == f) return;
+			if (f) {
+				if (_dobNew == null) {
+					_dobNew = new _clNewBanner();
+					_dobNew.x = -1;
+					_dobNew.y = -1;
+					addChild(_dobNew);
+				} else {
+					MoveNewToTheTop();
+				}
+			} else { // do not show new
+			 	if (_dobNew != null) removeChild(_dobNew);
+				_dobNew = null;
+			}
+		}
+		
+		private function MoveNewToTheTop(): void {
+			// Make sure it is on top
+			if (_dobNew != null && getChildAt(numChildren-1) != _dobNew) {
+				removeChild(_dobNew);
+				addChild(_dobNew);
+			}
+			
+		}
+		
+		protected override function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void {
+			super.updateDisplayList(unscaledWidth, unscaledHeight);
+			MoveNewToTheTop();
+		}
+	]]>
+</mx:Script>
+</ResizingThumbButtonBarButton>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Box xmlns="dialogs.Purchase.*" width="850" height="1100" xmlns:mx="http://www.adobe.com/2006/mxml" backgroundColor="0xffffff" xmlns:controls="controls.*">
+	<mx:Script>
+		<![CDATA[
+			import mx.printing.FlexPrintJob;
+			import mx.printing.FlexPrintJobScaleType;
+			
+			import util.CreditCardTransaction;
+			import util.GiftDetails;
+			import util.LocUtil;
+			
+			[Bindable] public var _strGiftCode:String;
+			[Bindable] public var _strMessage:String;
+			
+			public function Print( gift:GiftDetails ): void {
+				// print a card
+				var fpj:FlexPrintJob = new FlexPrintJob();
+				if (fpj.start()) {					
+					_strGiftCode = gift.strGiftCode;
+					_strMessage = gift.strMessage;
+					
+					includeInLayout = true;
+					visible = true;
+					fpj.addObject(this, FlexPrintJobScaleType.SHOW_ALL);
+					fpj.send();
+					includeInLayout = false;
+					visible = false;
+				}								
+			}
+			
+		]]>
+	</mx:Script>
+
+	<mx:VBox width="850" height="1100" verticalGap="0" horizontalGap="0">
+		<mx:HBox horizontalGap="50" width="850" height="550">			
+			<mx:Box width="400" height="550" paddingBottom="10" paddingLeft="10" paddingRight="10" paddingTop="10" horizontalAlign="center">
+				<controls:ImageEx width="100%" height="100%" source="../graphics/card_cover.jpg"/>
+			</mx:Box> 
+			<mx:Box width="400" height="550" horizontalAlign="center">
+				<controls:ImageEx width="100%" height="100%" source="../graphics/card_back.png"/>
+			</mx:Box> 			
+		</mx:HBox>
+		<mx:HBox horizontalGap="50" width="850" height="550">			
+			<mx:VBox height="550" width="400" horizontalAlign="left" verticalAlign="bottom" verticalGap="-5" paddingBottom="10" paddingLeft="10">
+				<mx:Label text="@Resource(key='aboutHead',bundle='CreateGiftTab')" color="#005580" fontSize="14"/>
+				<mx:Text htmlText="@Resource(key='aboutBody',bundle='CreateGiftTab')" fontSize="12" leading="-1" textAlign="left"
+					width="360" condenseWhite="true"/>
+			</mx:VBox>
+			<mx:VBox height="550" width="400" horizontalAlign="center" verticalAlign="middle">
+				<mx:VBox height="550" width="400" horizontalAlign="center" verticalAlign="middle"
+						paddingTop="10" paddingRight="10" paddingBottom="10" paddingLeft="10" verticalGap="-4">
+					<mx:Label text="@Resource(key='welcome',bundle='CreateGiftTab')" color="#005580" fontSize="30" paddingBottom="5"/>
+					<mx:Text text="{_strMessage}" fontSize="20" leading="-1" textAlign="center" width="100%" maxHeight="230"/>
+					<mx:Spacer height="30"/>
+					<mx:HRule strokeColor="#b3b3b3" strokeWidth="1" width="80%"/>
+					<mx:Label text="@Resource(key='codeHere',bundle='CreateGiftTab')" fontSize="13" paddingTop="25"/>
+					<mx:Label text="{_strGiftCode}" color="#618430" fontSize="30"/>
+					<mx:Label text="@Resource(key='visitThisUrl',bundle='CreateGiftTab')" fontSize="13" paddingTop="15"/>
+					<mx:Label text="www.mywebsite.com/go/gift" color="#618430" fontSize="20"/>
+				</mx:VBox>
+			</mx:VBox>
+		</mx:HBox>
+	</mx:VBox>
+</mx:Box>

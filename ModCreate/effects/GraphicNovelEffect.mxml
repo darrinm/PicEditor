@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cnt:EffectCanvas xmlns:cnt="containers.*" xmlns="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="156"
+	xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*" premium="{PicnikBase.GetApp().freemiumModel}" urlid="GraphicNovel">
+	<mx:Script>
+		import util.LocUtil;
+		import mx.resources.ResourceBundle;
+   		[Bindable] [ResourceBundle("GraphicNovelEffect")] private var rb:ResourceBundle;
+	</mx:Script>
+
+
+	<mx:Array id="_resetValues">
+		<local:StoredValue target="_sldrBrightness.value"/>
+	</mx:Array>
+	
+	<EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='GraphicNovelEffect')" strAuthor="@Resource(key='_efbtn_1', bundle='GraphicNovelEffect')"
+		strImageSource="../graphics/effects/graphic_novel.png" premium="{premium}"
+		booleanAdmin="true"/>
+	<mx:String id="_strHelpText">{Resource.getString('GraphicNovelEffect', '_strHelpText')}</mx:String>
+	
+	<mx:VBox x="8" y="70" verticalGap="0">
+		<mx:HBox width="190" paddingBottom="-5" paddingTop="3">
+			<mx:Label text="@Resource(key='Label_1', bundle='GraphicNovelEffect')" styleName="sliderTitle"/>
+			<mx:Label text="{LocUtil.pct((_sldrBrightness.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<HSliderPlus width="190" minimum="-30" maximum="30" value="10" id="_sldrBrightness" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+
+		<ApplyCancelEffectButtons addBoxPadding="true" premium="{premium}"/>
+	</mx:VBox>
+	
+	<imageOperations:NestedImageOperation id="_op" BlendAlpha=".5">
+		<imageOperations:children>
+			<imageOperations:BWImageOperation />
+			<imageOperations:BlurImageOperation quality="3" xblur="1.1" yblur="1.1"/>
+			<imageOperations:AdjustCurvesImageOperation MasterCurve="{[{x:120-_sldrBrightness.value, y:0}, {x:135-_sldrBrightness.value, y:255}]}"/>
+		</imageOperations:children>
+	</imageOperations:NestedImageOperation>
+
+</cnt:EffectCanvas>

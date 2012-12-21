@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml"
+		 showEffect="{_efFadeIn}" hideEffect="{_efFadeOut}"
+		 width="100%" verticalGap="5" verticalScrollPolicy="off" horizontalScrollPolicy="off" xmlns:controls="controls.*">
+	<mx:Metadata>
+		[Event(name="buttonClick", type="flash.events.Event")]
+		[Event(name="secondButtonClick", type="flash.events.Event")]
+	</mx:Metadata>
+	<mx:Script>
+		<![CDATA[
+			private function RelayClick(evt:MouseEvent): void {
+				dispatchEvent(new Event("buttonClick"));
+			}
+			private function RelaySecondButtonClick(evt:MouseEvent): void {
+				dispatchEvent(new Event("secondButtonClick"));
+			}
+		]]>
+	</mx:Script>
+	<mx:Style>
+		.petersRevenge2 {
+			border-style: solid;
+			border-thickness: 0;
+			corner-radius: 8;
+			border-skin: ClassReference("skins.GradientBackground");
+			gradient-fill-colors: #ffffff, #b2e5ff;
+			gradient-fill-alphas: .4,.1;
+			gradient-fill-ratios: 0,255;
+			gradient-fixed-size: 45;
+			gradient-rotation: 90;
+			drop-shadow-color: #005580;
+			drop-shadow-blur-x: 2;
+			drop-shadow-blur-y: 2;
+			drop-shadow-distance: 1;
+			drop-shadow-alpha: 0.4;
+			drop-shadow-quality: 3;
+			drop-shadow-angle: 90;
+			drop-shadow-strength: 1;
+		}
+	</mx:Style>
+	<mx:String id="header"></mx:String>
+	<mx:String id="bodyHtmlText"/>
+	<mx:String id="buttonLabel"/>
+	<mx:String id="secondHtmlText"/>
+	<mx:String id="secondButtonLabel"/>
+	<mx:Boolean id="showHeader">{header.length > 0}</mx:Boolean>
+	<mx:Boolean id="showSecondBlock">{secondButtonLabel.length > 0 || secondHtmlText.length > 0}</mx:Boolean>
+	<mx:Boolean id="buttonEnabled">true</mx:Boolean>
+	<mx:DropShadowFilter blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1" quality="3" angle="90" id="_fiWhiteShad"/>
+	<mx:DropShadowFilter id="_fiModuleShadow" blurX="2" blurY="2" distance="1" color="#005580" alpha=".4" quality="3" angle="90" knockout="true"/>
+	<mx:Fade alphaFrom="0" alphaTo="1" duration="500" id="_efFadeIn" />
+	<mx:Fade alphaFrom="1" alphaTo="0" duration="500" id="_efFadeOut" />
+
+	<mx:Label text="{header}" fontWeight="bold" fontSize="18" horizontalCenter="0" color="#005580" paddingBottom="-5" paddingTop="20" filters="{[_fiWhiteShad]}"
+			  visible="{showHeader}" includeInLayout="{showHeader}"/>
+	<mx:VBox width="100%" styleName="petersRevenge2" paddingBottom="10" paddingLeft="10" paddingRight="10" paddingTop="10" horizontalScrollPolicy="off">
+		<mx:HBox verticalAlign="middle" width="100%">
+			<mx:Text htmlText="{bodyHtmlText}" fontSize="15" fontWeight="bold" paddingTop="2" color="#4d99bf" width="400" filters="{[_fiWhiteShad]}"/>	
+			<mx:Spacer width="100%"/>
+			<controls:ResizingButton label="{buttonLabel}" height="24" click="RelayClick(event)" enabled="{buttonEnabled}"/>
+		</mx:HBox>
+		<mx:HRule width="100%" strokeColor="#005580" alpha="0.2" 
+				  visible="{showSecondBlock}" includeInLayout="{showSecondBlock}"/>
+		<mx:HBox width="100%" visible="{showSecondBlock}" includeInLayout="{showSecondBlock}">
+			<mx:Text htmlText="{secondHtmlText}" fontSize="15" fontWeight="bold" paddingTop="2" color="#4d99bf" width="400" filters="{[_fiWhiteShad]}"/>	
+			<mx:Spacer width="100%"/>
+			<controls:ResizingButton label="{secondButtonLabel}" height="24" click="RelaySecondButtonClick(event)" />															
+		</mx:HBox>
+	</mx:VBox>
+
+</mx:VBox>

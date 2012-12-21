@@ -1,0 +1,23 @@
+/*
+ * Copyright 2011 Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an Apache 2.0 License.
+ * See the COPYING file for details.
+ */
+
+
+@font-face {
+    src:local("brand new burn");
+    font-family: "pkbrand0new0burn";
+    unicodeRange: U+0000-U+00FF;
+    flashType: true;
+    fontWeight: normal;
+    fontStyle: normal;
+}
+
+.pkbrand0new0burn
+{
+    font-family: "pkbrand0new0burn";
+    fontWeight: normal;
+    fontStyle: normal;
+}

@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/valentines_tattoos.png" flickrPremium="true" id="heartTattoos" numShapes="8" picnikPremium="true" previewUrls="60|48|../clipart/bundles/ValentinesArea_groupPreviews_heartTattoos.png?ver=5142cfc7" title="Heart Tattoos">
+	<Shapes>
+		<Clipart alpha="0.6" blendMode="multiply" cHeight="160" cWidth="339" flickrPremium="true" isVector="true" picnikPremium="true" previewUrl="40|40|0|../clipart/bundles/ValentinesArea_shapes_heartTattoos.png?ver=7d3ef589" url="shapes/HeartTattoo/HeartTat01.swf"/>
+		<Clipart alpha="0.6" blendMode="multiply" cHeight="148.35" cWidth="220.8" flickrPremium="true" isVector="true" picnikPremium="true" previewUrl="40|40|1|../clipart/bundles/ValentinesArea_shapes_heartTattoos.png?ver=7d3ef589" url="shapes/HeartTattoo/HeartTat02.swf"/>
+		<Clipart alpha="0.6" blendMode="multiply" cHeight="173.70000000000002" cWidth="221.85" flickrPremium="true" isVector="true" picnikPremium="true" previewUrl="40|40|2|../clipart/bundles/ValentinesArea_shapes_heartTattoos.png?ver=7d3ef589" url="shapes/HeartTattoo/HeartTat03.swf"/>
+		<Clipart alpha="0.6" blendMode="multiply" cHeight="165.2" cWidth="216.5" flickrPremium="true" isVector="true" picnikPremium="true" previewUrl="40|40|3|../clipart/bundles/ValentinesArea_shapes_heartTattoos.png?ver=7d3ef589" url="shapes/HeartTattoo/HeartTat04.swf"/>
+		<Clipart alpha="0.6" blendMode="multiply" cHeight="166.9" cWidth="228.05" flickrPremium="true" isVector="true" picnikPremium="true" previewUrl="40|40|4|../clipart/bundles/ValentinesArea_shapes_heartTattoos.png?ver=7d3ef589" url="shapes/HeartTattoo/HeartTat05.swf"/>
+		<Clipart alpha="0.6" blendMode="multiply" cHeight="120.8" cWidth="286.75" flickrPremium="true" isVector="true" picnikPremium="true" previewUrl="40|40|5|../clipart/bundles/ValentinesArea_shapes_heartTattoos.png?ver=7d3ef589" url="shapes/HeartTattoo/HeartTat06.swf"/>
+		<Clipart alpha="0.6" blendMode="multiply" cHeight="160.5" cWidth="179.45" flickrPremium="true" isVector="true" picnikPremium="true" previewUrl="40|40|6|../clipart/bundles/ValentinesArea_shapes_heartTattoos.png?ver=7d3ef589" url="shapes/HeartTattoo/HeartTat07.swf"/>
+		<Clipart alpha="0.6" blendMode="multiply" cHeight="166.9" cWidth="120.25" flickrPremium="true" isVector="true" picnikPremium="true" previewUrl="40|40|7|../clipart/bundles/ValentinesArea_shapes_heartTattoos.png?ver=7d3ef589" url="shapes/HeartTattoo/HeartTat08.swf"/>
+	</Shapes>
+</ShapeCategory>

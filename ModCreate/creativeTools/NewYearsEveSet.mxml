@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<controls:EffectSetBase xmlns="*" xmlns:ct="creativeTools.*" xmlns:mx="http://www.adobe.com/2006/mxml" 
+		xmlns:eff="effects.*" xmlns:filters="flash.filters.*" xmlns:ctr="containers.*"
+		xmlns:controls="controls.*">
+	<mx:Style>
+		.promoTextBG {
+		   border-style: solid;
+		   border-thickness: 0;
+		   border-skin: ClassReference("skins.GradientBackground");
+		   gradient-fill-colors: #0e2451, #050d1d;
+		   gradient-fill-alphas: .8,.8;
+		   gradient-fill-ratios: 0,255;
+		   gradient-rotation: 90;
+		}
+	</mx:Style>
+	
+	<!-- this expands and collapses -->
+	<controls:ExpandingVBox id="_evbx1" expanded="{expanded}" width="100%" verticalGap="0" verticalScrollPolicy="off">
+		<mx:Spacer height="{_hsh.height}" />
+			<mx:Canvas height="{expanded?NaN:0}" width="100%" verticalScrollPolicy="off" horizontalScrollPolicy="off">		
+				<mx:VBox verticalGap="0" width="100%">
+			
+					<mx:HBox backgroundImage="{PicnikBase.StaticUrl('../graphics/holiday/bg_NewYearsEve.jpg')}" verticalAlign="middle" id="_hbxNewYearsEve"
+								borderSides="bottom" borderStyle="solid" borderColor="#d1d1d1" width="210" height="30" paddingTop="1">
+							<mx:Label text="@Resource(key='newYears', bundle='Seasonal')" color="#ffffff" filters="{[_fiHeadShad]}" fontSize="17" paddingLeft="8"/>
+					</mx:HBox>
+						<eff:ConfettiFrameEffect tags="frame,seasonal"/>
+						<controls:ShapeArea imgd="{_imgd}" imgv="{_imgv}" area="NewYears" verticalScrollPolicy="off" ignoreErrors="true" width="210"/>
+				</mx:VBox>
+			
+			
+			<controls:ImageVer id="_imgNewYearsEveIcon" right="1" y="0"
+			includeInLayout="false"
+			source="../graphics/holiday/icon_newyears.png" mouseEnabled="false" mouseChildren="false"/>
+		
+		</mx:Canvas>
+	</controls:ExpandingVBox>
+	
+	
+	
+	<!-- Holiday header -->
+	<controls:EffectSetHeader id="_hsh" expanded="{_evbx1.expanded}" click="_evbx1.ToggleExpanded()" x="0" y="0"
+		headText="@Resource(key='NYEHeader', bundle='Seasonal')"
+		subHeadText="@Resource(key='NYESubhead', bundle='Seasonal')" 
+		/>
+					
+</controls:EffectSetBase>

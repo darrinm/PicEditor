@@ -1,0 +1,558 @@
+<?xml version="1.0" encoding="utf-8"?>
+<purchase:CCBoxBase xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:controls="controls.*" xmlns:purchase="dialogs.Purchase.*"
+	xmlns:vld="validators.*" xmlns:ds="com.darronschall.effects.*" xmlns:flash.filters="flash.filters.*" xmlns:bkctr="containers.*" 
+	width="100%" height="100%" paddingLeft="0" paddingRight="5" verticalGap="0" horizontalAlign="center"
+	xmlns:Purchase="dialogs.Purchase.*" xmlns:RegisterHelper="dialogs.RegisterHelper.*"
+	showVerificationHelp="{_btnInfo.selected}"
+	>
+<mx:Script>
+	<![CDATA[
+		import mx.resources.ResourceBundle;
+		
+		import util.CreditCardTransaction;
+		[Bindable] [ResourceBundle("PremiumTour")] private var rb:ResourceBundle; // Make sure this is linked
+		import mx.validators.CreditCardValidatorCardType;
+		import util.LocUtil;
+		import mx.effects.easing.*;
+		import picnik.util.LocaleInfo;
+		
+		protected function DateInThePast(n1:Number, n2:Number): Boolean {
+			if (_cmboMonth == null || _cmboYear == null || _cmboMonth.selectedItem == null || _cmboYear.selectedItem == null) 
+				return false; // Not in the past if we aren't ready yet
+			try {
+				var nYear:Number = int(_cmboYear.selectedItem.data);
+				var nMonth:Number = int(_cmboMonth.selectedItem.data);
+				var dtNow:Date = new Date();
+				var dtSelected:Date = new Date(nYear, nMonth); 
+				if (dtNow.fullYear > dtSelected.fullYear)
+					return true; // Users should not be able to select this
+				if (dtNow.fullYear == dtSelected.fullYear && dtNow.month > dtSelected.month)
+					return true; // Selected a month in the past
+			} catch (e:Error) {
+				// Ignore error
+			}
+			return false;
+		}
+		
+		private function durationString(): String {
+			var nDuration:int = CreditCardTransaction.GetDurationFromSkuId(subscriptionSkuId);
+			if (nDuration == CreditCardTransaction.knOneMonth) {
+				return Resource.getString('PurchaseDialog', 'oneMonth');
+			} else if (nDuration == CreditCardTransaction.knSixMonths) {
+				return Resource.getString('PurchaseDialog', 'sixMonths');
+			}	
+			return Resource.getString('PurchaseDialog', 'twelveMonths');
+		}
+		
+		private function renewalDateString(): String {
+			return LocUtil.mediumDate(AccountMgr.GetInstance().dateSubscriptionExpires);
+		}
+	]]>
+</mx:Script>
+	
+	<mx:String id="_strSuccessFeedbackMessage">{Resource.getString('OrderTab', '_strSuccessFeedbackMessage')}</mx:String>
+	<mx:Boolean id="fGoogleAccount">{AccountMgr.GetInstance().hasGoogleCredentials}</mx:Boolean>
+	<mx:Boolean id="fCreditCardIsPlausible">{
+		_tiName.text.length > 0 &amp;&amp; _tiName.errorString.length == 0 &amp;&amp;
+		_tiCardNumber.text.length > 0 &amp;&amp; _tiCardNumber.errorString.length == 0 &amp;&amp;
+		_tiEmail.text.length > 0 &amp;&amp; _tiEmail.errorString.length == 0 &amp;&amp;
+		(!_fCollectState || _tiState.text.length > 0 &amp;&amp; _tiState.errorString.length == 0) &amp;&amp;
+		(!_fCollectZip || _tiZip.text.length > 0 &amp;&amp; _tiZip.errorString.length == 0)  &amp;&amp;
+		_tiCardVerification.text.length > 0 &amp;&amp; _tiCardVerification.errorString.length == 0
+	}</mx:Boolean>
+	<mx:ArrayCollection id="_acCountries">
+		<mx:Object label="{Resource.getString('OrderTab', 'Object_7')}" data="ar"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Afghanistan')}"                  data="af"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Albania')}"                      data="al"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Algeria')}"                      data="dz"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'AmericanSamoa')}"                data="as"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Andorra')}"                      data="ad"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Angola')}"                       data="ao"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Anguilla')}"                     data="ai"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'AntiguaAndBarbuda')}"            data="ag"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Armenia')}"                      data="am"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Aruba')}"                        data="aw"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Object_8')}" data="au"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Object_9')}" data="at"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Azerbaijan')}"                   data="az"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'TheBahamas')}"                   data="bs"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Bahrain')}"                      data="bh"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Bangladesh')}"                   data="bd"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Barbados')}"                     data="bb"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Belarus')}"                      data="by"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Object_10')}" data="be"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Belize')}"                       data="bz"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Benin')}"                        data="bj"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Bermuda')}"                      data="bm"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Bhutan')}"                       data="bt"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Bolivia')}"                      data="bo"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'BosniaAndHerzegovina')}"         data="ba"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Botswana')}"                     data="bw"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Object_11')}" data="br"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'BruneiDarussalam')}"             data="bn"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Bulgaria')}"                     data="bg"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'BurkinaFaso')}"                  data="bf"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Burundi')}"                      data="bi"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Cambodia')}"                     data="kh"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Cameroon')}"                     data="cm"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Object_6')}" data="ca"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'CapeVerde')}"                    data="cv"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'CaymanIslands')}"                data="ky"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'CentralAfricanRepublic')}"       data="cf"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Chad')}"                         data="td"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Object_13')}" data="cl"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Object_14')}" data="cn"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Colombia')}" data="co"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Comoros')}"                      data="km"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'CookIslands')}"                  data="ck"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'CostaRica')}"                    data="cr"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'CoteDIvoire')}"                  data="ci"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Croatia')}" data="hr"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Cyprus')}"                       data="cy"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'CzechRepublic')}" data="cz"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Object_15')}" data="dk"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Djibouti')}"                     data="dj"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Dominica')}"                     data="dm"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'DominicanRepublic')}" data="do"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Ecuador')}"                      data="ec"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Egypt')}"                        data="eg"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'ElSalvador')}" data="sv"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'EquatorialGuinea')}"             data="gq"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Eritrea')}"                      data="er"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Estonia')}" data="ee"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Ethiopia')}"                     data="et"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'FaroeIslands')}"                 data="fo"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Fiji')}"                         data="fj"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Object_16')}" data="fi"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Object_17')}" data="fr"/> 
+		<mx:Object label="{Resource.getString('OrderTab', 'FrenchGuiana')}"                 data="gf"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'FrenchPolynesia')}"              data="pf"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Gabon')}"                        data="ga"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'TheGambia')}"                    data="gm"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Georgia')}"                      data="ge"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Object_18')}" data="de"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Ghana')}"                        data="gh"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Gibraltar')}"                    data="gi"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Greece')}"                       data="gr"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Greenland')}"                    data="gl"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Grenada')}"                      data="gd"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Guam')}"                         data="gu"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Guatemala')}"                    data="gt"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Guinea')}"                       data="gn"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'GuineaBissau')}"                 data="gw"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Guyana')}"                       data="gy"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Haiti')}"                        data="ht"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'HolySee')}"                      data="va"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Honduras')}"                     data="hn"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Object_19')}" data="hk"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Hungary')}" data="hu"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Iceland')}" data="is"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Object_20')}" data="in"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Indonesia')}" data="id"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Iran')}"                         data="ir"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Iraq')}"                         data="iq"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Ireland')}" data="ie"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Object_21')}" data="il"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Object_22')}" data="it"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Object_23')}" data="jm"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Object_24')}" data="jp"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Jordan')}"                       data="jo"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Kazakhstan')}"                   data="kz"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Kenya')}"                        data="ke"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Kiribati')}"                     data="ki"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Object_25')}" data="kr"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Kuwait')}"                       data="kw"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Kyrgyzstan')}"                   data="kg"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Laos')}"                         data="la"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Latvia')}" data="lv"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Lebanon')}"                      data="lb"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Lesotho')}"                      data="ls"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Liberia')}"                      data="lr"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'LibyanArabJamahiriya')}"         data="ly"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Liechtenstein')}"                data="li"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Object_26')}" data="lt"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Luxembourg')}" data="lu"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Macau')}"                        data="mo"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Macedonia')}"                    data="mk"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Madagascar')}"                   data="mg"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Malawi')}"                       data="mw"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Malaysia')}" data="my"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Maldives')}"                     data="mv"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Mali')}"                         data="ml"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Malta')}" data="mt"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'MarshallIslands')}"              data="mh"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Mauritania')}"                   data="mr"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Mauritius')}"                    data="mu"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Mayotte')}"                      data="yt"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Object_27')}" data="mx"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'FederatedStatesOfMicronesia')}"  data="fm"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'RepublicOfMoldova')}"            data="md"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Monaco')}"                       data="mc"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Mongolia')}"                     data="mn"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Montenegro')}"                   data="me"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Montserrat')}"                   data="ms"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Morocco')}"                      data="ma"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Mozambique')}"                   data="mz"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Namibia')}"                      data="na"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Nauru')}"                        data="nr"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Nepal')}"                        data="np"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'NetherlandsAntilles')}"          data="an"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Object_29')}" data="nl"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'NewCaledonia')}"                 data="nc"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Object_28')}" data="nz"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Nicaragua')}"                    data="ni"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Niger')}"                        data="ne"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Nigeria')}"                      data="ng"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Niue')}"                         data="nu"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Object_30')}" data="no"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Oman')}"                         data="om"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Pakistan')}"                     data="pk"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Palau')}"                        data="pw"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Panama')}"                       data="pa"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'PapuaNewGuinea')}"               data="pg"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Paraguay')}"                     data="py"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Peru')}" data="pe"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Object_31')}" data="ph"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Poland')}" data="pl"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Object_32')}" data="pt"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Object_33')}" data="pr"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Qatar')}"                        data="qa"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Romania')}"                      data="ro"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Object_34')}" data="ru"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Rwanda')}"                       data="rw"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'SaintHelena')}"                  data="sh"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'SaintKittsAndNevis')}"           data="kn"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'SaintLucia')}"                   data="lc"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'SaintPierreAndMiquelon')}"       data="pm"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'SaintVincentAndTheGrenadines')}" data="vc"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Samoa')}"                        data="ws"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'SanMarino')}"                    data="sm"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'SaoTomeAndPrincipe')}"           data="st"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'SaudiArabia')}"                  data="sa"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Senegal')}"                      data="sn"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Serbia')}"                       data="rs"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Seychelles')}"                   data="sc"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'SierraLeone')}"                  data="sl"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Object_35')}" data="sg"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Slovakia')}" data="sk"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Slovenia')}"                     data="si"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'SolomonIslands')}"               data="sb"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Somalia')}"                      data="so"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'South_Africa')}" data="za"/>								
+		<mx:Object label="{Resource.getString('OrderTab', 'Object_36')}" data="es"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'SriLanka')}"                     data="lk"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Sudan')}"                        data="sd"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Suriname')}"                     data="sr"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Swaziland')}"                    data="sz"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Object_37')}" data="se"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Object_38')}" data="ch"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Object_39')}" data="tw"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Tajikistan')}"                   data="tj"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Tanzania')}"                     data="tz"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Thailand')}" data="th"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Togo')}"                         data="tg"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Tokelau')}"                      data="tk"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Tonga')}"                        data="to"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'TrinidadAndTobago')}"            data="tt"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Tunisia')}"                      data="tn"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Turkey')}"                       data="tr"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Turkmenistan')}"                 data="tm"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'TurksAndCaicosIslands')}"        data="tc"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Tuvalu')}"                       data="tv"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Uganda')}"                       data="ug"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Ukraine')}"                      data="ua"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'UAE')}" data="ae"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Object_40')}" data="gb"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Object_5')}" data="us"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Uruguay')}"                      data="uy"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Uzbekistan')}"                   data="uz"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Vanuatu')}"                      data="vu"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Venezuela')}" data="ve"/>									
+		<mx:Object label="{Resource.getString('OrderTab', 'Vietnam')}" data="vn"/>		
+		<mx:Object label="{Resource.getString('OrderTab', 'BritishVirginIslands')}"         data="vg"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'USVirginIslands')}"              data="vi"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'WesternSahara')}"                data="eh"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Yemen')}"                        data="ye"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Zambia')}"                       data="zm"/>
+		<mx:Object label="{Resource.getString('OrderTab', 'Zimbabwe')}"                     data="zw"/>
+	</mx:ArrayCollection>
+	
+	<RegisterHelper:DataModel id="_dtmFormFields">
+		<RegisterHelper:DataField name="creditcard" validator="{_vldCC}"/>
+		<RegisterHelper:DataField name="cv2" validator="{_vldCV2}"/>
+		<RegisterHelper:DataField name="name" validator="{_vldName}"/>
+		<RegisterHelper:DataField name="email" validator="{_vldEmail}"/>
+		<RegisterHelper:DataField name="city" />
+		<RegisterHelper:DataField name="state" validator="{_vldState}"/>
+		<RegisterHelper:DataField name="zip" validator="{_vldZip}"/>
+		<RegisterHelper:DataField name="creditcard_expire_month" source="{_cmboMonth}" def_value="0"/>
+		<RegisterHelper:DataField name="creditcard_expire_year" source="{_cmboYear}" def_value="0"/>
+		<RegisterHelper:DataField name="creditcard_type" source="{_tiCardType}" def_value="{PicnikCreditCardValidator.ANY}"/>
+	</RegisterHelper:DataModel>
+	    		
+    <vld:PicnikCreditCardValidator id="_vldCC" 
+			cardTypeSource="{_tiCardType}" cardTypeProperty="text"
+			cardTypeListener="{_tiCardType}"								   
+			cardNumberSource="{_tiCardNumber}" cardNumberProperty="text"
+			cardNumberListener="{_tiCardNumber}"
+			required="true"
+			source = "{_tiCardNumber}">
+		<vld:requiredFieldError>{Resource.getString('PurchaseDialog', 'required')}</vld:requiredFieldError>
+        <vld:wrongLengthError>{Resource.getString('OrderTab', '_vldCC_1')}</vld:wrongLengthError>
+        <vld:invalidNumberError>{Resource.getString('OrderTab', '_vldCC_2')}</vld:invalidNumberError>
+	</vld:PicnikCreditCardValidator>
+    <vld:PicnikZipCodeValidator id="_vldZip" USOrCanda="{_fValidateZip}" source="{_tiZip}" property="text" domain="US or Canada" required="{_fCollectZip}" enabled="{_fCollectZip}">
+       	<vld:requiredFieldError>{Resource.getString('PurchaseDialog', 'required')}</vld:requiredFieldError>
+    </vld:PicnikZipCodeValidator>
+    <vld:PicnikStringValidator id="_vldName" source="{_tiName}" property="text" minLength="2" required="true">
+    	<vld:requiredFieldError>{Resource.getString('PurchaseDialog', 'required')}</vld:requiredFieldError>
+    	<vld:tooShortError>{LocUtil.rbSubst('OrderTab','_vldName_1',3)}</vld:tooShortError>
+    </vld:PicnikStringValidator>
+	<vld:PicnikStringValidator id="_vldCV2" source="{_tiCardVerification}" property="text" minLength="3" required="true">
+		<vld:requiredFieldError>{Resource.getString('OrderTab', '_vldCC')}</vld:requiredFieldError>
+    	<vld:tooShortError>{LocUtil.rbSubst('OrderTab','_vldName_1',3)}</vld:tooShortError>
+	</vld:PicnikStringValidator>
+	<vld:PicnikEmailValidator id="_vldEmail" source="{_tiEmail}" property="text" required="true">
+		<vld:requiredFieldError>{Resource.getString('PurchaseDialog', 'required')}</vld:requiredFieldError>
+		<vld:missingAtSignError>{Resource.getString('PurchaseDialog', 'invalid')}</vld:missingAtSignError>
+		<vld:missingPeriodInDomainError>{Resource.getString('PurchaseDialog', 'invalid')}</vld:missingPeriodInDomainError>
+		<vld:invalidDomainError>{Resource.getString('PurchaseDialog', 'invalid')}</vld:invalidDomainError>
+	</vld:PicnikEmailValidator>
+	<vld:PicnikStringValidator id="_vldState" source="{_tiState}" property="text" minLength="{2}" required="{_fCollectState}" enabled="{_fCollectState}">
+		<vld:requiredFieldError>{Resource.getString('OrderTab', '_vldCC')}</vld:requiredFieldError>
+    	<vld:tooShortError>{LocUtil.rbSubst('OrderTab','_vldName_1',2)}</vld:tooShortError>
+	</vld:PicnikStringValidator>
+	
+	<mx:Fade alphaFrom="0" alphaTo="1" duration="500" id="_efFadeIn" />
+	<mx:Fade alphaFrom="1" alphaTo="0" duration="500" id="_efFadeOut" />
+	<mx:Fade alphaFrom="0" alphaTo=".75" duration="300" id="_efQuarterFadeIn" />
+	<mx:Fade alphaFrom=".75" alphaTo="0" duration="150" id="_efQuarterFadeOut" />
+
+	<mx:Sequence id="_effError">
+		<mx:Parallel duration="200">
+			<mx:Glow alphaFrom="0" alphaTo=".4" blurXFrom="0" blurYFrom="0" blurXTo="8" blurYTo="8" color="#CC0000"/>
+		</mx:Parallel>
+		<mx:Pause duration="100"/>
+		<mx:Parallel duration="400">
+			<mx:Glow alphaFrom=".4" alphaTo="0" blurXFrom="8" blurYFrom="8" blurXTo="0" blurYTo="0" color="#CC0000"/>
+		</mx:Parallel>
+	</mx:Sequence>
+
+	<flash.filters:DropShadowFilter blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1"
+		quality="3" angle="90" id="_fiWhiteShad"/>
+	<mx:DropShadowFilter id="_fiEmboss" blurX="1" blurY="1" distance="1" color="#000000" alpha=".35" quality="3" angle="-90"/>
+
+	<!-- this vbox handles scrolling -->
+	<mx:VBox width="100%" height="100%" minHeight="125" verticalGap="0" paddingTop="14" paddingBottom="10" paddingLeft="0" paddingRight="15" 
+			horizontalScrollPolicy="off" verticalScrollPolicy="auto" verticalScrollBarStyleName="clearVScrollBar">
+
+		<!-- Generic Problem Box Canvas -->
+		<bkctr:BrokenBoxCanvas width="100%" lineColor="#CC0000" lineAlpha="{_lblGenericError.text.length>0?1:0}" 
+				breakPadding="3" rightBoxPadding="4" leftBoxPadding="23" bottomBoxPadding="-5" verticalScrollPolicy="off" horizontalScrollPolicy="off">
+			<!-- Generic error message -->
+			<mx:VBox id="_vboxGenericError" verticalAlign="middle" horizontalAlign="center" horizontalScrollPolicy="off" verticalScrollPolicy="off"
+					 visible="{_lblGenericError.text.length>0}" maxWidth="{(this.width-120)}"
+					 horizontalGap="0" horizontalCenter="10" height="40" verticalGap="-2">
+				<controls:ResizingLabel id="_lblGenericError" width="100%" maxWidth="{(this.width-120)}" 
+									   textAlign="center" styleName="publishForm"
+									   paddingBottom="-3" autoFontSizeGap="1" color="#CC0000" filters="{[_fiWhiteShad]}" paddingRight="-1"/>
+				<controls:ResizingLabel id="_lblGenericError2" width="100%" maxWidth="{(this.width-120)}" 
+									   textAlign="center" styleName="publishForm" fontSize="13" fontWeight="normal"
+									   visible="{_lblGenericError2.text.length > 0}" includeInLayout="{_lblGenericError2.text.length > 0}"
+									   paddingBottom="-3" autoFontSizeGap="1" color="#CC0000" filters="{[_fiWhiteShad]}" paddingRight="-1"/>
+			</mx:VBox>
+
+			<mx:VBox width="100%" verticalGap="0" paddingLeft="40" verticalScrollPolicy="off" horizontalScrollPolicy="off">
+				<mx:Spacer height="{_lblGenericError.text.length>0 ? 33 : 0}"/>
+
+				<!-- name / telephone -->
+				<mx:HBox horizontalGap="50">
+					
+					<!-- name on card -->
+					<mx:VBox verticalGap="0" paddingTop="10" width="250">
+						<bkctr:ResizingHBox width="250" verticalAlign="bottom" horizontalGap="10">
+							<controls:ResizingLabel text="@Resource(key='Label_7', bundle='OrderTab')" width="115" styleName="publishForm"
+													paddingBottom="-4" autoFontSizeGap="1" color="{_tiName.errorString?0xCC0000:0x333333}" filters="{[_fiWhiteShad]}"/>
+							<mx:Canvas width="125">
+								<purchase:CCBoxErrorLabel text="@Resource(bundle='PurchaseDialog', key='required')" control="{_tiName}"/>
+								<purchase:CCBoxErrorLabel text="@Resource(bundle='PurchaseDialog', key='_vldName_1')" control="{_tiName}"/>
+							</mx:Canvas>							
+						</bkctr:ResizingHBox>
+						<controls:NoTipTextInput id="_tiName" height="26" styleName="publishFormField" maxChars="48" width="100%" 
+												 change="_tiName.errorString=null"
+												 enter="Validate()" backgroundImage="{PicnikBase.StaticUrl(_tiName.errorString?'/graphics/errorStripes.png':'')}"/>
+					</mx:VBox>
+					
+					<!-- email address -->
+					<mx:VBox verticalGap="0" width="250" paddingTop="10">
+						<bkctr:ResizingHBox width="250" verticalAlign="bottom" horizontalGap="10">
+							<controls:ResizingLabel text="@Resource(key='emailForReceipt', bundle='OrderTab')" width="150" styleName="publishForm"
+													paddingBottom="-4" autoFontSizeGap="1" color="{_tiEmail.errorString?0xCC0000:0x333333}" filters="{[_fiWhiteShad]}"/>
+							<mx:Canvas width="90">
+								<purchase:CCBoxErrorLabel text="@Resource(bundle='PurchaseDialog', key='required')" control="{_tiEmail}" width="90"/>
+								<purchase:CCBoxErrorLabel text="@Resource(bundle='PurchaseDialog', key='invalid')" control="{_tiEmail}" width="90"/>
+							</mx:Canvas>							
+						</bkctr:ResizingHBox>
+						<controls:NoTipTextInput id="_tiEmail" height="26" styleName="publishFormField" width="250" maxChars="255" visible="{!fGoogleAccount}" includeInLayout="{!fGoogleAccount}" enabled="{!fGoogleAccount}"
+												 enter="Validate()" text="{AccountMgr.GetInstance().email}" 
+												 change="_tiEmail.errorString=null"
+												 backgroundImage="{PicnikBase.StaticUrl(_tiEmail.errorString?'/graphics/errorStripes.png':'')}"/>
+						<mx:Label text="{AccountMgr.GetInstance().email}" visible="{fGoogleAccount}" includeInLayout="{fGoogleAccount}"/>
+					</mx:VBox>
+				</mx:HBox>
+				
+				<!-- credit card box -->
+				<mx:VBox width="100%" paddingTop="10">
+					<!-- card details -->
+					<mx:HBox horizontalGap="40" width="100%">
+
+						<!-- card number   -->
+						<mx:VBox verticalGap="0" paddingRight="10" width="260">
+							<mx:HBox width="250" verticalAlign="bottom" horizontalScrollPolicy="off" horizontalGap="0" >
+								<controls:ResizingLabel text="@Resource(key='Label_4', bundle='OrderTab')" styleName="publishForm" width="115"
+									paddingBottom="-4" autoFontSizeGap="1" color="{_tiCardNumber.errorString?0xCC0000:0x333333}" filters="{[_fiWhiteShad]}"/>
+								
+								<mx:Canvas width="135">
+									<purchase:CCBoxErrorLabel text="@Resource(bundle='PurchaseDialog', key='required')" control="{_tiCardNumber}"/>
+									<purchase:CCBoxErrorLabel text="@Resource(bundle='OrderTab', key='_vldCC_1')" control="{_tiCardNumber}"/>
+									<purchase:CCBoxErrorLabel text="@Resource(bundle='OrderTab', key='_vldCC_2')" control="{_tiCardNumber}"/>
+									<purchase:CCBoxErrorLabel text="@Resource(bundle='OrderTab', key='invalid_number')" control="{_tiCardNumber}"/>
+								</mx:Canvas>								
+							</mx:HBox>
+							<controls:NoTipTextInput id="_tiCardNumber" height="26" styleName="publishFormField" maxChars="16"
+													 textInput="if (event.text.length > 1) event.preventDefault()"
+													 restrict="0,1-9" enter="Validate()" width="250"
+													 change="_tiCardNumber.errorString=null"
+													 backgroundImage="{PicnikBase.StaticUrl(_tiCardNumber.errorString?'/graphics/errorStripes.png':'')}" />
+							<controls:NoTipTextInput id="_tiCardType" text="{PicnikCreditCardValidator.ANY}"
+													 visible="false" includeInLayout="false"/>
+						</mx:VBox>
+						
+						<!-- verification # -->
+						<mx:VBox verticalGap="0">
+							<controls:ResizingLabel id="_lblCardVerification" maxWidth="100" text="@Resource(key='Label_5', bundle='OrderTab')" text_1="@Resource(key='Label_5_short', bundle='OrderTab')"
+								styleName="publishForm" paddingBottom="-4" color="{_tiCardVerification.errorString.length > 0?0xCC0000:0x333333}" filters="{[_fiWhiteShad]}"/>
+							<mx:HBox horizontalGap="5" verticalAlign="middle">
+								<controls:NoTipTextInput id="_tiCardVerification" height="26" styleName="publishFormField" width="50" maxChars="3"
+									restrict="1-9,0" enter="Validate()" change="_tiCardVerification.errorString=null" 
+									backgroundImage="{PicnikBase.StaticUrl(_tiCardVerification.errorString?'/graphics/errorStripes.png':'')}"/>
+								<mx:Button id="_btnInfo" selected="{visible &amp;&amp; false}" height="20" width="20" toggle="true" icon="@Embed('/theme/pngs/questionmark.png')" paddingLeft="0"/>
+							</mx:HBox>
+						</mx:VBox>
+						
+						<!-- expiration date -->
+						<mx:VBox verticalGap="0">
+							<!-- UNDONE: make this label go to red #CC0000 if the date has an error -->
+							<mx:Label text="@Resource(key='Label_6', bundle='OrderTab')" styleName="publishForm" paddingBottom="-4" width="100%" filters="{[_fiWhiteShad]}"
+									  color="{(_fDateError || DateInThePast(_cmboYear.selectedIndex, _cmboMonth.selectedIndex))?0xCC0000:0x333333}"
+								/>
+							<mx:HBox horizontalGap="10">
+								<mx:ComboBox id="_cmboMonth" width="65" height="26" rowCount="6" change="_fDateError=false;_cmboMonth.errorString=null">
+									<mx:ArrayCollection>
+										<mx:Object label="01" data="01"/>
+										<mx:Object label="02" data="02"/>
+										<mx:Object label="03" data="03"/>
+										<mx:Object label="04" data="04"/>
+										<mx:Object label="05" data="05"/>
+										<mx:Object label="06" data="06"/>
+										<mx:Object label="07" data="07"/>
+										<mx:Object label="08" data="08"/>
+										<mx:Object label="09" data="09"/>
+										<mx:Object label="10" data="10"/>
+										<mx:Object label="11" data="11"/>
+										<mx:Object label="12" data="12"/>
+									</mx:ArrayCollection>
+								</mx:ComboBox>
+								<mx:ComboBox id="_cmboYear" width="85" height="26" rowCount="6" change="_fDateError=false;_cmboYear.errorString=null"/>
+							</mx:HBox>
+						</mx:VBox>
+						
+					</mx:HBox>
+				</mx:VBox>
+				
+				<!--card type country / zip -->
+				<mx:HBox horizontalGap="29" width="100%" paddingTop="5">
+					<!-- card types -->
+					<mx:HBox horizontalGap="2" verticalAlign="middle" paddingTop="26">
+						<mx:Image source="../graphics/thirdpartylogos/ccards/visa.png" 
+								  alpha="{CreditCardValidatorCardType.VISA==_detectedCCType?1.0:0.15}"/>
+						<mx:Image source="../graphics/thirdpartylogos/ccards/mastercard.png" 
+								  alpha="{CreditCardValidatorCardType.MASTER_CARD==_detectedCCType?1.0:0.15}"/>
+						<mx:Image source="../graphics/thirdpartylogos/ccards/amex.png" 
+								  alpha="{CreditCardValidatorCardType.AMERICAN_EXPRESS==_detectedCCType?1.0:0.15}"/>
+						<mx:Image source="../graphics/thirdpartylogos/ccards/discover.png"
+								  alpha="{CreditCardValidatorCardType.DISCOVER==_detectedCCType?1.0:0.15}"/>						
+						<mx:Image source="../graphics/thirdpartylogos/ccards/jcb.png"
+								  alpha="{PicnikCreditCardValidator.JCB==_detectedCCType?1.0:0.15}"/>						
+					</mx:HBox>
+							
+					<!-- country dropdown -->
+					<mx:VBox verticalGap="0">
+						<mx:Label text="@Resource(key='Label_10', bundle='OrderTab')" styleName="publishForm" paddingBottom="-4" paddingTop="5" width="100%"
+							filters="{[_fiWhiteShad]}"/>
+						<mx:HBox horizontalGap="5" verticalAlign="middle">
+							<mx:ComboBox width="150" height="26" rowCount="10" id="_cmboCountry" change="OnChangeCountry();_cmboCountry.errorString=null">
+								<mx:itemRenderer>
+								<mx:Component>
+									<mx:HBox height="24" dropShadowEnabled="false" verticalAlign="middle">
+					                	<mx:Label text="{data.label}" width="100%" fontSize="14" fontWeight="normal" color="#333333" minWidth="80" paddingTop="5"/>
+					                	<controls:ImageVer source="{'../graphics/flags/'+data.data+'.png'}" />
+									</mx:HBox>
+								</mx:Component>
+								</mx:itemRenderer>
+							</mx:ComboBox>
+							<controls:ImageVer source="{'../graphics/flags/'+_cmboCountry.selectedItem.data+'.png'}" width="16" height="11" />
+						</mx:HBox>
+					</mx:VBox>
+					
+					<mx:HBox horizontalGap="29">
+						<!-- state -->
+						<mx:VBox verticalGap="0" width="100%" visible="{_fCollectState}" includeInLayout="{_fCollectState}">
+							<mx:Label text="{LocUtil.iff('OrderTab', _cmboCountry.selectedItem.data=='us', 'state', 'province')}" styleName="publishForm" paddingBottom="-4" paddingTop="5" width="100%" color="{_tiState.errorString?0xCC0000:0x333333}"/>
+							<controls:NoTipTextInput id="_tiState" height="26" styleName="publishFormField" 
+									width="{_cmboCountry.selectedItem.data=='us'?80:80}" maxChars="48"
+									change="_tiState.errorString=null"
+									enter="Validate()" backgroundImage="{PicnikBase.StaticUrl(_tiState.errorString?'/graphics/errorStripes.png':'')}"/>
+							<mx:Canvas width="{_tiState.width}">
+								<purchase:CCBoxErrorLabel text="@Resource(bundle='OrderTab', key='_vldCC')" control="{_tiState}"/>
+								<purchase:CCBoxErrorLabel text="@Resource(bundle='OrderTab', key='_vldName_1')" control="{_tiState}"/>
+							</mx:Canvas>															
+						</mx:VBox>
+						
+						<!-- zip code -->
+						<mx:VBox verticalGap="0" visible="{_fCollectZip}" includeInLayout="{_fCollectZip}" paddingTop="5">
+							<controls:ResizingLabel text="{LocUtil.iff('OrderTab', _cmboCountry.selectedItem.data=='us', 'zip_code', 'postal_code')}"
+									width="100%" styleName="publishForm" paddingBottom="-4" autoFontSizeGap="1"
+									color="{_tiZip.errorString?0xCC0000:0x333333}" filters="{[_fiWhiteShad]}"/>
+							<controls:NoTipTextInput id="_tiZip" height="26" styleName="publishFormField" width="90" maxChars="12" enter="Validate()" 
+								restrict="0-9,a-z,A-Z,' ',\-" backgroundImage="{PicnikBase.StaticUrl(_tiZip.errorString?'/graphics/errorStripes.png':'')}"
+								change="_tiZip.errorString=null"/>
+							<mx:Canvas width="{_tiZip.width}" horizontalScrollPolicy="off">
+								<purchase:CCBoxErrorLabel text="@Resource(bundle='PurchaseDialog', key='required')" control="{_tiZip}"/>
+								<purchase:CCBoxErrorLabel text="@Resource(bundle='OrderTab', key='invalid')" control="{_tiZip}"/>
+								<purchase:CCBoxErrorLabel text="@Resource(bundle='validators', key='wrongCAFormatError')" control="{_tiZip}"/>
+								<purchase:CCBoxErrorLabel text="@Resource(bundle='validators', key='wrongUSFormatError')" control="{_tiZip}"/>
+							</mx:Canvas>								
+						</mx:VBox>					
+					</mx:HBox>
+				</mx:HBox>
+			</mx:VBox>
+			
+		</bkctr:BrokenBoxCanvas>
+		<!-- END: Generic Problem Box Canvas --> 
+
+		<!-- TOS, etc -->
+		<mx:VBox id="_vbxTOS" width="100%" verticalGap="0" paddingTop="20" horizontalAlign="center" paddingLeft="40">
+			<controls:ResizingText id="_txtTOS" fontSize="15" color="#333333" condenseWhite="true" width="100%" paddingLeft="-3" paddingRight="15" leading="-1" 
+								   htmlText="@Resource(key='reviewText', bundle='PurchaseDialog')"
+								   visible="{!AccountMgr.GetInstance().isPaid}"
+								   includeInLayout="{!AccountMgr.GetInstance().isPaid}"/>
+			<controls:ResizingText textAlign="center" fontSize="15" color="#005580" condenseWhite="true" width="100%" paddingLeft="-3" paddingRight="15" leading="-1" 
+								   htmlText="{LocUtil.rbSubst('PurchaseDialog','chargedRenewDate', renewalDateString(), durationString())}" 
+								   visible="{AccountMgr.GetInstance().isPaid}"
+								   includeInLayout="{AccountMgr.GetInstance().isPaid}"/>
+		</mx:VBox>
+
+		<!-- Secure message -->
+	</mx:VBox>
+</purchase:CCBoxBase>

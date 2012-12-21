@@ -1,0 +1,12 @@
+fileName: mk_VampyrishABC.ttf
+name: VampyrishABC-Oblique
+subfamilyDisplayName: Regular
+fullName: VampyrishABC-Oblique
+displayName: VampyrishABC-Oblique
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 6
+pkName: pkmk0VampyrishABC
+authorName: Manfred Kelin
+authorUrl: http://moorstation.org/typoasis/designers/klein/

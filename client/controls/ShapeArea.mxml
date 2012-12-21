@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<VBoxRepeater xmlns="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml"
+		verticalLineScrollSize="30"  
+		horizontalScrollPolicy="off"
+	 	verticalScrollPolicy="on"
+		itemRenderer="controls.shapeList.ShapeSectionBox"
+		width="226"
+		initialize="Init()"
+	>
+<mx:Script>
+	<![CDATA[
+		import controls.shapeList.ShapeSectionBox;
+		
+		import creativeTools.ShapeInfoWindow;
+		
+		import events.AccountEvent;
+		
+		import imagine.ImageDocument;
+		
+		import mx.controls.Alert;
+		import mx.core.Application;
+		import mx.events.CloseEvent;
+		
+		import util.ShapeRootLoader;
+		[Bindable] public var area:String = "";
+		[Bindable] public var loading:Boolean = false;
+		[Bindable] public var loaded:Boolean = false;
+		[Bindable] public var imgd:ImageDocument;
+		[Bindable] public var imgv:ImageView;
+		
+		public var ignoreErrors:Boolean = false;
+		
+		private var _xmlNonAuthorShapes:XML = null;
+		private var _xmlAllShapes:XML = null;
+		private var _xmlFilteredShapes:XML = null;
+		private var _xmlShapesDisplayed:XML = null;
+		private var _strSectionFilter:String = null;
+
+		private var _fWatchingUserChange:Boolean = false;
+		
+		private static var _pwndShapeInfo:ShapeInfoWindow = null;
+		
+		public static function ShowShapeInfoWindow(xmlGlyphSet:XML): void {
+			if (_pwndShapeInfo == null) {
+				_pwndShapeInfo = new ShapeInfoWindow();
+				// Used to be in ShapeTool, like this:
+				// <ct:ShapeInfoWindow id="_pwndShapeInfo" x="237" y="102"/>
+				_pwndShapeInfo.x = 237;
+				_pwndShapeInfo.y = 102; 
+				Application.application.addChild(_pwndShapeInfo);
+			}
+			_pwndShapeInfo.visible = true;
+			_pwndShapeInfo.xmlGlyphSet = xmlGlyphSet;
+			_pwndShapeInfo.addEventListener(CloseEvent.CLOSE, OnShapeInfoClose);
+		}
+		
+		public static function IsShapeInfoWindowVisible(): Boolean {
+			return _pwndShapeInfo != null && _pwndShapeInfo.visible;
+		}
+
+		public static function HideShapeInfoWindow(): void {
+			if (_pwndShapeInfo == null)
+				return;
+			_pwndShapeInfo.visible = false;
+			_pwndShapeInfo.removeEventListener(CloseEvent.CLOSE, OnShapeInfoClose);
+		}
+		
+		private static function OnShapeInfoClose(evt:CloseEvent): void {
+			HideShapeInfoWindow();
+		}
+		
+		private function Init(): void {
+			LoadShapes();
+		}
+		
+		public function CloseAllGroups(): void {
+			HideShapeInfoWindow();
+			for (var i:Number = 0; i < numChildren; i++) {
+				var ssb:ShapeSectionBox = getChildAt(i) as ShapeSectionBox;
+				ssb.CloseAllGroups();
+			}
+		}
+		
+		[Bindable] 
+		public function set sectionFilter(strFilter:String): void {
+			_strSectionFilter = strFilter;
+			UpdateShapeFilter();
+		}
+		
+		public function get sectionFilter():String {
+			return _strSectionFilter;
+		}
+
+		private function UpdateShapeFilter(evt:Event=null): void {
+			if (!_fWatchingUserChange) {
+				AccountMgr.GetInstance().addEventListener(AccountEvent.USER_CHANGE, UpdateShapeFilter);
+				_fWatchingUserChange = true;
+			}
+			if (_xmlAllShapes == null) return;
+			var xmlShapesToDisplay:XML = FilterShapesWithSectionFilter(AccountMgr.GetInstance().isCollageAuthor ? _xmlAllShapes : _xmlNonAuthorShapes);
+			if (_xmlShapesDisplayed != xmlShapesToDisplay) {
+				_xmlShapesDisplayed = xmlShapesToDisplay;
+				dataProvider = xmlShapesToDisplay.ShapeCategory;
+			}
+		}
+
+		private function FilterOutCollageAuthorShapes(xmlAllShapes:XML): XML {
+			var xmlFiltered:XML = new XML(xmlAllShapes);
+			for each (var xmlShapeSection:XML in xmlFiltered.ShapeCategory) {
+				var xmllGroups:XMLList = xmlShapeSection.children();
+				var i:Number = 0;
+				while (i < xmllGroups.length()) {
+					if (xmllGroups[i].hasOwnProperty('@restrictedAccess'))
+						delete xmllGroups[i];
+					else
+						i += 1;
+				}
+			}
+			return xmlFiltered;
+		}
+		
+		private function FilterShapesWithSectionFilter(xmlAllShapes:XML): XML {
+			var xmlFiltered:XML = new XML(xmlAllShapes);
+			if (null != _strSectionFilter && _strSectionFilter.length > 0) {
+				var regexpSectionFilter:RegExp = new RegExp(_strSectionFilter);
+				for each (var xmlShapeSection:XML in xmlFiltered.ShapeCategory) {
+					var xmllGroups:XMLList = xmlShapeSection.children();
+					var i:Number = 0;
+					while (i < xmllGroups.length()) {
+						var strId:String = xmllGroups[i].@id;
+						if (!strId.match(regexpSectionFilter))
+							delete xmllGroups[i];
+						else
+							i += 1;
+					}
+				}
+			}
+			return xmlFiltered;
+		}
+
+		private function OnShapesLoaded(xmlGroups:XML, strError:String): void {
+			if (strError) {
+				trace("Error loading shape area '" + area + "': " + strError);
+				if (!ignoreErrors)
+					Util.ShowAlert("Oops! We are having trouble loading shapes. Please try again later", "Oops", Alert.OK, strError);
+			} else {
+				addEventListener(UIDocumentObjectBase.ADD_SHAPE, AddClick);
+				
+				_xmlAllShapes = xmlGroups;
+				_xmlNonAuthorShapes = FilterOutCollageAuthorShapes(_xmlAllShapes);
+
+				UpdateShapeFilter();
+			}
+			callLater( function():void{ loading = false; loaded = true; } );
+		}
+
+		public function AddClick(evt:Event): void {
+			var uidoco:UIDocumentObject = evt.target as UIDocumentObject;
+			if (!uidoco) {
+				trace("AddClick called with non doc ob. evt = " + evt + ", targ = " + evt.target);
+				return;
+			}
+
+			// Center the added DocumentObject within the view			
+			var rcd:Rectangle = imgv.GetViewRect();
+			var ptOrigin:Point = new Point(Math.round(rcd.x + (rcd.width / 2)), Math.round(rcd.y + (rcd.height / 2)));
+
+			// Use the same sizing rules drag/drop does
+			var nGroupScale:Number = uidoco.GetChildProperty("groupScale", 0.0); 
+			var ptTargetDim:Point = imgv.GetDropSize(uidoco.GetChildProperty('unscaledWidth', 100) / uidoco.GetChildProperty('unscaledHeight', 100), 
+					0.2 /* match ShapeDragImage */, nGroupScale != 0.0);
+			var nScale:Number = ptTargetDim.x / uidoco.GetChildProperty('unscaledWidth', 100);
+			if (nGroupScale != 0.0)
+				nScale *= nGroupScale;
+
+			imgd.BeginUndoTransaction("Create " + uidoco.childType, true, false);
+			uidoco.DoAdd(imgd, nScale, ptOrigin);
+			imgd.EndUndoTransaction();
+		}
+		
+		private function LoadShapes(): void {
+			loading = true;
+			ShapeRootLoader.LoadShapeRoot(OnShapesLoaded, area);
+		}
+	]]>
+</mx:Script>	
+</VBoxRepeater>

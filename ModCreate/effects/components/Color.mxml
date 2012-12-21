@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Key properties: value, defaultValue, label, type -->
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:ctl="controls.*" xmlns:flash.filters="flash.filters.*"
+		width="100%" creationComplete="OnCreationComplete(event)">
+	<mx:Metadata>
+		[Event(name="change", type="flash.events.Event")]
+    </mx:Metadata>
+
+	<mx:String id="type"/>
+	<mx:String id="label"/>
+	<mx:Number id="value">{_clrsw.color}</mx:Number>
+	<mx:Number id="defaultValue"/>
+	<mx:int id="documentMouseX">-1</mx:int>
+	<mx:int id="documentMouseY">-1</mx:int>
+	
+	<mx:Label text="{label}" styleName="sliderTitle" paddingTop="3" paddingBottom="-3"/>
+	<mx:HBox horizontalGap="6" width="100%" paddingTop="-2">
+		<ctl:HSBColorSwatch id="_clrsw" height="58" width="175" topGray="255" bottomGray="0" color="{defaultValue}" grayscaleSize="5"
+				change="{dispatchEvent(new Event(Event.CHANGE))}" />
+		<mx:Canvas width="100%" height="58" id="_cnvColor" backgroundColor="{_clrsw.color}">
+			<mx:filters>
+				<flash.filters:DropShadowFilter angle="90" blurX="2" blurY="2" distance="1" color="0x000000"
+						alpha=".3" quality="3" inner="true" />
+				<flash.filters:BevelFilter angle="90" blurX="1" blurY="1" distance="1" highlightAlpha=".3" 
+						shadowAlpha="1" highlightColor="0x666666" shadowColor="0xFFFFFF" knockout="false" quality="3" />
+			</mx:filters>
+		</mx:Canvas>
+	</mx:HBox>
+	
+	<mx:Script>
+		<![CDATA[
+			import mx.binding.utils.BindingUtils;
+			import mx.events.FlexEvent;
+			import imagine.ImageDocument;
+			import imagine.ImageUndoTransaction;
+			
+			protected function OnCreationComplete(evt:FlexEvent): void {
+				if (data.controller == "colorSampler") {
+					// Somehow sample the document color when it is clicked
+					BindingUtils.bindSetter(OnDocumentMouseChange, this, "documentMouseX", true);
+					BindingUtils.bindSetter(OnDocumentMouseChange, this, "documentMouseY", true);
+				}
+			}
+			
+			private function OnDocumentMouseChange(value:int): void {
+				if (documentMouseX == -1 || documentMouseY == -1)
+					return;
+					
+				// Sample the un-effected image if there is one
+				var imgd:ImageDocument = PicnikBase.app.activeDocument as ImageDocument;
+				var imgut:ImageUndoTransaction = imgd.pendingUndoTransaction;
+				var bmd:BitmapData = imgut ? imgut.bmdBackground : imgd.background; // Ignores objects
+				_clrsw.color = bmd.getPixel(documentMouseX, documentMouseY);
+			}
+		]]>
+	</mx:Script>
+</mx:VBox>

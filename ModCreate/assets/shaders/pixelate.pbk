@@ -1,0 +1,61 @@
+/*****************************************************************************
+ *
+ * Copyright (C) 2008 Adobe Systems Incorporated
+ * All Rights Reserved.
+ *
+ * NOTICE:  All information contained  herein is,  and remains the property of
+ * Adobe Systems Incorporated and its suppliers, if any.  The intellectual and
+ * technical  concepts  contained  herein  are  proprietary  to  Adobe Systems
+ * Incorporated  and  its suppliers  and may  be covered  by U.S.  and Foreign
+ * Patents, patents in process, and are protected by trade secret or copyright
+ * law.  Dissemination of this information or reproduction of this material is
+ * strictly forbidden  unless prior  written permission is obtained from Adobe
+ * Systems Incorporated.
+ *
+ *****************************************************************************/
+
+<languageVersion: 1.0;>
+ 
+// pixelate: A simple example to demonstrate the use of the hydra sampling 
+//           function to yield an interesting effect.  The filter uses the 
+//           floor built-in function on the current output coordinate to 
+//           determine the sampling location.
+kernel pixelate
+<   namespace : "AIF";
+    vendor : "Adobe Systems";
+    version : 2;
+    description : "pixelate an image"; >
+{
+    // An input parameter used to specify the width and height of the 
+    // pixelation.  The parameters come directly from the user by way of the 
+    // UI that gets created for the filter.
+    parameter int dimension
+    <minValue: 1;
+     maxValue: 100;
+     defaultValue: 1;>;
+
+    input image4 inputImage;
+    output pixel4 outputPixel;
+
+    // evaluatePixel(): The function of the filter that actually does the 
+    //                  processing of the image.  This function is called once 
+    //                  for each pixel of the output image.
+    void
+    evaluatePixel()
+    {
+        // Convert the dimension into a floating point value for use in 
+        // arithmetic.  To avoid sinister issues, all type conversions are 
+        // required to be explicit.
+        float dimAsFloat = float(dimension);
+
+    
+        // Truncate the pixel location to the value at the top right corner of 
+        // the square.
+        float2 sc = floor(outCoord() / float2(dimAsFloat, dimAsFloat));
+        sc *= dimAsFloat;
+        
+        // sample the input at the location and set the output to the sampled 
+        // value.
+        outputPixel = sampleNearest(inputImage, sc);
+    }
+}

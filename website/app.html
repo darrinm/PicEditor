@@ -1,0 +1,356 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<!--
+Copyright 2009 Google Inc. All Rights Reserved.
+
+Use of this source code is governed by an Apache 2.0 License.
+See the COPYING file for details.
+-->
+<head>
+<script type="text/javascript">var _sf_startpt=(new Date()).getTime()</script>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="Google">
+<meta name="description" content="Picnik lets you edit all your photos online, from one easy place.">
+<meta name="keywords" content="photo, photograph, picture, edit, editing, adjustments, online, flickr, camera, digital, image, redeye, fix, photoshop">
+<meta name="robots" content="index, follow">
+<link rel="alternate" type="application/rss+xml" title="Picnik Blog Feed" href="http://feeds.feedburner.com/picnik" />
+<META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
+<META HTTP-EQUIV="PRAGMA" CONTENT="NO-CACHE">
+<META HTTP-EQUIV="EXPIRES" CONTENT="0">
+
+<script type="text/javascript">
+
+	// Make sure we always load the state from the real server and not the CDN
+	var strNonCdnServerRoot = document.location.protocol + '//' + document.domain;
+	if ((document.domain == "cdn.mywebsite.com") ||
+	    (document.domain.indexOf('gstatic.com') != -1)) {
+		strNonCdnServerRoot = document.location.protocol + '//www.mywebsite.com';
+	} else if (document.domain.indexOf('cdn') != -1) {
+		strNonCdnServerRoot = strNonCdnServerRoot.replace('cdn', '');
+	}
+
+	try {
+		document.domain = "mywebsite.com";
+	} catch (err) {}
+
+	// load current state from the server
+	var oPicnikState = {}
+	function OnPicnikState( oState ) {
+		oPicnikState = oState;
+	}
+	document.write('<script type="text/javascript" src="'+strNonCdnServerRoot+'/picnikstate?cb=OnPicnikState"></scr'+'ipt>');
+</script>
+
+<script type="text/javascript">
+	document.write('<script type="text/javascript" src="' + oPicnikState.fnStatic("/js/app_js_bundle.js") + '"></scr'+'ipt>');
+	document.write('<script type="text/javascript" src="' + oPicnikState.fnStatic("/js/swfobject.js") + '"></scr'+'ipt>');
+</script>
+
+<script language="javascript" type="text/javascript">
+	function closeWindow() {
+		window.close()
+	}
+</script>
+
+<!--  BEGIN URLKit required section -->
+<script type="text/javascript">
+	document.write('<link rel="stylesheet" type="text/css" href="' + oPicnikState.fnStatic("/urlkit.css") + '"/>');
+</script>
+<!--  END URLKit required section -->
+<title>Picnik</title>
+<style media="all" type="text/css">
+body {
+	overflow-y: hidden;
+	margin: 0; padding: 0;
+	background-color: #FFFFFF;
+	color: #666666;
+	font-family: "Trebuchet MS", Arial, sans;
+	font-size: 12px;
+}
+a {
+	font-weight: bold;
+	color: #618430;
+}
+a:hover {
+	color: #769945;
+}
+a:active {
+	color: #3b4d17;
+}
+div#noflash {
+	background: #fff;
+	width: 100%;
+	position: absolute;
+	top: 100px;
+	text-align: center;
+}
+</style>
+<script language="javascript" type="text/javascript">
+	function getUserAgent() {
+		return navigator.userAgent;
+	}
+
+	function setTitle(value) {
+		document.title = value + "Picnik";
+	}
+
+	function loadHiddenPage(url) {
+		var iframe = window.frames['hiddenIFrame'];
+		if (iframe) iframe.location = url;
+	}
+
+	// stl unused?
+	//function close(strTarget) {
+	//	document.location.replace(strTarget);
+	//}
+
+	function expand(fExpand) {
+		parent.onPicnikExpand(fExpand);
+	}
+
+	function onPicnikReveal() {
+		parent.onPicnikReveal();
+	}
+
+	function enableNavigateAwayWarning(strWarning) {
+		window.onbeforeunload = function (evt) {
+			if (typeof evt == 'undefined')
+				evt = window.event;
+			if (evt)
+				evt.returnValue = strWarning;
+			return strWarning;
+		}
+	}
+
+	function disableNavigateAwayWarning() {
+		window.onbeforeunload = null;
+	}
+
+	//
+	// Mainline script
+	//
+</script>
+<script type="text/javascript">
+  var strPerfData = "";
+</script>
+</head>
+<body style="width:100%;height:100%">
+<!--
+<iframe id="ifrmLeaderboard" name="ifrmLeaderboard" src="" height="0" width="100%" frameborder="0" marginwidth="0" marginheight="0" align="center" scrolling="no" style="position:absolute;z-index:3"></iframe>
+-->
+<div id="flashcontent" style="height:100%;width:100%;position:absolute;top:0px;z-index:1">
+  <div id="flashcontent_replace" style="height:100%;width:100%">
+		<div id="noflash">
+			<div id="noflash_message">
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	document.write('<iframe name="hiddenIFrame" src="' + oPicnikState.fnStatic("/blank.html") + '" style="width:0px;height:0px" frameborder="0"></iframe>');
+</script>
+<iframe id="ifrmPicnikAlt" name="ifrmPicnikAlt" src="about:blank" height="0px" width="0px" frameborder="0" marginwidth="0" marginheight="0" align="center" scrolling="auto" style="position:absolute;z-index:4;display:none;top:0px"></iframe>
+<script type="text/javascript">
+
+	var strLocale = "";
+	var strLocaleDir = "";	// used by ads
+	var strRelease = "";		// used by ads
+	var strRoot = "";
+	var args = ExtractArgs();
+	function SetLocale(strCalcLocale ) {
+		strLocale = strCalcLocale;
+		strLocaleDir = strCalcLocale;
+		checkToken();
+	}
+
+	function OnSoint( oData ) {
+		var aToken = null;
+		if (oData && 'lastuser' in oData) {
+			aToken = tokenCreate(oData['lastuser']);
+		} else {
+			aToken = tokenGet();
+			if (oData && 'token' in oData && oData.token && oData.token.length > 0) {
+				aToken[2] = 'R';
+			}
+		}
+		var strSointLocale = oPicnikState.strDefaultLocale;
+		if (oData && 'locale' in oData && oData.locale && oData.locale.length > 0) {
+			strSointLocale = oData.locale;
+		}
+		tokenSet(aToken);
+		SetLocale(strSointLocale);
+	}
+
+	function writeSoint() {
+	  if (document.domain != "mywebsite.com") {
+	  	OnSoint(null);
+	  } else {
+			document.write( '<iframe id="ifrmSoint" src="' + oPicnikState.fnDynamic("/soint2", "report=true&dest=_none_") + '" height="0px" width="0px" frameborder="0"></iframe>');
+		}
+	}
+
+	function checkLocale() {
+		var strLocale = "";
+		if (args["locale"] && args["locale"].length > 0) {
+		    strLocale = args["locale"];
+		} else {
+		    var strCookieLocale = readCookie("locale");
+		    strLocale = strCookieLocale ? (strCookieLocale) : "";
+		}
+
+		if (strLocale == "") {
+			writeSoint();
+		} else {
+			SetLocale(strLocale);
+		}
+	}
+
+	function checkToken() {
+		var aToken = tokenGet();
+		if (!tokenCheck(aToken, true)) {
+			tokenSet(aToken,0);
+
+			// but check to see if login access would work
+			var strSuffix = "";
+			if (aToken[2] != 'R') {
+				aToken[2] = 'R';
+				if (tokenCheck(aToken, false)) {
+					strSuffix = "_guest";
+				}
+			} else {
+				strSuffix = "_registered";
+			}
+			PicnikScript.ShowAlternate( {url:oPicnikState.fnDynamic("/static/" + strLocale + "/noaccess" + strSuffix + ".html")} );
+		} else {
+			writeSwf();
+		}
+	}
+
+	function writeSwf() {
+		var strCacheBuster = "";
+		if (args["nc"] == "1") {
+		    strCacheBuster = "nocache=" +Math.random();
+		}
+
+		var strInst = null;
+		if (args["inst"] && args["inst"].length > 0) {
+			strInst = args["inst"];
+		}
+
+		strRelease = oPicnikState.strRelease;
+
+		var strCBCookie = readCookie("cachebst");
+		if (strCBCookie == null) strCBCookie = "";
+		else strCBCookie = "_" + strCBCookie;
+
+		var strLayered = "";
+		if (args["layered"] && args["layered"].length > 0) {
+		    strLayered = args["layered"];
+		}
+		strRoot = oPicnikState.fnStatic("/");
+		if (strRoot.indexOf("?") != -1) {
+			strRoot = strRoot.substring(0, strRoot.indexOf("?"));
+		}
+
+		var obSwfAttributes = {
+			id: 'picnik',
+			name: 'picnik'
+		};
+		var obSwfParams = {
+			allowFullScreen: "true",
+			allowScriptAccess: "always",
+			rel: oPicnikState.strRelease + strCBCookie
+		};
+
+		// turn on "layered" mode if it's been asked for.
+		if (strLayered && strLayered.length > 0) {
+			obSwfParams['wmode'] = "opaque";
+		}
+
+		obSwfParams['base'] = strRoot;
+
+		var strSwfUrl = oPicnikState.fnStatic("app/Picnik_" + strLocale + ".swf", strCacheBuster + strCBCookie);
+		var obSwfVariables = {
+			serverurl: document.location,
+			loglevel: 27,
+			inst: strInst,
+			nonCdnServerRoot: strNonCdnServerRoot
+		};
+		for (var argname in args)
+			obSwfVariables[argname] = args[argname];
+
+		swfobject.embedSWF(strSwfUrl, "flashcontent_replace", "100%", "100%", "10.0.32", null, obSwfVariables, obSwfParams, obSwfAttributes);
+		setTimeout( "writeNoFlash()", 1000 );
+	}
+
+	if (null == readCookie('lastuser')) {
+		writeSoint();
+	} else {
+		checkLocale();
+	}
+
+	function writeNoFlash() {
+		var elNoFlash = document.getElementById('noflash_message');
+		if (elNoFlash) {
+			elNoFlash.innerHTML = '<br/>Hi! You should be seeing Picnik here.<br/>' +
+									'Your Flash Player may need to be updated? <a href="http://get.adobe.com/flashplayer/">Get it here.</a><br/>' +
+									'Can\'t get Picnik to load? <a href="/info/loading" target="_blank">Check this page</a>.';
+		}
+	}
+
+
+</script>
+<!--  BEGIN URLKit required section -->
+<div id="anchorDiv"></div>
+<div id="formDiv"></div>
+<iframe id="historyFrame" name="historyFrame" src="" height="100" width="100"></iframe>
+<!--  END URLKit required section -->
+<!-- BEGIN: Ads
+<iframe id="ifrmFullScreen" name="ifrmFullScreen" src="" height="0" width="100%" frameborder="0" marginwidth="0" marginheight="0" style="position:absolute;"></iframe>
+<iframe id="ifrmSkyscraper" name="ifrmSkyscraper" src="" height="100%" width="0" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="position:absolute;top:0px;left:640px"></iframe>
+<script type="text/javascript">
+	document.write('<script type="text/javascript" src="' + oPicnikState.fnStatic("/ads.js") + '"></scr'+'ipt>');
+</script>
+<script type="text/javascript">
+	swfobject.addLoadEvent(onResize);
+</script>
+ -->
+<!-- END: Ads -->
+<script type="text/javascript">
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-976678-1']);
+	_gaq.push(['_trackPageview']);
+
+	(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	})();
+
+	// Function that imitates the older synchronous urchin tracker.
+	function urchinTracker(url) {
+		if (url) {
+			_gaq.push(['_trackPageview', url]);
+		} else {
+			_gaq.push(['_trackPageview']);
+		}
+	}
+
+	function recordTransaction(orderId, affiliation, total, tax, shipping, city, state,
+			country, sku, productName, category, price, quantity) {
+
+		_gaq.push(['_addTrans', orderId, affiliation, total, tax, shipping, city, state, country]);
+		_gaq.push(['_addItem', orderId, sku, productName, category, price, quantity]);
+		_gaq.push(['_trackTrans']);
+	}
+
+	function urchinSetCustomVariable(name, value) {
+		_gaq.push(['_setCustomVar', 1, name, value]);
+	}
+
+	if (window.chrome && window.chrome.app && window.chrome.app.isInstalled === true)
+		loadHiddenPage('/urchcamp.html?utm_source=chrome.google.com&utm_medium=integration&utm_campaign=chrome_webapp');
+</script>
+</body>
+</html>

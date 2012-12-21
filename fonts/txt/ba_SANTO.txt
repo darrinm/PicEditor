@@ -1,0 +1,12 @@
+fileName: ba_SANTO.TTF
+name: SANTOS DUMONT
+subfamilyDisplayName: Regular
+fullName: SANTOS DUMONT
+displayName: SANTOS DUMONT
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 4
+pkName: pkba0SANTO
+authorName: Billy Argel
+authorUrl: http://billyargel.blogspot.com/

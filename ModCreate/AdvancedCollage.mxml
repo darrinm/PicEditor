@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AdvancedCollageBase width="100%" height="100%" 
+		xmlns="*" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:flash="flash.filters.*" 
+		xmlns:url="urlkit.rules.*" xmlns:ut="util.*" xmlns:ctl="controls.*" xmlns:ctr="containers.*"
+		xmlns:documentObjects="imagine.documentObjects.*" xmlns:sectionList="containers.sectionList.*" xmlns:pages="pages.*" xmlns:list="controls.list.*" clipContent="false">
+	
+	<flash:DropShadowFilter id="_fiWhiteShad" blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1" quality="3" angle="90"/>
+	<flash:DropShadowFilter id="_fiInnerShadow" alpha=".15" blurX="4" blurY="4" angle="-90" distance="2" quality="3" inner="true"/>
+
+	<mx:Resize duration="200" id="_efResize"/>
+	<mx:Fade id="_efFadeIn" duration="150" suspendBackgroundProcessing="true"/>
+	<mx:Fade id="_efFadeOut" duration="200" suspendBackgroundProcessing="true"/>
+	<mx:Fade id="_efSoftFadeIn" duration="300" alphaFrom=".95" alphaTo="1"/>
+	<mx:Fade id="_efSoftFadeOut" duration="500" alphaFrom="1" alphaTo=".95"/>
+	
+	<mx:String id="urlkit"/>
+	
+	<!-- UNDONE: this sucks but its the fastest way I could get urlkit to produce appropriate
+				 URL fragments after moving Collage to ModCreate -->
+	<mx:ViewStack id="_vstk" includeInLayout="false" visible="false">
+		<pages:Page id="dummy" urlkit="grid"/>
+	</mx:ViewStack>
+	
+	<!-- collage template on the canvas -->
+	<mx:Canvas id="_cvsTemplate" left="327" top="30" right="0" bottom="0"/>
+	
+	<!-- CUSTOMIZE / PRINT BUTTONS, hacked to live up in the grass -->
+	<mx:HBox top="-33" right="4" horizontalGap="6" id="_hbxSaveShare">
+		<ctl:ResizingButton fontSize="15" fontSize_1="14" fontSize_2="13" minWidth="90"
+			paddingLeft="6" paddingRight="6" styleName="basketButtonYellow"
+			paddingLeft_2="-2" paddingRight_2="-2" paddingLeft_3="-3" paddingRight_3="-3" paddingLeft_4="-4" paddingRight_4="-4" paddingLeft_5="-5" paddingRight_5="-5" paddingLeft_7="-6" paddingRight_7="-6" paddingLeft_8="-7" paddingRight_8="-7"
+			label="@Resource(key='customize', bundle='AdvancedCollage')" id="_btnDone" toolTip="@Resource(key='_btnDone_tip', bundle='Collage')" height="28"
+			enabled="{_imgd != null}"/>
+		<ctl:ResizingButton fontSize="15" fontSize_1="14" fontSize_2="13" minWidth="90" 
+			paddingLeft="6" paddingRight="6" styleName="basketButtonYellow"
+			paddingLeft_2="-2" paddingRight_2="-2" paddingLeft_3="-3" paddingRight_3="-3" paddingLeft_4="-4" paddingRight_4="-4" paddingLeft_5="-5" paddingRight_5="-5" paddingLeft_7="-6" paddingRight_7="-6" paddingLeft_8="-7" paddingRight_8="-7"
+			label="@Resource(key='print', bundle='AdvancedCollage')" id="_btnPrint" toolTip="@Resource(key='_btnDone_print', bundle='Collage')" height="28"
+			enabled="{_imgd != null}"/>
+	</mx:HBox>
+
+	<!-- top buttons -->
+	<mx:Canvas x="0" y="0" width="100%" height="30" backgroundColor="#FFFFFF" horizontalScrollPolicy="off">
+		<ctl:ImageVer source="@Embed('/assets/bitmaps/bar_bg_x30.png')" left="0" top="0" width="100%" scaleContent="true" maintainAspectRatio="false"/>
+		<ctr:ResizingHBox x="0" width="100%" y="0" paddingTop="0" paddingBottom="0" paddingLeft="5" paddingRight="5"
+				verticalAlign="middle" id="hbox1" height="30" horizontalGap_2="6" horizontalGap_5="4" horizontalGap_6="2"
+				horizontalGap_7="1">
+			<ctl:ResizingButton fontSize_1="12" paddingLeft_2="-2" paddingRight_2="-2" paddingLeft_3="-3" paddingRight_3="-3"
+					paddingLeft_4="-4" paddingRight_4="-4" paddingLeft_5="-5" paddingRight_5="-5" paddingLeft_7="-6"
+					paddingRight_7="-6" paddingLeft_8="-7" paddingRight_8="-7"  fontSize_7="11" fontSize_8="9" fontSize_9="10"
+					label="@Resource(key='_btnAutoFill', bundle='Collage')" id="_btnAutoFill"
+					toolTip="{'_btnAutoFill_tip'}"
+					height="24" icon="@Embed('/assets/bitmaps/icon_autofill.png')" horizontalGap="2"
+					disabledIcon="@Embed('/assets/bitmaps/icon_autofillDisabled.png')"
+					enabled="{collection &amp;&amp; collection.length > 0}"/>
+			<ctl:ResizingImage width_4="0" source="@Embed('/assets/bitmaps/divider_short.png')" id="resizingimage1"/>
+			<ctl:ResizingButton fontSize_1="12" paddingLeft_2="-2" paddingRight_2="-2" paddingLeft_3="-3" paddingRight_3="-3"
+					paddingLeft_4="-4" paddingRight_4="-4" paddingLeft_5="-5" paddingRight_5="-5" paddingLeft_7="-6"
+					paddingRight_7="-6" paddingLeft_8="-7" paddingRight_8="-7"  fontSize_7="11" fontSize_8="9" fontSize_9="10"
+					label="@Resource(key='shuffle', bundle='Collage')" id="_btnShuffle" toolTip="@Resource(key='_btnShuffle_tip', bundle='Collage')"
+					height="24"
+					enabled="{populatedTargetCount > 0}"/>
+			<ctl:ResizingImage width_4="0" source="@Embed('/assets/bitmaps/divider_short.png')"/>
+			<ctl:ResizingButton fontSize_1="12" paddingLeft_2="-2" paddingRight_2="-2" paddingLeft_3="-3" paddingRight_3="-3"
+					paddingLeft_4="-4" paddingRight_4="-4" paddingLeft_5="-5" paddingRight_5="-5" paddingLeft_7="-6"
+					paddingRight_7="-6" paddingLeft_8="-7" paddingRight_8="-7"  fontSize_7="11" fontSize_8="9" fontSize_9="10"
+					label="@Resource(key='_btnClear', bundle='Collage')" id="_btnClear" toolTip="@Resource(key='_btnClear_tip', bundle='Collage')"
+					height="24"
+					enabled="{populatedTargetCount > 0}"/>
+			<ctl:ResizingImage width_4="0" source="@Embed('/assets/bitmaps/divider_short.png')"/>
+			
+			<!-- show this one if the display filter has been customzed -->
+			<ctl:ResizingButton width="43" height="24" icon="@Embed('/assets/bitmaps/eye_color/green.png')" offsetDown="1"
+				selected="{_fFilterPanelVisible}"
+				click="ToggleStageVisibilityPanel();"
+				toggle="true"
+				visible=        "{AccountMgr.GetInstance().isCollageAuthor &amp;&amp; _obTemplateFilter != null}"
+				includeInLayout="{AccountMgr.GetInstance().isCollageAuthor &amp;&amp; _obTemplateFilter != null}"
+				/>
+
+			<!-- show this one if the display filter has not been customzed (showing default list) -->
+			<ctl:ResizingButton width="43" height="24" icon="@Embed('/assets/bitmaps/eye_color/grey.png')" offsetDown="1"
+				click="ToggleStageVisibilityPanel();"
+				toggle="true"
+				selected="{_fFilterPanelVisible}"
+				visible=        "{AccountMgr.GetInstance().isCollageAuthor &amp;&amp; _obTemplateFilter == null}"
+				includeInLayout="{AccountMgr.GetInstance().isCollageAuthor &amp;&amp; _obTemplateFilter == null}"
+				/>
+			
+			<mx:Spacer width="100%" />
+			
+			<!-- Quality (normal, high) buttons -->
+			<!-- UNDONE: indicate that quality is a premium feature, show upgrade dialog on click -->
+			<ctl:ResizingLabel id="_lblQuality" text="@Resource(key='quality', bundle='Collage')" fontSize="13" fontSize_1="12" fontWeight="normal" filters="{[_fiWhiteShad]}"
+					paddingTop="2" enabled="{AccountMgr.GetInstance().isPremium}" paddingRight="-5"/>
+			<ctr:ResizingHTile paddingLeft="0" paddingRight="0" paddingTop="0" paddingBottom="0" horizontalGap="0">
+				<ctl:ResizingButton fontSize_1="12" paddingLeft_2="-2" paddingRight_2="-2" paddingLeft_3="-3" paddingRight_3="-3"
+						paddingLeft_4="-4" paddingRight_4="-4" paddingLeft_5="-5" paddingRight_5="-5" paddingLeft_7="-6"
+						paddingRight_7="-6" paddingLeft_8="-7" paddingRight_8="-7"  fontSize_7="11" fontSize_8="9" fontSize_9="10"
+						label="@Resource(key='_btnNormalResolution', bundle='Collage')" id="_btnNormalResolution" styleName="buttonLeft" height="24" width="100%"
+						paddingLeft="-5" paddingRight="-5"
+						selected="{_phgd.fitWidth==kcxNormalResolution}"/>
+				<ctr:ResizingHBox paddingLeft="0" paddingRight="0" paddingTop="0" paddingBottom="0" horizontalGap="0" width="100%">
+					<ctl:ResizingButton fontSize_1="12" paddingLeft_2="-2" paddingRight_2="-2" paddingLeft_3="-3"
+							paddingRight_3="-3" paddingLeft_4="-4" paddingRight_4="-4" paddingLeft_5="-5" paddingRight_5="-5"
+							paddingLeft_7="-6" paddingRight_7="-6" paddingLeft_8="-7" paddingRight_8="-7"  fontSize_7="11"
+							fontSize_8="9" fontSize_9="10" label="@Resource(key='_btnPrintResolution', bundle='Collage')" id="_btnPrintResolution"
+							styleName="buttonRight" height="24" width="100%" paddingLeft="-5" paddingRight="-5"
+							enabled="{AccountMgr.GetInstance().isPremium || defaultToHighQuality}"
+							selected="{_phgd.fitWidth > 1024}"/>
+				</ctr:ResizingHBox>
+			</ctr:ResizingHTile>
+			<ctl:ResizingImage width_4="0" source="@Embed('/assets/bitmaps/divider_short.png')"/>
+			
+			<!-- help button -->
+			<mx:Button id="_btnInfo" selected="false" height="24" width="24" toggle="true" icon="@Embed('/theme/pngs/questionmark.png')" paddingLeft="0"/>
+			
+			<ctl:ResizingImage width_4="0" source="@Embed('/assets/bitmaps/divider_short.png')"/>
+			<!-- undo/redo -->
+			<ctr:ResizingHTile paddingLeft="0" paddingRight="0" paddingTop="0" paddingBottom="0" horizontalGap="0">
+				<ctl:ResizingButton fontSize_1="12" paddingLeft_2="-2" paddingRight_2="-2" paddingLeft_3="-3" paddingRight_3="-3"
+						paddingLeft_4="-4" paddingRight_4="-4" paddingLeft_5="-5" paddingRight_5="-5" paddingLeft_7="-6"
+						paddingRight_7="-6" paddingLeft_8="-7" paddingRight_8="-7"  fontSize_7="11" fontSize_8="9" fontSize_9="10"
+						label="@Resource(key='_btnUndo', bundle='Collage')" id="_btnUndo" styleName="buttonLeft" height="24" width="100%"
+						paddingLeft="-5" paddingRight="-5"/>
+				<ctr:ResizingHBox paddingLeft="0" paddingRight="0" paddingTop="0" paddingBottom="0" horizontalGap="0" width="100%">
+					<ctl:ResizingButton fontSize_1="12" paddingLeft_2="-2" paddingRight_2="-2" paddingLeft_3="-3"
+							paddingRight_3="-3" paddingLeft_4="-4" paddingRight_4="-4" paddingLeft_5="-5" paddingRight_5="-5"
+							paddingLeft_7="-6" paddingRight_7="-6" paddingLeft_8="-7" paddingRight_8="-7"  fontSize_7="11"
+							fontSize_8="9" fontSize_9="10" label="@Resource(key='_btnRedo', bundle='Collage')" id="_btnRedo"
+							styleName="buttonRight" height="24" width="100%" paddingLeft="-5" paddingRight="-5"/>
+				</ctr:ResizingHBox>
+			</ctr:ResizingHTile>
+			<ctl:ResizingButton fontSize_1="12" paddingLeft_2="-2" paddingRight_2="-2" paddingLeft_3="-3" paddingRight_3="-3" paddingLeft_4="-4" paddingRight_4="-4" 
+				paddingLeft_5="-5" paddingRight_5="-5" paddingLeft_7="-6" paddingRight_7="-6" paddingLeft_8="-7" paddingRight_8="-7"  fontSize_7="11" fontSize_8="9" fontSize_9="10"
+				label="@Resource(key='_btnSave', bundle='Collage')" id="_btnSave" toolTip="@Resource(key='_btnSave_tip', bundle='Collage')" 
+				height="24" enabled="{hasDocument}" visible="false" includeInLayout="false"/>
+		</ctr:ResizingHBox>
+	</mx:Canvas>
+	
+	<!-- collage settings column -->
+	<mx:Canvas left="0" top="30" width="327" bottom="24" backgroundColor="#f8f8f8" horizontalScrollPolicy="off" verticalScrollPolicy="off">
+		<!-- background prettiness -->
+		<ctl:ImageEx x="0" bottom="0" source="../graphics/type_gradient_bottom.png" width="100%" scaleContent="true" maintainAspectRatio="false"/>
+		
+		<ctr:TemplateList id="_tlist" width="327" height="100%" dataProvider="{_aTemplateSections}"/>
+		<mx:Label text="@Resource(key='loading_templates', bundle='AdvancedCollage')" horizontalCenter="0" top="30" fontSize="16" color="#666666" filters="{[_fiWhiteShad]}" 
+				visible="{_aTemplateSections == null &amp;&amp; !_fErrorLoadingTemplates}"
+				includeInLayout="{_aTemplateSections == null &amp;&amp; !_fErrorLoadingTemplates}"/>
+		<mx:VBox visible="{_fErrorLoadingTemplates}" includeInLayout="{_fErrorLoadingTemplates}">
+			<mx:Label text="@Resource(key='error_loading_templates', bundle='AdvancedCollage')"/>
+			<mx:Button label="@Resource(key='retry_load_templates', bundle='AdvancedCollage')" click="LoadTemplates()"/>
+		</mx:VBox>
+	</mx:Canvas>
+	
+	<ctl:ImageVer x="0" source="@Embed('/assets/bitmaps/panel_shadow.png')" width="100%" top="30" scaleContent="true" maintainAspectRatio="false"/>
+	<ctl:ImageVer x="0" source="@Embed('/assets/bitmaps/effects_panel_shadow.png')" height="100%" top="31" left="327" scaleContent="true" maintainAspectRatio="false"/>
+	
+	<documentObjects:PhotoGrid id="_phgd"/>
+
+	<!--
+	<ctr:TipCanvas id="_tipGroupInfo" visible="false" width="250" 
+			alpha="0.95"
+			resizeEffect="{_efResize}"
+			rollOverEffect="{_efSoftFadeIn}" 
+			rollOutEffect="{_efSoftFadeOut}" 
+			showEffect="{_efFadeIn}" hideEffect="{_efFadeOut}">
+		<mx:VBox paddingLeft="12" paddingRight="12" paddingTop="8" paddingBottom="10" width="100%">
+			<mx:Text id="_txtHelp" fontSize="12" condenseWhite="true" selectable="false" styleName="aboutText" width="100%" htmlText="@Resource(key='_txtHelp', bundle='CreativeTools')"/>
+		</mx:VBox>
+	</ctr:TipCanvas>
+	-->
+
+</AdvancedCollageBase>

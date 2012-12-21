@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<HistoryInBridgeBase xmlns="bridges.history.*" xmlns:mx="http://www.adobe.com/2006/mxml" 
+		xmlns:flash="flash.filters.*" xmlns:local="*" xmlns:ctrl="controls.*" xmlns:bridges="bridges.*"
+		width="100%" height="100%" horizontalScrollPolicy="off" verticalScrollPolicy="off">
+	<mx:Script>
+		<![CDATA[
+			import dialogs.DialogManager;
+		]]>
+	</mx:Script>
+	<mx:Number id="_cItems">-1</mx:Number>
+	<mx:Number id="_cSets">-1</mx:Number>
+	<mx:Boolean id="_fIsPro">false</mx:Boolean>
+	
+	<states>
+		<mx:State name="NeedAuthorization">
+			<mx:RemoveChild target="{_tlst}"/>
+			<mx:RemoveChild target="{hbox1}"/>
+			<mx:AddChild position="lastChild">
+				<!-- history upsell -->
+				<mx:VBox paddingTop="15" paddingRight="10" paddingLeft="10" verticalGap="28" horizontalCenter="0"
+						horizontalAlign="center" width="100%" maxWidth="550">
+					<mx:Text htmlText="@Resource(key='historyAbout', bundle='HistoryInBridge')" width="100%" fontSize="20" color="#000000" textAlign="center" leading="0" paddingBottom="5"/>
+					<mx:HBox horizontalGap="10" width="100%" verticalAlign="middle">
+						<ctrl:ResizingButton label="@Resource(key='registerButton', bundle='HistoryInBridge')" minWidth="180" maxWidth="180" height="30"
+							fontSize="16" autoFontSizeGap="1" click="DialogManager.ShowRegister(PicnikBase.app);"/>
+						<mx:Text htmlText="@Resource(key='registerMessage', bundle='HistoryInBridge')" width="100%" fontSize="16" color="#000000" leading="0"/>
+					</mx:HBox>
+					<mx:HBox horizontalGap="10" width="100%" verticalAlign="middle">
+						<ctrl:ResizingButton label="@Resource(key='upgradeButton', bundle='HistoryInBridge')" minWidth="180" maxWidth="180" height="34" styleName="BigButton"
+							fontSize="16" autoFontSizeGap="1" click="DialogManager.ShowUpgrade( '/history', PicnikBase.app);"/>
+						<mx:Text htmlText="@Resource(key='upgradeMessage', bundle='HistoryInBridge')" width="100%" fontSize="16" color="#000000" leading="0"/>
+					</mx:HBox>
+				</mx:VBox>
+			</mx:AddChild>
+		</mx:State>
+		<mx:State name="NoImages">
+			<!-- See below -->
+		</mx:State>
+	</states>
+	
+	<flash:DropShadowFilter id="_fiWhiteShad" blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha=".8" quality="3" angle="90"/>
+	
+	<ctrl:ImageVer source="../graphics/bluegrad_short.gif" left="0" top="0" width="100%" height="420" maintainAspectRatio="false" includeInLayout="false" alpha=".3"/>
+	<ctrl:ImageEx left="0" top="0" source="../graphics/history_crop.png" id="image2" alpha="0.8"/>
+	<mx:HBox top="0" paddingLeft="15" height="80" verticalAlign="middle" horizontalGap="0" id="hbox1" width="100%">
+		<mx:VBox verticalGap="0" paddingRight="0">
+			<mx:HBox verticalAlign="bottom" horizontalGap="3">
+				<ctrl:LabelPlus id="_lbGreeting" text="@Resource(key='_lbGreeting', bundle='HistoryInBridge')" filters="{[_fiWhiteShad]}" 
+					fontSize="21" fontWeight="bold" color="#000000" paddingBottom="-7"/>
+			</mx:HBox>
+			<mx:HBox horizontalGap="10">
+				<mx:HBox horizontalGap="-1" verticalAlign="middle" id="_hbxOptions" visible="true" includeInLayout="true">
+					<mx:Label text="@Resource(key='_lbOptions', bundle='HistoryInBridge')" id="_lbOptions" fontSize="14" color="#666666" height="21"/>
+					<ctrl:ImageVer source="@Embed('/theme/pngs/inlineDropDownArrow.png')"/>
+				</mx:HBox>
+				<mx:Label text="{GetPhotosAndAlbums(_cItems,_cSets)}" id="_lbPhotoSummary" fontSize="14" color="#666666" height="21" filters="{[_fiWhiteShad]}"/>
+			</mx:HBox>
+		</mx:VBox>
+		<mx:HBox verticalAlign="middle" horizontalAlign="right" width="100%" horizontalGap="10" paddingRight="10"
+				visible="{!AccountMgr.GetInstance().isPremium}" includeInLayout="{!AccountMgr.GetInstance().isPremium}">
+			<mx:Text htmlText="@Resource(key='registeredUpgradeMessage', bundle='HistoryInBridge')" width="100%" maxWidth="260" minWidth="200"
+				fontSize="15" color="#000000" leading="-1" textAlign="right"/>
+			<mx:Button label="@Resource(key='upgradeButton', bundle='HistoryInBridge')" minWidth="180" height="34" fontSize="16" styleName="BigButton"
+				click="DialogManager.ShowUpgrade('/in_history',PicnikBase.app)"/>
+		</mx:HBox>
+		<!-- _cboxOrderBy place holder -->
+		<mx:VBox verticalGap="0" visible="false" includeInLayout="false">
+			<!-- HACK: this 'enabled != enabled' hack is to work around a bug in Flex which partially enables the editable state
+					whenever the combobox is enabled -->
+			<ctrl:ComboBoxPlus id="_cboxSets" rowCount="8" width="250" height="26" fontSize="14" color="#333333" editable="{_cboxSets.enabled != _cboxSets.enabled}" styleName="deviceFonts">
+				<ctrl:itemRenderer>
+					<mx:Component>
+		            	<mx:HBox verticalAlign="middle">
+		                	<mx:Label text="{data.label}" fontSize="14" width="160" paddingRight="5" styleName="deviceFonts"/>
+							<mx:Spacer width="100%"/>
+		                	<ctrl:ImageVer source="{data.icon}" height="36" width="36"/>
+		            	</mx:HBox>
+					</mx:Component>
+	            </ctrl:itemRenderer>
+			</ctrl:ComboBoxPlus>
+		</mx:VBox>
+	</mx:HBox>
+	<mx:HRule top="79" width="100%" strokeColor="#acd2e5" strokeWidth="1"/>
+	<mx:HRule top="80" width="100%" strokeColor="#ffffff" strokeWidth="1" alpha=".75"/>
+	<bridges:InBridgeTileList left="0" top="80" bottom="0" right="0" id="_tlst" itemRenderer="bridges.history.HistoryItem"
+			rowHeight="180" tileSizeInWidth="280"/>
+	
+	
+	<!-- This is the old "NoImages" state -->
+	<mx:HBox x="0" y="81" width="100%" horizontalAlign="center" paddingTop="20">
+		<mx:Text width="500" textAlign="center" condenseWhite="true" selectable="false" 
+				 visible="{busyCount == 0 &amp;&amp; _tlst.fListHasItems == false &amp;&amp; currentState != 'NeedAuthorization'}"
+				 includeInLayout="{busyCount == 0 &amp;&amp; _tlst.fListHasItems == false &amp;&amp; currentState != 'NeedAuthorization'}"
+				 htmlText="@Resource(key='Text_2', bundle='HistoryInBridge')"/>
+	</mx:HBox>
+	<!-- Add this back in when we have a sort order drop down:
+	<mx:SetStyle target="{label1}" name="color" value="#999999"/>
+	<mx:SetProperty target="{_cboxOrderBy}" name="enabled" value="false"/>
+	-->
+	
+	<!-- This is the new "LoadingHistory" state to augment the loading gears -->
+	<mx:HBox x="0" y="81" width="100%" height="100%" horizontalAlign="center" verticalAlign="middle"
+			 visible="{busyCount > 0 &amp;&amp; _tlst.fListHasItems == false}" 
+			 includeInLayout="{busyCount > 0 &amp;&amp; _tlst.fListHasItems == false}">
+		<mx:Text color="#4d99bf" fontWeight="bold" styleName="publishForm" filters="{[_fiWhiteShad]}" width="500" fontSize="20" 
+				 textAlign="center" condenseWhite="true" selectable="false" htmlText="@Resource(key='loadingHistory', bundle='HistoryInBridge')"/>
+	</mx:HBox>
+
+</HistoryInBridgeBase>

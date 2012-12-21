@@ -1,0 +1,12 @@
+fileName: lb_heartswe.ttf
+name: Heart Sweet Heart
+subfamilyDisplayName: Regular
+fullName: Heart Sweet Heart
+displayName: Heart Sweet Heart
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 4
+pkName: pklb0heartswe
+authorName: Ray Larabie
+authorUrl: http://www.larabiefonts.com/

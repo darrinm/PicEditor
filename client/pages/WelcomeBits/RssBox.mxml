@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox verticalGap="0" initialize="OnInit(event)"
+	xmlns:filters="flash.filters.*" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:ctl="controls.*" >
+	<mx:Style source="Welcome.css"/>
+	<mx:Script>
+		<![CDATA[
+			import util.FeedLoader;
+			import controls.TextPlus;
+			import controls.LabelPlus;
+			import util.LocUtil;
+			import mx.effects.easing.*;
+			import mx.resources.ResourceBundle;
+	
+	   		[Bindable] [ResourceBundle("RssBox")] private var rb:ResourceBundle;	   		
+			[Bindable] public var feed:FeedLoader = new FeedLoader("http://feeds.feedburner.com/PicnikRssForClient?format=xml",3);
+			
+			[Bindable] public var _ssHover:StyleSheet;
+			
+			private function OnInit(evt:Event): void {
+				_ssHover = new StyleSheet();
+				_ssHover.setStyle( "a:hover", { color: "#2d4006" } );
+			}
+			
+			private function formatRssItem( xmlItem:Object, nIndex:Number ) : String {
+				var strReadMore:String = LocUtil.rbSubst('RssBox','readmore',xmlItem.link);
+				if (nIndex == 0) {
+					var strExcerpt:String = xmlItem.description;
+					strExcerpt = strExcerpt.replace( /\n+/, "\n\n" );	// get rid of multiple newlines
+					strExcerpt = strExcerpt.replace( "[...]", "... " + strReadMore);
+					return LocUtil.rbSubst('RssBox','firstentry',xmlItem.link,xmlItem.title,LocUtil.casualDate(xmlItem.date), strExcerpt);
+				} else {  
+					return LocUtil.rbSubst('RssBox','nextentry',xmlItem.link,xmlItem.title,LocUtil.casualDate(xmlItem.date),"");
+				}
+			}
+			
+   		]]>
+	</mx:Script>	
+	<filters:DropShadowFilter id="_fiWhiteShad" blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1" quality="3" angle="90"/>
+	
+	<mx:HBox horizontalGap="2" verticalAlign="middle" paddingLeft="3">
+		<ctl:ImageEx source="/graphics/icon_rssFeed.png" />
+		<ctl:LabelPlus text="@Resource(key='title', bundle='RssBox')"  styleName="h2" filters="{[_fiWhiteShad]}"/> 
+	</mx:HBox>
+	<ctl:LabelPlus text="@Resource(key='loading', bundle='RssBox')" visible="{!feed.items.length}" includeInLayout="{!feed.items.length}"/>
+	<mx:Repeater id="rpBlogFeed" dataProvider="{feed.items}" visible="{feed.items.length>0}">
+		<ctl:TextPlus styleName="blogLink" width="100%" buttonMode="true" selectable="true" paddingRight="15"
+			filters="{[_fiWhiteShad]}" styleSheet="{_ssHover}"
+			htmlText="{formatRssItem(rpBlogFeed.currentItem, rpBlogFeed.currentIndex)}">
+		</ctl:TextPlus>
+	</mx:Repeater>
+	<ctl:TextPlus text="@Resource(key='archives', bundle='RssBox')" color="#618430" buttonMode="true" selectable="true" 
+		 filters="{[_fiWhiteShad]}" styleName="blogLink" styleSheet="{_ssHover}" fontSize="15" fontWeight="bold"
+		 useHandCursor="true" paddingTop="4">
+	</ctl:TextPlus>
+</mx:VBox>

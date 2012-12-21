@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ctl:MouseFollowingPremiumNagBase xmlns:ctl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml"
+		includeInLayout="false" mouseEnabled="false" mouseChildren="false"
+		styleName="premiumGradient" cornerRadius="8" filters="{[_fiPremShine,_fiPremShadow]}" xmlns:filters="flash.filters.*">
+	<mx:Script>
+		<![CDATA[
+			import mx.resources.ResourceBundle;
+	   		[Bindable] [ResourceBundle("Collage")] private var rb:ResourceBundle;
+		]]>
+	</mx:Script>
+	
+	<mx:Style>
+		.premiumGradient {
+		   border-style: solid;
+		   border-thickness: 0;
+		   border-skin: ClassReference("skins.GradientBackground");
+		   gradient-fill-colors: #2587ae, #278cb3, #175480;
+		   gradient-fill-ratios: 0,64,255;
+		   gradient-rotation: 90;
+		}
+	</mx:Style>
+	
+	<filters:DropShadowFilter id="_fiPremShadow" blurX="4" blurY="4" distance="1" color="#000000" alpha=".5" quality="3" angle="90"/>
+	<filters:DropShadowFilter id="_fiPremShine" blurX="0" blurY="0" distance="1" color="#FFFFFF" alpha=".9" inner="true" quality="3" angle="90"/>
+	<filters:DropShadowFilter id="_efEmbossed" blurX="0" blurY="0" distance="1" color="#000000" alpha=".4" quality="3" angle="-90"/>
+	
+	<mx:Label text="{Resource.getString('Collage', 'dragDropLimit5')}" mouseEnabled="false" mouseChildren="false"
+		paddingTop="3" paddingRight="10" paddingBottom="1" paddingLeft="10"
+		color="#ffffff" filters="{[_efEmbossed]}"/>
+</ctl:MouseFollowingPremiumNagBase>

@@ -1,0 +1,23 @@
+URL: http://code.google.com/p/urlkit/
+Version: 0.62
+License: MIT
+License File: LICENSE
+
+Description:
+Flex library providing a rule-based URL parser/generator for deep linking
+
+Local Modifications:
+UrlBaseRule.containerUrl():
+ - Fixed bug:  do not set _valid = false, otherwise will never be valid again
+ 
+UrlBrowserManager.as:
+ - Added error logging for failed external interface calls - and catch exceptions.
+ - Make creationComplete() public so we can call it from PicnikBase.as
+ 
+UrlBrowserManager.UrlBrowserManager():
+ - Set default url to "" rather than null
+ - Always prefix the browser url with a "/"
+
+UrlBrowserManager.setPlayerUrl():
+ - Test for applicationState == null before dereferencing
+ 

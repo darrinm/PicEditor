@@ -1,0 +1,23 @@
+/*
+ * Copyright 2011 Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an Apache 2.0 License.
+ * See the COPYING file for details.
+ */
+
+
+@font-face {
+    src:local("ambulance shotgun");
+    font-family: "pkambulance0shotgun";
+    unicodeRange: U+0000-U+00FF;
+    flashType: true;
+    fontWeight: normal;
+    fontStyle: normal;
+}
+
+.pkambulance0shotgun
+{
+    font-family: "pkambulance0shotgun";
+    fontWeight: normal;
+    fontStyle: normal;
+}

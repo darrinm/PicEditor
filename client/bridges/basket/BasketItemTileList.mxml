@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<InBridgeTileList xmlns="bridges.*" xmlns:mx="http://www.adobe.com/2006/mxml" 
+	dragEnabled="{!PicnikBase.app.multiMode}" autoHorizontal="true"
+	borderStyle="solid" borderThickness="0"
+	horizontalScrollBarStyleName="basketHScrollBar" verticalScrollBarStyleName="basketVScrollBar"
+	itemRenderer="bridges.basket.BasketItem" tileAspectRatio="1" tileSizeInWidth="64" leftElementPadding="7"
+	snapScroll="true">
+</InBridgeTileList>

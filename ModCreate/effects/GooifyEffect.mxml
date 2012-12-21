@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GooifyEffectBase xmlns="effects.*" xmlns:cnt="containers.*" xmlns:ctrl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="151" xmlns:local="*" 
+	xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*"
+	xmlns:flash.geom="flash.geom.*"
+	verticalScrollPolicy="off"  horizontalScrollPolicy="off" borderThickness="1" borderColor="black" premium="{PicnikBase.GetApp().freemiumModel}" urlid="Gooify">
+	<mx:Script>
+		import util.LocUtil;
+		import mx.resources.ResourceBundle;
+   		[Bindable] [ResourceBundle("GooifyEffect")] private var rb:ResourceBundle;
+	</mx:Script>
+
+	<mx:Number id="_nCollapsedHeight">73</mx:Number>
+	<mx:Metadata>
+        [Event(name="changeFocus", type="flash.events.Event")]
+    </mx:Metadata>
+	<mx:Array id="_resetValues">
+		<local:StoredValue target="_sldrStrength.value"/>
+		<local:StoredValue target="_aapt" value="{null}"/>
+	</mx:Array>
+
+	<mx:HRule x="0" width="100%" top="0" height="1" strokeColor="#FFFFFF"/>
+	<mx:HRule x="0" width="100%" height="1" bottom="0" strokeColor="#d4d4d4"/>
+	
+	<ctrl:EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='GooifyEffect')" strAuthor="@Resource(key='_efbtn_1', bundle='GooifyEffect')" strImageSource="../graphics/effects/Misc/gooify.png" premium="{premium}"/>
+	<mx:String id="_strHelpText">{Resource.getString('GooifyEffect', '_strHelpText')}</mx:String>
+
+	<mx:Label x="8" y="70" text="@Resource(key='Label_1', bundle='GooifyEffect')" styleName="sliderTitle"/>
+	<mx:Label x="152" y="70" text="{LocUtil.pct((_sldrStrength.value/1.5))}" styleName="sliderValue" textAlign="right" width="50"/>
+	<ctrl:HSliderPlus x="9" y="85" width="190" minimum="0" maximum="150" value="100" id="_sldrStrength" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+
+	<ctrl:ApplyCancelEffectButtons y="114" premium="{premium}"/>
+
+	<mx:Array id="_aapt"/>
+	<mx:Number id="_cxyBrush">{100}</mx:Number>
+	
+	<imageOperations:GooifyImageOperation id="_op" lines="{_aapt}" strength="{_sldrStrength.value}"/>
+</GooifyEffectBase>

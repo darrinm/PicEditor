@@ -1,0 +1,12 @@
+fileName: ba_OlhodeBoi.ttf
+name: Olho de Boi
+subfamilyDisplayName: Regular
+fullName: Olho de Boi
+displayName: Olho de Boi
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 4
+pkName: pkba0OlhodeBoi
+authorName: Billy Argel
+authorUrl: http://billyargel.blogspot.com/

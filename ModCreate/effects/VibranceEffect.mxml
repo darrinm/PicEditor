@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cnt:PaintEffectCanvas xmlns:cnt="containers.*" xmlns="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="193" 
+	xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" flash10="true" premium="true" urlid="Vibrance">
+	<mx:Script>
+		<![CDATA[
+			import imagine.imageOperations.ShaderImageOperation;
+			import util.LocUtil;
+			import mx.resources.ResourceBundle;
+		   	
+	   		[Bindable] [ResourceBundle("VibranceEffect")] private var rb:ResourceBundle;
+
+			[Embed("/assets/shaders/Effects/Vibrance.pbj", mimeType="application/octet-stream")]
+			private static var _clsVibrance:Class;
+
+		]]>
+	</mx:Script>
+
+
+	<mx:Array id="_resetValues">
+		<local:StoredValue target="_sldrVibrance.value"/>
+	</mx:Array>
+	
+	<EffectButton id="_efbtn" strTitle="@Resource(key='Vibrance', bundle='VibranceEffect')" strAuthor="@Resource(key='_efbtn_1', bundle='VibranceEffect')"
+		strImageSource="../graphics/effects/vibrance.jpg" premium="{premium}"/>
+	<mx:String id="_strHelpText">{Resource.getString('VibranceEffect', '_strHelpText')}</mx:String>
+
+	<mx:VBox x="0" y="67" verticalGap="0" paddingLeft="8" paddingRight="8">
+		<mx:HBox horizontalGap="5" paddingTop="5" verticalAlign="middle">
+			<!-- Vibrance label/percent/slider box/effect paint button -->
+			<mx:VBox verticalGap="0" width="157" horizontalScrollPolicy="off">
+				<mx:HBox width="100%" paddingBottom="-5">
+					<mx:Label text="@Resource(key='Vibrance', bundle='VibranceEffect')" styleName="sliderTitle"/>
+					<mx:Label text="{LocUtil.pct((_sldrVibrance.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+				</mx:HBox>
+				<HSliderPlus width="157" minimum="0" maximum="100" value="50" id="_sldrVibrance" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+			</mx:VBox>
+			<mx:Button id="_btnBrushPalette" width="30" height="30" selected="false" toggle="true" icon="@Embed('/assets/bitmaps/icon_paintTall.png')" paddingLeft="0"
+				toolTip="@Resource(key='_btnBrushPalette', bundle='BWEffect')"/>
+		</mx:HBox>
+		<ApplyCancelEffectButtons addBoxPadding="true" premium="{premium}"/>
+	</mx:VBox>
+
+</cnt:PaintEffectCanvas>

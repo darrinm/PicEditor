@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ObjectPaletteBase xmlns="objectPalette.*" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:ctl="controls.*"
+		xmlns:documentObjects="documentObjects.*" xmlns:flash.filters="flash.filters.*" includeInLayout="false"
+		alpha="1.0" headerHeight="18" borderThicknessBottom="0"
+		focusEnabled="false" mouseFocusEnabled="false">
+	<mx:ViewStack id="_vstk" resizeToContent="true" cacheAsBitmap="true">
+		<!-- these ids must match defined IDocumentObject.objectPaletteName values -->
+		<TextPalette id="Text"/>
+		<ShapePalette id="Shape"/>
+		<ShapePalette id="Frame" _strTypePrefix="Frame_"/>
+		<PhotoPalette id="Photo"/>
+	</mx:ViewStack>
+</ObjectPaletteBase>

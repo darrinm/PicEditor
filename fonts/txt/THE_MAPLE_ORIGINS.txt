@@ -1,0 +1,12 @@
+fileName: THE_MAPLE_ORIGINS.ttf
+name: THE MAPLE ORIGINS
+subfamilyDisplayName: Normal
+fullName: THE MAPLE ORIGINS
+displayName: THE MAPLE ORIGINS
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 0
+pkName: pkTHE0MAPLE0ORIGINS
+authorName: Gyom.Typo
+authorUrl: http://gyom.nebullus.com/

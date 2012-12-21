@@ -1,0 +1,12 @@
+fileName: vtks_SABONETE.ttf
+name: VTKS SABONETE
+subfamilyDisplayName: Regular
+fullName: VTKS SABONETE
+displayName: VTKS SABONETE
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 0
+pkName: pkvtks0SABONETE
+authorName: Douglas Vitkauskas
+authorUrl: http://www.vtks.com.br/

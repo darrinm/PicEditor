@@ -1,0 +1,13 @@
+You have successfully updated your Picnik API key information.  The details are included below.
+
+contact name: $strContactName
+contact email: $strContactEmail
+site:	$strSite
+key:	$strApiKey
+comments: $strApiComments
+
+If you have any questions about this change, please let us know.
+
+Regards,
+Team Picnik
+

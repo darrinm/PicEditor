@@ -1,0 +1,12 @@
+fileName: times.ttf
+name: Times New Roman
+subfamilyDisplayName: Normal
+fullName: Times New Roman
+displayName: Times New Roman
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 6
+pkName: pktimes
+authorName: Stanley Morison with Starling Burgess and Victor Lardent 
+authorUrl: http://www.linotype.com/510/stanleymorison.html

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FacebookOutBridgeBase xmlns="bridges.facebook.*" xmlns:pk="*" xmlns:ctrl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml"
+		width="100%" height="100%" fontSize="14" xmlns:flash="flash.filters.*" horizontalScrollPolicy="off" verticalScrollPolicy="auto">
+	<mx:Script>
+		import mx.resources.ResourceBundle;
+   		[Bindable] [ResourceBundle("FacebookOutBridge")] private var rb:ResourceBundle;
+	</mx:Script>
+
+	<states>
+		<mx:State name="NeedAuthorization">
+			<mx:RemoveChild target="{mainBox}"/>
+			<mx:AddChild position="lastChild">
+				<FacebookAccount width="100%" id="_ssa" _tpa="{_tpa}" horizontalCenter="0" paddingBottom="10" top="15"/>
+			</mx:AddChild>
+		</mx:State>
+		<mx:State name="ServiceDown">
+			<mx:RemoveChild target="{mainBox}"/>
+			<mx:AddChild position="lastChild">
+				<mx:Text width="100%" textAlign="center" condenseWhite="true" selectable="false" id="text1" htmlText="@Resource(key='FacebookProblems', bundle='FacebookInBridge')" paddingTop="20">
+				</mx:Text>
+			</mx:AddChild>
+		</mx:State>
+		<mx:State name="AccountTypePro"/>
+		<mx:State name="AccountTypeProWithImageID" basedOn="AccountTypePro">
+			<mx:AddChild relativeTo="{_btnSave}" position="before">
+				<mx:VBox>
+					<mx:HBox width="100%" horizontalAlign="center">
+						<mx:Text width="100%" condenseWhite="true" fontSize="14" paddingLeft="-3" htmlText="@Resource(key='Text_1', bundle='FacebookOutBridge')">
+						</mx:Text>				
+					</mx:HBox>
+					<mx:HBox width="100%" horizontalAlign="center">
+						<mx:RadioButton label="@Resource(key='_rbtnSaveNew', bundle='FacebookOutBridge')" id="_rbtnSaveNew" selected="true" groupName="grpSaveType"/>
+						<mx:RadioButton label="@Resource(key='_rbtnReplace', bundle='FacebookOutBridge')" id="_rbtnReplace" selected="false" groupName="grpSaveType"/>
+					</mx:HBox>
+					<mx:Spacer height="5"/>
+				</mx:VBox>					
+			</mx:AddChild>
+		</mx:State>
+		<mx:State name="SaveComplete">
+			<mx:AddChild relativeTo="{mainBox}" position="before">
+			<mx:HBox id="invitebar" width="100%" borderColor="#CCCCCC" borderSides="bottom" borderStyle="solid" borderThickness="1" backgroundImage="{PicnikBase.StaticUrl('/graphics/clouds.jpg')}" backgroundColor="#d0ebff">
+				<mx:Button filters="{[_fiWhiteShad]}" styleName="clearButton"
+					label="@Resource(key='inviteSavedMessage', bundle='FacebookOutBridge')" width="100%" fontSize="14" color="#005580" textRollOverColor="#002A40" click="TellYourFriends()" paddingTop="3" useHandCursor="true"/>
+			</mx:HBox>
+			</mx:AddChild>
+			</mx:State>
+	</states>
+	
+	<flash:DropShadowFilter blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1"
+		quality="3" angle="90" id="_fiWhiteShad"/>
+	
+	<ctrl:ImageVer source="@Embed('/assets/bitmaps/page_blueGrad.png')" left="0" top="0" width="100%" scaleContent="true" maintainAspectRatio="false"/>
+	<mx:Binding source="_taTitle.text" destination="_imgd.properties.title"/>
+	<mx:Binding source="_taTags.text" destination="_imgd.properties.tags"/>
+	<mx:Binding source="_taDescription.text" destination="_imgd.properties.description"/>
+	<mx:VBox height="100%" width="100%">
+		<mx:HBox width="100%" height="100%" paddingTop="20" paddingRight="26" paddingBottom="20" paddingLeft="20" y="0" x="0" horizontalGap="0" id="mainBox">
+		<!-- left column, image view vbox (drop shadow applied to contents) -->
+		<mx:VBox width="50%" height="100%" paddingRight="24">
+			<pk:ImageView id="_imgvPreview" width="100%" height="100%" verticalAlign="top" minWidth="75" minHeight="75"/>
+			<mx:filters>
+				<flash:DropShadowFilter distance="1" angle="90" blurX="4" blurY="4" alpha=".5" quality="3"/>
+  			</mx:filters>
+		</mx:VBox>
+		<!-- right column, form contents vbox -->
+  		<mx:VBox width="50%" height="100%" verticalGap="0" paddingLeft="4">
+			<mx:Label text="@Resource(key='Label_1', bundle='FacebookOutBridge')" color="#618430" fontWeight="bold" fontSize="21" styleName="publishForm" paddingBottom="-6"/>
+			<mx:VBox verticalGap="0" paddingBottom="12" paddingTop="10">
+				<mx:Label text="@Resource(key='label2', bundle='FacebookOutBridge')" styleName="publishForm" height="20" id="label2"/>
+				<ctrl:TextAreaPlus width="390" height="64" minHeight="64" maxHeight="142" styleName="publishFormField" id="_taTitle" text="{_imgd.properties.title}"/>
+			</mx:VBox>
+			
+			<!-- tags are disabled, but the code still depends on the existence of this control so we just make it invisible -->
+			<mx:CheckBox label="@Resource(key='_chkbPicnikTag', bundle='FacebookOutBridge')" id="_chkbPicnikTag" enabled="false" visible="false" includeInLayout="false"/>
+			
+			<!-- Post to newsfeed checkbox -->
+			<!-- 2010-06-21 steveler: disabled this because Facebook is constantly bugging us about Terms of Service violations,
+			     in particular related to how we're presenting the UI and helping the user with pre-filled fields. -->
+			<mx:VBox id="_boxPostToNewsfeed" visible="{false &amp;&amp; fUserInfoReady &amp;&amp; fPublishable}" includeInLayout="{false &amp;&amp; fUserInfoReady &amp;&amp; fPublishable}" 
+				paddingTop="10" paddingLeft="10" paddingRight="10" paddingBottom="10" width="390"
+				 borderStyle="solid" borderThickness="0" borderColor="#000000" cornerRadius="8" backgroundColor="#BBBBBB" backgroundAlpha="0.3">
+				<mx:CheckBox label="@Resource(key='_chkbNewsfeed', bundle='FacebookOutBridge')" id="_chkbNewsfeed" selected="false" />
+				<mx:VBox verticalGap="0" visible="{_chkbNewsfeed.selected}" includeInLayout="{_chkbNewsfeed.selected}">
+					<!-- headline -->
+					<mx:Spacer height="4"/>
+					<mx:Label text="@Resource(key='headline', bundle='FacebookOutBridge')" styleName="publishForm" height="20"/>
+					<ctrl:TextAreaPlus width="370" height="32" minHeight="32" maxHeight="64" styleName="publishFormField" id="_taHeadline" 
+							text=""/>
+							
+					<!-- description -->
+					<mx:Spacer height="8"/>
+					<mx:Label text="@Resource(key='message', bundle='FacebookOutBridge')" styleName="publishForm" height="20"/>
+					<ctrl:TextAreaPlus width="370" height="64" minHeight="64" maxHeight="142" styleName="publishFormField" id="_taDescription" 
+							text="{}"/>
+				</mx:VBox>
+			</mx:VBox>				
+
+			<mx:HBox horizontalGap="10" paddingTop="12">
+				<mx:VBox verticalGap="0">
+					<mx:Label text="@Resource(key='Label_2', bundle='FacebookOutBridge')" styleName="publishForm" height="20"/>
+					<ctrl:ComboBoxPlus id="_cboxSets" rowCount="8" width="300" height="26" styleName="deviceFonts" enabled="{_cboxSets.dataProvider.length > 0}">
+						<ctrl:itemRenderer>
+							<mx:Component>
+				            	<mx:HBox verticalAlign="middle">
+				                	<mx:Label text="{data.label}" fontSize="14" width="210" styleName="deviceFonts"/>
+									<mx:Spacer width="100%"/>
+				                	<ctrl:ImageVer source="{data.icon}" height="36" width="36" verticalAlign="middle" horizontalAlign="center"/>
+				            	</mx:HBox>
+							</mx:Component>
+			            </ctrl:itemRenderer>
+					</ctrl:ComboBoxPlus>
+				</mx:VBox>
+				<ctrl:ImageVer id="_imgPhotoSet" source="{_cboxSets.selectedItem.icon}" width="48" height="48" verticalAlign="bottom">
+					<ctrl:filters>
+						<flash:DropShadowFilter distance="1" angle="90" blurX="4" blurY="4" alpha=".5" quality="3"/>
+					</ctrl:filters>
+				</ctrl:ImageVer>
+			</mx:HBox>
+			<mx:VBox id="_hboxPhotoApproval" visible="{fUserInfoReady &amp;&amp; !fPublishable}" includeInLayout="{fUserInfoReady &amp;&amp; !fPublishable}" paddingTop="10">
+				<mx:Text width="390" condenseWhite="true" fontSize="13" textAlign="left" htmlText="@Resource(key='Text_2', bundle='FacebookOutBridge')">
+				</mx:Text>
+				<mx:VBox verticalGap="10" horizontalAlign="center" width="100%">
+					<mx:Button fontSize="15" label="@Resource(key='_lbtnGetUploadPermission', bundle='FacebookOutBridge')" height="30" minWidth="240"
+						id="_lbtnGetUploadPermission" />
+				</mx:VBox>
+			</mx:VBox>
+			
+			<!-- big button vbox -->
+			<mx:VBox verticalGap="0" horizontalAlign="center" paddingTop="20">			
+				<ctrl:ImageVer source="@Embed('/assets/bitmaps/saveshad_top.png')"/>
+				<mx:Spacer height="10"/>
+				<mx:Button label="@Resource(key='_btnSave', bundle='FacebookOutBridge')" width="200" height="34" fontSize="18" id="_btnSave" styleName="BigButton"
+						enabled="{Boolean(_imgd)}"/>
+				<mx:CheckBox label="@Resource(key='_chkbFBApprove', bundle='FacebookOutBridge')" id="_chkbFBApprove" visible="{fUserInfoReady &amp;&amp; !fPublishable}" includeInLayout="{fUserInfoReady &amp;&amp; !fPublishable}"/>
+				<mx:Spacer height="10"/>
+				<ctrl:ImageVer source="@Embed('/assets/bitmaps/saveshad_bot.png')"/>
+			</mx:VBox>
+		</mx:VBox>
+	</mx:HBox>
+	</mx:VBox>
+</FacebookOutBridgeBase>

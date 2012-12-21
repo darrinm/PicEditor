@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/shape_bastille_day.png" flickrPremium="true" id="BastilleDay" numShapes="20" picnikPremium="true" previewUrls="60|48|../clipart/bundles/groupPreviews_BastilleDay.png?ver=5e90aeb5" title="Bastille Day">
+	<Shapes>
+		<Clipart cHeight="274" cWidth="227" flickrPremium="true" picnikPremium="true" previewUrl="40|40|0|../clipart/bundles/shapes_BastilleDay.png?ver=3e7780d8" url="shapes/bastilleday_flag.swf"/>
+		<Clipart cHeight="350" cWidth="305" flickrPremium="true" picnikPremium="true" previewUrl="40|40|1|../clipart/bundles/shapes_BastilleDay.png?ver=3e7780d8" url="shapes/bastilleday_eiffel.swf"/>
+		<Clipart cHeight="154" cWidth="145" flickrPremium="true" picnikPremium="true" previewUrl="40|40|2|../clipart/bundles/shapes_BastilleDay.png?ver=3e7780d8" url="shapes/bastilleday_fleurdelis.swf"/>
+		<Clipart cHeight="208" cWidth="244" flickrPremium="true" picnikPremium="true" previewUrl="40|40|3|../clipart/bundles/shapes_BastilleDay.png?ver=3e7780d8" url="shapes/bastilleday_france.swf"/>
+		<Clipart cHeight="110" cWidth="185" flickrPremium="true" picnikPremium="true" previewUrl="40|40|4|../clipart/bundles/shapes_BastilleDay.png?ver=3e7780d8" url="shapes/bastilleday_baret.swf"/>
+		<Clipart cHeight="169" cWidth="304" flickrPremium="true" picnikPremium="true" previewUrl="40|40|5|../clipart/bundles/shapes_BastilleDay.png?ver=3e7780d8" url="shapes/bastilleday_neckscarf.swf"/>
+		<Clipart cHeight="346" cWidth="462" flickrPremium="true" picnikPremium="true" previewUrl="40|40|6|../clipart/bundles/shapes_BastilleDay.png?ver=3e7780d8" url="shapes/bastilleday_shirt.swf"/>
+		<Clipart cHeight="115" cWidth="115" flickrPremium="true" picnikPremium="true" previewUrl="40|40|7|../clipart/bundles/shapes_BastilleDay.png?ver=3e7780d8" url="shapes/bastilleday_soccerball.swf"/>
+		<Clipart cHeight="59" cWidth="196" flickrPremium="true" picnikPremium="true" previewUrl="40|40|8|../clipart/bundles/shapes_BastilleDay.png?ver=3e7780d8" url="shapes/bastilleday_snail.swf"/>
+		<Clipart cHeight="270" cWidth="290" flickrPremium="true" picnikPremium="true" previewUrl="40|40|9|../clipart/bundles/shapes_BastilleDay.png?ver=3e7780d8" url="shapes/bastilleday_accordion.swf"/>
+		<Clipart cHeight="270" cWidth="206" flickrPremium="true" picnikPremium="true" previewUrl="40|40|10|../clipart/bundles/shapes_BastilleDay.png?ver=3e7780d8" url="shapes/bastilleday_chefhat.swf"/>
+		<Clipart cHeight="210" cWidth="220" flickrPremium="true" picnikPremium="true" previewUrl="40|40|11|../clipart/bundles/shapes_BastilleDay.png?ver=3e7780d8" url="shapes/bastilleday_coffee.swf"/>
+		<Clipart cHeight="229" cWidth="363" flickrPremium="true" picnikPremium="true" previewUrl="40|40|12|../clipart/bundles/shapes_BastilleDay.png?ver=3e7780d8" url="shapes/bastilleday_bagget.swf"/>
+		<Clipart cHeight="157" cWidth="167" flickrPremium="true" picnikPremium="true" previewUrl="40|40|13|../clipart/bundles/shapes_BastilleDay.png?ver=3e7780d8" url="shapes/bastilleday_croissant.swf"/>
+		<Clipart cHeight="240" cWidth="185" flickrPremium="true" picnikPremium="true" previewUrl="40|40|14|../clipart/bundles/shapes_BastilleDay.png?ver=3e7780d8" url="shapes/bastilleday_food1.swf"/>
+		<Clipart cHeight="222" cWidth="377" flickrPremium="true" picnikPremium="true" previewUrl="40|40|15|../clipart/bundles/shapes_BastilleDay.png?ver=3e7780d8" url="shapes/bastilleday_food2.swf"/>
+		<Clipart cHeight="123" cWidth="278" flickrPremium="true" picnikPremium="true" previewUrl="40|40|16|../clipart/bundles/shapes_BastilleDay.png?ver=3e7780d8" url="shapes/bastilleday_food3.swf"/>
+		<Clipart cHeight="355" cWidth="137" flickrPremium="true" picnikPremium="true" previewUrl="40|40|17|../clipart/bundles/shapes_BastilleDay.png?ver=3e7780d8" url="shapes/bastilleday_wine.swf"/>
+		<Clipart cHeight="1000" cWidth="520" flickrPremium="true" picnikPremium="true" previewUrl="40|40|18|../clipart/bundles/shapes_BastilleDay.png?ver=3e7780d8" url="shapes/fireworks1.swf"/>
+		<Clipart cHeight="1000" cWidth="610" flickrPremium="true" picnikPremium="true" previewUrl="40|40|19|../clipart/bundles/shapes_BastilleDay.png?ver=3e7780d8" url="shapes/fireworks2.swf"/>
+	</Shapes>
+</ShapeCategory>

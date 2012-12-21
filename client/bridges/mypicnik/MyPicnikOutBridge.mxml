@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MyPicnikOutBridgeBase xmlns="bridges.mypicnik.*" xmlns:pk="*" xmlns:ctl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml"
+		width="100%" height="100%" fontSize="14" xmlns:flash="flash.filters.*" horizontalScrollPolicy="off" verticalScrollPolicy="auto" xmlns:views="views.*">
+	<mx:Script>
+		<![CDATA[
+			import dialogs.DialogManager;
+			import mx.resources.ResourceBundle;
+	   		[Bindable] [ResourceBundle("MyPicnikOutBridge")] private var rb:ResourceBundle;
+		]]>
+	</mx:Script>
+
+	<states>
+		<mx:State name="NeedAuthorization">
+			<mx:RemoveChild target="{hbox1}"/>
+			<mx:RemoveChild target="{resizinglabel1}"/>
+			<mx:AddChild position="lastChild">
+				<!-- My Picnik upsell -->
+				<mx:VBox paddingTop="15" paddingRight="10" paddingLeft="10" verticalGap="28" horizontalCenter="0"
+						horizontalAlign="center" width="100%" maxWidth="550">
+					<mx:Text htmlText="@Resource(key='myPicnikAbout', bundle='MyPicnikInBridge')" width="100%" fontSize="20" color="#000000" textAlign="center" leading="0" paddingBottom="5"/>
+					<mx:HBox horizontalGap="10" width="100%" verticalAlign="middle">
+						<ctl:ResizingButton label="@Resource(key='registerButton', bundle='MyPicnikInBridge')" minWidth="180" maxWidth="180" height="30"
+							fontSize="16" autoFontSizeGap="1" click="DialogManager.ShowRegister(PicnikBase.app);"/>
+						<mx:Text htmlText="@Resource(key='registerMessage', bundle='MyPicnikInBridge')" width="100%" fontSize="16" color="#000000" leading="0"/>
+					</mx:HBox>
+					<mx:HBox horizontalGap="10" width="100%" verticalAlign="middle">
+						<ctl:ResizingButton label="@Resource(key='upgradeButton', bundle='MyPicnikInBridge')" minWidth="180" maxWidth="180" height="34" styleName="BigButton"
+							fontSize="16" autoFontSizeGap="1" click="DialogManager.ShowUpgrade('/mypicnik', PicnikBase.app);"/>
+						<mx:Text htmlText="@Resource(key='upgradeMessage', bundle='MyPicnikInBridge')" width="100%" fontSize="16" color="#000000" leading="0"/>
+					</mx:HBox>
+				</mx:VBox>
+			</mx:AddChild>
+		</mx:State>
+		<mx:State name="AccountTypePro"/>
+		<mx:State name="AccountTypeProWithImageID" basedOn="AccountTypePro">
+			<mx:AddChild relativeTo="{_btnSave}" position="before">
+				<mx:VBox>
+					<mx:HBox width="100%" horizontalAlign="center">
+						<mx:Text width="100%" condenseWhite="true" fontSize="14" paddingLeft="-3" htmlText="@Resource(key='Text_1', bundle='MyPicnikOutBridge')"/>
+					</mx:HBox>
+					<mx:HBox width="100%" horizontalAlign="center">
+						<mx:RadioButton label="@Resource(key='_rbtnSaveNew', bundle='MyPicnikOutBridge')" id="_rbtnSaveNew" selected="true" groupName="grpSaveType"/>
+						<mx:RadioButton label="@Resource(key='_rbtnReplace', bundle='MyPicnikOutBridge')" id="_rbtnReplace" selected="false" groupName="grpSaveType"/>
+					</mx:HBox>
+					<mx:Spacer height="5"/>
+				</mx:VBox>					
+			</mx:AddChild>
+		</mx:State>
+		<mx:State name="SaveComplete"/>
+	</states>
+	
+	<flash:DropShadowFilter blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1"
+		quality="3" angle="90" id="_fiWhiteShad"/>
+
+	<mx:Binding source="_taTitle.text" destination="_imgd.properties.title"/>
+	<mx:Binding source="_taDescription.text" destination="_imgd.properties.description"/>
+	<mx:Binding source="_taTags.text" destination="_imgd.properties.tags"/>
+
+	<ctl:ImageEx source="../graphics/bluegrad_short.gif" left="0" top="0" width="100%" height="260" maintainAspectRatio="false" includeInLayout="false" alpha=".3"/>
+	<ctl:ResizingLabel text="@Resource(key='_lbHeader', bundle='MyPicnikOutBridge')" color="#005580" fontWeight="bold" fontSize="30" styleName="publishForm"
+			filters="{[_fiWhiteShad]}" width="100%" autoFontSizeGap="1"
+			top="13" x="29" paddingRight="29" id="resizinglabel1"/>
+	<mx:HBox width="100%" height="100%" top="55" paddingRight="30" paddingLeft="30" x="0" horizontalGap="20" id="hbox1">
+		<!-- left column, controls -->
+  		<mx:Box width="55%" height="100%" verticalGap="0" maxWidth="450">
+	  		<mx:VBox width="50%" height="100%" verticalGap="0" paddingLeft="4">
+	  			<!-- title -->
+				<mx:VBox verticalGap="0" paddingBottom="12">
+					<mx:Label text="@Resource(key='_lbTitle', bundle='MyPicnikOutBridge')" styleName="publishForm" height="20"/>
+					<ctl:TextAreaPlus width="390" height="26" maxHeight="142" styleName="publishFormField" id="_taTitle" text="{_imgd.properties.title}"/>
+				</mx:VBox>
+				
+				<!-- description -->
+				<mx:VBox verticalGap="0" paddingBottom="12">
+					<mx:Label text="@Resource(key='_lbDescription', bundle='MyPicnikOutBridge')" styleName="publishForm" height="20"/>
+					<ctl:TextAreaPlus width="390" height="64" minHeight="64" maxHeight="142" styleName="publishFormField" id="_taDescription" text="{_imgd.properties.description}"/>
+				</mx:VBox>
+				
+				<!-- tags -->
+				<mx:VBox verticalGap="0" paddingBottom="12">
+					<mx:Label text="@Resource(key='_lbTags', bundle='MyPicnikOutBridge')" styleName="publishForm" height="20" id="label3"/>
+					<ctl:TextAreaPlus width="390" id="_taTags" height="26" maxHeight="142" styleName="publishFormField" text="{_imgd.properties.tags}"/>
+					<mx:CheckBox label="@Resource(key='_chkbPicnikTag', bundle='MyPicnikOutBridge')" id="_chkbPicnikTag" paddingTop="12"/>
+				</mx:VBox>
+				
+				<!-- album -->
+				<mx:HBox horizontalGap="10" paddingTop="12">
+					<mx:VBox verticalGap="0">
+						<mx:Label text="@Resource(key='_lbAlbum', bundle='MyPicnikOutBridge')" styleName="publishForm" height="20"/>
+						<ctl:ComboBoxPlus id="_cboxSets" rowCount="8" width="300" height="26" styleName="deviceFonts" enabled="{_cboxSets.dataProvider.length > 0}">
+							<ctl:itemRenderer>
+								<mx:Component>
+					            	<mx:HBox verticalAlign="middle">
+					                	<mx:Label text="{data.label}" fontSize="14" width="210" styleName="deviceFonts"/>
+										<mx:Spacer width="100%"/>
+					                	<ctrl:ImageVer source="{data.icon}" height="36" width="36" verticalAlign="middle" horizontalAlign="center"/>
+					            	</mx:HBox>
+								</mx:Component>
+				            </ctl:itemRenderer>
+						</ctl:ComboBoxPlus>
+					</mx:VBox>
+					<ctrl:ImageVer id="_imgPhotoSet" source="{_cboxSets.selectedItem.icon}" width="48" height="48" verticalAlign="bottom">
+						<mx:filters>
+							<flash:DropShadowFilter distance="1" angle="90" blurX="4" blurY="4" alpha=".5" quality="3"/>
+						</mx:filters>
+					</ctrl:ImageVer>
+				</mx:HBox>
+
+				<!-- settings -->
+	
+		
+				<!-- big save button vbox -->
+				<mx:VBox verticalGap="0" horizontalAlign="center" paddingTop="20">			
+					<ctrl:ImageVer source="@Embed('/assets/bitmaps/saveshad_top.png')"/>
+					<mx:Spacer height="10"/>
+					<mx:Button label="@Resource(key='_btnSave', bundle='MyPicnikOutBridge')" width="200" height="34" fontSize="18" id="_btnSave" styleName="BigButton"
+							enabled="{_imgd != null}"/>
+					<mx:Spacer height="10"/>
+					<ctrl:ImageVer source="@Embed('/assets/bitmaps/saveshad_bot.png')"/>
+				</mx:VBox>
+			</mx:VBox>
+		</mx:Box>
+		
+		<!-- right column, preview -->
+		<mx:Box width="45%" height="100%" paddingTop="5" paddingBottom="20">
+			<views:StatusAwareView id="_imgvPreview" width="100%" height="100%" verticalAlign="top" horizontalAlign="left" minWidth="75" minHeight="75"/>
+			<mx:filters>
+				<flash:DropShadowFilter distance="1" angle="90" blurX="4" blurY="4" alpha=".5" quality="3"/>
+  			</mx:filters>
+		</mx:Box>		
+	</mx:HBox>
+</MyPicnikOutBridgeBase>

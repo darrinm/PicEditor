@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/shape_memdayparade.png" flickrPremium="true" id="memorialDayParade" numShapes="8" picnikPremium="true" previewUrls="60|48|../clipart/bundles/MemorialDayArea_groupPreviews_memorialDayParade.png?ver=11c627af" title="Parade">
+	<Shapes>
+		<Clipart cHeight="1426.9" cWidth="1521.2" flickrPremium="true" isVector="true" picnikPremium="true" previewUrl="40|40|0|../clipart/bundles/MemorialDayArea_shapes_memorialDayParade.png?ver=1d8e84ff" url="shapes/shapes/memDay_Parade_06.swf"/>
+		<Clipart cHeight="1266.2" cWidth="599.25" flickrPremium="true" isVector="true" picnikPremium="true" previewUrl="40|40|1|../clipart/bundles/MemorialDayArea_shapes_memorialDayParade.png?ver=1d8e84ff" url="shapes/shapes/memDay_Parade_07.swf"/>
+		<Clipart cHeight="1361.05" cWidth="642.15" flickrPremium="true" isVector="true" picnikPremium="true" previewUrl="40|40|2|../clipart/bundles/MemorialDayArea_shapes_memorialDayParade.png?ver=1d8e84ff" url="shapes/shapes/memDay_Parade_05.swf"/>
+		<Clipart cHeight="1108.35" cWidth="351.7" flickrPremium="true" isVector="true" picnikPremium="true" previewUrl="40|40|3|../clipart/bundles/MemorialDayArea_shapes_memorialDayParade.png?ver=1d8e84ff" url="shapes/shapes/memDay_Parade_08.swf"/>
+		<Clipart cHeight="880.6" cWidth="418.45" flickrPremium="true" isVector="true" picnikPremium="true" previewUrl="40|40|4|../clipart/bundles/MemorialDayArea_shapes_memorialDayParade.png?ver=1d8e84ff" url="shapes/shapes/memDay_Parade_03.swf"/>
+		<Clipart cHeight="980.95" cWidth="439.35" flickrPremium="true" isVector="true" picnikPremium="true" previewUrl="40|40|5|../clipart/bundles/MemorialDayArea_shapes_memorialDayParade.png?ver=1d8e84ff" url="shapes/shapes/memDay_Parade_01.swf"/>
+		<Clipart cHeight="828.2" cWidth="385.95" flickrPremium="true" isVector="true" picnikPremium="true" previewUrl="40|40|6|../clipart/bundles/MemorialDayArea_shapes_memorialDayParade.png?ver=1d8e84ff" url="shapes/shapes/memDay_Parade_02.swf"/>
+		<Clipart cHeight="821.3" cWidth="560" flickrPremium="true" isVector="true" picnikPremium="true" previewUrl="40|40|7|../clipart/bundles/MemorialDayArea_shapes_memorialDayParade.png?ver=1d8e84ff" url="shapes/shapes/memDay_Parade_04.swf"/>
+	</Shapes>
+</ShapeCategory>

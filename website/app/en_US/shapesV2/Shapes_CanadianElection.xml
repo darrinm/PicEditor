@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory flickrPremium="true" id="CanadianElection" numShapes="9" picnikPremium="true" previewUrls="60|48|../clipart/bundles/groupPreviews_CanadianElection.png?ver=aca8a7a7" thumbUrl="66|54|44|../clipart/bundles/groupThumbs.png?ver=95aa0577" title="Canadian Election">
+	<Shapes>
+		<Clipart cHeight="169" cWidth="771" flickrPremium="true" picnikPremium="true" previewUrl="40|40|0|../clipart/bundles/shapes_CanadianElection.png?ver=d6edd3ef" url="shapes/canada_day_banner1.swf"/>
+		<Clipart cHeight="190" cWidth="780" flickrPremium="true" picnikPremium="true" previewUrl="40|40|1|../clipart/bundles/shapes_CanadianElection.png?ver=d6edd3ef" url="shapes/canada_day_banner2.swf"/>
+		<Clipart cHeight="83" cWidth="186" flickrPremium="true" picnikPremium="true" previewUrl="40|40|2|../clipart/bundles/shapes_CanadianElection.png?ver=d6edd3ef" url="shapes/canada_day_banner3.swf"/>
+		<Clipart cHeight="152" cWidth="134" flickrPremium="true" picnikPremium="true" previewUrl="40|40|3|../clipart/bundles/shapes_CanadianElection.png?ver=d6edd3ef" url="shapes/canada_day_canadaflag_wave.swf"/>
+		<Clipart cHeight="120" cWidth="200" flickrPremium="true" picnikPremium="true" previewUrl="40|40|4|../clipart/bundles/shapes_CanadianElection.png?ver=d6edd3ef" url="shapes/canada_day_canadaflag_wave2.swf"/>
+		<Clipart cHeight="141" cWidth="134" flickrPremium="true" picnikPremium="true" previewUrl="40|40|5|../clipart/bundles/shapes_CanadianElection.png?ver=d6edd3ef" url="shapes/canada_day_canadaflag.swf"/>
+		<Clipart cHeight="120" cWidth="200" flickrPremium="true" picnikPremium="true" previewUrl="40|40|6|../clipart/bundles/shapes_CanadianElection.png?ver=d6edd3ef" url="shapes/canada_day_canadaflag2.swf"/>
+		<Clipart cHeight="135" cWidth="160" flickrPremium="true" picnikPremium="true" previewUrl="40|40|7|../clipart/bundles/shapes_CanadianElection.png?ver=d6edd3ef" url="shapes/canada_day_hat.swf"/>
+		<Clipart cHeight="147" cWidth="137" flickrPremium="true" picnikPremium="true" previewUrl="40|40|8|../clipart/bundles/shapes_CanadianElection.png?ver=d6edd3ef" url="shapes/canada_day_mapleleaf.swf"/>
+	</Shapes>
+</ShapeCategory>

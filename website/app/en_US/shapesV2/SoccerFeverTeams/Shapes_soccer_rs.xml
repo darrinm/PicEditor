@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory flickrPremium="false" id="soccer_rs" numShapes="3" picnikPremium="false" previewUrls="60|48|../clipart/bundles/SoccerFeverTeamsArea_groupPreviews_soccer_rs.png?ver=d75ef7cc" title="Serbia Stickers">
+	<Shapes>
+		<Clipart cHeight="297.55" cWidth="463.3" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|0|../clipart/bundles/SoccerFeverTeamsArea_shapes_soccer_rs.png?ver=0295469c" url="shapes/SoccerFever/rs/wavingflag_rs.swf"/>
+		<Clipart cHeight="600" cWidth="900" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|1|../clipart/bundles/SoccerFeverTeamsArea_shapes_soccer_rs.png?ver=0295469c" url="shapes/SoccerFever/rs/flag_rs.swf"/>
+		<Clipart cHeight="223.55" cWidth="95.95" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|2|../clipart/bundles/SoccerFeverTeamsArea_shapes_soccer_rs.png?ver=0295469c" url="shapes/SoccerFever/rs/scarf_rs.swf"/>
+	</Shapes>
+</ShapeCategory>

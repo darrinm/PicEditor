@@ -1,0 +1,41 @@
+// By Darrin
+
+<languageVersion : 1.0;>
+
+kernel ColorThreshold
+<
+	title: "Color Threshold";
+	namespace: "com.bitnik";
+	vendor: "Picnik";
+	version: 1;
+	description: "A quick, if imprecise, means for selectively coloring a photo.";
+ >
+{
+	parameter float3 color
+	<
+		defaultValue: float3(1.0, 0.0, 0.0);
+		controller: "colorSampler";
+	>;
+	parameter float threshold
+	<
+		minValue: 0.0;
+		maxValue: 1.8;
+		defaultValue: 0.6;
+	>;
+
+	input image4 src;
+	output pixel4 dst;
+
+	void evaluatePixel() {
+		pixel4 pix = sampleNearest(src,outCoord());
+
+		// Distance in RGB space. UNDONE: Distance in H of HSV space a better idea?
+		if (distance(pix.rgb, color.rgb) > threshold) {
+//			float avg = (pix.r + pix.g + pix.b) / 3.0;
+			float avg = pix.r * 0.3086 + pix.g * 0.6094 + pix.b * 0.0820;
+			dst = pixel4(avg, avg, avg, 1);
+		} else {
+			dst = pix;
+		}
+	}
+}

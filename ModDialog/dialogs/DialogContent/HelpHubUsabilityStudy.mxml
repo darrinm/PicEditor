@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox xmlns="dialogs.DialogContent.*" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:ctl="controls.*" xmlns:filters="flash.filters.*">
+	<mx:Script>
+		<![CDATA[
+			import mx.resources.ResourceBundle;
+			import util.LocUtil;
+			
+	  		[Bindable] [ResourceBundle("HelpHub")] protected var rb:ResourceBundle;
+
+			private function doProductIdeas(): void {
+				PicnikBase.app.NavigateToURL(new URLRequest("https://survey.googleratings.com/wix/p0822776.aspx?referral_code=20picnik11"), "_blank");				
+			}
+			
+		]]>
+	</mx:Script>
+
+	<filters:DropShadowFilter blurX="2" blurY="2" distance="1.5" color="#005580" alpha=".3" quality="3" angle="90" id="_fiModShadow"/>
+	<filters:DropShadowFilter id="_fiModuleShine" blurX="0" blurY="0" distance="1" color="#FFFFFF" alpha="1" inner="true" quality="3" angle="90"/>
+		
+	<mx:Canvas width="200" height="100%" cornerRadius="8" borderStyle="solid" borderThickness="0" clipContent="false" 
+			backgroundColor="#ffffff" backgroundAlpha=".8" filters="{[_fiModuleShine,_fiModShadow]}">
+		<mx:VBox width="200" height="100%" paddingLeft="20" paddingRight="20">
+			<mx:Text htmlText="@Resource(key='Label_8', bundle='HelpHub')" styleName="basketButton" fontSize="16" paddingTop="13"
+					color="#618430" fontWeight="bold" width="100%" leading="-3" selectable="false" mouseEnabled="false" mouseChildren="false"/>
+			<mx:Text htmlText="@Resource(key='Text_8', bundle='HelpHub')" fontSize="14" color="#333333"
+					width="100%" leading="-2" selectable="false" mouseEnabled="false" mouseChildren="false" paddingBottom="8"/>
+			<ctl:ResizingButton autoFontSizeGap="1" 
+					label="@Resource(key='Button_8', bundle='HelpHub')"
+					fontSize="16" height="36" width="100%" styleName="basketButton"
+					click="doProductIdeas()"/>
+			<mx:Spacer height="20"></mx:Spacer>		
+		</mx:VBox>	
+	</mx:Canvas>
+</mx:VBox>			

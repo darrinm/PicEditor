@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ct:BrushPaletteWindowBase xmlns="containers.*" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:bk="controls.*" xmlns:ct="creativeTools.*"
+		title="@Resource(key='PaletteWindow_1', bundle='BrushPaletteWindow')" isPopUp="true" layout="vertical" backgroundColor="#ffffff"
+		horizontalAlign="right" alpha="1" showCloseButton="true" headerHeight="18"
+		horizontalScrollPolicy="off" verticalScrollPolicy="off" paddingBottom="2"
+		showEffect="{_efFadeIn}" hideEffect="{_efFadeOut}"
+		filters="{[_fiInnerShadow]}" xmlns:flash="flash.filters.*" xmlns:paintMask="imagine.imageOperations.paintMask.*">
+	<mx:Script>
+		<![CDATA[
+			import util.LocUtil;
+		]]>
+	</mx:Script>
+	<!-- show hide fade ins -->
+	<mx:Fade id="_efFadeIn" duration="150" suspendBackgroundProcessing="true"/>
+	<mx:Fade id="_efFadeOut" duration="200" suspendBackgroundProcessing="true"/>
+	
+	<!-- fake window edge bevel -->
+	<flash:DropShadowFilter id="_fiInnerShadow" alpha=".15" blurX="4" blurY="4" angle="-90" distance="2" quality="3" inner="true"/>
+
+	<mx:VBox y="10" verticalGap="0">
+		<mx:Label text="@Resource(key='Label_1', bundle='BrushPaletteWindow')" styleName="sliderTitle" paddingBottom="-2"/>
+		<mx:HBox x="0" y="0" horizontalGap="0" width="100%">
+			<mx:Button label="@Resource(key='_btnPaintEffect', bundle='BrushPaletteWindow')" id="_btnPaintEffect" width="50%" styleName="buttonLeft" height="28" selected="{paint}" 
+					click="{_btnPaintEffect.selected=true; _btnPaintOriginal.selected=false}" paddingLeft="-2" paddingRight="-2"/>
+			<mx:Button label="@Resource(key='_btnPaintOriginal', bundle='BrushPaletteWindow')" id="_btnPaintOriginal" width="50%" styleName="buttonRight" height="28" selected="{!paint}"
+					click="{_btnPaintEffect.selected=false; _btnPaintOriginal.selected=true}" paddingLeft="-2" paddingRight="-2"/>
+		</mx:HBox>
+
+		<!-- brush diameter in pixels, from 1 to 400, on a logarithm scale so we can get more precision at small sizes -->
+		<mx:HBox width="100%" paddingBottom="-5" paddingTop="5">
+			<mx:Label text="@Resource(key='Label_2', bundle='BrushPaletteWindow')" styleName="sliderTitle"/>
+			<mx:Label text="{Math.round(size)}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<!-- value="{Math.log((size + 20.9)/21.9)/Math.log(1.03)}"  -->
+		<bk:HSliderPlus width="100%" minimum="0" maximum="100" value="{Math.log((50 + 20.9)/21.9)/Math.log(1.03)}" id="_sldrSize" 
+				liveDragging="true" showDataTip="false"/>
+				
+		<!-- brush hardness, from 0 to 1 -->
+		<mx:HBox width="100%" paddingBottom="-5" paddingTop="5">
+			<mx:Label text="@Resource(key='BrushHardness', bundle='BrushPaletteWindow')" styleName="sliderTitle"/>
+			<mx:Label text="{Math.round(100*_sldrHardness.value)}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<bk:HSliderPlus width="100%" minimum="0" maximum="1" value="0" id="_sldrHardness" 
+				snapInterval="0.01" liveDragging="true" showDataTip="false"/>
+
+		<!-- brush strength/alpha, from 0 to 1 -->
+		<mx:HBox width="190" paddingBottom="-5" paddingTop="5">
+			<mx:Label text="@Resource(key='BrushStrength', bundle='BrushPaletteWindow')" styleName="sliderTitle"/>
+			<mx:Label text="{LocUtil.pct((_sldrStrength.value * 100))}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<bk:HSliderPlus width="190" minimum="0" maximum="1" value="1" id="_sldrStrength" liveDragging="true" showDataTip="false"/>
+
+		<mx:VBox width="100%" horizontalAlign="center" paddingTop="5" verticalGap="3">
+			<mx:HRule width="148" strokeWidth="1" strokeColor="#e5e5e5"/>
+			<mx:Box paddingLeft="12">
+				<mx:CheckBox label="@Resource(key='_chkReverse', bundle='BrushPaletteWindow')" id="_chkReverse" selected="{reverse}"/>
+			</mx:Box>
+		</mx:VBox>
+	</mx:VBox>
+	<paintMask:CircularBrush id="brush" diameter="{size}" hardness="{_sldrHardness.value}"/>
+	<mx:Number id="size">{(Math.pow(1.03,_sldrSize.value) * 21.9)-20.9}</mx:Number>
+	<mx:Number id="hardness">0</mx:Number>
+	<mx:Number id="strength">{_sldrStrength.value}</mx:Number>
+	<mx:Boolean id="paint">{_btnPaintEffect.selected}</mx:Boolean>
+	<mx:Boolean id="reverse">{_chkReverse.selected}</mx:Boolean>
+	<mx:Boolean id="active">{false}</mx:Boolean>
+</ct:BrushPaletteWindowBase>

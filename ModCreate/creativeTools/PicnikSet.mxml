@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<controls:EffectSetBase xmlns="*" xmlns:ct="creativeTools.*" xmlns:mx="http://www.adobe.com/2006/mxml" 
+		xmlns:eff="effects.*" xmlns:filters="flash.filters.*" xmlns:ctr="containers.*"
+		xmlns:controls="controls.*">
+	<mx:Style>
+		.promoTextBG {
+		   border-style: solid;
+		   border-thickness: 0;
+		   border-skin: ClassReference("skins.GradientBackground");
+		   gradient-fill-colors: #6b0b4a, #ae0173;
+		   gradient-fill-alphas: .8,.8;
+		   gradient-fill-ratios: 0,255;
+		   gradient-rotation: 90;
+		}
+	</mx:Style>
+	<controls:ExpandingVBox id="_evbx1" expanded="{expanded}" width="100%" verticalGap="0" verticalScrollPolicy="off">
+		<!-- this expands and collapses -->
+		<mx:Canvas height="{expanded?NaN:0}" width="100%" verticalScrollPolicy="off" horizontalScrollPolicy="off">
+			<mx:VBox verticalGap="0" width="100%">
+				<controls:ShapeArea imgd="{_imgd}" imgv="{_imgv}" area="Picnik" verticalScrollPolicy="off" ignoreErrors="true" width="210"/>
+			</mx:VBox>
+		</mx:Canvas>
+	</controls:ExpandingVBox>
+</controls:EffectSetBase>

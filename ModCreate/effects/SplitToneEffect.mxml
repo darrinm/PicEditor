@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cnt:EffectCanvas xmlns:cnt="containers.*" xmlns="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="381"
+	xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*" premium="true" urlid="SplitTone">
+	<mx:Script>
+		import util.LocUtil;
+		import mx.resources.ResourceBundle;
+   		[Bindable] [ResourceBundle("TwoToneEffect")] private var rb:ResourceBundle;
+	</mx:Script>
+
+	
+	<mx:Number id="_nTemp"></mx:Number>
+	<mx:Number id="_nR1">0</mx:Number>
+	<mx:Number id="_nG1">68</mx:Number>
+	<mx:Number id="_nB1">136</mx:Number>
+	<mx:Number id="_nR2">255</mx:Number>
+	<mx:Number id="_nG2">255</mx:Number>
+	<mx:Number id="_nB2">0</mx:Number>
+	<mx:Script>
+		<![CDATA[
+			import overlays.helpers.RGBColor;
+		
+			public override function OnOpChange():void {
+				// Recalculate _nR1, _nR2, etc.
+				// Set _nR1,G1,B1 hue/saturation from dark color. Maintain luminoscity (63.75)
+				// Set _nR2,G2,B2 hue/saturation from light color. Maintain luminoscity (171.25)
+				var ob1:Object = RGBColor.AdjustLum(_clrswDark.color, _sldrDarkWeight.value);
+				_nR1 = ob1.nR;
+				_nG1 = ob1.nG;
+				_nB1 = ob1.nB;
+				
+				var ob2:Object = RGBColor.AdjustLum(_clrswLight.color, _sldrLightWeight.value);
+				_nR2 = ob2.nR;
+				_nG2 = ob2.nG;
+				_nB2 = ob2.nB;
+				
+				super.OnOpChange();
+			}
+		]]>
+	</mx:Script>
+
+	<mx:Array id="_resetValues">
+		<local:StoredValue target="_sldrFade.value"/>
+		<local:StoredValue target="_sldrDarkWeight.value"/>
+		<local:StoredValue target="_sldrLightWeight.value"/>
+		<local:StoredValue target="_clrswLight.color"/>
+		<local:StoredValue target="_clrswLight.startThumbX"/>
+		<local:StoredValue target="_clrswLight.startThumbY"/>
+		<local:StoredValue target="_clrswDark.color"/>
+		<local:StoredValue target="_clrswDark.startThumbX"/>
+		<local:StoredValue target="_clrswDark.startThumbY"/>
+	</mx:Array>
+	
+	<EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='SplitToneEffect')" strAuthor="@Resource(key='_efbtn_1', bundle='SplitToneEffect')" strImageSource="../graphics/effects/Color/duotone.png" premium="{premium}"/>
+	<mx:String id="_strHelpText">{Resource.getString('TwoToneEffect', '_strHelpText')}</mx:String>
+
+	<mx:VBox x="8" y="70" verticalGap="0">
+
+		<mx:Label text="@Resource(key='Label_1', bundle='SplitToneEffect')" styleName="sliderTitle"/>
+		<mx:HBox horizontalGap="5" paddingLeft="2">
+			<ImageColorSwatch height="40" width="155" id="_clrswDark" source="@Embed('/assets/bitmaps/swatch_tint.png')" color="0x80cfff" 
+				change="OnOpChange()" startThumbX="66" startThumbY="24"/>
+			<mx:Canvas width="30" height="40" backgroundColor="{_clrswDark.color}">
+				<mx:filters>
+					<flash.filters:DropShadowFilter angle="90" blurX="2" blurY="2" distance="1" color="0x000000" alpha=".3" quality="3" inner="true" />
+					<flash.filters:BevelFilter angle="90" blurX="1" blurY="1"
+						distance="1" highlightAlpha=".3" shadowAlpha="1" highlightColor="0x666666" shadowColor="0xFFFFFF" knockout="false" quality="3" />
+				</mx:filters>
+			</mx:Canvas>
+		</mx:HBox>
+
+		<mx:Label text="@Resource(key='Label_2', bundle='SplitToneEffect')" styleName="sliderTitle"/>
+		<mx:HBox horizontalGap="5" paddingLeft="2">
+			<ImageColorSwatch height="40" width="155" id="_clrswLight" source="@Embed('/assets/bitmaps/swatch_tint.png')" color="0xffcf80" 
+				change="OnOpChange()" startThumbX="126" startThumbY="24"/>
+			<mx:Canvas width="30" height="40" backgroundColor="{_clrswLight.color}">
+				<mx:filters>
+					<flash.filters:DropShadowFilter angle="90" blurX="2" blurY="2" distance="1" color="0x000000" alpha=".3" quality="3" inner="true" />
+					<flash.filters:BevelFilter angle="90" blurX="1" blurY="1"
+						distance="1" highlightAlpha=".3" shadowAlpha="1" highlightColor="0x666666" shadowColor="0xFFFFFF" knockout="false" quality="3" />
+				</mx:filters>
+			</mx:Canvas>
+		</mx:HBox>
+
+
+		<mx:HBox width="190" paddingBottom="-5">
+			<mx:Label text="@Resource(key='Label_3', bundle='SplitToneEffect')" styleName="sliderTitle"/>
+			<mx:Label text="{Math.round(_sldrLightWeight.value)}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<HSliderPlus width="190" minimum="128" maximum="250" value="171" id="_sldrLightWeight" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+
+		<mx:HBox width="190" paddingBottom="-5" paddingTop="3">
+			<mx:Label text="@Resource(key='Label_4', bundle='SplitToneEffect')" styleName="sliderTitle"/>
+			<mx:Label text="{Math.round(_sldrDarkWeight.value)}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<HSliderPlus width="190" minimum="5" maximum="127" value="64" id="_sldrDarkWeight" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+			
+		<mx:HBox width="190" paddingBottom="-5" paddingTop="3">
+			<mx:Label text="@Resource(key='Label_5', bundle='SplitToneEffect')" styleName="sliderTitle"/>
+			<mx:Label text="{LocUtil.pct((_sldrFade.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<HSliderPlus width="190" minimum="0" maximum="100" value="0" id="_sldrFade" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+
+		<ApplyCancelEffectButtons addBoxPadding="true" premium="{premium}"/>
+	</mx:VBox>
+	
+
+</cnt:EffectCanvas>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LocaleMenuBase xmlns="*" 
+		xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:ctrl="controls.*" backgroundColor="#ffffff"
+		cornerRadius="8" dropShadowEnabled="true" dropShadowColor="#999999" shadowDistance="1" 
+		 borderStyle="solid" borderThickness="0" borderColor="#FFFFFF" backgroundAlpha="0.95">
+	<mx:Script>
+		import mx.resources.ResourceBundle;
+		import util.LocUtil;
+   		[Bindable] [ResourceBundle("LocaleMenu")] private var rb:ResourceBundle;
+	</mx:Script>
+	
+	<mx:VBox paddingTop="6" paddingBottom="6">
+	    <mx:List id="_lstLocales" borderStyle="none" backgroundAlpha="0" horizontalScrollPolicy="off" rowCount="{LocUtil.locales.length}"
+	    		paddingTop="0" paddingBottom="0" width="110" dataProvider="{LocUtil.locales}">
+			<mx:itemRenderer>
+				<mx:Component>
+					<mx:HBox height="20" horizontalScrollPolicy="off" horizontalGap="5"
+							dropShadowEnabled="false" verticalAlign="middle">
+		            	<ctrl:LabelPlus text="{data.label}" styleName="helpMenu" paddingTop="2"
+		            		color="{data.isSelected?0x333333:0x618430}"/>
+					</mx:HBox>
+				</mx:Component>
+			</mx:itemRenderer>
+		</mx:List>
+	</mx:VBox>
+</LocaleMenuBase>

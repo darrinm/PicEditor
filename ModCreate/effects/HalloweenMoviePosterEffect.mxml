@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cnt:PaintEffectCanvas xmlns:cnt="containers.*" xmlns="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="467"
+	xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*" xmlns:effects="effects.*" initialize="Init()"
+	reset="Init()"
+	premium="true" urlid="ScaryMovies">
+	<mx:Script>
+		<![CDATA[
+			import controls.PosterButtonImage;
+			
+			import imagine.imageOperations.ImageOperation;
+			import imagine.imageOperations.BlendImageOperation;
+			import imagine.imageOperations.ExposureImageOperation;
+			
+			import mx.resources.ResourceBundle;
+			
+			import util.LocUtil;
+	   		
+			[Embed("/assets/shaders/Effects/Vibrance.pbj", mimeType="application/octet-stream")]
+			private static var _clsVibrance:Class;
+
+			
+			[Bindable] public var selectedEffect:Object = null;
+			private static const kaobDefaultCurve:Array = [{x:0, y:0}, {x:255, y:255}];
+				
+			protected function Init(): void {
+				// Select the proper curve and image
+				SelectPoster(_imgDefault);
+			}
+			
+			private function GetAllPosters(dob:DisplayObject, aimgs:Array): void {
+				if (dob == null)
+					return;
+				if (dob is PosterButtonImage) {
+					aimgs.push(dob);
+				} else if (dob is DisplayObjectContainer) {
+					var dobc:DisplayObjectContainer = dob as DisplayObjectContainer;
+					for (var i:Number = 0; i < dobc.numChildren; i++) {
+						GetAllPosters(dobc.getChildAt(i), aimgs);
+					}
+				}
+			} 
+			
+			protected function SelectPoster(obTarget:Object): void {
+				var aimgs:Array = [];
+				var imgSelect:PosterButtonImage = PosterButtonImage(obTarget);
+				GetAllPosters(_tlPosterParent, aimgs);
+				for each (var img:PosterButtonImage in aimgs) {
+					if (img == imgSelect) {
+						InstallEffect(img.effectData);
+						img.selected = true;
+					} else {
+						img.selected = false;
+					}
+				}
+			}
+			
+			protected function GetGrit(obEffect:Object): Number {
+				if (obEffect != null && ('grit' in obEffect))
+					return obEffect.grit;
+				return 0;
+			}
+			
+			protected function GetPreMasterCurve(obEffect:Object, nBrightness:Number): Array {
+				if (obEffect == null)
+					return null;
+				if (('useBlacks' in obEffect) && obEffect.useBlacks) {
+					nBrightness = (nBrightness - 50) / 50; // Scale is 1 (bright) to -1 (dark)
+					if (nBrightness < 0)
+						nBrightness *= 1.5; // Make a tad darker.
+					var nBlacks:Number = 0.51 + nBrightness * (0.3 - 0.51);// 0 => 0.51, 1 => 0.3
+					var nFill:Number = 0.36 + nBrightness * (0.6 - 0.36);
+					return [ExposureImageOperation.GetFillSpline(nFill), ExposureImageOperation.GetBlacksSpline(nBlacks)];
+				} else {
+					// Simple curve dragging up and down
+					if (nBrightness == 50)
+						return null;
+					var nOffset:Number = (nBrightness-50) * 0.6;
+					return [{x:0,y:0}, {x:127.5-nOffset, y:127.5+nOffset}, {x:255, y:255}];
+				}
+			}			
+			protected function GetGlowAlpha(obEffect:Object): Number {
+				if (obEffect != null && ('glowAlpha' in obEffect))
+					return obEffect.glowAlpha;
+				return 0;
+			}
+			
+			protected function GetCurve(obEffect:Object, strCurve:String): Array {
+				strCurve += "Curve";
+				return (obEffect != null && (strCurve in obEffect)) ? obEffect[strCurve] : kaobDefaultCurve;
+			}
+			
+			protected function GetColorOverride(obEffect:Object): Number {
+				if (obEffect != null && ('colorOverride' in obEffect))
+					return obEffect.colorOverride;
+				return 0;
+			}
+			
+			protected function GetNoise(obEffect:Object): Number {
+				if (obEffect != null && ('noise' in obEffect))
+					return obEffect.noise;
+				return 0;
+			}
+			
+			// iPos is location if the operation is not currently present.
+			private function UpdateOpIncludeAt(opAddRemove:BlendImageOperation, iNewPos:Number): void {
+				var fInclude:Boolean = opAddRemove.BlendAlpha > 0;
+				var iCurrentPos:Number = GetOpPos(opAddRemove);
+				var fIncluded:Boolean = GetOpPos(opAddRemove) >= 0;
+				if (fInclude == fIncluded)
+					return; // Status is correct already.
+				
+				// Otherwise, we need to add/remove it
+				
+				if (fInclude) {
+					// Add it
+					_op.children.splice(iNewPos, 0, opAddRemove);
+				} else {
+					// Remove it
+					_op.children.splice(iCurrentPos, 1);
+				}
+			}
+			
+			// Returns -1 if not found
+			private function GetOpPos(op:ImageOperation): Number {
+				for (var i:Number = 0; i < _op.children.length; i++) {
+					if (_op.children[i] == op)
+						return i;
+				}
+				return -1;
+			}
+			
+			private function InstallEffect(obEffect:Object): void {
+				selectedEffect = obEffect;
+				UpdateOpIncludeAt(_opGlow, GetOpPos(_opBW)-1) // Glow is before BW
+				UpdateOpIncludeAt(_opNoise, GetOpPos(_opBW)+1) // Nosie is after BW
+				UpdateOpIncludeAt(_opGrit, 0) // Grit is first
+
+				OnOpChange();
+			}
+		]]>
+	</mx:Script>
+	
+	<EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='HalloweenMoviePosters')" strAuthor="@Resource(key='_efbtn_1', bundle='CurvesEffect')" strImageSource="../graphics/effects/Halloween/MoviePosters.jpg" premium="{premium}"/>
+	<mx:String id="_strHelpText">{Resource.getString('HalloweenMoviePosters', '_strHelpText')}</mx:String>
+	
+	<mx:VBox x="10" y="67" verticalGap="0">
+		<mx:Tile horizontalGap="8" verticalGap="8" id="_tlPosterParent" paddingTop="10" paddingLeft="5" paddingBottom="4">
+			<PosterButtonImage effectData="{kobBlueGreen}" source="../graphics/effects/Halloween/poster_BlueGreen.png" id="_imgDefault" 
+							   select="SelectPoster(event.target)" width="55" height="61"/>
+			<PosterButtonImage effectData="{kobBlue}" source="../graphics/effects/Halloween/poster_Blue.png" 
+							   select="SelectPoster(event.target)" width="55" height="61"/>
+			<PosterButtonImage effectData="{kobGreenGlow}" source="../graphics/effects/Halloween/poster_GreenGlow.png" 
+							   select="SelectPoster(event.target)" width="55" height="61"/>
+			
+			<PosterButtonImage effectData="{kobSickGreen}" source="../graphics/effects/Halloween/poster_SickGreen.png" 
+							   select="SelectPoster(event.target)" width="55" height="61"/>
+			<PosterButtonImage effectData="{kobFrank}" source="../graphics/effects/Halloween/poster_Frank.png" 
+							   select="SelectPoster(event.target)" width="55" height="61"/>
+			<PosterButtonImage effectData="{kobPinkHaze}" source="../graphics/effects/Halloween/poster_PinkHaze.png" 
+							   select="SelectPoster(event.target)" width="55" height="61"/>
+
+			<PosterButtonImage effectData="{kobFaded}" source="../graphics/effects/Halloween/poster_Faded.png" 
+							   select="SelectPoster(event.target)" width="55" height="61"/>
+			<PosterButtonImage effectData="{kobRed}" source="../graphics/effects/Halloween/poster_Red.png"
+							   select="SelectPoster(event.target)" width="55" height="61"/>
+			<PosterButtonImage effectData="{kobOrange}" source="../graphics/effects/Halloween/poster_Orange.png" 
+							   select="SelectPoster(event.target)" width="55" height="61"/>
+			
+		</mx:Tile>
+		
+		<LabelHSlidePlus id="_sldrBrightness" minimum="0" maximum="100" value="50" labelValueMultiplier="1" isPercent="false" change="OnOpChange()"
+						 label="@Resource(key='brightness', bundle='EffectCanvas')"/>
+		
+		<!-- Fade label/percent/slider box/effect paint button -->
+		<mx:HBox horizontalGap="5" paddingTop="5" verticalAlign="middle">
+			<mx:VBox verticalGap="0" width="157" horizontalScrollPolicy="off">
+				<mx:HBox width="100%" paddingBottom="-5">
+					<mx:Label text="@Resource(key='fade', bundle='CurvesEffect')" styleName="sliderTitle"/>
+					<mx:Label text="{LocUtil.pct((_sldrFade.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+				</mx:HBox>
+				<HSliderPlus width="157" minimum="0" maximum="100" value="{zeroR}" id="_sldrFade" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+			</mx:VBox>
+			<mx:Button id="_btnBrushPalette" width="30" height="30" selected="false" toggle="true" icon="@Embed('/assets/bitmaps/icon_paintTall.png')" paddingLeft="0"
+				toolTip="@Resource(key='_btnBrushPalette', bundle='BWEffect')"/>
+		</mx:HBox>
+		
+		<!-- apply/cancel -->
+		<ApplyCancelEffectButtons addBoxPadding="true" premium="{premium}"/>
+	</mx:VBox>
+</cnt:PaintEffectCanvas>

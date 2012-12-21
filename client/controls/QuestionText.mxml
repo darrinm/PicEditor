@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ctrl:QuestionBase xmlns:ctrl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" horizontalAlign="center">
+<mx:Script>
+	<![CDATA[
+		public function OnKeyUp(evt:KeyboardEvent): void {
+			if (evt.keyCode == 13) {
+				// UNDONE: Trim
+				if (_ti.text.length > 0) {
+					Answer(_ti.text);
+				}
+			}
+		}
+	]]>
+</mx:Script>
+	<ctrl:TipTextHeader text="{Prompt(data)}" fontSize="17"/>
+	<mx:HBox horizontalGap="5">
+		<ctrl:TextInputPlus filters="{[]}" id="_ti" keyUp="OnKeyUp(event)" borderThickness="0" height="24"/>
+		<ctrl:TipButton label="@Resource(key='ok',bundle='Picnik')" click="Answer(_ti.text)"/>
+	</mx:HBox>
+</ctrl:QuestionBase>

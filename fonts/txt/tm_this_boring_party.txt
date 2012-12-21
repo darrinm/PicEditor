@@ -1,0 +1,12 @@
+fileName: tm_this_boring_party.ttf
+name: This Boring Party
+subfamilyDisplayName: Regular
+fullName: This Boring Party
+displayName: This Boring Party
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 4
+pkName: pktm0this0boring0party
+authorName: Tom Murphy
+authorUrl: http://fonts.tom7.com/

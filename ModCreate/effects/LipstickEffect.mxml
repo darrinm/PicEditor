@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<eff:PaintOnEffectBase xmlns:eff="effects.*" xmlns:cnt="containers.*" xmlns="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="269"
+	xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*" premium="true" urlid="LipColor">
+<mx:Script>
+	<![CDATA[
+		import util.LocUtil;
+	]]>
+</mx:Script>
+	
+	<EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='LipstickEffect')" strAuthor="@Resource(key='byPicnik', bundle='EffectCanvas')"
+		strImageSource="../graphics/effects/Touchup/lipstick.jpg" premium="{premium}"/>
+	<mx:String id="_strHelpText">{Resource.getString('LipstickEffect', '_strHelpText')}</mx:String>
+
+	<mx:VBox x="10" y="73" verticalGap="0">
+		<LipstickMultiColorPalette id="_clrsw" change="OnOpChange()" selected="{_fSelected}"/>
+    
+    	<!-- brush size / eraser toggle -->
+    	<BrushSizeAndEraserButton id="_brshbtn" selected="{_fSelected}"
+    		startValueFactor="0.03"
+    		maximumFactor="0.2"
+    		imageWidth="{origImageWidth}" imageHeight="{origImageHeight}"
+    		change="OnOpChange()" thumbPress="ShowBrushPreview()" thumbDrag="UpdateBrushPreview()" thumbRelease="HideBrushPreview()"
+    		/>
+
+		<!-- brush hardness, from 0 to 1 -->
+		<mx:HBox width="190" paddingBottom="-5" paddingTop="5">
+			<mx:Label text="@Resource(key='hardness', bundle='EffectCanvas')" styleName="sliderTitle"/>
+			<mx:Label text="{LocUtil.pct(100*_sldrHardness.value)}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<HSliderPlus id="_sldrHardness" width="190" thumbPress="ShowBrushPreview()" thumbDrag="UpdateBrushPreview()" thumbRelease="HideBrushPreview()"
+			globalShortcutsEnabled="{_fSelected}" globalShortcutKeys="\{\}" 
+			minimum="0" maximum="1" value="{0.35+zeroR}" liveDragging="true" snapInterval="0.01" showDataTip="false"/>
+
+
+		<!-- Fade label/percent/slider box -->
+		<mx:HBox paddingBottom="-5" paddingTop="3" width="190">
+			<mx:Label text="@Resource(key='colorStrength', bundle='EffectCanvas')" styleName="sliderTitle"/>
+			<mx:Label text="{LocUtil.pct((_sldrColorStrength.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<HSliderPlus width="190" minimum="0" maximum="100" value="{60 + zeroR}" id="_sldrColorStrength" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+
+		<!-- Tone label/percent/slider box -->
+		<mx:HBox paddingBottom="-5" paddingTop="3" width="190">
+			<mx:Label text="@Resource(key='tone', bundle='EffectCanvas')" styleName="sliderTitle"/>
+			<mx:Label text="{LocUtil.pct((_sldrTone.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<HSliderPlus width="190" minimum="-100" maximum="100" value="{zeroR}" id="_sldrTone" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+
+		<ApplyCancelEffectButtons addBoxPadding="true" premium="{premium}"/>
+	</mx:VBox>
+
+	<mx:Number id="_cxyBrush">{_brshbtn.value}</mx:Number>
+	<mx:Number id="_nBrushHardness">{_sldrHardness.value}</mx:Number>
+</eff:PaintOnEffectBase>

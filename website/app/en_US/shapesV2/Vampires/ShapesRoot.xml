@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory area="Vampires" id="root">
+	<ShapeCategory flickrPremium="false" id="VampireShapes" numShapes="0" picnikPremium="false" showHeader="false">
+		<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/vampire_fangs.png" flickrPremium="false" id="VampireFangs" numShapes="8" picnikPremium="false" previewUrls="60|48|../clipart/bundles/VampiresArea_groupPreviews_VampireFangs.png?ver=996f5256" thumbUrl="66|54|0|../clipart/bundles/VampiresArea_groupThumbs.png?ver=60157350" title="Fangs"/>
+	</ShapeCategory>
+</ShapeCategory>

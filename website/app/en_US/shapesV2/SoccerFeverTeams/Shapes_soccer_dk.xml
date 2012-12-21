@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory flickrPremium="false" id="soccer_dk" numShapes="3" picnikPremium="false" previewUrls="60|48|../clipart/bundles/SoccerFeverTeamsArea_groupPreviews_soccer_dk.png?ver=72d82364" title="Denmark Stickers">
+	<Shapes>
+		<Clipart cHeight="294.4" cWidth="463.3" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|0|../clipart/bundles/SoccerFeverTeamsArea_shapes_soccer_dk.png?ver=14a810e9" url="shapes/SoccerFever/dk/wavingflag_dk.swf"/>
+		<Clipart cHeight="280" cWidth="370" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|1|../clipart/bundles/SoccerFeverTeamsArea_shapes_soccer_dk.png?ver=14a810e9" url="shapes/SoccerFever/dk/flag_dk.swf"/>
+		<Clipart cHeight="223.55" cWidth="95.95" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|2|../clipart/bundles/SoccerFeverTeamsArea_shapes_soccer_dk.png?ver=14a810e9" url="shapes/SoccerFever/dk/scarf_dk.swf"/>
+	</Shapes>
+</ShapeCategory>

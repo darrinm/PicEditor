@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:WindowedApplication xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" initialize="init()">
+<mx:Script>
+	<![CDATA[
+		import documentObjects.DocumentObjectContainer;
+		import mx.graphics.codec.PNGEncoder;
+		import documentObjects.IDocumentObject;
+		import documentObjects.Target;
+		// import documentObjects.Text;
+		import documentObjects.Star;
+		import documentObjects.Square;
+		import documentObjects.RoundedSquare;
+		import documentObjects.RoundedRectangle;
+		import documentObjects.Polygon;
+		import documentObjects.PointyShape;
+		import documentObjects.Ellipse;
+		import documentObjects.Burst;
+		import documentObjects.Circle;
+		import mx.controls.Alert;
+		import mx.controls.Image;
+		
+		private static const kstrShapesXMLPath:String = AbsPath(['src','picnik','website','Shapes.xml'].join(File.separator));
+		private static const kstrBasePath:String = AbsPath(["src", "picnik", "website", "clipart"].join(File.separator));
+	
+		private static function AbsPath(strPath:String): String {
+			if (File.separator == '\\') 
+				return "C:" + File.separator + strPath;
+			return File.separator + strPath;
+		}
+	
+		public function LoadShapesXML(): XML {
+			var f:File = new File();
+			f.nativePath = kstrShapesXMLPath;
+			var fIn:FileStream = new FileStream();
+			fIn.open(f, FileMode.READ);
+			var str:String = fIn.readUTFBytes(fIn.bytesAvailable);
+			var xml:XML = new XML(str);
+			fIn.close();
+			return xml;
+		}
+		
+		public function SaveShapesXML(xml:XML): void {
+			var f:File = new File();
+			f.nativePath = kstrShapesXMLPath;
+			var fOut:FileStream = new FileStream();
+			fOut.open(f, FileMode.WRITE);
+			fOut.writeUTFBytes('<?xml version="1.0" encoding="utf-8"?>\n' + xml.toXMLString());
+			fOut.close();
+			
+			var strMsg:String = "Changes saved.\n\n Make sure you:\n - Add new images to svn (in /src/picnik/website/clipart/previews/shapes) \n - check in new images \n - run bin/loc/buildXML.py \n - check in resulting shapes.xml files:\n - - website/Shapes.xml \n - - website/<locale>/Shapes.xml"; 
+			
+			Alert.show(strMsg, "Saved");
+		}
+		
+		protected var _xmlShapes:XML = new XML();
+		// img.source = "C:\\src\\picnik\\website\\clipart\\" + xmlClipArt.@url;
+		
+		private var _nNumAdded:Number = 0;
+		private const knMaxShapes:Number = 200;
+		
+		protected function AddPreview(xmlClipArt:XML, fSmall:Boolean=true, fLarge:Boolean=true): void {
+			trace("Adding preview: " + xmlClipArt.toXMLString());
+			_nNumAdded += 1;
+			if (_nNumAdded > knMaxShapes) return;
+			
+			// Load the shape, display it, wait a while, then write the results back to our xml
+			var sl:ShapeLoader = new ShapeLoader();
+			sl.xmlShape = xmlClipArt;
+			sl.createSmall = fSmall;
+			sl.createLarge = fLarge;
+			sl.sectionId = xmlClipArt.parent().@title; 
+			sl.fnComplete = function(obResult:Object): void {
+				OnShapeLoaded(obResult, xmlClipArt);
+			};
+			sl.url = xmlClipArt.@url;
+			if (xmlClipArt.hasOwnProperty('@color'))
+				sl.color = xmlClipArt.@color;  
+			_tl.addChild(sl);
+		}
+		
+		private var nSwfBytes:Number = 0;
+		private var nPreviewBytes:Number = 0;
+		
+		// obResult contains:
+		// url
+		// if failed: error 
+		// if success: width, height, previewUrl, previewRatio
+		protected function OnShapeLoaded(obResult:Object, xmlClipArt:XML): void {
+			if ('error' in obResult) {
+				trace("Shape load error: " + obResult.error + ", " + obResult.url);
+			} else {
+				UpdateXml(xmlClipArt, obResult.url, obResult.width, obResult.height);
+			}
+		}
+		
+		private function UpdateXml(xmlClipArt:XML, strUrl:String, nWidth:Number, nHeight:Number): void {
+			if (!xmlClipArt.hasOwnProperty('@previewUrl')) {
+				trace("Adding preview url");
+				xmlClipArt.@cWidth = nWidth;
+				xmlClipArt.@cHeight = nHeight;
+				xmlClipArt.@previewUrl = GetSmallPreviewUrl(xmlClipArt);
+			} else {
+				trace("Already has preview url?");
+				if (xmlClipArt.@previewUrl != GetSmallPreviewUrl(xmlClipArt)) {
+					trace("non matching small preview urls: current: "+ xmlClipArt.@previewUrl + ", new: " + strUrl);
+				} 
+			}
+		}
+		
+		private var _obDynamicShapes:Object = {};
+		
+		private function GetNextDynamicShapeNumber(xmlShape:XML): Number {
+			var strKey:String = xmlShape.localName();
+			var nVal:Number = 1;
+			if (strKey in _obDynamicShapes) {
+				nVal = _obDynamicShapes[strKey];
+			}
+			_obDynamicShapes[strKey] = nVal + 1;
+			return nVal;
+		}
+
+		private function AddLargePreview(img:Image, dob:DisplayObject, xmlShape:XML, nDefaultScaleY:Number): void {
+			img.validateNow();
+			
+			var nWidth:Number = ShapeLoader.knLargePreviewWidth;
+			var nHeight:Number = ShapeLoader.knLargePreviewHeight;
+			
+			// Render the preview.
+			var bmd:BitmapData = new BitmapData(nWidth, nHeight, true, 0);
+			// UNDONE: Support color transformations
+			var mat:Matrix = new Matrix();
+			
+			var nTargetWidth:Number = nWidth;
+			var nTargetHeight:Number = nHeight;
+			if (dob is Square || dob is RoundedSquare) {
+				nTargetWidth -= 2;
+				nTargetHeight -= 2;
+			}
+			
+			var nScale:Number = Math.min(nTargetWidth/dob.width, nTargetHeight/dob.height);
+			
+			mat.scale(nScale, nScale);
+			if (nDefaultScaleY != 1) {
+				mat.scale(1, nDefaultScaleY);
+			}
+
+			// First, try drawing on a larger bitmap to get the real bounds
+			var bmdTest:BitmapData;
+			var mat2:Matrix;
+			mat2 = mat.clone();
+			mat2.translate(nWidth*2, nHeight*2);
+			bmdTest = new BitmapData(nWidth * 5, nHeight * 5, true, 0);
+			bmdTest.draw(dob, mat2, null, null, null, true);
+			var rcBounds:Rectangle = bmdTest.getColorBoundsRect(0xff000000, 0, false);
+			
+			// If we translate by nWidth*2, nHeight*2, we get rcBounds
+			// Now move back to center rcBounds
+			var xOff:Number = (nWidth - rcBounds.width) / 2 - rcBounds.x + nWidth * 2;
+			var yOff:Number = (nHeight - rcBounds.height) / 2 - rcBounds.y + nHeight * 2;
+			
+			mat.translate(xOff, yOff);
+			
+			var ctr:ColorTransform = null;
+			if (dob.alpha < 1) {
+				ctr = ShapeLoader.GetColorTransform(RGBColor.RGBtoUint((1-dob.alpha) * 255, (1-dob.alpha) * 255, (1-dob.alpha) * 255));
+			}
+
+			bmd.draw(dob, mat, ctr, null, null, true);
+			var pngenc:PNGEncoder = new PNGEncoder();
+			var ba:ByteArray = pngenc.encode(bmd);
+			
+			// Update the xml
+			xmlShape.@largePreviewUrl = GetLargePreviewUrl(xmlShape);
+			
+			// Write the png
+			var flOut:File = GetLargePreviewFile(xmlShape);
+			
+			var fOut:FileStream = new FileStream();
+			fOut.open(flOut, FileMode.WRITE);
+			fOut.writeBytes(ba);
+			fOut.close();
+		}
+
+		public static function GetWebsiteBaseFile(): File {
+			return new File(kstrBasePath)
+		}
+		
+		public static function GetSmallPreviewUrl(xmlShape:XML): String {
+			if (xmlShape.hasOwnProperty('@previewUrl'))
+				return xmlShape.@previewUrl;
+			if (xmlShape.hasOwnProperty('@largePreviewUrl'))
+				return xmlShape.@largePreviewUrl.replace('/largePreviews/', '/previews/');
+			// Nothing to go on. First, check for type
+			if (xmlShape.localName() == "Clipart") {
+				// url looks like this:
+				// url="shapes/superbowl_finger1.swf
+
+				// previewUrl should look like this:
+				// ../clipart/previews/shapes/Superbowl/superbowl_finger2.png
+
+				var strPreviewUrl:String = "../clipart/previews/";
+				var strShapeUrl:String = xmlShape.@url;
+				strPreviewUrl += strShapeUrl.substr(0, strShapeUrl.length - 3) + "png";
+				return strPreviewUrl;
+			} else {
+				// Not clipart. Use "dynamic" type
+				var strName:String = xmlShape.localName() + "_" + Math.round(Math.random() * 100000);
+				return "../clipart/previews/dynamic/" + strName + ".png";
+			}
+			throw new Error("shouldn't be here");
+			return null;
+		}
+		
+		public static function GetLargePreviewUrl(xmlShape:XML): String {
+			return GetSmallPreviewUrl(xmlShape).replace('/previews/','/largePreviews/');
+		}
+		
+		public static function GetSmallPreviewFile(xmlShape:XML): File {
+			var strUrl:String = GetSmallPreviewUrl(xmlShape);
+			var flB:File = GetWebsiteBaseFile();
+			var flW:File = GetWebsiteBaseFile().resolvePath(GetSmallPreviewUrl(xmlShape).replace('../clipart/',''));
+			return GetWebsiteBaseFile().resolvePath(GetSmallPreviewUrl(xmlShape).replace('../clipart/',''));
+		}
+		
+		public static function GetLargePreviewFile(xmlShape:XML): File {
+			return GetWebsiteBaseFile().resolvePath(GetLargePreviewUrl(xmlShape).replace('../clipart/',''));
+		}
+		
+		private static var aclShapes:Array = [Burst, Ellipse, PointyShape, Polygon, RoundedRectangle, RoundedSquare , Square, Star, Target];
+		// private static var aclShapes2:Array = [Text];
+	
+		public function init(): void {
+			
+			// Load the shapes xml
+			try {
+				_xmlShapes = LoadShapesXML();
+				for each (var xmlShape:XML in _xmlShapes.ShapeArea..*) {
+					if (xmlShape.localName() == "ShapeCategory")
+						continue;
+					if (xmlShape.localName() == "Clipart") {
+						var xmlClipArt:XML = xmlShape;
+						if (!xmlClipArt.hasOwnProperty('@previewUrl')) {
+							AddPreview(xmlClipArt);
+						} else {
+							// Check the preview url
+							var flSmallPreview:File = GetSmallPreviewFile(xmlShape);
+							var flLargePreview:File = GetLargePreviewFile(xmlShape);
+							
+							if ((!flSmallPreview.exists) || (!flLargePreview.exists)) {
+								AddPreview(xmlClipArt, !flSmallPreview.exists, !flLargePreview.exists);
+							} else {
+								// DEBUG: Create all previews
+								// AddPreview(xmlClipArt);
+							}
+						}
+					} else {
+						try {
+							// Dynamic shpaes
+							if (false) {
+								var fNeedsPreview:Boolean = true;
+								if (xmlShape.hasOwnProperty('@largePreviewUrl') && GetLargePreviewFile(xmlShape).exists)
+									fNeedsPreview = false;
+									
+								if (fNeedsPreview) {
+									var clsDocumentObject:Class = getDefinitionByName("documentObjects." + xmlShape.localName()) as Class;
+									var dob:DisplayObject = new clsDocumentObject() as DisplayObject;
+									
+									dob['color'] = 0;
+									
+									for (var nAttribute:String in xmlShape.attributes())
+									{
+										var strKey:String = xmlShape.attributes()[nAttribute].localName();
+										if (strKey in dob) 
+											dob[strKey] = xmlShape.attribute(strKey);
+									}
+									
+									var doco:IDocumentObject = dob as IDocumentObject;
+									
+									var nDefaultScaleY:Number = 1;
+									if ("defaultScaleY" in dob) {
+										nDefaultScaleY = dob["defaultScaleY"];
+										dob.scaleY = dob["defaultScaleY"];
+									}
+									
+									doco.Validate();
+		
+									// Add a circle
+									var img:Image = new Image();
+									img.source = dob;
+									_tl.addChild(img);
+									AddLargePreview(img, dob, xmlShape, nDefaultScaleY);
+								}
+							}
+						} catch (e:Error) {
+							trace(e);
+						}
+					}
+				}
+				
+				// Do any of the ShapeCategorys want explicit scaleX/Y values?
+				for each (var xmlCategory:XML in _xmlShapes.ShapeArea..ShapeCategory) {
+					if (xmlCategory.@setGroupScale != "true")
+						continue;
+						
+					// Find the max height of any of the shapes in the group.
+					var cyMax:Number = 0;
+					for each (xmlShape in xmlCategory.Clipart) {
+						cyMax = Math.max(Number(xmlShape.@cHeight), cyMax);
+					}
+					
+					// Set scaleX, scaleY values for each shape.
+					for each (xmlShape in xmlCategory.Clipart) {
+						var nScale:Number = xmlShape.@cHeight / cyMax;
+						xmlShape.@groupScale = nScale;
+					}
+				}
+			} catch (e:Error) {
+				Alert.show(e.toString(), "There was an error");
+			}
+		}
+	]]>
+</mx:Script>
+	<mx:VBox height="100%" width="100%" id="_vbx">
+		<mx:Button label="Save Updated XML" click="SaveShapesXML(_xmlShapes)"/>
+		<mx:Tile id="_tl" width="100%" height="100%">
+			
+		</mx:Tile>
+	</mx:VBox>
+	
+</mx:WindowedApplication>

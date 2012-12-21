@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CollageBase width="100%" height="100%" 
+		xmlns="*" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:flash="flash.filters.*" 
+		xmlns:url="urlkit.rules.*" xmlns:ut="util.*" xmlns:ctl="controls.*" xmlns:ctr="containers.*"
+		xmlns:documentObjects="imagine.documentObjects.*" xmlns:sectionList="containers.sectionList.*" xmlns:pages="pages.*">
+	
+	<flash:DropShadowFilter id="_fiWhiteShad" blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1" quality="3" angle="90"/>
+	
+	<mx:Script>
+		<![CDATA[
+			import mx.utils.ObjectProxy;
+			
+			private function GetResourceString(strResourceName:String): String {
+				return Resource.getString("Collage", strResourceName);
+			} 
+
+			[Bindable] public var aobCollages:Array = [
+				{
+					premium: false, expanded: false, title1: GetResourceString("title_basic"), title2: GetResourceString("title_free"), children: [
+						new ObjectProxy({ dims: new Point(2,1), props: 50, previewUrl: "../graphics/collage/grid/2x1sq.png" }),
+						new ObjectProxy({ dims: new Point(2,1), props: 35, previewUrl: "../graphics/collage/grid/2x1tall.png" }),
+						new ObjectProxy({ dims: new Point(1,2), props: 50, previewUrl: "../graphics/collage/grid/1x2sq.png" }),
+						new ObjectProxy({ template: "2x1_sq-tall", props: 63, previewUrl: "../graphics/collage/grid/2x1_sq-tall.png" }),
+						
+						new ObjectProxy({ dims: new Point(3,1), props: 50, previewUrl: "../graphics/collage/grid/3x1sq.png" }),
+						new ObjectProxy({ dims: new Point(3,1), props: 35, previewUrl: "../graphics/collage/grid/3x1tall.png" }),
+						new ObjectProxy({ dims: new Point(1,3), props: 50, previewUrl: "../graphics/collage/grid/1x3sq.png" }),
+						new ObjectProxy({ template: "2x1_tall-sq", props: 63, previewUrl: "../graphics/collage/grid/2x1_tall-sq.png" }),
+						
+						new ObjectProxy({ dims: new Point(4,1), props: 50, previewUrl: "../graphics/collage/grid/4x1sq.png" }),
+						new ObjectProxy({ dims: new Point(4,1), props: 35, previewUrl: "../graphics/collage/grid/4x1tall.png" }),
+						new ObjectProxy({ dims: new Point(1,4), props: 50, previewUrl: "../graphics/collage/grid/1x4sq.png" }),
+						new ObjectProxy({ dims: new Point(2,2), props: 50, previewUrl: "../graphics/collage/grid/2x2sq.png" })
+					]
+				},
+				{
+					premium: true, expanded: false, title1: GetResourceString("title_grid"), title2: GetResourceString("title_premium"), children: [
+						new ObjectProxy({ dims: new Point(2,2), props: 50, previewUrl: "../graphics/collage/grid/2x2sq.png" }),
+						new ObjectProxy({ dims: new Point(3,3), props: 50, previewUrl: "../graphics/collage/grid/3x3sq.png" }),
+						new ObjectProxy({ dims: new Point(4,4), props: 50, previewUrl: "../graphics/collage/grid/4x4sq.png" }),
+						new ObjectProxy({ dims: new Point(6,6), props: 50, previewUrl: "../graphics/collage/grid/6x6sq.png" }),
+
+						new ObjectProxy({ dims: new Point(2,1), props: 35, previewUrl: "../graphics/collage/grid/2x1tall.png" }),
+						new ObjectProxy({ dims: new Point(3,1), props: 35, previewUrl: "../graphics/collage/grid/3x1tall.png" }),
+						new ObjectProxy({ dims: new Point(4,1), props: 35, previewUrl: "../graphics/collage/grid/4x1tall.png" }),
+						new ObjectProxy({ dims: new Point(6,1), props: 35, previewUrl: "../graphics/collage/grid/6x1tall.png" }),
+						
+						new ObjectProxy({ dims: new Point(1,2), props: 50, previewUrl: "../graphics/collage/grid/1x2sq.png" }),
+						new ObjectProxy({ dims: new Point(1,3), props: 50, previewUrl: "../graphics/collage/grid/1x3sq.png" }),
+						new ObjectProxy({ dims: new Point(1,4), props: 50, previewUrl: "../graphics/collage/grid/1x4sq.png" }),
+						new ObjectProxy({ dims: new Point(1,6), props: 50, previewUrl: "../graphics/collage/grid/1x6sq.png" }),
+						
+						new ObjectProxy({ dims: new Point(2,1), props: 50, previewUrl: "../graphics/collage/grid/2x1sq.png" }),
+						new ObjectProxy({ dims: new Point(3,1), props: 50, previewUrl: "../graphics/collage/grid/3x1sq.png" }),
+						new ObjectProxy({ dims: new Point(4,1), props: 50, previewUrl: "../graphics/collage/grid/4x1sq.png" }),
+						new ObjectProxy({ dims: new Point(6,1), props: 50, previewUrl: "../graphics/collage/grid/6x1sq.png" }),
+					]
+				},
+				{
+					premium: true, expanded: false, title1: GetResourceString("title_one_big_photo"), title2: GetResourceString("title_premium"), children: [
+						// 3x3 grids with one large photo
+						new ObjectProxy({ template: "3x3_large-left", props: 50, previewUrl: "../graphics/collage/grid/3x3_large-left.png" }),
+						new ObjectProxy({ template: "3x3_large-top", props: 50, previewUrl: "../graphics/collage/grid/3x3_large-top.png" }),
+						new ObjectProxy({ template: "3x3_large-bottom", props: 50, previewUrl: "../graphics/collage/grid/3x3_large-bottom.png" }),
+						new ObjectProxy({ template: "3x3_large-right", props: 50, previewUrl: "../graphics/collage/grid/3x3_large-right.png" }),
+						
+						// 4x4 grids with one large photo in corner
+						new ObjectProxy({ template: "4x4_large-tl", props: 50, previewUrl: "../graphics/collage/grid/4x4_large-tl.png" }),
+						new ObjectProxy({ template: "4x4_large-br", props: 50, previewUrl: "../graphics/collage/grid/4x4_large-br.png" }),
+						new ObjectProxy({ template: "4x4_large-tr", props: 50, previewUrl: "../graphics/collage/grid/4x4_large-tr.png" }),
+						new ObjectProxy({ template: "4x4_large-bl", props: 50, previewUrl: "../graphics/collage/grid/4x4_large-bl.png" }),
+
+						// 6x6 grids with one large photo
+						new ObjectProxy({ template: "6x6_large-top", props: 50, previewUrl: "../graphics/collage/grid/6x6_large-top.png" }),
+						new ObjectProxy({ template: "6x6_large-right", props: 50, previewUrl: "../graphics/collage/grid/6x6_large-right.png" }),
+						new ObjectProxy({ template: "6x6_large-bottom", props: 50, previewUrl: "../graphics/collage/grid/6x6_large-bottom.png" }),
+						new ObjectProxy({ template: "6x6_large-left", props: 50, previewUrl: "../graphics/collage/grid/6x6_large-left.png" }),
+						
+						// NxN grids with 1 large center
+						new ObjectProxy({ template: "4x4_large-middle", props: 50, previewUrl: "../graphics/collage/grid/4x4_large-middle.png" }),
+						new ObjectProxy({ template: "5x5_large-middle", props: 50, previewUrl: "../graphics/collage/grid/5x5_large-middle.png" }),
+						new ObjectProxy({ template: "6x6_large-middle", props: 50, previewUrl: "../graphics/collage/grid/6x6_large-middle.png" }),
+						new ObjectProxy({ template: "8x8_large-middle", props: 50, previewUrl: "../graphics/collage/grid/8x8_large-middle.png" })
+					]
+				},
+				{
+					premium: true, expanded: false, title1: GetResourceString("title_jigsaw"), title2: GetResourceString("title_premium"), children: [
+					// rotated skewed grids
+						new ObjectProxy({ template: "2x2_skewed1", props: 50, previewUrl: "../graphics/collage/grid/2x2_skewed1.png" }),
+						new ObjectProxy({ template: "2x2_skewed2", props: 50, previewUrl: "../graphics/collage/grid/2x2_skewed2.png" }),
+						new ObjectProxy({ template: "2x2_skewed3", props: 50, previewUrl: "../graphics/collage/grid/2x2_skewed3.png" }),
+						new ObjectProxy({ template: "2x2_skewed4", props: 50, previewUrl: "../graphics/collage/grid/2x2_skewed4.png" }),
+					
+					// 2x2 jigsaw grids
+						new ObjectProxy({ template: "2x2_jigsaw1", props: 50, previewUrl: "../graphics/collage/grid/2x2_jigsaw1.png" }),
+						new ObjectProxy({ template: "2x2_jigsaw2", props: 50, previewUrl: "../graphics/collage/grid/2x2_jigsaw2.png" }),
+						new ObjectProxy({ template: "2x2_jigsaw3", props: 50, previewUrl: "../graphics/collage/grid/2x2_jigsaw3.png" }),
+						new ObjectProxy({ template: "2x2_jigsaw4", props: 50, previewUrl: "../graphics/collage/grid/2x2_jigsaw4.png" }) /*,
+						
+					// 4 photo progressive subdivision
+						new ObjectProxy({ template: "4_prog-sub-left", props: 60, previewUrl: "../graphics/collage/grid/2x2_jigsaw1.png" }),
+						new ObjectProxy({ template: "4_prog-sub-right", props: 60, previewUrl: "../graphics/collage/grid/2x2_jigsaw2.png" }),
+						new ObjectProxy({ template: "4_prog-sub-top", props: 40, previewUrl: "../graphics/collage/grid/2x2_jigsaw3.png" }),
+						new ObjectProxy({ template: "4_prog-sub-bottom", props: 40, previewUrl: "../graphics/collage/grid/2x2_jigsaw4.png" })*/
+					]
+				}
+			]
+		]]>
+	</mx:Script>
+
+	<mx:String id="urlkit"/>
+	
+	<!-- UNDONE: this sucks but its the fastest way I could get urlkit to produce appropriate
+				 URL fragments after moving Collage to ModCreate -->
+	<mx:ViewStack id="_vstk" includeInLayout="false" visible="false">
+		<pages:Page id="dummy" urlkit="grid"/>
+	</mx:ViewStack>
+	
+	<!-- collage template on the canvas -->
+	<mx:Canvas id="_cvsTemplate" left="226" top="30" right="0" bottom="0"/>
+	
+	<!-- top buttons -->
+	<mx:Canvas x="0" y="0" width="100%" height="30" backgroundColor="#FFFFFF" horizontalScrollPolicy="off">
+		<ctl:ImageVer source="@Embed('/assets/bitmaps/bar_bg_x30.png')" left="0" top="0" width="100%" scaleContent="true" maintainAspectRatio="false"/>
+		<ctr:ResizingHBox x="0" width="100%" y="0" paddingTop="0" paddingBottom="0" paddingLeft="5" paddingRight="5"
+				verticalAlign="middle" id="hbox1" height="30" horizontalGap_2="6" horizontalGap_5="4" horizontalGap_6="2"
+				horizontalGap_7="1">
+			<ctl:ResizingButton fontSize_1="12" paddingLeft_2="-2" paddingRight_2="-2" paddingLeft_3="-3" paddingRight_3="-3"
+					paddingLeft_4="-4" paddingRight_4="-4" paddingLeft_5="-5" paddingRight_5="-5" paddingLeft_7="-6"
+					paddingRight_7="-6" paddingLeft_8="-7" paddingRight_8="-7"  fontSize_7="11" fontSize_8="9" fontSize_9="10"
+					label="@Resource(key='_btnAutoFill', bundle='Collage')" id="_btnAutoFill"
+					toolTip="@Resource(key='_btnAutoFill_tip', bundle='Collage')"
+					height="24" icon="@Embed('/assets/bitmaps/icon_autofill.png')" horizontalGap="2"
+					disabledIcon="@Embed('/assets/bitmaps/icon_autofillDisabled.png')"
+					enabled="{collection &amp;&amp; collection.length > 0}"/>
+			<ctl:ResizingImage width_4="0" source="@Embed('/assets/bitmaps/divider_short.png')" id="resizingimage1"/>
+			<ctl:ResizingButton fontSize_1="12" paddingLeft_2="-2" paddingRight_2="-2" paddingLeft_3="-3" paddingRight_3="-3"
+					paddingLeft_4="-4" paddingRight_4="-4" paddingLeft_5="-5" paddingRight_5="-5" paddingLeft_7="-6"
+					paddingRight_7="-6" paddingLeft_8="-7" paddingRight_8="-7"  fontSize_7="11" fontSize_8="9" fontSize_9="10"
+					label="@Resource(key='shuffle', bundle='Collage')" id="_btnShuffle" toolTip="@Resource(key='_btnShuffle_tip', bundle='Collage')"
+					height="24"
+					enabled="{populatedTargetCount > 0}"/>
+			<ctl:ResizingImage width_4="0" source="@Embed('/assets/bitmaps/divider_short.png')"/>
+			<ctl:ResizingButton fontSize_1="12" paddingLeft_2="-2" paddingRight_2="-2" paddingLeft_3="-3" paddingRight_3="-3"
+					paddingLeft_4="-4" paddingRight_4="-4" paddingLeft_5="-5" paddingRight_5="-5" paddingLeft_7="-6"
+					paddingRight_7="-6" paddingLeft_8="-7" paddingRight_8="-7"  fontSize_7="11" fontSize_8="9" fontSize_9="10"
+					label="@Resource(key='_btnClear', bundle='Collage')" id="_btnClear" toolTip="@Resource(key='_btnClear_tip', bundle='Collage')"
+					height="24"
+					enabled="{populatedTargetCount > 0}"/>
+			<ctl:ResizingImage width_4="0" source="@Embed('/assets/bitmaps/divider_short.png')"/>
+			
+			<mx:Spacer width="100%" />
+			
+			<!-- Quality (normal, print) buttons -->
+			<!-- UNDONE: indicate that quality is a premium feature, show upgrade dialog on click -->
+			<ctl:ResizingLabel id="_lblQuality" text="@Resource(key='quality', bundle='Collage')" fontSize="13" fontSize_1="12" fontWeight="normal" filters="{[_fiWhiteShad]}"
+					paddingTop="2" enabled="{AccountMgr.GetInstance().isPremium}" paddingRight="-5"/>
+			<ctr:ResizingHTile paddingLeft="0" paddingRight="0" paddingTop="0" paddingBottom="0" horizontalGap="0">
+				<ctl:ResizingButton fontSize_1="12" paddingLeft_2="-2" paddingRight_2="-2" paddingLeft_3="-3" paddingRight_3="-3"
+						paddingLeft_4="-4" paddingRight_4="-4" paddingLeft_5="-5" paddingRight_5="-5" paddingLeft_7="-6"
+						paddingRight_7="-6" paddingLeft_8="-7" paddingRight_8="-7"  fontSize_7="11" fontSize_8="9" fontSize_9="10"
+						label="@Resource(key='_btnNormalResolution', bundle='Collage')" id="_btnNormalResolution" styleName="buttonLeft" height="24" width="100%"
+						paddingLeft="-5" paddingRight="-5"
+						selected="{_phgd.fitWidth==kcxNormalResolution}"/>
+				<ctr:ResizingHBox paddingLeft="0" paddingRight="0" paddingTop="0" paddingBottom="0" horizontalGap="0" width="100%">
+					<ctl:ResizingButton fontSize_1="12" paddingLeft_2="-2" paddingRight_2="-2" paddingLeft_3="-3"
+							paddingRight_3="-3" paddingLeft_4="-4" paddingRight_4="-4" paddingLeft_5="-5" paddingRight_5="-5"
+							paddingLeft_7="-6" paddingRight_7="-6" paddingLeft_8="-7" paddingRight_8="-7"  fontSize_7="11"
+							fontSize_8="9" fontSize_9="10" label="@Resource(key='_btnPrintResolution', bundle='Collage')" id="_btnPrintResolution"
+							styleName="buttonRight" height="24" width="100%" paddingLeft="-5" paddingRight="-5"
+							enabled="{AccountMgr.GetInstance().isPremium}"
+							selected="{_phgd.fitWidth==_cxPrintResolution}"/>
+				</ctr:ResizingHBox>
+			</ctr:ResizingHTile>
+			<ctl:ResizingImage width_4="0" source="@Embed('/assets/bitmaps/divider_short.png')"/>
+			
+			<!-- go premium messaging / REMOVED IN FAVOR OF TEMPLATE CONSTRAINTS 
+			<ctr:ResizingHBox width="100%" horizontalAlign="center" verticalAlign="middle" horizontalGap="2"
+					visible="{!AccountMgr.GetInstance().isPremium}" includeInLayout="{!AccountMgr.GetInstance().isPremium}">
+				<ctl:ResizingLabel text="@Resource(key='upgradeCollage', bundle='Collage')" fontSize="13" fontSize_1="12" fontWeight="normal" filters="{[_fiWhiteShad]}"
+					paddingTop="2"/>
+				<ctl:ResizingButton id="_btnUpgrade" label="@Resource(key='goPremium', bundle='Collage')" styleName="upgradeButton" height="24"
+					fontSize_1="12" paddingLeft_2="-2" paddingRight_2="-2" paddingLeft_3="-3" paddingRight_3="-3"
+					paddingLeft_4="-4" paddingRight_4="-4" paddingLeft_5="-5" paddingRight_5="-5" paddingLeft_7="-6"
+					paddingRight_7="-6" paddingLeft_8="-7" paddingRight_8="-7"  fontSize_7="11" fontSize_8="9" fontSize_9="10"/>
+			</ctr:ResizingHBox>
+			-->
+			
+			<!-- help button -->
+			<mx:Button id="_btnInfo" selected="false" height="24" width="24" toggle="true" icon="@Embed('/theme/pngs/questionmark.png')" paddingLeft="0"/>
+			
+			<ctl:ResizingImage width_4="0" source="@Embed('/assets/bitmaps/divider_short.png')"/>
+			<!-- undo/redo -->
+			<ctr:ResizingHTile paddingLeft="0" paddingRight="0" paddingTop="0" paddingBottom="0" horizontalGap="0">
+				<ctl:ResizingButton fontSize_1="12" paddingLeft_2="-2" paddingRight_2="-2" paddingLeft_3="-3" paddingRight_3="-3"
+						paddingLeft_4="-4" paddingRight_4="-4" paddingLeft_5="-5" paddingRight_5="-5" paddingLeft_7="-6"
+						paddingRight_7="-6" paddingLeft_8="-7" paddingRight_8="-7"  fontSize_7="11" fontSize_8="9" fontSize_9="10"
+						label="@Resource(key='_btnUndo', bundle='Collage')" id="_btnUndo" styleName="buttonLeft" height="24" width="100%"
+						paddingLeft="-5" paddingRight="-5"/>
+				<ctr:ResizingHBox paddingLeft="0" paddingRight="0" paddingTop="0" paddingBottom="0" horizontalGap="0" width="100%">
+					<ctl:ResizingButton fontSize_1="12" paddingLeft_2="-2" paddingRight_2="-2" paddingLeft_3="-3"
+							paddingRight_3="-3" paddingLeft_4="-4" paddingRight_4="-4" paddingLeft_5="-5" paddingRight_5="-5"
+							paddingLeft_7="-6" paddingRight_7="-6" paddingLeft_8="-7" paddingRight_8="-7"  fontSize_7="11"
+							fontSize_8="9" fontSize_9="10" label="@Resource(key='_btnRedo', bundle='Collage')" id="_btnRedo"
+							styleName="buttonRight" height="24" width="100%" paddingLeft="-5" paddingRight="-5"/>
+				</ctr:ResizingHBox>
+			</ctr:ResizingHTile>
+			<ctl:ResizingButton fontSize_1="12" paddingLeft_2="-2" paddingRight_2="-2" paddingLeft_3="-3" paddingRight_3="-3" paddingLeft_4="-4" paddingRight_4="-4" paddingLeft_5="-5" paddingRight_5="-5" paddingLeft_7="-6" paddingRight_7="-6" paddingLeft_8="-7" paddingRight_8="-7"  fontSize_7="11" fontSize_8="9" fontSize_9="10"
+				   label="@Resource(key='_btnSave', bundle='Collage')" id="_btnSave" toolTip="@Resource(key='_btnSave_tip', bundle='Collage')" height="24" enabled="{hasDocument}" visible="false" includeInLayout="false"/>
+			<ctl:ResizingButton fontSize_1="12" fontSize_7="11" fontSize_8="9" fontSize_9="10"
+					paddingLeft="6" paddingRight="6"
+					paddingLeft_2="-2" paddingRight_2="-2" paddingLeft_3="-3" paddingRight_3="-3" paddingLeft_4="-4" paddingRight_4="-4" paddingLeft_5="-5" paddingRight_5="-5" paddingLeft_7="-6" paddingRight_7="-6" paddingLeft_8="-7" paddingRight_8="-7"
+					label="@Resource(key='_btnDone', bundle='Collage')" id="_btnDone" toolTip="@Resource(key='_btnDone_tip', bundle='Collage')" height="24" styleName="BigButton"/>
+		</ctr:ResizingHBox>
+	</mx:Canvas>
+	
+	<!-- collage settings column -->
+	<mx:Canvas left="0" top="30" width="226" bottom="24" backgroundColor="#f8f8f8" horizontalScrollPolicy="off" verticalScrollPolicy="off">
+		<!-- background prettiness -->
+		<ctl:ImageVer x="0" bottom="0" source="../graphics/type_gradient_bottom.png" width="100%" scaleContent="true" maintainAspectRatio="false"/>
+		
+		<!-- width of below vbox needs to swap from 100% or 226 to 210 to resize contents to make way for scrollbar -->
+		<!-- (scrollbar width is never reported correctly to child elements, 226-16 = 210) -->
+		<mx:VBox x="0" y="0" width="226" height="100%" verticalGap="0" verticalScrollPolicy="off" horizontalScrollPolicy="off">
+			<!-- vbox for collage browser, responsible for vert scrolling -->
+			<mx:VBox verticalGap="0" width="100%" height="100%" verticalScrollPolicy="off">
+				<sectionList:SectionList id="_slCollages" width="226" height="100%" selectable="true" 
+						sectionRenderer="containers.sectionList.CollageSection" itemRenderer="controls.CollageItemRenderer"
+						dataProvider="{aobCollages}"/>
+			</mx:VBox>
+			
+			<!-- slider controls -->
+			<mx:Canvas id="_cvsCollageControls" width="100%" horizontalScrollPolicy="off" verticalScrollPolicy="off">
+				<!-- collage slanty watermark and top gradient -->
+				<ctl:ImageVer x="0" y="0" source="../graphics/type_gradient_top.png" width="100%" scaleContent="true" maintainAspectRatio="false"/>
+				<ctl:ImageVer x="0" y="0" source="../graphics/collage_cropped.png"/>
+				
+				<!-- actual sliders -->
+				<mx:VBox width="100%" paddingTop="4" paddingRight="12" paddingBottom="9" paddingLeft="9" verticalGap="0">
+				
+					<!-- gap size / color -->
+					<mx:HBox width="100%" verticalAlign="middle">
+						<mx:VBox verticalGap="0" width="100%">
+							<mx:HBox width="100%" paddingBottom="-5" paddingTop="3">
+								<mx:Label text="@Resource(key='gap_size', bundle='Collage')" styleName="sliderTitle"/>
+								<mx:Label text="{Math.round(_sldrGapSize.value)}" styleName="sliderValue" textAlign="right" width="100%"/>
+							</mx:HBox>
+							<ctl:HSliderPlus width="100%" minimum="0" maximum="70" value="{_phgd.gap * 1000}" id="_sldrGapSize"
+									liveDragging="true" showDataTip="false"/>
+						</mx:VBox>
+						<!-- background color -->
+						<ctl:HSBColorPicker id="_cpkrBackground" selectedColor="{_phgd.backgroundColor}" 
+								liveColorChange="OnBackgroundLiveColorChange(event)" width="30" height="30"/>
+					</mx:HBox>
+	
+					<!-- proportions -->
+					<mx:HBox width="100%" paddingBottom="-5" paddingTop="3">
+						<mx:Label text="@Resource(key='proportions', bundle='Collage')" styleName="sliderTitle"/>
+						<mx:Label text="{Math.round(_sldrProportions.value) + ':' + (100 - Math.round(_sldrProportions.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+					</mx:HBox>
+					<ctl:HSliderPlus id="_sldrProportions" width="100%" minimum="20" maximum="80" value="{_phgd.proportions}" 
+							liveDragging="true" showDataTip="false"/>
+	
+					<!-- kookiness and roundedness -->				
+					<mx:HBox id="_hbxKookinessAndRoundedness" width="100%" horizontalGap="10">
+						<!-- kookiness -->
+						<mx:VBox verticalGap="0" width="50%">
+							<mx:HBox width="100%" paddingBottom="-5" paddingTop="3">
+								<mx:Label text="@Resource(key='kookiness', bundle='Collage')" styleName="sliderTitle"/>
+								<mx:Label text="{Math.round(_sldrKookiness.value)}" styleName="sliderValue" textAlign="right" width="100%"/>
+							</mx:HBox>
+							<ctl:HSliderPlus id="_sldrKookiness" width="98" minimum="0" maximum="100" value="{Math.round(_phgd.kookiness * 100)}" 
+									liveDragging="true" showDataTip="false"/>
+						</mx:VBox>
+						
+						<!-- roundedness -->
+						<mx:VBox verticalGap="0" width="50%">
+							<mx:HBox width="100%" paddingBottom="-5" paddingTop="3" horizontalGap="0">
+								<mx:Label text="@Resource(key='roundedness', bundle='Collage')" styleName="sliderTitle"/>
+								<mx:Label text="{Math.round(_sldrRoundedness.value)}" styleName="sliderValue" textAlign="right" width="100%"/>
+							</mx:HBox>
+							<ctl:HSliderPlus id="_sldrRoundedness" width="98" minimum="0" maximum="10" snapInterval="1"
+									value="{Math.round(_phgd.roundedPct * 10)}" liveDragging="true" showDataTip="false"/>
+						</mx:VBox>
+					</mx:HBox>
+					
+					<!-- columns and rows -->				
+					<mx:HBox id="_hbxColumnsAndRows" width="100%" horizontalGap="10">
+						<!-- columns -->
+						<mx:VBox verticalGap="0" width="50%">
+							<mx:HBox width="100%" paddingBottom="-5" paddingTop="3">
+								<mx:Label text="@Resource(key='columns', bundle='Collage')" styleName="sliderTitle" enabled="{!_phgd.template &amp;&amp; AccountMgr.GetInstance().isPremium}"/>
+								<mx:Label text="{_sldrColumns.value}" styleName="sliderValue" textAlign="right" width="100%"
+										visible="{!_phgd.template}" enabled="{!_phgd.template &amp;&amp; AccountMgr.GetInstance().isPremium}"/>
+							</mx:HBox>
+							<ctl:HSliderPlus id="_sldrColumns" width="98" minimum="1" maximum="12" value="{_phgd.numColumns}" 
+									liveDragging="true" showDataTip="false" snapInterval="1" enabled="{!_phgd.template &amp;&amp; AccountMgr.GetInstance().isPremium}" alpha="{!_phgd.template &amp;&amp; AccountMgr.GetInstance().isPremium ? 1:.6}"/>
+						</mx:VBox>
+						
+						<!-- rows -->
+						<mx:VBox verticalGap="0" width="50%">
+							<mx:HBox width="100%" paddingBottom="-5" paddingTop="3">
+								<mx:Label text="@Resource(key='rows', bundle='Collage')" styleName="sliderTitle" enabled="{!_phgd.template &amp;&amp; AccountMgr.GetInstance().isPremium}"/>
+								<mx:Label text="{_sldrRows.value}" styleName="sliderValue" textAlign="right" width="100%"
+										visible="{!_phgd.template}" enabled="{!_phgd.template &amp;&amp; AccountMgr.GetInstance().isPremium}"/>
+							</mx:HBox>
+							<ctl:HSliderPlus id="_sldrRows" width="98" minimum="1" maximum="12" value="{_phgd.numRows}" 
+									liveDragging="true" showDataTip="false" snapInterval="1" enabled="{!_phgd.template &amp;&amp; AccountMgr.GetInstance().isPremium}" alpha="{!_phgd.template &amp;&amp; AccountMgr.GetInstance().isPremium ? 1:.6}"/>
+						</mx:VBox>
+					</mx:HBox>
+				</mx:VBox>
+			</mx:Canvas>
+		</mx:VBox>
+	</mx:Canvas>
+	
+	<ctl:ImageVer x="0" source="@Embed('/assets/bitmaps/panel_shadow.png')" width="100%" top="30" scaleContent="true" maintainAspectRatio="false"/>
+	<ctl:ImageVer x="0" source="@Embed('/assets/bitmaps/effects_panel_shadow.png')" height="100%" top="31" left="226" scaleContent="true" maintainAspectRatio="false"/>
+	
+	<documentObjects:PhotoGrid id="_phgd"/>
+</CollageBase>

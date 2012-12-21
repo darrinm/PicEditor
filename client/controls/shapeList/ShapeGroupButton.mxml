@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:thumbnails="controls.thumbnails.*" 
+	width="100%" height="68"
+	click="ToggleExpanded();"
+	backgroundSize="100%" 
+	rollOver="OnRollOver()" 
+	rollOut="OnRollOut()"
+	xmlns:controls="controls.*" xmlns:filters="flash.filters.*" xmlns:shapeList="controls.shapeList.*">
+	<mx:states>
+		<mx:State name="Selected">
+			<mx:SetProperty name="height" value="100%"/>
+		</mx:State>
+	</mx:states>
+	
+	<mx:Boolean id="expanded">false</mx:Boolean>
+	
+	<mx:Parallel id="_efSelect" target="{_btnInfo}">
+		<mx:Sequence>
+			<mx:SetPropertyAction name="visible" value="true"/>
+			<mx:Fade alphaFrom="0" alphaTo="1" duration="200"/>
+		</mx:Sequence>
+	</mx:Parallel>
+	<mx:Parallel id="_efDeselect" target="{_btnInfo}">
+		<mx:Sequence>
+			<mx:Fade alphaFrom="1" alphaTo="0" duration="150"/>
+			<mx:SetPropertyAction name="visible" value="false"/>
+		</mx:Sequence>
+	</mx:Parallel>
+
+	<mx:Style>
+		.thumbnailBackground
+		{
+			border-style: solid;
+			border-thickness: 0;
+			border-skin: ClassReference("skins.GradientBackground");
+			gradient-fill-colors: #fcfcfc, #ededed;
+			gradient-fill-alphas: 1,1;
+			gradient-fill-ratios: 85,255;
+			gradient-rotation: 90; 	
+            cornerRadius: 8;
+		}
+		.newTag {
+			border-style: solid;
+			border-thickness: 0;
+			border-skin: ClassReference("skins.GradientBackground");
+			gradient-fill-colors: #ffffb2, #ffff00;
+			gradient-rotation: 90; 	
+		}
+	</mx:Style>
+	<filters:DropShadowFilter id="_fiShine" blurX="0" blurY="0" distance="1" color="#FFFFFF" alpha="1" inner="true" quality="3" angle="90"/>
+	<filters:DropShadowFilter id="_fiShadow" blurX="2" blurY="2" distance="1" color="#000000" alpha=".25" quality="3" angle="90"/>
+	<filters:DropShadowFilter id="_fiTextShine" blurX="0" blurY="0" distance="1" color="#FFFFFF" alpha="1" quality="3" angle="90"/>
+	<!-- filters for preview bubble -->
+	<filters:DropShadowFilter id="_fiPrevShine" blurX="0" blurY="0" distance="1" color="#FFFFFF" alpha="1" quality="3" angle="90"/>
+	<filters:DropShadowFilter id="_fiPrevInnerShad" blurX="2" blurY="2" distance="1" color="#000000" alpha=".12" inner="true" quality="3" angle="90"/>
+
+	<mx:Script>
+		<![CDATA[
+			import controls.InspirationTipBase;
+			import controls.ShapeArea;
+			
+			import dialogs.DialogManager;
+			import dialogs.RegisterDialogBase;
+			
+			import imagine.documentObjects.DocumentObjectContainer;
+			
+			import util.GooglePlusUtil;
+			import util.LocUtil;
+			import util.MinorAction;
+
+			// public settings
+			[Bindable] public var logid:String = "unknown";
+			
+			[Bindable]
+			[Inspectable(defaultValue="Title")]
+			public var strTitle:String = "Title";
+			
+			[Bindable]
+			[Inspectable(defaultValue="Picnik")]
+			public var strAuthor:String = "Picnik";
+			
+			[Bindable]
+			[Inspectable(defaultValue="")]
+			public var strImageSource:String = "";
+			
+			[Bindable]
+			[Inspectable(defaultValue="")]
+			public var strPreviewUrls:String = "";
+			
+			[Bindable]
+			[Inspectable(defaultValue=false)]
+			public var premium:Boolean = false;
+			
+			[Bindable]
+			[Inspectable(defaultValue=false)]
+			public var newEffect:Boolean = false;
+			
+			[Bindable]
+			[Inspectable(defaultValue=5)]
+			public var cornerRadius:Number = 5;
+			
+			[Bindable]
+			[Inspectable(defaultValue=false)]
+			public var booleanBeta:Boolean = false;
+			
+			[Bindable]
+			[Inspectable(defaultValue=false)]
+			public var booleanAdmin:Boolean = false;
+			
+			private function GetShapeArea(): ShapeArea {
+				var dob:DisplayObject = this;
+				while (dob != null && !(dob is ShapeArea)) {
+					dob = dob.parent;
+				}
+				return dob as ShapeArea;
+			}
+			
+			private function OnRollOver(): void {
+				if (new Date() <= _dtDelayRollOver) {
+					_dtDelayRollOver = new Date();
+					return;
+				}
+				if (!parent['expanded'] ) _thm.start();
+				var sa:ShapeArea = GetShapeArea();
+				if (sa) 
+					InspirationTipBase.ShowInspirationByTag(GetInspirationId(), this);
+			}
+			
+			private function GetInspirationId(): String {
+				return "shape:" + logid;
+			}
+			
+			private var _dtDelayRollOver:Date = new Date();
+			
+			private function OnRollOut(): void {
+				_thm.stop();
+				InspirationTipBase.HideTip();
+			}
+			
+			private function GetActionListenerParent(): IActionListener {
+				var docParent:DisplayObjectContainer = this.parent;
+				while (docParent != null) {
+					if (docParent is IActionListener)
+						return docParent as IActionListener; // Found it;
+					docParent = docParent.parent;
+				}
+				return null; // Not found
+			}
+			
+			public function ToggleExpanded(): void {
+				if (!parent['expanded']) {
+					// Fix bug - was getting rollout + rollover on select. Ignore roll over immediately after select.
+					_dtDelayRollOver.setTime(new Date().getTime() + 1200); 
+					InspirationTipBase.HideTip();
+					var ial:IActionListener = GetActionListenerParent();
+					if (ial == null)
+						_ToggleExpanded();
+					else
+						ial.PerformActionIfSafe(new MinorAction(_ToggleExpanded));
+				} else {
+					_ToggleExpanded();
+				} 
+			}
+			private function _ToggleExpanded(): void {
+				if (parent['expanded']) {
+					// Collapse
+					parent['expanded'] = false;
+					_thm.start();
+				} else {
+					dispatchEvent(new Event("selectingShapeGroup", true));
+					//Expand if possible
+					// Old style: check for premium/paid status and don't let free users open premium shape groups
+					// New style: Everyone gets it
+					// Expand
+					_thm.stop() 
+					parent['expanded'] = true; 
+				} 
+			}
+		]]>
+	</mx:Script>
+
+	<mx:Canvas width="66" height="54" styleName="thumbnailBackground" x="10" verticalCenter="0" filters="{[_fiPrevInnerShad,_fiPrevShine]}">
+		<shapeList:GroupPreview source="{strImageSource}" previewUrls="{strPreviewUrls}" id="_thm" 
+			verticalCenter="0" horizontalCenter="0"
+			extraUrls="{(strPreviewUrls.substr(38,8)=='_Beards.')?'60|48|../clipart/bundles/steve.png':null}"
+			width="66" height="54"/>
+	</mx:Canvas>
+	<mx:Button id="_btnInfo" selected="false" height="20" visible="false" width="20" toggle="true" icon="@Embed('/theme/pngs/questionmark.png')" paddingLeft="0" y="43" x="106" />
+	<mx:VBox x="79" y="6" verticalGap="-8">
+		<controls:ResizingLabel fontSize="14" color="#000000" fontWeight="bold" id="_title" width="125" text="{strTitle}" autoFontSizeGap="1"/>
+		<controls:ResizingLabel text="{LocUtil.rbSubst('LocUtil','byEntity', strAuthor)}" width="100%" fontSize="12" autoFontSizeGap="1"
+				color="#808080" id="_byline" visible="{!GooglePlusUtil.UsingGooglePlusAPIKey(PicnikBase.app.parameters)}"/>
+	</mx:VBox>
+	<mx:HRule x="0" width="100%" top="0" height="1" strokeColor="#FFFFFF"/>
+	<shapeList:ImageSlice id="image1" visible="{premium}"
+		verticalCenter="0" right="2" width="14" height="55"
+		source="{'14|55|0|' + PicnikBase.StaticUrl('../graphics/'+PicnikBase.Locale()+'/premium_banner.png')}"/>
+	<mx:HRule x="0" width="100%" height="1" bottom="0" strokeColor="#d4d4d4"/>
+
+	<!-- new! tag, controlled by newEffect boolean -->
+	<mx:Canvas top="9" left="10" width="66" height="59" visible="{newEffect}" includeInLayout="{newEffect}"
+			verticalScrollPolicy="off" horizontalScrollPolicy="off" clipContent="false">
+		<mx:Box horizontalCenter="0" bottom="0" cornerRadius="5" styleName="newTag"
+				paddingBottom="-4" paddingTop="-2"
+				paddingLeft="5" paddingRight="5" filters="{[_fiShine,_fiShadow]}">
+			<controls:ResizingLabel text="@Resource(key='new',bundle='LocUtil')" color="#2d4006" filters="{[_fiTextShine]}"
+				width="100%" autoFontSizeGap="1"/>
+		</mx:Box>
+	</mx:Canvas>
+</mx:Canvas>

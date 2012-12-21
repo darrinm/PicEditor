@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Thumbnail xmlns="controls.thumbnails.*" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:filters="flash.filters.*" 
+	width="258" height="44" 
+	cornerRadius="16%" filters="{[_efDarkBevel,_efHighlight,_efShad]}">
+
+    <filters:GlowFilter id="_efGlow" alpha="0.75" blurX="5" blurY="5" strength="2" quality="3" color="#eeffcc"/>
+    <filters:DropShadowFilter id="_efHighlight" alpha="0.70" distance="1" blurX="0" blurY="0" color="#ffffff" quality="3" angle="90" inner="true"/>
+	<filters:BevelFilter id="_efDarkBevel" distance="1" angle="90" highlightAlpha="0" shadowAlpha="0.20" blurX="1" blurY="1" quality="3" 
+		highlightColor="0xffffff" shadowColor="#000000"/>
+	<filters:DropShadowFilter id="_efShad" alpha=".5" angle="90" distance="1" blurX="3" blurY="3" quality="3" color="0"/>
+
+<!-- add custom styling here -->	
+</Thumbnail>

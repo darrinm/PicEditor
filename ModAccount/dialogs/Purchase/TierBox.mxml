@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<purchase:TierBoxBase xmlns="containers.*" xmlns:purchase="dialogs.Purchase.*" xmlns:mx="http://www.adobe.com/2006/mxml"	
+					  xmlns:controls="controls.*" clipContent="false"
+					  width="100%" height="100%">
+	<mx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import mx.resources.ResourceBundle;
+			import mx.utils.ObjectProxy;
+			import mx.validators.CreditCardValidatorCardType;
+			
+			import util.ABTest;
+			import util.CreditCard;
+			import util.CreditCardTransaction;
+			import util.LocUtil;
+			
+			import validators.PicnikCreditCardValidator;
+			
+			[Bindable] [ResourceBundle("PurchaseDialog")] private var rb:ResourceBundle;
+			
+   		]]>
+	</mx:Script>
+	
+	<mx:Style source="PurchaseDialog.css"/>
+	<mx:Style source="../BlueStripeDialog.css" />
+	<mx:DropShadowFilter id="_fiWhiteShine" blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1" quality="3" angle="90"/>
+	<mx:DropShadowFilter id="_fiInnerShad" blurX="1" blurY="1" distance="1" color="#000000" alpha=".2" quality="3" angle="90" inner="true"/>
+	<mx:DropShadowFilter id="_fiBubbleShadow" blurX="3" blurY="3" distance="1" color="#000000" alpha=".15" quality="3" angle="90"/>
+	<mx:DropShadowFilter id="_fiBubbleShadowSelected" blurX="7" blurY="7" distance="2" color="#000000" alpha=".2" quality="3" angle="90"/>
+	<mx:DropShadowFilter id="_fiBubbleShine" blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1" quality="3" angle="90" inner="true"/>
+	<mx:DropShadowFilter id="_fiSplatShadow" blurX="4" blurY="4" distance="2" color="#000000" alpha=".25" quality="3" angle="90"/>
+	
+	<mx:Fade id="_efFadeIn" duration="300" alphaFrom="0" alphaTo="1"/>
+	<mx:Fade id="_efFadeOut" duration="100" alphaFrom="1" alphaTo="0"/>
+	
+	<!-- Tier options -->
+	<mx:HBox top="0" left="12" right="31" horizontalGap="10" visible="{!hideTiers}" includeInLayout="{!hideTiers}">
+		<!-- 1 month -->
+		<mx:VBox id="_btn1Month" horizontalAlign="center" verticalGap="0" cornerRadius="8" styleName="{_radio1month.selected?'priceBubblesSelected':'priceBubbles'}"
+				width="100%" minWidth="180" maxWidth="195" filters="{_radio1month.selected?[_fiBubbleShine,_fiBubbleShadowSelected]:[_fiBubbleShine,_fiBubbleShadow]}"
+				buttonMode="true" useHandCursor="true" mouseChildren="false" click="_radio1month.selected=true;selectedSku=CreditCardTransaction.kSkuOneMonth;"
+				rollOver="{_radio1month.selected?null:_btn1Month.styleName='priceBubblesOver'}"
+				rollOut="{_radio1month.selected?null:_btn1Month.styleName='priceBubbles'}"
+				horizontalScrollPolicy="off">
+			<mx:HBox horizontalGap="0" paddingTop="4">
+				<mx:VBox verticalGap="-8" paddingTop="2">
+					<controls:ResizingLabel width="100%" htmlText="@Resource(key='monthly',bundle='PurchaseDialog')" textAlign="right"
+						fontSize="15" color="#384a15" filters="{[_fiWhiteShine,_fiInnerShad]}"/>
+					<controls:ResizingLabel width="100%" htmlText="@Resource(key='recurring',bundle='PurchaseDialog')" textAlign="right"
+						styleName="{_radio1month.selected?'recurringTextSelected':'recurringText'}" filters="{[_fiWhiteShine,_fiInnerShad]}"/>
+				</mx:VBox>
+				<controls:ResizingLabel id="_rlOneMonthPrice" width="100%" htmlText="@Resource(key='oneMonthPrice',bundle='PurchaseDialog')"
+					styleName="{_radio1month.selected?'bigPriceSelected':'bigPrice'}"
+					filters="{[_fiWhiteShine,_fiInnerShad]}"/>
+			</mx:HBox>
+			<mx:HRule width="100%" strokeWidth="1"  strokeColor="#000000" alpha=".05"/>
+			<mx:HRule width="100%" strokeWidth="1"  strokeColor="#ffffff"/>
+			<controls:ResizingLabel id="_lblOneMonthNote" htmlText="@Resource(key='oneMonthNote2',bundle='PurchaseDialog')" styleName="noteText"
+				filters="{[_fiWhiteShine,_fiInnerShad]}" paddingTop="2" width="100%" fontSize_1="12" fontSize_2="11" fontSize_3="10" textAlign="center"/>
+			<mx:VBox paddingLeft="9" height="20" paddingTop="-2" clipContent="false">
+				<mx:RadioButton id="_radio1month" height="19" selected="{selectedSku == CreditCardTransaction.kSkuOneMonth}"/>
+			</mx:VBox>
+		</mx:VBox>
+		
+		<!-- 6 months -->
+		<mx:VBox id="_btn6Month" horizontalAlign="center" verticalGap="0" cornerRadius="8" styleName="{_radio6month.selected?'priceBubblesSelected':'priceBubbles'}"
+				width="100%" minWidth="180" maxWidth="215" filters="{_radio6month.selected?[_fiBubbleShine,_fiBubbleShadowSelected]:[_fiBubbleShine,_fiBubbleShadow]}"
+				buttonMode="true" useHandCursor="true" mouseChildren="false" click="_radio6month.selected=true;selectedSku=CreditCardTransaction.kSkuSixMonths;"
+				rollOver="{_radio6month.selected?null:_btn6Month.styleName='priceBubblesOver'}"
+				rollOut="{_radio6month.selected?null:_btn6Month.styleName='priceBubbles'}"
+				horizontalScrollPolicy="off">
+			<mx:HBox horizontalGap="0" paddingTop="4">
+				<mx:VBox verticalGap="-8" paddingTop="2">
+					<controls:ResizingLabel width="100%" htmlText="@Resource(key='semiAnnual',bundle='PurchaseDialog')" textAlign="right"
+						fontSize="15" color="#384a15" filters="{[_fiWhiteShine,_fiInnerShad]}"/>
+					<controls:ResizingLabel width="100%" htmlText="@Resource(key='recurring',bundle='PurchaseDialog')" textAlign="right"
+						styleName="{_radio6month.selected?'recurringTextSelected':'recurringText'}" filters="{[_fiWhiteShine,_fiInnerShad]}"/>
+				</mx:VBox>
+				<controls:ResizingLabel id="_rlSixMonthPrice" width="100%" htmlText="@Resource(key='sixMonthPrice',bundle='PurchaseDialog')"
+					styleName="{_radio6month.selected?'bigPriceSelected':'bigPrice'}"
+					filters="{[_fiWhiteShine,_fiInnerShad]}"/>
+			</mx:HBox>
+			<mx:HRule width="100%" strokeWidth="1"  strokeColor="#000000" alpha=".05"/>
+			<mx:HRule width="100%" strokeWidth="1"  strokeColor="#ffffff"/>
+			<controls:ResizingLabel id="_lblSixMonthNote" htmlText="@Resource(key='sixMonthNote2',bundle='PurchaseDialog')" styleName="noteText"
+				filters="{[_fiWhiteShine,_fiInnerShad]}" paddingTop="2" width="100%" fontSize_1="12" fontSize_2="11" fontSize_3="10" textAlign="center"/>
+			<mx:VBox paddingLeft="9" height="20" paddingTop="-2" clipContent="false">
+				<mx:RadioButton id="_radio6month" height="19" selected="{selectedSku == CreditCardTransaction.kSkuSixMonths}"/>
+			</mx:VBox>
+		</mx:VBox>
+		
+		<!-- 1 year -->
+		<mx:VBox id="_btn12Month" horizontalAlign="center" verticalGap="0" cornerRadius="8" styleName="{_radio12month.selected?'priceBubblesSelected':'priceBubbles'}"
+				width="100%" minWidth="180" maxWidth="215" filters="{_radio12month.selected?[_fiBubbleShine,_fiBubbleShadowSelected]:[_fiBubbleShine,_fiBubbleShadow]}"
+				buttonMode="true" useHandCursor="true" mouseChildren="false" click="_radio12month.selected=true;selectedSku=CreditCardTransaction.kSku12Months;"
+				rollOver="{_radio12month.selected?null:_btn12Month.styleName='priceBubblesOver'}"
+				rollOut="{_radio12month.selected?null:_btn12Month.styleName='priceBubbles'}"
+				horizontalScrollPolicy="off">
+			<mx:HBox horizontalGap="0" paddingTop="4">
+				<mx:VBox verticalGap="-8" paddingTop="2">
+					<controls:ResizingLabel width="100%" htmlText="@Resource(key='annual',bundle='PurchaseDialog')" textAlign="right"
+						fontSize="15" color="#384a15" filters="{[_fiWhiteShine,_fiInnerShad]}"/>
+					<controls:ResizingLabel width="100%" htmlText="@Resource(key='recurring',bundle='PurchaseDialog')" textAlign="right"
+						styleName="{_radio12month.selected?'recurringTextSelected':'recurringText'}" filters="{[_fiWhiteShine,_fiInnerShad]}"/>
+				</mx:VBox>
+				<controls:ResizingLabel id="_rl12MonthPrice" width="100%" htmlText="@Resource(key='oneYearPrice',bundle='PurchaseDialog')"
+					styleName="{_radio12month.selected?'bigPriceSelected':'bigPrice'}"
+					filters="{[_fiWhiteShine,_fiInnerShad]}"/>
+			</mx:HBox>
+			<mx:HRule width="100%" strokeWidth="1"  strokeColor="#000000" alpha=".05"/>
+			<mx:HRule width="100%" strokeWidth="1"  strokeColor="#ffffff"/>
+			<controls:ResizingLabel id="_lbl12MonthNote" htmlText="@Resource(key='oneYearNote2',bundle='PurchaseDialog')" styleName="noteText"
+				filters="{[_fiWhiteShine,_fiInnerShad]}" paddingTop="2" width="100%" fontSize_1="12" fontSize_2="11" fontSize_3="10" textAlign="center"/>
+			<mx:VBox paddingLeft="9" height="20" paddingTop="-2" clipContent="false">
+				<mx:RadioButton id="_radio12month" height="19" selected="{selectedSku == CreditCardTransaction.kSku12Months}"/>
+			</mx:VBox>
+		</mx:VBox>
+	</mx:HBox>
+		
+	<!-- Payment options -->
+	<mx:HBox horizontalAlign="right" width="100%" id="_hbxPayment" top="92" 
+			 verticalAlign="{hideTiers?'bottom':'middle'}" paddingLeft="15" paddingRight="15"
+			 showEffect="_efFadeIn" height="50" >
+		<!-- currency note -->
+		<mx:Text htmlText="@Resource(key='currencyNote',bundle='PurchaseDialog')" horizontalCenter="-53" width="575"
+				 visible="{_btnCurrency.label != '$ USD'}" includeInLayout="{_btnCurrency.label != '$ USD'}"
+				 color="#4d4d4d" fontSize="13" textAlign="left" leading="-1" selectable="false"
+				 filters="{[_fiWhiteShine]}"/>
+		<mx:Text htmlText="@Resource(key='salesTaxNote',bundle='PurchaseDialog')" horizontalCenter="0" width="510"
+				 visible="{_btnCurrency.label == '$ USD'}" includeInLayout="{_btnCurrency.label == '$ USD'}"
+				 color="#4d4d4d" fontSize="13" textAlign="center" leading="-1" selectable="false"
+				 filters="{[_fiWhiteShine]}"/>
+		
+		<!--Currency List -->
+		<controls:ResizingButton id="_btnCurrency" label="$ USD" icon="@Embed('/theme/pngs/inlineDropDownArrowGreen.png')" horizontalGap="3" width="50"
+								 styleName="clearButton" labelPlacement="left" filters="{[_fiWhiteShine,_fiInnerShad]}" click="OnCurrencyClick()"/>
+	</mx:HBox>
+	
+	<!-- spinning splat -->
+	<controls:ImageVer visible="{!hideTiers}" top="-14" right="-21" width="76" height="74" source="../graphics/en_US/best_value_splat.png" filters="{[_fiSplatShadow]}"/>
+		
+</purchase:TierBoxBase>

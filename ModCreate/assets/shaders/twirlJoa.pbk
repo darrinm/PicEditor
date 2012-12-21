@@ -1,0 +1,51 @@
+<languageVersion: 1.0;>
+kernel Twirl
+<   namespace: "popforge::ImageProcessing";
+    vendor: "joa ebert";
+    version: 1;
+    description : "applies twirl displacement map";
+>
+{
+    parameter float2 center
+    <
+        minValue: float2(0.0,0.0);
+        maxValue: float2(400.0,400.0);
+        defaultValue: float2(200.0,200.0);
+        controller: "mouseXY";
+    >;
+    
+    parameter float angle
+    <
+        minValue: -9.423;
+        maxValue: 9.423;
+        defaultValue: 0.0;
+    >;
+    
+    parameter float radius
+    <
+        minValue: 1.0;
+        maxValue: 400.0;
+        defaultValue: 100.0;
+    >;
+    
+    input image4 source;
+    output pixel4 result;
+    
+    void evaluatePixel()
+    {
+        float2 xy0 = outCoord();
+        float2 xy1 = xy0;
+        float2 delta = xy0 - center;
+        
+        float d = length(delta);
+        float r = radius;
+        float phi = atan(delta.y, delta.x) + angle * ( r - d ) / r;
+        
+        xy1 = center + float2(d * cos(phi), d * sin(phi));
+        
+        pixel4 c0 = sampleLinear(source,xy0);
+        pixel4 c1 = sampleLinear(source,xy1);
+        
+        result = ( d < r ) ? c1 : c0;
+    }
+}

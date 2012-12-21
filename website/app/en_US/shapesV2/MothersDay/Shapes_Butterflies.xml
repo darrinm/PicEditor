@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/shape_butterflies.png" flickrPremium="true" id="Butterflies" numShapes="6" picnikPremium="true" previewUrls="60|48|../clipart/bundles/MothersDayArea_groupPreviews_Butterflies.png?ver=af9bb7e6" title="Butterflies">
+	<Shapes>
+		<Clipart cHeight="820" cWidth="1500" flickrPremium="true" picnikPremium="true" previewUrl="40|40|0|../clipart/bundles/MothersDayArea_shapes_Butterflies.png?ver=cec52001" url="shapes/butterflys/butterfly1.swf"/>
+		<Clipart cHeight="1250" cWidth="1490" flickrPremium="true" picnikPremium="true" previewUrl="40|40|1|../clipart/bundles/MothersDayArea_shapes_Butterflies.png?ver=cec52001" url="shapes/butterflys/butterfly2.swf"/>
+		<Clipart cHeight="800" cWidth="1173" flickrPremium="true" picnikPremium="true" previewUrl="40|40|2|../clipart/bundles/MothersDayArea_shapes_Butterflies.png?ver=cec52001" url="shapes/butterflys/butterfly3.swf"/>
+		<Clipart cHeight="1250" cWidth="1450" flickrPremium="true" picnikPremium="true" previewUrl="40|40|3|../clipart/bundles/MothersDayArea_shapes_Butterflies.png?ver=cec52001" url="shapes/butterflys/butterfly4.swf"/>
+		<Clipart cHeight="800" cWidth="1173" flickrPremium="true" picnikPremium="true" previewUrl="40|40|4|../clipart/bundles/MothersDayArea_shapes_Butterflies.png?ver=cec52001" url="shapes/butterflys/butterfly5.swf"/>
+		<Clipart cHeight="850" cWidth="1490" flickrPremium="true" picnikPremium="true" previewUrl="40|40|5|../clipart/bundles/MothersDayArea_shapes_Butterflies.png?ver=cec52001" url="shapes/butterflys/butterfly6.swf"/>
+	</Shapes>
+</ShapeCategory>

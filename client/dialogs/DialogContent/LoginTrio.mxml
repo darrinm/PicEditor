@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- a single component which encapsulates the Login, ForgotPW, and SignIn views -->
+<LoginTrioBase xmlns="dialogs.DialogContent.*" xmlns:dlg="dialogs.*" xmlns:RegisterHelper="dialogs.RegisterHelper.*" 
+		xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:ctl="controls.*" xmlns:pages="pages.*">
+	<states>
+		<mx:State name="ForgotPW">
+			<mx:AddChild position="firstChild" relativeTo="{vbox1}">
+				<mx:Text htmlText="{Resource.getString('LoginTrio', 'forgotPasswordSubhead'+(minimal?'Minimal':''))}" width="100%" fontSize="13" leading="0" color="#000000"
+						top="0" left="0" link="OnLink(event);" paddingLeft="10" paddingRight="10" paddingTop="5" paddingBottom="{minimal?0:4}"/>
+			</mx:AddChild>
+			<mx:AddChild position="firstChild" relativeTo="{vbox2}">
+				<RegisterHelper:ForgotPasswordTab id="_rbxForgotPWTab" horizontalScrollPolicy="off" verticalScrollPolicy="off" 
+						width="100%" height="135" currentState="Inline" paddingBottom="10" paddingLeft="5" />
+			</mx:AddChild>
+			<mx:SetProperty name="activeForm" value="{_rbxForgotPWTab}"/>
+		</mx:State>
+		
+		<mx:State name="ForgotPWSent" basedOn="ForgotPW">
+			<mx:AddChild position="lastChild" relativeTo="{vbox2}">
+				<mx:Text htmlText="{Resource.getString('LoginTrio', 'forgotPasswordSent')}" width="100%" fontSize="13" leading="0" color="#618430"
+						fontWeight="bold" link="OnLink(event);" paddingLeft="5" paddingTop="-50"/>
+			</mx:AddChild>			
+		</mx:State>
+		
+		<mx:State name="Login">
+			<mx:AddChild position="firstChild" relativeTo="{vbox1}">
+				<mx:Text htmlText="{Resource.getString('LoginTrio', 'signinSubhead'+(minimal?'Minimal':''))}" width="100%" fontSize="13" leading="0" color="#000000"
+						top="0" left="0" link="OnLink(event);" paddingLeft="10" paddingRight="10" paddingTop="5" paddingBottom="{minimal?0:4}"/>
+			</mx:AddChild>
+			<mx:AddChild position="firstChild" relativeTo="{vbox2}">
+				<RegisterHelper:LoginTab id="_rbxLoginTab" horizontalScrollPolicy="off" verticalScrollPolicy="off" 
+						width="100%" height="160" currentState="InlineNoForgot" paddingBottom="10" paddingLeft="5" />
+			</mx:AddChild>
+			<mx:SetProperty name="activeForm" value="{_rbxLoginTab}"/>
+		</mx:State>
+		
+		<mx:State name="Register">
+			<mx:AddChild position="firstChild" relativeTo="{vbox1}">
+				<mx:Text htmlText="{Resource.getString('LoginTrio', 'registerSubhead'+(minimal?'Minimal':''))}" width="100%" fontSize="13" leading="0" color="#000000"
+						link="OnLink(event);" paddingLeft="10" paddingRight="10" paddingTop="5" paddingBottom="{minimal?0:4}"/>
+			</mx:AddChild>
+			<mx:AddChild position="firstChild" relativeTo="{vbox2}">
+				<RegisterHelper:RegisterTab id="_rbxRegisterTab" horizontalScrollPolicy="off" verticalScrollPolicy="off" paddingLeft="-10" 
+						width="100%" height="281" currentState="Inline" paddingBottom="0" />
+			</mx:AddChild>
+			<mx:SetProperty name="activeForm" value="{_rbxRegisterTab}"/>
+		</mx:State>
+	</states>	
+	<mx:Script>
+		<![CDATA[
+			import util.LocUtil;
+		]]>
+	</mx:Script>
+	
+	<mx:Canvas width="100%" height="100%" horizontalScrollPolicy="off" verticalScrollPolicy="off">
+		<mx:VBox id="vbox1" width="100%" height="100%" horizontalScrollPolicy="off" verticalScrollPolicy="off">
+			<mx:VBox id="vbox2" verticalScrollPolicy="auto" width="100%" height="100%" minHeight="10" maxHeight="500"
+					paddingLeft="10" paddingTop="8"
+			 		borderColor="#d9d9d9" borderStyle="solid" borderThickness="1" borderSides="{minimal?'':'top,bottom'}">
+			</mx:VBox>
+		</mx:VBox>
+	</mx:Canvas>
+</LoginTrioBase>

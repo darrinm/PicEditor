@@ -1,0 +1,12 @@
+fileName: kg_King_Cool_KC.ttf
+name: king cooL KC
+subfamilyDisplayName: Normal
+fullName: king cooL KC
+displayName: king cooL KC
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 0
+pkName: pkkg0King0Cool0KC
+authorName: Kimberly Geswein
+authorUrl: http://www.dafont.com/kimberly-geswein.d1468

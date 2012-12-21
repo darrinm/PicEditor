@@ -1,0 +1,12 @@
+fileName: The_Last_Soundtrack.ttf
+name: The Last Soundtrack
+subfamilyDisplayName: Normal
+fullName: The Last Soundtrack
+displayName: The Last Soundtrack
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 0
+pkName: pkThe0Last0Soundtrack
+authorName: Gyom.Typo
+authorUrl: http://gyom.nebullus.com/

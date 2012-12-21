@@ -1,0 +1,12 @@
+fileName: trebuc.ttf
+name: Trebuchet MS
+subfamilyDisplayName: Normal
+fullName: Trebuchet MS
+displayName: Trebuchet MS
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 6
+pkName: pktrebuc
+authorName: Vincent Connare
+authorUrl: http://www.connare.com/typography.htm

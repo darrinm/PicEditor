@@ -1,0 +1,55 @@
+Welcome to Picnik
+------ 
+  	
+"It takes a village to raise a startup..." - old african proverb
+
+Hi friend! You are getting this email because you are a part of a trusted & smart group whose opinion and feedback we greatly value. As you may know Mike, Darrin, the rest of the Google team have been hard at work developing a new application in the photos space code-named Picnik. We now have an 'beta' version that is ready for you to play with, and we'd greatly like your feedback. This is among the first of several releases that will come in the future. Are we onto something? Or are we off our rockers? What are we missing? Please tell us.
+----------
+
+What is Picnik?
+--
+Picnik lets you edit ALL your Flickr photos with powerful but easy tools. Think of it as "90% of what most people would use in Photoshop at 10% of the effort/time." And just as importantly, Picnik easily imports/exports photos from your Flickr account seamlessly, all from within your web browser without installing any software.
+
+It's the concept of "great pictures, anywhere". You access and edit ALL your online photos from ONE easy place. Open your browser, and it just works.
+----------
+
+Getting Started
+--
+Please try it out now by copying and pasting this link into your browser of choice:
+
+http://www.mywebsite.com/prealpha?email=%EMAIL%&testkey=%TESTKEY%
+
+You will be taken to our start page. When you're ready, click "Sign in to Flickr".
+
+This requires that you have a Flickr account to pull photos from. But if you don't have one, Picnik will direct you to where you can get one. After that just simply go to mywebsite.com or click the button above again. Before you know it you'll be on your way to a great photos experience.
+
+If you want to use Picnik from a new machine, you'll need to save this email and launch Picnik by clicking the link above.
+
+Since this is super-secret beta software, please keep this confidential and do not forward to others.
+----------
+
+Giving Feedback
+--
+You can give feedback 2 easy ways;
+
+1. Right inline in the app itself. There is a simple "Feedback" button on the bottom and in the Help menu. Feel free to offer general impressions, criticisms, bugs, new ideas, or encouragement as you see fit. This truly is our first opportunity to trap substantive feedback so please HAVE AT IT!!
+
+2. The second way is provide us feedback is to join our forums (www.mywebsite.com/forums). We'll be making future posts regarding Picnik updates there.
+----------
+
+The Future
+--
+So where are we going? This 'beta' is just the beginning. We want Picnik to be your one-stop-shop for all your photos needs. There are still many, many exciting things that we have in store; more features, more bridges to other sites besides Flickr, even greater seamlessness between where your photos are and your editing. You will start to feel like you re always just one or two clicks away from being an Ansel Adams, Cartier-Bresson, or Herb Ritts.
+
+As a matter of fact, your feedback at this crucial stage is precisely what will help us to refine what will be most useful.
+So what do I get for submitting Feedback?
+
+Other than our undying gratitude, submissions of particular substance will receive a gratuity such as the incredibly fashion forward Picnik T-shirt, or a 50% coupon for dinner out at one of our favorite restaurants in Belltown. It's our way of acknowledging that everyone's lives are hectic and busy, and thus we deeply appreciate the extra time you can spend playing with what we've built.
+
+See you in Picnik!
+
+- Darrin, Mike, Peter, Brian, and Jonathan
+
+----------
+Contact us at signmeup@mywebsite.com
+Copyright © 2006 Google

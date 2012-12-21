@@ -1,0 +1,12 @@
+fileName: lb_HOMESWEO.ttf
+name: Home Sweet Home Outline
+subfamilyDisplayName: Regular
+fullName: Home Sweet Home Outline
+displayName: Home Sweet Home Outline
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 4
+pkName: pklb0HOMESWEO
+authorName: Ray Larabie
+authorUrl: http://www.larabiefonts.com/

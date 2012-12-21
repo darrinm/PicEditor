@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<controls:ResizingLabel xmlns="*" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:controls="controls.*" 
+				styleName="formError" paddingBottom="-2" autoFontSizeGap="1" width="100%" paddingRight="1"
+				textAlign="right" showEffect="{_efFadeIn}" hideEffect="{_efFadeOut}"
+				visible="false">					
+<mx:Script>
+	<![CDATA[
+		import mx.binding.utils.ChangeWatcher;
+		import mx.core.UIComponent;
+		
+		private var _uicControl:UIComponent;
+		private var _cwControl:ChangeWatcher;
+		
+		[Bindable] 
+		public function set control(uic:UIComponent): void {
+			if (_cwControl) {
+				_cwControl.unwatch();
+				_cwControl = null;
+			}
+			_uicControl = uic;
+			if (_uicControl) {
+				_cwControl = ChangeWatcher.watch(uic,"errorString",onErrorStringChange);
+			}
+			onErrorStringChange();
+		} 
+		
+		public function get control():UIComponent {
+			return _uicControl;
+		}
+		
+		private function onErrorStringChange(evt:Event = null): void {
+			if (_uicControl) {
+				visible = this.text == _uicControl.errorString ? true : false;
+			} else {
+				visible = false;
+			}
+		} 
+	]]>
+</mx:Script>
+	
+	<mx:Fade alphaFrom="0" alphaTo="1" duration="500" id="_efFadeIn" />
+	<mx:Fade alphaFrom="1" alphaTo="0" duration="500" id="_efFadeOut" />
+
+</controls:ResizingLabel>
+

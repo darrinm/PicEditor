@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameEffectBase xmlns="effects.*" xmlns:cnt="containers.*" xmlns:ctrl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="193"
+	xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*" xmlns:objectOperations="imagine.objectOperations.*" urlid="EyeballFrame">
+	<mx:Script>
+		<![CDATA[
+			import util.LocUtil;
+			
+			private function GetGlowBlur(nImageWidth:Number, nImageHeight:Number): Number {
+				// 10 @ 180, 25 @ 738, 70 @ 2882
+				return 0.02222222 * Math.min(nImageWidth, nImageHeight) + 6;
+			}
+			
+			
+			private static const kobRanges:Object = {
+				density:[7 * 0.96, 7 * 0.55], // value at 0, value at 1, and max
+				cornerRounding:[0, 1, 1],
+				size:[.07 * .8, .27 * .8],
+				cornerFill:[1,1],
+				insetJitter:[0.49, 0.81]
+				
+			}
+			
+			private function GetRangeVal(strKey:String, nSliderVal:Number): Number {
+				var anVals:Array = kobRanges[strKey];
+				var nVal:Number = anVals[0] + (anVals[1] - anVals[0]) * nSliderVal;
+				if (anVals.length > 2)
+					nVal = Math.min(anVals[2], nVal);
+				return nVal;
+			}
+			
+		]]>
+	</mx:Script>
+<mx:XML xmlns="" id="_xmlFrame">
+<frames>
+	<frame cornerRounding="{GetRangeVal('cornerRounding', _sldrDensity.value)}" 
+		   cornerFill="{GetRangeVal('cornerFill', _sldrDensity.value)}" 
+		   density="{GetRangeVal('density', _sldrDensity.value)}" 
+		   size="{GetRangeVal('size', _sldrDensity.value)}" 
+		   insetJitter="{GetRangeVal('insetJitter', _sldrDensity.value)}" 
+		   inset="0.59" insetJitterOrder="1" sideExtension="0.02" fillEndToEnd="false" positionJitter=".1" positionJitterOrder="1.75" rotationJitter="1" rotationJitterOrder="1">
+        <Clipart url="shapes/Halloween_Eyeball/Eyeball_01.swf" cWidth="1470" cHeight="1454" isVector="false">
+		<GlowFilter alpha="0.1" blurX="{GetGlowBlur(imagewidth, imageheight)}" blurY="{GetGlowBlur(imagewidth, imageheight)}" color="#000000" quality="3"/>
+		</Clipart>
+		<Clipart url="shapes/Halloween_Eyeball/Eyeball_02.swf" cWidth="1523" cHeight="1516" isVector="false">
+		<GlowFilter alpha="0.1" blurX="{GetGlowBlur(imagewidth, imageheight)}" blurY="{GetGlowBlur(imagewidth, imageheight)}" color="#000000" quality="3"/>
+		</Clipart>
+		<Clipart url="shapes/Halloween_Eyeball/Eyeball_03.swf" cWidth="1584" cHeight="1592" isVector="false">
+		<GlowFilter alpha="0.1" blurX="{GetGlowBlur(imagewidth, imageheight)}" blurY="{GetGlowBlur(imagewidth, imageheight)}" color="#000000" quality="3"/>
+		</Clipart>
+		<Clipart url="shapes/Halloween_Eyeball/Eyeball_04.swf" cWidth="1512" cHeight="1530" isVector="false">
+		<GlowFilter alpha="0.1" blurX="{GetGlowBlur(imagewidth, imageheight)}" blurY="{GetGlowBlur(imagewidth, imageheight)}" color="#000000" quality="3"/>
+		</Clipart>
+	</frame>
+	
+</frames>
+</mx:XML>
+	<ctrl:EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='EyeballFrameEffect')" strAuthor="@Resource(key='_efbtn_1', bundle='EyeballFrameEffect')"
+		strImageSource="../graphics/effects/Halloween/eyeball_frame.png" cornerRadius="0"/>
+	<mx:String id="_strHelpText">{Resource.getString('EyeballFrameEffect', '_strHelpText')}</mx:String>
+
+	<mx:VBox x="0" y="72" verticalGap="0" paddingLeft="10" paddingRight="10">
+		
+		<ctrl:LabelHSlidePlus id="_sldrDensity" minimum="0" maximum="1.33" value="0.15" label="@Resource(key='size', bundle='EffectCanvas')" change="OnFrameParamChange()" labelValueMultiplier="{100}" isPercent="true"/>
+		
+		
+		<ctrl:ApplyCancelEffectButtons addBoxPadding="true"/>
+	</mx:VBox>
+
+	<objectOperations:CreateObjectOperation id="_op" type="FrameObject" props="{{name:_strFrameName, layout:_strFrameLayout, x:imagewidth/2, y:imageheight/2, color:frameColor, interactiveMode:true}}"/>
+
+</FrameEffectBase>

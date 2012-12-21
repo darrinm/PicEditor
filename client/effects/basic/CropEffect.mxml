@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CropEffectBase xmlns="effects.basic.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%"
+	xmlns:flash="flash.filters.*" xmlns:bkctr="containers.*" xmlns:ut="util.*" xmlns:ctl="controls.*" xmlns:imageOperations="imagine.imageOperations.*"
+	title="@Resource(key='_btnCrop', bundle='Adjustments')" styleName="cropEffect" help="{Resource.getString('CropOverlay', 'AboutCrop')}">
+	<mx:Script>
+		import mx.resources.ResourceBundle;
+		import picnik.util.LocaleInfo;
+   		[Bindable] [ResourceBundle("CropOverlay")] private var rb:ResourceBundle;
+	</mx:Script>
+
+	<editControls>
+	  <mx:ComboBox width="100%" id="_cmboConstraints" height="26" rowCount="8" selectedIndex="0" dropdownWidth="300" change="OnConstraintChange(event)">
+		<mx:ArrayCollection>
+		  <mx:Object label="{Resource.getString('CropOverlay', 'Object_1')}" data="-1,-1"/>
+		  <mx:Object label="{Resource.getString('CropOverlay', 'Object_2')}" data="-2,-2"/>
+		  <mx:Object label="{Resource.getString('CropOverlay', 'Object_3')}" data="1,1"/>
+		  <mx:Object label="{Resource.getString('CropOverlay', 'Object_4')}" data="1.61803399,1"/>
+		  <mx:Object label="{Resource.getString('CropOverlay', 'Object_5')}" data="2,2.5"/>
+		  <mx:Object label="{Resource.getString('CropOverlay', 'Object_6')}" data="3,5"/>
+		  <mx:Object label="{Resource.getString('CropOverlay', 'Object_7')}" data="4,6"/>
+		  <mx:Object label="{Resource.getString('CropOverlay', 'Object_8')}" data="5,7"/>
+		  <mx:Object label="{Resource.getString('CropOverlay', 'Object_9')}" data="8,10"/>
+		  <mx:Object label="{Resource.getString('CropOverlay', 'Object_24')}" data="500,500,1" icon="twitter.png" separator="true"/>
+		  <mx:Object label="{Resource.getString('CropOverlay', 'Object_10')}" data="48,48,1" icon="flickr.png"/>
+		  <mx:Object label="{Resource.getString('CropOverlay', 'Object_11')}" data="130,100,1" icon="youtube.gif"/>
+		  <mx:Object label="{Resource.getString('CropOverlay', 'Object_12')}" data="170,170,1" icon="myspace.gif"/>
+		  <mx:Object label="{Resource.getString('CropOverlay', 'Object_13')}" data="150,150,1" icon="blogger.gif"/>
+		  <mx:Object label="{Resource.getString('CropOverlay', 'Object_14')}" data="96,96,1" icon="google.gif"/>
+		  <mx:Object label="{Resource.getString('CropOverlay', 'Object_15')}" data="170,170,1" icon="xanga.gif"/>
+		  <mx:Object label="{Resource.getString('CropOverlay', 'Object_16')}" data="160,160,1" icon="lastfm.gif"/>
+		  <mx:Object label="{Resource.getString('CropOverlay', 'Object_17')}" data="100,100,1"/>
+		  <mx:Object label="{Resource.getString('CropOverlay', 'Object_18')}" data="75,75,1"/>
+		  <mx:Object label="{Resource.getString('CropOverlay', 'Object_19')}" data="64,64,1"/>
+		  <mx:Object label="{Resource.getString('CropOverlay', 'Object_20')}" data="800,600,1" separator="true"/>
+		  <mx:Object label="{Resource.getString('CropOverlay', 'Object_21')}" data="1024,768,1"/>
+		  <mx:Object label="{Resource.getString('CropOverlay', 'Object_22')}" data="1280,800,1"/>
+		  <mx:Object label="{Resource.getString('CropOverlay', 'Object_23')}" data="1280,1024,1"/>
+		  <mx:Object label="{Resource.getString('CropOverlay', 'Object_25')}" data="640,960,1"/>
+		</mx:ArrayCollection>
+		<mx:itemRenderer>
+		  <mx:Component>
+			<mx:HBox height="24" dropShadowEnabled="false" verticalAlign="middle"
+					 borderStyle="{data.separator?'solid':'none'}" borderSides="top" borderThickness="1" borderColor="#CCCCCC"
+					 width="100%" >
+			  <mx:Label text="{data.label}" width="90%" fontSize="13" fontWeight="normal" color="#333333" paddingTop="5"/>
+			  <ctl:ImageEx bundled="true" visible="{data.icon}" source="{data.icon?'../graphics/thirdpartylogos/favicons/'+data.icon:''}" />
+			</mx:HBox>
+		  </mx:Component>
+		</mx:itemRenderer>
+	  </mx:ComboBox>
+		<mx:Label text="@Resource(key='label2', bundle='CropOverlay')" styleName="sliderTitle" paddingTop="1" paddingBottom="-7" paddingLeft="-3" id="label2" />
+	  <mx:HBox width="100%">
+			<ctl:TextInputPlus width="50%" id="_tiCropWidth" styleName="numInput" height="24" restrict="0-9" change="OnCropTextInputChange(event)">
+			</ctl:TextInputPlus>
+			<mx:Label text="@Resource(key='Label_1', bundle='CropOverlay')" paddingLeft="-10" paddingRight="-10" paddingTop="1" fontSize="14" fontWeight="{LocaleInfo.BoldWeight()}" textAlign="center" color="#333333">
+			</mx:Label>
+			<ctl:TextInputPlus width="50%" id="_tiCropHeight" styleName="numInput" height="24" restrict="0-9" change="OnCropTextInputChange(event)">
+			</ctl:TextInputPlus>
+	  </mx:HBox>
+		<mx:Box paddingTop="2" paddingBottom="-1">
+	  <mx:CheckBox id="_cbResizeToFit" label="@Resource(key='_cbResizeToFit', bundle='CropOverlay')" toolTip="@Resource(key='checkingThisTooltip', bundle='CropOverlay')" change="OnResizeToFitChange(event)"/>
+	  </mx:Box>
+	</editControls>
+
+	<!-- For crop, this is filled in by code in the Apply handler -->
+	<imageOperations:NestedImageOperation id="_op" />
+	
+</CropEffectBase>

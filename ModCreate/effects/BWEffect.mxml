@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cnt:PaintEffectCanvas xmlns="effects.*" xmlns:cnt="containers.*" xmlns:ctrl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%"
+	xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*" urlid="BlackandWhite">
+	<mx:Script>
+		import util.LocUtil;
+		import mx.resources.ResourceBundle;
+   		[Bindable] [ResourceBundle("BWEffect")] private var rb:ResourceBundle;
+	</mx:Script>
+
+	<mx:Array id="_resetValues">
+		<local:StoredValue target="_clrsw.color"/>
+		<local:StoredValue target="_clrsw.startThumbX"/>
+		<local:StoredValue target="_clrsw.startThumbY"/>
+		<local:StoredValue target="_sldrFade.value"/>
+	</mx:Array>
+	
+	<ctrl:EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='BWEffect')" strAuthor="@Resource(key='_efbtn_1', bundle='BWEffect')" strImageSource="../graphics/effects/Basics/bw.png"/>
+	<mx:String id="_strHelpText">{Resource.getString('BWEffect', '_strHelpText')}</mx:String>
+	
+	<mx:VBox x="0" y="70" verticalGap="0" paddingLeft="8" paddingRight="8">
+		<mx:Label text="@Resource(key='Label_1', bundle='BWEffect')" styleName="sliderTitle"/>
+		<mx:HBox horizontalGap="5" paddingLeft="2">
+			<ctrl:ImageColorSwatch height="40" width="155" id="_clrsw" source="@Embed('/assets/bitmaps/swatch_tint.png')" color="0xffffff" 
+				change="OnOpChange()" startThumbX="78" startThumbY="0"/>
+			<mx:Canvas width="30" height="40" id="_cnvColor" backgroundColor="{_clrsw.color}">
+				<mx:filters>
+					<flash.filters:DropShadowFilter angle="90" blurX="2" blurY="2" distance="1" color="0x000000" alpha=".3" quality="3" inner="true" />
+					<flash.filters:BevelFilter angle="90" blurX="1" blurY="1"
+						distance="1" highlightAlpha=".3" shadowAlpha="1" highlightColor="0x666666" shadowColor="0xFFFFFF" knockout="false" quality="3" />
+				</mx:filters>
+			</mx:Canvas>
+		</mx:HBox>
+
+		<mx:HBox horizontalGap="5" paddingTop="5" verticalAlign="middle">
+			<!-- Fade label/percent/slider box -->
+			<mx:VBox verticalGap="0" width="157" horizontalScrollPolicy="off">
+				<mx:HBox width="100%" paddingBottom="-5">
+					<mx:Label text="@Resource(key='Label_2', bundle='BWEffect')" styleName="sliderTitle"/>
+					<mx:Label text="{LocUtil.pct((_sldrFade.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+				</mx:HBox>
+				<ctrl:HSliderPlus width="157" minimum="0" maximum="100" value="0" id="_sldrFade" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+			</mx:VBox>
+			<mx:Button id="_btnBrushPalette" width="30" height="30" selected="false" toggle="true" icon="@Embed('/assets/bitmaps/icon_paintTall.png')" paddingLeft="0"
+				toolTip="@Resource(key='_btnBrushPalette', bundle='BWEffect')"/>
+		</mx:HBox>
+
+		<ctrl:ApplyCancelEffectButtons addBoxPadding="true" premium="{premium}"/>
+	</mx:VBox>
+
+	<!-- UNDONE: move these to a PaintEffectCanvas.mxml once we can figure how to get it to compile -->
+	<imageOperations:BWImageOperation id="_op" filtercolor="{_clrsw.color}" BlendAlpha="{1-(_sldrFade.value/100)}" Mask="{_mctr.mask}" dynamicAlphaCachePriority="1"/>
+</cnt:PaintEffectCanvas>

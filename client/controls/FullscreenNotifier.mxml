@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:flash="flash.filters.*" xmlns:ctl="controls.*"
+		height="58" width="550" cornerRadius="30" backgroundColor="#000000" borderColor="#b2cc8f" alpha="1" 
+		borderStyle="solid" borderThickness="0" backgroundAlpha=".6" cacheAsBitmap="true">
+	<ctl:ResizingLabel width="550" paddingLeft="20" paddingRight="20" autoFontSizeGap="1"
+		horizontalCenter="0" verticalCenter="0" color="#ffffff" fontSize="20" condenseWhite="true" fontWeight="normal"
+		id="_lblNotification" styleName="fsNotification" htmlText="@Resource(key='_lblNotification', bundle='FullscreenNotifier')">
+		<ctl:filters>
+			<flash:DropShadowFilter alpha=".6" angle="90" blurX="2" blurY="2" color="#000000" distance="1"/>
+		</ctl:filters>
+	</ctl:ResizingLabel>
+	<mx:Sequence id="_effNotify" target="{this}">
+		<mx:Pause duration="3000"/>
+		<mx:Fade alphaFrom="1.0" alphaTo="0.0" duration="1200"/>
+	</mx:Sequence>
+</mx:Canvas>

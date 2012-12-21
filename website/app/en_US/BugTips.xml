@@ -1,0 +1,46 @@
+﻿<Tips>
+<Tip id="guest_bug">
+	<TipTextHeader>Help us spread the word about Picnik!</TipTextHeader><!-- header -->
+	<TipText>Keep this logo on your photo to help out. Want it gone? Register for an account!</TipText>
+	<HBox horizontalGap="5" paddingTop="3">
+		<TipButton click="Register()" width="170">Register for free</TipButton>
+		<TipUpgradeButton click="Upgrade()" width="170">Upgrade to Premium!</TipUpgradeButton><!-- green -->
+	</HBox>
+</Tip>
+<Tip id="registered_bug_1">
+	<TipTextHeader>Help us spread the word about Picnik!</TipTextHeader><!-- header -->
+	<TipText>Want to get rid of this logo? That's a-OK. There are other ways you can help out:</TipText>
+	<HBox paddingTop="3" verticalAlign="middle">
+		<VBox>
+			<TipButton click="LoadTip('question_bug')" width="155">Answer a question</TipButton>
+			<TipButton click="LoadTip('ad_bug')" width="155">Watch an ad</TipButton>
+		</VBox>
+		<TipUpgradeButton click="Upgrade()" width="190" height="34" fontSize="16">Upgrade to Premium!</TipUpgradeButton><!-- green -->
+	</HBox>
+</Tip>
+<!-- UNDONE: Peter, figure out what to show when we run out of questions -->
+<Tip id="registered_bug_no_questions">
+	<Text>Help us spread the word about Picnik!</Text><!-- header -->
+	<Text>Want to get rid of this logo? That's a-OK. There are other ways you can help out:</Text>
+	<HBox>
+		<Button click="LoadTip('ad_bug')">Watch an ad</Button>
+	</HBox>
+	<Text>Or, you can skip this completely by upgrading to Picnik Premium for only $24.95 a year.</Text>
+	<HBox><!-- centered -->
+		<Button click="Upgrade()">Upgrade to Premium!</Button><!-- green -->
+	</HBox>
+</Tip>
+<Tip id="ad_bug">
+	<TipTextHeader>A word from our sponsors...</TipTextHeader><!-- header -->
+	<TipText>Hate ads? Picnik Premium is 100% ad-free.</TipText>
+	<SquareAd/>
+	<HBox>
+		<CountdownButton click="RemoveWatermark()">Remove logo (%1s)</CountdownButton> <!-- %1 is replaced with a small number, e.g. "15" as in "Remove logo (15s)"  -->
+		<TipUpgradeButton click="Upgrade()">Upgrade to Premium!</TipUpgradeButton><!-- green -->
+	</HBox>
+</Tip>
+<Tip id="question_bug">
+	<QuestionBox>This info is 100% anonymous and is only used to serve you fantastically interesting ads.
+	</QuestionBox>
+</Tip>
+</Tips>

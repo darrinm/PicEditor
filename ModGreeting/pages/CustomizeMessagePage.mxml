@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CustomizeMessagePageBase xmlns="pages.*" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:containers="containers.*" xmlns:controls="controls.*"
+		width="100%" height="100%" xmlns:local="*" xmlns:views="views.*">
+	<mx:DropShadowFilter blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1" quality="3" angle="90" id="_fiWhiteShad"/>
+	<mx:DropShadowFilter distance="1" angle="90" blurX="4" blurY="4" alpha=".5" quality="3" id="_fiDropShad"/>
+	<mx:DropShadowFilter distance="0" angle="90" blurX="2" blurY="2" alpha=".5" quality="3" id="_fiDropShad2"/>
+	
+	<mx:VBox width="100%" height="100%">
+		<mx:HBox width="100%" height="100%">
+			<mx:VBox width="345" height="100%">
+				<mx:Text htmlText="@Resource(key='customize_message', bundle='CustomizeMessagePage')" fontSize="20"
+						fontWeight="bold" color="#4d99bf" paddingTop="15" paddingLeft="26" selectable="false"
+						filters="{[_fiWhiteShad]}"/>
+				
+				<mx:VBox width="100%" paddingLeft="30" paddingRight="30">
+					<mx:Text styleName="publishForm" condenseWhite="true" selectable="false"
+							htmlText="@Resource(key='primary_message_label', bundle='CustomizeMessagePage')" 
+							paddingTop="10" paddingBottom="-3"/>
+					<!-- NOTE: we have to set an explicit width so the TextAreaPlus's autoSizing will calc the right height -->
+					<controls:TextAreaPlus id="_taPrimary" width="281" height="26" maxHeight="48" maxChars="80" 
+							styleName="publishFormField"/>
+				</mx:VBox>
+				
+				<mx:VBox id="_vbxSecondary" width="100%" paddingLeft="30" paddingRight="30">
+					<mx:Text styleName="publishForm" condenseWhite="true" selectable="false"
+							htmlText="@Resource(key='secondary_message_label', bundle='CustomizeMessagePage')" 
+							paddingTop="10" paddingBottom="-3"/>
+					<!-- NOTE: we have to set an explicit width so the TextAreaPlus's autoSizing will calc the right height -->
+					<controls:TextAreaPlus id="_taSecondary" width="281" height="48" minHeight="48" maxHeight="142"
+							styleName="publishFormField" maxChars="400"/>
+				</mx:VBox>
+			</mx:VBox>
+			<mx:VBox width="100%" height="100%" paddingRight="30">
+				<!--
+				<mx:Text htmlText="@Resource(key='preview', bundle='CustomizeMessagePage')" fontSize="20"
+						fontWeight="bold" color="#4d99bf" paddingTop="15" selectable="false"
+						filters="{[_fiWhiteShad]}"/>
+				-->
+				<views:StatusAwareView id="_imgv" width="100%" height="100%" paddingTop="49" verticalAlign="top" filters="{[_fiDropShad]}"/>
+				<mx:Box width="100%" height="28">
+					<!-- this provides spacing so that this page matches the previous page -->
+				</mx:Box>
+			</mx:VBox>
+		</mx:HBox>
+		
+		<!-- prev & next -->
+		<mx:HBox horizontalGap="8" paddingTop="8" paddingBottom="8" width="100%" height="{footerHeight}" horizontalAlign="center">
+			<controls:ResizingButton label="@Resource(key='back', bundle='SendGreetingDialogBase')" autoFontSizeGap="1" height="34" fontSize="18" id="_btnPrev" styleName="BigButton" click="greetingParent.DoPrev()"/>
+			<controls:ResizingButton label="@Resource(key='next', bundle='SendGreetingDialogBase')" autoFontSizeGap="1" height="34" fontSize="18" id="_btnNext" styleName="BigButton" click="greetingParent.DoNext()"/>
+		</mx:HBox>
+	</mx:VBox>
+</CustomizeMessagePageBase>

@@ -1,0 +1,98 @@
+<languageVersion: 1.0;>
+
+/*
+5x5 Median
+Morgan McGuire and Kyle Whitson
+http://graphics.cs.williams.edu
+
+Ported to Pixel Bender shader language by Darrin Massena
+gcc -E -x c -P -C median5x5.c > median5x5.pbk
+*/
+
+kernel Median5x5
+< 
+	title: "Median 5x5";
+	namespace: "com.picnik";
+	vendor: "Picnik";
+	version: 1;
+	description: "A 5x5 median filter for noise reduction";
+>
+{
+#define getPixel(dx, dy)                    sampleNearest(src, outCoord() + float2(dx, dy))
+#define s2(a, b)				            temp = a; a = min(a, b); b = max(temp, b);
+#define t2(a, b)				            s2(a, b);
+#define t24(a, b, c, d, e, f, g, h)			t2(a, b); t2(c, d); t2(e, f); t2(g, h); 
+#define t25(a, b, c, d, e, f, g, h, i, j)	t24(a, b, c, d, e, f, g, h); t2(i, j);
+
+	input image4 src;
+	output pixel4 dst;
+
+    void evaluatePixel()
+    {
+        pixel4 v0 = getPixel(-2, -2);
+        pixel4 v1 = getPixel(-1, -2);
+        pixel4 v2 = getPixel( 0, -2);
+        pixel4 v3 = getPixel( 1, -2);
+        pixel4 v4 = getPixel( 2, -2);
+        pixel4 v5 = getPixel(-2, -1);
+        pixel4 v6 = getPixel(-1, -1);
+        pixel4 v7 = getPixel( 0, -1);
+        pixel4 v8 = getPixel( 1, -1);
+        pixel4 v9 = getPixel( 2, -1);
+        pixel4 v10 = getPixel(-2,  0);
+        pixel4 v11 = getPixel(-1,  0);
+        pixel4 v12 = getPixel( 0,  0);
+        pixel4 v13 = getPixel( 1,  0);
+        pixel4 v14 = getPixel( 2,  0);
+        pixel4 v15 = getPixel(-2,  1);
+        pixel4 v16 = getPixel(-1,  1);
+        pixel4 v17 = getPixel( 0,  1);
+        pixel4 v18 = getPixel( 1,  1);
+        pixel4 v19 = getPixel( 2,  1);
+        pixel4 v20 = getPixel(-2,  2);
+        pixel4 v21 = getPixel(-1,  2);
+        pixel4 v22 = getPixel( 0,  2);
+        pixel4 v23 = getPixel( 1,  2);
+        pixel4 v24 = getPixel( 2,  2);
+      
+		pixel4 temp;
+
+        t25(v0, v1,			v3, v4,		v2, v4,		v2, v3,		v6, v7);
+        t25(v5, v7,			v5, v6,		v9, v7,		v1, v7,		v1, v4);
+        t25(v12, v13,		v11, v13,	v11, v12,	v15, v16,	v14, v16);
+        t25(v14, v15,		v18, v19,	v17, v19,	v17, v18,	v21, v22);
+        t25(v20, v22,		v20, v21,	v23, v24,	v2, v5,		v3, v6);
+        t25(v0, v6,			v0, v3,		v4, v7,		v1, v7,		v1, v4);
+        t25(v11, v14,		v8, v14,	v8, v11,	v12, v15,	v9, v15);
+        t25(v9, v12,		v13, v16,	v10, v16,	v10, v13,	v20, v23);
+        t25(v17, v23,		v17, v20,	v21, v24,	v18, v24,	v18, v21);
+        t25(v19, v22,		v8, v17,	v9, v18,	v0, v18,	v0, v9);
+        t25(v10, v19,		v1, v19,	v1, v10,	v11, v20,	v2, v20);
+        t25(v2, v11,		v12, v21,	v3, v21,	v3, v12,	v13, v22);
+        t25(v4, v22,		v4, v13,	v14, v23,	v5, v23,	v5, v14);
+        t25(v15, v24,		v6, v24,	v6, v15,	v7, v16,	v7, v19);
+        t25(v3, v11,		v5, v17,	v11, v17,	v9, v17,	v4, v10);
+        t25(v6, v12,		v7, v14,	v4, v6,		v4, v7,		v12, v14);
+        t25(v10, v14,		v6, v7,		v10, v12,	v6, v10,	v6, v17);
+        t25(v12, v17,		v7, v17,	v7, v10,	v12, v18,	v7, v12);
+        t24(v10, v18,		v12, v20,	v10, v20,	v10, v12);
+      
+        dst = v12;
+    }
+}
+
+//float lessThan(float a, float b) {
+//	return a < b;
+//}
+
+// Swap so that a < b.  If b > a, then delta is > 0.  In this case, test = 0 and no swap occurs
+//#define s2(a, b)				delta = b - a; test = vec(lessThan(delta, ZERO)); a += delta * test;  b -= delta * test;
+//#define s2DropLo(a, b)			delta = b - a; test = vec(lessThan(delta, ZERO)); b -= delta * test;
+//#define s2DropHi(a, b)			delta = b - a; test = vec(lessThan(delta, ZERO)); a += delta * test;
+
+/*
+  // Optional :Expand out the last step to dump the result directly into gl_FragColor
+  mx3(v[3], v[4], v[8]);
+  delta = v[4] - v[3];
+  test = vec3(lessThan(delta, ZERO))
+  gl_FragColor = b - delta * test;*/

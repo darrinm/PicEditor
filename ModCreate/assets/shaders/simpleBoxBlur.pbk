@@ -1,0 +1,89 @@
+/*****************************************************************************
+ *
+ * Copyright (C) 2008 Adobe Systems Incorporated
+ * All Rights Reserved.
+ *
+ * NOTICE:  All information contained  herein is,  and remains the property of
+ * Adobe Systems Incorporated and its suppliers, if any.  The intellectual and
+ * technical  concepts  contained  herein  are  proprietary  to  Adobe Systems
+ * Incorporated  and  its suppliers  and may  be covered  by U.S.  and Foreign
+ * Patents, patents in process, and are protected by trade secret or copyright
+ * law.  Dissemination of this information or reproduction of this material is
+ * strictly forbidden  unless prior  written permission is obtained from Adobe
+ * Systems Incorporated.
+ *
+ *****************************************************************************/
+
+<languageVersion: 1.0;>
+
+// simpleBoxBlur: A simple example to demonstrate how to implement a simple 
+//                blur filter.  This filter is a good demonstration on how to
+//                access pixels in addition to the one at the current output
+//                coordinate.
+kernel simpleBoxBlur
+<   namespace : "AIF";
+    vendor : "Adobe Systems";
+    version : 2;
+    description : "A simple fixed-size box blur"; >
+{
+    input image4 src;
+    output float4 dst;
+    
+    // evaluatePixel(): The function of the filter that actually does the 
+    //                  processing of the image.  This function is called once 
+    //                  for each pixel of the output image.
+    void
+    evaluatePixel()
+    {
+        float denominator = 0.0;
+        float4 colorAccumulator = float4(0.0, 0.0, 0.0, 0.0);      
+        
+        // Access the nine pixels surrounding the current coordinate location.
+        // We access the pixels in the following order assuming that the 
+        // current coordinate is located in the center of the matrix:
+        //      1  4  7
+        //      2  5  8
+        //      3  6  9
+        colorAccumulator += sampleNearest(src, 
+            outCoord() + float2(-1.0, -1.0));
+        denominator++;
+
+        colorAccumulator += sampleNearest(src, 
+            outCoord() + float2(-1.0, 0.0));
+        denominator++;
+
+        colorAccumulator += sampleNearest(src, 
+            outCoord() + float2(-1.0, 1.0));
+        denominator++;
+
+        colorAccumulator += sampleNearest(src, 
+            outCoord() + float2(0.0, -1.0));
+        denominator++;
+
+        colorAccumulator += sampleNearest(src, 
+            outCoord());
+        denominator++;
+
+        colorAccumulator += sampleNearest(src, 
+            outCoord() + float2(0.0, 1.0));
+        denominator++;
+
+        colorAccumulator += sampleNearest(src, 
+            outCoord() + float2(1.0, -1.0));
+        denominator++;
+
+        colorAccumulator += sampleNearest(src, 
+            outCoord() + float2(1.0, 0.0));
+        denominator++;
+
+        colorAccumulator += sampleNearest(src, 
+            outCoord() + float2(1.0, 1.0));
+        denominator++;
+
+        // calculate the resultant pixel value which is the accumulated color
+        // divided by the total number of pixels.  
+        // In this case, the denominator is 9.
+        dst = colorAccumulator / denominator;
+    }
+}
+

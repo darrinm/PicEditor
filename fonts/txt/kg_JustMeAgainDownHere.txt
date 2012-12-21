@@ -1,0 +1,12 @@
+fileName: kg_JustMeAgainDownHere.ttf
+name: Just Me Again Down Here
+subfamilyDisplayName: Normal
+fullName: Just Me Again Down Here
+displayName: Just Me Again Down Here
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 5
+pkName: pkkg0JustMeAgainDownHere
+authorName: Kimberly Geswein
+authorUrl: http://www.dafont.com/kimberly-geswein.d1468

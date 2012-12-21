@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:controls="controls.*" clipContent="false" horizontalGap="3">
+	<mx:Script>
+		<![CDATA[
+			import mx.effects.easing.Bounce;
+			import mx.effects.easing.Quadratic;
+			[Bindable] public var tab:String = PicnikBase.IN_BRIDGES_TAB;
+			[Bindable] public var linksEnabled:Boolean = true;
+		]]>
+	</mx:Script>
+	<!-- bounce effects -->
+	<mx:Sequence id="_efSlideUp">
+		<mx:Move yBy="-5" duration="100" easingFunction="{Quadratic.easeOut}"/>
+	</mx:Sequence>
+	<mx:Sequence id="_efBounceDown">
+		<mx:Move yBy="5" duration="300" easingFunction="{Bounce.easeOut}"/>
+	</mx:Sequence>
+
+	<mx:Repeater id="rpServices" dataProvider="{AccountMgr.GetThirdPartyStorageServices()}">
+		<controls:ImageEx bundled="true" name="{rpServices.currentItem.id}"
+			source="/graphics/thirdpartylogos/bubbles/{rpServices.currentItem.id}.png"
+			rollOverEffect="{linksEnabled ? _efSlideUp : null}" rollOutEffect="{linksEnabled ? _efBounceDown : null}"
+			buttonMode="{linksEnabled}" 
+			click="if (linksEnabled) PicnikBase.app.NavigateToService(tab, event.currentTarget.name)"
+			width="37" height="37"
+			toolTip="{rpServices.currentItem.name}"/>
+	</mx:Repeater>
+</mx:HBox>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PicasaWebInBridgeBase xmlns="bridges.picasaweb.*" xmlns:mx="http://www.adobe.com/2006/mxml" 
+		xmlns:flash="flash.filters.*" xmlns:local="*" xmlns:ctrl="controls.*" xmlns:bridges="bridges.*"
+		width="100%" height="100%" horizontalScrollPolicy="off" verticalScrollPolicy="off">
+	<mx:Number id="_cItems">-1</mx:Number>
+	<mx:Number id="_cSets">-1</mx:Number>
+	<mx:Boolean id="_fIsPro">false</mx:Boolean>
+	
+	<states>
+		<mx:State name="NeedAuthorization">
+			<mx:RemoveChild target="{_tlst}"/>
+			<mx:RemoveChild target="{hbox1}"/>
+			<mx:AddChild position="lastChild">
+				<PicasaWebAccount id="_ssa" _tpa="{_tpa}" horizontalCenter="0" paddingBottom="10" top="15"/>
+			</mx:AddChild>
+			<mx:SetProperty target="{image1}" name="height" value="200"/>
+		</mx:State>
+		<mx:State name="NoSets">
+			<mx:RemoveChild target="{_tlst}"/>
+			<mx:AddChild position="lastChild">
+				<mx:HRule x="0" y="80" width="100%" height="1"/>
+			</mx:AddChild>
+			<mx:SetProperty target="{_cboxSets}" name="enabled" value="false"/>
+			<mx:SetStyle target="{label2}" name="color" value="#999999"/>
+			<mx:AddChild relativeTo="{image2}" position="before">
+				<mx:HBox x="0" y="81" width="100%" horizontalAlign="center" backgroundColor="#FFFFFF" paddingTop="20">
+					<mx:Text width="630" textAlign="center" condenseWhite="true" selectable="false" htmlText="@Resource(key='Text_1', bundle='PicasaWebInBridge')">
+					</mx:Text>
+				</mx:HBox>
+			</mx:AddChild>
+			<!-- Add this back in when we have a sort order drop down:
+			mx:SetProperty target="{_cboxOrderBy}" name="enabled" value="false"/>
+			<mx:SetStyle target="{label1}" name="color" value="#999999"/> 
+			-->
+		</mx:State>
+		<mx:State name="NoImages">
+			<mx:RemoveChild target="{_tlst}"/>
+			<mx:AddChild position="lastChild">
+				<mx:HRule x="0" y="80" width="100%" height="1"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:HBox x="0" y="81" width="100%" horizontalAlign="center" backgroundColor="#FFFFFF" paddingTop="20">
+					<mx:Text width="500" textAlign="center" condenseWhite="true" selectable="false" htmlText="@Resource(key='Text_2', bundle='PicasaWebInBridge')">
+					</mx:Text>
+				</mx:HBox>
+			</mx:AddChild>
+			<!-- Add this back in when we have a sort order drop down:
+			<mx:SetStyle target="{label1}" name="color" value="#999999"/>
+			<mx:SetProperty target="{_cboxOrderBy}" name="enabled" value="false"/>
+			-->
+		</mx:State>
+	</states>
+	<ctrl:ImageVer source="@Embed('/assets/bitmaps/page_blueGrad.png')" left="0" top="0" width="100%" scaleContent="true" maintainAspectRatio="false" id="image1"/>
+	<ctrl:ImageEx left="0" top="0" source="../graphics/thirdpartylogos/picasa_crop.png" id="image2"/>
+	<mx:HBox top="18" right="15" left="15" height="48" verticalAlign="middle" horizontalGap="0" id="hbox1">
+		<ctrl:ImageVer id="_imgUserThumbnail" useHandCursor="true" buttonMode="true" width="48" height="48">
+		<ctrl:filters>
+			<flash:DropShadowFilter distance="1" angle="90" blurX="4" blurY="4" alpha=".5" quality="3"/>
+  		</ctrl:filters>
+  		</ctrl:ImageVer>
+		<mx:Spacer width="10" height="40"/>
+		<mx:VBox verticalGap="0" paddingRight="20">
+			<mx:HBox verticalAlign="bottom" horizontalGap="3">
+				<ctrl:LabelPlus id="_lbGreeting" text="@Resource(key='_lbGreeting', bundle='PicasaWebInBridge')" useHandCursor="true" buttonMode="true" mouseChildren="false"
+					fontSize="21" fontWeight="bold" color="#000000" paddingBottom="-7"/>
+				<ctrl:ImageVer id="_imgPro" source="@Embed('/assets/bitmaps/flickr_pro_badge.gif')" visible="{_fIsPro}" height="15"/>				
+			</mx:HBox>
+			<mx:HBox horizontalGap="10">
+				<mx:HBox horizontalGap="-1" verticalAlign="middle" id="_hbxOptions">
+					<mx:Label text="@Resource(key='_lbOptions', bundle='PicasaWebInBridge')" id="_lbOptions" fontSize="14" color="#666666" height="21"/>
+					<ctrl:ImageVer source="@Embed('/theme/pngs/inlineDropDownArrow.png')"/>
+				</mx:HBox>
+				<mx:Label text="{GetPhotosAndAlbums(_cItems,_cSets)}" id="_lbPhotoSummary" fontSize="14" color="#666666" height="21"/>
+			</mx:HBox>
+		</mx:VBox>
+		<mx:Spacer width="100%" height="40"/>
+		<!-- _cboxOrderBy place holder -->
+		<mx:VBox verticalGap="0">
+			<mx:Label text="@Resource(key='label2', bundle='PicasaWebInBridge')" fontSize="14" height="20" id="label2"/>
+			<!-- HACK: this 'enabled != enabled' hack is to work around a bug in Flex which partially enables the editable state
+					whenever the combobox is enabled -->
+			<ctrl:ComboBoxPlus id="_cboxSets" rowCount="8" width="250" height="26" fontSize="14" color="#333333" editable="{_cboxSets.enabled != _cboxSets.enabled}" styleName="deviceFonts">
+				<ctrl:itemRenderer>
+					<mx:Component>
+		            	<mx:HBox verticalAlign="middle">
+		                	<mx:Label text="{data.label}" fontSize="14" width="160" paddingRight="5" styleName="deviceFonts"/>
+							<mx:Spacer width="100%"/>
+		                	<ctrl:ImageVer source="{data.icon}" height="36" width="36"/>
+		            	</mx:HBox>
+					</mx:Component>
+	            </ctrl:itemRenderer>
+			</ctrl:ComboBoxPlus>
+		</mx:VBox>
+		<mx:Spacer width="10" height="40"/>
+		<ctrl:ImageVer id="_imgSet" source="{_cboxSets.selectedItem.icon}" width="48" height="48" useHandCursor="true" buttonMode="true">
+			<ctrl:filters>
+				<flash:DropShadowFilter distance="1" angle="90" blurX="4" blurY="4" alpha=".5" quality="3"/>
+			</ctrl:filters>
+		</ctrl:ImageVer>
+	</mx:HBox>
+	<bridges:InBridgeTileList left="0" top="80" bottom="0" right="0" id="_tlst"/>
+</PicasaWebInBridgeBase>

@@ -1,0 +1,12 @@
+fileName: stoned_wash_6.ttf
+name: stoned wash 6
+subfamilyDisplayName: Normal
+fullName: stoned wash 6
+displayName: stoned wash 6
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 0
+pkName: pkstoned0wash06
+authorName: Gyom.Typo
+authorUrl: http://gyom.nebullus.com/

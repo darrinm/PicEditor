@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cnt:EffectCanvas xmlns="effects.*" xmlns:cnt="containers.*" xmlns:ctrl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml"
+		xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*"
+		width="100%" height="314" premium="false" xmlns:objectOperations="imagine.objectOperations.*" xmlns:doml="doml.*" urlid="BeforeAfter">
+	<mx:Script>
+		<![CDATA[
+			import containers.NestedControlCanvasBase;
+			
+			import doml.DOML;
+			
+			import imagine.imageOperations.ImageOperation;
+			import imagine.imageOperations.BeforeAfterImageOperation;
+			
+			import mx.resources.ResourceBundle;
+			import mx.utils.ObjectProxy;
+			
+			import util.LocUtil;
+	   		[Bindable] [ResourceBundle("BeforeAfterEffect")] private var rb:ResourceBundle;
+			[Bindable] public var coords:ObjectProxy;
+			private var _dml:DOML;
+	   		
+			public override function Select(efcnvCleanup:NestedControlCanvasBase): Boolean {
+				if (super.Select(efcnvCleanup)) {
+					_dml = null;
+					OnOpChange();
+					return true;
+				} else {
+					return false;
+				}
+			}
+	   		
+			// This updates the style objects' positions as other parameters change
+			public override function OnOpChange(): void {
+				if (_imgd == null) {
+					super.OnOpChange();
+					return;
+				}
+				
+				var fnSuper:Function = super.OnOpChange;
+				
+				// Calc before/after bounds
+				var ob:Object = BeforeAfterImageOperation.CalcBeforeAfterParams(
+						_imgd.original.width, _imgd.original.height, origImageWidth, origImageHeight, 
+						_sldrBorderAmount.value / 100, 0.1, _rbtnSplit.selected ? 'split' : 'side_by_side',
+						Util.GetMaxImageWidth(1), Util.GetMaxImageHeight(1), Util.GetMaxImagePixels());
+				coords = new ObjectProxy(ob);
+				
+				// Remove previous style CreateObjectOperations (if any)
+				if (_op.children.length > 2)
+					_op.children.length = 2;
+
+				// After they're created, add the ImageOperations as children of the NestedImageOperation _op					
+				var fnOnDOMLInitialized:Function = function (fSuccess:Boolean): void {
+					if (!fSuccess)
+						return;
+
+					var aop:Array = _dml.CreateOperationsFromDescriptors(new Rectangle(0, 0, _imgd.width, _imgd.height));
+					for each (var op:ImageOperation in aop)
+						_op.children.push(op);
+						
+					fnSuper();
+				}
+
+				if (_dml != null) {
+					if (_dml.initialized)
+						fnOnDOMLInitialized(true);
+				} else {
+					var aobDescriptors:Array = this[_cboxStyles.selectedItem.style];
+					_dml = new DOML();
+					_dml.Init(aobDescriptors, fnOnDOMLInitialized);
+				}
+			}
+		]]>
+	</mx:Script>
+
+	<mx:Array id="_resetValues">
+		<local:StoredValue target="_sldrBorderAmount.value"/>
+		<local:StoredValue target="_cpkrBackground.selectedColor"/>
+		<local:StoredValue target="_rbtnSideBySide.selected"/>
+		<local:StoredValue target="_rbtnSplit.selected"/>
+		<local:StoredValue target="_opRasterize.rasterizedContainerId"/>
+		<local:StoredValue target="_cboxStyles.selectedIndex"/>
+	</mx:Array>
+	
+	<mx:ArrayCollection id="_acStyles">
+		<mx:Object label="{Resource.getString('BeforeAfterEffect', 'style6')}" style='style6'/>
+		<mx:Object label="{Resource.getString('BeforeAfterEffect', 'style3')}" style='style3'/>
+		<mx:Object label="{Resource.getString('BeforeAfterEffect', 'style2')}" style='style2'/>
+		<mx:Object label="{Resource.getString('BeforeAfterEffect', 'style4')}" style='style4'/>
+		<mx:Object label="{Resource.getString('BeforeAfterEffect', 'style5')}" style='style5'/>
+		<mx:Object label="{Resource.getString('BeforeAfterEffect', 'style1')}" style='style1'/>
+	</mx:ArrayCollection>
+
+	<mx:DropShadowFilter id="_fiWhiteShad" blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1" quality="3" angle="90"/>
+
+	<ctrl:EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='BeforeAfterEffect')"
+			strAuthor="@Resource(key='_efbtn_1', bundle='BeforeAfterEffect')"
+			strImageSource="../graphics/effects/Frames/before_after.jpg" premium="{premium}"/>
+	<mx:String id="_strHelpText">{Resource.getString('BeforeAfterEffect', '_strHelpText')}</mx:String>
+	
+	<mx:VBox x="10" y="70" verticalGap="0">
+		<mx:Spacer width="10" height="3"/>
+		
+		<!-- background color and gap -->
+		<mx:VBox paddingTop="5" paddingLeft="5" paddingRight="8" paddingBottom="6" width="190" horizontalScrollPolicy="off" verticalGap="0" filters="{[_fiWhiteShad]}"
+				cornerRadius="5" backgroundColor="#ffffff" borderColor="#d9d9d9" borderStyle="solid" backgroundAlpha=".4" verticalAlign="middle">
+			<!-- background color picker -->
+			<mx:HBox horizontalGap="5" width="100%">
+				<ctrl:ResizingLabel text="@Resource(key='_lbBackgroundColor', bundle='BeforeAfterEffect')" styleName="sliderTitle" paddingTop="2" width="100%" autoFontSizeGap="1"/>
+				<ctrl:HSBColorPicker id="_cpkrBackground" selectedColor="{0xffffff + zeroR}" liveColorChange="OnBufferedOpChange()" width="50"/>
+			</mx:HBox>
+			<!-- spacing -->
+			<mx:HBox width="100%" paddingBottom="-5" paddingTop="7">
+				<mx:Label text="@Resource(key='_lbBorderAmount', bundle='BeforeAfterEffect')" styleName="sliderTitle"/>
+				<mx:Label text="{LocUtil.pct(_sldrBorderAmount.value)}" styleName="sliderValue" textAlign="right" width="100%"/>
+			</mx:HBox>
+			<ctrl:HSliderPlus width="176" minimum="0.0" maximum="10" value="1" id="_sldrBorderAmount" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+		</mx:VBox>
+		
+		<mx:Spacer height="8"/>
+
+		<!-- layout options -->
+		<!-- sandwich hack so we can use images as labels for the radios -->
+		<mx:Canvas>
+			<mx:HBox width="100%" horizontalGap="0">
+				<mx:Spacer width="21"/>
+				<ctrl:ImageVer source="../graphics/beforeafter/hSideBySide.png" width="69" height="31" horizontalAlign="right"/>
+				<mx:Spacer width="44"/>
+				<ctrl:ImageVer source="../graphics/beforeafter/hSplit.png" width="36" height="31" horizontalAlign="right"/>
+			</mx:HBox>
+			<mx:HBox width="100%" height="31" verticalAlign="middle" horizontalGap="0" paddingTop="2">
+				<mx:RadioButton id="_rbtnSideBySide" label="  " width="92" selected="true" groupName="split"
+						change="_sldrBorderAmount.value = _rbtnSplit.selected ? 1 : 1; OnOpChange()"/>
+				<mx:Spacer width="21"/>
+				<mx:RadioButton id="_rbtnSplit" label="  " width="59" groupName="split"
+						change="_sldrBorderAmount.value = _rbtnSplit.selected ? 1 : 1; OnOpChange()"/>
+			</mx:HBox>
+		</mx:Canvas>
+		
+		<mx:Spacer height="5"/>
+		
+		<!-- caption styles dropdown -->
+		<mx:Label text="@Resource(key='styles', bundle='BeforeAfterEffect')" styleName="sliderTitle" paddingBottom="-3"/>
+		<mx:ComboBox id="_cboxStyles" rowCount="10" width="190" height="26"
+				dataProvider="{_acStyles}" change="_dml=null;OnOpChange()"/>
+				
+		<mx:Spacer height="2"/>
+		
+		<ctrl:ApplyCancelEffectButtons addBoxPadding="true" premium="{premium}"/>
+	</mx:VBox>
+	
+ 	<mx:Array id="style1">
+ 		<!-- this style has no caption -->
+ 	</mx:Array>
+ 	
+	<mx:Array id="style2">
+		<!-- Expand document to include caption area at bottom -->
+		<doml:Border outercolor="{_cpkrBackground.liveColor | 0xff000000}" captionheight="10%"/>
+		<!-- UNDONE: conditionals for Chinese, Japanese, Korean -->
+		<doml:Create type="Text" alignmentBounds="{coords.beforeRect}" horizontalCenter="0" bottom="-10%" height="10%"
+				font="Arial Black" textColor="0x000000" text="{Resource.getString('BeforeAfterEffect', 'before')}"/>
+		<doml:Create type="Text" alignmentBounds="{coords.afterRect}" horizontalCenter="0" bottom="-10%" height="10%" 
+				font="Arial Black" textColor="0x000000" text="{Resource.getString('BeforeAfterEffect', 'after')}"/>
+	</mx:Array>
+	
+	<mx:Array id="style3">
+		<doml:Create type="PRectangle" alignmentBounds="{coords.beforeRect}" left="0" width="100%" bottom="0" height="8%" 
+				color="0x000000" alpha="0.5"/>
+		<doml:Create type="PRectangle" alignmentBounds="{coords.afterRect}" left="0" width="100%" bottom="0" height="8%" 
+				color="0x000000" alpha="0.5"/>
+		<doml:Create type="Text" alignmentBounds="{coords.beforeRect}" left="{coords.beforeRect.height * .02}" bottom="0" height="8%" 
+				font="Trebuchet MS" bold="true" textColor="0xffffff" text="{Resource.getString('BeforeAfterEffect', 'before')}"/>
+		<doml:Create type="Text" alignmentBounds="{coords.afterRect}" right="{coords.afterRect.height * .02}" bottom="0" height="8%" 
+				font="Trebuchet MS" bold="true" textColor="0xffffff" text="{Resource.getString('BeforeAfterEffect', 'after')}"/>
+	</mx:Array>
+	
+	<mx:Array id="style4">
+		<doml:Create type="Text" alignmentBounds="{coords.beforeRect}" left="{coords.beforeRect.height * .05}" top="2%"
+				height="8%" font="Daniel" bold="true" textColor="0xffffff" blendMode="difference" 
+				rotation="-15" text="{Resource.getString('BeforeAfterEffect', 'before_lc')}"/>
+		<doml:Create type="Text" alignmentBounds="{coords.afterRect}" right="{coords.afterRect.height * .05}" bottom="1%" 
+				height="8%" font="Daniel" bold="true" textColor="0xffffff" blendMode="difference" 
+				rotation="-15" text="{Resource.getString('BeforeAfterEffect', 'after_lc')}"/>
+	</mx:Array>
+
+	<mx:Array id="style5">
+		<doml:Create type="RoundedRectangle" alignmentBounds="txtBefore5" right="-20%" top="-10%" width="300%" height="120%"
+				color="0x000000" alpha="0.8"/>
+		<doml:Create type="RoundedRectangle" alignmentBounds="txtAfter5" left="-20%" top="-10%" width="300%" height="120%"
+				color="0x000000" alpha="0.8"/>
+		<doml:Create type="Text" name="txtBefore5" alignmentBounds="{coords.beforeRect}" left="{coords.beforeRect.height * .02}" top="3%" height="5%" 
+				font="Arial Rounded MT Bold" textColor="0xffffff" text="{Resource.getString('BeforeAfterEffect', 'before_uc')}"/>
+		<doml:Create type="Text" name="txtAfter5" alignmentBounds="{coords.afterRect}" right="{coords.afterRect.height * .02}" top="3%" height="5%" 
+				font="Arial Rounded MT Bold" textColor="0xffffff" text="{Resource.getString('BeforeAfterEffect', 'after_uc')}"/>
+	</mx:Array>
+	
+	<mx:Array id="style6">
+		<doml:Create type="RoundedRectangle" alignmentBounds="txtBefore6" right="-20%" top="-14%" width="300%" height="128%"
+				color="0x4c7300" alpha="0.9"/>
+		<doml:Create type="RoundedRectangle" alignmentBounds="txtAfter6" left="-20%" top="-14%" width="500%" height="128%"
+				color="0x4c7300" alpha="0.9"/>
+		<doml:Create type="Text" name="txtBefore6" alignmentBounds="{coords.beforeRect}" left="{coords.beforeRect.height * .02}" 
+				bottom="3%" height="5%" font="Arial Rounded MT Bold" textColor="0xffffff" alpha="0.8" 
+				text="{Resource.getString('BeforeAfterEffect', 'before_lc')}"/>
+		<doml:Create type="Text" name="txtAfter6" alignmentBounds="logo" top="0" right="107%" height="100%" 
+				font="Arial Rounded MT Bold" textColor="0xffffff" alpha="0.8" 
+				text="{Resource.getString('BeforeAfterEffect', 'after_lc')}"/>
+		<doml:Create type="Clipart" name="logo" alignmentBounds="{coords.afterRect}" right="2%" bottom="3%" height="5%" 
+				color="0xffffff" url="shapes/picnikcom_logo.swf"/>
+	</mx:Array>
+	
+	<imageOperations:NestedImageOperation id="_op">
+		<imageOperations:children>
+			<imageOperations:RasterizeImageOperation id="_opRasterize" includeBackground="true" 
+					width="{origImageWidth}" height="{origImageHeight}"/>
+			<imageOperations:BeforeAfterImageOperation borderAmount="{_sldrBorderAmount.value / 100}"
+					backgroundColor="{_cpkrBackground.liveColor}" type="{_rbtnSplit.selected ? 'split' : 'side_by_side'}"/>
+		</imageOperations:children>
+	</imageOperations:NestedImageOperation>
+	
+</cnt:EffectCanvas>

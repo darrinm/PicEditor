@@ -1,0 +1,12 @@
+fileName: dz_tombats_6.ttf
+name: Tombats 6
+subfamilyDisplayName: Regular
+fullName: Tombats 6
+displayName: Tombats 6
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 4
+pkName: pkdz0tombats06
+authorUrl: http://fonts.tom7.com/
+authorName: Divide by Zero

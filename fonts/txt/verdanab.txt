@@ -1,0 +1,12 @@
+fileName: verdanab.ttf
+name: Verdana
+subfamilyDisplayName: Negreta
+fullName: Verdana Negreta
+displayName: Verdana
+ital: 0
+bold: 1
+weight: 5
+panose.weight: 8
+pkName: pkverdanab
+authorName: Matthew Carter
+authorUrl: http://carterandcone.com/

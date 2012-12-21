@@ -1,0 +1,132 @@
+/*****************************************************************************
+ *
+ * Petri Leskinen, Espoo, Finland, Jan 2008
+ * April 2008, updated languageVersion, input & output
+ * Lightbeam -zoom -effect
+ * leskinen (dot) petri [at] luukku {dot} com 
+ *
+ *****************************************************************************/
+<languageVersion : 1.0;>
+kernel Lightbeams
+<
+    title: "Light Beams";
+    namespace : "by Petri Leskinen";
+    vendor : "Petri Leskinen";
+    version : 1;
+    description : "Lightbeam -zoom -effect";
+    iconURL: "../graphics/effects/lightbeams.png";
+>
+{
+   
+    parameter float radius 
+    <       
+        minValue:float(0.1);
+        maxValue:float(300.0); 
+        defaultValue:float(250.0);
+        description: "Radius of the effective area";
+    >;
+   
+    parameter float intensity
+     <       
+        minValue:float(0.75);
+        maxValue:float(1.0); 
+        defaultValue:float(0.95);
+        description: "Fading of a lightbeam";
+    >;
+    
+    parameter float2 center
+    <
+        minValue:float2(-200.0, -200.0);
+        maxValue:float2(2048.0, 2048.0);
+        defaultValue:float2(250.0, 250.0);
+        description: "Center point";
+	controller: "mouseXY";
+    >;
+    
+    input image4 src;
+    output float4 pxl;
+    void evaluatePixel()
+    {
+        
+        float2 p = outCoord();
+        pxl = sample(src,p);
+        
+        // vector relative to center
+        float2 dp = center-p;
+        
+        // calculate fade by distance
+        float fade = min(1.0, radius/length(dp));
+        
+        // adjust pn so that every step gives us a new pixel,
+        dp /= max( abs(dp.x), abs(dp.y) );
+        
+        /* going thru the points along the 'beam'
+        // ... if Flash compatible, we can't use loops:
+        for (int i=0; i<=15; i++) {
+            p += dp;
+            fade *= intensity;
+            pxl = max(pxl,sample(src,p)*fade);
+        */ 
+        
+        p += dp;
+        fade *= intensity;
+        pxl = max(pxl,sample(src,p)*fade);
+        
+        p += dp;
+        fade *= intensity;
+        pxl = max(pxl,sample(src,p)*fade);
+                
+        p += dp;
+        fade *= intensity;
+        pxl = max(pxl,sample(src,p)*fade);
+                
+        p += dp;
+        fade *= intensity;
+        pxl = max(pxl,sample(src,p)*fade);
+                
+        p += dp;
+        fade *= intensity;
+        pxl = max(pxl,sample(src,p)*fade);
+                
+        p += dp;
+        fade *= intensity;
+        pxl = max(pxl,sample(src,p)*fade);
+                
+        p += dp;
+        fade *= intensity;
+        pxl = max(pxl,sample(src,p)*fade);
+                
+        p += dp;
+        fade *= intensity;
+        pxl = max(pxl,sample(src,p)*fade);
+                
+        p += dp;
+        fade *= intensity;
+        pxl = max(pxl,sample(src,p)*fade);
+                
+        p += dp;
+        fade *= intensity;
+        pxl = max(pxl,sample(src,p)*fade);
+                
+        p += dp;
+        fade *= intensity;
+        pxl = max(pxl,sample(src,p)*fade);
+                
+        p += dp;
+        fade *= intensity;
+        pxl = max(pxl,sample(src,p)*fade);
+                
+        p += dp;
+        fade *= intensity;
+        pxl = max(pxl,sample(src,p)*fade);
+                
+        p += dp;
+        fade *= intensity;
+        pxl = max(pxl,sample(src,p)*fade);
+                
+        p += dp;
+        fade *= intensity;
+        pxl = max(pxl,sample(src,p)*fade);
+        
+   }
+}

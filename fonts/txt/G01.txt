@@ -1,0 +1,12 @@
+fileName: G01.ttf
+name: G01
+subfamilyDisplayName: Normal
+fullName: G01
+displayName: G01
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 0
+pkName: pkG01
+authorName: Gyom.Typo
+authorUrl: http://gyom.nebullus.com/

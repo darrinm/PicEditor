@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cnt:PaintEffectCanvas xmlns:cnt="containers.*" xmlns="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="269"
+	xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*" premium="{PicnikBase.GetApp().freemiumModel}" urlid="Tint">
+	<mx:Script>
+		import util.LocUtil;
+		import mx.resources.ResourceBundle;
+   		[Bindable] [ResourceBundle("TintEffect")] private var rb:ResourceBundle;
+	</mx:Script>
+
+	
+	<mx:Array id="_resetValues">
+		<local:StoredValue target="_clrsw.color"/>
+		<local:StoredValue target="_clrsw.startThumbX"/>
+		<local:StoredValue target="_clrsw.startThumbY"/>
+		<local:StoredValue target="_sldrFade.value"/>
+		<local:StoredValue target="_cbBlendMode.selectedIndex"/>
+	</mx:Array>
+
+	<EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='TintEffect')" strAuthor="@Resource(key='_efbtn_1', bundle='TintEffect')" strImageSource="../graphics/effects/Color/tint.png" premium="{premium}"/>
+	<mx:String id="_strHelpText">{Resource.getString('TintEffect', '_strHelpText')}</mx:String>
+
+	<mx:VBox x="8" y="70" verticalGap="0">
+		<mx:Label x="8" y="70" text="@Resource(key='Label_1', bundle='TintEffect')" styleName="sliderTitle"/>
+		<mx:HBox horizontalGap="5" paddingLeft="2">
+			<ImageColorSwatch height="40" width="155" id="_clrsw" source="@Embed('/assets/bitmaps/swatch_tint.png')" color="0x80cfff" 
+				change="OnOpChange()" startThumbX="66" startThumbY="24"/>
+			<mx:Canvas width="30" height="40" id="_cnvColor" backgroundColor="{_clrsw.color}">
+				<mx:filters>
+					<flash.filters:DropShadowFilter angle="90" blurX="2" blurY="2" distance="1" color="0x000000" alpha=".3" quality="3" inner="true" />
+					<flash.filters:BevelFilter angle="90" blurX="1" blurY="1"
+						distance="1" highlightAlpha=".3" shadowAlpha="1" highlightColor="0x666666" shadowColor="0xFFFFFF" knockout="false" quality="3" />
+				</mx:filters>
+			</mx:Canvas>
+		</mx:HBox>
+		<mx:Script>
+	        <![CDATA[
+	            [Bindable]
+	            public var aBlendModes:Array = [ 
+	                {label:Resource.getString('TintEffect', 'blend_Normal'), data:"normal"}, 
+	                {label:Resource.getString('TintEffect', 'blend_Add'), data:"add"}, 
+	                {label:Resource.getString('TintEffect', 'blend_Darken'), data:"darken"}, 
+	                {label:Resource.getString('TintEffect', 'blend_Difference'), data:"difference"}, 
+	                {label:Resource.getString('TintEffect', 'blend_Hardlight'), data:"hardlight"}, 
+	                {label:Resource.getString('TintEffect', 'blend_Lighten'), data:"lighten"}, 
+	                {label:Resource.getString('TintEffect', 'blend_Multiply'), data:"multiply"}, 
+	                {label:Resource.getString('TintEffect', 'blend_Overlay'), data:"overlay"}, 
+	                {label:Resource.getString('TintEffect', 'blend_Screen'), data:"screen"}, 
+	                {label:Resource.getString('TintEffect', 'blend_Subtract'), data:"subtract"}];
+	        ]]>
+	    </mx:Script>
+	    <mx:VBox verticalGap="-3" paddingTop="5" paddingBottom="5">
+		    <mx:Label text="@Resource(key='Label_2', bundle='TintEffect')" styleName="sliderTitle"/>
+			<ComboBoxPlus dataProvider="{aBlendModes}" id="_cbBlendMode" height="26" width="190" selectedIndex="{zeroR}" rowCount="10" liveChange="OnOpChange()"/>
+	    </mx:VBox>
+    
+	   <mx:HBox horizontalGap="5" paddingTop="3" verticalAlign="middle">
+			<!-- Fade label/percent/slider box -->
+			<mx:VBox verticalGap="0" width="157" horizontalScrollPolicy="off">
+				<mx:HBox width="100%" paddingBottom="-5">
+					<mx:Label text="@Resource(key='Label_3', bundle='TintEffect')" styleName="sliderTitle"/>
+					<mx:Label text="{LocUtil.pct((_sldrFade.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+				</mx:HBox>
+				<HSliderPlus width="157" minimum="0" maximum="100" value="0" id="_sldrFade" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+			</mx:VBox>
+			<mx:Button id="_btnBrushPalette" width="30" height="30" selected="false" toggle="true" icon="@Embed('/assets/bitmaps/icon_paintTall.png')" paddingLeft="0"
+				toolTip="@Resource(key='_btnBrushPalette', bundle='TintEffect')"/>
+		</mx:HBox>
+	
+		<ApplyCancelEffectButtons addBoxPadding="true" premium="{premium}"/>
+	</mx:VBox>
+
+	<imageOperations:TintImageOperation id="_op" Color="{_clrsw.color}" BlendAlpha="{1-(_sldrFade.value/100)}" BlendMode="{_cbBlendMode.liveValue}" Mask="{_mctr.mask}"
+			dynamicColorCachePriority="5" dynamicAlphaCachePriority="10"/>
+</cnt:PaintEffectCanvas>

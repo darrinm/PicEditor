@@ -1,0 +1,12 @@
+fileName: ba_MONBIJOUX.ttf
+name: monbijoux
+subfamilyDisplayName: Regular
+fullName: monbijoux
+displayName: monbijoux
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 4
+pkName: pkba0MONBIJOUX
+authorName: Billy Argel
+authorUrl: http://billyargel.blogspot.com/

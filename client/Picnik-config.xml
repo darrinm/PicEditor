@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<flex-config xmlns="http://www.adobe.com/2006/flex-config">
+	<metadata>
+		<title>Picnik</title>
+		<description>http://www.mywebsite.com</description>
+		<publisher>Google</publisher>
+		<creator>Google</creator>
+		<language>EN</language>
+		<!-- date -->
+	</metadata>
+</flex-config>

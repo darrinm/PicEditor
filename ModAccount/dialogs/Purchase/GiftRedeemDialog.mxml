@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GiftRedeemDialogBase xmlns="dialogs.Purchase.*" 
+	xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:ctrl="controls.*" xmlns:ds="com.darronschall.effects.*"
+	xmlns:vld="validators.*" xmlns:flash.filters="flash.filters.*" xmlns:ctr="containers.*"
+	width="550" height="295"
+	verticalScrollPolicy="off" horizontalScrollPolicy="off" styleName="BlueStripeDialogStyle">
+	<mx:Script>
+		import util.LocUtil;
+        import mx.effects.easing.*;
+    </mx:Script>
+	
+	<mx:Fade alphaFrom="0" alphaTo="1" duration="500" id="_efFadeIn" />
+	<mx:Fade alphaFrom="1" alphaTo="0" duration="500" id="_efFadeOut" />
+	<mx:Fade alphaFrom="0" alphaTo=".75" duration="300" id="_efQuarterFadeIn" />
+	<mx:Fade alphaFrom=".75" alphaTo="0" duration="150" id="_efQuarterFadeOut" />
+	
+	<!-- dandelion effects -->
+	<mx:Parallel id="_efDandelionFadeIn" duration="200">
+		<mx:Fade alphaFrom="0" alphaTo="1" easingFunction="{Quadratic.easeOut}"/>
+		<mx:Zoom zoomHeightFrom=".9" zoomHeightTo="1" easingFunction="{Quadratic.easeOut}"/>
+	</mx:Parallel>
+	<mx:Parallel id="_efDandelionFadeOut" duration="300">
+		<mx:Fade alphaFrom="1" alphaTo="0" easingFunction="{Quadratic.easeIn}"/>
+		<mx:Zoom zoomHeightFrom="1" zoomHeightTo=".9" easingFunction="{Quadratic.easeIn}"/>
+	</mx:Parallel>
+
+	<mx:Sequence id="_effError" targets="{[_txtGiftCodeError]}">
+		<mx:Parallel duration="200">
+			<mx:Glow alphaFrom="0" alphaTo=".4" blurXFrom="0" blurYFrom="0" blurXTo="8" blurYTo="8" color="#005580"/>
+			<ds:AnimateColor isStyle="true" property="color" toValue="0xCC0000"/>
+		</mx:Parallel>
+		<mx:Pause duration="100"/>
+		<mx:Parallel duration="400">
+			<mx:Glow alphaFrom=".4" alphaTo="0" blurXFrom="8" blurYFrom="8" blurXTo="0" blurYTo="0" color="#005580"/>
+			<ds:AnimateColor isStyle="true" property="color" toValue="0x618430"/>
+		</mx:Parallel>
+	</mx:Sequence>
+
+	<mx:Sequence id="_efGlow" repeatCount="0">
+		<mx:Glow alphaFrom="0" alphaTo=".3" blurXFrom="0" blurYFrom="0" blurXTo="10" blurYTo="10" color="#005580" duration="500"/>
+		<mx:Glow alphaFrom=".3" alphaTo="0" blurXFrom="10" blurYFrom="10" blurXTo="0" blurYTo="0" color="#005580" duration="1000"/>
+		<mx:Pause duration="1000" />
+	</mx:Sequence>
+
+	<flash.filters:DropShadowFilter blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1"
+		quality="3" angle="90" id="_fiWhiteShad"/>
+
+	<mx:Canvas width="100%" height="100%" horizontalScrollPolicy="off" verticalScrollPolicy="off" clipContent="false">
+
+		<!-- contents -->
+		<mx:VBox width="100%" height="100%" verticalGap="0">		
+			<!-- title/subtitle -->
+			<mx:HBox width="100%" borderSides="bottom" borderStyle="solid" borderThickness="1" borderColor="0xc0dcf0" verticalAlign="middle">
+				<!-- picture of a present -->
+				<mx:Box paddingLeft="10" paddingTop="10" paddingBottom="5">
+					<ctrl:ImageEx source="../graphics/picnik_gift.png" filters="{[_fiWhiteShad]}"/>
+				</mx:Box>
+				<mx:VBox verticalGap="-8" paddingTop="8" paddingBottom="3" paddingRight="15" width="100%">
+					<ctrl:ResizingLabel width="380" autoFontSizeGap="2" text="@Resource(key='title', bundle='RedeemGiftTab')" fontSize="27" color="#005580" filters="{[_fiWhiteShad]}"/>				
+					<ctrl:ResizingText width="380" fontSize="14" autoFontSizeGap="1" color="#333333" condenseWhite="true" selectable="true" leading="-1" 
+						htmlText="@Resource(key='subtitle', bundle='RedeemGiftTab')"/>
+				</mx:VBox>
+			</mx:HBox>
+			
+			<!-- this vbox handles scrolling -->
+			<mx:VBox width="100%" height="100%" minHeight="150" verticalGap="0" paddingTop="10" paddingLeft="15" paddingRight="15"
+					horizontalScrollPolicy="off" verticalScrollPolicy="auto">
+				<mx:HBox width="100%" horizontalAlign="center">
+					<!-- gift code field -->
+					<mx:VBox verticalGap="0">
+						<mx:Label text="@Resource(key='giftCode', bundle='RedeemGiftTab')" styleName="publishForm" paddingBottom="-4" paddingTop="5" width="100%" color="{_tiGiftCode.errorString?0xCC0000:0x333333}"/>
+						<ctrl:NoTipTextInput id="_tiGiftCode" styleName="publishFormField"
+							fontSize="30" fontWeight="bold" width="300" height="44" maxChars="48"
+							textAlign="center" text="{gift.strGiftCode}"
+							enter="Redeem()"/>
+						<ctrl:ResizingText styleName="formError" id="_txtGiftCodeError" width="100%" paddingLeft="-2" paddingTop="1"
+								text="" showEffect="{_efFadeIn}" autoFontSizeGap="1"
+								visible="{_txtGiftCodeError.text.length > 0}" includeInLayout="true"/>
+					</mx:VBox>
+				</mx:HBox>
+			</mx:VBox>
+		</mx:VBox>
+				
+		<!-- Footer -->
+		<mx:HBox width="100%" bottom="6" horizontalAlign="center" verticalAlign="middle">			
+			<mx:Button id="_btnRedeem" height="39" fontSize="22" paddingLeft="15" paddingRight="15"  
+					   horizontalCenter="0" styleName="basketButton" mouseFocusEnabled="false" click="Redeem()"
+					   keyDown="RedeemKeyEvent(event)" label="{Resource.getString('RedeemGiftTab', 'redeem')}"/>
+			<mx:Button label="@Resource(key='cancel', bundle='RedeemGiftTab')" fontSize="15" minWidth="100" click="Cancel()"/>
+		</mx:HBox>
+		
+		<!-- shadow dealies, drawn on top of all elements -->
+		<ctrl:ImageVer source="../graphics/upsellPremiumPanelShadow.png" bottom="50" left="0" right="0" scaleContent="true" maintainAspectRatio="false"/>
+		
+		<!-- Close button-->
+		<mx:Button width="22" height="22" top="4" right="4" click="Cancel()" styleName="dialogCloseButton"/>		
+
+	</mx:Canvas>
+	
+</GiftRedeemDialogBase>

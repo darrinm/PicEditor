@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory area="VandalismSpeechBubbles" id="root">
+	<ShapeCategory flickrPremium="false" id="vandalismSpeechBubblesSection" numShapes="0" picnikPremium="false" showHeader="false">
+		<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/shape_speechballoons.png" flickrPremium="false" id="SpeechBubbles" numShapes="20" picnikPremium="false" previewUrls="60|48|../clipart/bundles/VandalismSpeechBubblesArea_groupPreviews_SpeechBubbles.png?ver=3456ee48" thumbUrl="66|54|0|../clipart/bundles/VandalismSpeechBubblesArea_groupThumbs.png?ver=5c79a99e" title="Speech Bubbles"/>
+	</ShapeCategory>
+</ShapeCategory>

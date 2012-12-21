@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CollageItemRendererBase xmlns="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:ds="com.darronschall.effects.*"
+		horizontalScrollPolicy="off" width="155" height="155" backgroundAlpha="0" click="DoSelect()" xmlns:filters="flash.filters.*">
+<mx:Style>
+	.premiumLabelBar {
+	   border-style: solid;
+	   border-thickness: 0;
+	   border-skin: ClassReference("skins.GradientBackground");
+	   gradient-fill-colors: #006fa6, #003d5c;
+	   gradient-fill-alphas: 0.8,0.8;
+	   gradient-fill-ratios: 0,255;
+	   gradient-fixed-size: 20;
+	   gradient-rotation: 90;
+	}
+	.labelBar {
+	   border-style: solid;
+	   border-thickness: 0;
+	   border-skin: ClassReference("skins.GradientBackground");
+	   gradient-fill-colors: #7ea93e, #456122;
+	   gradient-fill-alphas: 0.8,0.8;
+	   gradient-fill-ratios: 0,255;
+	   gradient-fixed-size: 20;
+	   gradient-rotation: 90;
+	}
+</mx:Style>
+<mx:Script>
+	<![CDATA[
+		import util.CollageDocTemplateMgr;
+		import util.LocUtil;
+		
+		private function DoEdit(): void {
+			dispatchEvent(new Event("editTemplate", true));
+		}
+		
+		private function DoSelect(): void {
+			if (!passesPremiumTest)
+				ShowUpgradeTip();
+			else
+				dispatchEvent(new Event("selectTemplate", true));
+		}
+		
+		override protected function get upgradeTipId(): String {
+			if (PicnikConfig.freeForAll) 
+				return "fancyCollage_register";			
+			return "fancyCollage_upgrade";
+		}
+		
+		override protected function get templateLogName(): String {
+			return CollageDocTemplateMgr.GetTemplateName(data);
+		}
+		
+		override protected function get collageType(): String {
+			return "advancedcollage";
+		}
+
+		private function UpdateSizes(): void {
+			// Magic to position the extra canvases so that they are the right size and position
+			var nWidth:Number = _imgTemplate.contentWidth; 
+			var nHeight:Number = _imgTemplate.contentHeight;
+			
+			if (nWidth == 145 && nHeight == 145) {
+				// Old style
+				_imgTemplate.width = 145;
+				_imgTemplate.height = 145;
+				_imgTemplate.setStyle('left', 5);
+				_imgTemplate.setStyle('top', 5);
+			} else {
+				// Scale them down to fit 135x135
+				var nScale:Number = Math.min(1, 135 / nWidth, 135 / nHeight);
+				nWidth = Math.round(nWidth * nScale);
+				nHeight = Math.round(nHeight * nScale);
+	
+				var nVertCenter:Number = (nHeight % 2) - 1;
+				var nHorizCenter:Number = (nWidth % 2) - 1;
+				
+				_cnvFrame.setStyle('verticalCenter', nVertCenter);
+				_cnvFrame.setStyle('horizontalCenter', nHorizCenter);
+				_cnvFrame.visible = true;
+				 
+				_cnvBack.setStyle('verticalCenter', nVertCenter);
+				_cnvBack.setStyle('horizontalCenter', nHorizCenter);
+				 
+				_cnvBack.width = nWidth;
+				_cnvBack.height = nHeight;
+				_cnvBack.visible = true;
+			}
+			
+			var strInfo:String = "";
+			
+			var ptDims:Point = CalcDims();
+			if (ptDims != null) {
+				strInfo += LocUtil.rbSubst('LocUtil', 'width_by_height_tight', ptDims.x, ptDims.y);
+				// UNDONE: Localize this
+				strInfo += '"'; // inches 
+			}
+				
+			var nPhotos:Number = 0;
+			if ('template:nCollageTargets' in data) {
+				try {
+					nPhotos = Number(data['template:nCollageTargets']);
+				} catch (e:Error) {
+					nPhotos = 0;
+				}
+			}
+			if (nPhotos > 0) {
+				if (strInfo.length > 0) strInfo += " ";
+				strInfo += LocUtil.zeroOneOrMany('LocUtil', nPhotos, 'photos');
+			}
+			
+			_lblInfo.text = strInfo; 
+		}
+		
+		private function PctDistFrom(n:Number, nTarget:Number): Number {
+			return Math.abs((n-nTarget) / nTarget);
+		}
+		
+		private function CalcDims(): Point {
+			var pt:Point = null;
+			if (data && ('nWidth' in data) && ('nHeight' in data)) {
+				var nWidth:Number = data['nWidth'];
+				var nHeight:Number = data['nHeight'];
+				
+				if ((nWidth % 300) == 0 && (nHeight % 300) == 0) {
+					pt = new Point(nWidth/300, nHeight/300);
+				} else if (PctDistFrom(nWidth/nHeight, 10/8) < 0.02) {
+					pt = new Point(10, 8);
+				} else if (PctDistFrom(nWidth/nHeight, 8/10) < 0.02) {
+					pt = new Point(8, 10);
+				} else {
+					// Reduce down to base dimensions
+					var nDiv:Number = 2;
+					while (nDiv <= Math.sqrt(Math.min(nWidth, nHeight))) {
+						while ((nWidth % nDiv) == 0 && (nHeight % nDiv) == 0) {
+							nWidth /= nDiv;
+							nHeight /= nDiv;
+						}
+						nDiv += 1;
+					}
+					
+					// Look for a match in our print sizes array
+					var nSmall:Number = Math.min(nWidth, nHeight);
+					var nLarge:Number = Math.max(nWidth, nHeight);
+					var nExpand:Number = 1;
+					if (nSmall == 1 && nLarge == 2) nExpand = 4; // 4x8
+					else if (nSmall == 2 && nLarge == 3) nExpand = 2; // 4x6
+					else if (nSmall == 4 && nLarge == 5) nExpand = 2; // 8x10
+					
+					if (nWidth < 32 && nHeight < 32)
+						pt = new Point(nWidth * nExpand, nHeight * nExpand);
+				}
+			} 
+			return pt;
+		}
+		
+		private function ShowBar(): void {
+			var nAlphaFrom:Number = _hbxBar.alpha;
+			_hbxBar.endEffectsStarted();
+			_effShowHideBar.alphaFrom = nAlphaFrom;
+			_effShowHideBar.alphaTo = 1;
+			
+			_effShowHideBar.play();
+		}
+		
+		private function HideBar(): void {
+			var nAlphaFrom:Number = _hbxBar.alpha;
+			_hbxBar.endEffectsStarted();
+			_effShowHideBar.alphaFrom = nAlphaFrom;
+			_effShowHideBar.alphaTo = 0;
+
+			_effShowHideBar.play();
+		}
+
+	]]>
+</mx:Script>
+	<mx:Fade id="_effShowHideBar" duration="150" target="{_hbxBar}"/>
+	<filters:GlowFilter id="_fltGlow" inner="false" knockout="true" color="0" blurX="12" blurY="12" alpha="0.3" />
+	<filters:DropShadowFilter id="_fltTextShadow" alpha="0.3" color="0" angle="-90" distance="1" blurX="0" blurY="0"/>
+	
+	<mx:AnimateProperty id="_efBGFadeUp" target="{_cnv}" property="backgroundAlpha" fromValue="{isPremium ? 0.07 : 0.0}" toValue="{isPremium ? 0.14 : 0.6}"
+		duration="150" isStyle="true"/>
+	<mx:AnimateProperty id="_efBGFadeOut" target="{_cnv}" property="backgroundAlpha" fromValue="{isPremium ? 0.14 : 0.6}" toValue="{isPremium ? 0.07 : 0.0}"
+		duration="150" isStyle="true"/> 
+	
+	<mx:Canvas id="_cnv" width="155" height="155" 
+			horizontalScrollPolicy="off" 
+			backgroundColor="{isPremium ? 0x0079b8 : 0xdefab4}" 
+			backgroundAlpha="{isPremium ? 0.07 : 0.0}"
+			rollOver="ShowBar()" rollOverEffect="{_efBGFadeUp}"
+			rollOut="HideBar()" rollOutEffect="{_efBGFadeOut}">
+		<!-- glow, aka shadow -->
+		<mx:Canvas id="_cnvBack" backgroundColor="0xff0000" backgroundAlpha="0.5" visible="false"
+			horizontalCenter="0" verticalCenter="0" 
+			width="0" height="0" filters="{[_fltGlow]}"/>
+		
+		<!-- thumbnail -->
+		<ImageVer id="_imgTemplate" source="{data.previewUrl}" horizontalCenter="0" verticalCenter="0" 
+			scaleContent="true" width="135" height="135" verticalAlign="middle" horizontalAlign="center" complete="UpdateSizes()"/>
+		<mx:Canvas id="_cnvFrame" verticalCenter="0" horizontalCenter="0" 
+			width="{_cnvBack.width+4}" height="{_cnvBack.height+4}" visible="false"
+			borderColor="0xffffff" borderStyle="solid" borderThickness="2"/>
+		<mx:HBox id="_hbxBar" width="155" height="20" x="0" y="135" styleName="{isPremium ? 'premiumLabelBar' : 'labelBar'}" horizontalGap="0" verticalAlign="middle" alpha="0">
+			<mx:Label text="@Resource(bundle='LocUtil', key='premiumLabel')" visible="{isPremium}" filters="{[_fltTextShadow]}" color="#ffffff" fontSize="11"
+				paddingTop="1" paddingLeft="2"/>
+			<ResizingLabel fontSize="11" autoFontSizeGap="1" id="_lblInfo" filters="{[_fltTextShadow]}" color="#ffffff" width="100%" textAlign="right"
+				paddingTop="1" paddingRight="2"/>
+		</mx:HBox>
+	</mx:Canvas>
+	<mx:LinkButton id="_btnEdit" visible="{AccountMgr.GetInstance().isCollageAuthor}" includeInLayout="{AccountMgr.GetInstance().isCollageAuthor}" alpha="0.1" 
+		rollOver="_btnEdit.alpha=0.7"
+		rollOut="_btnEdit.alpha=0.1"
+		label="Edit" click="DoEdit()"/>
+</CollageItemRendererBase>

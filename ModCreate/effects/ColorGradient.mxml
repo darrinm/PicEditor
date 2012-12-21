@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cnt:EffectCanvas xmlns:cnt="containers.*" xmlns="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="216"
+	xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*" premium="{PicnikBase.GetApp().freemiumModel}" urlid="ColorGradient">
+	
+	<mx:Script>
+		<![CDATA[
+			import mx.resources.ResourceBundle;
+			
+			import util.LocUtil;
+			[Bindable] [ResourceBundle("HeatMapEffect")] private var rb:ResourceBundle;
+			
+			[Bindable]
+			public var aaobGradients:Array = [
+				
+				{label:Resource.getString('ColorGradient', 'sherbet'),
+					data:{colors:[0xCC00A3, 0xFFD632]}
+				},
+				{label:Resource.getString('ColorGradient', 'aquamarine'),
+					data:{colors:[0x00CCCC, 0x0000FF]} 
+				},
+				{label:Resource.getString('ColorGradient', 'pistachio'),
+					data:{colors:[0xFF99FF, 0x8EB91C], rotation:45}
+				},
+				{label:Resource.getString('ColorGradient', 'khaki'),
+					data:{colors:[0x003300, 0x997A00]}
+				},
+				{label:Resource.getString('ColorGradient', 'jewel'),
+					data:{colors:[0x6600FF, 0xCC0028], rotation:0}
+				},
+				{label:Resource.getString('ColorGradient', 'golden'),
+					data:{colors:[0xFFFF99, 0xFF9900]}
+				},	
+				{label:Resource.getString('ColorGradient', 'custom'), 
+					data:{colors:[0xCC00A3, 0xFFD632]}
+					
+				}];
+			
+			protected function GetArray(obArray:Object): Array {
+				if (obArray as Array)
+					return obArray as Array;
+				return aaobGradients[0].data as Array; // Default				
+			}
+			
+			private function UpdateGradient(): void {
+				if (_cbGradient == null)
+					return;
+				if (_cbGradient.selectedItem == null)
+					return;
+				var obItem:Object = _cbGradient.liveSelectedItem;
+				var obData:Object = obItem.data;
+				if ('colors' in obData) {
+					// _cpkrBlack.liveColor = obData.colors[0];
+					_cpkrBlack.selectedColor = obData.colors[0];
+					_cpkrWhite.liveColor = obData.colors[1];
+				}
+				if ('rotation' in obData) {
+					_sldrDegrees.value = obData.rotation;
+				}
+				OnOpChange();
+			}
+		]]>
+	</mx:Script>
+
+	<mx:Number id="_nTemp"></mx:Number>
+	
+	<!--Button and Header Icon-->
+	<EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='ColorGradient')" strAuthor="@Resource(key='_efbtn_1', bundle='ColorGradient')"
+		strImageSource="../graphics/effects/ColorGradient.jpg" premium="{premium}"/>
+	<mx:String id="_strHelpText">{Resource.getString('ColorGradient', '_strHelpText')}</mx:String>
+
+	<!--Color Pickers & Preset Menu-->
+	<mx:VBox x="8" y="73" verticalGap="0" paddingTop="2" paddingLeft="5" paddingRight="8" paddingBottom="2" horizontalGap="5" width="193" horizontalScrollPolicy="off"
+			 cornerRadius="5" backgroundColor="#ffffff" borderColor="#d9d9d9" borderStyle="solid" backgroundAlpha=".4" verticalAlign="middle">
+		
+		<mx:VBox verticalGap="-3" paddingTop="5" paddingBottom="5" paddingLeft="4">
+			<mx:Label text="@Resource(key='style', bundle='HeatMapEffect')" styleName="sliderTitle"/>
+			<ComboBoxPlus dataProvider="{aaobGradients}" id="_cbGradient" height="26" width="170" selectedIndex="{zeroR}" rowCount="6" liveChange="UpdateGradient();"/>
+		</mx:VBox>
+		
+		<cnt:ResizingHTile horizontalGap="8" paddingBottom="-4" width="190" paddingTop="2">
+			<ResizingLabel text="@Resource(key='Color_1', bundle='ColorGradient')" styleName="sliderTitle" paddingLeft="4" paddingRight="0" autoFontSizeGap="1"/>
+			<ResizingLabel text="@Resource(key='Color_2', bundle='ColorGradient')" styleName="sliderTitle" paddingLeft="0" paddingRight="0" autoFontSizeGap="1"/>
+		</cnt:ResizingHTile>
+		
+		<mx:HBox verticalAlign="middle" horizontalGap="5" paddingLeft="5" paddingBottom="10">
+			
+			<HSBColorPicker id="_cpkrBlack" selectedColor="0xcc00cc" liveColorChange="OnBufferedOpChange()" width="72"/>
+			<mx:Box width="14"></mx:Box>
+			<HSBColorPicker id="_cpkrWhite" selectedColor="0xffff32" liveColorChange="OnBufferedOpChange()" width="72"/>
+			
+		</mx:HBox>
+	</mx:VBox>
+
+	
+	<!--Fade and Rotation Sliders-->
+	<mx:VBox x="8" y="188" verticalGap="0">
+	   
+		<LabelHSlidePlus label="@Resource(key='degrees', bundle='ColorGradient')" styleName="sliderTitle" id="_sldrDegrees" minimum="0" maximum="360" 
+			value="{zeroR + 90}" change="OnOpChange()" snapInterval="1" labelValueMultiplier="1"/>
+		
+		<mx:HBox width="190" paddingBottom="-5" paddingTop="3">
+			<mx:Label text="@Resource(key='color', bundle='ColorGradient')" styleName="sliderTitle"/>
+			<mx:Label text="{LocUtil.pct((_sldrColor.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<HSliderPlus width="190" minimum="0" maximum="100" value="{zeroR + 50}" id="_sldrColor" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+		
+		<ApplyCancelEffectButtons addBoxPadding="true" premium="{premium}"/>
+		
+	</mx:VBox>
+	
+	<!--Guts-->
+	<imageOperations:NestedImageOperation id="_op" dynamicAlphaCachePriority="10">
+		<imageOperations:children>
+			<imageOperations:AutoFixImageOperation />
+			<imageOperations:GradientShapeImageOperation color1="{0xff000000 + _cpkrBlack.liveColor + zeroR}" color2="{_cpkrWhite.liveColor  + zeroR}" dynamicParamsCachePriority="5"
+			 	gradRotation="{_sldrDegrees.value * Math.PI/180  + zeroR}" shape="rectangle" gradBlend="hardlight" gradType="linear" 
+			 	alpha0="{1-(_sldrColor.value/100)}" 
+			 	alpha1="{1-(_sldrColor.value/100)}" 
+			 	alpha2="{1-(_sldrColor.value/100)}" 
+			 	alpha3="{1-(_sldrColor.value/100)}"/>
+		</imageOperations:children>					
+	</imageOperations:NestedImageOperation>
+
+</cnt:EffectCanvas>

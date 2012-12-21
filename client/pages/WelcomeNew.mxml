@@ -1,0 +1,623 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WelcomeNewBase xmlns:local="*" xmlns="pages.*" xmlns:mx="http://www.adobe.com/2006/mxml" 
+		xmlns:filters="flash.filters.*" xmlns:RegisterHelper="dialogs.RegisterHelper.*" xmlns:containers="containers.*"
+		xmlns:ctl="controls.*" xmlns:w="pages.WelcomeBits.*" initialize="OnInit(event)"
+		width="100%" height="100%" verticalScrollPolicy="off" horizontalScrollPolicy="off"
+		xmlns:thumbnails="controls.thumbnails.*" xmlns:bridges="bridges.*" xmlns:ct="mx.containers.*" xmlns:yahoomail="bridges.yahoomail.*">
+	<mx:Style source="WelcomeBits/Welcome.css"/>
+	<mx:Script>
+		<![CDATA[
+			import bridges.picnik.PicnikAssetSource;
+			
+			import controls.LabelPlus;
+			import controls.TextPlus;
+			
+			import dialogs.DialogManager;
+			
+			import events.AccountEvent;
+			import events.ActiveDocumentEvent;
+			import events.NavigationEvent;
+			
+			import flash.net.navigateToURL;
+			
+			import mx.collections.ArrayCollection;
+			import mx.collections.XMLListCollection;
+			import mx.containers.HBox;
+			import mx.core.UIComponent;
+			import mx.effects.easing.*;
+			import mx.resources.ResourceBundle;
+			import mx.utils.ObjectProxy;
+			
+			import picnik.util.LocaleInfo;
+			
+			import util.ABTest;
+			import util.FeedLoader;
+			import util.KeyVault;
+			import util.LocUtil;
+			import util.Navigation;
+	
+			[Bindable] public var _ssHover:StyleSheet; 		
+			[Bindable] public var countryCode:String;
+			
+			private function DoPrint(): void {
+				if (_imgd != null && !_imgd.isCollage && !_imgd.isFancyCollage) {
+					NavigateTo(PicnikBase.OUT_BRIDGES_TAB,'_brgPrinterOut');
+				} else {
+					DoValidateOverwrite(function(): void {
+						if (_doc != null)
+							PicnikBase.app.CloseActiveDocument(true);
+						NavigateTo(PicnikBase.OUT_BRIDGES_TAB,'_brgPrinterOut');
+					});
+				}
+			}
+	   						   		
+			override public function OnActivate(strCmd:String=null): void {
+				// update any dynamic items
+				super.OnActivate(strCmd);
+				if (_boxUserGreeting) _boxUserGreeting.OnActivate();
+				
+				updateLastDocEditedThumbnail(doc);
+			}
+			
+			override protected function OnActiveDocumentChange(evt:ActiveDocumentEvent): void
+			{
+				super.OnActiveDocumentChange(evt);
+				updateLastDocEditedThumbnail(doc);
+			}
+
+			private function updateLastDocEditedThumbnail(doc:GenericDocument): void {
+				if (doc != null) {
+					var thumb:UIComponent = doc.GetDocumentThumbnail();
+					if (thumb != null) {
+						thumb.percentWidth=100;
+						thumb.percentHeight=100;
+						_cnvPreviewImg.removeAllChildren();
+						_cnvPreviewGal.removeAllChildren();
+						var cnvDest:Canvas = null;
+						if (doc is GalleryDocument) {
+							_vboxPreviewGal.visible = true;
+							_vboxPreviewGal.includeInLayout = true;
+							_vboxPreviewImg.visible = false;
+							_vboxPreviewImg.includeInLayout = false;
+							cnvDest = _cnvPreviewGal;
+						} else {
+							_vboxPreviewImg.visible = true;
+							_vboxPreviewImg.includeInLayout = true;
+							_vboxPreviewGal.visible = false;
+							_vboxPreviewGal.includeInLayout = false;							
+							cnvDest = _cnvPreviewImg;
+						}
+						cnvDest.addChild(thumb);
+						if ("content" in thumb) {
+							var dob:DisplayObject = thumb['content'];
+							if (dob && dob.width && dob.height) {
+								var nScale:Number = Math.min( cnvDest.width/dob.width, cnvDest.height/dob.height );						
+								thumb.x = (cnvDest.width - dob.width * nScale) / 2;
+								thumb.y = (cnvDest.height - dob.height * nScale) / 2;
+							} 
+						}
+					}
+				}
+			}		
+			
+			override protected function OnUserChange(evt:AccountEvent): void {
+				super.OnUserChange(evt);
+			}
+				
+			private function OnInit(evt:Event): void {
+				_ssHover = new StyleSheet();
+				_ssHover.setStyle( "a:hover", { color: "#2d4006" } );
+				
+				addEventListener(NavigationEvent.NAVIGATE, OnNavigate);
+			}
+			
+			private function OnNavigate(evt:NavigationEvent): void {
+				if (evt.tab == PicnikBase.ADVANCED_COLLAGE_TAB) {
+					// Make sure we close the image before going there
+					DoAdvancedCollage();
+				} else if (evt.tab == PicnikBase.COLLAGE_TAB) {
+					DoCollage();
+				} else { 
+					// Not collage
+					var fLoadSample:Boolean = false;
+					if (evt.sampleImage != null) {
+						// Assume we need a valid image (non-collage)
+						fLoadSample = !_imgd || _imgd.isCollage;
+					}
+					if (fLoadSample)
+						LoadSample(evt.sampleImage, evt);
+					else
+						Navigation.GoToEvent(evt); // Already have a doc - or no sample provided
+				}
+			}
+			
+			// UNDONE: load this dynamically from the server
+			
+			[Bindable] private var _aobpLinks:ArrayCollection = new ArrayCollection([
+				]);
+   		]]>
+	</mx:Script>
+
+	<mx:Boolean id="hasPhotos">{(collection != null) &amp;&amp; (collection.length > 0)}</mx:Boolean>
+	<mx:Boolean id="isGuestMode">{AccountMgr.GetInstance().isGuest}</mx:Boolean>
+	<mx:Boolean id="isRegisteredMode">{!AccountMgr.GetInstance().isGuest &amp;&amp; (!AccountMgr.GetInstance().isPaid)}</mx:Boolean>
+	<mx:Boolean id="isPaidMode">{AccountMgr.GetInstance().isPaid}</mx:Boolean>
+	<mx:Boolean id="isExpiringSoon">{AccountMgr.GetInstance().timeToRenew &amp;&amp; AccountMgr.GetInstance().daysUntilExpiration >= -30}</mx:Boolean>
+	<mx:Boolean id="hideRenewBar">false</mx:Boolean>
+	<mx:Boolean id="showRenewBar">{isExpiringSoon &amp;&amp; !hideRenewBar &amp;&amp; !AccountMgr.GetInstance().autoRenew }</mx:Boolean>
+	<mx:Boolean id="showStartBar">true</mx:Boolean>
+	<mx:Boolean id="collageActive">false</mx:Boolean>
+	<mx:Number id="topHeaderHeight">{showRenewBar?43:0}</mx:Number>
+	<mx:Number id="fullHeaderHeight">{(showStartBar?85:0) + topHeaderHeight}</mx:Number>
+	
+	<filters:DropShadowFilter id="_fiDropShad" blurX="7" blurY="7" distance="2" color="#000000" alpha=".35" quality="3" angle="90"/>
+	<filters:DropShadowFilter id="_fiModuleShine" blurX="0" blurY="0" distance="1" color="#FFFFFF" alpha="1" inner="true" quality="3" angle="90"/>
+	<filters:DropShadowFilter id="_fiModuleShadow" blurX="3" blurY="3" distance="1" color="#000000" alpha=".15" quality="3" angle="90" knockout="true"/>
+	<filters:DropShadowFilter id="_fiModuleShadow2" blurX="4" blurY="4" distance="1" color="#000000" alpha=".3" quality="3" angle="90"/>
+	<filters:DropShadowFilter id="_fiStartShadow" blurX="4" blurY="4" distance="1" color="#000000" alpha=".1" quality="3" angle="90" knockout="true"/>
+	<filters:DropShadowFilter id="_fiWhiteShad" blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1" quality="3" angle="90"/>
+	<filters:DropShadowFilter id="_fiStripeShadow" blurX="4" blurY="4" distance="1" color="#000000" alpha=".2" quality="3" angle="90"/>
+	<filters:DropShadowFilter id="_fiTileShadow" blurX="3" blurY="3" distance="1" color="#000000" alpha=".15" quality="3" angle="90"/>
+	<filters:GlowFilter id="_fiGlow" alpha="0.5" blurX="5" blurY="5" quality="3" color="#ffffff"/>
+	<filters:DropShadowFilter id="_efEmbossed" blurX="0" blurY="0" distance="1" color="#000000" alpha=".4" quality="3" angle="-90"/>
+	<filters:DropShadowFilter id="_fiTextShadow" blurX="2" blurY="2" distance="1" color="#000000" alpha=".60" quality="3" angle="90"/>
+	
+	<mx:Fade id="_efFadeIn" duration="300" alphaFrom="0" alphaTo="1"/>
+	<mx:Fade id="_efFadeOut" duration="200" alphaFrom="1" alphaTo="0"/>
+	
+	<!-- green glow -->
+	<mx:Parallel id="_efGlowOver">
+		<mx:Glow blurXFrom="0" blurYFrom="0" blurXTo="15" blurYTo="15" color="#528013" alphaFrom="0" alphaTo=".4" duration="200" strength="2"/>	
+	</mx:Parallel>
+	<mx:Parallel id="_efGlowOut">
+		<mx:Glow blurXFrom="15" blurYFrom="15" blurXTo="0" blurYTo="0" color="#528013" alphaFrom=".4" alphaTo="0" duration="150" strength="2"/>
+	</mx:Parallel>
+	<!-- white glow -->
+	<mx:Parallel id="_efGlowWhiteOver">
+		<mx:Glow blurXFrom="0" blurYFrom="0" blurXTo="20" blurYTo="20" color="#ffffff" alphaFrom="0" alphaTo="1" duration="200" strength="2"/>	
+	</mx:Parallel>
+	<mx:Parallel id="_efGlowWhiteOut">
+		<mx:Glow blurXFrom="20" blurYFrom="20" blurXTo="0" blurYTo="0" color="#ffffff" alphaFrom="1" alphaTo="0" duration="150" strength="2"/>
+	</mx:Parallel>
+	
+	<!-- promo box effects -->
+	<mx:AnimateProperty id="_efPromoOver" isStyle="true" property="backgroundAlpha" fromValue="0" toValue=".5" duration="200"/>
+	<mx:AnimateProperty id="_efPromoOut" isStyle="true" property="backgroundAlpha" fromValue=".5" toValue="0" duration="200"/>
+
+	<!-- standard non-seasonal bg -->
+	<ctl:ImageEx source="../graphics/bluegrad_short.gif" left="0" top="0" width="100%" height="702" maintainAspectRatio="false" includeInLayout="false"/>
+	<ctl:ImageEx source="../graphics/clouds.jpg" horizontalCenter="0" top="0" width="983" height="177" includeInLayout="false" horizontalAlign="center"/>
+	
+	<!-- holiday styled bg-->
+	<!--<ctl:ImageEx source="../graphics/bluegrad_short_wintry.gif" left="0" top="0" width="100%" height="702" maintainAspectRatio="false" includeInLayout="false"/>
+	<ctl:ImageEx source="../graphics/clouds_wintry.jpg" horizontalCenter="0" top="0" width="983" height="177" includeInLayout="false" horizontalAlign="center"/>-->
+	
+	
+	<!-- darkened bg for halloween
+	<mx:Canvas width="100%" height="100%" backgroundColor="#131d39" backgroundAlpha=".05"/>
+	-->
+	
+	<!-- this canvas generates the scroll bars, allowing the above images to stay pinned to the top of the page -->
+	<mx:Canvas id="mainCanvas" bottom="0" top="0" left="0" right="0" verticalLineScrollSize="38" horizontalScrollPolicy="off">
+		
+		<!-- messaging box (you have X days remaining, upgrade! -->
+		<mx:Canvas width="100%" height="43" styleName="premiumGradient" filters="{[_fiStripeShadow]}" visible="{showRenewBar}" includeInLayout="{showRenewBar}">
+			<ctl:ImageEx source="/graphics/premium_sun.png" left="6" verticalCenter="0"/>
+			<mx:Text filters="{[_efEmbossed]}" styleName="subheadPrem" width="100%"
+				verticalCenter="0" left="45"
+				textAlign="left" color="#ffffff" selectable="false" fontWeight="bold"
+				htmlText="{LocUtil.rbSubst('WelcomeNew', AccountMgr.GetInstance().isPaid ? (AccountMgr.GetInstance().daysUntilExpiration == 0 ? 'expireToday' : (AccountMgr.GetInstance().daysUntilExpiration == 1 ? 'expireTomorrow' : 'expireSoon')) : 'expiredMessage', AccountMgr.GetInstance().daysUntilExpiration)}"/>
+			<mx:HBox right="24" verticalCenter="0" horizontalGap="5" verticalAlign="middle">
+				<ctl:ResizingButton label="@Resource(key='renewNow', bundle='WelcomeNew')"
+					right="26" verticalCenter="0"
+					minWidth="130" height="28"
+					click="DialogManager.ShowUpgrade('/home_welcome/renewbar')"
+					styleName="basketButtonBlue" fontSize="14" autoFontSizeGap="1"/>
+				<ctl:ResizingButton label="@Resource(key='renewLater', bundle='WelcomeNew')"
+					right="26" verticalCenter="0"
+					minWidth="100" height="28"
+					click="hideRenewBar=true"
+					styleName="basketButton" fontSize="14" autoFontSizeGap="1"/>
+			</mx:HBox>
+		</mx:Canvas>
+		
+		<!-- START bar -->
+		<mx:Canvas left="0" right="0" height="80" x="0" top="{topHeaderHeight}" horizontalScrollPolicy="off" verticalScrollPolicy="off"
+				includeInLayout="{showStartBar}" visible="{showStartBar}">
+			<mx:Box width="100%" height="100%" filters="{[_fiStartShadow]}" backgroundColor="#FFFFFF" x="0" y="0"/>
+			
+			<containers:ResizingHBox width="100%" height="80" verticalAlign="middle" styleName="startGradient" horizontalGap="0" verticalScrollPolicy="off">
+				<!-- upload button -->
+				<containers:ResizingCanvas width="100%" height="100%" horizontalScrollPolicy="off" verticalScrollPolicy="off">
+					<mx:HBox verticalAlign="middle" width="100%" height="100%" horizontalAlign="center" paddingLeft="20" paddingRight="20"/>
+					<containers:ResizingHBox verticalAlign="middle" width="100%" height="100%" horizontalAlign="center"
+							paddingLeft="20" paddingRight="20"
+							horizontalScrollPolicy="off" verticalScrollPolicy="off"
+							rollOver="((event.target as UIComponent).parent.getChildAt(0) as HBox).styleName='startGradientOver'" 
+							rollOut="((event.target as UIComponent).parent.getChildAt(0) as HBox).styleName=''"
+							click="DoUpload(true)"
+							buttonMode="true" mouseChildren="false" backgroundColor="#ffffff" backgroundAlpha="0">
+						<containers:size_states>
+							<mx:State name="1">
+							    <mx:SetStyle name="paddingLeft" value="10"/>
+							    <mx:SetStyle name="paddingRight" value="10"/>
+							    <mx:SetStyle target="{subHead0}" name="fontSize" value="9"/>
+							</mx:State>
+							<mx:State name="2">
+							    <mx:SetStyle name="paddingLeft" value="5"/>
+							    <mx:SetStyle name="paddingRight" value="5"/>
+							</mx:State>
+						</containers:size_states>
+						<ctl:ImagePlus source="../graphics/welcome/start/upload.png" filters="{[_fiTileShadow]}"/>
+						<mx:VBox width="100%" verticalGap="-7">
+							<ctl:ResizingLabel text="@Resource(key='upload', bundle='WelcomeNew')" styleName="startHead" filters="{[_fiWhiteShad]}"/>
+							<mx:Text id="subHead0" htmlText="@Resource(key='uploadSubhead', bundle='WelcomeNew')" width="100%" styleName="startSubhead" filters="{[_fiWhiteShad]}"
+								minWidth="90"/>
+						</mx:VBox>
+					</containers:ResizingHBox>
+				</containers:ResizingCanvas>
+				
+				<!-- collage button -->
+				<ctl:ImageEx source="../graphics/welcome/start/vr.png" height="80" scaleContent="false" verticalAlign="bottom"/>
+				<containers:ResizingCanvas width="100%" height="100%" horizontalScrollPolicy="off" verticalScrollPolicy="off" id="_cnvCollage">				
+					<mx:HBox verticalAlign="middle" width="100%" height="100%" horizontalAlign="center" paddingLeft="20" paddingRight="20"/>
+					<containers:ResizingHBox verticalAlign="middle" width="100%" height="100%" horizontalAlign="center"
+							paddingLeft="20" paddingRight="20"
+							horizontalScrollPolicy="off" verticalScrollPolicy="off"
+							rollOver="((event.target as UIComponent).parent.getChildAt(0) as HBox).styleName='startGradientOver'; collageActive = true" 
+							rollOut="((event.target as UIComponent).parent.getChildAt(0) as HBox).styleName=''; collageActive = false"
+							click="DoCollage()"
+							buttonMode="true" mouseChildren="false" backgroundColor="#ffffff" backgroundAlpha="0">
+						<containers:size_states>
+							<mx:State name="1">
+							    <mx:SetStyle name="paddingLeft" value="10"/>
+							    <mx:SetStyle name="paddingRight" value="10"/>
+							    <mx:SetStyle target="{subHead3}" name="fontSize" value="9"/>
+							</mx:State>
+							<mx:State name="2">
+							    <mx:SetStyle name="paddingLeft" value="5"/>
+							    <mx:SetStyle name="paddingRight" value="5"/>
+							</mx:State>
+						</containers:size_states>
+						<ctl:ImagePlus source="../graphics/welcome/start/collage_duo.png" visible="{!collageActive}" includeInLayout="{!collageActive}"
+							width="88" height="59"/>
+						<ctl:ImagePlus source="../graphics/welcome/start/collage.jpg" visible="{collageActive}" includeInLayout="{collageActive}" filters="{[_fiTileShadow]}"
+							horizontalAlign="center" width="88" height="54"/>
+						<mx:VBox width="100%" verticalGap="-7">
+							<ctl:ResizingLabel text="@Resource(key='_cvsCollage', bundle='Picnik')" styleName="startHead" filters="{[_fiWhiteShad]}"/>
+							<mx:Text id="subHead3" htmlText="@Resource(key='collageSubhead', bundle='WelcomeNew')" width="100%" styleName="startSubhead" filters="{[_fiWhiteShad]}"
+								minWidth="90"/>
+						</mx:VBox>
+					</containers:ResizingHBox>
+				</containers:ResizingCanvas>
+				
+				<!-- print button -->
+				<ctl:ImageEx source="../graphics/welcome/start/vr.png" height="80" scaleContent="false" verticalAlign="bottom"/>
+				<containers:ResizingCanvas width="100%" height="100%" horizontalScrollPolicy="off" verticalScrollPolicy="off" id="_cnvPrint" clipContent="false">
+					<mx:HBox verticalAlign="middle" width="100%" height="100%" horizontalAlign="center" paddingLeft="20" paddingRight="20"/>
+					<containers:ResizingHBox verticalAlign="middle" width="100%" height="100%" horizontalAlign="center"
+							paddingLeft="20" paddingRight="20"
+							horizontalScrollPolicy="off" verticalScrollPolicy="off"
+							rollOver="((event.target as UIComponent).parent.getChildAt(0) as HBox).styleName='startGradientOver'" 
+							rollOut="((event.target as UIComponent).parent.getChildAt(0) as HBox).styleName=''"
+							click="DoPrint()"
+							buttonMode="true" mouseChildren="false" backgroundColor="#ffffff" backgroundAlpha="0">
+						<containers:size_states>
+							<mx:State name="1">
+							    <mx:SetStyle name="paddingLeft" value="10"/>
+							    <mx:SetStyle name="paddingRight" value="10"/>
+							    <mx:SetStyle target="{subHeadPrint}" name="fontSize" value="9"/>
+							</mx:State>
+							<mx:State name="2">
+							    <mx:SetStyle name="paddingLeft" value="5"/>
+							    <mx:SetStyle name="paddingRight" value="5"/>
+							</mx:State>
+						</containers:size_states>
+						<ctl:ImagePlus source="../graphics/welcome/start/print.png" filters="{[_fiTileShadow]}"/>
+						<mx:VBox width="100%" verticalGap="-7">
+							<ctl:ResizingLabel text="@Resource(key='print', bundle='WelcomeNew')" styleName="startHead" filters="{[_fiWhiteShad]}"/>
+							<mx:Text id="subHeadPrint" htmlText="@Resource(key='printSubhead', bundle='WelcomeNew')" width="100%" styleName="startSubhead" filters="{[_fiWhiteShad]}"
+								minWidth="90"/>
+						</mx:VBox>
+					</containers:ResizingHBox>
+					<!-- december '09 qoop promo splat
+					<ctl:ImageEx source="../graphics/qoop/qoop_sale_splat.png" x="-10" y="3" mouseEnabled="false" mouseChildren="false"
+						visible="{LocaleInfo.IsEnglish()}" includeInLayout="{LocaleInfo.IsEnglish()}"/>
+					-->
+				</containers:ResizingCanvas>
+			</containers:ResizingHBox>
+		</mx:Canvas>
+		
+		<!-- master vbox, aligned center and 90px from top, bumped down to 133px if message is showing -->
+		<mx:VBox top="{5 + fullHeaderHeight}" width="100%" height="100%" horizontalAlign="center" paddingLeft="10" paddingRight="26">
+			<!-- master hbox -->
+			<mx:HBox horizontalGap="30" width="100%" height="100%" horizontalAlign="center" paddingTop="15">
+				<!-- left column -->
+				<mx:VBox verticalScrollPolicy="off" horizontalScrollPolicy="off" width="320" horizontalAlign="center" verticalGap="0" visible="{!PicnikBase.app.yahoomail}" includeInLayout="{!PicnikBase.app.yahoomail}">
+				
+					<!-- user greeting -->
+					<w:UserGreeting id="_boxUserGreeting" />
+					
+					<!-- currently open photo -->
+					<mx:HBox width="100%" verticalAlign="middle" horizontalAlign="center" horizontalGap="15" paddingTop="5" paddingBottom="15"
+						visible="{_imgd!=null || _gald != null}" includeInLayout="{_imgd!=null || _gald != null}">
+						<mx:VBox verticalGap="0" minWidth="170">
+							<mx:Text text="@Resource(key='lastPhotoEdited',bundle='WelcomeNew')" width="170" fontSize="14" leading="-2"
+								paddingBottom="6" paddingTop="-3" selectable="false"
+								visible="{_strLastEditedMsg=='photo'}" includeInLayout="{_strLastEditedMsg=='photo'}"/>
+							<mx:Text text="@Resource(key='lastCollageEdited',bundle='WelcomeNew')" width="170" fontSize="14" leading="-2"
+								paddingBottom="6" paddingTop="-3" selectable="false"
+								visible="{_strLastEditedMsg=='collage'}" includeInLayout="{_strLastEditedMsg=='collage'}"/>
+							<mx:Text text="@Resource(key='lastGalleryEdited',bundle='WelcomeNew')" width="170" fontSize="14" leading="-2"
+								paddingBottom="6" paddingTop="-3" selectable="false"
+								visible="{_strLastEditedMsg=='show'}" includeInLayout="{_strLastEditedMsg=='show'}"/>
+							<mx:VBox width="100%" verticalGap="5">
+								<ctl:ResizingButton autoFontSizeGap="1" label="@Resource(key='continueEditing', bundle='WelcomeNew')" fontSize="15" height="28" styleName="BigButton" maxWidth="195" 
+										click="PicnikBase.app.ResumeEditing()"/>
+								<ctl:ResizingButton id="_btnClose" fontSize="14" height="28"
+										click="PicnikBase.app.CloseActiveDocument()"/>
+							</mx:VBox>
+						</mx:VBox>
+						<mx:VBox width="110" height="110" horizontalAlign="center" verticalAlign="middle" rotation="2" id="_vboxPreviewImg"
+								backgroundColor="#FFFFFF" backgroundAlpha="1.0" cornerRadius="8" borderStyle="solid" borderColor="#f7f7f7"
+								filters="{[_fiTileShadow]}" click="PicnikBase.app.ResumeEditing()" visible="false" includeInLayout="false"
+								buttonMode="true"
+								rollOverEffect="{_efGlowOver}" rollOutEffect="{_efGlowOut}">
+							<ct:Canvas id="_cnvPreviewImg" height="100%" width="100%" maxHeight="95" maxWidth="95" horizontalCenter="0"
+								mouseChildren="false" mouseEnabled="false"/>
+						</mx:VBox>
+						<mx:VBox width="110" height="110" horizontalAlign="center" verticalAlign="middle" rotation="2" id="_vboxPreviewGal"
+								filters="{[_fiTileShadow]}" click="PicnikBase.app.ResumeEditing()" visible="false" includeInLayout="false"
+								buttonMode="true"
+								rollOverEffect="{_efGlowOver}" rollOutEffect="{_efGlowOut}">
+							<ct:Canvas id="_cnvPreviewGal" height="100%" width="100%" horizontalCenter="0"
+								rollOverEffect="{_efGlowOver}" rollOutEffect="{_efGlowOut}"
+								mouseChildren="false" mouseEnabled="false"/>
+						</mx:VBox>
+					</mx:HBox>
+					
+					<!-- upload single photo button -->
+					<ctl:ResizingButton label="@Resource(key='_btnUpload',bundle='MyComputerInBridge')" icon="@Embed('/assets/bitmaps/icon_uploadArrow.png')" width="210" height="34"
+						styleName="BigButton" fontSize="18" horizontalGap="4" click="DoUpload(true)" autoFontSizeGap="1"
+						visible="{AccountMgr.GetInstance().isGuest}" includeInLayout="{AccountMgr.GetInstance().isGuest}"/>
+					<!-- upload photos button -->
+					<ctl:ResizingButton label="@Resource(key='_btnUploadMore',bundle='MyComputerInBridge')" icon="@Embed('/assets/bitmaps/icon_uploadArrow.png')" width="210" height="34"
+						styleName="BigButton" fontSize="18" horizontalGap="4" click="DoUpload(true)" autoFontSizeGap="1"
+						visible="{!AccountMgr.GetInstance().isGuest || AccountMgr.GetInstance().isPremium}" 
+						includeInLayout="{!AccountMgr.GetInstance().isGuest || AccountMgr.GetInstance().isPremium}"/>
+					
+					<!-- recent uploads -->
+					<!-- UNDONE: this should display different strings according to # of photos picniked -->
+					<mx:VBox width="100%" id="_boxRecentUploads" visible="{hasPhotos}" includeInLayout="{hasPhotos}" paddingTop="10" paddingBottom="40" verticalGap="0" horizontalAlign="center">
+						<!-- free user block, with upsell -->
+						<mx:VBox width="100%" verticalGap="-6" paddingTop="5" filters="{[_fiWhiteShad]}"
+								includeInLayout="{!AccountMgr.GetInstance().isGuest &amp;&amp; !AccountMgr.GetInstance().isPaid}"
+								visible="{!AccountMgr.GetInstance().isGuest &amp;&amp; !AccountMgr.GetInstance().isPaid}">
+							<!--<ctl:ResizingLabel htmlText="@Resource(key='20+photos', bundle='WelcomeNew')" width="100%" textAlign="center" styleName="upsell100" autoFontSizeGap="1"/>-->
+							<ctl:TextPlus htmlText="@Resource(key='upsell100', bundle='WelcomeNew')" width="100%" textAlign="center" styleName="subhead"
+								color="#618430" styleSheet="{_ssHover}" selectable="true" buttonMode="true" useHandCursor="true"
+								 link="OnUpsell100LearnMore(event)"/>
+						</mx:VBox>
+						<!-- premium user block -->
+						<ctl:TextPlus htmlText="@Resource(key='recentUploads', bundle='WelcomeNew')" width="100%" textAlign="center"
+							id="txtRecentUploads"
+							styleName="greenHeader" filters="{[_fiWhiteShad]}" selectable="false" paddingTop="10"
+							includeInLayout="{AccountMgr.GetInstance().isPaid}"
+							visible="{AccountMgr.GetInstance().isPaid}"/>
+						<!-- 5 or 6 most recent uploads -->
+						<mx:Box paddingLeft="18" clipContent="false">
+							<bridges:InBridgeTileList width="300" height="{_tlst.dataProvider.length > 3 ? 180: 90}" id="_tlst" borderThickness="0"
+								includeInLayout="{!AccountMgr.GetInstance().isGuest}" singleClickEdit="true"
+								visible="{!AccountMgr.GetInstance().isGuest}" alwaysWidthJustified="true"
+								rowHeight="90" tileSizeInWidth="80" itemRenderer="pages.WelcomeBits.WelcomeItem" verticalScrollPolicy="off"/>
+						</mx:Box>
+						<!-- manage photos link -->
+						<ctl:TextPlus htmlText="@Resource(key='manageUploads', bundle='WelcomeNew')" 
+							color="#618430" fontSize="13" buttonMode="true" fontWeight="bold" 
+							useHandCursor="true" mouseChildren="true" 
+							filters="{[_fiWhiteShad]}" link="OnManageUploads(event)"
+							rollOver="{(event.target as TextPlus).setStyle('color','#2d4006')}" 
+							rollOut="{(event.target as TextPlus).setStyle('color','#618430')}"/>
+					</mx:VBox>
+
+					<!-- vote picnik! block -->
+					<!--<mx:VBox width="100%" verticalGap="2" paddingTop="15" horizontalAlign="center">
+						<ctl:TextPlus htmlText="@Resource(key='votePicnik', bundle='WelcomeNew')" width="100%" textAlign="center" styleName="greenHeader" filters="{[_fiWhiteShad]}"/>
+						<mx:HBox paddingLeft="6" horizontalGap="4">
+							<ctl:ImagePlus source="../graphics/welcome/awards/cnet_webware.png" filters="{[_fiDropShad]}" buttonMode="true"
+								rollOverEffect="{_efGlowOver}" rollOutEffect="{_efGlowOut}"
+								click="PicnikBase.app.NavigateToURL(new URLRequest('http://www.cnet.com/html/ww/100/2009/poll/photo_video.html?tag=mncol'))"/>
+							<ctl:ImagePlus source="../graphics/welcome/awards/seattle_20.png" filters="{[_fiDropShad]}" buttonMode="true"
+								rollOverEffect="{_efGlowOver}" rollOutEffect="{_efGlowOut}"
+								click="PicnikBase.app.NavigateToURL(new URLRequest('http://www.seattle20.com/awards/vote.aspx'))"/>
+						</mx:HBox>
+					</mx:VBox>-->
+					
+					<!-- demo photos block -->
+					<ctl:DemoPhotos paddingTop="15" paddingBottom="40" width="100%" uicOwner="{this}"
+						loadImages="{!_fFirstActivate &amp;&amp; (AccountMgr.GetInstance().isGuest || _tlst.dataProvider.length == 0)}" 
+						visible="{!_fFirstActivate &amp;&amp; (AccountMgr.GetInstance().isGuest || _tlst.dataProvider.length == 0)}" 
+						includeInLayout="{!_fFirstActivate &amp;&amp; (AccountMgr.GetInstance().isGuest || _tlst.dataProvider.length == 0)}"/>
+
+					<!-- chrome web app promo -->
+					<!-- only show if user is running Chrome -->
+					<mx:Canvas visible="{Util.IsChrome()}" includeInLayout="{Util.IsChrome()}"
+							top="0" horizontalCenter="0" width="270" buttonMode="true" mouseChildren="false"
+							filters="{[_fiModuleShadow2]}" horizontalScrollPolicy="off" verticalScrollPolicy="off" cornerRadius="8" clipContent="true"
+							click="PicnikBase.app.NavigateToURL(new URLRequest('https://chrome.google.com/webstore/detail/inmnggcpelemfookhlhkdfbechcdadfp'),'chromewebstore')" 
+							rollOverEffect="{_efGlowOver}" rollOutEffect="{_efGlowOut}">
+						<thumbnails:Thumbnail source="/graphics/chrome_icon.png" width="270" height="48"/>
+						<ctl:TextPlus htmlText="@Resource(key='InstallChromeWebApp', bundle='WelcomeNew')" styleName="greenHeader" paddingLeft="60" verticalCenter="0" 
+								filters="{[_fiWhiteShad]}" selectable="false"/>
+					</mx:Canvas>
+					
+					<mx:HBox visible="{Util.IsChrome()}" includeInLayout="{Util.IsChrome()}">
+						<mx:Spacer width="270" height="16"/>
+					</mx:HBox>
+					
+					<!-- Fan Us/Follow Us Widget -->
+					<mx:Canvas top="0" horizontalCenter="0" width="270" buttonMode="true" mouseChildren="false"
+							filters="{[_fiModuleShadow2]}" horizontalScrollPolicy="off" verticalScrollPolicy="off" cornerRadius="8" clipContent="true"
+							click="PicnikBase.app.NavigateToURL(new URLRequest('http://twitter.com/picnik'),'twitter')" 
+							rollOverEffect="{_efGlowOver}" rollOutEffect="{_efGlowOut}">
+						<thumbnails:Thumbnail source="/graphics/twitter_icon.png" width="270" height="48"/>
+						<ctl:TextPlus htmlText="@Resource(key='FollowUs', bundle='WelcomeNew')" styleName="greenHeader" paddingLeft="60" verticalCenter="0" 
+								filters="{[_fiWhiteShad]}" selectable="false"/>
+					</mx:Canvas>
+						
+					<mx:HBox>
+						<mx:Spacer width="270" height="16"/>
+					</mx:HBox>
+								
+					<mx:Canvas top="0" horizontalCenter="0" width="270" buttonMode="true" mouseChildren="false"
+							filters="{[_fiModuleShadow2]}" horizontalScrollPolicy="off" verticalScrollPolicy="off" cornerRadius="8" clipContent="true"
+							click="PicnikBase.app.NavigateToURL(new URLRequest('http://www.facebook.com/pages/Picnik/5870137990?ref=nf'),'fb')"
+							rollOverEffect="{_efGlowOver}" rollOutEffect="{_efGlowOut}">
+						<thumbnails:Thumbnail source="/graphics/fb_icon.png" width="270" height="48"/>
+						<ctl:TextPlus htmlText="@Resource(key='FanUs', bundle='WelcomeNew')" styleName="greenHeader" paddingLeft="60" verticalCenter="0" 
+								filters="{[_fiWhiteShad]}" selectable="false"/>
+					</mx:Canvas>
+
+					<!-- third party bubbles box -->
+					<mx:VBox width="100%" horizontalAlign="center" verticalGap="2" paddingTop="40">
+						<ctl:TextPlus htmlText="@Resource(key='openPhotosFrom', bundle='WelcomeNew')" width="100%" textAlign="center" styleName="greenHeader" filters="{[_fiWhiteShad]}" selectable="false"/>
+						<!-- bubbles! -->
+						<ctl:ThirdPartyBubbleBox/>
+					</mx:VBox>
+					<mx:Spacer height="50"/>
+
+					<!-- rotating module 
+					<containers:RotatingViewStack id="_promoBox" width="270" delay="7000" height="95" creationPolicy="none"
+							rollOverEffect="{_efPromoOver}" rollOutEffect="{_efPromoOut}" rotating="{active}"
+							backgroundColor="#e1f2b6" cornerRadius="8" borderStyle="solid" borderThickness="0" backgroundAlpha="0">-->
+						<!-- invite a friend 
+						<mx:HBox top="0" horizontalCenter="0" width="100%" verticalAlign="middle" buttonMode="true" mouseChildren="false"
+						    	showEffect="_efFadeIn" hideEffect="_efFadeOut">
+							<ctl:ImageEx source="/graphics/watermelon.png"/>
+							<ctl:TextPlus htmlText="@Resource(key='inviteFriend', bundle='WelcomeNew')" width="100%" styleName="rotatingMods" 
+								filters="{[_fiWhiteShad]}" selectable="false"/>
+						</mx:HBox>-->
+						
+						<!-- gift picnik, removed for follow/fan widget.
+						<mx:HBox top="0" horizontalCenter="0" width="100%" verticalAlign="middle" buttonMode="true" mouseChildren="false"
+								showEffect="_efFadeIn" hideEffect="_efFadeOut" paddingLeft="10" paddingRight="10"
+								click="{PicnikBase.GetApp().OnGivePicnikClick()}">
+							<ctl:ImageEx source="/graphics/picnik_gift.png" filters="{[_fiWhiteShad]}" width="70" height="83"/>
+							<ctl:TextPlus htmlText="@Resource(key='giftPicnik', bundle='WelcomeNew')" width="100%" styleName="rotatingMods" 
+								filters="{[_fiWhiteShad]}" selectable="false"/>
+						</mx:HBox>-->
+						
+						<!-- print with picnik
+						<mx:HBox top="0" horizontalCenter="0" width="100%" verticalAlign="middle" buttonMode="true" mouseChildren="false"
+								showEffect="_efFadeIn" hideEffect="_efFadeOut">
+							<ctl:ImageEx source="/graphics/watermelon.png"/>
+							<ctl:TextPlus htmlText="@Resource(key='qoopPrint', bundle='WelcomeNew')" width="100%" styleName="rotatingMods"
+								filters="{[_fiWhiteShad]}" selectable="false"/>
+						</mx:HBox>-->
+					<!--</containers:RotatingViewStack>-->
+					
+				</mx:VBox>
+				
+				<!-- right column -->
+				<mx:VBox maxWidth="615" minWidth="370" width="100%" verticalGap="15">
+					
+					<!-- 1b celebration module, shows in place of premium upsell module and featured features -->
+					<!-- Remove 1b celebration model to reduce code size, image references
+					<mx:Canvas width="100%" maxWidth="615" height="270" clipContent="false"
+							visible="{PicnikConfig.freeForAll &amp;&amp; !AccountMgr.GetInstance().isPaid}"
+							includeInLayout="{PicnikConfig.freeForAll &amp;&amp; !AccountMgr.GetInstance().isPaid}">
+						<mx:Box width="100%" height="100%" filters="{[_fiModuleShadow]}" backgroundColor="#FFFFFF" borderStyle="solid" cornerRadius="8" borderThickness="0" x="0" y="0"/>
+						<mx:VBox width="100%" height="100%" styleName="moduleGradient" cornerRadius="8" filters="{[_fiModuleShine]}" verticalGap="0"
+								x="0" y="0"/>
+
+						<ctl:ImageEx source="../graphics/welcome/1billion/1bil_welcome-guest.swf" width="100%" maxWidth="615" height="270" x="0" y="0"
+							scaleContent="true" maintainAspectRatio="false" visible="{AccountMgr.GetInstance().isGuest}"/>
+
+						<ctl:ImageEx source="../graphics/welcome/1billion/1bil_welcome-free.swf" width="100%" maxWidth="615" height="270" x="0" y="0"
+							scaleContent="true" maintainAspectRatio="false" visible="{!AccountMgr.GetInstance().isGuest}"/>
+						<ctl:ImageEx source="../graphics/welcome/1billion/balloon_yellow.png" x="-41" bottom="0"/>
+					</mx:Canvas>
+					-->
+					
+					<!-- yahoo module -->
+					<!-- CONSIDER: inject this condintionally? -->
+					<containers:ActivatableModuleLoader activatableId="_brgYahooMailWelcome" url="{PicnikBase.app.GetLocModuleName('ModBridges')}" 
+														id="_brgYahooMail" name="_brgYahooMail"
+														width="100%" height="260" 
+														creationComplete="if (PicnikBase.app.yahoomail) _brgYahooMail.OnActivate()"
+														visible="{PicnikBase.app.yahoomail}" includeInLayout="{PicnikBase.app.yahoomail}"
+														horizontalScrollPolicy="off" verticalScrollPolicy="off"/>
+<!--					
+					<yahoomail:YahooMailWelcome id="_brgYahooMail" width="100%" height="260" 
+							creationComplete="if (PicnikBase.app.yahoomail) _brgYahooMail.OnActivate()"
+							visible="{PicnikBase.app.yahoomail}" includeInLayout="{PicnikBase.app.yahoomail}"/>
+	-->			
+					<!-- premium module -->
+				
+					<!-- Send a Greeting promo -->
+					<!--<w:SendGreetingPromo width="100%" visible="{!PicnikBase.app.yahoomail}" includeInLayout="{!PicnikBase.app.yahoomail}"/>-->
+				</mx:VBox>
+			</mx:HBox>
+			<!-- footer -->
+			<mx:HBox horizontalGap="13" width="100%" horizontalAlign="center" verticalAlign="bottom" paddingTop="5">
+				<!-- dandelions, 340 wide if 2col, 170 if 1col -->
+				<mx:Canvas width="{PicnikBase.app.yahoomail ? 170 : 340}">
+					<ctl:ImageEx bundled="true" source="/graphics/dandelions/dandelion3.png" bottom="0" right="33" width="73" height="108"/>
+					<ctl:ImageEx bundled="true" source="/graphics/dandelions/dandelion1.png" bottom="0" right="94" width="53" height="84"/>
+					<ctl:ImageEx bundled="true" source="/graphics/dandelions/dandelion4.png" bottom="0" right="0" width="66" height="77"/>
+					<ctl:ImageEx bundled="true" source="/graphics/dandelions/dandelion2.png" bottom="0" right="49" width="57" height="59"/>
+				</mx:Canvas>
+				<mx:VBox verticalScrollPolicy="off" horizontalScrollPolicy="off" maxWidth="615" minWidth="370" width="100%" verticalGap="0" paddingBottom="10">
+					<!-- links -->
+					<mx:HBox horizontalGap="0" filters="{[_fiWhiteShad]}" clipContent="false">
+						<mx:Repeater id="rpLinks" dataProvider="{_aobpLinks}">
+							<ctl:LabelPlus text="·" fontSize="13" color="#999999" visible="{rpLinks.currentIndex}" includeInLayout="{rpLinks.currentIndex}"/>
+							<ctl:LabelPlus text="{Resource.getString('WelcomeNew',rpLinks.currentItem.label)}" color="#618430" fontSize="13"
+								buttonMode="true" useHandCursor="true" mouseChildren="false" data="{rpLinks.currentItem.url}"
+								rollOver="{(event.target as LabelPlus).setStyle('color','#2d4006')}" rollOut="{(event.target as LabelPlus).setStyle('color','#618430')}"
+								click="PicnikBase.app.ShowDialog(event.target.data)"/>
+						</mx:Repeater>
+					</mx:HBox>
+					<!-- languages -->
+					<w:Languages width="100%" paddingBottom="5" clipContent="false"/>
+					<mx:Label htmlText="©2011 Google" fontSize="11" color="#000000"/>
+				</mx:VBox>
+			</mx:HBox>
+		</mx:VBox>		
+	</mx:Canvas>
+	
+	<!-- drop down fancy collage start menu -->
+	<mx:Canvas id="_cnvFancyCollage" width="{_cnvCollage.width+1}" height="{_cnvCollage.height}" horizontalScrollPolicy="off" verticalScrollPolicy="off"
+			x="{_cnvCollage.x-1}" y="{_cnvCollage.y+_cnvCollage.height-1+topHeaderHeight}" filters="{[_fiStripeShadow]}" backgroundColor="#ffffff"
+			visible="{collageActive}" rollOver="{collageActive = true}" rollOut="{collageActive = false}">
+		<mx:HBox verticalAlign="middle" width="100%" height="100%" horizontalAlign="center" paddingLeft="20" paddingRight="20"/>
+		<containers:ResizingHBox verticalAlign="middle" width="100%" height="100%" horizontalAlign="center"
+				paddingLeft="20" paddingRight="20"
+				horizontalScrollPolicy="off" verticalScrollPolicy="off"
+				rollOver="((event.target as UIComponent).parent.getChildAt(0) as HBox).styleName='startGradient'" 
+				rollOut="((event.target as UIComponent).parent.getChildAt(0) as HBox).styleName=''"
+				click="DoAdvancedCollage()"
+				buttonMode="true" mouseChildren="false" backgroundColor="#ffffff" backgroundAlpha="0">
+			<containers:size_states>
+				<mx:State name="1">
+				    <mx:SetStyle name="paddingLeft" value="10"/>
+					<mx:SetStyle name="paddingRight" value="10"/>
+					<mx:SetStyle target="{subHead4}" name="fontSize" value="9"/>
+				</mx:State>
+				<mx:State name="2">
+				    <mx:SetStyle name="paddingLeft" value="5"/>
+					<mx:SetStyle name="paddingRight" value="5"/>
+				</mx:State>
+			</containers:size_states>
+			<ctl:ImagePlus source="../graphics/welcome/start/fancy_collage.png" filters="{[_fiTileShadow]}" width="88" height="63" horizontalAlign="center"/>
+			<mx:VBox width="100%" verticalGap="-7">
+				<ctl:ResizingLabel id="startHead" text="@Resource(key='_cvsAdvancedCollage', bundle='Picnik')" styleName="startHead" filters="{[_fiWhiteShad]}"
+					autoFontSizeGap="1" width="100%" minWidth="90"/>
+				<mx:Text id="subHead4" htmlText="@Resource(key='fancyCollageSubhead', bundle='WelcomeNew')" width="100%" styleName="startSubhead" filters="{[_fiWhiteShad]}"
+					minWidth="90"/>
+			</mx:VBox>
+		</containers:ResizingHBox>
+	</mx:Canvas>
+	
+	<!--<ctl:Snow width="100%" height="450" includeInLayout="false" playing="{active &amp;&amp; !PicnikBase.app.modalPopup}"/>-->
+</WelcomeNewBase>

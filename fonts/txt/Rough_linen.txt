@@ -1,0 +1,12 @@
+fileName: Rough_linen.ttf
+name: Rough linen
+subfamilyDisplayName: Normal
+fullName: Rough linen
+displayName: Rough linen
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 0
+pkName: pkRough0linen
+authorName: Gyom.Typo
+authorUrl: http://gyom.nebullus.com/

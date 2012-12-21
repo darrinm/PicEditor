@@ -1,0 +1,12 @@
+fileName: comic.ttf
+name: Comic Sans MS
+subfamilyDisplayName: Normal
+fullName: Comic Sans MS
+displayName: Comic Sans MS
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 7
+pkName: pkcomic
+authorName: Vincent Connare
+authorUrl: http://www.connare.com/typography.htm

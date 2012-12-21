@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory area="FathersDay" id="root">
+	<ShapeCategory flickrPremium="false" id="fathersDaySection" numShapes="0" picnikPremium="false" showHeader="false">
+		<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/shape_speechballoons.png" flickrPremium="false" id="SpeechBubbles" numShapes="20" picnikPremium="false" previewUrls="60|48|../clipart/bundles/FathersDayArea_groupPreviews_SpeechBubbles.png?ver=3456ee48" thumbUrl="66|54|0|../clipart/bundles/FathersDayArea_groupThumbs.png?ver=952b753d" title="Speech Bubbles"/>
+		<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/shape_Beards.png" flickrPremium="false" id="Beards" numShapes="16" picnikPremium="false" previewUrls="60|48|../clipart/bundles/FathersDayArea_groupPreviews_Beards.png?ver=4bde87f4" thumbUrl="66|54|1|../clipart/bundles/FathersDayArea_groupThumbs.png?ver=952b753d" title="Beards"/>
+		<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/shape_fathers_day.png" flickrPremium="true" id="FathersDay" numShapes="12" picnikPremium="true" previewUrls="60|48|../clipart/bundles/FathersDayArea_groupPreviews_FathersDay.png?ver=dc1e8070" thumbUrl="66|54|2|../clipart/bundles/FathersDayArea_groupThumbs.png?ver=952b753d" title="Father&apos;s Day"/>
+	</ShapeCategory>
+</ShapeCategory>

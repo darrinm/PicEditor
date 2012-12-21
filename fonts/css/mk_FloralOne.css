@@ -1,0 +1,23 @@
+/*
+ * Copyright 2011 Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an Apache 2.0 License.
+ * See the COPYING file for details.
+ */
+
+
+@font-face {
+    src:local("FloralOne");
+    font-family: "pkmk0FloralOne";
+    unicodeRange: U+0000-U+00FF;
+    flashType: true;
+    fontWeight: normal;
+    fontStyle: normal;
+}
+
+.pkmk0FloralOne
+{
+    font-family: "pkmk0FloralOne";
+    fontWeight: normal;
+    fontStyle: normal;
+}

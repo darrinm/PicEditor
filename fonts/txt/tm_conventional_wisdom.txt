@@ -1,0 +1,12 @@
+fileName: tm_conventional_wisdom.ttf
+name: Conventional Wisdom
+subfamilyDisplayName: Regular
+fullName: Conventional Wisdom
+displayName: Conventional Wisdom
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 4
+pkName: pktm0conventional0wisdom
+authorName: Tom Murphy
+authorUrl: http://fonts.tom7.com/

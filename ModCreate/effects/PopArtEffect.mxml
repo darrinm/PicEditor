@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cnt:EffectCanvas xmlns:cnt="containers.*" xmlns="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="300"
+	xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*"
+	premium="{PicnikBase.GetApp().freemiumModel}" urlid="PopArt">
+
+	<mx:Script>
+	<![CDATA[
+		import containers.NestedControlCanvasBase;
+		
+		import mx.resources.ResourceBundle;
+		
+		import util.LocUtil;
+   		[Bindable] [ResourceBundle("PopArtEffect")] private var rb:ResourceBundle;
+   		
+   		private function Rotate():void {
+   			var clr:uint = _cpkrColor4.selectedColor;
+   			_cpkrColor4.selectedColor = _cpkrColor3.selectedColor;
+   			_cpkrColor3.selectedColor = _cpkrColor2.selectedColor;
+   			_cpkrColor2.selectedColor = _cpkrColor1.selectedColor;
+   			_cpkrColor1.selectedColor = clr;
+   		}  
+   		
+   		override public function Select(efcnvCleanup:NestedControlCanvasBase):Boolean {
+   			if (_chkQuad) {
+   				_op = _chkQuad.selected ? _opQuad : _opNoQuad;
+   			} else {
+   				_op = _opQuad;
+   			}
+   			return super.Select(efcnvCleanup);
+   		} 		
+	]]>			   		
+	</mx:Script>
+
+	<mx:Array id="_resetValues">
+		<local:StoredValue target="_cpkrColor1.selectedColor"/>
+		<local:StoredValue target="_cpkrColor2.selectedColor"/>
+		<local:StoredValue target="_cpkrColor3.selectedColor"/>
+		<local:StoredValue target="_cpkrColor4.selectedColor"/>
+		<local:StoredValue target="_chkQuad.selected"/>
+		<local:StoredValue target="_sldrFade.value"/>		
+		<local:StoredValue target="_sldrSmooth.value"/>		
+		<local:StoredValue target="_sldrSpread.value"/>				
+	</mx:Array>
+
+	<EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='PopArtEffect')" strAuthor="@Resource(key='_efbtn_1', bundle='PopArtEffect')"
+		strImageSource="../graphics/effects/Color/tint.png" premium="{premium}"
+		booleanAdmin="true"/>
+	<mx:String id="_strHelpText">{Resource.getString('RouletteEffect', '_strHelpText')}</mx:String>
+
+	<mx:VBox x="8" y="70" verticalGap="0" paddingLeft="8" paddingRight="8">
+
+		<mx:HBox width="194" paddingBottom="-5" paddingTop="3">
+			<mx:Label text="@Resource(key='Detail', bundle='PopArtEffect')" styleName="sliderTitle"/>
+			<mx:Label text="{Math.round(_sldrSmooth.value)}%" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<HSliderFastDrag updateSpeed="{updateSpeed}" width="191" minimum="0" maximum="100" value="85" snapInterval="1" 
+				id="_sldrSmooth" liveDragging="true" showDataTip="false" change="OnOpChange()"/>				
+
+		<mx:HBox width="194" paddingBottom="-5" paddingTop="3">
+			<mx:Label text="@Resource(key='Softness', bundle='PopArtEffect')" styleName="sliderTitle"/>
+			<mx:Label text="{Math.round(_sldrSpread.value)}%" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<HSliderFastDrag updateSpeed="{updateSpeed}" width="191" minimum="0" maximum="100" value="5" snapInterval="1" 
+				id="_sldrSpread" liveDragging="true" showDataTip="false" change="OnOpChange()"/>				
+
+		<mx:VBox width="194" horizontalAlign="center">
+			<mx:HBox horizontalAlign="center">
+				<HSBColorPicker id="_cpkrColor1" selectedColor="{0x990000 + zeroR}" liveColorChange="OnBufferedOpChange()" width="75"/>
+				<HSBColorPicker id="_cpkrColor2" selectedColor="{0xFFAD99 + zeroR}" liveColorChange="OnBufferedOpChange()" width="75"/>
+			</mx:HBox>
+			<mx:HBox horizontalAlign="center">
+				<ResizingButton id="_btnRotate" label="@Resource(key='Rotate', bundle='PopArtEffect')" height="24" styleName="" click="Rotate()"/>
+			</mx:HBox>
+			<mx:HBox horizontalAlign="center">
+				<HSBColorPicker id="_cpkrColor4" selectedColor="{0x6688AE + zeroR}" liveColorChange="OnBufferedOpChange()" width="75"/>
+				<HSBColorPicker id="_cpkrColor3" selectedColor="{0xFFCC00 + zeroR}" liveColorChange="OnBufferedOpChange()" width="75"/>
+			</mx:HBox>			
+		</mx:VBox>
+		
+		<mx:Box width="100%" paddingTop="4" horizontalAlign="center" visible="{!PicnikBase.app.flickrlite}" includeInLayout="{!PicnikBase.app.flickrlite}">
+			<ResizingCheckbox id="_chkQuad" label="@Resource(key='Quad', bundle='PopArtEffect')" selected="true" change="_op = _chkQuad.selected ? _opQuad : _opNoQuad; OnOpChange()"/>
+		</mx:Box>
+		
+		<mx:VBox verticalGap="0" width="194" horizontalScrollPolicy="off">
+			<mx:HBox width="100%" paddingBottom="-5">
+				<mx:Label text="@Resource(key='Label_2', bundle='SepiaEffect')" styleName="sliderTitle"/>
+				<mx:Label text="{LocUtil.pct((_sldrFade.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+			</mx:HBox>
+			<HSliderPlus width="191" minimum="0" maximum="100" value="0" id="_sldrFade" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+		</mx:VBox>
+				
+		<ApplyCancelEffectButtons addBoxPadding="true" premium="{premium}"/>
+	</mx:VBox>
+
+	<imageOperations:NestedImageOperation id="_op">	
+		<imageOperations:children>	
+			<imageOperations:BlendImageOperation/>	
+		</imageOperations:children>
+	</imageOperations:NestedImageOperation>
+	
+	<imageOperations:NestedImageOperation id="_opQuad">	
+		<imageOperations:children>		
+			<imageOperations:ResizeImageOperation width="{imagewidth/2+1}" height="{imageheight/2+1}"/>
+			<imageOperations:BlurImageOperation xblur="{(100-_sldrSmooth.value)/10 + 0.1}" yblur="{(100-_sldrSmooth.value)/10 + 0.1}" quality="3"/>
+			<imageOperations:SetVar Name="popart_orig"/>
+
+			<imageOperations:GetVarImageOperation Name="popart_orig"/>
+			<imageOperations:NestedImageOperation BlendAlpha="{1-(_sldrFade.value/100)}">	
+				<imageOperations:children>		
+					<imageOperations:BWImageOperation/>
+					<imageOperations:MultiColorImageOperation 
+							Colors="{[_cpkrColor1.liveColor,_cpkrColor2.liveColor,_cpkrColor3.liveColor,_cpkrColor4.liveColor]}"
+							Spread="{_sldrSpread.liveValue/100}"/>
+				</imageOperations:children>					
+			</imageOperations:NestedImageOperation>
+			<imageOperations:SetVar Name="popart_1"/>
+			
+			<imageOperations:GetVarImageOperation Name="popart_orig"/>
+			<imageOperations:NestedImageOperation BlendAlpha="{1-(_sldrFade.value/100)}">	
+				<imageOperations:children>		
+					<imageOperations:BWImageOperation/>
+					<imageOperations:MultiColorImageOperation 
+							Colors="{[_cpkrColor2.liveColor,_cpkrColor3.liveColor,_cpkrColor4.liveColor,_cpkrColor1.liveColor]}"
+							Spread="{_sldrSpread.liveValue/100}"/>
+				</imageOperations:children>					
+			</imageOperations:NestedImageOperation>
+			<imageOperations:SetVar Name="popart_2"/>
+			
+			<imageOperations:GetVarImageOperation Name="popart_orig"/>
+			<imageOperations:NestedImageOperation BlendAlpha="{1-(_sldrFade.value/100)}">	
+				<imageOperations:children>		
+					<imageOperations:BWImageOperation/>
+					<imageOperations:MultiColorImageOperation 
+							Colors="{[_cpkrColor3.liveColor,_cpkrColor4.liveColor,_cpkrColor1.liveColor,_cpkrColor2.liveColor]}"
+							Spread="{_sldrSpread.liveValue/100}"/>
+				</imageOperations:children>					
+			</imageOperations:NestedImageOperation>
+			<imageOperations:SetVar Name="popart_3"/>
+			
+			<imageOperations:GetVarImageOperation Name="popart_orig"/>
+			<imageOperations:NestedImageOperation BlendAlpha="{1-(_sldrFade.value/100)}">	
+				<imageOperations:children>		
+					<imageOperations:BWImageOperation/>
+					<imageOperations:MultiColorImageOperation 
+							Colors="{[_cpkrColor4.liveColor,_cpkrColor1.liveColor,_cpkrColor2.liveColor,_cpkrColor3.liveColor]}"
+							Spread="{_sldrSpread.liveValue/100}"/>
+				</imageOperations:children>					
+			</imageOperations:NestedImageOperation>
+			<imageOperations:SetVar Name="popart_4"/>
+
+			<imageOperations:ResizeImageOperation width="{imagewidth}" height="{imageheight}"/>
+			
+			<imageOperations:OverlayGetVarImageOperation Name="popart_1" xOffset="0" yOffset="0"/>
+			<imageOperations:OverlayGetVarImageOperation Name="popart_2" xOffset="{imagewidth/2}" yOffset="0"/>
+			<imageOperations:OverlayGetVarImageOperation Name="popart_3" xOffset="{imagewidth/2}" yOffset="{imageheight/2}"/>
+			<imageOperations:OverlayGetVarImageOperation Name="popart_4" xOffset="0" yOffset="{imageheight/2}"/>
+			
+		</imageOperations:children>					
+	</imageOperations:NestedImageOperation>
+
+	<imageOperations:NestedImageOperation id="_opNoQuad" BlendAlpha="{1-(_sldrFade.value/100)}">	
+		<imageOperations:children>		
+			<imageOperations:BlurImageOperation xblur="{(100-_sldrSmooth.value)/10 + 0.1}" yblur="{(100-_sldrSmooth.value)/10 + 0.1}" quality="3"/>
+			<imageOperations:BWImageOperation/>
+			<imageOperations:MultiColorImageOperation 
+					Colors="{[_cpkrColor1.liveColor,_cpkrColor2.liveColor,_cpkrColor3.liveColor,_cpkrColor4.liveColor]}"
+					Spread="{_sldrSpread.liveValue/100}"/>
+		</imageOperations:children>					
+	</imageOperations:NestedImageOperation>
+
+</cnt:EffectCanvas>

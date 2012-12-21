@@ -1,0 +1,23 @@
+/*
+ * Copyright 2011 Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an Apache 2.0 License.
+ * See the COPYING file for details.
+ */
+
+
+@font-face {
+    src:local("Budmo Jigglish");
+    font-family: "pklb0BUDMOB";
+    unicodeRange: U+0000-U+00FF;
+    flashType: true;
+    fontWeight: normal;
+    fontStyle: normal;
+}
+
+.pklb0BUDMOB
+{
+    font-family: "pklb0BUDMOB";
+    fontWeight: normal;
+    fontStyle: normal;
+}

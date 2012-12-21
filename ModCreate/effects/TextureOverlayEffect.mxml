@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameEffectBase xmlns="effects.*" xmlns:cnt="containers.*" xmlns:ctrl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="343"
+	xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*" premium="true" xmlns:objectOperations="imagine.objectOperations.*" xmlns:thumbnails="controls.thumbnails.*" urlid="Texture">
+	
+<mx:Script>
+	<![CDATA[ 
+		import imagine.imageOperations.RasterizeImageOperation;
+		  
+		import mx.collections.ArrayCollection;
+		import mx.events.ListEvent;
+		import mx.utils.ObjectProxy;
+		
+		import imagine.objectOperations.SetDepthObjectOperation;
+		  
+		import util.LocUtil;
+      	private var _fHFlip:Boolean = false;
+      	private var _fVFlip:Boolean = false;
+		private var _strSelectedTexture:String = "None";
+		[Bindable] protected var _degRotation:Number = 0;
+
+		private function UpdateTexture(evt:ListEvent): void {
+			if (evt.itemRenderer == null)
+				return;
+			
+			var obTexture:Object = evt.itemRenderer.data;
+			// Replace the children of _xmlFrame.frame[0] with xml
+			var xmlFrame:XML = _xmlFrame.frame[0];
+			  
+			var xmlTexture:XML = <Clipart/>
+			xmlTexture.@cHeight = obTexture.height;
+			xmlTexture.@cWidth = obTexture.width;
+			xmlTexture.@url = "textures/" + obTexture.url;
+			_strSelectedTexture = String(obTexture.url);
+			
+			xmlFrame.setChildren(xmlTexture);
+			_fHFlip = false;
+			_fVFlip = false;
+			_degRotation = 0;
+			OnFrameParamChange();
+		}
+		  
+		override public function Apply():void {
+			super.Apply();
+			// Log the texture selected
+			Util.UrchinLogReport("/textureApplied/texture/" + _strSelectedTexture + "/" + _cbBlendMode.liveValue + "/" + String(Math.round(_sldrFade.value / 10)));
+		}
+        
+        protected override function GetExtraParams(): Object {
+        	var obParams:Object = super.GetExtraParams();
+        	obParams.scaleX = _fHFlip ? -1 : 1;
+        	obParams.scaleY = _fVFlip ? -1 : 1;
+			if (_sldrFade == null)
+				obParams.alpha = 1 - (20 / 100);
+			else
+				obParams.alpha = 1 - (_sldrFade.value / 100);
+			if (_cbBlendMode == null)
+				obParams.blendMode = 'multiply';
+			else
+				obParams.blendMode = _cbBlendMode.liveValue;
+        	return obParams;
+        }
+        
+        private function Flip(fHoriz:Boolean): void {
+        	if (fHoriz) 
+        		_fHFlip = !_fHFlip;
+        	else
+        		_fVFlip = !_fVFlip;
+        	
+        	OnFrameParamChange();
+        }
+
+		private function Rotate(fRight:Boolean): void {
+			_degRotation += (fRight ? 90 : -90);
+			OnFrameParamChange();
+		} 
+        
+        private var _acTextures:ArrayCollection = null;
+        [Bindable] public var aBlendModes:Array = [ 
+            {label:"Normal", data:"normal"}, 
+            {label:"Add", data:"add"}, 
+            {label:"Darken", data:"darken"}, 
+            {label:"Difference", data:"difference"}, 
+            {label:"Hardlight", data:"hardlight"}, 
+            {label:"Lighten", data:"lighten"}, 
+            {label:"Multiply", data:"multiply"}, 
+            {label:"Overlay", data:"overlay"}, 
+            {label:"Screen", data:"screen"}, 
+            {label:"Subtract", data:"subtract"}];
+        
+		[Bindable] protected function get textures(): ArrayCollection {
+			if (_acTextures == null) {
+				_acTextures = new ArrayCollection();
+				for each (var xmlTexture:XML in _xmlTextures.texture) 
+					_acTextures.addItem(new ObjectProxy({
+						url:xmlTexture.@url,
+						thumbUrl:PicnikBase.TextureThumbUrl(xmlTexture.@url),
+						height:Number(xmlTexture.@height), width:Number(xmlTexture.@width)
+					}));
+			}
+			return _acTextures;
+		}
+		  
+		protected function set textures(acTextures:ArrayCollection): void {
+			_acTextures = acTextures;
+		}
+    ]]>
+</mx:Script>
+	<mx:XML xmlns="" id="_xmlTextures">
+<textures>
+	<texture url="Texture-1.jpg" height="2000" width="2000"/>
+	<texture url="Texture-3.jpg" height="2000" width="2000"/>
+	<texture url="Texture-4.jpg" height="2000" width="2000"/>
+	<texture url="Texture-5.jpg" height="2000" width="2000"/>
+	<texture url="Texture-6.jpg" height="2000" width="2000"/>
+	<texture url="Texture-8.jpg" height="2000" width="2000"/>
+	<texture url="Texture-9.jpg" height="2000" width="2000"/>
+	<texture url="Texture-10.jpg" height="2000" width="2000"/>
+	<texture url="Texture-12.jpg" height="2000" width="2000"/>
+	<texture url="Texture-14.jpg" height="2000" width="2000"/>
+	<texture url="Texture-15.jpg" height="2000" width="2000"/>
+	<texture url="Texture-17.jpg" height="2000" width="2000"/>
+	<texture url="Texture-18.jpg" height="1578" width="1578"/>
+	<texture url="Texture-19.jpg" height="958" width="958"/>
+	<texture url="Texture-20.jpg" height="1534" width="1534"/>
+	<texture url="Texture-21.jpg" height="2000" width="2000"/>
+	<texture url="Texture-22.jpg" height="2000" width="2000"/>
+	<texture url="Texture-23.jpg" height="2000" width="2000"/>
+	<texture url="Texture-24.jpg" height="2000" width="2000"/>
+	<texture url="Texture-26.jpg" height="2000" width="2000"/>
+	<texture url="Texture-27.jpg" height="2000" width="2000"/>
+	<texture url="Texture-29.jpg" height="2000" width="2000"/>
+	<texture url="Texture-30.jpg" height="2000" width="2000"/>
+	<texture url="Texture-31.jpg" height="2000" width="2000"/>
+	<texture url="Texture-32.jpg" height="2000" width="2000"/>
+	<texture url="Texture-33.jpg" height="2000" width="2000"/>
+	<texture url="Texture-34.jpg" height="2000" width="2000"/>
+	<texture url="Texture-35.jpg" height="2000" width="2000"/>
+	<texture url="Texture-36.jpg" height="2000" width="2000"/>
+	<texture url="Texture-38.jpg" height="2000" width="2000"/>
+	<texture url="Texture-39.jpg" height="2000" width="2000"/>
+	<texture url="Texture-40.jpg" height="2000" width="2000"/>
+	<texture url="Texture-41.jpg" height="2000" width="2000"/>
+	<texture url="Texture-42.jpg" height="2000" width="2000"/>
+	<texture url="Texture-44.jpg" height="2000" width="2000"/>
+	<texture url="Texture-46.jpg" height="2000" width="2000"/>
+	<texture url="Texture-47.jpg" height="2000" width="2000"/>
+	<texture url="Texture-50.jpg" height="2000" width="2000"/>
+	<texture url="Texture-51.jpg" height="2000" width="2000"/>
+	<texture url="Texture-52.jpg" height="2000" width="2000"/>
+	<texture url="Texture-54.jpg" height="2000" width="2000"/>
+	<texture url="Texture-56.jpg" height="2000" width="2000"/>
+	<texture url="Texture-58.jpg" height="2000" width="2000"/>
+	<texture url="Texture-59.jpg" height="2000" width="2000"/>
+	<texture url="Texture-60.jpg" height="2000" width="2000"/>
+	<texture url="Texture-61.jpg" height="2000" width="2000"/>
+	<texture url="Texture-62.jpg" height="2000" width="2000"/>
+	<texture url="Texture-63.jpg" height="2000" width="2000"/>
+	<texture url="Texture-64.jpg" height="2000" width="2000"/>
+	<texture url="Texture-65.jpg" height="2000" width="2000"/>
+	<texture url="Texture-67.jpg" height="2000" width="2000"/>
+	<texture url="Texture-68.jpg" height="2000" width="2000"/>
+	<texture url="Texture-69.jpg" height="2000" width="2000"/>
+	<texture url="Texture-70.jpg" height="2000" width="2000"/>
+	<texture url="Texture-71.jpg" height="2000" width="2000"/>
+	<texture url="Texture-72.jpg" height="2000" width="2000"/>
+	<texture url="Texture-73.jpg" height="2000" width="2000"/>
+</textures>
+</mx:XML>
+	<mx:XML xmlns="" id="_xmlFrame">
+<frames> <!-- Texture Frame -->
+	<frame fill="true" rotation="{_degRotation}">
+		<Clipart cHeight="2000" cWidth="2000" url="textures/Texture-1.jpg"/>
+	</frame>
+</frames>
+	</mx:XML>
+	
+	<mx:DropShadowFilter id="_fiWhiteShad" blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1" quality="3" angle="90"/>
+
+	<ctrl:EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='TextureEffect')" strAuthor="@Resource(key='byPicnik', bundle='EffectCanvas')"
+		strImageSource="../graphics/effects/texture.jpg" premium="{premium}"/>
+	<mx:String id="_strHelpText">{Resource.getString('TextureEffect', '_strHelpText')}</mx:String>
+	
+	<mx:VBox x="10" y="73" verticalGap="0">
+		<mx:Box borderSides="top,left,right" backgroundColor="#ffffff" borderColor="#d9d9d9" borderStyle="solid" backgroundAlpha=".4">
+		<ctrl:TextureTileList id="_tlTextures" width="188" height="166" dataProvider="{textures}" selectedIndex="{zeroR}" selectionChange="UpdateTexture(event)"/>
+		</mx:Box>
+			
+		<mx:Spacer height="10"/>
+		
+			<!--<mx:VBox height="90" width="190" verticalGap="0" paddingLeft="4" paddingTop="2" borderColor="#999999" borderStyle="solid" cornerRadius="8">-->
+				
+				<mx:VBox paddingTop="4" paddingLeft="9" paddingRight="9" paddingBottom="8" width="190" horizontalScrollPolicy="off" verticalGap="0" filters="{[_fiWhiteShad]}"
+						cornerRadius="5" backgroundColor="#ffffff" borderColor="#d9d9d9" borderStyle="solid" backgroundAlpha=".4" verticalAlign="middle">
+					<mx:Label text="@Resource(key='Label_3', bundle='BlurEffect')" styleName="sliderTitle"/>
+					<ctrl:ComboBoxPlus dataProvider="{aBlendModes}" id="_cbBlendMode" height="26" width="100%" selectedIndex="{zeroR + 6}"
+								   rowCount="10" liveChange="OnFrameParamChange()"/>
+				
+				<mx:Spacer height="10"/>
+					
+					<mx:HBox width="100%" horizontalGap="5" horizontalAlign="center">
+					<mx:Button id="_btnRotateLeft" icon="@Embed('/assets/bitmaps/icon_rotateleft.png')" 
+							width="39" height="30" 
+							click="Rotate(false)"/>
+					<mx:Button id="_btnRotateRight" icon="@Embed('/assets/bitmaps/icon_rotateright.png')" 
+							width="39" height="30" 
+							click="Rotate(true)"/>
+						<mx:Button id="_btnFlipH" icon="@Embed('/assets/bitmaps/icon_fliph.png')" 
+							width="39" height="30" 
+							click="Flip(true)"/>
+					<mx:Button id="_btnFlipV" icon="@Embed('/assets/bitmaps/icon_flipv.png')" 
+							width="39" height="30" 
+							click="Flip(false)"/>
+				</mx:HBox>
+			</mx:VBox>
+		
+		<mx:Spacer height="10"/>
+		
+		<mx:VBox width="100%" verticalGap="-4">
+			<mx:HBox width="100%">
+				<mx:Label text="@Resource(key='fade', bundle='SpecialEffectsCanvas')" styleName="sliderTitle"/>
+				<mx:Label text="{LocUtil.pct((_sldrFade.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+			</mx:HBox>
+			<ctrl:HSliderPlus width="190" minimum="0" maximum="100" value="20" id="_sldrFade" change="OnFrameParamChange()" liveDragging="true" showDataTip="false"/>
+		</mx:VBox>
+		
+		<ctrl:ApplyCancelEffectButtons addBoxPadding="true" premium="{premium}"/>
+	</mx:VBox>
+
+</FrameEffectBase>

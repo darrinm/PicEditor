@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cnt:EffectCanvas xmlns="effects.*" xmlns:cnt="containers.*" xmlns:ctrl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="233"
+	xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*" premium="{PicnikBase.GetApp().freemiumModel}" urlid="PencilSketch">
+	<mx:Script>
+		import util.LocUtil;
+		import mx.resources.ResourceBundle;
+   		[Bindable] [ResourceBundle("PencilSketchEffect")] private var rb:ResourceBundle;
+	</mx:Script>
+
+	
+	<mx:Array id="_resetValues">
+		<local:StoredValue target="_sldrRadius.value"/>
+		<local:StoredValue target="_sldrContrast.value"/>
+		<local:StoredValue target="_sldrFade.value"/>
+	</mx:Array>
+	
+	<ctrl:EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='PencilSketchEffect')" strAuthor="@Resource(key='_efbtn_1', bundle='PencilSketchEffect')"
+		strImageSource="../graphics/effects/Artistic/pencil_sketch.png" premium="{premium}"/>
+	<mx:String id="_strHelpText">{Resource.getString('PencilSketchEffect', '_strHelpText')}</mx:String>
+
+	<mx:Label x="8" y="70" text="@Resource(key='Label_1', bundle='PencilSketchEffect')" styleName="sliderTitle"/>
+	<mx:Label x="152" y="70" text="{Math.round(_sldrRadius.liveValue*10)/10}" styleName="sliderValue" textAlign="right" width="50"/>
+	<ctrl:HSliderFastDrag x="9" y="85" width="190" minimum="1.3" maximum="5" value="2" id="_sldrRadius" change="OnOpChange()" updateSpeed="{updateSpeed}" showDataTip="false"/>
+
+	<mx:Label x="8" y="110" text="@Resource(key='Label_2', bundle='PencilSketchEffect')" styleName="sliderTitle"/>
+	<mx:Label x="152" y="110" text="{LocUtil.pct((_sldrContrast.value))}" styleName="sliderValue" textAlign="right" width="50"/>
+	<ctrl:HSliderPlus x="9" y="125" width="190"  minimum="0" maximum="200" value="100" id="_sldrContrast" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+
+	<mx:Label x="8" y="150" text="@Resource(key='Label_3', bundle='PencilSketchEffect')" styleName="sliderTitle"/>
+	<mx:Label x="152" y="150" text="{LocUtil.pct((_sldrFade.value))}" styleName="sliderValue" textAlign="right" width="50"/>
+	<ctrl:HSliderPlus x="9" y="165" width="190" minimum="0" maximum="100" value="0" id="_sldrFade" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+
+	<ctrl:ApplyCancelEffectButtons y="197" premium="{premium}"/>	
+	<imageOperations:NestedImageOperation id="_op" BlendAlpha="{1-(_sldrFade.value/100)}" dynamicAlphaCachePriority="5">
+		<imageOperations:children>
+			<imageOperations:BWImageOperation />
+			<imageOperations:AutoFixImageOperation/>
+			<imageOperations:SetVar Name="A"/>
+			<imageOperations:NestedImageOperation BlendMode="{BlendMode.ADD}">
+				<imageOperations:children>
+					<imageOperations:AdjustCurvesImageOperation MasterCurve="{[{x:0, y:255}, {x:255,y:0}]}"/>
+					<imageOperations:BlurImageOperation xblur="{_sldrRadius.value}" yblur="{_sldrRadius.value}" quality="3"
+						dynamicParamsCachePriority="3"
+						/>
+				</imageOperations:children>
+			</imageOperations:NestedImageOperation>
+			<imageOperations:GetVarImageOperation Name="A" BlendMode="{BlendMode.OVERLAY}"/>
+			<imageOperations:AutoFixImageOperation/>
+			<imageOperations:AdjustCurvesImageOperation MasterCurve="{[{x:0, y:0}, {x:127,y:127-_sldrContrast.value*2+100}, {x:255,y:255}]}" dynamicParamsCachePriority="3"/>
+		</imageOperations:children>
+	</imageOperations:NestedImageOperation>
+</cnt:EffectCanvas>

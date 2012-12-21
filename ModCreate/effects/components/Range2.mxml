@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Key properties: label, minimum1, maximum1, value1, minimum2, maximum2, value2, type -->
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:controls="controls.*"
+		width="194" horizontalScrollPolicy="off" verticalScrollPolicy="off">
+	<mx:Metadata>
+        [Event(name="change", type="flash.events.Event")]
+    </mx:Metadata>
+
+	<mx:String id="type"/>
+	<mx:Number id="minimum1"/>
+	<mx:Number id="maximum1"/>
+	<mx:Number id="value1">{_sldr1.value}</mx:Number>
+	<mx:Number id="defaultValue1"/>
+	<mx:Number id="snapInterval1"/>
+	<mx:Number id="minimum2"/>
+	<mx:Number id="maximum2"/>
+	<mx:Number id="value2">{_sldr2.value}</mx:Number>
+	<mx:Number id="defaultValue2"/>
+	<mx:Number id="snapInterval2"/>
+
+	<mx:HBox width="100%">
+		<mx:VBox width="100%">
+			<mx:HBox width="100%" paddingBottom="-5" paddingTop="3">
+				<mx:Label text="{label}" styleName="sliderTitle"/>
+				<mx:Label text="{type == 'int2' ? Math.round(_sldr1.value) : Math.round(_sldr1.value * 10) / 10}" styleName="sliderValue"
+						textAlign="right" width="100%"/>
+			</mx:HBox>
+			<controls:HSliderPlus id="_sldr1" width="90" minimum="{minimum1}" maximum="{maximum1}" value="{defaultValue1}"
+					snapInterval="{snapInterval1 ? snapInterval1 : (type == 'int2' ? 1 : 0.01)}"
+					change="{dispatchEvent(new Event(Event.CHANGE))}" liveDragging="true" showDataTip="false"/>
+		</mx:VBox>
+		<mx:VBox width="100%">
+			<mx:HBox width="100%" paddingBottom="-5" paddingTop="3">
+				<mx:Label text="{type == 'int2' ? Math.round(_sldr2.value) : Math.round(_sldr2.value * 10) / 10}" styleName="sliderValue"
+						textAlign="right" width="100%"/>
+			</mx:HBox>
+			<controls:HSliderPlus id="_sldr2" width="90" minimum="{minimum2}" maximum="{maximum2}" value="{defaultValue2}"
+					snapInterval="{snapInterval2 ? snapInterval2 : (type == 'int2' ? 1 : 0.01)}"
+					change="{dispatchEvent(new Event(Event.CHANGE))}" liveDragging="true" showDataTip="false"/>
+		</mx:VBox>
+	</mx:HBox>	
+</mx:VBox>

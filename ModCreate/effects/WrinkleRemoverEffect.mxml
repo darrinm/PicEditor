@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PaintOnEffectBase xmlns="effects.*" xmlns:cnt="containers.*" xmlns:ctrl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="189"
+	premium="true"
+	xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*" xmlns:util="util.*" urlid="WrinkleRemover">
+	<mx:Script>
+		import mx.resources.ResourceBundle;
+		import util.LocUtil;
+   		[Bindable] [ResourceBundle("WrinkleRemoverEffect")] private var rb:ResourceBundle;
+	</mx:Script>
+
+	
+	<ctrl:EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='WrinkleRemoverEffect')" strAuthor="@Resource(key='byPicnik', bundle='EffectCanvas')"
+		strImageSource="../graphics/effects/Touchup/wrinkleRemover.png" premium="{premium}"/>
+	<mx:String id="_strHelpText">{Resource.getString('WrinkleRemoverEffect', '_strHelpText')}</mx:String>
+	
+	<mx:VBox x="8" y="70" verticalGap="0">
+    	<!-- brush size / eraser toggle -->
+    	<ctrl:BrushSizeAndEraserButton id="_brshbtn" selected="{_fSelected}"
+    		startValueFactor="0.03"
+    		maximumFactor="0.2"
+    		imageWidth="{origImageWidth}" imageHeight="{origImageHeight}"
+    		change="OnOpChange()" thumbPress="ShowBrushPreview()" thumbDrag="UpdateBrushPreview()" thumbRelease="HideBrushPreview()"
+    		/>
+
+		<!-- Fade label/percent/slider box -->
+		<mx:HBox paddingBottom="-5" paddingTop="3" width="190">
+			<mx:Label text="@Resource(key='fade', bundle='EffectCanvas')" styleName="sliderTitle"/>
+			<mx:Label text="{LocUtil.pct((_sldrFade.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<ctrl:HSliderPlus width="190" minimum="0" maximum="100" value="{12 + zeroR}" id="_sldrFade" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+
+		<ctrl:ApplyCancelEffectButtons addBoxPadding="true" premium="{premium}"/>
+	</mx:VBox>
+	
+	<mx:Number id="_cxyBrush">{_brshbtn.value}</mx:Number>
+	
+	
+</PaintOnEffectBase>

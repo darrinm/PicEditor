@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory flickrPremium="false" id="soccer_ci" numShapes="3" picnikPremium="false" previewUrls="60|48|../clipart/bundles/SoccerFeverTeamsArea_groupPreviews_soccer_ci.png?ver=0a8f4714" title="Ivory Coast Stickers">
+	<Shapes>
+		<Clipart cHeight="295.05" cWidth="464.2" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|0|../clipart/bundles/SoccerFeverTeamsArea_shapes_soccer_ci.png?ver=e87d1b67" url="shapes/SoccerFever/ci/wavingflag_ci.swf"/>
+		<Clipart cHeight="300" cWidth="450" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|1|../clipart/bundles/SoccerFeverTeamsArea_shapes_soccer_ci.png?ver=e87d1b67" url="shapes/SoccerFever/ci/flag_ci.swf"/>
+		<Clipart cHeight="223.55" cWidth="95.95" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|2|../clipart/bundles/SoccerFeverTeamsArea_shapes_soccer_ci.png?ver=e87d1b67" url="shapes/SoccerFever/ci/scarf_ci.swf"/>
+	</Shapes>
+</ShapeCategory>

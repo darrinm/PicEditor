@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextPaletteBase xmlns="objectPalette.*" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:ctl="controls.*"
+		xmlns:documentObjects="documentObjects.*" xmlns:flash.filters="flash.filters.*" xmlns:bkctr="containers.*"
+		width="200" height="100%" verticalGap="0" paddingLeft="0" paddingRight="0"
+		verticalScrollPolicy="off" horizontalScrollPolicy="off">
+	<mx:Script>
+		<![CDATA[
+			import imagine.documentObjects.DocumentObjectBase;
+			import util.LocUtil;
+			import imagine.documentObjects.Text;
+			import mx.resources.ResourceBundle;
+	   		[Bindable] [ResourceBundle("TextPalette")] private var rb:ResourceBundle;
+		]]>
+	</mx:Script>
+	
+	<mx:String id="title">{Resource.getString('TextPalette', 'title')}</mx:String>
+	
+	<!-- Color Picker -->
+	<mx:HBox width="100%" paddingTop="-2" paddingBottom="-2" paddingLeft="-3">
+		<mx:Label id="_lbFontColor" text="@Resource(key='_lbFontColor', bundle='TextPalette')" styleName="sliderTitle"/>
+		<ctl:TextInputPlusBase id="_tiColorValue" text="{HexFromRGB(DocumentObjectBase(_doco).color)}"
+				maxChars="6" restrict="a-fA-F0-9" drawFocusIndicator="false" borderStyle="none"
+				styleName="sliderValue" textAlign="right" width="100%"/>
+	</mx:HBox>
+	<mx:HBox horizontalGap="6" width="100%">
+		<ctl:HSBColorSwatch id="_clrsw" height="58" width="175" topGray="255" bottomGray="0" color="{DocumentObjectBase(_doco).color}" grayscaleSize="5"/>
+		<ctl:EyeDropperButton id="_eyeb" color="{DocumentObjectBase(_doco).color}" width="100%" height="58">
+			<ctl:filters>
+				<flash.filters:DropShadowFilter angle="90" blurX="2" blurY="2" distance="1" color="0x000000" alpha=".3" quality="3" inner="true" />
+				<flash.filters:BevelFilter angle="90" blurX="1" blurY="1"
+					distance="1" highlightAlpha=".3" shadowAlpha="1" highlightColor="0x666666" shadowColor="0xFFFFFF" knockout="false" quality="3" />
+			</ctl:filters>
+		</ctl:EyeDropperButton>
+	</mx:HBox>
+	
+	<!-- Fade slider -->
+	<mx:HBox width="100%" paddingTop="3" paddingBottom="-5" paddingLeft="-3">
+		<mx:Label text="@Resource(key='fade_label', bundle='TextPalette')" styleName="sliderTitle"/>
+		<mx:Label text="{LocUtil.pct((100*(1-Text(_doco).alpha)))}" styleName="sliderValue" textAlign="right" width="100%"/>
+	</mx:HBox>
+	<mx:Box id="_bxAlpha" width="100%" paddingRight="2" paddingLeft="-1">
+		<ctl:HSliderPlus id="_sldrAlpha" width="100%" minimum="0" maximum="1" 
+			liveDragging="true" value="{1-Text(_doco).alpha}" showDataTip="false"/>
+	</mx:Box>
+	
+	<!-- bold/italic  left/center/right -->
+	<mx:HBox width="100%" horizontalGap="5" paddingTop="5" verticalAlign="middle">
+		<mx:Button styleName="boldButton" toggle="true" id="_btnBold" width="50" height="25" 
+				enabled="{HasBold(Text(_doco).font)}"
+				selected="{IsBold(Text(_doco).font)}" 
+				click="ChangeSelectedFont()"/>
+		<mx:Button styleName="italicButton" toggle="true" id="_btnItalic" width="50" height="25" 
+				enabled="{HasItalic(Text(_doco).font)}"
+				selected="{IsItalic(Text(_doco).font)}" click="ChangeSelectedFont()"/>
+		<mx:Spacer width="100%"/>
+		<!-- left/center/right -->
+		<mx:HBox horizontalGap="0">
+			<mx:RadioButton styleName="typeAlignLeft" groupName="align" id="_btnAlignLeft" width="23" 
+					selected="{Text(_doco).textAlign == 'left'}"/>
+			<mx:RadioButton styleName="typeAlignCenter" groupName="align" id="_btnAlignCenter" width="24" 
+					selected="{Text(_doco).textAlign == 'center'}"/>
+			<mx:RadioButton styleName="typeAlignRight" groupName="align" id="_btnAlignRight" width="23"
+					selected="{Text(_doco).textAlign == 'right'}"/>
+		</mx:HBox>
+	</mx:HBox>
+	
+	<!-- Size slider -->
+	<mx:HBox width="100%" paddingTop="5" paddingBottom="-5">
+		<mx:Label text="@Resource(key='fontsize_label', bundle='TextPalette')" styleName="sliderTitle"/>
+		<mx:Label text="{Math.round(Text(_doco).fontSize)}" styleName="sliderValue" textAlign="right" width="100%"/>
+	</mx:HBox>
+	<mx:Box width="100%" paddingRight="2" paddingLeft="-1" paddingBottom="5">
+		<ctl:HSliderPlus id="_sldrFontSize" width="100%" minimum="{Math.min(10, Text(_doco).fontSize)}" 
+			maximum="{Math.max(500, Text(_doco).fontSize)}" liveDragging="true" value="{Text(_doco).fontSize}" 
+			showDataTip="false"/>
+	</mx:Box>
+	
+	<!-- Leading slider - NOT READY FOR PRIME TIME
+	<mx:HBox width="100%" paddingTop="7" paddingRight="9" paddingBottom="-16" paddingLeft="6">
+		<mx:Label text="Leading" styleName="sliderTitle"/>
+		<mx:Label text="{Math.round(_doco.leading)}" styleName="sliderValue" textAlign="right" width="100%"/>
+	</mx:HBox>
+	<mx:Box width="100%" paddingLeft="7" paddingRight="9">
+		<ctl:HSliderPlus id="_sldrLeading" width="100%" minimum="-50" maximum="50"
+				liveDragging="true" value="{_doco.leading}" showDataTip="false"/>
+	</mx:Box>
+	-->
+	
+	<!-- blend modes drop down -->
+	<ctl:ResizingLabel text="@Resource(key='advanced', bundle='TextPalette')" styleName="sliderTitle" paddingTop="-2" paddingBottom="-3" paddingLeft="-3" maxWidth="200" autoFontSizeGap="1"/>
+	<ctl:ComboBoxPlus dataProvider="{aBlendModes}" id="_cbBlendMode" height="22" fontSize="12" styleName="shortComboBox" width="100%"
+		rowCount="10" maxWidth="200"
+		liveSelectedIndex="{GetBlendModeIndex(Text(_doco).blendMode)}" 
+		liveChange="if (_doco &amp;&amp; _cbBlendMode.liveSelectedItem) Text(_doco).blendMode = _cbBlendMode.liveSelectedItem.data"/>
+	
+	<mx:Spacer height="10"/>
+	<mx:HRule width="100%" strokeColor="#ebebeb" strokeWidth="1" />
+	
+	<!-- delete / flip buttons -->
+	<bkctr:ResizingHBox paddingTop="5" paddingBottom="5" verticalAlign="middle" horizontalGap="4" width="100%" horizontalScrollPolicy="off" maxWidth="200">
+		<ctl:ResizingButton id="_btnDelete" label="@Resource(key='_btnDelete', bundle='TextPalette')" width="100%" height="30">
+			<ctl:size_states>
+				<mx:State name="1">
+					<mx:SetStyle name="fontSize" value="13"/>
+					<mx:SetStyle name="paddingLeft" value="-5"/>
+					<mx:SetStyle name="paddingRight" value="-5"/>
+				</mx:State>
+				<mx:State name="2">
+					<mx:SetStyle name="fontSize" value="12"/>
+				</mx:State>
+				<mx:State name="5">
+					<mx:SetProperty name="label"/>
+					<mx:SetStyle name="icon" value="@Embed('../theme/pngs/noIcon.png')"/>
+					<mx:SetStyle name="disabledIcon" value="@Embed('../theme/pngs/noIconDisabled.png')"/>
+					<!--
+					<mx:SetProperty name="toolTip" value="@Resource(key='_btnDelete', bundle='TextPalette')"/>
+					-->
+					<mx:SetProperty name="width" value="43"/>
+				</mx:State>
+			</ctl:size_states>
+		</ctl:ResizingButton>
+		<mx:Spacer width="100%"/>
+		<ctl:ResizingLabel text="@Resource(key='Label_3', bundle='TextPalette')" styleName="sliderTitle" paddingRight="-2">
+			<ctl:size_states>
+				<mx:State name="6">
+					<mx:SetStyle name="fontSize" value="11"/>
+				</mx:State>
+				<mx:State name="7">
+					<mx:SetStyle name="fontSize" value="10"/>
+				</mx:State>
+				<mx:State name="8">
+					<mx:SetStyle name="fontSize" value="9"/>
+				</mx:State>
+				<mx:State name="9">
+					<mx:SetStyle name="fontSize" value="8"/>
+				</mx:State>
+			</ctl:size_states>
+		</ctl:ResizingLabel>
+		<mx:Button id="_btnFlipH" styleName="flipHButton" width="41" height="30" 
+				click="FlipSelected(true)"/>
+		<mx:Button id="_btnFlipV" styleName="flipVButton" width="41" height="30" 
+				click="FlipSelected(false)"/>
+	</bkctr:ResizingHBox>
+	<mx:HBox width="100%" horizontalAlign="center">
+		<ctl:ResizingText autoFontSizeGap="1" htmlText="@Resource(key='tip', bundle='TextPalette')" width="200" height="22" textAlign="center" color="#333333" leading="-2" paddingTop="2"/>
+	</mx:HBox>
+</TextPaletteBase>

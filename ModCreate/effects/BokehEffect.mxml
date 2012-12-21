@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cnt:PaintEffectCanvas xmlns:cnt="containers.*" xmlns="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="151" 
+		xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" urlid="Bokehish">
+	<mx:Script>
+		import util.LocUtil;
+		import imagine.imageOperations.bokeh.BokehLensType;
+		import mx.resources.ResourceBundle;
+   		[Bindable] [ResourceBundle("BokehEffect")] private var rb:ResourceBundle;
+   		
+        [Bindable] public var aBlendModes:Array = [ 
+            {label:"Normal", data:"normal"}, 
+            {label:"Add", data:"add"}, 
+            {label:"Darken", data:"darken"}, 
+            {label:"Difference", data:"difference"}, 
+            {label:"Hardlight", data:"hardlight"}, 
+            {label:"Lighten", data:"lighten"}, 
+            {label:"Multiply", data:"multiply"}, 
+            {label:"Overlay", data:"overlay"}, 
+            {label:"Screen", data:"screen"}, 
+            {label:"Subtract", data:"subtract"}];
+	</mx:Script>
+
+	<mx:Array id="_resetValues">
+		<local:StoredValue target="_sldrThreshold.value"/>
+		<local:StoredValue target="_sldrRadius.value"/>
+		<local:StoredValue target="_sldrIntensity.value"/>
+		<local:StoredValue target="_cboxLensStyles.selectedIndex"/>
+		<local:StoredValue target="_cboxModes.selectedIndex"/>
+		<local:StoredValue target="_cboxStyles.selectedIndex"/>
+		<local:StoredValue target="_sldrLensRotation.value"/>
+		<local:StoredValue target="_cbBlendMode.selectedIndex"/>
+	</mx:Array>
+
+	<mx:ArrayCollection id="_acLensStyles">
+		<mx:Object label="{Resource.getString('BokehEffect', 'lens_circular')}" style='0'/>
+		<mx:Object label="{Resource.getString('BokehEffect', 'lens_heart')}" style='10'/>
+		<mx:Object label="{Resource.getString('BokehEffect', 'lens_heart2')}" style='16'/>
+		<mx:Object label="{Resource.getString('BokehEffect', 'lens_diamond')}" style='11'/>
+		<mx:Object label="{Resource.getString('BokehEffect', 'lens_star')}" style='12'/>
+		<mx:Object label="{Resource.getString('BokehEffect', 'lens_star2')}" style='13'/>
+		<mx:Object label="{Resource.getString('BokehEffect', 'lens_sparkle')}" style='14'/>
+		<mx:Object label="{Resource.getString('BokehEffect', 'lens_sparkle2')}" style='15'/>
+		<mx:Object label="{Resource.getString('BokehEffect', 'lens_3')}" style='3'/>
+		<mx:Object label="{Resource.getString('BokehEffect', 'lens_4')}" style='4'/>
+		<mx:Object label="{Resource.getString('BokehEffect', 'lens_5')}" style='5'/>
+		<mx:Object label="{Resource.getString('BokehEffect', 'lens_6')}" style='6'/>
+		<mx:Object label="{Resource.getString('BokehEffect', 'lens_7')}" style='7'/>
+		<mx:Object label="{Resource.getString('BokehEffect', 'lens_8')}" style='8'/>
+		<mx:Object label="{Resource.getString('BokehEffect', 'lens_9')}" style='9'/>
+	</mx:ArrayCollection>
+	
+	<mx:ArrayCollection id="_acModes">
+		<mx:Object label="{Resource.getString('BokehEffect', 'mode_wet')}" style='wet'/>
+		<mx:Object label="{Resource.getString('BokehEffect', 'mode_real')}" style='real'/>
+	</mx:ArrayCollection>
+	
+	<mx:ArrayCollection id="_acStyles">
+		<mx:Object label="{Resource.getString('BokehEffect', 'style_vivid')}" style='2'/>
+		<mx:Object label="{Resource.getString('BokehEffect', 'style_sharp')}" style='0'/>
+		<mx:Object label="{Resource.getString('BokehEffect', 'style_creamy')}" style='1'/>
+	</mx:ArrayCollection>
+	
+	<EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='BokehEffect')" strAuthor="@Resource(key='_efbtn_1', bundle='BokehEffect')" strImageSource="../graphics/effects/Camera/bokeh.png"/>
+	<mx:String id="_strHelpText">{Resource.getString('BokehEffect', '_strHelpText')}</mx:String>
+
+	<mx:VBox x="0" y="70" verticalGap="0" paddingLeft="8" paddingRight="8">
+		<mx:HBox horizontalGap="5" verticalAlign="middle">
+			<!-- Fade label/percent/slider box -->
+			<mx:VBox verticalGap="0" width="100%" horizontalScrollPolicy="off">
+				<!-- Mode dropdown -->
+				<mx:Label text="@Resource(key='mode', bundle='BokehEffect')" styleName="sliderTitle" paddingBottom="-3"/>
+				<mx:ComboBox id="_cboxModes" rowCount="2" width="100%" height="26"
+						dataProvider="{_acModes}" change="OnOpChange()"/>
+						
+				<!-- Lens styles dropdown -->
+				<mx:Label text="@Resource(key='lens_styles', bundle='BokehEffect')" styleName="sliderTitle" paddingBottom="-3"/>
+				<mx:ComboBox id="_cboxLensStyles" rowCount="10" width="100%" height="26"
+						dataProvider="{_acLensStyles}" change="OnOpChange()"/>
+						
+				<!-- Style dropdown -->
+				<mx:Label text="@Resource(key='mode', bundle='BokehEffect')" styleName="sliderTitle" paddingBottom="-3"/>
+				<mx:ComboBox id="_cboxStyles" rowCount="3" width="100%" height="26"
+						dataProvider="{_acStyles}" change="OnOpChange()"/>
+						
+				<!-- threshold -->				
+				<mx:HBox width="100%" paddingBottom="-5">
+					<mx:Label text="@Resource(key='threshold', bundle='BokehEffect')" styleName="sliderTitle"/>
+					<mx:Label text="{LocUtil.pct((_sldrThreshold.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+				</mx:HBox>
+				<HSliderFastDrag id="_sldrThreshold" width="190" minimum="0" maximum="100" value="60" change="OnOpChange()" 
+						liveDragging="true" showDataTip="false" updateSpeed="{updateSpeed}"/>
+				
+				<!-- radius -->				
+				<mx:HBox width="100%" paddingBottom="-5">
+					<mx:Label text="@Resource(key='radius', bundle='BokehEffect')" styleName="sliderTitle"/>
+					<mx:Label text="{Math.round(_sldrRadius.value)}" styleName="sliderValue" textAlign="right" width="100%"/>
+				</mx:HBox>
+				<HSliderFastDrag id="_sldrRadius" width="190" minimum="0" maximum="100" value="30" change="OnOpChange()"
+						liveDragging="true" showDataTip="false" updateSpeed="{updateSpeed}"/>
+				
+				<!-- intensity -->				
+				<mx:HBox width="100%" paddingBottom="-5">
+					<mx:Label text="@Resource(key='intensity', bundle='BokehEffect')" styleName="sliderTitle"/>
+					<mx:Label text="{LocUtil.pct((_sldrIntensity.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+				</mx:HBox>
+				<HSliderFastDrag id="_sldrIntensity" width="190" minimum="0" maximum="100" value="30" change="OnOpChange()"
+						liveDragging="true" showDataTip="false" updateSpeed="{updateSpeed}"/>
+
+				<!-- lens rotation -->				
+				<mx:HBox width="100%" paddingBottom="-5">
+					<mx:Label text="@Resource(key='lens_rotation', bundle='BokehEffect')" styleName="sliderTitle"/>
+					<mx:Label text="{LocUtil.deg(_sldrLensRotation.value)}" styleName="sliderValue" textAlign="right" width="100%"/>
+				</mx:HBox>
+				<HSliderFastDrag id="_sldrLensRotation" width="190" minimum="-180" maximum="180" value="0" change="OnOpChange()"
+						liveDragging="true" showDataTip="false" updateSpeed="{updateSpeed}"/>
+
+				<!-- blendMode -->				
+			    <mx:VBox paddingBottom="-5">
+				    <mx:Label text="@Resource(key='Label_3', bundle='BlurEffect')" styleName="sliderTitle"/>
+					<ComboBoxPlus dataProvider="{aBlendModes}" id="_cbBlendMode" height="26" width="190" selectedIndex="{zeroR}"
+							rowCount="10" change="OnOpChange()"/>
+			    </mx:VBox>
+			    
+				<!-- fade slider
+				<mx:HBox width="100%" paddingBottom="-5">
+					<mx:Label text="@Resource(key='fade', bundle='SpecialEffectsCanvas')" styleName="sliderTitle"/>
+					<mx:Label text="{LocUtil.pct((_sldrFade.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+				</mx:HBox>
+				<HSliderPlus width="190" minimum="0" maximum="100" value="0" id="_sldrFade" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+				-->
+				
+				<mx:Button id="_btnBrushPalette" width="30" height="30" selected="false" toggle="true" icon="@Embed('/assets/bitmaps/icon_paintTall.png')" paddingLeft="0"
+						toolTip="@Resource(key='_btnBrushPalette', bundle='BokehEffect')"/>
+			</mx:VBox>
+		</mx:HBox>
+
+		<ApplyCancelEffectButtons addBoxPadding="true" premium="{premium}"/>
+	</mx:VBox>
+	
+	 <!--BlendAlpha="{1-(_sldrFade.value/100)}" -->
+	<imageOperations:BokehImageOperation id="_op" BlendMode="{_cbBlendMode.value}"
+			threshold="{_sldrThreshold.value / 100 * 255}" radius="{_sldrRadius.value}" lensRotation="{_sldrLensRotation.value}"
+			lensType="{int(_cboxLensStyles.selectedItem.style)}" intensity="{_sldrIntensity.value / 100}" 
+			mode="{_cboxModes.selectedItem.style}" style="{_cboxStyles.selectedItem.style}" Mask="{_mctr.mask}"/>
+</cnt:PaintEffectCanvas>

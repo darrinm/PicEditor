@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory area="Beards" id="root">
+	<ShapeCategory flickrPremium="false" id="beardsSection" numShapes="0" picnikPremium="false" showHeader="false">
+		<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/shape_Beards.png" flickrPremium="false" id="Beards" numShapes="16" picnikPremium="false" previewUrls="60|48|../clipart/bundles/BeardsArea_groupPreviews_Beards.png?ver=4bde87f4" thumbUrl="66|54|0|../clipart/bundles/BeardsArea_groupThumbs.png?ver=984305cb" title="Beards"/>
+	</ShapeCategory>
+</ShapeCategory>

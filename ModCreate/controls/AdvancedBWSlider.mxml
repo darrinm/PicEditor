@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:controls="controls.*" verticalGap="0" backgroundColor="0" backgroundAlpha="0">
+   <mx:Metadata>
+        [Event(name="change", type="flash.events.Event")]
+    </mx:Metadata>
+	<mx:Script>
+		<![CDATA[
+			import mx.effects.Effect;
+			import util.LocUtil;
+			private var _fSelected:Boolean = false;
+			
+			[Bindable]
+			public function set selected(f:Boolean): void {
+				if (_fSelected != f) {
+					_fSelected = f;
+					if (_fSelected) {
+						_efSelected.fromValue = getStyle("backgroundAlpha");
+						_efSelected.play();
+					} else {
+						_efDeselected.fromValue = getStyle("backgroundAlpha");
+						_efDeselected.play();
+					}
+				}
+			} 
+			public function get selected(): Boolean {
+				return _fSelected;
+			}
+			
+			protected function OnChange(): void {
+				dispatchEvent(new Event("change"));
+			}
+		]]>
+	</mx:Script>
+	<mx:AnimateProperty id="_efSelected" target="{this}" toValue="0.1" duration="333" property="backgroundAlpha" isStyle="true" effectStart="endEffectsStarted()"/> 
+	<mx:AnimateProperty id="_efDeselected" target="{this}" toValue="0" duration="333" property="backgroundAlpha" isStyle="true" effectStart="endEffectsStarted()"/> 
+	<mx:String id="label"/>
+	<mx:Number id="color">0</mx:Number>
+	<mx:Number id="value">{_sldr.value}</mx:Number>
+	
+	<mx:HBox width="194" paddingBottom="-5" paddingTop="3">
+		<mx:Label text="{label}" styleName="sliderTitle"/>
+		<mx:Label text="{LocUtil.signedpct(value)}" styleName="sliderValue" textAlign="right" width="100%"/>
+	</mx:HBox>
+	<controls:HSliderPlus width="191" minimum="-200" maximum="200" value="{value}" id="_sldr" change="OnChange()" liveDragging="true" showDataTip="false"/>
+</mx:VBox>

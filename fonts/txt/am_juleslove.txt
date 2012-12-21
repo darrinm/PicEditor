@@ -1,0 +1,13 @@
+fileName: am_juleslove.ttf
+name: JulesLove v1
+subfamilyDisplayName: Regular
+fullName: JulesLovev1
+displayName: JulesLove v1
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 6
+pkName: pkam0juleslove
+authorName: Art Mama
+authorUrl: http://artmama.co.nz/
+

@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory area="HandDrawnHearts" id="root">
+	<ShapeCategory flickrPremium="false" id="HandDrawnHeartsSection" numShapes="0" picnikPremium="false" showHeader="false">
+		<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/shape_hearts.png" flickrPremium="true" id="HandDrawnHearts" numShapes="21" picnikPremium="true" previewUrls="60|48|../clipart/bundles/HandDrawnHeartsArea_groupPreviews_HandDrawnHearts.png?ver=30dbed69" thumbUrl="66|54|0|../clipart/bundles/HandDrawnHeartsArea_groupThumbs.png?ver=73bb51a3" title="Hand-Drawn Hearts!"/>
+	</ShapeCategory>
+</ShapeCategory>

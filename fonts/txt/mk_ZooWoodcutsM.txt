@@ -1,0 +1,12 @@
+fileName: mk_ZooWoodcutsM.ttf
+name: ZooWoodcutsM
+subfamilyDisplayName: Regular
+fullName: ZooWoodcutsM
+displayName: ZooWoodcutsM
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 6
+pkName: pkmk0ZooWoodcutsM
+authorName: Manfred Kelin
+authorUrl: http://moorstation.org/typoasis/designers/klein/

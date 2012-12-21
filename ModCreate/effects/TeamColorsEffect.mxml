@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cnt:EffectCanvas xmlns="effects.*" xmlns:cnt="containers.*" xmlns:ctrl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="193"
+	xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*" xmlns:objectOperations="imagine.objectOperations.*" urlid="FrameItPink">
+	<mx:Script>
+	<![CDATA[
+		import mx.resources.ResourceBundle;
+		import mx.resources.ResourceManager;
+		
+		import util.FontManager;
+		import util.LocUtil;
+		import util.PicnikFont;
+   		[Bindable] [ResourceBundle("PinkFrameEffect")] private var rb:ResourceBundle;
+   		
+		[Bindable] public var colors:Array = [];
+		[Bindable] public var alphas:Array = [];
+		[Bindalbe] public var text:String = "";
+		[Bindable] public var stretch:int = 65;		// as a percent of largest dimension
+		[Bindable] public var stripe:int = 3;		// as a percent of largest dimension
+		[Bindable] public var titleText:String;
+		[Bindable] public var iconPath:String;
+		[Bindable] public var customHelpText:String;
+		
+		// bars are numbered as stripes from top to bottom.
+   		private function GetBarProps(nWidth:Number, nHeight:Number, nRotation:Number, nAlpha:Number, nBar:int): Object {
+						
+			// make sure we have enough colors to fill everything in
+			var aColors:Array;
+			var aAlphas:Array;
+			switch (colors.length) {
+				case 0: 
+					aColors = [0xFF0000, 0xFFFFFF, 0x00FF00, 0xFFFFFF, 0x0000FF];
+					break;
+				case 1:
+					aColors = [colors[0], 0xFFFFFF, colors[0], 0xFFFFFF, colors[0]];
+					break;
+				case 2:
+					aColors = [colors[0], colors[1], colors[0], colors[1], colors[0]];
+					break;
+				case 3:
+					aColors = [colors[1], colors[2], colors[0], colors[2], colors[1]];
+					break;
+				case 4:
+					aColors = [colors[1], colors[2], colors[0], colors[3], colors[0]];
+					break;
+				case 5:
+					aColors = colors;
+					break;
+				
+			}
+			switch (alphas.length) {
+				case 0: 
+					aAlphas = [1,1,1,1,1];
+					break;
+				case 1:
+					aAlphas = [alphas[0], 1, alphas[0], 1, alphas[0]];
+					break;
+				case 2:
+					aAlphas = [alphas[0], alphas[1], alphas[0], alphas[1], alphas[0]];
+					break;
+				case 3:
+					aAlphas = [alphas[1], alphas[2], alphas[0], alphas[2], alphas[1]];
+					break;
+				case 4:
+					aAlphas = [alphas[1], alphas[2], alphas[0], alphas[3], alphas[0]];
+					break;
+				case 5:
+					aAlphas = alphas;
+			}
+			
+   			// Position and scale based on the size of the photo
+			var nRadRotation:Number = Math.PI * nRotation / 180;
+			var nSizeX:int = Math.abs(nHeight * Math.sin(nRadRotation)) + Math.abs(nWidth * Math.cos(nRadRotation));
+			var nSizeY:int = Math.abs(nHeight * Math.cos(nRadRotation)) + Math.abs(nWidth * Math.sin(nRadRotation));
+   			var nBarWidth:Number = nSizeX;
+			var nBarHeight:Number;
+			var offsetX:Number = 0;
+			var offsetY:Number;
+			
+			switch (nBar) {
+				case 0:
+					nBarHeight = nSizeY * (100 - stretch + stripe*2) / (100 * 2);
+					offsetY = 0 - (nSizeY * (stretch + stripe*2) / (100 * 2)) - nBarHeight/2; 					
+					break;
+				
+				case 4:
+					nBarHeight = nSizeY * (100 - stretch + stripe*2) / (100 * 2);
+					offsetY = 0 + (nSizeY * (stretch + stripe*2) / (100 * 2)) + nBarHeight/2; 					
+					break;
+				
+				case 1:
+					offsetY = 0 - (nSizeY * (stretch+stripe)/2) / 100;			
+					nBarHeight = nSizeY * stripe / 100;
+					break;
+				case 3:
+					offsetY = 0 + (nSizeY * (stretch+stripe)/2) / 100; 					
+					nBarHeight = nSizeY * stripe / 100;
+					break;
+				
+				case 2:
+					nBarHeight = nSizeY * stretch / 100;
+					offsetY = 0;
+					break;
+			}	
+
+			var nBarX:Number = nWidth/2 + offsetX * Math.cos(nRadRotation) - offsetY * Math.sin(nRadRotation);	
+			var nBarY:Number = nHeight/2 + offsetX * Math.sin(nRadRotation) - offsetY * Math.cos(nRadRotation);	
+			
+   			var obProps:Object = {};
+   			obProps.scaleX = nBarWidth / 100;
+   			obProps.scaleY = nBarHeight / 100;
+   			obProps.x = nBarX;
+   			obProps.y = nBarY;
+   			obProps.alpha = nAlpha * aAlphas[nBar];
+			obProps.rotation = -nRotation;
+   			obProps.color = aColors[nBar];
+   			return obProps;
+   		}
+		
+		
+		private var _fInit:Boolean = DoInit();
+		private var _fnt:PicnikFont = PicnikFont.Default();
+		
+		private function DoInit(): Boolean {
+			FontManager.GetFontList(function(... args:Array): void {
+				_fnt = FontManager.FindFontByName("You Are Loved", false, false, true);
+				OnOpChange();
+			});
+			return true;
+		}
+		
+		
+		private function GetTextProps(nWidth:Number, nHeight:Number, nLayer:int): Object {
+			var aAlphas:Array = [1.0,1.0,0.2];
+			var aColors:Array;
+			switch (colors.length) {
+				case 0: 
+					aColors = [0xFF0000, 0xFFFFFF, 0x00FF00];
+					break;
+				case 1:
+					aColors = [colors[0], 0xFFFFFF, 0x000000];
+					break;
+				case 2:
+					aColors = [colors[0], 0xFFFFFF, colors[1]];
+					break;
+				default:
+					aColors = [colors[0], colors[2], colors[1]];
+			}
+			
+			// Position and scale based on the size of the photo
+			var nTextHeight:Number = nHeight * 0.4;
+			var nTextWidth:Number = nWidth * 0.4;
+			
+			var obProps:Object = {};
+			obProps.x = nWidth - nTextWidth/2 - nTextHeight/20;
+			obProps.y = nHeight - nTextHeight/2 - nTextHeight/20;
+			obProps.color = aColors[nLayer];
+			obProps.text = text;
+			obProps.font = _fnt;
+			obProps.alpha = aAlphas[nLayer];
+			obProps.fontSize = nTextHeight * 131 / 168; // 131 font size for a 168 bar height
+			obProps.textAlign = "center";
+			obProps.leading = -5;
+
+			if (nLayer == 1) {
+				obProps.x += nTextHeight/100;
+				obProps.y -= nTextHeight/100;
+			}
+			if (nLayer == 2) {
+				obProps.fontSize *= 1.3;
+			}
+
+			return obProps;
+		}
+				
+	]]>
+	</mx:Script>
+	<ctrl:EffectButton id="_efbtn" strTitle="{titleText}" strAuthor="@Resource(key='_efbtn_1', bundle='PinkFrameEffect')" strImageSource="{iconPath}"/>
+	<mx:String id="_strHelpText">{customHelpText}</mx:String>
+
+	<mx:VBox x="0" y="70" verticalGap="0" paddingLeft="8" paddingRight="8">
+
+		<!-- Rotation -->
+		<mx:HBox paddingBottom="-5" paddingTop="3" width="190">
+			<mx:Label text="@Resource(key='rotation', bundle='EffectCanvas')" styleName="sliderTitle"/>
+			<mx:Label text="{LocUtil.pct((_sldrRotation.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<ctrl:HSliderPlus width="190" minimum="-100" maximum="100" value="{-5 + zeroR}" id="_sldrRotation" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+		
+		<!-- Fade label/percent/slider box -->
+		<mx:HBox paddingBottom="-5" paddingTop="3" width="190">
+			<mx:Label text="@Resource(key='fade', bundle='EffectCanvas')" styleName="sliderTitle"/>
+			<mx:Label text="{LocUtil.pct((_sldrFade.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<ctrl:HSliderPlus width="190" minimum="0" maximum="100" value="{50 + zeroR}" id="_sldrFade" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+
+		<ctrl:ApplyCancelEffectButtons addBoxPadding="true" premium="{premium}"/>
+	</mx:VBox>
+
+	<objectOperations:NestedObjectOperation id="_op">
+		<objectOperations:children>
+			<objectOperations:CreateObjectOperation type="PRectangle" props="{GetBarProps(imagewidth, imageheight, _sldrRotation.value * -90/100, (1-_sldrFade.value/100), 0)}"/>
+			<objectOperations:CreateObjectOperation type="PRectangle" props="{GetBarProps(imagewidth, imageheight, _sldrRotation.value * -90/100, (1-_sldrFade.value/100), 1)}"/>
+			<objectOperations:CreateObjectOperation type="PRectangle" props="{GetBarProps(imagewidth, imageheight, _sldrRotation.value * -90/100, (1-_sldrFade.value/100), 2)}"/>
+			<objectOperations:CreateObjectOperation type="PRectangle" props="{GetBarProps(imagewidth, imageheight, _sldrRotation.value * -90/100, (1-_sldrFade.value/100), 3)}"/>
+			<objectOperations:CreateObjectOperation type="PRectangle" props="{GetBarProps(imagewidth, imageheight, _sldrRotation.value * -90/100, (1-_sldrFade.value/100), 4)}"/>
+			<objectOperations:CreateObjectOperation type="Text" props="{GetTextProps(imagewidth, imageheight, 2)}"/>
+			<objectOperations:CreateObjectOperation type="Text" props="{GetTextProps(imagewidth, imageheight, 1)}"/>
+			<objectOperations:CreateObjectOperation type="Text" props="{GetTextProps(imagewidth, imageheight, 0)}"/>
+			
+		</objectOperations:children>
+	</objectOperations:NestedObjectOperation>
+</cnt:EffectCanvas>

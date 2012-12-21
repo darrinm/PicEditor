@@ -1,0 +1,52 @@
+//
+// ... my very first hydra-filter, please forgive !
+// leskinen.petri@luukku.com
+// - please send me a note if you use the code for anything cool !
+//
+
+<languageVersion: 1.0;>
+kernel TVscreenPixelator
+<   namespace : "Petri Leskinen";
+    version : 1;
+    vendor: "Petri Leskinen";
+    description : "Filter for tv screen-like -pixelation";
+>
+{
+    parameter float size // it is float, but gives best results when equals an int !
+    <
+        minValue: float(1.4);
+        maxValue: float(64.0);
+        defaultValue: float(10.0);
+        description: "size";
+    >;
+    
+    parameter float4 bgColor
+    <
+        minValue: pixel4(0,0,0,0);
+        maxValue: pixel4(1,1,1,1);
+        defaultValue: pixel4(0,0,0,1);
+        description: "Background color";
+    >;
+
+    input image4 src;
+    output pixel4 dst;
+    
+    void evaluatePixel()
+    {
+        float2 xy1 = outCoord();
+        float2 size2 = float2(size,size)/4.0;
+        
+        // current position in a 4x4 map
+        int2 p = int2(mod( outCoord()/size2 ,4.0));
+        
+        xy1 -= mod( xy1, size2 );
+        dst = sampleNearest(src,xy1);
+        
+        // chanel by chanel
+        dst.r =  ( p.x == 0 ) ? dst.r : 0.0;
+        dst.g =  ( p.x == 1 ) ? dst.g : 0.0;
+        dst.b =  ( p.x == 2 ) ? dst.b : 0.0;
+        // case of background color
+        dst = ( p.x == 3 || p.y == 0) ? bgColor : dst;        
+    }
+}

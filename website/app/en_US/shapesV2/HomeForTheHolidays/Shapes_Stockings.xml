@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/xmas_stockings.png" flickrPremium="false" id="Stockings" numShapes="0" picnikPremium="false" previewUrls="60|48|../clipart/bundles/HomeForTheHolidaysArea_groupPreviews_Stockings.png?ver=440f33a7" title="Stockings">
+	<ShapeCategory flickrPremium="false" id="FreeStockings" numShapes="8" picnikPremium="false" title="Free">
+		<Shapes>
+			<Clipart cHeight="281" cWidth="148" flickrPremium="false" picnikPremium="false" previewUrl="40|40|0|../clipart/bundles/HomeForTheHolidaysArea_shapes_Stockings.png?ver=edf70a12" url="shapes/stockings1.swf"/>
+			<Clipart cHeight="376" cWidth="129" flickrPremium="false" picnikPremium="false" previewUrl="40|40|1|../clipart/bundles/HomeForTheHolidaysArea_shapes_Stockings.png?ver=edf70a12" url="shapes/stockings2.swf"/>
+			<Clipart cHeight="267" cWidth="241" flickrPremium="false" picnikPremium="false" previewUrl="40|40|2|../clipart/bundles/HomeForTheHolidaysArea_shapes_Stockings.png?ver=edf70a12" url="shapes/stockings3.swf"/>
+			<Clipart cHeight="344" cWidth="201" flickrPremium="false" picnikPremium="false" previewUrl="40|40|3|../clipart/bundles/HomeForTheHolidaysArea_shapes_Stockings.png?ver=edf70a12" url="shapes/stockings4.swf"/>
+			<Clipart cHeight="365" cWidth="153" flickrPremium="false" picnikPremium="false" previewUrl="40|40|4|../clipart/bundles/HomeForTheHolidaysArea_shapes_Stockings.png?ver=edf70a12" url="shapes/stockings5.swf"/>
+			<Clipart cHeight="42" cWidth="24" flickrPremium="false" picnikPremium="false" previewUrl="40|40|5|../clipart/bundles/HomeForTheHolidaysArea_shapes_Stockings.png?ver=edf70a12" url="shapes/clip1.swf"/>
+			<Clipart cHeight="42" cWidth="24" flickrPremium="false" picnikPremium="false" previewUrl="40|40|6|../clipart/bundles/HomeForTheHolidaysArea_shapes_Stockings.png?ver=edf70a12" url="shapes/clip2.swf"/>
+			<Clipart cHeight="8" cWidth="575" flickrPremium="false" picnikPremium="false" previewUrl="40|40|7|../clipart/bundles/HomeForTheHolidaysArea_shapes_Stockings.png?ver=edf70a12" url="shapes/string.swf"/>
+		</Shapes>
+	</ShapeCategory>
+	<ShapeCategory flickrPremium="true" id="PremiumStockings" numShapes="20" picnikPremium="true" title="Premium">
+		<Shapes>
+			<Clipart cHeight="1066" cWidth="480" flickrPremium="true" isVector="false" picnikPremium="true" previewUrl="40|40|8|../clipart/bundles/HomeForTheHolidaysArea_shapes_Stockings.png?ver=edf70a12" url="shapes/stockings_cutout/x_stocking-13.swf"/>
+			<Clipart cHeight="1049" cWidth="444" flickrPremium="true" isVector="false" picnikPremium="true" previewUrl="40|40|9|../clipart/bundles/HomeForTheHolidaysArea_shapes_Stockings.png?ver=edf70a12" url="shapes/stockings_cutout/x_stocking-01.swf"/>
+			<Clipart cHeight="1051" cWidth="405" flickrPremium="true" isVector="false" picnikPremium="true" previewUrl="40|40|10|../clipart/bundles/HomeForTheHolidaysArea_shapes_Stockings.png?ver=edf70a12" url="shapes/stockings_cutout/x_stocking-16.swf"/>
+			<Clipart cHeight="1066" cWidth="528" flickrPremium="true" isVector="false" picnikPremium="true" previewUrl="40|40|11|../clipart/bundles/HomeForTheHolidaysArea_shapes_Stockings.png?ver=edf70a12" url="shapes/stockings_cutout/x_stocking-10.swf"/>
+			<Clipart cHeight="1075" cWidth="488" flickrPremium="true" isVector="false" picnikPremium="true" previewUrl="40|40|12|../clipart/bundles/HomeForTheHolidaysArea_shapes_Stockings.png?ver=edf70a12" url="shapes/stockings_cutout/x_stocking-02.swf"/>
+			<Clipart cHeight="1107" cWidth="546" flickrPremium="true" isVector="false" picnikPremium="true" previewUrl="40|40|13|../clipart/bundles/HomeForTheHolidaysArea_shapes_Stockings.png?ver=edf70a12" url="shapes/stockings_cutout/x_stocking-03.swf"/>
+			<Clipart cHeight="1096" cWidth="560" flickrPremium="true" isVector="false" picnikPremium="true" previewUrl="40|40|14|../clipart/bundles/HomeForTheHolidaysArea_shapes_Stockings.png?ver=edf70a12" url="shapes/stockings_cutout/x_stocking-18.swf"/>
+			<Clipart cHeight="1101" cWidth="567" flickrPremium="true" isVector="false" picnikPremium="true" previewUrl="40|40|15|../clipart/bundles/HomeForTheHolidaysArea_shapes_Stockings.png?ver=edf70a12" url="shapes/stockings_cutout/x_stocking-06.swf"/>
+			<Clipart cHeight="1078" cWidth="538" flickrPremium="true" isVector="false" picnikPremium="true" previewUrl="40|40|16|../clipart/bundles/HomeForTheHolidaysArea_shapes_Stockings.png?ver=edf70a12" url="shapes/stockings_cutout/x_stocking-12.swf"/>
+			<Clipart cHeight="1079" cWidth="508" flickrPremium="true" isVector="false" picnikPremium="true" previewUrl="40|40|17|../clipart/bundles/HomeForTheHolidaysArea_shapes_Stockings.png?ver=edf70a12" url="shapes/stockings_cutout/x_stocking-04.swf"/>
+			<Clipart cHeight="1110" cWidth="444" flickrPremium="true" isVector="false" picnikPremium="true" previewUrl="40|40|18|../clipart/bundles/HomeForTheHolidaysArea_shapes_Stockings.png?ver=edf70a12" url="shapes/stockings_cutout/x_stocking-08.swf"/>
+			<Clipart cHeight="1071" cWidth="508" flickrPremium="true" isVector="false" picnikPremium="true" previewUrl="40|40|19|../clipart/bundles/HomeForTheHolidaysArea_shapes_Stockings.png?ver=edf70a12" url="shapes/stockings_cutout/x_stocking-14.swf"/>
+			<Clipart cHeight="1076" cWidth="456" flickrPremium="true" isVector="false" picnikPremium="true" previewUrl="40|40|20|../clipart/bundles/HomeForTheHolidaysArea_shapes_Stockings.png?ver=edf70a12" url="shapes/stockings_cutout/x_stocking-17.swf"/>
+			<Clipart cHeight="1104" cWidth="497" flickrPremium="true" isVector="false" picnikPremium="true" previewUrl="40|40|21|../clipart/bundles/HomeForTheHolidaysArea_shapes_Stockings.png?ver=edf70a12" url="shapes/stockings_cutout/x_stocking-20.swf"/>
+			<Clipart cHeight="1074" cWidth="468" flickrPremium="true" isVector="false" picnikPremium="true" previewUrl="40|40|22|../clipart/bundles/HomeForTheHolidaysArea_shapes_Stockings.png?ver=edf70a12" url="shapes/stockings_cutout/x_stocking-15.swf"/>
+			<Clipart cHeight="1065" cWidth="439" flickrPremium="true" isVector="false" picnikPremium="true" previewUrl="40|40|23|../clipart/bundles/HomeForTheHolidaysArea_shapes_Stockings.png?ver=edf70a12" url="shapes/stockings_cutout/x_stocking-19.swf"/>
+			<Clipart cHeight="1076" cWidth="440" flickrPremium="true" isVector="false" picnikPremium="true" previewUrl="40|40|24|../clipart/bundles/HomeForTheHolidaysArea_shapes_Stockings.png?ver=edf70a12" url="shapes/stockings_cutout/x_stocking-07.swf"/>
+			<Clipart cHeight="1079" cWidth="413" flickrPremium="true" isVector="false" picnikPremium="true" previewUrl="40|40|25|../clipart/bundles/HomeForTheHolidaysArea_shapes_Stockings.png?ver=edf70a12" url="shapes/stockings_cutout/x_stocking-11.swf"/>
+			<Clipart cHeight="1080" cWidth="413" flickrPremium="true" isVector="false" picnikPremium="true" previewUrl="40|40|26|../clipart/bundles/HomeForTheHolidaysArea_shapes_Stockings.png?ver=edf70a12" url="shapes/stockings_cutout/x_stocking-09.swf"/>
+			<Clipart cHeight="1057" cWidth="526" flickrPremium="true" isVector="false" picnikPremium="true" previewUrl="40|40|27|../clipart/bundles/HomeForTheHolidaysArea_shapes_Stockings.png?ver=edf70a12" url="shapes/stockings_cutout/x_stocking-05.swf"/>
+		</Shapes>
+	</ShapeCategory>
+</ShapeCategory>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cnt:PaintEffectCanvas xmlns:cnt="containers.*" xmlns="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="467"
+	xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*" xmlns:effects="effects.*"
+	premium="true" urlid="Emerald">
+	<mx:Script>
+		<![CDATA[
+			import util.LocUtil;
+			import mx.resources.ResourceBundle;
+	   		[Bindable] [ResourceBundle("GreenFadeEffect")] private var rb:ResourceBundle;
+	   		
+		]]>
+	</mx:Script>
+		
+		
+	<EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='GreenFadeEffect')" strAuthor="@Resource(key='byPicnik', bundle='EffectCanvas')"
+		strImageSource="../graphics/effects/StPatricksDay/green_fade.jpg" premium="{premium}"/>
+	<mx:String id="_strHelpText">{Resource.getString('GreenFadeEffect', '_strHelpText')}</mx:String>
+	
+	<mx:VBox x="10" y="67" verticalGap="0">
+		<!-- presets combox box -->
+		<!-- Fade label/percent/slider box/effect paint button -->
+		<mx:HBox horizontalGap="5" paddingTop="5" verticalAlign="middle">
+			<mx:VBox verticalGap="0" width="157" horizontalScrollPolicy="off">
+				<mx:HBox width="100%" paddingBottom="-5">
+					<mx:Label text="@Resource(key='fade', bundle='EffectCanvas')" styleName="sliderTitle"/>
+					<mx:Label text="{LocUtil.pct((_sldrFade.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+				</mx:HBox>
+				<HSliderPlus width="157" minimum="0" maximum="100" value="{zeroR}" id="_sldrFade" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+			</mx:VBox>
+			<mx:Button id="_btnBrushPalette" width="30" height="30" selected="false" toggle="true" icon="@Embed('/assets/bitmaps/icon_paintTall.png')" paddingLeft="0"
+				toolTip="@Resource(key='_btnBrushPalette', bundle='BWEffect')"/>
+		</mx:HBox>
+		
+		<!-- apply/cancel -->
+		<ApplyCancelEffectButtons addBoxPadding="true" premium="{premium}"/>
+	</mx:VBox>
+</cnt:PaintEffectCanvas>

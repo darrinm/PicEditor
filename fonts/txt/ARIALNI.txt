@@ -1,0 +1,12 @@
+fileName: ARIALNI.TTF
+name: Arial Narrow
+subfamilyDisplayName: Cursiva
+fullName: Arial Narrow Cursiva
+displayName: Arial Narrow
+ital: 1
+bold: 0
+weight: 3
+panose.weight: 5
+pkName: pkARIALNI
+authorName: Robin Nicholas and Patricia Saunders
+authorUrl: http://www.microsoft.com/typography/fonts/font.aspx?FID=8&FNAME=Arial

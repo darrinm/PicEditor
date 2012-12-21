@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MyPicnikInBridgeBase xmlns="bridges.mypicnik.*" xmlns:basket="bridges.basket.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%"
+		horizontalScrollPolicy="off" verticalScrollPolicy="off"  xmlns:flash="flash.filters.*" xmlns:ctrl="controls.*" xmlns:components="bridges.components.*">
+	<mx:Script>
+		import mx.resources.ResourceBundle;
+		import util.LocUtil;
+   		[Bindable] [ResourceBundle("MyPicnikInBridge")] private var rb:ResourceBundle;
+	</mx:Script>
+
+	<mx:String id="kstrSearchPrompt">{Resource.getString('MyPicnikInBridge', 'kstrSearchPrompt')}</mx:String>
+	
+	<states>
+		<mx:State name="NeedAuthorization">
+			<mx:RemoveChild target="{_tlst}"/>
+			<mx:RemoveChild target="{hbox1}"/>
+			<!--
+			<mx:AddChild position="lastChild">
+				<FlickrAccount id="_ssa" _tpa="{_tpa}" inBasket="true" horizontalCenter="0" paddingBottom="10" top="15"/>
+			</mx:AddChild>
+			-->
+		</mx:State>
+		<mx:State name="NoImages">
+			<mx:RemoveChild target="{_tlst}"/>
+			<mx:AddChild relativeTo="{hbox1}" position="before">
+				<mx:HBox x="0" top="30" width="100%" horizontalAlign="center" paddingTop="10">
+					<mx:Text id="text1" width="600" textAlign="center" condenseWhite="true" selectable="false"
+						htmlText="@Resource(key='text1', bundle='MyPicnikBasket')" filters="{[_efEmboss]}"/>
+				</mx:HBox>
+			</mx:AddChild>
+		</mx:State>
+		<mx:State name="NoImagesWithSearch">
+			<mx:RemoveChild target="{_tlst}"/>
+			<mx:AddChild position="lastChild">
+				<mx:HBox x="0" top="30" width="100%" horizontalAlign="center" paddingTop="10">
+					<mx:Text id="text2" width="600" textAlign="center" condenseWhite="true" selectable="false"
+						htmlText="@Resource(key='text2', bundle='MyPicnikBasket')" filters="{[_efEmboss]}"/>
+				</mx:HBox>
+			</mx:AddChild>
+		</mx:State>
+	</states>
+	
+	<flash:DropShadowFilter id="_efEmboss" alpha="0.35" quality="3" blurX="0" blurY="0" angle="-90" color="#000000" distance="1"/>
+	<flash:DropShadowFilter id="_efEmbossSoft" alpha="0.35" quality="3" blurX="2" blurY="2" angle="-90" color="#000000" distance="1"/>
+	<flash:DropShadowFilter id="_efShine" alpha="0.9" quality="3" blurX="0" blurY="0" angle="90" inner="true" color="#ffffff" distance="1"/>
+	<flash:DropShadowFilter id="_efHighlight" alpha="0.70" distance="1" blurX="0" blurY="0" color="#ffffff" quality="3" angle="90" inner="true"/>
+	<flash:DropShadowFilter id="_efShadow" distance="1" angle="90" blurX="3" blurY="3" alpha=".5" quality="3"/>
+	
+	<mx:HBox top="0" right="15" left="188" verticalAlign="middle" horizontalGap="0" id="hbox1" paddingTop="3">
+		<mx:HBox id="_hboxPhotoSets" horizontalGap="5" paddingRight="20" width="100%" verticalAlign="middle">
+			<ctrl:ComboBoxPlus id="_cboxSets" rowCount="8" width="100%" height="24" minWidth="180" maxWidth="250" styleName="greenComboBox">
+				<ctrl:itemRenderer>
+					<mx:Component>
+		            	<mx:HBox verticalAlign="middle">
+		                	<mx:Label text="{data.label}" fontSize="14" width="100%" minWidth="90" paddingRight="5" styleName="deviceFonts"/>
+		                	<ctrl:ImageVer source="{data.icon}" height="36" width="36"/>
+		            	</mx:HBox>
+					</mx:Component>
+	            </ctrl:itemRenderer>
+			</ctrl:ComboBoxPlus>
+			<ctrl:ImageVer id="_imgPhotoSet" source="{_cboxSets.selectedItem.icon}" width="20" height="20"
+				horizontalAlign="center" verticalAlign="middle"
+				useHandCursor="true" buttonMode="true" filters="{[_efShadow]}"/>
+		</mx:HBox>
+		<mx:Label id="_lblSearch" text="@Resource(key='Label_1', bundle='MyPicnikBasket')" fontSize="12" enabled="{_cboxSets.selectedIndex == 0}"
+			color="#f2ffd9" disabledColor="#bfd98d" filters="{[_efEmboss]}" paddingTop="2"/>
+		<mx:Canvas id="_cvsSearch" width="100%" minWidth="140" maxWidth="220" filters="{[_efShine,_efEmbossSoft]}">
+			<ctrl:TextInputPlus width="100%" id="_tiFilter" height="20" minWidth="140" maxWidth="220" x="0" top="1" fontSize="13"
+				enabled="{_cboxSets.selectedIndex==0}" enter="RefreshItemList()" styleName="basketInput" 
+				filters="{[]}" backgroundColor="#e5ffb2" borderThickness="0" paddingLeft="2"
+				disabledColor="#5f7a34"	alpha="{_tiFilter.enabled?1.0:0.7}"
+				mouseOver="{_tiFilter.enabled?_tiFilter.setStyle('backgroundColor','#ffffff'):null}" mouseOut="{_tiFilter.enabled?_tiFilter.setStyle('backgroundColor','#e5ffb2'):null}"/>
+			<mx:Button icon="@Embed('/theme/pngs/clearIconGreen.png')" width="20" height="20" right="0" top="1" paddingLeft="0"
+				id="_btnClear" styleName="clearButton"
+				alpha="{_tiFilter.enabled?1.0:0.7}" mouseOver="{_tiFilter.enabled?_btnClear.alpha=0.8:null}" mouseDown="{_btnClear.alpha=0.7}" mouseOut="{_btnClear.alpha=1.0}"
+				visible="{_tiFilter.text?true:false}"
+				enabled="{_cboxSets.selectedIndex==0}"
+				click="_tiFilter.text='',RefreshItemList()"/>
+		</mx:Canvas>
+		<mx:Spacer width="20"/>
+		<ctrl:StaticTitleComboBox id="_cboxOrderBy" rowCount="8" height="24" styleName="greenComboBox"
+				staticLabel="@Resource(key='sort', bundle='MyPicnikBasket')" dropDownLeftAligned="true"
+				enabled="{_cboxSets.selectedIndex == 0}" selectedIndex="1" editable="{_cboxSets.selectedIndex == -2}">
+			<mx:ArrayCollection>
+				<mx:Object label="{Resource.getString('MyPicnikInBridge', 'Object_1')}" data="recently_updated"/>
+				<mx:Object label="{Resource.getString('MyPicnikInBridge', 'Object_2')}" data="date-posted-desc"/>
+				<mx:Object label="{Resource.getString('MyPicnikInBridge', 'Object_3')}" data="date-posted-asc"/>
+				<mx:Object label="{Resource.getString('MyPicnikInBridge', 'Object_4')}" data="date-taken-desc"/>
+				<mx:Object label="{Resource.getString('MyPicnikInBridge', 'Object_5')}" data="date-taken-asc"/>
+				<mx:Object label="{Resource.getString('MyPicnikInBridge', 'Object_6')}" data="interestingness-desc"/>
+				<mx:Object label="{Resource.getString('MyPicnikInBridge', 'Object_7')}" data="interestingness-asc"/>
+			</mx:ArrayCollection>
+		</ctrl:StaticTitleComboBox>
+		<mx:Spacer width="60"/>
+	</mx:HBox>
+	<basket:BasketItemTileList left="0" top="28" bottom="0" right="0" id="_tlst"/>
+</MyPicnikInBridgeBase>

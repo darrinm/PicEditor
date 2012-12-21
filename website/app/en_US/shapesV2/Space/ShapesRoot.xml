@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory area="Space" id="root">
+	<ShapeCategory flickrPremium="false" id="spaceSection" numShapes="0" picnikPremium="false" showHeader="false">
+		<ShapeCategory authorName="Divide by Zero" authorUrl="http://fonts.tom7.com/" customGroupThumbUrl="../clipart/largePreviews/custom/shape_SolarSystem.png" flickrPremium="true" id="SolarSystem" numShapes="8" picnikPremium="false" previewUrls="60|48|../clipart/bundles/SpaceArea_groupPreviews_SolarSystem.png?ver=4584867f" thumbUrl="66|54|0|../clipart/bundles/SpaceArea_groupThumbs.png?ver=2878db24" title="Solar System"/>
+	</ShapeCategory>
+</ShapeCategory>

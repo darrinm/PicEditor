@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ItemPickerBase xmlns="controls.itempicker.*" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:flexlib="flexlib.containers.*" xmlns:controls="controls.*"
+	verticalScrollPolicy="off" horizontalScrollPolicy="off" width="100%" clipContent="false" minHeight="32">
+	<flexlib:FlowContainer id="_ctrPickedItems" horizontalGap="5" width="100%" verticalScrollPolicy="off" horizontalScrollPolicy="off" />
+	<mx:Canvas width="100%" id="_cvsTextBox">
+		<controls:TextInputPlus height="26" prompt="{prompt}" width="100%" fontSize="15" styleName="publishFormField" id="_tiFilter"/>	
+		<controls:ImageVer source="@Embed('/theme/pngs/inlineDropDownArrow.png')" mouseEnabled="false" right="8" verticalCenter="0"/>
+	</mx:Canvas>	
+</ItemPickerBase>

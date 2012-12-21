@@ -1,0 +1,12 @@
+fileName: fs_PvSn____.ttf
+name: Providence-Sans
+subfamilyDisplayName: Regular
+fullName: Providence-Sans
+displayName: Providence-Sans
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 6
+pkName: pkfs0PvSn0000
+authorName: FontShop
+authorUrl: http://www.fontshop.com/

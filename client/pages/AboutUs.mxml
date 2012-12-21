@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page xmlns="pages.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%" xmlns:filters="flash.filters.*"
+		xmlns:RegisterHelper="dialogs.RegisterHelper.*" horizontalScrollPolicy="off" xmlns:ctl="controls.*">
+	<mx:Script>
+		<![CDATA[
+			import dialogs.DialogManager;
+			
+			import inspiration.InspirationManager;
+		]]>
+	</mx:Script>
+	<mx:String id="urlkit"/> <!-- used by UrlKit to compose the URL including this 'page' -->
+	<filters:DropShadowFilter blurX="2" blurY="2" distance="1" color="#0a2233" alpha=".2"
+		quality="3" angle="90" knockout="true" id="_fiDropShad"/>
+	<filters:DropShadowFilter blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1"
+		quality="3" angle="90" id="_fiWhiteShad"/>
+
+	<ctl:ImageEx source="../graphics/bluegrad_short.gif" left="0" top="0" width="100%" height="702" maintainAspectRatio="false" includeInLayout="false"/>
+	<ctl:ImageEx source="../graphics/clouds.jpg" horizontalCenter="0" top="0" width="983" height="177" includeInLayout="false" horizontalAlign="center"/>
+	<!-- this canvas generates the scroll bars, allowing the above images to stay pinned to the top of the page -->
+	<mx:Canvas bottom="0" top="0" left="0" right="0" horizontalScrollPolicy="off" verticalLineScrollSize="38">
+		<mx:VBox horizontalAlign="center" width="100%" height="100%">
+			<mx:HBox width="100%" horizontalAlign="center" paddingTop="25" paddingLeft="15" paddingRight="25">
+				<mx:VBox verticalGap="0" minWidth="400" width="100%" maxWidth="620" verticalScrollPolicy="off" horizontalScrollPolicy="off" paddingBottom="15">
+					<mx:Label text="@Resource(key='Label_1', bundle='AboutUs')" fontWeight="bold" fontSize="30" horizontalCenter="0" color="#005580" paddingBottom="-8" filters="{[_fiWhiteShad]}"/>
+					<mx:HBox horizontalGap="15" maxWidth="620" minWidth="400" verticalScrollPolicy="off" horizontalScrollPolicy="off">
+						<mx:Text width="100%" fontSize="15" selectable="false" color="#333333" condenseWhite="true" leading="-2" htmlText="@Resource(key='Text_1', bundle='AboutUs')"/>		
+						<mx:Image source="../graphics/aboutUs/scatteredPhotos.png"/>
+					</mx:HBox>
+				</mx:VBox>
+			</mx:HBox>
+			<mx:Button id="_btn1" visible="{AccountMgr.GetInstance().isAdmin}" includeInLayout="{AccountMgr.GetInstance().isAdmin}" label="Load Test Inspiration" click="{InspirationManager.Load(true)}"
+					   />
+		</mx:VBox>
+	</mx:Canvas>
+</Page>

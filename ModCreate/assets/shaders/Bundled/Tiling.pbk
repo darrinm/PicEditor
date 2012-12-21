@@ -1,0 +1,107 @@
+//
+// leskinen.petri[at]luukku.com
+// Espoo, Finland, 25 Feb, 2008
+//
+
+<languageVersion: 1.0;>
+kernel Tiling
+<
+    title: "Tiling Mosaic";
+    namespace : "Tiling mosaic";
+    vendor : "Petri Leskinen";
+    version : 1;
+    description : "Tiling -filter";
+    iconURL : "../graphics/effects/tiling.png";
+>
+{
+/*
+    parameter bool showGrid 
+    <
+        defaultValue: bool(false);
+        description: " for testing only";
+        >;
+*/
+    parameter float2 grid1
+    <
+        minValue: float2(1,1);
+        maxValue: float2(300,300);
+        defaultValue: float2(36,1);
+        description: "X- and Y-scale of grid #1";
+        snapInterval: float2(1, 1);
+    >;
+    parameter float2 base1
+    <
+        minValue: float2(0,0);
+        maxValue: float2(800,500);
+        defaultValue: float2(40,250);
+        description: "base point for grid#1";
+        snapInterval: float2(1, 1);
+    >;
+    parameter float2 grid2
+    <
+        minValue: float2(1,1);
+        maxValue: float2(300,300);
+        defaultValue: float2(2,36);
+        description: "X- and Y-size of grid #2";
+        snapInterval: float2(1, 1);
+    >;
+    parameter float2 base2
+    <
+        minValue: float2(0,0);
+        maxValue: float2(800,500);
+        defaultValue: float2(400,250);
+        description: "base point grid #2";
+        snapInterval: float2(1, 1);
+    >;
+    /*
+    parameter float expon
+    <
+        minValue: float(0.0);
+        maxValue: float(3.0);
+        defaultValue: float(2.0);
+        description: "ex";
+    >;    
+    */
+    
+    input image4 img;
+    output pixel4 pxl;
+    
+    void evaluatePixel()
+    {
+        // Tiling by counting a distance to two regular grids,
+        // and choosing the sample point of the closer one
+    
+        // First grid
+        float2 po1 = floor((outCoord()-base1)/grid1+0.5);
+        po1 = po1*grid1 +base1;
+        po1 -= outCoord();
+        // squared distance to a center point of that
+        float dst1 = po1.x*po1.x + po1.y*po1.y;
+        //float dst1 = pow(abs(po1.x),expon)+pow(abs(po1.y),expon);
+        
+        // Same thing with the Second grid
+        float2 po2 = floor((outCoord()-base2)/grid2+0.5);
+        po2 = po2*grid2 +base2;
+        po2 -= outCoord();
+        float dst2 = po2.x*po2.x + po2.y*po2.y;
+        // float dst2 = pow(abs(po2.x),expon)+pow(abs(po2.y),expon); 
+        
+        // pick the closer point :
+        po1= (dst1<dst2) ? po1 : po2;
+        pxl= sampleNearest(img, po1+outCoord());
+        
+        // for testing only ->
+        /*
+        if (showGrid) {
+            pxl= sampleNearest(img,outCoord() );
+            if (dst1<16.0) {
+                pxl= pixel4(1,0,0,1);
+            }
+            if (dst2<16.0) {
+                pxl= pixel4(0,0,1,1);
+            }
+        }
+        */
+        // <- testing only
+    }
+}

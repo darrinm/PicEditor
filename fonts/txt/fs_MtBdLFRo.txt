@@ -1,0 +1,12 @@
+fileName: fs_MtBdLFRo.ttf
+name: MetaBoldLF-Roman
+subfamilyDisplayName: Regular
+fullName: MetaBoldLF-Roman
+displayName: MetaBoldLF-Roman
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 5
+pkName: pkfs0MtBdLFRo
+authorName: FontShop
+authorUrl: http://www.fontshop.com/

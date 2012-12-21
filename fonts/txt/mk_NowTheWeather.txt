@@ -1,0 +1,12 @@
+fileName: mk_NowTheWeather.ttf
+name: NowTheWeather
+subfamilyDisplayName: Regular
+fullName: NowTheWeather
+displayName: NowTheWeather
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 4
+pkName: pkmk0NowTheWeather
+authorName: Manfred Kelin
+authorUrl: http://moorstation.org/typoasis/designers/klein/

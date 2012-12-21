@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DodgeAndBurnEffectBase xmlns="effects.*" xmlns:cnt="containers.*" xmlns:ctrl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="434" xmlns:local="*" 
+	xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*"
+	xmlns:flash.geom="flash.geom.*" premium="true" changeImage="SaveOrigImage()"
+	lighten="true"
+	 urlid="Dodging">
+	<mx:Script>
+		import util.LocUtil;
+		import mx.resources.ResourceBundle;
+   		[Bindable] [ResourceBundle("DodgeEffect")] private var rb:ResourceBundle;
+	</mx:Script>
+
+
+	<mx:HRule x="0" width="100%" top="0" height="1" strokeColor="#FFFFFF"/>
+	<mx:HRule x="0" width="100%" height="1" bottom="0" strokeColor="#d4d4d4"/>
+	
+	<ctrl:EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='DodgeEffect')" 
+		strAuthor="@Resource(key='byPicnik', bundle='EffectCanvas')" strImageSource="../graphics/effects/Misc/doodle.png" 
+		premium="{premium}"/>
+	<mx:String id="_strHelpText">{Resource.getString('DodgeEffect', '_strHelpText')}</mx:String>
+
+	<mx:VBox x="9" y="70" verticalGap="0">
+		<mx:Spacer width="10" height="3"/>
+		
+		<mx:ToggleButtonBar id="_tbb" selectedIndex="{zeroR + 1}" itemClick="area = _tbb.selectedIndex">
+			<mx:dataProvider>
+				<mx:String>@Resource(key='Highlights', bundle='DodgeEffect')</mx:String>
+				<mx:String>@Resource(key='Midtones', bundle='DodgeEffect')</mx:String>
+				<mx:String>@Resource(key='Shadows', bundle='DodgeEffect')</mx:String>
+			</mx:dataProvider>
+		</mx:ToggleButtonBar>
+		
+		<mx:HBox width="190" paddingBottom="-5" paddingTop="5">
+			<mx:Label text="{_btnEraser.selected?'Eraser Size':'Brush Size'}" styleName="sliderTitle" width="100"/>
+			<mx:Label text="{Math.round(SliderToBrushSize(_sldrBrushSize.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<ctrl:HSliderFastDrag id="_sldrBrushSize" width="190" 
+			minimum="0" maximum="100" value="{BrushSizeToSlider(45+zeroR)}" showDataTip="false"/>
+
+		<mx:HBox width="190" paddingBottom="-5" paddingTop="5">
+			<mx:Label text="@Resource(key='strength', bundle='EffectCanvas')" styleName="sliderTitle" width="100"/>
+			<mx:Label text="{Math.round(_sldrImpact.value)}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<ctrl:HSliderPlus liveDragging="false" id="_sldrImpact" width="190" change="impact=_sldrImpact.value/100"
+			minimum="1" maximum="100" value="{zeroR + 30}" showDataTip="false"/>
+
+		<mx:Box width="190" horizontalAlign="center" paddingTop="5" paddingLeft="2">
+			<ctrl:ResizingButton label="@Resource(key='eraser', bundle='EffectCanvas')" id="_btnEraser" icon="@Embed('/assets/bitmaps/icon_eraser.png')"
+				height="28"	horizontalGap="3" styleName="applyStyle" selected="{zeroR!=0}"
+				click="{_btnEraser.selected?_btnEraser.selected=false:_btnEraser.selected=true}" />
+		</mx:Box>
+		
+		<ctrl:ApplyCancelEffectButtons premium="{premium}" addBoxPadding="true"/>
+	</mx:VBox>
+
+	<mx:Number id="_cxyBrush">{Math.round(SliderToBrushSize(_sldrBrushSize.value))}</mx:Number>
+	
+</DodgeAndBurnEffectBase>

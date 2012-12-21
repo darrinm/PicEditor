@@ -1,0 +1,12 @@
+fileName: BRADHITC.TTF
+name: Bradley Hand ITC
+subfamilyDisplayName: Normal
+fullName: Bradley Hand ITC
+displayName: Bradley Hand ITC
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 4
+pkName: pkBRADHITC
+authorName: Richard Bradley
+authorUrl: http://www.myfonts.com/person/bradley/richard/

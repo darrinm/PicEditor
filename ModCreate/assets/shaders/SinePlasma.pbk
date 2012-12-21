@@ -1,0 +1,80 @@
+<languageVersion: 1.0;>
+kernel SinePlasma
+<   namespace: "popforge::ImageProcessing";
+    vendor: "Joa Ebert";
+    version: 1;
+    description: "generates a simple monochromatic sine plasma";
+>
+{
+    parameter int width
+    <
+        defaultValue:   200;
+        minValue:       1;
+        maxValue:       400;
+        description:    "height of the generated plasma";
+    >;
+    
+    parameter int height
+    <
+        defaultValue:   200;
+        minValue:       1;
+        maxValue:       400;
+        description:    "width of the generated plasma";
+    >;
+    
+    parameter float amp
+    <
+        minValue:       0.0;
+        maxValue:       2.0;
+        defaultValue:   1.0;
+        description:    "amplitude of the sine wave";
+    >;
+    
+    parameter float freqX
+    <
+        minValue:       0.0;
+        maxValue:       2.0;
+        defaultValue:   0.5;
+        description:    "sine frequency in x-direction";
+    >;
+    
+    parameter float freqY
+    <
+        minValue:       0.0;
+        maxValue:       2.0;
+        defaultValue:   0.5;
+        description:    "sine frequency in y-direction";
+    >;
+    
+    parameter float levelRed
+    <
+        minValue:       0.0;
+        maxValue:       2.0;
+        defaultValue:   1.0;
+        description:    "red channel multiplier";
+    >;
+    
+    parameter float levelGreen
+    <
+        minValue:       0.0;
+        maxValue:       2.0;
+        defaultValue:   1.0;
+        description:    "green channel multiplier";
+    >;
+    
+    parameter float levelBlue
+    <
+        minValue:       0.0;
+        maxValue:       2.0;
+        defaultValue:   1.0;
+        description:    "blue channel multiplier";
+    >;
+    output pixel4 result;
+    
+    void evaluatePixel()
+    {
+        float2 coords = outCoord();
+        float y = 0.25 * sin( freqX * coords.x ) + 0.25 * sin( freqY * coords.y ) * amp + 0.5;
+        result = pixel4(levelRed*y,levelGreen*y,levelBlue*y,y);
+    }
+}

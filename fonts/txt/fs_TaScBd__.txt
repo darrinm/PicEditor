@@ -1,0 +1,12 @@
+fileName: fs_TaScBd__.ttf
+name: TartineScript-Bold
+subfamilyDisplayName: Regular
+fullName: TartineScript-Bold
+displayName: TartineScript-Bold
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 8
+pkName: pkfs0TaScBd00
+authorName: FontShop
+authorUrl: http://www.fontshop.com/

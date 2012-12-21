@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UIDocumentObjectBase xmlns="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:ds="com.darronschall.effects.*"
+		rollOver="OnRollOver()"  
+		rollOut="OnRollOut()" 
+		backgroundColor="{GetColor(premium)}" backgroundAlpha="{AlphaForState(premium, knRest)}"
+		mouseDown="OnMouseDown()"
+		childColor="0">
+	<!-- interaction effects -->
+<mx:Script>
+	<![CDATA[
+		import flash.sampler.stopSampling;
+		
+		import mx.effects.AnimateProperty;
+		
+		import util.GooglePlusUtil;
+		private var _efAnim:AnimateProperty;
+
+		private static const knRest:Number = 0;
+		private static const knHover:Number = 1;
+		private static const knDown:Number = 2;
+		
+		private var _fMouseOver:Boolean = false;
+		private var _fMouseDown:Boolean = false;
+		
+		private var _nFromState:Number = knRest;
+		
+		public static function GetColor(fPremium:Boolean): Number {
+			if (GooglePlusUtil.UsingGooglePlusAPIKey(PicnikBase.app.parameters))
+				return 0xf1f1f1;
+			else if (fPremium)
+				return 0x0079b8;
+			else
+				return 0xdefab4;
+		}
+		
+		private function AlphaForState(fPremium:Boolean, nState:Number): Number {
+			if (nState == knDown) return fPremium ? 0.28 : 0.9;
+			if (nState == knHover) return fPremium ? 0.14 : 0.6;
+			return fPremium ? 0.07 : 0;
+		}
+
+		private function GetState(): Number {
+			if (_fMouseDown) return knDown;
+			if (_fMouseOver) return knHover;
+			return knRest;
+		}
+		
+		private function OnRollOver(evt:Event=null): void {
+			_fMouseOver = true;
+			// childColor = 0;
+			ShowInfoButton();
+			AlphaTo(GetState());
+		}
+		
+		private function OnRollOut(evt:Event=null): void {
+			_fMouseOver = false;
+			// childColor = GetChildColor(premium, 0x005580, 0);
+			HideInfoButton();
+			AlphaTo(GetState());
+		}
+		
+		private function OnMouseDown(evt:Event=null): void {
+			stage.addEventListener(MouseEvent.MOUSE_UP, OnMouseUp);
+			_fMouseDown = true;
+			AlphaTo(GetState());
+		}
+		
+		private function OnMouseUp(evt:Event=null): void {
+			stage.removeEventListener(MouseEvent.MOUSE_UP, OnMouseUp);
+			_fMouseDown = false;
+			AlphaTo(GetState());
+		}
+		
+		private function AlphaTo(nState:Number): void {
+			if (_efAnim == null) {
+				_efAnim = new AnimateProperty(this);
+				_efAnim.property = "backgroundAlpha";
+			}
+			if (nState == knDown)
+				_efAnim.duration = 150;
+			else if (_nFromState == knDown) 
+				_efAnim.duration = 200;
+			else if (nState == knHover)
+				_efAnim.duration = 50;
+			else
+				_efAnim.duration = 100;
+				
+			var nAlphaFrom:Number = backgroundAlpha;
+
+			endEffectsStarted();
+			
+			_efAnim.fromValue = nAlphaFrom;
+			_efAnim.toValue = AlphaForState(premium, nState);
+			_efAnim.play();
+			
+			_nFromState = nState;
+		}
+	]]>
+</mx:Script>
+</UIDocumentObjectBase>

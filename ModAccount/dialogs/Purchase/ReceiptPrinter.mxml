@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Box xmlns="dialogs.Purchase.*" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:ctrl="controls.*"
+		backgroundColor="0xffffff" width="550">
+	<mx:Script>
+		<![CDATA[
+			import mx.printing.FlexPrintJob;
+			import mx.printing.FlexPrintJobScaleType;
+			import mx.resources.ResourceBundle;
+			
+			import util.CreditCard;
+			import util.CreditCardTransaction;
+			import util.LocUtil;
+			
+			[Bindable] public var _strTotal:String = "";			
+			[Bindable] public var _strAccountExpires:String = "";
+			
+			[Bindable] public var cct:CreditCardTransaction;
+			
+			[Bindable] [ResourceBundle("ReceiptTab")] protected var _rb:ResourceBundle;
+			
+			public function Print(cctIn:CreditCardTransaction): void {
+				cct = cctIn;
+				_strTotal = LocUtil.moneyUSD(cct.nAmount + cct.nTax);
+				if (cct.nTax > 0) {
+					//$%s USD ($%s + $%s tax) 
+					var strAmount:String = LocUtil.moneyUSD(cct.nAmount);
+					var strTax:String = LocUtil.moneyUSD(cct.nTax);
+					_strTotal += ' (' + strAmount + ' + ' + strTax + ' ' + 'tax' + ')';
+				}
+
+				_strAccountExpires = LocUtil.mediumDate( AccountMgr.GetInstance().dateSubscriptionExpires );
+				
+				var fpj:FlexPrintJob = new FlexPrintJob();
+				if (fpj.start()) {
+					includeInLayout = true;
+					visible = true;
+					fpj.addObject(this, FlexPrintJobScaleType.SHOW_ALL);
+					fpj.send();
+					includeInLayout = false;
+					visible = false;
+				}
+			}
+
+			
+
+		]]>
+	</mx:Script>
+	<!-- masthead -->
+	<mx:HBox paddingLeft="11" paddingRight="15" width="100%" verticalAlign="middle" borderStyle="solid" borderSides="bottom" borderColor="#999999" height="100">
+		<ctrl:ImageEx source="../graphics/picnik_premium_branding.jpg" width="150" height="82"/>
+	</mx:HBox>
+	<!-- header -->
+	<mx:VBox verticalGap="-8" paddingLeft="11" paddingRight="15" paddingBottom="3" width="100%">
+		<mx:Text fontSize="30" color="#005580" condenseWhite="true" fontWeight="bold" width="100%" htmlText="@Resource(key='Text_2', bundle='ReceiptPrintView')">
+		</mx:Text>
+		<mx:Text fontSize="14" color="#000000" width="100%" leading="-1" selectable="false" condenseWhite="true" htmlText="@Resource(key='Text_3', bundle='ReceiptPrintView')">
+		</mx:Text>
+	</mx:VBox>
+	<!-- copy box -->
+	<mx:VBox paddingLeft="13" paddingTop="8" paddingRight="16" verticalGap="-5" paddingBottom="10"
+		borderStyle="solid" borderSides="bottom" borderColor="#999999" width="100%">
+
+		<!-- User Name -->
+		<mx:VBox visible="{AccountMgr.GetInstance().hasPicnikCredentials}" includeInLayout="{AccountMgr.GetInstance().hasPicnikCredentials}" verticalGap="-5">
+			<mx:Label text="@Resource(key='Label_Name', bundle='ReceiptPrintView')" color="#005580" fontSize="15"/>
+			<mx:Label text="{AccountMgr.GetInstance().displayName}" color="#333333" fontSize="18" fontWeight="normal"/>
+			<mx:Spacer height="15"/>
+		</mx:VBox>
+		
+		<!-- Order Number -->
+		<mx:Label text="@Resource(key='Label_1', bundle='ReceiptPrintView')" color="#005580" fontSize="15"/>
+		<mx:Label text="{cct.strInvoice}" color="#333333" fontSize="18" fontWeight="normal"/>
+		<mx:VBox visible="{cct.fIsGift}" includeInLayout="{cct.fIsGift}" verticalGap="-5">
+			<mx:Spacer height="15"/>
+			<mx:Label text="@Resource(key='giftCode', bundle='ReceiptPrintView')" color="#005580" fontSize="15"/>
+			<mx:Label text="{cct.strGiftCode}" color="#333333" fontSize="18" fontWeight="normal"/>
+		</mx:VBox>
+		<mx:Spacer height="15"/>
+
+		<!-- credit card -->
+		<mx:Label text="@Resource(key='Label_2', bundle='ReceiptPrintView')" color="#005580" fontSize="15"/>
+		<mx:Label text="{cct.cc.strCCLast4}" color="#333333" fontSize="18" fontWeight="normal"/>
+		<mx:Spacer height="15"/>
+		<mx:Label text="@Resource(key='Label_3', bundle='ReceiptPrintView')" color="#005580" fontSize="15"/>
+		<mx:Label text="{cct.cc.FullName()}" color="#333333" fontSize="18" fontWeight="normal"/>
+		<mx:Spacer height="15"/>
+		<mx:Label text="@Resource(key='Label_4', bundle='ReceiptPrintView')" color="#005580" fontSize="15"/>
+		<mx:Text color="#333333" fontSize="18" fontWeight="normal" condenseWhite="true" htmlText="{cct.cc.FullAddress()}"/>
+		<mx:Spacer height="15"/>
+				
+		<mx:Label text="@Resource(key='Label_5', bundle='ReceiptPrintView')" color="#005580" fontSize="15"/>
+		<mx:Label text="{_strTotal}" color="#333333" fontSize="18" fontWeight="normal"/>
+		<mx:VBox visible="{!cct.fIsGift}" includeInLayout="{!cct.fIsGift}" verticalGap="-5">
+			<mx:Spacer height="15"/>
+			<mx:Label text="@Resource(key='Label_6', bundle='ReceiptPrintView')" color="#005580" fontSize="15"/>
+			<mx:Label text="{_strAccountExpires}" color="#333333" fontSize="18" fontWeight="normal"/>
+		</mx:VBox>
+		<mx:Spacer height="15"/>
+		<mx:Label text="@Resource(key='Label_7', bundle='ReceiptPrintView')" color="#005580" fontSize="15"/>
+		<mx:Label text="{LocUtil.shortDate(new Date())}" color="#333333" fontSize="18" fontWeight="normal"/>
+	</mx:VBox>
+	<mx:Box paddingLeft="13" paddingRight="16" horizontalAlign="center" paddingTop="30" width="100%">
+		<ctrl:ImageEx source="../graphics/effects/Touchup/teeth_whiten.png" width="66" height="54"/>
+	</mx:Box>
+	
+</mx:Box>

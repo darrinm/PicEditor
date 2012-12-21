@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TemplateGroupItemRendererBase xmlns="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml">
+	<mx:Script>
+		<![CDATA[
+			import util.LocUtil;
+		]]>
+	</mx:Script>
+	<EffectButton id="_efbtn" width="100%" strTitle="{templateGroup.title}" strAuthor="{LocUtil.rbSubst('AdvancedCollage', 'byline', templateGroup.by)}" strImageSource="{templateGroup.icon}"
+			isFancyCollage="true"
+			horizontalScrollPolicy="off" verticalScrollPolicy="off" newEffect="{templateGroup.isNew}" premium="{templateGroup.premium}"/>
+	<mx:VBox id="_vbxContents" width="100%" y="72" verticalGap="0" resize="OnContentResize()">
+	</mx:VBox>
+</TemplateGroupItemRendererBase>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ct:SpecialEffectsCanvasBase xmlns="*" xmlns:ct="creativeTools.*" xmlns:mx="http://www.adobe.com/2006/mxml" 
+		xmlns:eff="effects.*" xmlns:basiceffects="effects.basic.*" xmlns:filters="flash.filters.*" xmlns:ctr="containers.*"
+		width="100%" verticalLineScrollSize="38" horizontalScrollPolicy="off" verticalScrollPolicy="on">
+	<filters:DropShadowFilter blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1"
+		quality="3" angle="90" id="_fiWhiteShad"/>
+<mx:Script>
+	<![CDATA[
+		import dialogs.DialogManager;
+		import picnik.util.LocaleInfo;
+
+		override public function OnActivate(ctrlPrev:ICreativeTool): void {
+			super.OnActivate(ctrlPrev);
+			if (isFirstRun) {
+				if (!AccountMgr.GetInstance().isPaid) DialogManager.ShowUpgrade("/create_touchup", null, null, {fFirstRun:true});
+				isFirstRun = false;
+			}
+		}
+
+		protected function get isFirstRun(): Boolean {
+			return AccountMgr.GetInstance().GetUserAttribute("Touchup.fIsFirstRun", true);
+		}
+
+		protected function set isFirstRun(fActive:Boolean): void {
+			AccountMgr.GetInstance().SetUserAttribute("Touchup.fIsFirstRun", fActive);
+		}
+	]]>
+</mx:Script>
+	<ctr:IncrementalInitVBox verticalGap="0" width="100%" x="0" id="_vb">
+		<mx:HBox backgroundImage="@Embed('/theme/pngs/effects_bg_header.png')" backgroundSize="100%"
+				borderSides="bottom" borderStyle="solid" borderColor="#d1d1d1" width="100%" paddingLeft="8" height="20" paddingTop="1">
+			<mx:Label text="@Resource(key='skin', bundle='Beauty')" color="#354d13" filters="{[_fiWhiteShad]}" fontWeight="{LocaleInfo.BoldWeight()}"/>
+		</mx:HBox>
+		<!-- Skin -->
+		<eff:BlemishEffect tags="effect,touchup"/>
+<!--		<eff:ShineEffect tags="effect,touchup"/>
+		<eff:SkinSmoothing tags="effect,touchup"/>
+		<eff:WrinkleRemoverEffect tags="effect,touchup"/>
+		<eff:SprayTanEffect tags="effect,touchup"/>
+		<eff:BlushEffect tags="effect,touchup"/>
+-->		
+		<!-- Eyes -->
+		<mx:HBox backgroundImage="@Embed('/theme/pngs/effects_bg_header.png')" backgroundSize="100%"
+				borderSides="bottom" borderStyle="solid" borderColor="#d1d1d1" width="100%" paddingLeft="8" height="20" paddingTop="1">
+			<mx:Label text="@Resource(key='eyes',bundle='Beauty')" color="#354d13" filters="{[_fiWhiteShad]}"/>
+		</mx:HBox>
+		<basiceffects:RedEyeEffect id="_effRedEye" toolTip="@Resource(key='_btnRedEye_1', bundle='Adjustments')" tags="effect,touchup"/>
+<!--		<eff:EyeColorEffect id="_effEyeColor" tags="effect,touchup"/>
+		<eff:EyeWhitenEffect tags="effect,touchup"/>
+		-->		
+		<!-- missing: Eye Shadow -->
+<!--		<eff:MascaraEffect tags="effect,touchup"/>
+-->		<!-- mouth -->
+		<mx:HBox backgroundImage="@Embed('/theme/pngs/effects_bg_header.png')" backgroundSize="100%"
+				borderSides="bottom" borderStyle="solid" borderColor="#d1d1d1" width="100%" paddingLeft="8" height="20" paddingTop="1">
+			<mx:Label text="@Resource(key='mouth',bundle='Beauty')" color="#354d13" filters="{[_fiWhiteShad]}"/>
+		</mx:HBox>
+		<eff:TeethWhitenEffect tags="effect,touchup"/>
+		<!--<eff:LipstickEffect tags="effect,touchup"/>-->
+		
+		<!-- misc -->
+		<mx:HBox backgroundImage="@Embed('/theme/pngs/effects_bg_header.png')" backgroundSize="100%"
+				borderSides="bottom" borderStyle="solid" borderColor="#d1d1d1" width="100%" paddingLeft="8" height="20" paddingTop="1">
+			<mx:Label text="@Resource(key='theRest',bundle='Beauty')" color="#354d13" filters="{[_fiWhiteShad]}"/>
+		</mx:HBox>
+		<!--<eff:HairColorEffect tags="effect,touchup"/>-->
+		<eff:InstantThinEffect tags="effect,touchup"/>
+		
+		<!-- Bonus/Advanced -->
+		<mx:HBox backgroundImage="@Embed('/theme/pngs/effects_bg_header.png')" backgroundSize="100%"
+				borderSides="bottom" borderStyle="solid" borderColor="#d1d1d1" width="100%" paddingLeft="8" height="20" paddingTop="1">
+			<mx:Label text="@Resource(key='_ctAdvanced',bundle='CreativeTools')" color="#354d13" filters="{[_fiWhiteShad]}"/>
+		</mx:HBox>
+		<!--<eff:DodgeEffect _strClassNamePrefix="Touchup" tags="effect,touchup"/>
+		<eff:BurnEffect _strClassNamePrefix="Touchup" tags="effect,touchup"/>
+		<eff:CloneEffect _strClassNamePrefix="Touchup" tags="effect,touchup"/>-->
+		
+	</ctr:IncrementalInitVBox>
+</ct:SpecialEffectsCanvasBase>

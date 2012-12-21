@@ -1,0 +1,13 @@
+fileName: uz_RoseWater.TTF
+name: RoseWater
+subfamilyDisplayName: Regular
+fullName: RoseWater
+displayName: RoseWater
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 4
+pkName: pkuz0RoseWater
+authorName: uZiM
+authorUrl: http://www.calixo.net/uzim
+

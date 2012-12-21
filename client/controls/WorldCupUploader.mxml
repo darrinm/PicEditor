@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" verticalGap="0" xmlns:controls="controls.*">
+	<mx:Script>
+		<![CDATA[
+			import mx.core.UIComponent;
+			import mx.collections.ArrayCollection;
+			import mx.utils.ObjectProxy;
+			import bridges.mycomputer.UploadInterface;
+			import events.NavigationEvent;
+			// UNDONE: load this dynamically from the server
+			[Bindable] private var _aobpSamplePhotos:ArrayCollection = new ArrayCollection([
+					/* bring these back post-halloween */
+					new ObjectProxy({ thumb: PicnikBase.StaticUrl("/graphics/testimages/picnik_soccerfever_sample1_thumb.jpg"), 
+									  source: PicnikBase.StaticUrl("/graphics/testimages/picnik_soccerfever_sample1.jpg")}),
+					new ObjectProxy({ thumb: PicnikBase.StaticUrl("/graphics/testimages/picnik_soccerfever_sample2_thumb.jpg"), 
+									  source: PicnikBase.StaticUrl("/graphics/testimages/picnik_soccerfever_sample2.jpg")}),
+					new ObjectProxy({ thumb: PicnikBase.StaticUrl("/graphics/testimages/picnik_soccerfever_sample3_thumb.jpg"), 
+									  source: PicnikBase.StaticUrl("/graphics/testimages/picnik_soccerfever_sample3.jpg")})
+					/* halloween samples
+					new ObjectProxy({ thumb: PicnikBase.StaticUrl("/graphics/testimages/picnik_halloween_sample2_thumb.jpg"), 
+									  source: PicnikBase.StaticUrl("/graphics/testimages/picnik_halloween_sample2.jpg")}),
+					new ObjectProxy({ thumb: PicnikBase.StaticUrl("/graphics/testimages/picnik_halloween_sample1_thumb.jpg"), 
+									  source: PicnikBase.StaticUrl("/graphics/testimages/picnik_halloween_sample1.jpg")})
+					*/
+				]);
+				
+			public var navOnLoad:NavigationEvent = new NavigationEvent("create","featured",null,null);
+			public var uicOwner:UIComponent = null;
+			
+			private function LoadSample(strPath:String):void {
+				var ui:UploadInterface = new UploadInterface((uicOwner == null) ? PicnikBase.app: uicOwner);
+				ui.LoadSample(strPath,navOnLoad);
+			}
+				
+			private function DoUpload(): void {
+				var ui:UploadInterface = new UploadInterface(this);
+				ui.DoUploadTo(true, new NavigationEvent(null, null, null)); // Go nowhere
+			}					
+		]]>
+	</mx:Script>
+	
+	<mx:DropShadowFilter id="_fiWhiteShad" blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1" quality="3" angle="90"/>
+	<mx:DropShadowFilter id="_fiDropShad" blurX="7" blurY="7" distance="2" color="#000000" alpha=".35" quality="3" angle="90"/>
+	<mx:GlowFilter id="_fiDarkGlow" alpha="0.15" blurX="15" blurY="15" quality="3" color="#618430"/>
+	
+	<!-- white glow -->
+	<mx:Parallel id="_efGlowWhiteOver">
+		<mx:Glow blurXFrom="0" blurYFrom="0" blurXTo="20" blurYTo="20" color="#ffffff" alphaFrom="0" alphaTo="1" duration="200" strength="2"/>	
+	</mx:Parallel>
+	<mx:Parallel id="_efGlowWhiteOut">
+		<mx:Glow blurXFrom="20" blurYFrom="20" blurXTo="0" blurYTo="0" color="#ffffff" alphaFrom="1" alphaTo="0" duration="150" strength="2"/>
+	</mx:Parallel>	
+
+
+	<mx:Canvas y="0" x="0" clipContent="false" width="100%" height="100%" verticalCenter="0" horizontalCenter="0">
+		<mx:Image id="_imgSoccerBall" x="-75" y="73" includeInLayout="true" source="../graphics/soccerFever/bigBall_100.png"
+			filters="{[_fiDropShad]}" alpha=".4"/>
+	<mx:VBox>
+		
+		<mx:VBox horizontalAlign="center" verticalGap="0">
+			<controls:ResizingLabel fontSize="18" text="@Resource(key='GetGameOn', bundle='ZoomView')" color="#005580" width="100%"
+					textAlign="center" filters="{[_fiWhiteShad]}"/>
+			<controls:ResizingButton label="@Resource(key='_btnUpload',bundle='MyComputerInBridge')" icon="@Embed('/assets/bitmaps/icon_uploadArrow.png')" width="285" height="50"
+				styleName="basketButton" fontSize="26" horizontalGap="4" click="DoUpload()" filters="{[_fiDarkGlow]}"/>
+		</mx:VBox>
+
+	<controls:TextPlus htmlText="@Resource(key='openDemo', bundle='WelcomeNew')" width="100%" textAlign="center" styleName="greenHeader" filters="{[_fiWhiteShad]}" paddingBottom="10"/>
+	<mx:Canvas width="100%" clipContent="false" >
+		<controls:ImagePopForward source="{_aobpSamplePhotos.getItemAt(0).thumb}" rotation="-3" buttonMode="true"
+		    rollOverEffect="{_efGlowWhiteOver}" rollOutEffect="{_efGlowWhiteOut}"
+			horizontalCenter="-50" verticalCenter="-10" nobundle="true"
+			borderThickness="5" borderColor="#ffffff" filters="{[_fiDropShad]}"
+			click="LoadSample(_aobpSamplePhotos.getItemAt(0).source)"/>
+		<controls:ImagePopForward source="{_aobpSamplePhotos.getItemAt(1).thumb}" rotation="-2" buttonMode="true"
+		    rollOverEffect="{_efGlowWhiteOver}" rollOutEffect="{_efGlowWhiteOut}"
+			top="50" horizontalCenter="0" nobundle="true"
+			borderThickness="5" borderColor="#ffffff" filters="{[_fiDropShad]}"
+			click="LoadSample(_aobpSamplePhotos.getItemAt(1).source)"/>								
+		<controls:ImagePopForward source="{_aobpSamplePhotos.getItemAt(2).thumb}" rotation="3" buttonMode="true"
+		    rollOverEffect="{_efGlowWhiteOver}" rollOutEffect="{_efGlowWhiteOut}"
+			top="0" right="0" nobundle="true"
+			borderThickness="5" borderColor="#ffffff" filters="{[_fiDropShad]}"
+			click="LoadSample(_aobpSamplePhotos.getItemAt(2).source)"/>								
+	</mx:Canvas>
+		</mx:VBox>
+	
+		</mx:Canvas>
+	
+</mx:VBox>

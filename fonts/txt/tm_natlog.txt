@@ -1,0 +1,12 @@
+fileName: tm_natlog.ttf
+name: Natural Log
+subfamilyDisplayName: Regular
+fullName: Natural Log
+displayName: Natural Log
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 4
+pkName: pktm0natlog
+authorName: Tom Murphy
+authorUrl: http://fonts.tom7.com/

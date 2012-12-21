@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory flickrPremium="false" id="soccer_hn" numShapes="3" picnikPremium="false" previewUrls="60|48|../clipart/bundles/SoccerFeverTeamsArea_groupPreviews_soccer_hn.png?ver=5c22282e" title="Honduras Stickers">
+	<Shapes>
+		<Clipart cHeight="295.75" cWidth="464.2" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|0|../clipart/bundles/SoccerFeverTeamsArea_shapes_soccer_hn.png?ver=ec56648b" url="shapes/SoccerFever/hn/wavingflag_hn.swf"/>
+		<Clipart cHeight="500" cWidth="1000" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|1|../clipart/bundles/SoccerFeverTeamsArea_shapes_soccer_hn.png?ver=ec56648b" url="shapes/SoccerFever/hn/flag_hn.swf"/>
+		<Clipart cHeight="223.55" cWidth="95.95" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|2|../clipart/bundles/SoccerFeverTeamsArea_shapes_soccer_hn.png?ver=ec56648b" url="shapes/SoccerFever/hn/scarf_hn.swf"/>
+	</Shapes>
+</ShapeCategory>

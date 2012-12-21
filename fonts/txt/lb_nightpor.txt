@@ -1,0 +1,12 @@
+fileName: lb_nightpor.ttf
+name: Nightporter
+subfamilyDisplayName: Regular
+fullName: Nightporter
+displayName: Nightporter
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 5
+pkName: pklb0nightpor
+authorName: Ray Larabie
+authorUrl: http://www.larabiefonts.com/

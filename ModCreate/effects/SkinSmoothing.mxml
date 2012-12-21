@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PaintOnEffectBase xmlns="effects.*" xmlns:cnt="containers.*" xmlns:ctrl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%"
+	premium="true"
+	xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*" urlid="Airbrush">
+	<mx:Script>
+		<![CDATA[
+			import util.SplineInterpolator;
+			import util.LocUtil;
+			
+			private var _siThresholdMap:SplineInterpolator = null;
+			
+		]]>
+	</mx:Script>
+	
+	<mx:Boolean id="normalMode">{_btnNatural.selected}</mx:Boolean>
+	<mx:Number id="blurValue">{GetBlurForImageSize(normalMode, origImageWidth, origImageHeight)}</mx:Number>
+
+	<ctrl:EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='SkinSmoothingEffect')" strAuthor="@Resource(key='byPicnik', bundle='EffectCanvas')"
+		strImageSource="../graphics/effects/Touchup/skin_smoothing.jpg" premium="{premium}"/>
+	<mx:String id="_strHelpText">{Resource.getString('SkinSmoothingEffect', '_strHelpText')}</mx:String>
+	
+	<mx:VBox x="8" y="70" verticalGap="0">
+		<mx:HBox paddingTop="6" width="190" horizontalGap="0" paddingBottom="4">
+			<ctrl:ResizingButton id="_btnNatural" styleName="buttonLeft" width="100%" 
+				label="@Resource(key='natural', bundle='SkinSmoothingEffect')" 
+				selected="{zeroR == 0}" height="28"
+				click="_btnNatural.selected = true; OnOpChange();"/>
+			<ctrl:ResizingButton id="_btnStrong" styleName="buttonRight" width="100%"
+				label="@Resource(key='strong', bundle='SkinSmoothingEffect')" 
+				selected="{!_btnNatural.selected}" height="28"
+				click="_btnNatural.selected = false; OnOpChange();"/>
+		</mx:HBox>
+    	<!-- brush size / eraser toggle -->
+    	<ctrl:BrushSizeAndEraserButton id="_brshbtn" selected="{_fSelected}"
+    		imageWidth="{origImageWidth}" imageHeight="{origImageHeight}"
+    		change="OnOpChange()" thumbPress="ShowBrushPreview()" thumbDrag="UpdateBrushPreview()" thumbRelease="HideBrushPreview()"
+    		/>
+    	
+		<!-- Fade label/percent/slider box -->
+		<mx:HBox paddingBottom="-5" paddingTop="3" width="190">
+			<mx:Label text="@Resource(key='fade', bundle='EffectCanvas')" styleName="sliderTitle"/>
+			<mx:Label text="{LocUtil.pct((_sldrFade.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<ctrl:HSliderPlus width="190" minimum="0" maximum="100" value="{20 + zeroR}" id="_sldrFade" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+
+		<ctrl:ApplyCancelEffectButtons addBoxPadding="true" premium="{premium}"/>
+	</mx:VBox>
+	
+	<mx:Number id="_cxyBrush">{_brshbtn.value}</mx:Number>
+	
+			
+	<!--
+	-->
+	
+</PaintOnEffectBase>

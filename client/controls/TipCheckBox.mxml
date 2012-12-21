@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:CheckBox xmlns:mx="http://www.adobe.com/2006/mxml"
+	fontSize="13" color="#e5ffb2" paddingTop="-5" leading="-1"
+	textRollOverColor="#FFFFFF" textSelectedColor="#e5ffb2"
+	>
+</mx:CheckBox>

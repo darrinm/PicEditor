@@ -1,0 +1,12 @@
+fileName: tm_lexographer.ttf
+name: Lexographer
+subfamilyDisplayName: Regular
+fullName: Lexographer
+displayName: Lexographer
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 4
+pkName: pktm0lexographer
+authorName: Tom Murphy
+authorUrl: http://fonts.tom7.com/

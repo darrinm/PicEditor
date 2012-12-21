@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cnt:EffectCanvas xmlns:cnt="containers.*" xmlns="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="151" 
+	xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*" premium="false" urlid="snow">
+	<mx:Script>
+		import util.LocUtil;
+		import mx.resources.ResourceBundle;
+   		[Bindable] [ResourceBundle("SnowEffect")] private var rb:ResourceBundle;
+	</mx:Script>
+
+
+	<mx:Array id="_resetValues">
+		<local:StoredValue target="_sldrFade.value"/>
+		<local:StoredValue target="_sldrAmount.value"/>
+	</mx:Array>
+		
+	<EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='SnowEffect')" strAuthor="@Resource(key='_efbtn_1', bundle='SnowEffect')" strImageSource="../graphics/effects/Misc/snow.png" premium="{premium}"/>
+	<mx:String id="_strHelpText">{Resource.getString('SnowEffect', '_strHelpText')}</mx:String>
+
+	<mx:VBox x="0" y="67" verticalGap="0" paddingLeft="10" paddingRight="10">
+		<LabelHSlidePlus id="_sldrAmount" minimum="0" maximum="100" labelValueMultiplier="1" isPercent="true" value="50" label="@Resource(key='amount', bundle='SnowEffect')" change="OnOpChange()"/>
+		<LabelHSlidePlus id="_sldrFade" minimum="0" maximum="100" labelValueMultiplier="1" isPercent="true" value="20" label="@Resource(key='fade', bundle='SnowEffect')" change="OnOpChange()"/>
+		<ApplyCancelEffectButtons addBoxPadding="true" premium="{premium}"/>
+	</mx:VBox>
+
+	<imageOperations:NestedImageOperation id="_op" BlendMode="screen" BlendAlpha="{1-(_sldrFade.value/100)}" dynamicAlphaCachePriority="10">
+		<imageOperations:children>
+
+			<!-- big snow -->		
+			<imageOperations:NoiseImageOperation randomSeed="{Math.random() * 100 + zeroR}"
+				low="0"
+				high="255"
+				channelOptions="7" grayScale="true"/>
+			<imageOperations:BlurImageOperation quality="3" xblur="1.8" yblur="1.8"/>
+			<imageOperations:ColorMatrixImageOperation 
+				Matrix="{[-2, 0, 0, 0, 230 + _sldrAmount.value/5,
+						 0, -2, 0, 0, 230 + _sldrAmount.value/5,
+						 0, 0, -2, 0, 230 + _sldrAmount.value/5,
+						 0,0,0,1,0]}"/>
+			<imageOperations:BlurImageOperation quality="3" xblur="0" yblur="5"/>
+			<imageOperations:RotateImageOperation degAngle="-20" ignoreObjects="true"/>
+			<imageOperations:ResizeImageOperation width="{origImageWidth}" height="{origImageHeight}" ignoreObjects="true"/>
+			
+			<!-- little snow -->
+			<imageOperations:NestedImageOperation BlendMode="screen" BlendAlpha="0.5" dynamicAlphaCachePriority="10">
+				<imageOperations:children>
+					<imageOperations:NoiseImageOperation randomSeed="{Math.random() * 100 + zeroR}"
+						low="0"
+						high="255"
+						channelOptions="7" grayScale="true"/>
+					<imageOperations:ColorMatrixImageOperation 
+						Matrix="{[-10, 0, 0, 0, 170 + _sldrAmount.value,
+								 0, -10, 0, 0, 170 + _sldrAmount.value,
+								 0, 0, -10, 0, 170 + _sldrAmount.value,
+								 0,0,0,1,0]}"/>
+					<imageOperations:BlurImageOperation quality="3" xblur="0" yblur="3.4"/>
+					<imageOperations:RotateImageOperation degAngle="-20" ignoreObjects="true"/>
+					<imageOperations:ResizeImageOperation width="{origImageWidth}" height="{origImageHeight}" ignoreObjects="true"/>
+				</imageOperations:children>
+			</imageOperations:NestedImageOperation>
+			
+			<imageOperations:SimpleColorMatrixImageOperation Brightness="28" Contrast="80"/>
+
+		</imageOperations:children>
+	</imageOperations:NestedImageOperation>	
+</cnt:EffectCanvas>

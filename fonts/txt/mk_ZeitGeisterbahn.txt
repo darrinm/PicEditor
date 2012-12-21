@@ -1,0 +1,12 @@
+fileName: mk_ZeitGeisterbahn.ttf
+name: ZeitGeisterbahn
+subfamilyDisplayName: Regular
+fullName: ZeitGeisterbahn
+displayName: ZeitGeisterbahn
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 6
+pkName: pkmk0ZeitGeisterbahn
+authorName: Manfred Kelin
+authorUrl: http://moorstation.org/typoasis/designers/klein/

@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/shape_bloodspatters.png" flickrPremium="true" id="BloodSplatters" numShapes="8" picnikPremium="true" previewUrls="60|48|../clipart/bundles/ReanimatedArea_groupPreviews_BloodSplatters.png?ver=59c54d78" title="Blood Splatters">
+	<Shapes>
+		<Clipart blendMode="multiply" cHeight="1000" cWidth="1072" flickrPremium="true" isVector="false" picnikPremium="true" previewUrl="40|40|0|../clipart/bundles/ReanimatedArea_shapes_BloodSplatters.png?ver=6135e057" url="shapes/Halloween_Blood/Blood_1.swf"/>
+		<Clipart blendMode="multiply" cHeight="1000" cWidth="1125" flickrPremium="true" isVector="false" picnikPremium="true" previewUrl="40|40|1|../clipart/bundles/ReanimatedArea_shapes_BloodSplatters.png?ver=6135e057" url="shapes/Halloween_Blood/Blood_2.swf"/>
+		<Clipart blendMode="multiply" cHeight="583" cWidth="1000" flickrPremium="true" isVector="false" picnikPremium="true" previewUrl="40|40|2|../clipart/bundles/ReanimatedArea_shapes_BloodSplatters.png?ver=6135e057" url="shapes/Halloween_Blood/Blood_3.swf"/>
+		<Clipart blendMode="multiply" cHeight="1000" cWidth="1084" flickrPremium="true" isVector="false" picnikPremium="true" previewUrl="40|40|3|../clipart/bundles/ReanimatedArea_shapes_BloodSplatters.png?ver=6135e057" url="shapes/Halloween_Blood/Blood_4.swf"/>
+		<Clipart blendMode="multiply" cHeight="1000" cWidth="1236" flickrPremium="true" isVector="false" picnikPremium="true" previewUrl="40|40|4|../clipart/bundles/ReanimatedArea_shapes_BloodSplatters.png?ver=6135e057" url="shapes/Halloween_Blood/Blood_5.swf"/>
+		<Clipart blendMode="multiply" cHeight="894" cWidth="752" flickrPremium="true" isVector="false" picnikPremium="true" previewUrl="40|40|5|../clipart/bundles/ReanimatedArea_shapes_BloodSplatters.png?ver=6135e057" url="shapes/Halloween_Blood/Blood_6.swf"/>
+		<Clipart blendMode="multiply" cHeight="967" cWidth="1804" flickrPremium="true" isVector="false" picnikPremium="true" previewUrl="40|40|6|../clipart/bundles/ReanimatedArea_shapes_BloodSplatters.png?ver=6135e057" url="shapes/Halloween_Blood/Blood_7.swf"/>
+		<Clipart blendMode="multiply" cHeight="964" cWidth="1622" flickrPremium="true" isVector="false" picnikPremium="true" previewUrl="40|40|7|../clipart/bundles/ReanimatedArea_shapes_BloodSplatters.png?ver=6135e057" url="shapes/Halloween_Blood/Blood_8.swf"/>
+	</Shapes>
+</ShapeCategory>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FeedbackDialogBase xmlns="dialogs.*" xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical"
+		defaultButton="{_btnSend}" showCloseButton="true" xmlns:ctl="controls.*"
+		xmlns:dlgc="dialogs.DialogContent.*">
+	<mx:Script>
+		<![CDATA[
+			private function OnSendFeedback(obResult:Object): void {
+				Hide();
+				if (_fnComplete != null) {
+					_fnComplete(obResult);
+				}    
+			}
+		]]>
+	</mx:Script>
+	<mx:VBox width="550">
+		<mx:Canvas width="100%">
+			<mx:VBox width="100%">
+				<mx:Text width="100%" fontSize="13" condenseWhite="true" selectable="false" htmlText="{Resource.getString('FeedbackDialog', 'Text_2')}"/>
+				<dlgc:FeedbackContent width="550" id="_feedback" OnSendFeedback="{OnSendFeedback}"/>				
+			</mx:VBox>
+		</mx:Canvas>		
+		<mx:HBox width="100%" horizontalAlign="right" paddingBottom="5" paddingTop="5" paddingRight="10" verticalAlign="middle">
+			<!-- optional text if the feedbackers are backing up a bit -->
+			<mx:Text text="@Resource(key='vacationText',bundle='FeedbackDialog')" fontSize="13" width="100%" 
+				paddingTop="4" paddingRight="5" color="#333333" fontWeight="bold" leading="-1" visible="{PicnikConfig.feedbackDelayed}" includeInLayout="{PicnikConfig.feedbackDelayed}"/>
+			<mx:Button label="{_feedback.okLabel}" click="{_feedback.SendFeedback()}" id="_btnSend" bottom="5" right="95" width="150" styleName="BigButton" 
+					tabIndex="4" emphasized="true" height="25" enabled="{_feedback.isFormValid}"/>
+			<mx:Button label="{Resource.getString('FeedbackDialog', '_btnCancel')}" id="_btnCancel" right="5" bottom="5" width="80" styleName="dialogButton" tabIndex="5" height="25"/>			
+		</mx:HBox>			
+	</mx:VBox>		
+	
+</FeedbackDialogBase>

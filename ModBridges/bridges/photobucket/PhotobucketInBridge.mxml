@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PhotobucketInBridgeBase xmlns="bridges.photobucket.*" xmlns:mx="http://www.adobe.com/2006/mxml" 
+		xmlns:flash="flash.filters.*" xmlns:local="*" xmlns:bridges="bridges.*"
+		width="100%" height="100%" horizontalScrollPolicy="off" verticalScrollPolicy="off"  
+		xmlns:ctrl="controls.*">
+	<mx:Number id="_cItems">-1</mx:Number>
+	<mx:Number id="_cSets">-1</mx:Number>
+	<mx:Boolean id="_fIsPro">false</mx:Boolean>
+	
+	<states>
+		<mx:State name="NeedAuthorization">
+			<mx:RemoveChild target="{_tlst}"/>
+			<mx:RemoveChild target="{hbox1}"/>
+			<mx:AddChild position="lastChild">
+				<PhotobucketAccount id="_ssa" _tpa="{_tpa}" horizontalCenter="0" paddingBottom="10" top="15"/>
+			</mx:AddChild>
+			<mx:SetProperty target="{image1}" name="height" value="200"/>
+			<mx:SetProperty target="{image2}" name="alpha" value="1"/>
+			<mx:RemoveChild target="{_hbxTip}"/>
+		</mx:State>
+		<mx:State name="NoSets">
+			<mx:RemoveChild target="{_tlst}"/>
+			<mx:AddChild position="lastChild">
+				<mx:HRule x="0" y="80" width="100%" height="1"/>
+			</mx:AddChild>
+			<mx:SetProperty target="{_cboxSets}" name="enabled" value="false"/>
+			<mx:SetStyle target="{label2}" name="color" value="#999999"/>
+			<mx:AddChild position="lastChild">
+				<mx:HBox x="0" y="81" width="100%" horizontalAlign="center" backgroundColor="#FFFFFF" paddingTop="20">
+					<mx:Text width="600" textAlign="center" condenseWhite="true" selectable="false" id="text1" htmlText="@Resource(key='text1', bundle='PhotobucketInBridge')">
+					</mx:Text>
+				</mx:HBox>
+			</mx:AddChild>
+			<mx:RemoveChild target="{_hbxTip}"/>
+			<!-- Add this back in when we have a sort order drop down:
+			mx:SetProperty target="{_cboxOrderBy}" name="enabled" value="false"/>
+			<mx:SetStyle target="{label1}" name="color" value="#999999"/> 
+			-->
+		</mx:State>
+		<mx:State name="NoSets_Friend">
+			<mx:RemoveChild target="{_tlst}"/>
+			<mx:AddChild position="lastChild">
+				<mx:HRule x="0" y="80" width="100%" height="1"/>
+			</mx:AddChild>
+			<mx:SetProperty target="{_cboxSets}" name="enabled" value="false"/>
+			<mx:SetStyle target="{label2}" name="color" value="#999999"/>
+			<mx:AddChild position="lastChild">
+				<mx:HBox x="0" y="81" width="100%" horizontalAlign="center" backgroundColor="#FFFFFF" paddingTop="20">
+					<mx:Text width="600" textAlign="center" condenseWhite="true" selectable="false" id="NoSets_Friend_text" htmlText="@Resource(key='NoSets_Friend_text', bundle='PhotobucketInBridge')">
+					</mx:Text>
+				</mx:HBox>
+			</mx:AddChild>
+			<mx:RemoveChild target="{_hbxTip}"/>
+			<!-- Add this back in when we have a sort order drop down:
+			mx:SetProperty target="{_cboxOrderBy}" name="enabled" value="false"/>
+			<mx:SetStyle target="{label1}" name="color" value="#999999"/> 
+			-->
+		</mx:State>		
+		<mx:State name="NoImages">
+			<mx:RemoveChild target="{_tlst}"/>
+			<mx:AddChild position="lastChild">
+				<mx:HRule x="0" y="80" width="100%" height="1"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:HBox x="0" y="81" width="100%" horizontalAlign="center" backgroundColor="#FFFFFF" paddingTop="20">
+					<mx:Text width="500" textAlign="center" condenseWhite="true" selectable="false" htmlText="@Resource(key='Text_1', bundle='PhotobucketInBridge')">
+					</mx:Text>
+				</mx:HBox>
+			</mx:AddChild>
+			<mx:RemoveChild target="{_hbxTip}"/>
+			<!-- Add this back in when we have a sort order drop down:
+			<mx:SetStyle target="{label1}" name="color" value="#999999"/>
+			<mx:SetProperty target="{_cboxOrderBy}" name="enabled" value="false"/>
+			-->
+		</mx:State>
+	</states>
+	
+	<ctrl:ImageVer source="@Embed('/assets/bitmaps/page_blueGrad.png')" left="0" top="0" width="100%" scaleContent="true" maintainAspectRatio="false" id="image1"/>
+	<ctrl:ImageEx left="0" top="0" source="../graphics/thirdpartylogos/photobucket_crop.png" id="image2" alpha=".5"/>
+
+	<mx:VBox width="100%" height="100%" verticalGap="0" id="_vbxMain">
+		<mx:HBox id="_hbxTip" width="100%" height="24" backgroundColor="#ffff99" backgroundAlpha=".6"
+				borderColor="#CCCCCC" borderSides="bottom" borderStyle="solid" borderThickness="1"
+				horizontalAlign="center" verticalAlign="middle" showEffect="_efFadeIn" hideEffect="_efFadeOut">
+			<mx:Text textAlign="center" fontSize="13" color="#333333" condenseWhite="true" selectable="false" width="100%" height="24" paddingTop="2" htmlText="@Resource(key='Text_2', bundle='PhotobucketInBridge')">
+			</mx:Text>
+			<mx:Button icon="@Embed('/theme/pngs/dialog/closeBoxUp.png')" overIcon="@Embed('/theme/pngs/dialog/closeBoxOver.png')"
+				downIcon="@Embed('/theme/pngs/dialog/closeBoxDown.png')" styleName="clearButton" height="24"
+				click="HideTip()"/>
+		</mx:HBox>
+		<mx:HBox paddingRight="15" paddingLeft="15" height="80" verticalAlign="top" horizontalGap="0" id="hbox1" width="100%" paddingTop="12">
+			<mx:HBox width="70%" horizontalGap="0" paddingTop="4">
+				<ctrl:ImageVer id="_imgUserThumbnail" useHandCursor="true" buttonMode="true" width="48" height="48" verticalAlign="middle" visible="false" includeInLayout="false" />
+				<mx:VBox verticalGap="0" paddingLeft="0">
+					<mx:HBox verticalAlign="bottom" horizontalGap="3">
+						<ctrl:LabelPlus id="_lbGreeting" text="@Resource(key='_lbGreeting', bundle='PhotobucketInBridge')" useHandCursor="true" buttonMode="true" mouseChildren="false"
+							fontSize="21" fontWeight="bold" color="#000000" paddingBottom="-7"/>
+					</mx:HBox>
+					<mx:HBox horizontalGap="10">
+						<mx:HBox horizontalGap="-1" verticalAlign="middle" id="_hbxOptions">
+							<mx:Label text="@Resource(key='_lbOptions', bundle='PhotobucketInBridge')" id="_lbOptions" fontSize="14" color="#666666" height="21"/>
+							<ctrl:ImageVer source="@Embed('/theme/pngs/inlineDropDownArrow.png')"/>
+						</mx:HBox>
+						<mx:Label text="{GetPhotosAndAlbums(_cItems,_cSets)}" id="_lbPhotoSummary" fontSize="14" color="#666666" height="21" maxWidth="300"/>
+					</mx:HBox>
+				</mx:VBox>
+			</mx:HBox>
+			<mx:VBox verticalGap="0">
+				<mx:Label text="@Resource(key='label2', bundle='PhotobucketInBridge')" fontSize="14" height="20" id="label2"/>
+				<!-- HACK: this 'enabled != enabled' hack is to work around a bug in Flex which partially enables the editable state
+						whenever the combobox is enabled -->
+				<ctrl:ComboBoxPlus id="_cboxSets" rowCount="8" width="250" height="26" fontSize="14" color="#333333" editable="{_cboxSets.enabled != _cboxSets.enabled}" styleName="deviceFonts">
+					<ctrl:itemRenderer>
+						<mx:Component>
+			            	<mx:HBox verticalAlign="middle">
+			                	<mx:Label text="{data.label}" fontSize="14" width="160" paddingRight="5" styleName="deviceFonts"/>
+			            	</mx:HBox>
+						</mx:Component>
+		            </ctrl:itemRenderer>
+				</ctrl:ComboBoxPlus>
+			</mx:VBox>
+		</mx:HBox>
+		<bridges:InBridgeTileList id="_tlst" width="100%" height="100%"/>
+	</mx:VBox>
+</PhotobucketInBridgeBase>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>ModBridges</name>
+	<comment></comment>
+	<projects>
+		<project>Picnik</project>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>com.adobe.flexbuilder.project.flexbuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>com.adobe.flexbuilder.project.flexnature</nature>
+		<nature>com.adobe.flexbuilder.project.actionscriptnature</nature>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>[source path] client</name>
+			<type>2</type>
+			<locationURI>DOCROOT/client</locationURI>
+		</link>
+		<link>
+			<name>[source path] sharedcode</name>
+			<type>2</type>
+			<locationURI>DOCROOT/sharedcode</locationURI>
+		</link>
+	</linkedResources>
+</projectDescription>

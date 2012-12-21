@@ -1,0 +1,12 @@
+fileName: tm_progbot.ttf
+name: PROG.BOT
+subfamilyDisplayName: Regular
+fullName: PROG.BOT
+displayName: PROG.BOT
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 4
+pkName: pktm0progbot
+authorName: Tom Murphy
+authorUrl: http://fonts.tom7.com/

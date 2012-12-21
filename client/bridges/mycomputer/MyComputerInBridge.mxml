@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MyComputerInBridgeBase xmlns="bridges.mycomputer.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%" horizontalScrollPolicy="off" xmlns:bridges="bridges.*" xmlns:controls="controls.*" xmlns:filters="flash.filters.*">
+<mx:Script>
+	<![CDATA[
+		import util.RenderHelper;
+		import mx.collections.ArrayCollection;
+		import dialogs.DialogManager;
+		import mx.resources.ResourceBundle;
+		import util.UploadManager;
+		[Bindable] [ResourceBundle("MyComputerInBridge")] private var rb:ResourceBundle;
+		import mx.effects.easing.*;
+		import util.LocUtil;
+		import bridges.Uploader;
+		
+		[Bindable] protected var um:UploadManager = util.UploadManager.Instance();
+	]]>
+</mx:Script>
+
+	<filters:DropShadowFilter id="_fiWhiteShad" blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha=".8" quality="3" angle="90"/>
+
+	<mx:Boolean id="hasPhotos">{(collection != null) &amp;&amp; (collection.length > 0)}</mx:Boolean>
+
+<!-- glow effect-->
+	<mx:Sequence id="_efGlow" repeatCount="0" target="{_btnUpload}">
+		<mx:Glow alphaFrom="0" alphaTo=".3" blurXFrom="0" blurYFrom="0" blurXTo="20" blurYTo="20" color="#528013" duration="1000"/>
+		<mx:Glow alphaFrom=".3" alphaTo="0" blurXFrom="20" blurYFrom="20" blurXTo="0" blurYTo="0" color="#528013" duration="1000"/>
+	</mx:Sequence>
+	
+	<controls:ImageEx source="../graphics/bluegrad_short.gif" left="0" top="0" width="100%" height="420" maintainAspectRatio="false" includeInLayout="false" alpha=".5"/>
+	<controls:ImageEx left="0" top="0" source="../graphics/picnik_inbridge_graphic.png" id="picnikimage"/>
+
+<mx:VBox width="100%" height="100%" verticalGap="0">
+	
+	<!--Register State Upgrade Bar-->
+
+		<mx:HBox width="100%" borderColor="#acd2e5" borderSides="bottom" borderStyle="solid" borderThickness="1"
+					backgroundImage="{PicnikBase.StaticUrl('/graphics/clouds.jpg')}" backgroundColor="#d0ebff" horizontalAlign="center" verticalAlign="middle" paddingTop="4" paddingBottom="3"
+					visible="{isUnpaidRegistered}" includeInLayout="{isUnpaidRegistered}">
+				<mx:Text htmlText="@Resource(key='RegUpsell', bundle='MyComputerInBridge')" fontSize="14" fontWeight="bold" paddingTop="3" filters="{[_fiWhiteShad]}"/>
+				<controls:ResizingButton id="_GoPremium" label="@Resource(key='GoPremium', bundle='MyComputerInBridge')"
+				styleName="upgradeButton" fontSize="14" click="DialogManager.ShowUpgrade('/in_upload/registeredbar')" height="22"/>
+		</mx:HBox>
+	
+	
+	<mx:HBox paddingRight="26" paddingLeft="15" height="90" verticalAlign="top" horizontalGap="0" width="100%" paddingTop="15">
+	
+<!--Upload Photo Button-->
+		<mx:VBox width="100%" height="100%" horizontalAlign="left">
+			<controls:ResizingButton id="_btnUpload" label="{LocUtil.iff('MyComputerInBridge', isGuest, '_btnUpload', '_btnUploadMore')}" icon="@Embed('/assets/bitmaps/icon_uploadArrow.png')"
+				width="205" height="44"
+				styleName="BigButton" fontSize="21" horizontalGap="5" click="DoUpload()" />
+			<mx:Text htmlText="@Resource(key='HavingProblems', bundle='MyComputerInBridge')" fontSize="13" paddingTop="-5" filters="{[_fiWhiteShad]}"
+				visible="{PicnikBase.app.canNavParentFrame}" includeInLayout="{PicnikBase.app.canNavParentFrame}" 
+				click="PicnikBase.app.NavigateToURL(new URLRequest(PicnikBase.gstrSoMgrServer +'/go/upload'))"/>
+		</mx:VBox>
+<!---->
+		<mx:Button id="_btnAdmin" toggle="true" selected="false" label="Admin" 
+				includeInLayout="{AccountMgr.GetInstance().isAdmin}" visible="{AccountMgr.GetInstance().isAdmin}"/>		
+<!--Other Sites-->
+		<mx:VBox width="100%" height="100%" horizontalAlign="right" >
+			<mx:Text htmlText="@Resource(key='openphotos', bundle='MyComputerInBridge')" fontSize="13" paddingBottom="-4" filters="{[_fiWhiteShad]}" selectable="false"/>
+			<controls:ThirdPartyBubbleBox width="100%" height="100%" horizontalAlign="right" horizontalGap="2"/>
+		</mx:VBox>
+<!---->
+		
+	</mx:HBox>
+
+	<!-- Admin debug settings -->
+	<mx:VBox visible="{_btnAdmin.selected}" includeInLayout="{_btnAdmin.selected}">
+		<mx:HBox>
+			<mx:Label text="Local uploads fail:"/>
+			<mx:ComboBox id="_cbUploadFailure"
+				selectedIndex="{Uploader._nForceUploadFailureMode}"
+				change="Uploader._nForceUploadFailureMode=_cbUploadFailure.selectedIndex" 
+				dataProvider="{new ArrayCollection(['Never', 'right away', 'slowly'])}"/>
+		</mx:HBox>
+		<mx:HBox>
+			<mx:Label text="Remote rendering fails:"/>
+			<mx:ComboBox id="_cbRenderFailure"
+				selectedIndex="{RenderHelper._nForceRenderFailureType}"
+				change="RenderHelper._nForceRenderFailureType=_cbRenderFailure.selectedIndex" 
+				dataProvider="{new ArrayCollection(['Never', 'right away', 'slowly'])}"/>
+		</mx:HBox>
+		<mx:CheckBox id="_chkFailEncoding"
+				label="Force local download encoding fail"
+				selected="{MyComputerOutBridgeBase._fForceEncodingFail}"
+				change="MyComputerOutBridgeBase._fForceEncodingFail = _chkFailEncoding.selected" 
+				/>
+				
+				
+	</mx:VBox>
+
+
+	<mx:HRule width="100%" strokeColor="#acd2e5" strokeWidth="1"/>
+	<mx:HRule width="100%" strokeColor="#ffffff" strokeWidth="1" alpha=".75"/>
+
+<!--Guest State-->
+	<mx:VBox width="100%" height="100%"
+		id="_vbxGuestUpsell" visible="{isGuest}" includeInLayout="{isGuest}">
+		<mx:HBox width="100%" height="100%" paddingTop="25" horizontalGap="0">
+			<mx:VBox width="50%" horizontalAlign="center" paddingLeft="10" paddingRight="10">
+				<controls:ResizingButton id="_btnRegister" label="@Resource(key='_btnRegister', bundle='MyComputerInBridge')" width="215" height="35"
+				styleName="button" fontSize="18" horizontalGap="4" click="DialogManager.ShowRegister()"/>
+				<mx:Text htmlText="@Resource(key='upload5', bundle='MyComputerInBridge')" fontSize="14" fontWeight="bold" paddingTop="-2" width="100%" textAlign="center" paddingBottom="25"
+					filters="{[_fiWhiteShad]}"/>
+				<controls:ImagePlus width="100%" height="{_img100Photos.height}" source="../graphics/5Photos.png" horizontalAlign="center" verticalAlign="middle"
+					scaleContent="false"/>
+			</mx:VBox>
+			
+			<mx:VRule strokeColor="#acd2e5" strokeWidth="1" height="95%"/>
+			<mx:VRule strokeColor="#ffffff" strokeWidth="1" height="95%"/>
+			
+			<mx:VBox width="50%" horizontalAlign="center" paddingLeft="10" paddingRight="10">
+				<controls:ResizingButton id="_btnUpgrade" label="@Resource(key='_btnUpgrade', bundle='MyComputerInBridge')" width="215" height="35"
+				styleName="upgradeButton" fontSize="18" horizontalGap="4" click="DialogManager.ShowUpgrade('/in_upload/guest_box')"/>
+				<mx:Text htmlText="@Resource(key='upload100', bundle='MyComputerInBridge')" fontSize="14" fontWeight="bold" paddingTop="-2" width="100%" textAlign="center" paddingBottom="25"
+					filters="{[_fiWhiteShad]}"/>
+				<controls:ImagePlus id="_img100Photos" width="100%" source="../graphics/100Photos.png" horizontalAlign="center"/>
+			</mx:VBox>
+		</mx:HBox>
+	</mx:VBox>
+
+<!-- Registered User No Photos State -->
+	<mx:VBox width="100%" height="100%"
+		visible="{!hasPhotos &amp;&amp; isUnpaidRegistered}" includeInLayout="{!hasPhotos &amp;&amp; isUnpaidRegistered}">
+			<mx:Text htmlText="@Resource(key='Your5Photos', bundle='MyComputerInBridge')" fontSize="21" selectable="false" color="#005580" fontWeight="bold" paddingTop="50" width="100%" textAlign="center"
+					filters="{[_fiWhiteShad]}"/>
+			<mx:Text htmlText="@Resource(key='multiupPC', bundle='MyComputerInBridge')" fontSize="13" selectable="false" width="100%" textAlign="center"
+					filters="{[_fiWhiteShad]}"/>
+	</mx:VBox>
+	
+<!-- Premium User No Photos State -->
+<mx:VBox width="100%" height="100%"
+		visible="{!hasPhotos &amp;&amp; isPaid}" includeInLayout="{!hasPhotos &amp;&amp; isPaid}">
+			<mx:Text htmlText="@Resource(key='Your100Photos', bundle='MyComputerInBridge')" fontSize="21" selectable="false" color="#005580" fontWeight="bold" paddingTop="50" width="100%" textAlign="center"
+					filters="{[_fiWhiteShad]}"/>
+			<mx:Text htmlText="@Resource(key='multiupPC', bundle='MyComputerInBridge')" fontSize="13" selectable="false" width="100%" textAlign="center"
+					filters="{[_fiWhiteShad]}"/>
+</mx:VBox>
+
+<!-- Cancel Upload and Clear All Buttons -->
+
+<mx:HBox width="100%" paddingRight="25" paddingLeft="13"
+		includeInLayout="{!isGuest &amp;&amp; hasPhotos}" visible="{!isGuest &amp;&amp; hasPhotos}" paddingTop="5" paddingBottom="3" horizontalGap="7">
+
+<!-- Recently Uploaded -->	
+	<mx:Text htmlText="@Resource(key='YourPhotos', bundle='MyComputerInBridge')" fontSize="14" fontWeight="bold" width="100%" color="#005580" textAlign="left" filters="{[_fiWhiteShad]}" selectable="false"/>
+	
+<!--<mx:Text htmlText="{LocUtil.rbSubst('MyComputerInBridge', 'youcanupload100', fileListLimit)}" fontSize="14" fontWeight="bold" width="100%" color="#333333" textAlign="right"
+		filters="{[_fiWhiteShad]}"/>-->
+
+<!--<mx:Text htmlText="@Resource(key='UploadingProg', bundle='MyComputerInBridge')" fontSize="13" fontWeight="bold" width="100%" textAlign="right" filters="{[_fiWhiteShad]}" selectable="false" paddingRight="-5"/>
+	<mx:Box paddingTop="1">
+	<mx:ProgressBar paddingLeft="10" paddingRight="10" height="20" trackHeight="21" width="150"  label=""/>
+	</mx:Box>-->
+	
+<controls:ResizingButton id="_CancelUpload" label="@Resource(key='CancelUpload', bundle='MyComputerInBridge')" height="21"
+				visible="{um.uploading}" click="CancelUploads()"
+				styleName="button" fontSize="13" fontWeight="bold" horizontalGap="4" paddingRight="4"/>
+	<controls:ResizingButton id="_ClearAll" label="@Resource(key='ClearAll', bundle='MyComputerInBridge')" height="21"
+				styleName="button" fontSize="13" fontWeight="bold" horizontalGap="4" click="Clear()"/>
+</mx:HBox>
+
+<!--Recent Photos-->
+<bridges:InBridgeTileList width="100%" height="100%" id="_tlst" borderThickness="0" 
+	includeInLayout="{!isGuest &amp;&amp; hasPhotos}" visible="{!isGuest &amp;&amp; hasPhotos}"/>
+	
+</mx:VBox>
+
+</MyComputerInBridgeBase>

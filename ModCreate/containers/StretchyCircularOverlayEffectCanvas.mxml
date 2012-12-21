@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cnt:StretchyCircularOverlayEffectCanvasBase xmlns:cnt="containers.*" xmlns:mx="http://www.adobe.com/2006/mxml" 
+	width="200" verticalScrollPolicy="off"  horizontalScrollPolicy="off"
+	borderThickness="1" borderColor="black">
+	<mx:Script>
+		import mx.resources.ResourceBundle;
+   		[Bindable] [ResourceBundle("StretchyCircularOverlayEffectCanvas")] private var rb:ResourceBundle;
+	</mx:Script>
+
+	<mx:Number id="_nCollapsedHeight">73</mx:Number>
+   <mx:Metadata>
+        [Event(name="changeFocus", type="flash.events.Event")]
+    </mx:Metadata>
+</cnt:StretchyCircularOverlayEffectCanvasBase>

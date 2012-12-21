@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ExpandingVBox xmlns="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" expanded="true" xmlns:sectionList="containers.sectionList.*"
+		width="100%" verticalGap="0" xmlns:shapeList="controls.shapeList.*" verticalScrollPolicy="off">
+	<shapeList:SubGroupHeader data="{this.data}" id="_hdr" expanded="{expanded}" _fBorderOnBottom="false"/>
+	<mx:VBox verticalGap="0" width="100%" x="0" id="_vbxChildren" verticalScrollPolicy="off"/>
+</ExpandingVBox>

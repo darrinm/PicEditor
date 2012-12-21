@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<controls:TextureTileListItemBase xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:controls="controls.*">
+<controls:states>
+	<mx:State name="NotSelected"/>
+	<mx:State name="Selected">
+		<mx:SetStyle target="{_vbThumbnail}" name="borderColor" value="#BBE57F"/>
+	</mx:State>
+	<mx:State name="Highlight">
+		<mx:SetStyle target="{_vbThumbnail}" name="borderColor" value="#D6EFB2"/>
+	</mx:State>
+</controls:states>
+<mx:Script>
+	<![CDATA[
+	]]>
+</mx:Script>
+<mx:VBox height="100%" width="100%" id="_vbThumbnail" borderStyle="solid" borderThickness="3" borderColor="#FFFFFF">
+	<mx:Box borderStyle="solid" borderColor="#FFFFFF" borderThickness="1" height="100%" width="100%">
+		<mx:Image id="_imgThumbnail" width="100%" height="100%" source="{data.thumbUrl}"/>
+	</mx:Box>
+</mx:VBox>
+
+</controls:TextureTileListItemBase>

@@ -1,0 +1,12 @@
+fileName: mk_Vampyriqua.ttf
+name: Vampyriqua
+subfamilyDisplayName: Regular
+fullName: Vampyriqua
+displayName: Vampyriqua
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 6
+pkName: pkmk0Vampyriqua
+authorName: Manfred Kelin
+authorUrl: http://moorstation.org/typoasis/designers/klein/

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cnt:EffectCanvas xmlns="effects.*" xmlns:cnt="containers.*" xmlns:ctrl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" 
+	width="100%" height="{PicnikBase.app.flickrlite ? 146 : 181}"
+	xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*" urlid="RoundedEdges">
+	<mx:Script>
+		import mx.resources.ResourceBundle;
+   		[Bindable] [ResourceBundle("RoundedEdgesEffect")] private var rb:ResourceBundle;
+	</mx:Script>
+
+	<mx:Array id="_resetValues">
+		<local:StoredValue target="_cpkrOuter.selectedColor"/>
+		<local:StoredValue target="_sldrCornerRadius.value"/>
+		<local:StoredValue target="_chkTransparentCorners.selected"/>
+	</mx:Array>
+	
+	<ctrl:EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='RoundedEdgesEffect')" strAuthor="@Resource(key='_efbtn_1', bundle='RoundedEdgesEffect')" strImageSource="../graphics/effects/Frames/roundededges.png"/>
+	<mx:String id="_strHelpText">{Resource.getString('RoundedEdgesEffect', '_strHelpText')}</mx:String>
+
+	<cnt:ResizingHBox x="8" y="73" verticalAlign="middle" horizontalGap="3" width="190">
+		<ctrl:ResizingLabel text="@Resource(key='Label_1', bundle='RoundedEdgesEffect')" text_5="@Resource(key='Label_1_short', bundle='RoundedEdgesEffect')" styleName="sliderTitle"/>
+		<ctrl:HSBColorPicker id="_cpkrOuter" selectedColor="0xffffff" liveColorChange="OnBufferedOpChange()" width="50"/>
+	</cnt:ResizingHBox>
+
+	<mx:Label x="8" y="100" text="@Resource(key='Label_2', bundle='RoundedEdgesEffect')" styleName="sliderTitle"/>
+	<mx:Label x="152" y="100" text="{Math.round(_sldrCornerRadius.liveValue)}" styleName="sliderValue" textAlign="right" width="50"/>
+	<ctrl:HSliderFastDrag updateSpeed="{updateSpeed}" x="9" y="115" width="190" minimum="0" maximum="{Math.min(imagewidth, imageheight)/2}" value="{Math.min(imagewidth, imageheight)/10}" id="_sldrCornerRadius" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+	
+	<mx:Box width="100%" y="145" horizontalAlign="center" visible="{!PicnikBase.app.flickrlite}" includeInLayout="{!PicnikBase.app.flickrlite}">
+		<ctrl:ResizingCheckbox id="_chkTransparentCorners" label="@Resource(key='transparent_corners', bundle='RoundedEdgesEffect')" selected="false" change="OnOpChange()"/>
+	</mx:Box>
+
+	<ctrl:ApplyCancelEffectButtons y="{PicnikBase.app.flickrlite ? 145 : 180}" premium="{premium}"/>
+
+	<imageOperations:BorderImageOperation id="_op" outercolor="{(_chkTransparentCorners.selected ? 0x00000000 : 0xff000000) + _cpkrOuter.liveColor}"
+			innercolor="0" outerthickness="0" innerthickness="0" cornerradius="{_sldrCornerRadius.value}" BlendAlpha="1" />
+</cnt:EffectCanvas>

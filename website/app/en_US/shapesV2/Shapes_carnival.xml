@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/carnivalIcon.png" flickrPremium="false" id="carnival" numShapes="11" picnikPremium="false" previewUrls="60|48|../clipart/bundles/groupPreviews_carnival.png?ver=75adf848" title="Carnival">
+	<Shapes>
+		<Clipart cHeight="45.6" cWidth="143.9" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|0|../clipart/bundles/shapes_carnival.png?ver=f8e0fc04" url="shapes/carnival/carnival_mask2.swf"/>
+		<Clipart cHeight="62.4" cWidth="120.5" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|1|../clipart/bundles/shapes_carnival.png?ver=f8e0fc04" url="shapes/carnival/carnival_mask1.swf"/>
+		<Clipart cHeight="104.35000000000001" cWidth="168.20000000000002" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|2|../clipart/bundles/shapes_carnival.png?ver=f8e0fc04" url="shapes/carnival/carnival_feather.swf"/>
+		<Clipart cHeight="174.1" cWidth="157.05" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|3|../clipart/bundles/shapes_carnival.png?ver=f8e0fc04" url="shapes/carnival/carnival_drum.swf"/>
+		<Clipart cHeight="64.1" cWidth="67.4" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|4|../clipart/bundles/shapes_carnival.png?ver=f8e0fc04" url="shapes/carnival/carnival_star.swf"/>
+		<Clipart cHeight="83.14999999999999" cWidth="94.2" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|5|../clipart/bundles/shapes_carnival.png?ver=f8e0fc04" url="shapes/carnival/carnival_tambourine.swf"/>
+		<Clipart cHeight="761.1" cWidth="1158.8" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|6|../clipart/bundles/shapes_carnival.png?ver=f8e0fc04" url="shapes/carnival/carnival_fedora.swf"/>
+		<Clipart cHeight="83.15" cWidth="115.9" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|7|../clipart/bundles/shapes_carnival.png?ver=f8e0fc04" url="shapes/carnival/carnival_whistle.swf"/>
+		<Clipart cHeight="105.64999999999999" cWidth="96.05" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|8|../clipart/bundles/shapes_carnival.png?ver=f8e0fc04" url="shapes/carnival/carnival_notes.swf"/>
+		<Clipart cHeight="156.25" cWidth="112.7" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|9|../clipart/bundles/shapes_carnival.png?ver=f8e0fc04" url="shapes/carnival/carnival_confetti.swf"/>
+		<Clipart cHeight="226.35" cWidth="190.65" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|10|../clipart/bundles/shapes_carnival.png?ver=f8e0fc04" url="shapes/carnival/carnival_flag.swf"/>
+	</Shapes>
+</ShapeCategory>

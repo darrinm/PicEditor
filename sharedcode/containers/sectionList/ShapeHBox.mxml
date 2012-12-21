@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml" horizontalGap="0" width="100%" verticalAlign="middle"
+					backgroundAlpha="0" backgroundColor="#ffffff" borderColor="#e6e6e6" borderStyle="solid" borderSides="bottom">
+<mx:Script>
+	<![CDATA[
+		public function set active(fActive:Boolean): void {
+			for each (var dob:DisplayObject in getChildren()) {
+				if ('active' in dob) dob['active'] = fActive;
+			}
+		}
+	]]>
+</mx:Script>	
+</mx:HBox>

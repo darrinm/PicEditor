@@ -1,0 +1,12 @@
+fileName: fs_OxStBd__.ttf
+name: OxideStencil-Bold
+subfamilyDisplayName: Regular
+fullName: OxideStencil-Bold
+displayName: OxideStencil-Bold
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 5
+pkName: pkfs0OxStBd00
+authorName: FontShop
+authorUrl: http://www.fontshop.com/

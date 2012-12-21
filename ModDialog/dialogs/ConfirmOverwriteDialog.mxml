@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ConfirmOverwriteDialogBase xmlns="dialogs.*" xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute"
+		xmlns:ns1="*" xmlns:flash="flash.filters.*" styleName="DialogNoCloseBox" xmlns:controls="controls.*">
+<mx:Script>
+	<![CDATA[
+		import picnik.util.LocaleInfo;
+		import util.LocUtil;
+		import mx.resources.ResourceBundle;
+	   	[Bindable] [ResourceBundle("ConfirmOverwriteDialog")] private var rb:ResourceBundle;
+	]]>
+</mx:Script>
+	<mx:VBox>
+		<mx:HBox horizontalGap="5" width="100%" paddingLeft="5">
+			<controls:ImageVer x="5" y="3" source="@Embed('../theme/pngs/alertIcon.png')"/>
+			<mx:VBox width="100%" paddingRight="5">
+				<mx:Text  id="_txtHeader" y="3" fontSize="13" condenseWhite="true" selectable="false" right="5" left="37" htmlText="@Resource(key='_txtHeader', bundle='ConfirmOverwriteDialog')">
+				</mx:Text>
+				<mx:Text y="42" text="{LocUtil.rbSubst('ConfirmOverwriteDialog', 'resolution_warning', _nPercentOfOriginal)}" selectable="false" color="#ff0000" textAlign="left" x="37" fontWeight="{LocaleInfo.BoldWeight()}" 
+					visible="{imageDownsampled}" includeInLayout="{imageDownsampled}" width="100%"/>
+			</mx:VBox>
+		</mx:HBox>
+		<mx:Grid left="5" right="5" y="50" width="520" verticalGap="0" horizontalGap="10" id="grid1" height="200"
+			visible="{haveOriginalThumb}" includeInLayout="{haveOriginalThumb}" horizontalScrollPolicy="off" verticalScrollPolicy="off" paddingLeft="5" paddingRight="5" paddingBottom="-5">
+			<mx:GridRow width="100%" height="100%">
+				<mx:GridItem width="100%" height="100%" horizontalAlign="center" verticalAlign="middle"
+						borderStyle="solid" borderThickness="1" borderColor="#CCCCCC" backgroundColor="#f7f7f7" cornerRadius="5" clipContent="true"
+						paddingTop="5" paddingRight="5" paddingBottom="5" paddingLeft="5">
+					<controls:ImageVer id="_imgOld" width="100%" height="100%" scaleContent="true" verticalAlign="middle" horizontalAlign="center"/>
+				</mx:GridItem>
+				<mx:GridItem width="100%" height="100%" horizontalAlign="center" verticalAlign="middle" horizontalScrollPolicy="off" verticalScrollPolicy="off"
+						borderStyle="solid" borderThickness="1" borderColor="#CCCCCC" backgroundColor="#f7f7f7" cornerRadius="5" clipContent="true">
+					<ns1:ImageView id="_imgvNew" height="100%" width="100%" paddingTop="5" paddingLeft="5" paddingBottom="5" paddingRight="5"/>
+				</mx:GridItem>
+			</mx:GridRow>
+			<mx:GridRow width="100%">
+				<mx:GridItem>
+					<mx:Label text="@Resource(key='label1', bundle='ConfirmOverwriteDialog')" fontSize="11" color="#666666" fontWeight="{LocaleInfo.BoldWeight()}" y="298" x="209" id="label1"/>
+				</mx:GridItem>
+				<mx:GridItem>
+					<mx:Label text="@Resource(key='label2', bundle='ConfirmOverwriteDialog')" fontSize="11" color="#666666" fontWeight="{LocaleInfo.BoldWeight()}" y="298" x="488" id="label2"/>
+				</mx:GridItem>
+			</mx:GridRow>
+		</mx:Grid>
+		<mx:HBox width="100%" paddingLeft="5" paddingRight="5" paddingBottom="5">
+			<controls:ResizingButton label="@Resource(key='_btnOK', bundle='ConfirmOverwriteDialog')" id="_btnOK" click="SaveOver()" styleName="BigButton" tabIndex="1" emphasized="true" icon="@Embed('../theme/pngs/yesIcon.png')" height="25"
+				leading="1" minWidth="120" horizontalGap="3"/>
+			<controls:ResizingButton label="@Resource(key='Button_1', bundle='ConfirmOverwriteDialog')" click="SaveNew()" styleName="dialogButton" tabIndex="1" height="25" leading="1"
+				visible="{showSaveOver}" includeInLayout="{showSaveOver}"/>
+			<mx:Spacer height="10" width="100%" minWidth="30"/>
+			<controls:ResizingButton label="@Resource(key='_btnCancel', bundle='ConfirmOverwriteDialog')" id="_btnCancel" minWidth="70" styleName="dialogButton" tabIndex="3" height="25" leading="1"/>
+		</mx:HBox>
+	</mx:VBox>
+</ConfirmOverwriteDialogBase>

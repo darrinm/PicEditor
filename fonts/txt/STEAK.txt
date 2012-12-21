@@ -1,0 +1,12 @@
+fileName: STEAK.ttf
+name: STEAK
+subfamilyDisplayName: Normal
+fullName: STEAK
+displayName: STEAK
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 0
+pkName: pkSTEAK
+authorName: Gyom.Typo
+authorUrl: http://gyom.nebullus.com/

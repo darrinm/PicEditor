@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory flickrPremium="false" id="soccer_de" numShapes="3" picnikPremium="false" previewUrls="60|48|../clipart/bundles/SoccerFeverTeamsArea_groupPreviews_soccer_de.png?ver=bc122f46" title="Germany Stickers">
+	<Shapes>
+		<Clipart cHeight="294" cWidth="464.2" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|0|../clipart/bundles/SoccerFeverTeamsArea_shapes_soccer_de.png?ver=315fa837" url="shapes/SoccerFever/de/wavingflag_de.swf"/>
+		<Clipart cHeight="600" cWidth="1000" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|1|../clipart/bundles/SoccerFeverTeamsArea_shapes_soccer_de.png?ver=315fa837" url="shapes/SoccerFever/de/flag_de.swf"/>
+		<Clipart cHeight="223.55" cWidth="96.65" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|2|../clipart/bundles/SoccerFeverTeamsArea_shapes_soccer_de.png?ver=315fa837" url="shapes/SoccerFever/de/scarf_de.swf"/>
+	</Shapes>
+</ShapeCategory>

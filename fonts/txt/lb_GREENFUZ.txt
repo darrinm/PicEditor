@@ -1,0 +1,12 @@
+fileName: lb_GREENFUZ.TTF
+name: Green Fuz
+subfamilyDisplayName: Regular
+fullName: Green Fuz
+displayName: Green Fuz
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 4
+pkName: pklb0GREENFUZ
+authorName: Ray Larabie
+authorUrl: http://www.larabiefonts.com/

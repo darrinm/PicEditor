@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<BlemishEffectBase xmlns="effects.*" xmlns:cnt="containers.*" xmlns:ctrl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="153" xmlns:local="*" 
+	xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*"
+	xmlns:flash.geom="flash.geom.*" premium="{PicnikBase.GetApp().freemiumModel}" urlid="BlemishFix">
+	<mx:Script>
+		import mx.resources.ResourceBundle;
+   		[Bindable] [ResourceBundle("BlemishEffect")] private var rb:ResourceBundle;
+	</mx:Script>
+
+	<mx:Array id="_resetValues">
+		<local:StoredValue target="_aapt" value="{null}"/>
+	</mx:Array>
+
+	<ctrl:EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='BlemishEffect')" strAuthor="@Resource(key='_efbtn_1', bundle='BlemishEffect')"
+		strImageSource="../graphics/effects/Touchup/blemish_fix.png" premium="{premium}"/>
+	<mx:String id="_strHelpText">{Resource.getString('BlemishEffect', '_strHelpText')}</mx:String>
+
+	<mx:VBox x="8" y="70" verticalGap="0">
+		<mx:HBox width="190" paddingBottom="-5">
+			<mx:Label text="@Resource(key='Label_1', bundle='BlemishEffect')" styleName="sliderTitle"/>
+			<mx:Label text="{_sldrBrushSize.value}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<ctrl:HSliderPlus id="_sldrBrushSize" width="190" minimum="1" maximum="50" value="10" thumbPress="ShowBrushPreview()" thumbDrag="UpdateBrushPreview()" thumbRelease="HideBrushPreview()"
+			globalShortcutsEnabled="{_fSelected}" globalShortcutKeys="[]" 
+			snapInterval="1" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+
+		<ctrl:ApplyCancelEffectButtons addBoxPadding="true" premium="{premium}"/>
+	</mx:VBox>
+	
+	<mx:Number id="_nFeedbackSecs">0.5</mx:Number>
+	<mx:Number id="_cxyMinFeedbackDim">50</mx:Number>
+	<mx:Array id="_aapt"/>
+	<mx:Number id="_cxyBrush">{_sldrBrushSize.value}</mx:Number>
+	
+	<imageOperations:BlemishImageOperation id="_op" lines="{_aapt}" BlendAlpha="1"/>
+</BlemishEffectBase>

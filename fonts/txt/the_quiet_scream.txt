@@ -1,0 +1,12 @@
+fileName: the_quiet_scream.ttf
+name: the quiet scream
+subfamilyDisplayName: Normal
+fullName: the quiet scream
+displayName: the quiet scream
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 0
+pkName: pkthe0quiet0scream
+authorName: Gyom.Typo
+authorUrl: http://gyom.nebullus.com/

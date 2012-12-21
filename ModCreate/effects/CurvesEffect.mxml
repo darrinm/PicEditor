@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cnt:PaintEffectCanvas xmlns:cnt="containers.*" xmlns="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="467"
+	xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*" xmlns:effects="effects.*"
+	premium="true" reset="ResetCurves()" initialize="_crvSelected = _crvRGB" urlid="Curves">
+	<mx:Script>
+		<![CDATA[
+			import util.LocUtil;
+			import mx.resources.ResourceBundle;
+	   		[Bindable] [ResourceBundle("CurvesEffect")] private var rb:ResourceBundle;
+	   		
+	   		[Bindable] private var _crvSelected:CurveBox;
+	   		private var _fDirty:Boolean = false;
+			private var _obSavedCurves:Object = null;
+	   		
+	   		private function GetCurves(): Array {
+	   			var aobCurves:Array = [];
+  
+				return aobCurves;
+			}
+			
+			private function ResetCurves(): void {
+				_cboxLoadCurve.selectedIndex = 0; // Default
+				SelectCurve(_cboxLoadCurve.selectedItem);
+			}
+	   		
+			protected function OnCurveEdited(): void {
+				_cboxLoadCurve.selectedIndex = 1;
+				_fDirty = true;
+			}
+			
+			protected function ShowSelectedChannel(): void {
+				_crvSelected = _cboxChannel.selectedItem.data as CurveBox; 
+				_cnv.setChildIndex(_crvSelected, _cnv.numChildren-1); 
+				_crvSelected.invalidateProperties();				
+			}
+			
+			private function SaveCurves(): void {
+				_obSavedCurves = {};
+				_obSavedCurves.aptsRGB = _crvRGB._apts.slice(); 
+				_obSavedCurves.aptsR = _crvR._apts.slice(); 
+				_obSavedCurves.aptsG = _crvG._apts.slice(); 
+				_obSavedCurves.aptsB = _crvB._apts.slice(); 
+			}
+	
+			private function LoadCurves(): void {
+				if (_obSavedCurves) {
+					_crvRGB.setPoints(_obSavedCurves.aptsRGB); 
+					_crvR.setPoints(_obSavedCurves.aptsR); 
+					_crvG.setPoints(_obSavedCurves.aptsG); 
+					_crvB.setPoints(_obSavedCurves.aptsB);
+				} 
+			}
+	
+			private function SelectCurve(obItem:Object): void {
+				var aanCurves:Array = obItem.data;
+				if (aanCurves != null) {
+					if (_fDirty) {
+						// Remember the previous curves
+						SaveCurves();
+					}
+					// Save previous curve?
+					while (aanCurves.length < 4)
+						aanCurves.push([0,0,255,255]); // Fill out the array with default curves
+					
+					// Load the curves
+					_crvRGB.setPoints(aanCurves[0]);
+					_crvR.setPoints(aanCurves[1]);
+					_crvG.setPoints(aanCurves[2]);
+					_crvB.setPoints(aanCurves[3]);
+					
+					if ('colorOverride' in obItem)
+						_sldrColorOverride.value = obItem.colorOverride;
+					else 
+						_sldrColorOverride.value = 0;
+				} else {
+					LoadCurves();
+					// Load previous custom curve.
+				}
+				// Select RGB channel
+				_cboxChannel.selectedIndex = 0;
+				ShowSelectedChannel();
+				_fDirty = false;
+			}
+
+		]]>
+	</mx:Script>
+		
+		
+	<EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='CurvesEffect')" strAuthor="@Resource(key='_efbtn_1', bundle='CurvesEffect')"
+		strImageSource="../graphics/effects/curves.png" premium="{premium}"/>
+	<mx:String id="_strHelpText">{Resource.getString('CurvesEffect', '_strHelpText')}</mx:String>
+	
+	<mx:VBox x="10" y="67" verticalGap="0">
+		<!-- presets combox box -->
+   	    <mx:VBox verticalGap="-3" paddingTop="5" paddingBottom="5">
+		    <mx:Label text="@Resource(key='presets', bundle='CurvesEffect')" styleName="sliderTitle"/>
+			<mx:ComboBox id="_cboxLoadCurve" rowCount="10" width="190" height="26"
+				dataProvider="{GetCurves()}"
+				change="SelectCurve(_cboxLoadCurve.selectedItem)"/>
+		</mx:VBox>
+		<!-- channel picker -->
+  	    <mx:HBox width="190" horizontalGap="4" paddingTop="3" paddingBottom="5" verticalAlign="middle">
+			<mx:Label text="@Resource(key='channel', bundle='CurvesEffect')" styleName="sliderTitle"/>
+			<mx:ComboBox id="_cboxChannel" width="100%" height="22" fontSize="12" styleName="shortComboBox"
+				dataProvider="{[{label:Resource.getString('CurvesEffect', 'rgb'),data:_crvRGB},
+						{label:Resource.getString('CurvesEffect', 'red'),data:_crvR},
+						{label:Resource.getString('CurvesEffect', 'green'),data:_crvG},
+						{label:Resource.getString('CurvesEffect', 'blue'),data:_crvB}]}"
+				change="ShowSelectedChannel();"/>
+		</mx:HBox>
+		<!-- curves box -->
+		<mx:Canvas id="_cnv" clipContent="true" width="190" height="190" horizontalScrollPolicy="off" verticalScrollPolicy="off" backgroundColor="0xcc0044">
+			<!-- Hack: clip content only clips if the explicit width or height of a component is larger that the parent.
+			     Fortunately, curve boxes use the min of width/height, so we can set the width large enough to force
+			     clipping without changing the rendered size -->
+			<effects:CurveBox id="_crvR" subCurves="{[_crvRGB,_crvG,_crvB]}" lineColor="0xc30000" width="200" height="189" change="_opCurve.RedCurve=_crvR.pointsArray; OnOpChange();" edited="OnCurveEdited()"/>
+			<effects:CurveBox id="_crvG" subCurves="{[_crvR,_crvRGB,_crvB]}" lineColor="0x00c300" width="189" height="189" change="_opCurve.GreenCurve=_crvG.pointsArray; OnOpChange();" edited="OnCurveEdited()"/>
+			<effects:CurveBox id="_crvB" subCurves="{[_crvR,_crvG,_crvRGB]}" lineColor="0x0000c3" width="189" height="189" change="_opCurve.BlueCurve=_crvB.pointsArray; OnOpChange();" edited="OnCurveEdited()"/>
+			<effects:CurveBox id="_crvRGB" subCurves="{[_crvR,_crvG,_crvB]}" width="189" height="189" change="_opCurve.MasterCurve=_crvRGB.pointsArray; OnOpChange();" edited="OnCurveEdited()"/>
+		</mx:Canvas>
+		<!-- hiding these guys for now
+		<mx:HBox width="100%">
+			<mx:Label width="50%" text="{Resource.getString('CurvesEffect', 'in') + ' ' + _crvSelected.strXDrag}"/> 
+			<mx:Label width="50%" text="{Resource.getString('CurvesEffect', 'out') + ' ' + _crvSelected.strYDrag}"/> 
+		</mx:HBox>
+		-->
+		
+		<!-- color overide slider -->
+		<mx:HBox width="194" paddingBottom="-5" paddingTop="5">
+			<mx:Label text="@Resource(key='colorOverride', bundle='CurvesEffect')" styleName="sliderTitle"/>
+			<mx:Label text="{LocUtil.pct((_sldrColorOverride.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<HSliderPlus width="191" minimum="0" maximum="100" value="{zeroR}" id="_sldrColorOverride" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+		
+		<!-- Fade label/percent/slider box/effect paint button -->
+		<mx:HBox horizontalGap="5" paddingTop="5" verticalAlign="middle">
+			<mx:VBox verticalGap="0" width="157" horizontalScrollPolicy="off">
+				<mx:HBox width="100%" paddingBottom="-5">
+					<mx:Label text="@Resource(key='fade', bundle='CurvesEffect')" styleName="sliderTitle"/>
+					<mx:Label text="{LocUtil.pct((_sldrFade.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+				</mx:HBox>
+				<HSliderPlus width="157" minimum="0" maximum="100" value="{zeroR}" id="_sldrFade" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+			</mx:VBox>
+			<mx:Button id="_btnBrushPalette" width="30" height="30" selected="false" toggle="true" icon="@Embed('/assets/bitmaps/icon_paintTall.png')" paddingLeft="0"
+				toolTip="@Resource(key='_btnBrushPalette', bundle='BWEffect')"/>
+		</mx:HBox>
+		
+		<!-- apply/cancel -->
+		<ApplyCancelEffectButtons addBoxPadding="true" premium="{premium}"/>
+	</mx:VBox>
+</cnt:PaintEffectCanvas>

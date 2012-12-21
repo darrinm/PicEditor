@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cnt:EffectCanvas xmlns:cnt="containers.*" xmlns="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="216"
+	xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*" premium="{PicnikBase.GetApp().freemiumModel}" urlid="RedWhiteAndBlue">
+	<mx:Script>
+		import util.LocUtil;
+		import mx.resources.ResourceBundle;
+   		[Bindable] [ResourceBundle("RedWhiteBlueEffect")] private var rb:ResourceBundle;
+	</mx:Script>
+
+	
+	<EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='RedWhiteBlueEffect')" strAuthor="@Resource(key='_efbtn_1', bundle='RedWhiteBlueEffect')"
+		strImageSource="../graphics/effects/RedWhiteBlue.jpg" premium="{premium}"/>
+	<mx:String id="_strHelpText">{Resource.getString('RedWhiteBlueEffect', '_strHelpText')}</mx:String>
+
+	<mx:VBox x="8" y="70" verticalGap="0">
+	    <mx:HBox width="190" paddingBottom="-5" paddingTop="3">
+			<mx:Label text="@Resource(key='color', bundle='RedWhiteBlueEffect')" styleName="sliderTitle"/>
+			<mx:Label text="{LocUtil.pct((_sldrColor.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		
+		
+		<HSliderPlus width="190" minimum="0" maximum="100" value="{zeroR + 80}" id="_sldrColor" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+		<LabelHSlidePlus label="@Resource(key='degrees', bundle='RedWhiteBlueEffect')" styleName="sliderTitle" id="_sldrDegrees" minimum="0" maximum="360" 
+			value="{zeroR + 90}" change="OnOpChange()" snapInterval="1" labelValueMultiplier="1"/>
+		
+		
+		<ApplyCancelEffectButtons addBoxPadding="true" premium="{premium}"/>	
+	</mx:VBox>
+	
+	<imageOperations:NestedImageOperation id="_op" dynamicAlphaCachePriority="10">
+		<imageOperations:children>
+			<imageOperations:AutoFixImageOperation />
+			<imageOperations:BWImageOperation/>				
+			<imageOperations:GradientShapeImageOperation color1="0xff0000" color2="0x0000ff" dynamicParamsCachePriority="5"
+			 	gradRotation="{_sldrDegrees.value * Math.PI/180}" shape="rectangle" gradBlend="overlay" gradType="linear" 
+			 	alpha0="{_sldrColor.value/100}" 
+			 	alpha1="{_sldrColor.value/100}" 
+			 	alpha2="{_sldrColor.value/100}" 
+			 	alpha3="{_sldrColor.value/100}"/>
+		</imageOperations:children>					
+	</imageOperations:NestedImageOperation>
+
+</cnt:EffectCanvas>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cnt:PaintEffectCanvas xmlns="effects.*" xmlns:cnt="containers.*" xmlns:ctrl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="193"
+	xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*" xmlns:objectOperations="imagine.objectOperations.*" urlid="GoPink">
+	<mx:Script>
+		import util.LocUtil;
+		import mx.resources.ResourceBundle;
+   		[Bindable] [ResourceBundle("GoPinkEffect")] private var rb:ResourceBundle;
+   		
+   		[Bindable] private var _nR1:Number = 0xff;
+   		[Bindable] private var _nG1:Number = 0xba;
+   		[Bindable] private var _nB1:Number = 0xcf;
+   		
+   		[Bindable] private var _nR2:Number = 0xff;
+   		[Bindable] private var _nG2:Number = 0xcb;
+   		[Bindable] private var _nB2:Number = 0xe9;
+	</mx:Script>
+	
+	<ctrl:EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='GoPinkEffect')" strAuthor="@Resource(key='_efbtn_1', bundle='GoPinkEffect')" strImageSource="../graphics/effects/BreastCancerAwareness/go_pink.png"/>
+	<mx:String id="_strHelpText">{Resource.getString('GoPinkEffect', '_strHelpText')}</mx:String>
+
+	<mx:VBox x="0" y="70" verticalGap="0" paddingLeft="8" paddingRight="8">
+		<mx:HBox width="190" paddingBottom="-5">
+			<mx:Label text="@Resource(key='Pinikness', bundle='GoPinkEffect')" styleName="sliderTitle"/>
+			<mx:Label text="{Math.round(_sldrPinkness.liveValue)}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<ctrl:HSliderFastDrag width="190" minimum="0" maximum="100" value="{40+zeroR}" id="_sldrPinkness" change="OnOpChange()" updateSpeed="{updateSpeed}" showDataTip="false"/>
+
+		<mx:HBox horizontalGap="5" paddingTop="3" verticalAlign="middle">
+			<!-- Fade label/percent/slider box -->
+			<mx:VBox verticalGap="0" width="157" horizontalScrollPolicy="off">
+				<mx:HBox width="100%" paddingBottom="-5">
+					<mx:Label text="@Resource(key='Fade', bundle='GoPinkEffect')" styleName="sliderTitle"/>
+					<mx:Label text="{LocUtil.pct((_sldrFade.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+				</mx:HBox>
+				<ctrl:HSliderPlus width="157" minimum="0" maximum="100" value="{zeroR}" id="_sldrFade" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+			</mx:VBox>
+			<mx:Button id="_btnBrushPalette" width="30" height="30" selected="false" toggle="true" icon="@Embed('/assets/bitmaps/icon_paintTall.png')" paddingLeft="0"
+				toolTip="@Resource(key='_btnBrushPalette', bundle='GoPinkEffect')"/>
+		</mx:HBox>
+
+		<ctrl:ApplyCancelEffectButtons addBoxPadding="true" premium="{premium}"/>
+	</mx:VBox>
+
+	<imageOperations:NestedImageOperation id="_op" BlendAlpha="{1-(_sldrFade.value/100)}" Mask="{_mctr.mask}"
+			dynamicAlphaCachePriority="3">
+		<imageOperations:children>
+			<imageOperations:BWImageOperation/>
+			<imageOperations:AdjustCurvesImageOperation dynamicParamsCachePriority="2"
+				MasterCurve="{[{x:0, y:0}, {x:255, y:255}]}"
+				RedCurve="{   [{x:0, y:0}, {x:_sldrPinkness.value/2+110, y:_nR1}, {x:172, y:_nR2}, {x:255, y:255}]}"
+				GreenCurve="{ [{x:0, y:0}, {x:_sldrPinkness.value/2+110, y:_nG1}, {x:172, y:_nG2}, {x:255, y:255}]}"
+				BlueCurve="{  [{x:0, y:0}, {x:_sldrPinkness.value/2+110, y:_nB1}, {x:172, y:_nB2}, {x:255, y:255}]}"
+			/>
+		</imageOperations:children>
+	</imageOperations:NestedImageOperation>
+</cnt:PaintEffectCanvas>

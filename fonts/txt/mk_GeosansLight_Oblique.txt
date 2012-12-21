@@ -1,0 +1,12 @@
+fileName: mk_GeosansLight_Oblique.ttf
+name: GeosansLight
+subfamilyDisplayName: Medium Italic
+fullName: GeosansLight-Oblique
+displayName: GeosansLight
+ital: 1
+bold: 0
+weight: 5
+panose.weight: 6
+pkName: pkmk0GeosansLight0Oblique
+authorName: Manfred Kelin
+authorUrl: http://moorstation.org/typoasis/designers/klein/

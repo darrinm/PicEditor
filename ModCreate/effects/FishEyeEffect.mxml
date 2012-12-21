@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cnt:CircularOverlayEffectCanvas xmlns="effects.*" xmlns:cnt="containers.*" xmlns:ctrl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="335" xmlns:local="*" 
+	xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*"
+	xFocus = "{zeroR + imagewidth/2}"
+	yFocus = "{zeroR + imageheight/2}"
+	liveUpdate="true" premium="{PicnikBase.GetApp().freemiumModel}"
+	 urlid="FishEye">
+	<mx:Script>
+		import util.LocUtil;
+		import mx.resources.ResourceBundle;
+   		[Bindable] [ResourceBundle("FocalZoomEffect")] private var rb:ResourceBundle;
+	</mx:Script>
+	
+	<mx:HRule x="0" width="100%" top="0" height="1" strokeColor="#FFFFFF"/>
+	<mx:HRule x="0" width="100%" height="1" bottom="0" strokeColor="#d4d4d4"/>
+	
+	<ctrl:EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='FishEyeEffect')" strAuthor="@Resource(key='_efbtn_1', bundle='FocalZoomEffect')"
+		strImageSource="../graphics/effects/Area/focal_zoom.png" premium="{premium}"/>
+	<mx:String id="_strHelpText">{Resource.getString('FocalZoomEffect', '_strHelpText')}</mx:String>
+
+	<mx:VBox x="8" y="70">
+		<mx:HBox>
+			<mx:Label text="@Resource(key='Label_1', bundle='FishEyeEffect')" styleName="sliderTitle"/>
+			<mx:Label text="{LocUtil.pct(Math.round(_sldrImpact.liveValue))}" styleName="sliderValue" textAlign="right" width="50"/>
+		</mx:HBox>
+		<ctrl:HSliderFastDrag updateSpeed="{updateSpeed}" x="9" y="85" width="190" minimum="0" maximum="100" value="{zeroR + 50}" id="_sldrImpact" liveDragging="true" showDataTip="false"
+			thumbPress="ShowOverlay()" change="OnOpChange()" thumbRelease="HideOverlay()"/>		
+		<mx:HBox>		
+			<mx:Label text="@Resource(key='Label_2', bundle='FishEyeEffect')" styleName="sliderTitle"/>
+			<mx:Label text="{LocUtil.pct(Math.round(_sldrSize.liveValue))}" styleName="sliderValue" textAlign="right" width="50"/>
+		</mx:HBox>
+		<ctrl:HSliderFastDrag updateSpeed="{updateSpeed}" x="9" y="85" width="190" minimum="1" maximum="100" value="{zeroR + 50}" id="_sldrSize" liveDragging="true" showDataTip="false"
+			thumbPress="ShowOverlay()" change="OnOpChange()" thumbRelease="HideOverlay()"/>
+		<mx:HBox>			
+			<mx:Label text="@Resource(key='Label_3', bundle='FishEyeEffect')" styleName="sliderTitle"/>
+			<mx:Label text="{LocUtil.pct(Math.round(_sldrSkewX.liveValue))}" styleName="sliderValue" textAlign="right" width="50"/>
+		</mx:HBox>
+		<ctrl:HSliderFastDrag updateSpeed="{updateSpeed}" x="9" y="85" width="190" minimum="1" maximum="100" value="{zeroR + 50}" id="_sldrSkewX" liveDragging="true" showDataTip="false"
+			thumbPress="ShowOverlay()" change="OnOpChange()" thumbRelease="HideOverlay()"/>
+		<mx:HBox>			
+			<mx:Label text="@Resource(key='Label_4', bundle='FishEyeEffect')" styleName="sliderTitle"/>
+			<mx:Label text="{LocUtil.pct(Math.round(_sldrSkewY.liveValue))}" styleName="sliderValue" textAlign="right" width="50"/>
+		</mx:HBox>		
+		<ctrl:HSliderFastDrag updateSpeed="{updateSpeed}" x="9" y="85" width="190" minimum="1" maximum="100" value="{zeroR + 50}" id="_sldrSkewY" liveDragging="true" showDataTip="false"
+			thumbPress="ShowOverlay()" change="OnOpChange()" thumbRelease="HideOverlay()"/>
+		<ctrl:ApplyCancelEffectButtons premium="{premium}"/>
+	</mx:VBox>
+	
+	<imageOperations:NestedImageOperation id="_op">
+		<imageOperations:children>
+			<imageOperations:FishEyeImageOperation 
+						x="{zeroR + xFocus}" y="{zeroR + yFocus}" strength="{_sldrImpact.value}"
+						size="{_sldrSize.value}" xSkew="{_sldrSkewX.value}" ySkew="{_sldrSkewY.value}" ignoreObjects="true"/>
+		</imageOperations:children>
+		
+	</imageOperations:NestedImageOperation>
+</cnt:CircularOverlayEffectCanvas>

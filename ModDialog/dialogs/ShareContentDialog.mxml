@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dialogs:ShareContentDialogBase 
+		xmlns:containers="containers.*" 
+		xmlns:dialogs="dialogs.*" 
+		xmlns:upsell="dialogs.Upsell.*" 
+ 	 	xmlns:mx="http://www.adobe.com/2006/mxml"	
+ 	 	xmlns:controls="controls.*" 
+ 	 	xmlns:renaun="com.renaun.controls.*"
+ 	 	xmlns:thumbs="controls.thumbnails.*" 
+	 width="{PicnikBase.app.yahoomail?640:690}" height="500" styleName="ShareContentDialogStyle"
+	 resize="OnResize(event)" move="OnResize(event)" >
+	
+	<mx:Script>
+		<![CDATA[
+			import dialogs.DialogManager;
+			import mx.resources.ResourceBundle;		
+			
+			private const kMinSize:int = 350;
+			private const kMaxSize:int = 500;	
+			override protected function OnResize(evt:Event): void {
+				height = Math.max(Math.min(kMaxSize, parentHeight), kMinSize);
+				super.OnResize(evt);
+			}
+   		]]>
+	</mx:Script>
+	
+	<mx:Style source="ShareContentDialog.css"/>
+	<mx:DropShadowFilter id="_fiWhiteShine" blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1" quality="3" angle="90"/>
+	<mx:DropShadowFilter id="_fiInnerShad" blurX="1" blurY="1" distance="1" color="#000000" alpha=".2" quality="3" angle="90" inner="true"/>
+
+	<mx:Fade id="_efFadeIn" duration="300" alphaFrom="0" alphaTo="1"/>
+	<mx:Fade id="_efFadeOut" duration="200" alphaFrom="1" alphaTo="0"/>
+
+	<containers:AutoShrinkCanvas width="100%" height="100%" cornerRadius="8" clipContent="true" color="#ff6600">
+	    <containers:ShareBridges id="_brgc" item="{item}" width="100%" height="100%" minHeight="300" clipContent="true" container="{this}" footerHeight="{footerHeight}"/>
+	
+		<!-- Close button-->
+		<mx:Button width="22" height="22" right="4" top="4" click="Hide()" styleName="dialogCloseButton"/>		
+
+		<!-- continue editing button -->
+		<controls:ResizingButton styleName="basketButtonDarkBlue" label="@Resource(key='continueEditing',bundle='ShareBridges')"
+			click="Hide()"
+			bottom="11" right="11" height="28" minWidth="140" paddingLeft="-9" paddingRight="-9"/>
+
+		<!-- shadow dealies, drawn on top of all elements -->
+		<controls:ImageVer source="../graphics/upsellPremiumPanelShadow.png" bottom="50" left="0" right="0" scaleContent="true" maintainAspectRatio="false"/>
+	</containers:AutoShrinkCanvas>
+</dialogs:ShareContentDialogBase>

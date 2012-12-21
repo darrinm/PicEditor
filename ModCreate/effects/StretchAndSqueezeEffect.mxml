@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cnt:HeadsUpEffectCanvasBase xmlns="effects.*" xmlns:cnt="containers.*" xmlns:ctrl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="335" xmlns:local="*" 
+	xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*" premium="true" urlid="FunhouseMirror">
+	<mx:Script>
+		import containers.NestedControlCanvasBase;
+		
+		import controllers.DocoController;
+		import controllers.StretchAndSqueeze;
+		
+		import imagine.documentObjects.DocumentObjectBase;
+		import imagine.documentObjects.PRectangle;
+		import imagine.documentObjects.StretchAndSqueezeDocumentObject;
+		
+		import flash.utils.Timer;
+		
+		import imagine.imageOperations.FishEyeImageOperation;
+		
+		import mx.events.PropertyChangeEvent;
+		import mx.resources.ResourceBundle;
+		
+		import util.LocUtil;
+		
+   		[Bindable] [ResourceBundle("StretchAndSqueezeEffect")] private var rb:ResourceBundle;
+
+		private var _aDocos:Array = [];
+		private var _timerUpdateOp:Timer = null;
+		
+		override protected function UpdateZoomviewForSelected(fSelected:Boolean): void {
+		}
+		
+		public override function Select(efcnvCleanup:NestedControlCanvasBase): Boolean {
+			if (super.Select(efcnvCleanup)) {
+				_op.children = [];
+				onAddOneClick();
+				return true;
+			}
+			return false;
+		}
+
+		public override function Deselect(fForceRollOutEffect:Boolean=true, efcvsNew:NestedControlCanvasBase=null): void {
+			for each (var doco:StretchAndSqueezeDocumentObject in _aDocos) {
+				_imgd.removeChild(doco);
+				doco.Dispose();
+			}
+			_imgv.FilterSelection(ImageView.kFreeSelection);
+			_imgd.selectedItems = _aDocos = [];
+			super.Deselect(fForceRollOutEffect, efcvsNew);
+		}		
+
+		private function UpdateOp( opFishEye:FishEyeImageOperation, doco:StretchAndSqueezeDocumentObject ): void {
+			opFishEye.x = doco.x;
+			opFishEye.y = doco.y;
+			
+			var nImageMin:int = Math.min(imagewidth,imageheight);
+			var nMin:int = Math.min(doco.width, doco.height);
+			var nMax:int = Math.max(doco.width, doco.height);
+			opFishEye.size = nMax * 100 / nImageMin;
+			
+			opFishEye.xAspect = doco.width > doco.height ? 1 : doco.height/doco.width;
+			opFishEye.yAspect = doco.height > doco.width ? 1 : doco.width/doco.height;
+			
+			opFishEye.xStretch = doco.xStretch;
+			opFishEye.yStretch = doco.yStretch;
+
+			var fnDoOpChange:Function = function( evt:Event ): void {
+					OnOpChange();
+				}
+				
+			// we use a timer to only trigger the refresh when the operation
+			// has changed for more than 100ms.
+			if (_timerUpdateOp) {
+				_timerUpdateOp.reset();
+			} else {
+				_timerUpdateOp = new Timer(100,1);
+				_timerUpdateOp.addEventListener(TimerEvent.TIMER,fnDoOpChange);
+			}
+			_timerUpdateOp.start();
+		
+		}
+		
+		private function onAddOneClick():void {
+			var doco:StretchAndSqueezeDocumentObject = new StretchAndSqueezeDocumentObject();
+			doco.controller = StretchAndSqueeze;
+			doco.showObjectPalette = false;
+			doco.x = imagewidth / 2;
+			doco.y = imageheight / 2;
+			
+			var nSize:int = Math.min(imagewidth,imageheight)/2;
+			doco.localRect = new Rectangle(-nSize/2, -nSize/2, nSize, nSize);
+			doco.xStretch = -0.8;
+			doco.yStretch = 0.8;
+			_aDocos.push(doco);
+			
+			// most params for fish eye don't matter -- they get overwritten in UpdateOp()
+			_op.children.push(opFishEye);
+
+			_imgd.addChild(doco);
+			_imgv.FilterSelection(ImageView.kForceSelection, _aDocos);
+			_imgd.selectedItems = _aDocos;
+			UpdateOp( opFishEye, doco );
+		}
+	</mx:Script>
+
+	<mx:DropShadowFilter id="_fiWhiteShad" blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1" quality="3" angle="90"/>
+	
+	<mx:HRule x="0" width="100%" top="0" height="1" strokeColor="#FFFFFF"/>
+	<mx:HRule x="0" width="100%" height="1" bottom="0" strokeColor="#d4d4d4"/>
+	
+	<mx:Array id="_resetValues">
+	</mx:Array>
+	
+	<ctrl:EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='StretchAndSqueezeEffect')" strAuthor="@Resource(key='_efbtn_1', bundle='FocalZoomEffect')"
+		strImageSource="../graphics/effects/Halloween/stretchandsqueeze.png" premium="{premium}"/>
+	<mx:String id="_strHelpText">{Resource.getString('StretchAndSqueezeEffect', '_strHelpText')}</mx:String>
+	
+	<mx:String id="_strBlendMode">normal</mx:String>
+
+	<mx:VBox x="10" y="70" verticalGap="0">
+		<ctrl:ApplyCancelEffectButtons premium="{premium}" addBoxPadding="true"/>
+	</mx:VBox>
+	
+</cnt:HeadsUpEffectCanvasBase>

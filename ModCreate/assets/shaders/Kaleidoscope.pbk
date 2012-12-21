@@ -1,0 +1,103 @@
+/*
+/*****************************************************************************
+*
+* Petri Leskinen, Espoo, Finland, Jan 2008
+* kaleidoscope -effect
+* leskinen.petri(at)luukku.com
+*
+*****************************************************************************/
+<languageVersion: 1.0;>
+kernel Kaleidoscope
+<   namespace : "Petri Leskinen";
+    vendor: "Petri Leskinen";
+    version : 1;
+    description : "kaleidoscope -effect, rectangular";
+>
+{
+    parameter float4 fadeColor
+    <
+        minValue: float4(0,0,0,0);
+        maxValue: float4(1,1,1,1);
+        defaultValue: float4(0,0,0,1);
+        description: "Fade color";
+    >;
+    parameter float2 cpnt
+    <
+        minValue: float2(0,0);
+        maxValue: float2(2880,2880);
+        defaultValue: float2(250,280);
+        description: "Center point";
+    >;        
+
+    parameter float size
+    <
+        minValue: float(1);
+        maxValue: float(500);
+        defaultValue: float(75);
+        description: "Size";
+    >;
+
+    parameter float fade
+    <
+        minValue: float(0.5);
+        maxValue: float(1.0);
+        defaultValue: float(1.0);
+        description: "Fade";
+    >;
+    
+    parameter float angl
+    <
+        minValue: float(-3.14159);
+        maxValue: float(3.14159);
+        defaultValue: float(0.5);
+        description: "Rotation angle";
+    >;
+    
+    /*
+    parameter bool octagonal
+    <
+        defaultValue: false;
+        description: "Octagonal reflection";
+    >;
+    */
+    
+    input image4 src;
+    output pixel4 dst;
+    
+    void evaluatePixel()
+    {
+        float sina = sin(angl);
+        float cosa = cos(angl);
+        
+        float2 newC =  cpnt - size/2.0* float2(cosa+sina, cosa-sina);
+        
+        // mx matrix for rotation and scaling
+        // mxR reverse transformation
+        float2x2 mx = float2x2( cosa,sina,-sina,cosa) /size;
+        float2x2 mxR = float2x2( cosa,-sina,sina,cosa) *size;
+        
+        // coordinate p1 on the new coordinate system,
+        // on the center area 0.0 < p1.x < 1.0 , 0.0 < p1.y < 1.0        
+        float2 p1 = mx * (outCoord() -newC);
+        
+        // p2 integer part, p1 only decimal part,
+        // which maps every pixel to the center area
+        float2 p2 = floor(p1);
+        p1 = fract(p1); // p1 -= p2;
+        
+        // p3 dislocation for mirroring,
+        // mirrored if integer part odd
+        float2 p3 = 1.0-2.0*p1;
+        p1.x += mod (p2.x,2.0) > 0.0 ? p3.x : 0.0 ;
+        p1.y += mod (p2.y,2.0) > 0.0 ? p3.y : 0.0 ;
+        
+//        float2 ptmp = 1.0-p1.yx;
+//        p1 = octagonal && (p1.x+p1.y>1.0) ? ptmp : p1;
+        
+        // reverting to the main coordinate system, sampling and mixing the pixel
+        p1 = newC + mxR*p1;
+        dst = mix( fadeColor, sampleLinear(src,p1) , 
+            pow ( fade,abs(p2.x)+abs(p2.y)) );
+        
+     }
+}

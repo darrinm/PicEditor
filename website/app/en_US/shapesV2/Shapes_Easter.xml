@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/shape_easter.png" flickrPremium="true" id="Easter" numShapes="0" picnikPremium="true" previewUrls="60|48|../clipart/bundles/groupPreviews_Easter.png?ver=9032330c" title="Easter">
+	<ShapeCategory flickrPremium="true" id="Easter" numShapes="23" picnikPremium="true" title="Easter">
+		<Shapes>
+			<Clipart cHeight="217" cWidth="172" flickrPremium="true" picnikPremium="true" previewUrl="40|40|0|../clipart/bundles/shapes_Easter.png?ver=74110c68" url="shapes/easter_illustrations_chick.swf"/>
+			<Clipart cHeight="398" cWidth="249" flickrPremium="true" picnikPremium="true" previewUrl="40|40|1|../clipart/bundles/shapes_Easter.png?ver=74110c68" url="shapes/easter_illustrations_chocobunny.swf"/>
+			<Clipart cHeight="130" cWidth="99" flickrPremium="true" picnikPremium="true" previewUrl="40|40|2|../clipart/bundles/shapes_Easter.png?ver=74110c68" url="shapes/easter_illustrations_egg1.swf"/>
+			<Clipart cHeight="127" cWidth="98" flickrPremium="true" picnikPremium="true" previewUrl="40|40|3|../clipart/bundles/shapes_Easter.png?ver=74110c68" url="shapes/easter_illustrations_egg2.swf"/>
+			<Clipart cHeight="133" cWidth="96" flickrPremium="true" picnikPremium="true" previewUrl="40|40|4|../clipart/bundles/shapes_Easter.png?ver=74110c68" url="shapes/easter_illustrations_egg3.swf"/>
+			<Clipart cHeight="129" cWidth="98" flickrPremium="true" picnikPremium="true" previewUrl="40|40|5|../clipart/bundles/shapes_Easter.png?ver=74110c68" url="shapes/easter_illustrations_egg4.swf"/>
+			<Clipart cHeight="127" cWidth="98" flickrPremium="true" picnikPremium="true" previewUrl="40|40|6|../clipart/bundles/shapes_Easter.png?ver=74110c68" url="shapes/easter_illustrations_egg5.swf"/>
+			<Clipart cHeight="129" cWidth="98" flickrPremium="true" picnikPremium="true" previewUrl="40|40|7|../clipart/bundles/shapes_Easter.png?ver=74110c68" url="shapes/easter_illustrations_egg6.swf"/>
+			<Clipart cHeight="114" cWidth="188" flickrPremium="true" picnikPremium="true" previewUrl="40|40|8|../clipart/bundles/shapes_Easter.png?ver=74110c68" url="shapes/easter_illustrations_broken-egg.swf"/>
+			<Clipart cHeight="223" cWidth="139" flickrPremium="true" picnikPremium="true" previewUrl="40|40|9|../clipart/bundles/shapes_Easter.png?ver=74110c68" url="shapes/easter_illustrations_eggconfetti.swf"/>
+			<Clipart cHeight="238" cWidth="250" flickrPremium="true" picnikPremium="true" previewUrl="40|40|10|../clipart/bundles/shapes_Easter.png?ver=74110c68" url="shapes/easter_illustrations_bible.swf"/>
+			<Clipart cHeight="341" cWidth="219" flickrPremium="true" picnikPremium="true" previewUrl="40|40|11|../clipart/bundles/shapes_Easter.png?ver=74110c68" url="shapes/easter_illustrations_cross.swf"/>
+			<Clipart cHeight="202" cWidth="230" flickrPremium="true" picnikPremium="true" previewUrl="40|40|12|../clipart/bundles/shapes_Easter.png?ver=74110c68" url="shapes/easter_illustrations_dove.swf"/>
+			<Clipart cHeight="78" cWidth="229" flickrPremium="true" picnikPremium="true" previewUrl="40|40|13|../clipart/bundles/shapes_Easter.png?ver=74110c68" url="shapes/easter_illustrations_fish.swf"/>
+			<Clipart cHeight="202" cWidth="121" flickrPremium="true" picnikPremium="true" previewUrl="40|40|14|../clipart/bundles/shapes_Easter.png?ver=74110c68" url="shapes/easter_illustrations_goblet.swf"/>
+			<Clipart cHeight="306" cWidth="236" flickrPremium="true" picnikPremium="true" previewUrl="40|40|15|../clipart/bundles/shapes_Easter.png?ver=74110c68" url="shapes/easter_illustrations_lily.swf"/>
+			<Clipart cHeight="290" cWidth="201" flickrPremium="true" picnikPremium="true" previewUrl="40|40|16|../clipart/bundles/shapes_Easter.png?ver=74110c68" url="shapes/easter_illustrations_palm.swf"/>
+			<Clipart cHeight="234" cWidth="274" flickrPremium="true" picnikPremium="true" previewUrl="40|40|17|../clipart/bundles/shapes_Easter.png?ver=74110c68" url="shapes/easter_illustrations_peacedove.swf"/>
+			<Clipart cHeight="116" cWidth="173" flickrPremium="true" picnikPremium="true" previewUrl="40|40|18|../clipart/bundles/shapes_Easter.png?ver=74110c68" url="shapes/spring_illustration_butterfly1.swf"/>
+			<Clipart cHeight="134" cWidth="198" flickrPremium="true" picnikPremium="true" previewUrl="40|40|19|../clipart/bundles/shapes_Easter.png?ver=74110c68" url="shapes/spring_illustration_butterfly2.swf"/>
+			<Clipart cHeight="149" cWidth="235" flickrPremium="true" picnikPremium="true" previewUrl="40|40|20|../clipart/bundles/shapes_Easter.png?ver=74110c68" url="shapes/spring_illustration_butterfly3.swf"/>
+			<Clipart cHeight="135" cWidth="117" flickrPremium="true" picnikPremium="true" previewUrl="40|40|21|../clipart/bundles/shapes_Easter.png?ver=74110c68" url="shapes/spring_illustration_grass.swf"/>
+			<Clipart cHeight="210" cWidth="197" flickrPremium="true" picnikPremium="true" previewUrl="40|40|22|../clipart/bundles/shapes_Easter.png?ver=74110c68" url="shapes/spring_illustration_sun.swf"/>
+		</Shapes>
+	</ShapeCategory>
+	<ShapeCategory flickrPremium="true" id="EasterEggs" numShapes="6" picnikPremium="true" title="Easter Eggs">
+		<Shapes>
+			<Clipart cHeight="172" cWidth="127" flickrPremium="true" picnikPremium="true" previewUrl="40|40|23|../clipart/bundles/shapes_Easter.png?ver=74110c68" url="shapes/easter_egg1.swf"/>
+			<Clipart cHeight="172" cWidth="127" flickrPremium="true" picnikPremium="true" previewUrl="40|40|24|../clipart/bundles/shapes_Easter.png?ver=74110c68" url="shapes/easter_egg2.swf"/>
+			<Clipart cHeight="172" cWidth="127" flickrPremium="true" picnikPremium="true" previewUrl="40|40|25|../clipart/bundles/shapes_Easter.png?ver=74110c68" url="shapes/easter_egg3.swf"/>
+			<Clipart cHeight="172" cWidth="127" flickrPremium="true" picnikPremium="true" previewUrl="40|40|26|../clipart/bundles/shapes_Easter.png?ver=74110c68" url="shapes/easter_egg4.swf"/>
+			<Clipart cHeight="172" cWidth="127" flickrPremium="true" picnikPremium="true" previewUrl="40|40|27|../clipart/bundles/shapes_Easter.png?ver=74110c68" url="shapes/easter_egg5.swf"/>
+			<Clipart cHeight="172" cWidth="127" flickrPremium="true" picnikPremium="true" previewUrl="40|40|28|../clipart/bundles/shapes_Easter.png?ver=74110c68" url="shapes/easter_egg6.swf"/>
+		</Shapes>
+	</ShapeCategory>
+	<ShapeCategory flickrPremium="true" id="EasterElements" numShapes="14" picnikPremium="true" title="Easter Elements">
+		<Shapes>
+			<Clipart cHeight="172" cWidth="130" flickrPremium="true" picnikPremium="true" previewUrl="40|40|29|../clipart/bundles/shapes_Easter.png?ver=74110c68" url="shapes/easter_elements_basket.swf"/>
+			<Clipart cHeight="151" cWidth="104" flickrPremium="true" picnikPremium="true" previewUrl="40|40|30|../clipart/bundles/shapes_Easter.png?ver=74110c68" url="shapes/easter_elements_bouquet.swf"/>
+			<Clipart cHeight="87" cWidth="53" flickrPremium="true" picnikPremium="true" previewUrl="40|40|31|../clipart/bundles/shapes_Easter.png?ver=74110c68" url="shapes/easter_elements_bunny.swf"/>
+			<Clipart cHeight="77" cWidth="61" flickrPremium="true" picnikPremium="true" previewUrl="40|40|32|../clipart/bundles/shapes_Easter.png?ver=74110c68" url="shapes/easter_elements_chick.swf"/>
+			<Clipart cHeight="67" cWidth="49" flickrPremium="true" picnikPremium="true" previewUrl="40|40|33|../clipart/bundles/shapes_Easter.png?ver=74110c68" url="shapes/easter_elements_egg1.swf"/>
+			<Clipart cHeight="62" cWidth="46" flickrPremium="true" picnikPremium="true" previewUrl="40|40|34|../clipart/bundles/shapes_Easter.png?ver=74110c68" url="shapes/easter_elements_egg2.swf"/>
+			<Clipart cHeight="67" cWidth="49" flickrPremium="true" picnikPremium="true" previewUrl="40|40|35|../clipart/bundles/shapes_Easter.png?ver=74110c68" url="shapes/easter_elements_egg3.swf"/>
+			<Clipart cHeight="66" cWidth="48" flickrPremium="true" picnikPremium="true" previewUrl="40|40|36|../clipart/bundles/shapes_Easter.png?ver=74110c68" url="shapes/easter_elements_egg4.swf"/>
+			<Clipart cHeight="66" cWidth="48" flickrPremium="true" picnikPremium="true" previewUrl="40|40|37|../clipart/bundles/shapes_Easter.png?ver=74110c68" url="shapes/easter_elements_egg5.swf"/>
+			<Clipart cHeight="66" cWidth="48" flickrPremium="true" picnikPremium="true" previewUrl="40|40|38|../clipart/bundles/shapes_Easter.png?ver=74110c68" url="shapes/easter_elements_egg6.swf"/>
+			<Clipart cHeight="100" cWidth="120" flickrPremium="true" picnikPremium="true" previewUrl="40|40|39|../clipart/bundles/shapes_Easter.png?ver=74110c68" url="shapes/easter_elements_butterfly.swf"/>
+			<Clipart cHeight="172" cWidth="153" flickrPremium="true" picnikPremium="true" previewUrl="40|40|40|../clipart/bundles/shapes_Easter.png?ver=74110c68" url="shapes/easter_elements_hen1.swf"/>
+			<Clipart cHeight="71" cWidth="70" flickrPremium="true" picnikPremium="true" previewUrl="40|40|41|../clipart/bundles/shapes_Easter.png?ver=74110c68" url="shapes/easter_elements_hen2.swf"/>
+			<Clipart cHeight="68" cWidth="67" flickrPremium="true" picnikPremium="true" previewUrl="40|40|42|../clipart/bundles/shapes_Easter.png?ver=74110c68" url="shapes/easter_elements_hen3.swf"/>
+		</Shapes>
+	</ShapeCategory>
+</ShapeCategory>

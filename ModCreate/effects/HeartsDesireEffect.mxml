@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cnt:CircularOverlayEffectCanvas xmlns="effects.*" xmlns:cnt="containers.*" xmlns:ctrl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="286" xmlns:local="*" 
+	xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*"
+	xFocus = "{zeroR + imagewidth/2}"
+	yFocus = "{zeroR + imageheight/2}"
+	liveUpdate="true" premium="{PicnikBase.GetApp().freemiumModel}"
+	 urlid="HeartsDesire">
+	<mx:Script>
+		import util.LocUtil;
+		import util.SVGPaths;
+		import mx.resources.ResourceBundle;
+   		[Bindable] [ResourceBundle("HeartsDesireEffect")] private var rb:ResourceBundle;
+	</mx:Script>
+
+	<mx:Array id="_resetValues">
+		<local:StoredValue target="_sldrRadius.value"/>
+		<local:StoredValue target="_sldrFade.value"/>
+	</mx:Array>
+	
+	<mx:DropShadowFilter id="_fiWhiteShad" blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1" quality="3" angle="90"/>
+	
+	<ctrl:EffectButton id="_efbtn" cornerRadius="0" strTitle="@Resource(key='_efbtn', bundle='HeartsDesireEffect')" strAuthor="@Resource(key='_efbtn_1', bundle='HeartsDesireEffect')"
+		strImageSource="../graphics/effects/ValentinesDay/heartsDesire.jpg" premium="{premium}"/>
+	<mx:String id="_strHelpText">{Resource.getString('HeartsDesireEffect', '_strHelpText')}</mx:String>
+
+	<mx:Label x="8" y="77" text="@Resource(key='focalSize', bundle='EffectCanvas')" styleName="sliderTitle"/>
+	<mx:Label x="152" y="77" text="{LocUtil.pct((100 * (_sldrRadius.liveValue-_sldrRadius.minimum)/(_sldrRadius.maximum-_sldrRadius.minimum)))}" styleName="sliderValue" textAlign="right" width="50"/>
+	<ctrl:HSliderFastDrag id="_sldrRadius" updateSpeed="{updateSpeed}" x="9" y="92" width="190" liveDragging="true" showDataTip="false"
+		minimum="10" maximum="{Math.min(imagewidth,imageheight)/2}" value="{zeroR + ((_sldrRadius.maximum - _sldrRadius.minimum) / 2) + _sldrRadius.minimum}" 
+	    thumbPress="ShowOverlay()" change="OnOpChange()" thumbRelease="HideOverlay()"/>
+
+	<mx:Label x="8" y="117" text="@Resource(key='Fade', bundle='HeartsDesireEffect')" styleName="sliderTitle"/>
+	<mx:Label x="152" y="117" text="{LocUtil.pct(_sldrFade.value*100)}" styleName="sliderValue" textAlign="right" width="50"/>
+	<ctrl:HSliderPlus x="9" y="132" width="190" minimum="0" maximum="1" value="{zeroR}" id="_sldrFade" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+
+	<ctrl:ApplyCancelEffectButtons y="162" premium="{premium}"/>
+	
+	<imageOperations:CircularGradientImageMask
+		width="{zeroR + imagewidth}" height="{zeroR + imageheight}" 
+		xCenter="{zeroR + xFocus}" yCenter="{zeroR + yFocus}" 
+		innerRadius="{_sldrRadius.value * 25/101}" 
+		outerRadius="{_sldrRadius.value * (2-(75/101))}" 
+		outerAlpha = "{1}"
+		innerAlpha = "{0}"
+		id="_msk"/>
+		
+	<imageOperations:NestedImageOperation id="_op" BlendAlpha="{1-_sldrFade.value}" >	
+		<imageOperations:children>			
+			<!-- some orton-ish softening -->	
+			<imageOperations:BlurImageOperation quality="3"
+			    xblur="{Math.max(imagewidth, imageheight)/100}" yblur="{Math.max(imagewidth, imageheight)/100}" 
+				BlendAlpha="0.3" BlendMode="overlay"/>
+
+			<imageOperations:SimpleColorMatrixImageOperation Saturation="5" Contrast="10"/>		
+			<imageOperations:AdjustCurvesImageOperation MasterCurve="{[{x:0,y:0}, {x:128,y:150}, {x:255,y:255}]}"/>		
+				
+			<!-- tint with a radial gradient to give a pink-ish vignette 			--> 	
+			<imageOperations:ShapeImageOperation shape="rect" shapeBlend="hardlight" gradType="radial" 
+				colors="{[0x220011,0x220011,0x100008,0x080004]}" 
+				alphas="{[0,0,0.15,0.4]}" 
+				ratios="{[0,75,150,255]}" />
+ 
+			<!-- tint with pink and a "darken" mode to warm up the photo a bit -->				
+			<imageOperations:TintImageOperation Color="0xFFAABB" BlendMode="darken" BlendAlpha="0.4" dynamicParamsCachePriority="1"/>
+			
+			<!-- use the focal mask with radial blur and regular blur to add a spotlight --> 
+			<imageOperations:BlurImageOperation quality="3"
+			    xblur="{Math.max(imagewidth, imageheight)/100}" yblur="{Math.max(imagewidth, imageheight)/100}" 
+				BlendAlpha="1.0" BlendMode="lighten" Mask="{_msk}"/>
+
+		</imageOperations:children>					
+	</imageOperations:NestedImageOperation>
+</cnt:CircularOverlayEffectCanvas>
+
+
+

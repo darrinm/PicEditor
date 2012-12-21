@@ -1,0 +1,19 @@
+﻿<Tips>
+<Tip id="guest_tip" priority="1">
+	<TipTextHeader>Welcome!</TipTextHeader>
+	<HBox percentWidth="100">
+		<Image source="../graphics/effects/blemish_fix.png"/>
+		<TipText>-></TipText>
+		<Image source="../graphics/effects/zombify.png"/>
+	</HBox>
+	<TipText>Here is a sample of what you can do with Picnik.</TipText>
+</Tip>
+<Tip id="tip_2" priority="2">
+	<TipTextHeader>Hi again!</TipTextHeader>
+	<TipText>Here is something else you can do.</TipText>
+</Tip>
+<Tip id="hdr" priority="2">
+	<TipTextHeader>Hi you!</TipTextHeader>
+	<TipText>Have you tried HDRish? it is cool.</TipText>
+</Tip>
+</Tips>

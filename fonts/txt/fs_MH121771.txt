@@ -1,0 +1,12 @@
+fileName: fs_MH121771.ttf
+name: MetaSerifSc-Book
+subfamilyDisplayName: Regular
+fullName: MetaSerifSc-Book
+displayName: MetaSerifSc-Book
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 5
+pkName: pkfs0MH121771
+authorName: FontShop
+authorUrl: http://www.fontshop.com/

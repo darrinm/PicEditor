@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns="dialogs.RegisterHelper.*" xmlns:filters="flash.filters.*" 
+	xmlns:mx="http://www.adobe.com/2006/mxml" 
+	xmlns:ds="com.darronschall.effects.*" includeInLayout="false">
+	
+	<mx:Script>
+		<![CDATA[			
+			[Bindable] 
+			public function set errorTargets( aTargets:Array ):void {
+				effError.targets = aTargets;
+			}
+			
+			public function get errorTargets(): Array {
+				return effError.targets;
+			}
+			
+		]]>
+	</mx:Script>
+
+	<filters:DropShadowFilter blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1"
+		quality="3" angle="90" id="fiWhiteShad"/>
+
+	<mx:Fade alphaFrom="0" alphaTo="1" duration="500" id="effFadeIn" />
+	<mx:Fade alphaFrom="1" alphaTo="0" duration="500" id="effFadeOut" />
+	<mx:Fade alphaFrom="0" alphaTo=".75" duration="300" id="effQuarterFadeIn" />
+	<mx:Fade alphaFrom=".75" alphaTo="0" duration="150" id="effQuarterFadeOut" />
+
+	<mx:Sequence id="effError">
+		<mx:Parallel duration="200">
+			<mx:Glow alphaFrom="0" alphaTo=".4" blurXFrom="0" blurYFrom="0" blurXTo="8" blurYTo="8" color="#005580"/>
+			<ds:AnimateColor isStyle="true" property="color" toValue="0xCC0000"/>
+		</mx:Parallel>
+		<mx:Pause duration="100"/>
+		<mx:Parallel duration="400">
+			<mx:Glow alphaFrom=".4" alphaTo="0" blurXFrom="8" blurYFrom="8" blurXTo="0" blurYTo="0" color="#005580"/>
+			<ds:AnimateColor isStyle="true" property="color" toValue="0x618430"/>
+		</mx:Parallel>
+	</mx:Sequence>
+
+</mx:Canvas>

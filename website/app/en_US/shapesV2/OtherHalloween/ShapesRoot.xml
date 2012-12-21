@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory area="OtherHalloween" id="root">
+	<ShapeCategory flickrPremium="false" id="OtherHalloweenShapes" numShapes="0" picnikPremium="false" showHeader="false">
+		<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/halloween_realistic.png" flickrPremium="true" id="HalloweenProps" numShapes="0" picnikPremium="true" previewUrls="60|48|../clipart/bundles/OtherHalloweenArea_groupPreviews_HalloweenProps.png?ver=4e1a9c2c" thumbUrl="66|54|0|../clipart/bundles/OtherHalloweenArea_groupThumbs.png?ver=d664ed27" title="Halloween Props">
+			<ShapeCategory flickrPremium="true" id="HalloweenFullMoon" numShapes="6" picnikPremium="true" title="Full Moon"/>
+			<ShapeCategory flickrPremium="true" id="HalloweenBlackWidow" numShapes="4" picnikPremium="true" title="Black Widows"/>
+			<ShapeCategory flickrPremium="true" id="HalloweenPumpkins" numShapes="8" picnikPremium="true" title="Jack-o&apos;-Lanterns"/>
+			<ShapeCategory flickrPremium="true" id="HalloweenHats" numShapes="3" picnikPremium="true" title="Accessories"/>
+			<ShapeCategory flickrPremium="true" id="HalloweenSkulls" numShapes="2" picnikPremium="true" title="Skulls"/>
+		</ShapeCategory>
+		<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/shape_halloween.png" flickrPremium="false" id="Halloween" numShapes="37" picnikPremium="false" previewUrls="60|48|../clipart/bundles/OtherHalloweenArea_groupPreviews_Halloween.png?ver=a1242ef5" thumbUrl="66|54|1|../clipart/bundles/OtherHalloweenArea_groupThumbs.png?ver=d664ed27" title="Halloween Stickers"/>
+		<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/shape_candy.png" flickrPremium="false" id="HalloweenCandy" numShapes="20" picnikPremium="false" previewUrls="60|48|../clipart/bundles/OtherHalloweenArea_groupPreviews_HalloweenCandy.png?ver=1aa9ad7e" thumbUrl="66|54|2|../clipart/bundles/OtherHalloweenArea_groupThumbs.png?ver=d664ed27" title="Halloween Candy"/>
+	</ShapeCategory>
+</ShapeCategory>

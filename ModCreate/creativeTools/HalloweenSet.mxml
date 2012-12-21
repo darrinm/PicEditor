@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<controls:EffectSetBase xmlns="*" xmlns:ct="creativeTools.*" xmlns:mx="http://www.adobe.com/2006/mxml" 
+		xmlns:eff="effects.*" xmlns:filters="flash.filters.*" xmlns:ctr="containers.*"
+		xmlns:controls="controls.*">
+	<mx:Style>
+		.promoTextBG {
+		   border-style: solid;
+		   border-thickness: 0;
+		   border-skin: ClassReference("skins.GradientBackground");
+		   gradient-fill-colors: #0e2451, #050d1d;
+		   gradient-fill-alphas: .8,.8;
+		   gradient-fill-ratios: 0,255;
+		   gradient-rotation: 90;
+		}
+	</mx:Style>
+	
+	<!--<controls:ExpandingVBox id="_evbx1" expanded="{expanded}" width="100%" verticalGap="0" verticalScrollPolicy="off">
+		<mx:Spacer height="{_hsh.height}" />-->
+		<!--<mx:Canvas height="0" width="100%" verticalScrollPolicy="off" horizontalScrollPolicy="off">-->
+			<mx:VBox verticalGap="0" width="100%">
+				<!-- Vampire -->
+				<mx:HBox backgroundImage="{PicnikBase.StaticUrl('../graphics/halloween/bg_vampire.jpg')}" verticalAlign="middle" id="_hbxVamp"
+						borderSides="bottom" borderStyle="solid" borderColor="#d1d1d1" width="210" height="30" paddingTop="1">
+					<mx:Label text="@Resource(key='vampire', bundle='Seasonal')" color="#ffffff" filters="{[_fiHeadShad]}" fontSize="17" paddingLeft="8"/>
+				</mx:HBox>
+				<eff:VampireEyeColorEffect tags="effect,seasonal"/>
+				<eff:VampireSkinEffect tags="effect,seasonal"/>
+				<!--<eff:VampireGritEffect premium="true" tags="effect,seasonal"/>-->
+				<controls:ShapeArea imgd="{_imgd}" imgv="{_imgv}" area="Vampires" verticalScrollPolicy="off" ignoreErrors="true" width="210"/>
+				<eff:BloodEffect tags="effect,seasonal"/>
+		
+				<!-- Reanimated -->
+				<mx:HBox backgroundImage="{PicnikBase.StaticUrl('../graphics/halloween/bg_reanimated.jpg')}" verticalAlign="middle" id="_hbxReanimated"
+						borderSides="bottom" borderStyle="solid" borderColor="#d1d1d1" width="210" height="30" paddingTop="1">
+					<mx:Label text="@Resource(key='reanimated', bundle='Seasonal')" color="#ffffff" filters="{[_fiHeadShad]}" fontSize="17" paddingLeft="8"/>
+				</mx:HBox>
+				<eff:ReanimatedEyeColorEffect tags="effect,seasonal"/>
+				<!--<eff:ZombifyEffect premium="false" tags="effect,seasonal"/>-->
+				<controls:ShapeArea imgd="{_imgd}" imgv="{_imgv}" area="Reanimated" verticalScrollPolicy="off" ignoreErrors="true" width="210"/>
+				<!--<eff:ZombieFleshEffect/>-->
+		
+				<!-- Haunted -->
+				<mx:HBox backgroundImage="{PicnikBase.StaticUrl('../graphics/halloween/bg_haunted.jpg')}" verticalAlign="middle" id="_hbxHaunted"
+						borderSides="bottom" borderStyle="solid" borderColor="#d1d1d1" width="210" height="30" paddingTop="1">
+					<mx:Label text="@Resource(key='haunted', bundle='Seasonal')" color="#ffffff" filters="{[_fiHeadShad]}" fontSize="17" paddingLeft="8"/>
+				</mx:HBox>
+				<!--<eff:GhostEffect premium="true" tags="effect,seasonal"/>-->
+				<!--<eff:LightningEffect premium="true" tags="effect,seasonal"/>-->
+				<eff:SpiderWebEffect tags="effect,seasonal"/>
+				<!--<eff:HalloweenTextureOverlayEffect premium="true" tags="effect,seasonal,texture"/>-->
+				<!--<eff:HalloweenMoviePosterEffect premium="true" tags="effect,seasonal"/>-->
+				<eff:CrystalBallEffect tags="effect,seasonal"/>
+				<controls:ShapeArea imgd="{_imgd}" imgv="{_imgv}" area="Haunted" verticalScrollPolicy="off" ignoreErrors="true" width="210"/>
+				<!-- <eff:GhostHunterEffect/> -->
+				
+				<!-- Costume -->
+				<mx:HBox backgroundImage="{PicnikBase.StaticUrl('../graphics/halloween/bg_costume.png')}" verticalAlign="middle" id="_hbxCostume"
+						 borderSides="bottom" borderStyle="solid" borderColor="#d1d1d1" width="210" height="30" paddingTop="1">
+					<mx:Label text="@Resource(key='costume', bundle='Seasonal')" color="#ffffff" filters="{[_fiHeadShad]}" fontSize="17" paddingLeft="8"/>
+				</mx:HBox>
+				<!--<eff:BeardBrushEffect tags="effect,seasonal"/>-->
+				<!--<eff:OgreVisionEffect premium="true" tags="effect,seasonal"/>-->
+				<eff:FacePaintEffect tags="effect,seasonal"/>
+				<!--<eff:StretchAndSqueezeEffect tags="effect,seasonal"/>-->
+				<controls:ShapeArea imgd="{_imgd}" imgv="{_imgv}" area="HalloweenCostumes" verticalScrollPolicy="off" ignoreErrors="true" width="210"/>
+		
+				<!-- Other -->
+				<mx:HBox backgroundImage="{PicnikBase.StaticUrl('../graphics/halloween/bg_other.jpg')}" verticalAlign="middle" id="_hbxOther"
+						borderSides="bottom" borderStyle="solid" borderColor="#d1d1d1" width="210" height="30" paddingTop="1">
+					<mx:Label text="@Resource(key='other', bundle='Seasonal')" color="#ffffff" filters="{[_fiHeadShad]}" fontSize="17" paddingLeft="8"/>
+				</mx:HBox>
+				<eff:EyeballFrameEffect tags="frame,seasonal"/>
+				<!--<eff:PumpkinFrameEffect premium="true" tags="frame,seasonal"/>-->
+				<eff:CandyCornFrameEffect tags="frame,seasonal"/>
+				<controls:ShapeArea imgd="{_imgd}" imgv="{_imgv}" area="OtherHalloween" verticalScrollPolicy="off" ignoreErrors="true" width="210"/>
+				
+				<!-- promo slots -->
+				<mx:Box backgroundImage="{PicnikBase.StaticUrl('../graphics/halloween/promo_text.jpg')}" backgroundColor="#000000" width="210" height="73" verticalAlign="bottom"
+						borderSides="bottom" borderStyle="solid" borderColor="#666666"
+						buttonMode="true" mouseChildren="false" rollOverEffect="{_efBGdim}" rollOutEffect="{_efBGbrighten}"
+						click="{PicnikBase.app.NavigateTo(PicnikBase.EDIT_CREATE_TAB,'_ctType')}">
+					<mx:HBox width="100%" paddingLeft="8" paddingRight="8" verticalAlign="middle">
+						<controls:ResizingLabel text="@Resource(key='promoText', bundle='Seasonal')" fontSize="13" autoFontSizeGap="1"
+							width="100%" color="#ffffff" filters="{[_fiHeadShad]}" textAlign="center" paddingBottom="-2"/>
+						<controls:ImageEx source="../graphics/arrow_right_white.png" width="7" height="11" filters="{[_fiHeadShad]}"/>
+					</mx:HBox>
+				</mx:Box>
+				<mx:Box backgroundImage="{PicnikBase.StaticUrl('../graphics/halloween/promo_fancycollage.jpg')}" backgroundColor="#000000" width="210" height="73" verticalAlign="bottom"
+						borderSides="bottom" borderStyle="solid" borderColor="#d1d1d1"
+						buttonMode="true" mouseChildren="false" rollOverEffect="{_efBGdim}" rollOutEffect="{_efBGbrighten}"
+						visible="{!PicnikBase.app.singleDocMode}" includeInLayout="{!PicnikBase.app.singleDocMode}"
+						click="{OnAdvancedCollageClick(null, 'halloween')}">				
+					<mx:HBox width="100%" paddingLeft="8" paddingRight="8" verticalAlign="middle">
+						<controls:ResizingLabel text="@Resource(key='promoFancyCollage', bundle='Seasonal')" fontSize="13" autoFontSizeGap="1"
+							width="100%" color="#ffffff" filters="{[_fiHeadShad]}" textAlign="center" paddingBottom="-2"/>
+						<controls:ImageEx source="../graphics/arrow_right_white.png" width="7" height="11" filters="{[_fiHeadShad]}"/>
+					</mx:HBox>
+				</mx:Box>
+			
+			</mx:VBox>
+			<!-- Vampire Icon -->
+			<controls:ImageVer id="_imgVampIcon" right="1" y="{_hbxVamp.y}"
+					includeInLayout="false"
+					source="../graphics/halloween/icon_vampire.png"/>
+		
+			<!-- Reanimated Icon -->
+			<controls:ImageVer id="_imgReanimatedIcon" right="1" y="{_hbxReanimated.y}"
+					includeInLayout="false" visible="{_hbxReanimated != null &amp;&amp; _hbxReanimated.y != 0}"
+					source="../graphics/halloween/icon_reanimated.png"/>
+		
+			<!-- Haunted Icon -->
+			<controls:ImageVer id="_imgHauntedIcon" right="1" y="{_hbxHaunted.y}"
+					includeInLayout="false" visible="{_hbxHaunted != null &amp;&amp; _hbxHaunted.y != 0}"
+					source="../graphics/halloween/icon_haunted.png"/>
+			
+			<!-- Costume Icon -->
+			<controls:ImageVer id="_imgCostumeIcon" right="1" y="{_hbxCostume.y}"
+					   includeInLayout="false" visible="{_hbxOther != null &amp;&amp; _hbxCostume.y != 0}"
+					   source="../graphics/halloween/icon_costume.png"/>
+	
+			
+			<!-- Other Icon -->
+			<controls:ImageVer id="_imgOtherIcon" right="1" y="{_hbxOther.y}"
+					includeInLayout="false" visible="{_hbxOther != null &amp;&amp; _hbxOther.y != 0}"
+					source="../graphics/halloween/icon_other.png"/>
+	
+		<!--</mx:Canvas>-->
+	<!--</controls:ExpandingVBox>-->
+
+	<!-- Holiday header -->
+	<!--<controls:EffectSetHeader id="_hsh" expanded="{_evbx1.expanded}" click="_evbx1.ToggleExpanded()" x="0" y="0"
+		headText="@Resource(key='halloweenHeader', bundle='Seasonal')"
+		subHeadText="@Resource(key='halloweenSubhead', bundle='Seasonal')" 
+		/>-->
+</controls:EffectSetBase>

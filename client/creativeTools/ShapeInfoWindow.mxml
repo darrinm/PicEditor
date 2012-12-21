@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<InfoWindow xmlns="containers.*" xmlns:mx="http://www.adobe.com/2006/mxml"  xmlns:flash.filters="flash.filters.*"
+		title="@Resource(key='InfoWindow_1', bundle='ShapeInfoWindow')" horizontalAlign="right" headerHeight="18" xmlns:shapeList="controls.shapeList.*">
+	<mx:Script>
+		<![CDATA[
+			import util.LocUtil;
+			import mx.resources.ResourceBundle;
+			import mx.utils.StringUtil;
+			
+			import picnik.util.LocaleInfo;
+			[Bindable] [ResourceBundle("ShapeInfoWindow")] private var rb:ResourceBundle;
+		]]>
+	</mx:Script>
+	<mx:HBox horizontalGap="5" paddingBottom="2" verticalAlign="middle">
+		<shapeList:ImageSlice source="{PicnikBase.StaticUrl(xmlGlyphSet.@previewUrl)}" width="40" height="40"/>
+		<mx:Text id="_txtInfo" fontSize="12" condenseWhite="true" selectable="true" styleName="aboutText" width="200" fontWeight="{LocaleInfo.BoldWeight()}"
+				htmlText="{StringUtil.substitute(LocUtil.getString('ShapeInfoWindow', 'designedby'), xmlGlyphSet.@authorName, xmlGlyphSet.@authorUrl)}" />
+				<!--
+				'designed by &lt;font color=\'#000000\'&gt;' + xmlGlyphSet.@authorName + '&lt;/font&gt;&lt;br&gt;' + 
+				'&lt;font color=\'#618430\'&gt;&lt;a href=&quot;' + xmlGlyphSet.@authorUrl + 
+				'&quot; target=\'_blank\'&gt;Visit this designer\'s web site »&lt;a&gt;&lt;/font&gt;'}"/>-->
+	</mx:HBox>
+	<mx:XML id="xmlGlyphSet" xmlns=""/>
+</InfoWindow>

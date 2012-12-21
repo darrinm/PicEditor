@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory flickrPremium="true" id="Inauguration" numShapes="20" picnikPremium="true" previewUrls="60|48|../clipart/bundles/groupPreviews_Inauguration.png?ver=1e9bbb17" thumbUrl="66|54|29|../clipart/bundles/groupThumbs.png?ver=95aa0577" title="Inauguration">
+	<Shapes>
+		<Clipart cHeight="70" cWidth="133" flickrPremium="true" picnikPremium="true" previewUrl="40|40|0|../clipart/bundles/shapes_Inauguration.png?ver=f06527c3" url="shapes/american_flag01.swf"/>
+		<Clipart cHeight="70" cWidth="133" flickrPremium="true" picnikPremium="true" previewUrl="40|40|1|../clipart/bundles/shapes_Inauguration.png?ver=f06527c3" url="shapes/american_flag02.swf"/>
+		<Clipart cHeight="151" cWidth="152" flickrPremium="true" picnikPremium="true" previewUrl="40|40|2|../clipart/bundles/shapes_Inauguration.png?ver=f06527c3" url="shapes/american_flag03.swf"/>
+		<Clipart cHeight="84" cWidth="142" flickrPremium="true" picnikPremium="true" previewUrl="40|40|3|../clipart/bundles/shapes_Inauguration.png?ver=f06527c3" url="shapes/american_flag04.swf"/>
+		<Clipart cHeight="109" cWidth="109" flickrPremium="true" picnikPremium="true" previewUrl="40|40|4|../clipart/bundles/shapes_Inauguration.png?ver=f06527c3" url="shapes/american_circle01.swf"/>
+		<Clipart cHeight="109" cWidth="109" flickrPremium="true" picnikPremium="true" previewUrl="40|40|5|../clipart/bundles/shapes_Inauguration.png?ver=f06527c3" url="shapes/american_circle02.swf"/>
+		<Clipart cHeight="109" cWidth="109" flickrPremium="true" picnikPremium="true" previewUrl="40|40|6|../clipart/bundles/shapes_Inauguration.png?ver=f06527c3" url="shapes/american_circle03.swf"/>
+		<Clipart cHeight="109" cWidth="109" flickrPremium="true" picnikPremium="true" previewUrl="40|40|7|../clipart/bundles/shapes_Inauguration.png?ver=f06527c3" url="shapes/american_circle04.swf"/>
+		<Clipart cHeight="65" cWidth="65" flickrPremium="true" picnikPremium="true" previewUrl="40|40|8|../clipart/bundles/shapes_Inauguration.png?ver=f06527c3" url="shapes/american_circledstar.swf"/>
+		<Clipart cHeight="91" cWidth="92" flickrPremium="true" picnikPremium="true" previewUrl="40|40|9|../clipart/bundles/shapes_Inauguration.png?ver=f06527c3" url="shapes/american_starcircle.swf"/>
+		<Clipart cHeight="130" cWidth="137" flickrPremium="true" picnikPremium="true" previewUrl="40|40|10|../clipart/bundles/shapes_Inauguration.png?ver=f06527c3" url="shapes/american_flagstar.swf"/>
+		<Clipart cHeight="97" cWidth="102" flickrPremium="true" picnikPremium="true" previewUrl="40|40|11|../clipart/bundles/shapes_Inauguration.png?ver=f06527c3" url="shapes/american_stripedstar.swf"/>
+		<Clipart cHeight="170" cWidth="94" flickrPremium="true" picnikPremium="true" previewUrl="40|40|12|../clipart/bundles/shapes_Inauguration.png?ver=f06527c3" url="shapes/american_shootingstar.swf"/>
+		<Clipart cHeight="62" cWidth="242" flickrPremium="true" picnikPremium="true" previewUrl="40|40|13|../clipart/bundles/shapes_Inauguration.png?ver=f06527c3" url="shapes/american_starsstripes.swf"/>
+		<Clipart cHeight="48" cWidth="51" flickrPremium="true" picnikPremium="true" previewUrl="40|40|14|../clipart/bundles/shapes_Inauguration.png?ver=f06527c3" url="shapes/american_star01.swf"/>
+		<Clipart cHeight="48" cWidth="51" flickrPremium="true" picnikPremium="true" previewUrl="40|40|15|../clipart/bundles/shapes_Inauguration.png?ver=f06527c3" url="shapes/american_star02.swf"/>
+		<Clipart cHeight="111" cWidth="513" flickrPremium="true" picnikPremium="true" previewUrl="40|40|16|../clipart/bundles/shapes_Inauguration.png?ver=f06527c3" url="shapes/american_swoopybanner.swf"/>
+		<Clipart cHeight="15" cWidth="352" flickrPremium="true" picnikPremium="true" previewUrl="40|40|17|../clipart/bundles/shapes_Inauguration.png?ver=f06527c3" url="shapes/american_horbanner.swf"/>
+		<Clipart cHeight="145" cWidth="43" flickrPremium="true" picnikPremium="true" previewUrl="40|40|18|../clipart/bundles/shapes_Inauguration.png?ver=f06527c3" url="shapes/american_vertbanner.swf"/>
+		<Clipart cHeight="66" cWidth="520" flickrPremium="true" picnikPremium="true" previewUrl="40|40|19|../clipart/bundles/shapes_Inauguration.png?ver=f06527c3" url="shapes/american_banner.swf"/>
+	</Shapes>
+</ShapeCategory>

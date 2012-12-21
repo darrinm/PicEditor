@@ -1,0 +1,23 @@
+/*
+ * Copyright 2011 Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an Apache 2.0 License.
+ * See the COPYING file for details.
+ */
+
+
+@font-face {
+    src:local("Yukon Gold");
+    font-family: "pkYukon0Gold";
+    unicodeRange: U+0000-U+00FF;
+    flashType: true;
+    fontWeight: normal;
+    fontStyle: normal;
+}
+
+.pkYukon0Gold
+{
+    font-family: "pkYukon0Gold";
+    fontWeight: normal;
+    fontStyle: normal;
+}

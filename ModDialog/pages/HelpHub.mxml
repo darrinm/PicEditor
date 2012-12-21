@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page xmlns="pages.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%" 
+	verticalScrollPolicy="off" horizontalScrollPolicy="off"
+	xmlns:filters="flash.filters.*"
+	xmlns:RegisterHelper="dialogs.RegisterHelper.*" 
+	xmlns:dlgc="dialogs.DialogContent.*"
+	xmlns:ctl="controls.*" xmlns:thumbnails="controls.thumbnails.*">
+
+	<mx:Script>
+		<![CDATA[
+			override public function OnActivate(strCmd:String=null): void {
+				super.OnActivate(strCmd);
+				_helpHubContent.OnActivate();
+			}
+		]]>
+	</mx:Script>
+	
+	<dlgc:HelpHubContent id="_helpHubContent" bottom="0" top="0" left="0" right="0" horizontalScrollPolicy="off" verticalLineScrollSize="38"/>
+</Page>

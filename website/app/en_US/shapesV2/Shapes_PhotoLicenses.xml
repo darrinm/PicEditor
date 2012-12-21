@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/shape_PhotoLicensing.png" flickrPremium="false" id="PhotoLicenses" numShapes="8" picnikPremium="false" previewUrls="60|48|../clipart/bundles/groupPreviews_PhotoLicenses.png?ver=a67fc365" title="Photo Licenses">
+	<Shapes>
+		<Clipart cHeight="137" cWidth="137" flickrPremium="false" picnikPremium="false" previewUrl="40|40|0|../clipart/bundles/shapes_PhotoLicenses.png?ver=a8326069" toolTipText="Copyright (all rights reserved)" url="shapes/copyright.swf"/>
+		<Clipart cHeight="137" cWidth="137" flickrPremium="false" picnikPremium="false" previewUrl="40|40|1|../clipart/bundles/shapes_PhotoLicenses.png?ver=a8326069" toolTipText="Creative Commons Attribution License" url="shapes/cc_attribution.swf"/>
+		<Clipart cHeight="137" cWidth="137" flickrPremium="false" picnikPremium="false" previewUrl="40|40|2|../clipart/bundles/shapes_PhotoLicenses.png?ver=a8326069" toolTipText="Creative Commons Noncommercial License" url="shapes/cc_noncommercial.swf"/>
+		<Clipart cHeight="137" cWidth="137" flickrPremium="false" picnikPremium="false" previewUrl="40|40|3|../clipart/bundles/shapes_PhotoLicenses.png?ver=a8326069" toolTipText="Creative Commons No Derivatives License" url="shapes/cc_noderivatives.swf"/>
+		<Clipart cHeight="137" cWidth="137" flickrPremium="false" picnikPremium="false" previewUrl="40|40|4|../clipart/bundles/shapes_PhotoLicenses.png?ver=a8326069" toolTipText="Creative Commons Share Alike License" url="shapes/cc_sharealike.swf"/>
+		<Clipart cHeight="137" cWidth="137" flickrPremium="false" picnikPremium="false" previewUrl="40|40|5|../clipart/bundles/shapes_PhotoLicenses.png?ver=a8326069" toolTipText="Registered Trademark" url="shapes/registered_trademark.swf"/>
+		<Clipart cHeight="70" cWidth="141" flickrPremium="false" picnikPremium="false" previewUrl="40|40|6|../clipart/bundles/shapes_PhotoLicenses.png?ver=a8326069" toolTipText="Trademark Symbol" url="shapes/tm.swf"/>
+		<Clipart cHeight="203" cWidth="521" flickrPremium="false" picnikPremium="false" previewUrl="40|40|7|../clipart/bundles/shapes_PhotoLicenses.png?ver=a8326069" toolTipText="Picnik" url="shapes/picnik_logo.swf"/>
+	</Shapes>
+</ShapeCategory>

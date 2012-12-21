@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ct:TextToolBase xmlns:ct="creativeTools.*" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:ut="util.*"
+	 	xmlns:documentObjects="imagine.documentObjects.*" xmlns:ctl="controls.*" xmlns:flash.filters="flash.filters.*" 
+	 	xmlns:bkctr="containers.*" 
+		width="100%" horizontalScrollPolicy="off" verticalScrollPolicy="off" selectedFont="{_doco.font}">
+	<ct:states>
+		<mx:State name="short">
+			<mx:SetProperty target="{_fntc}" name="dropdown" value="true"/>
+			<mx:SetProperty target="{_vbxFont}" name="height" value="30"/>
+			<mx:SetStyle target="{_vbxFont}" name="borderStyle" value="none"/>
+			<mx:SetStyle target="{_vbxFont}" name="horizontalAlign" value="center"/>
+		</mx:State>
+	</ct:states>
+	
+	<mx:Array id="_astszStateSizes">
+		<ut:StateSize state="short" maxheight="236"/>
+	</mx:Array>
+	
+	<mx:Canvas width="226" height="100%" verticalScrollPolicy="off" horizontalScrollPolicy="off" id="_cnvsMain">
+		<mx:Canvas width="100%" height="100%" backgroundColor="0xf8f8f8" />
+		<ctl:ImageEx x="0" y="0" source="../graphics/type_gradient_top.png" width="100%" scaleContent="true" maintainAspectRatio="false"/>
+		<ctl:ImageEx x="0" bottom="0" source="../graphics/type_gradient_bottom.png" width="100%" scaleContent="true" maintainAspectRatio="false"/>
+		<ctl:ImageEx x="0" y="0" source="../graphics/abc_cropped.png"/>
+		<!-- width of below vbox needs to swap from 100% or 226 to 210 to resize contents to make way for scrollbar -->
+		<!-- (scrollbar width is never reported correctly to child elements, 226-16 = 210) -->
+		<mx:VBox x="0" y="0" width="226" height="100%" paddingTop="10" verticalGap="0" verticalScrollPolicy="off" horizontalScrollPolicy="off">
+			<!-- text entry box, hopefully temporary -->
+			<mx:VBox verticalGap="0" paddingTop="2" paddingLeft="9" paddingRight="9" width="100%" alpha=".8" horizontalAlign="center">
+				<ctl:TextAreaPlus id="_taText" text="{_doco.text}" width="100%" height="40" fontFamily="_sans"
+						leading="-1" verticalScrollPolicy="auto" autoSize="false" prompt="@Resource(key='type_here', bundle='TextTool')"/>
+				<mx:HBox width="100%" verticalAlign="middle" paddingTop="5">
+					<bkctr:ResizingHTile horizontalGap="5" minWidth="150" width="100%">
+						<ctl:ResizingButton id="_btnAddText" label="@Resource(key='_btnAddText', bundle='TextTool')" enabled="{_taText.text != ''}" width="100%" height="25"
+							styleName="applyStyle" paddingLeft="-4" paddingRight="-4"/>
+						<ctl:ResizingButton id="_btnDelete" label="@Resource(key='_btnDelete', bundle='TextTool')" enabled="{_doco.GetParent() != null}" width="100%" height="25"
+							styleName="cancelStyle" paddingLeft="-4" paddingRight="-4"/>
+					</bkctr:ResizingHTile>
+					<!-- info button -->
+					<mx:Button id="_btnFontInfo" selected="false" height="17" width="17" toggle="true" paddingLeft="0" 
+							styleName="infoButton"/>
+				</mx:HBox>
+			</mx:VBox>
+			<mx:Spacer height="8"/>
+			<!-- BEGIN: type tool controls -->
+			<mx:VBox id="_vbxFont" verticalGap="0" width="100%" height="100%" 
+					borderSides="top" borderStyle="solid" borderColor="#d1d1d1">
+				<ctl:FontComboBox id="_fntc" dropdown="false" width="100%" height="100%" 
+						change="ChangeSelectedFont(true)" loaded="OnFontComboLoaded()"/>
+			</mx:VBox>
+			
+			<!-- the first sentence here should go into the text box, the second should become a canvas-level infotip -->
+			<mx:HBox width="100%" paddingTop="10" paddingLeft="9" paddingBottom="10" paddingRight="12" horizontalGap="4" verticalAlign="middle"
+					visible="false" includeInLayout="false">
+				<mx:Text width="100%" condenseWhite="true" htmlText="@Resource(key='Text_1', bundle='TextTool')">
+				</mx:Text>
+			</mx:HBox>
+		</mx:VBox>
+	</mx:Canvas>
+
+	<documentObjects:Text id="_doco"/>
+
+	<bkctr:FontInfoWindow id="_pwndFontInfo" x="237" y="184" fontFamily="{fontFamily}"/>			
+</ct:TextToolBase>

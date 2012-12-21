@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Box xmlns="containers.*" xmlns:mx="http://www.adobe.com/2006/mxml" verticalScrollPolicy="off" horizontalScrollPolicy="off"
+	width="100%" height="100%" xmlns:controls="controls.*">
+<mx:Script>
+	<![CDATA[
+		import controls.ImagePlus;
+		import mx.binding.utils.ChangeWatcher;
+		import mx.controls.Label;
+		import mx.events.MoveEvent;
+		import mx.events.ResizeEvent;
+		import mx.managers.PopUpManager;
+		import mx.controls.Image;
+	
+		import mx.collections.ArrayCollection;
+		import mx.utils.ObjectProxy;
+
+		// array for premium checkmark list
+		[Bindable] private var _aobpPremiumChecks:ArrayCollection = new ArrayCollection([
+					new ObjectProxy({ label: "moreEffects" }),
+					new ObjectProxy({ label: "beautyTools" }),
+					new ObjectProxy({ label: "moreCollages" }),
+					new ObjectProxy({ label: "moreFontsStickers" }),
+					new ObjectProxy({ label: "advancedEditingTools" }),
+					new ObjectProxy({ label: "unlimitedHistory" }),
+					new ObjectProxy({ label: "unlimitedConnections" }),
+					new ObjectProxy({ label: "priorityFeedback" }),
+					new ObjectProxy({ label: "adFreeFullscreen" }),
+					new ObjectProxy({ label: "layeringMore" })
+				]);
+
+	]]>
+</mx:Script>
+
+	<mx:DropShadowFilter id="_fiWhiteShine" blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1" quality="3" angle="90"/>
+	<mx:DropShadowFilter id="_fiInnerShad" blurX="1" blurY="1" distance="1" color="#000000" alpha=".2" quality="3" angle="90" inner="true"/>
+	<mx:DropShadowFilter id="_fiPhotoShadow" blurX="4" blurY="4" distance="1" color="#000000" alpha=".25" quality="3" angle="90"/>
+
+	<ResizingHBox verticalScrollPolicy="off" horizontalScrollPolicy="off"
+			width="100%" height="100%" paddingLeft="20" paddingRight="20" horizontalGap="0" verticalAlign="middle">
+
+		<mx:Spacer width="100%"/>
+		<!-- sample before/after slideshow -->
+		<ResizingBox paddingTop="3" paddingRight="3" paddingBottom="3" paddingLeft="3" backgroundColor="#ffffff" filters="{[_fiPhotoShadow]}" id="_bx1">
+			<size_states>
+				<mx:State name="4">
+				    <mx:SetProperty name="width" target="{_imgLoc}" value="{424*0.95}"/>
+				    <mx:SetProperty name="height" target="{_imgLoc}" value="{224*0.95}"/>
+				</mx:State>
+				<mx:State name="5">
+				    <mx:SetProperty name="width" target="{_imgLoc}" value="{424*0.9}"/>
+				    <mx:SetProperty name="height" target="{_imgLoc}" value="{224*0.9}"/>
+				</mx:State>
+				<mx:State name="6">
+				    <mx:SetProperty name="width" target="{_imgLoc}" value="{424*0.8}"/>
+				    <mx:SetProperty name="height" target="{_imgLoc}" value="{224*0.8}"/>
+				</mx:State>
+				<mx:State name="7">
+				    <mx:SetProperty name="width" target="{_imgLoc}" value="{424*0.7}"/>
+				    <mx:SetProperty name="height" target="{_imgLoc}" value="{224*0.7}"/>
+				</mx:State>
+				<mx:State name="8">
+				    <mx:SetProperty name="width" target="{_imgLoc}" value="{424*0.6}"/>
+				    <mx:SetProperty name="height" target="{_imgLoc}" value="{224*0.6}"/>
+				</mx:State>
+				<mx:State name="9">
+				    <mx:SetProperty name="width" target="{_imgLoc}" value="{424*0.5}"/>
+				    <mx:SetProperty name="height" target="{_imgLoc}" value="{224*0.5}"/>
+				</mx:State>
+			</size_states>
+			<controls:FloatingImage id="_imgLoc" horizontalAlign="center"
+				source="{PicnikBase.StaticUrl('../graphics/upsellBeforeAfterSlideshow.swf')}"
+				width="424" height="224"/>	
+		</ResizingBox>
+		<mx:Spacer width="100%" minWidth="25"/>
+		<!-- checkmark list -->
+		<ResizingVBox verticalGap="2" width="100%">
+			<mx:Repeater id="rpPremiumChecks" dataProvider="{_aobpPremiumChecks}">
+				<ResizingHBox horizontalGap="1" verticalAlign="middle" width="100%">
+					<controls:ImageVer source="../graphics/checkmark-small.png" width="14" height="16" filters="{[_fiWhiteShine,_fiInnerShad]}"/>
+					<controls:ResizingLabel text="{Resource.getString('TargetedUpsellDialog',rpPremiumChecks.currentItem.label)}"
+						width="100%"
+						fontSize="14" fontSize_1="13" fontSize_2="12" color="#262626" filters="{[_fiWhiteShine]}"/>
+				</ResizingHBox>
+			</mx:Repeater>
+		</ResizingVBox>
+		<mx:Spacer width="100%"/>
+	</ResizingHBox>
+</mx:Box>

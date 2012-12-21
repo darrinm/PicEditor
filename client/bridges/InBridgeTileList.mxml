@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<InBridgeTileListBase xmlns="bridges.*" xmlns:mx="http://www.adobe.com/2006/mxml"
+		rowHeight="220" tileSizeInWidth="198"  
+		doubleClickEnabled="true" itemRenderer="bridges.BridgeItem" themeColor="#FFFFFF" 
+		borderStyle="solid" borderThickness="0">
+</InBridgeTileListBase>

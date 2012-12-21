@@ -1,0 +1,31 @@
+<!--
+	This file describes files that should be pulled into a ZIP file to be sent
+	out for localizing.  Each file descriptor should be relative to the root of the
+	picnik repository.  Use * and ? as wildcards if you want.
+
+	This file is read in by zip_loc_sources.py to produce a loc_sources.zip file.
+-->
+<loc_sources>
+	<source>loc/client/en_US/*.properties</source>
+	<source>website/app/en_US/*.html</source>
+	<source>website/app/en_US/*.xml</source>
+	<exclude>website/app/en_US/fonts.xml</exclude>
+	<exclude>website/app/en_US/Shapes.xml</exclude>
+	<exclude>website/app/en_US/templates.xml</exclude>
+	<exclude>website/app/en_US/buzz_press.html</exclude>
+	<source>server/templates/en_US/*.tmpl</source>
+	<source>server/templates/en_US/__init__.py</source>
+	<source>server/loc/en_US/*.html</source>
+	<source>server/loc/en_US/*.txt</source>
+	<source>server/loc/en_US/*.properties</source>
+	<source>loc/misc/en_US/*.html</source>
+	<source>website/graphics/en_US/*.gif</source>
+	<source>website/graphics/en_US/*.png</source>
+	<source>website/graphics/en_US/*.swf</source>
+	<source>website/graphics/en_US/*.jpg</source>
+	<source>client/assets/bitmaps/en_US/*.gif</source>
+	<source>client/assets/bitmaps/en_US/*.png</source>
+	<source>client/assets/bitmaps/en_US/*.swf</source>
+	<source>client/assets/bitmaps/en_US/*.jpg</source>
+</loc_sources>
+

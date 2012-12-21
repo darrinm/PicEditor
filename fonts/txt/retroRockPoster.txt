@@ -1,0 +1,12 @@
+fileName: retroRockPoster.ttf
+name: Retro Rock Poster
+subfamilyDisplayName: Normal
+fullName: Retro Rock Poster
+displayName: Retro Rock Poster
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 0
+pkName: pkretroRockPoster
+authorName: Gyom.Typo
+authorUrl: http://gyom.nebullus.com/

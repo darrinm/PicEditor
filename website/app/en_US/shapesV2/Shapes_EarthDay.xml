@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/shape_earth_day.png" flickrPremium="false" id="EarthDay" numShapes="32" picnikPremium="false" previewUrls="60|48|../clipart/bundles/groupPreviews_EarthDay.png?ver=716954e2" title="Earth Day">
+	<Shapes>
+		<Clipart cHeight="1200" cWidth="1200" flickrPremium="false" picnikPremium="false" previewUrl="40|40|0|../clipart/bundles/shapes_EarthDay.png?ver=ab55c0df" url="shapes/EarthDay/Earth.swf"/>
+		<Clipart cHeight="1175" cWidth="1185" flickrPremium="false" picnikPremium="false" previewUrl="40|40|1|../clipart/bundles/shapes_EarthDay.png?ver=ab55c0df" url="shapes/EarthDay/GreenHouse.swf"/>
+		<Clipart cHeight="1125" cWidth="1180" flickrPremium="false" picnikPremium="false" previewUrl="40|40|2|../clipart/bundles/shapes_EarthDay.png?ver=ab55c0df" url="shapes/EarthDay/RecycleLeafSymbol.swf"/>
+		<Clipart cHeight="1181" cWidth="1181" flickrPremium="false" picnikPremium="false" previewUrl="40|40|3|../clipart/bundles/shapes_EarthDay.png?ver=ab55c0df" url="shapes/EarthDay/Sun.swf"/>
+		<Clipart cHeight="28" cWidth="28" flickrPremium="false" picnikPremium="false" previewUrl="40|40|4|../clipart/bundles/shapes_EarthDay.png?ver=ab55c0df" url="shapes/EarthDay/Earth2.swf"/>
+		<Clipart cHeight="33" cWidth="33" flickrPremium="false" picnikPremium="false" previewUrl="40|40|5|../clipart/bundles/shapes_EarthDay.png?ver=ab55c0df" url="shapes/EarthDay/GreenHouse2.swf"/>
+		<Clipart cHeight="175" cWidth="183" flickrPremium="false" picnikPremium="false" previewUrl="40|40|6|../clipart/bundles/shapes_EarthDay.png?ver=ab55c0df" url="shapes/EarthDay/RecycleLeafSymbol2.swf"/>
+		<Clipart cHeight="1195" cWidth="1195" flickrPremium="false" picnikPremium="false" previewUrl="40|40|7|../clipart/bundles/shapes_EarthDay.png?ver=ab55c0df" url="shapes/EarthDay/Sun2.swf"/>
+		<Clipart cHeight="1176" cWidth="1100" flickrPremium="false" picnikPremium="false" previewUrl="40|40|8|../clipart/bundles/shapes_EarthDay.png?ver=ab55c0df" url="shapes/EarthDay/GreenCar.swf"/>
+		<Clipart cHeight="1180" cWidth="910" flickrPremium="false" picnikPremium="false" previewUrl="40|40|9|../clipart/bundles/shapes_EarthDay.png?ver=ab55c0df" url="shapes/EarthDay/GreenBuilding.swf"/>
+		<Clipart cHeight="1140" cWidth="1173" flickrPremium="false" picnikPremium="false" previewUrl="40|40|10|../clipart/bundles/shapes_EarthDay.png?ver=ab55c0df" url="shapes/EarthDay/RecycleSymbol.swf"/>
+		<Clipart cHeight="1176" cWidth="650" flickrPremium="false" picnikPremium="false" previewUrl="40|40|11|../clipart/bundles/shapes_EarthDay.png?ver=ab55c0df" url="shapes/EarthDay/Bolt.swf"/>
+		<Clipart cHeight="36" cWidth="33" flickrPremium="false" picnikPremium="false" previewUrl="40|40|12|../clipart/bundles/shapes_EarthDay.png?ver=ab55c0df" url="shapes/EarthDay/GreenCar2.swf"/>
+		<Clipart cHeight="36" cWidth="28" flickrPremium="false" picnikPremium="false" previewUrl="40|40|13|../clipart/bundles/shapes_EarthDay.png?ver=ab55c0df" url="shapes/EarthDay/GreenBuilding2.swf"/>
+		<Clipart cHeight="30" cWidth="31" flickrPremium="false" picnikPremium="false" previewUrl="40|40|14|../clipart/bundles/shapes_EarthDay.png?ver=ab55c0df" url="shapes/EarthDay/RecycleSymbol2.swf"/>
+		<Clipart cHeight="32" cWidth="18" flickrPremium="false" picnikPremium="false" previewUrl="40|40|15|../clipart/bundles/shapes_EarthDay.png?ver=ab55c0df" url="shapes/EarthDay/Bolt2.swf"/>
+		<Clipart cHeight="890" cWidth="1190" flickrPremium="false" picnikPremium="false" previewUrl="40|40|16|../clipart/bundles/shapes_EarthDay.png?ver=ab55c0df" url="shapes/EarthDay/Cloud2.swf"/>
+		<Clipart cHeight="881" cWidth="1180" flickrPremium="false" picnikPremium="false" previewUrl="40|40|17|../clipart/bundles/shapes_EarthDay.png?ver=ab55c0df" url="shapes/EarthDay/Cloud.swf"/>
+		<Clipart cHeight="1185" cWidth="1127" flickrPremium="false" picnikPremium="false" previewUrl="40|40|18|../clipart/bundles/shapes_EarthDay.png?ver=ab55c0df" url="shapes/EarthDay/Circle.swf"/>
+		<Clipart cHeight="1185" cWidth="1127" flickrPremium="false" picnikPremium="false" previewUrl="40|40|19|../clipart/bundles/shapes_EarthDay.png?ver=ab55c0df" url="shapes/EarthDay/Circle2.swf"/>
+		<Clipart cHeight="1181" cWidth="826" flickrPremium="false" picnikPremium="false" previewUrl="40|40|20|../clipart/bundles/shapes_EarthDay.png?ver=ab55c0df" url="shapes/EarthDay/Drop.swf"/>
+		<Clipart cHeight="1185" cWidth="835" flickrPremium="false" picnikPremium="false" previewUrl="40|40|21|../clipart/bundles/shapes_EarthDay.png?ver=ab55c0df" url="shapes/EarthDay/Drop2.swf"/>
+		<Clipart cHeight="1190" cWidth="750" flickrPremium="false" picnikPremium="false" previewUrl="40|40|22|../clipart/bundles/shapes_EarthDay.png?ver=ab55c0df" url="shapes/EarthDay/DualLeaves.swf"/>
+		<Clipart cHeight="36" cWidth="23" flickrPremium="false" picnikPremium="false" previewUrl="40|40|23|../clipart/bundles/shapes_EarthDay.png?ver=ab55c0df" url="shapes/EarthDay/DualLeaves2.swf"/>
+		<Clipart cHeight="1180" cWidth="1070" flickrPremium="false" picnikPremium="false" previewUrl="40|40|24|../clipart/bundles/shapes_EarthDay.png?ver=ab55c0df" url="shapes/EarthDay/GreenTree.swf"/>
+		<Clipart cHeight="33" cWidth="30" flickrPremium="false" picnikPremium="false" previewUrl="40|40|25|../clipart/bundles/shapes_EarthDay.png?ver=ab55c0df" url="shapes/EarthDay/GreenTree2.swf"/>
+		<Clipart cHeight="690" cWidth="1200" flickrPremium="false" picnikPremium="false" previewUrl="40|40|26|../clipart/bundles/shapes_EarthDay.png?ver=ab55c0df" url="shapes/EarthDay/Leaf.swf"/>
+		<Clipart cHeight="21" cWidth="36" flickrPremium="false" picnikPremium="false" previewUrl="40|40|27|../clipart/bundles/shapes_EarthDay.png?ver=ab55c0df" url="shapes/EarthDay/Leaf2.swf"/>
+		<Clipart cHeight="1185" cWidth="715" flickrPremium="false" picnikPremium="false" previewUrl="40|40|28|../clipart/bundles/shapes_EarthDay.png?ver=ab55c0df" url="shapes/EarthDay/LightBulb.swf"/>
+		<Clipart cHeight="32" cWidth="19" flickrPremium="false" picnikPremium="false" previewUrl="40|40|29|../clipart/bundles/shapes_EarthDay.png?ver=ab55c0df" url="shapes/EarthDay/LightBulb2.swf"/>
+		<Clipart cHeight="1176" cWidth="860" flickrPremium="false" picnikPremium="false" previewUrl="40|40|30|../clipart/bundles/shapes_EarthDay.png?ver=ab55c0df" url="shapes/EarthDay/TrashCan.swf"/>
+		<Clipart cHeight="29" cWidth="21" flickrPremium="false" picnikPremium="false" previewUrl="40|40|31|../clipart/bundles/shapes_EarthDay.png?ver=ab55c0df" url="shapes/EarthDay/TrashCan2.swf"/>
+	</Shapes>
+</ShapeCategory>

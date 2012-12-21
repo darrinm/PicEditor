@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory flickrPremium="false" id="newCategory" numShapes="3" picnikPremium="false" previewUrls="60|48|../clipart/bundles/SoccerFeverArea_groupPreviews_newCategory.png?ver=f8f10360" title="Australia Stickers">
+	<Shapes>
+		<Clipart cHeight="640" cWidth="1280" flickrPremium="false" isVector="false" picnikPremium="false" previewUrl="40|40|0|../clipart/bundles/SoccerFeverArea_shapes_newCategory.png?ver=a03678af" url="shapes/au/flag_au.swf"/>
+		<Clipart cHeight="223" cWidth="95" flickrPremium="false" isVector="false" picnikPremium="false" previewUrl="40|40|1|../clipart/bundles/SoccerFeverArea_shapes_newCategory.png?ver=a03678af" url="shapes/au/scarf_au.swf"/>
+		<Clipart cHeight="294" cWidth="464" flickrPremium="false" isVector="false" picnikPremium="false" previewUrl="40|40|2|../clipart/bundles/SoccerFeverArea_shapes_newCategory.png?ver=a03678af" url="shapes/au/wavingflag_au.swf"/>
+	</Shapes>
+</ShapeCategory>

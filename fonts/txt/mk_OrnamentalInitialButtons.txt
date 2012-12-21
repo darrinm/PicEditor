@@ -1,0 +1,12 @@
+fileName: mk_OrnamentalInitialButtons.ttf
+name: OrnamentalInitialButtons
+subfamilyDisplayName: Regular
+fullName: OrnamentalInitialButtons
+displayName: OrnamentalInitialButtons
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 6
+pkName: pkmk0OrnamentalInitialButtons
+authorName: Manfred Kelin
+authorUrl: http://moorstation.org/typoasis/designers/klein/

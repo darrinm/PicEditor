@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory flickrPremium="false" id="soccer_ch" numShapes="3" picnikPremium="false" previewUrls="60|48|../clipart/bundles/SoccerFeverArea_groupPreviews_soccer_ch.png?ver=2f757c48" title="Switzerland Stickers">
+	<Shapes>
+		<Clipart cHeight="320" cWidth="320" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|0|../clipart/bundles/SoccerFeverArea_shapes_soccer_ch.png?ver=714fa853" url="shapes/ch/flag_ch.swf"/>
+		<Clipart cHeight="223.55" cWidth="95.95" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|1|../clipart/bundles/SoccerFeverArea_shapes_soccer_ch.png?ver=714fa853" url="shapes/ch/scarf_ch.swf"/>
+		<Clipart cHeight="294.6" cWidth="463.3" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|2|../clipart/bundles/SoccerFeverArea_shapes_soccer_ch.png?ver=714fa853" url="shapes/ch/wavingflag_ch.swf"/>
+	</Shapes>
+</ShapeCategory>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox xmlns="dialogs.RegisterHelper.*" xmlns:fc="dialogs.RegisterHelper.FormControls.*"
+	xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:ctrl="controls.*" xmlns:cntr="containers.*" 
+	xmlns:ds="com.darronschall.effects.*" xmlns:vld="validators.*"
+	verticalGap="0" width="200" clipContent="false" >
+
+	<mx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			import mx.validators.Validator;
+		
+			[Bindable] public var title:String = "";
+			[Bindable] public var restrict:String = "";
+			[Bindable] public var maxChars:Number = 32;
+			[Bindable] public var valid:Boolean = false;	
+			[Bindable] public var displayAsPassword:Boolean = false;
+			[Bindable] public var fnEnter:Function = null;
+						
+			[Bindable]
+			public function get text():String {
+				return ti.text;
+			}
+	
+			public function set text(value:String):void {
+				ti.text = value;
+			}			
+						
+			[Bindable (event="errorStringChanged")]
+			public override function get errorString():String {
+				return ti.errorString;
+			}
+	
+			// Reimplement private methods of UIControl, minus the error tip part.
+			public override function set errorString(value:String):void {
+				ti.errorString = value;
+		        invalidateProperties();
+		        dispatchEvent(new Event("errorStringChanged"));
+			}		
+			
+			private function OnValueCommit():void {
+				dispatchEvent(new FlexEvent( FlexEvent.VALUE_COMMIT ) );				
+			}	
+		]]>
+	</mx:Script>
+
+	<mx:states>
+		<mx:State name="Password">
+			<mx:SetStyle target="{ti}" name="fontSize" value="16" />
+			<mx:SetStyle target="{ti}" name="letterSpacing" value="2" />
+			<mx:SetStyle target="{ti}" name="fontWeight" value="bold" />
+			<mx:SetStyle target="{ti}" name="fontSharpness" value="-200" />
+			<mx:SetStyle target="{ti}" name="fontFamily" value="trebuchetMS" />
+			<mx:SetProperty target="{ti}" name="displayAsPassword" value="true" />
+        </mx:State>   
+		<mx:State name="ErrorOnTop">
+            <mx:RemoveChild target="{lblError}"/>
+            <mx:AddChild target="{lblError}" position="after" relativeTo="{lblTitle}"/>
+            <mx:SetStyle target="{lblError}" name="fontSize" value="12"/>
+            <mx:SetStyle target="{lblError}" name="paddingRight" value="1"/>
+        </mx:State>   
+		<mx:State name="Password_ErrorOnTop" basedOn="Password">
+            <mx:RemoveChild target="{lblError}"/>
+            <mx:AddChild target="{lblError}" position="after" relativeTo="{lblTitle}"/>
+            <mx:SetStyle target="{lblError}" name="fontSize" value="12"/>
+            <mx:SetStyle target="{lblError}" name="paddingRight" value="1"/>
+        </mx:State>   
+	</mx:states>
+
+	<fc:StandardEffects id="effects" />
+
+	<mx:HBox width="100%" verticalAlign="bottom" clipContent="false">
+		<mx:Label id="lblTitle" text="{title}" styleName="publishForm" paddingBottom="-4" paddingTop="0" width="100%"/>
+	</mx:HBox>
+
+	<mx:Canvas width="100%" height="26" clipContent="false">
+		<ctrl:NoTipTextInput id="ti" height="26" styleName="publishFormField" width="100%" 
+			maxChars="{maxChars}" restrict="{restrict}" enter="{fnEnter()}" 
+			valueCommit="OnValueCommit()" />
+		<ctrl:ImageVer source="@Embed('../../../theme/pngs/yesIcon.png')" visible="{valid}" 
+			showEffect="{effects.effQuarterFadeIn}" hideEffect="{effects.effQuarterFadeOut}" y="4" right="3" alpha=".75"/>
+	</mx:Canvas>
+	<mx:Label textAlign="right" width="100%" styleName="formError" paddingBottom="-3" paddingTop="-1"
+		id="lblError" text="{errorString}" showEffect="{effects.effFadeIn}" fontSize="11" visible="{errorString.length > 0}"/>	
+</mx:VBox>
+

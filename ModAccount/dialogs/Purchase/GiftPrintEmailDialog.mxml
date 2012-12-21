@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GiftPrintEmailDialogBase xmlns="dialogs.Purchase.*" xmlns:fc="dialogs.RegisterHelper.FormControls.*"
+		xmlns:rh="dialogs.RegisterHelper.*"
+		xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:ctrl="controls.*" xmlns:ds="com.darronschall.effects.*"
+		xmlns:vld="validators.*" xmlns:flash.filters="flash.filters.*" xmlns:ctr="containers.*"
+		width="550" height="675"
+		verticalScrollPolicy="off" horizontalScrollPolicy="off" styleName="BlueStripeDialogStyle">
+	<mx:Script>
+		import util.LocUtil;
+		import mx.effects.easing.*;
+		
+		private const kMinSize:int = 350;
+		private const kMaxSize:int = 650;	
+		override protected function OnResize(evt:Event): void {
+			height = Math.max(Math.min(kMaxSize, parentHeight), kMinSize);
+			super.OnResize(evt);
+		}					
+	</mx:Script>
+	
+	<mx:String id="_strSuccessFeedbackMessage">{Resource.getString('CreateGiftTab', '_strSuccessFeedbackMessage')}</mx:String>
+	
+	<rh:DataModel id="_dtmFormFields">
+		<rh:DataField name="fromName" validator="{_vldFromName}"/>
+		<rh:DataField name="fromEmail" validator="{_vldFromEmail}"/>
+		<rh:DataField name="toName" validator="{_vldToName}"/>
+		<rh:DataField name="toEmail" validator="{_vldToEmail}"/>
+		<rh:DataField name="anonymous" source="{_cbAnonymous}" source_field="selected" def_value="{false}"/>
+		<rh:DataField name="message" source="{_taMessage}" source_field="text"/> 
+	</rh:DataModel>
+	    		
+    <vld:PicnikStringValidator id="_vldFromName" source="{_tiFromName}" property="text" minLength="2" required="{!_cbAnonymous.selected &amp;&amp; _tabBar.selectedIndex == 1}">
+    	<vld:requiredFieldError>{Resource.getString('CreateGiftTab', 'vldFromName')}</vld:requiredFieldError>
+    	<vld:tooShortError>{Resource.getString('CreateGiftTab', 'vldTooShort')}</vld:tooShortError>
+    </vld:PicnikStringValidator>
+	<vld:PicnikEmailValidator id="_vldFromEmail" source="{_tiFromEmail}" property="text" required="{!_cbAnonymous.selected &amp;&amp; _tabBar.selectedIndex == 1}">
+		<vld:requiredFieldError>{Resource.getString('CreateGiftTab', 'vldEmail')}</vld:requiredFieldError>
+	</vld:PicnikEmailValidator>
+    <vld:PicnikStringValidator id="_vldToName" source="{_tiToName}" property="text" minLength="2" required="{_tabBar.selectedIndex == 1}">
+    	<vld:requiredFieldError>{Resource.getString('CreateGiftTab', 'vldToName')}</vld:requiredFieldError>
+    	<vld:tooShortError>{Resource.getString('CreateGiftTab', 'vldTooShort')}</vld:tooShortError>
+    </vld:PicnikStringValidator>
+	<vld:PicnikEmailValidator id="_vldToEmail" source="{_tiToEmail}" property="text" required="{_tabBar.selectedIndex == 1}">
+		<vld:requiredFieldError>{Resource.getString('CreateGiftTab', 'vldEmail')}</vld:requiredFieldError>
+	</vld:PicnikEmailValidator>
+    <vld:PicnikStringValidator id="_vldMessage" source="{_taMessage}" property="text" minLength="0">
+    </vld:PicnikStringValidator>
+    
+	<fc:StandardEffects id="effects" errorTargets="{[_lblToNameError,_lblToEmailError,_lblFromNameError,_lblFromEmailError,_lblFormError]}"/>
+    
+	<!-- dandelion effects -->
+	<mx:Parallel id="_efDandelionFadeIn" duration="200">
+		<mx:Fade alphaFrom="0" alphaTo="1" easingFunction="{Quadratic.easeOut}"/>
+		<mx:Zoom zoomHeightFrom=".9" zoomHeightTo="1" easingFunction="{Quadratic.easeOut}"/>
+	</mx:Parallel>
+	<mx:Parallel id="_efDandelionFadeOut" duration="300">
+		<mx:Fade alphaFrom="1" alphaTo="0" easingFunction="{Quadratic.easeIn}"/>
+		<mx:Zoom zoomHeightFrom="1" zoomHeightTo=".9" easingFunction="{Quadratic.easeIn}"/>
+	</mx:Parallel>
+
+	<mx:Sequence id="_efGlow" repeatCount="0">
+		<mx:Glow alphaFrom="0" alphaTo=".3" blurXFrom="0" blurYFrom="0" blurXTo="10" blurYTo="10" color="#005580" duration="500"/>
+		<mx:Glow alphaFrom=".3" alphaTo="0" blurXFrom="10" blurYFrom="10" blurXTo="0" blurYTo="0" color="#005580" duration="1000"/>
+		<mx:Pause duration="1000" />
+	</mx:Sequence>
+
+	<mx:Canvas width="100%" height="100%" horizontalScrollPolicy="off" verticalScrollPolicy="off" clipContent="false">
+		<GiftCardPrinter id="_gcp" includeInLayout="false" visible="false"/>		
+		
+		<ctr:AutoShrinkCanvas id="canvas1" width="550" height="650">
+		
+			<!-- contents -->
+			<mx:VBox width="100%" height="{height-50}" verticalGap="0">
+				<mx:VBox verticalGap="-8" paddingTop="8" paddingBottom="0" borderSides="bottom" borderStyle="solid" borderThickness="1" borderColor="0xffffff"
+						paddingLeft="11" paddingRight="15" width="100%">
+					<ctrl:ResizingLabel width="380" autoFontSizeGap="2" text="@Resource(key='title', bundle='CreateGiftTab')" fontSize="27" color="#005580" filters="{[effects.fiWhiteShad]}"/>
+					<ctrl:ResizingLabel width="380" fontSize="14" autoFontSizeGap="1" color="#333333" condenseWhite="true" selectable="true" 
+						htmlText="@Resource(key='subtitle', bundle='CreateGiftTab')"/>
+					<mx:TabBar id="_tabBar" selectedIndex="0" paddingTop="10" paddingBottom="-1" width="100%">
+						 <mx:dataProvider>
+			                <mx:Array>
+			                    <mx:String>@Resource(key='tabPrint', bundle='CreateGiftTab')</mx:String>
+			                    <mx:String>@Resource(key='tabEmail', bundle='CreateGiftTab')</mx:String>
+			                </mx:Array>
+	            		</mx:dataProvider>
+					</mx:TabBar>
+				</mx:VBox>
+				<!-- this vbox handles scrolling -->
+				<mx:VBox width="100%" height="100%" minHeight="150" verticalGap="0" paddingTop="10" paddingLeft="15" paddingRight="15"
+						horizontalScrollPolicy="off" verticalScrollPolicy="auto"
+						borderSides="bottom" borderStyle="solid" borderThickness="1" borderColor="0xc0dcf0">
+					<!-- printed card preview -->
+					<mx:HBox width="100%" verticalAlign="middle" paddingBottom="10" visible="{_tabBar.selectedIndex==0}" includeInLayout="{_tabBar.selectedIndex==0}">
+						<ctrl:ImageEx source="../graphics/card_beautyshot.png"/>
+						<mx:VBox width="100%" verticalGap="0">
+							<mx:Label text="@Resource(key='insideCard', bundle='CreateGiftTab')" color="#666666" fontSize="13"/>
+							<mx:VBox width="100%" height="100%" backgroundColor="#FFFFFF" borderStyle="solid" borderThickness="0" cornerRadius="8"
+									horizontalAlign="center" verticalGap="-8"
+									paddingTop="10" paddingRight="10" paddingBottom="10" paddingLeft="10">
+								<mx:Label text="@Resource(key='welcome', bundle='CreateGiftTab')" color="#005580" fontSize="24" paddingBottom="5"/>
+								<mx:Text text="{_taMessage.text}" width="100%" fontSize="15" leading="-1" textAlign="center"/>
+								<mx:Spacer height="20"/>
+								<mx:HRule strokeColor="#e5e5e5" strokeWidth="1" width="90%"/>
+								<mx:Label text="@Resource(key='codeHere', bundle='CreateGiftTab')" fontSize="13" paddingTop="15"/>
+								<mx:Label text="{gift.strGiftCode}" color="#618430" fontSize="21"/>
+								<mx:Label text="@Resource(key='visitThisUrl', bundle='CreateGiftTab')" fontSize="13" paddingTop="10"/>
+								<mx:Label text="www.mywebsite.com/go/gift" color="#618430" fontSize="16"/>
+							</mx:VBox>
+						</mx:VBox>
+					</mx:HBox>
+							
+					<!-- email preview -->
+					<mx:HBox width="100%" verticalAlign="middle" paddingBottom="10" visible="{_tabBar.selectedIndex==1}" includeInLayout="{_tabBar.selectedIndex==1}">
+						<ctrl:ImageEx source="../graphics/card_emailbeautyshot.png"/>
+						<mx:VBox width="100%" verticalGap="0">
+							<mx:VBox width="100%" minHeight="210" backgroundColor="#FFFFFF" borderStyle="solid" borderThickness="0" cornerRadius="8"
+									horizontalAlign="center" verticalGap="0"
+									paddingTop="10" paddingRight="10" paddingBottom="10" paddingLeft="10">
+								<mx:Text text="{_tiFromName.text} {Resource.getString('CreateGiftTab', 'says')}" width="100%" color="#005580" fontSize="15" fontWeight="bold"/>
+								<mx:Text text="{_taMessage.text}" width="100%" fontSize="15" leading="-1"/>
+							</mx:VBox>
+						</mx:VBox>
+					</mx:HBox>
+					<ctrl:ImageEx source="../graphics/page_divider.png" scaleContent="true" width="100%" height="2" maintainAspectRatio="false"/>
+					<mx:HBox id="_hbEmailForm" width="100%" visible="{_tabBar.selectedIndex==1}" includeInLayout="{_tabBar.selectedIndex==1}" horizontalGap="15">
+						<!-- TO box -->
+						<mx:VBox width="50%">
+							<!-- to name -->
+							<mx:VBox verticalGap="0" width="100%" paddingTop="5">
+								<mx:Label text="@Resource(key='toName', bundle='CreateGiftTab')" styleName="publishForm" paddingBottom="-4" paddingTop="5" width="100%" color="{_tiToName.errorString?0xCC0000:0x333333}"/>
+								<ctrl:NoTipTextInput id="_tiToName" height="26" styleName="publishFormField" width="200" maxChars="48"
+									enter="Validate()"/>
+								<mx:Text styleName="formError" id="_lblToNameError" width="100%" paddingLeft="-2" paddingTop="1"
+										text="{_tiToName.errorString}" showEffect="{effects.effFadeIn}"
+										visible="{_tiToName.errorString.length > 0}" includeInLayout="{_tiToName.errorString.length > 0}"/>
+							</mx:VBox>
+							<!-- to email -->
+							<mx:VBox verticalGap="0" width="100%" paddingTop="5">
+								<mx:Label text="@Resource(key='toEmail', bundle='CreateGiftTab')" styleName="publishForm" paddingBottom="-4" paddingTop="5" width="100%" color="{_tiToEmail.errorString?0xCC0000:0x333333}"/>
+								<ctrl:NoTipTextInput id="_tiToEmail" height="26" styleName="publishFormField" width="100%" maxChars="255"
+									enter="Validate()" text="" />
+								<mx:Text styleName="formError" id="_lblToEmailError" width="100%" paddingLeft="-2" paddingTop="1"
+										text="{_tiToEmail.errorString}" showEffect="{effects.effFadeIn}"
+										visible="{_tiToEmail.errorString.length > 0}" includeInLayout="{_tiToEmail.errorString.length > 0}"/>
+							</mx:VBox>
+						</mx:VBox>
+						<mx:VRule strokeColor="#ffffff" strokeWidth="1" height="100%"/>
+						<!-- FROM box -->
+						<mx:VBox width="50%">
+							<!-- from name -->
+							<mx:VBox verticalGap="0" width="100%" paddingTop="5" visible="{!_cbAnonymous.selected}" includeInLayout="{!_cbAnonymous.selected}">
+								<mx:Label text="@Resource(key='fromName', bundle='CreateGiftTab')" styleName="publishForm" paddingBottom="-4" paddingTop="5" width="100%" color="{_tiFromName.errorString?0xCC0000:0x333333}"/>
+								<ctrl:NoTipTextInput id="_tiFromName" height="26" styleName="publishFormField" width="200" maxChars="48"
+									enter="Validate()"/>
+								<mx:Text styleName="formError" id="_lblFromNameError" width="100%" paddingLeft="-2" paddingTop="1"
+										text="{_tiFromName.errorString}" showEffect="{effects.effFadeIn}"
+										visible="{_tiFromName.errorString.length > 0}" includeInLayout="{_tiFromName.errorString.length > 0}"/>
+							</mx:VBox>
+							<!-- from email -->
+							<mx:VBox verticalGap="0" width="100%" paddingTop="5" visible="{!_cbAnonymous.selected}" includeInLayout="{!_cbAnonymous.selected}">
+								<mx:Label text="@Resource(key='fromEmail', bundle='CreateGiftTab')" styleName="publishForm" paddingBottom="-4" paddingTop="5" width="100%" color="{_tiFromEmail.errorString?0xCC0000:0x333333}"/>
+								<ctrl:NoTipTextInput id="_tiFromEmail" height="26" styleName="publishFormField" width="100%" maxChars="255"
+									enter="Validate()" text="{AccountMgr.GetInstance().email}" />
+								<mx:Text styleName="formError"  id="_lblFromEmailError" width="100%" paddingLeft="-2" paddingTop="1"
+										text="{_tiFromEmail.errorString}" showEffect="{effects.effFadeIn}"
+										visible="{_tiFromEmail.errorString.length > 0}" includeInLayout="{_tiFromEmail.errorString.length > 0}"/>
+							</mx:VBox>
+											
+							<!-- anon, hidden for now -->
+							<mx:CheckBox id="_cbAnonymous" label="@Resource(key='anon', bundle='CreateGiftTab')" labelPlacement="right" selected="false" height="40"
+								visible="false" includeInLayout="false"/>
+						</mx:VBox>
+					</mx:HBox>
+					<!-- message -->
+					<mx:Label text="{Resource.getString('CreateGiftTab', 'message')}" id="label2" styleName="publishForm" paddingTop="8" paddingBottom="-3"/>
+					<ctrl:TextAreaPlus id="_taMessage" maxChars="300" width="100%" height="67" styleName="publishFormField" fontSize="13"
+						maxHeight="67" minHeight="67"/>
+					<!-- card folding instructions -->
+					<mx:VBox visible="{_tabBar.selectedIndex==0}" includeInLayout="{_tabBar.selectedIndex==0}" verticalGap="0">
+						<mx:Label text="{Resource.getString('CreateGiftTab', 'cardInstructions')}" styleName="publishForm" paddingTop="8" paddingBottom="-3"/>
+						<ctrl:ImageEx source="../graphics/card_folding_instructions.png"/>
+						<mx:Label text="{Resource.getString('CreateGiftTab', 'pageDimensions')}" width="90" textAlign="center" paddingTop="-10" color="#666666"/>
+					</mx:VBox>
+				</mx:VBox>
+				<!-- generic error alert in case an error above is hidden by scrolling -->
+				<mx:Text styleName="formError" id="_lblFormError" width="100%" textAlign="center" paddingTop="5"
+					text="@Resource(key='formError', bundle='CreateGiftTab')"
+					showEffect="{effects.effFadeIn}" visible="false" includeInLayout="false"/>		
+			</mx:VBox>
+		</ctr:AutoShrinkCanvas>
+		
+		<!-- Footer -->
+		<mx:HBox width="100%" bottom="6" horizontalAlign="center" verticalAlign="middle">			
+			<mx:Button id="_btnCreate" height="39" fontSize="22" paddingLeft="15" paddingRight="15"  
+					   horizontalCenter="0" styleName="basketButton" mouseFocusEnabled="false" click="Create()"
+					   label="{_tabBar.selectedIndex?Resource.getString('CreateGiftTab', 'sendEmail'):Resource.getString('CreateGiftTab', 'printGiftCard')}"/>
+			<mx:Button label="@Resource(key='orderAgain', bundle='CreateGiftTab')" fontSize="15" minWidth="100" click="OnOrderAgain()"/>
+			<mx:Button label="@Resource(key='cancel', bundle='CreateGiftTab')" fontSize="15" minWidth="100" click="Cancel()"/>
+		</mx:HBox>
+
+		<!-- shadow dealies, drawn on top of all elements -->
+		<ctrl:ImageVer source="../graphics/upsellPremiumPanelShadow.png" bottom="50" left="0" right="0" scaleContent="true" maintainAspectRatio="false"/>
+		
+		<!-- Close button-->
+		<mx:Button width="22" height="22" top="4" right="4" click="Hide()" styleName="dialogCloseButton"/>		
+	</mx:Canvas>
+</GiftPrintEmailDialogBase>

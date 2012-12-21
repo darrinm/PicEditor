@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cnt:EffectCanvas xmlns:cnt="containers.*" xmlns="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="153" 
+	xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" xmlns:util="util.*" premium="{PicnikBase.GetApp().freemiumModel}" urlid="Polaroid">
+	<mx:Script>
+		import util.LocUtil;
+		import mx.resources.ResourceBundle;
+   		[Bindable] [ResourceBundle("PolaroidEffect")] private var rb:ResourceBundle;
+	</mx:Script>
+
+	<mx:Array id="_resetValues">
+		<local:StoredValue target="_cpkrOuter.selectedColor"/>
+		<local:StoredValue target="_sldrRotate.value"/>
+	</mx:Array>
+	
+	<util:NumberPlus id="cropSize" val="{zeroR + Math.min(origImageWidth, origImageHeight)}"/>
+	<util:NumberPlus id="lrBorder" val="{zeroR + Math.round(cropSize.val * 0.0645)}"/>
+	<util:NumberPlus id="topBorder" val="{zeroR + Math.round(cropSize.val * 0.0968)}"/>
+	<util:NumberPlus id="bottomBorder" val="{zeroR + Math.round(cropSize.val * 0.258)}"/>
+	<util:NumberPlus id="preRotateHeight" val="{zeroR + cropSize.val + topBorder.val + bottomBorder.val}"/>
+	<util:NumberPlus id="preRotateWidth" val="{zeroR + cropSize.val + 2 * lrBorder.val}"/>
+	<util:NumberPlus id="preRotateShrinkFactor" val="{zeroR + Util.GetMaxImageWidth()/Math.max(Util.GetMaxImageWidth(), preRotateHeight.val, preRotateWidth.val)}"/>
+	<util:NumberPlus id="tbOuterBorder" val="{zeroR + preRotateHeight.val * ((Math.abs(_sldrRotate.value)/10)*0.2) * preRotateShrinkFactor.val}"/>
+	<util:NumberPlus id="lrOuterBorder" val="{zeroR + preRotateWidth.val * ((Math.abs(_sldrRotate.value)/10)*0.25) * preRotateShrinkFactor.val}"/>
+	
+	<EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='PolaroidEffect')" strAuthor="@Resource(key='_efbtn_1', bundle='PolaroidEffect')"
+		strImageSource="../graphics/effects/Frames/polaroid.png" premium="{premium}"/>
+	<mx:String id="_strHelpText">{Resource.getString('PolaroidEffect', '_strHelpText')}</mx:String>
+
+	<mx:VBox x="10" y="70" verticalGap="0">
+		<mx:Spacer width="10" height="3"/>
+		<cnt:ResizingHBox paddingTop="5" paddingLeft="5" paddingRight="5" paddingBottom="5" horizontalGap="5" width="190" horizontalScrollPolicy="off"
+				cornerRadius="5" backgroundColor="#ffffff" borderColor="#d9d9d9" borderStyle="solid" backgroundAlpha=".4"
+				verticalAlign="middle" horizontalAlign="center">
+			<ResizingLabel text="@Resource(key='Label_1', bundle='PolaroidEffect')" text_5="@Resource(key='Label_1_short', bundle='PolaroidEffect')" styleName="sliderTitle" paddingTop="2" paddingLeft="-4"/>
+			<HSBColorPicker id="_cpkrOuter" selectedColor="0xE2E2E2" liveColorChange="OnBufferedOpChange()" width="50"/>
+		</cnt:ResizingHBox>
+
+		<mx:HBox width="190" paddingBottom="-5" paddingTop="5">
+			<mx:Label text="@Resource(key='_lbRotate', bundle='PolaroidEffect')" styleName="sliderTitle"/>
+			<mx:Label text="{LocUtil.deg(_sldrRotate.value)}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<HSliderPlus width="190" minimum="-10" maximum="10" value="5" id="_sldrRotate" change="OnOpChange()" liveDragging="true" showDataTip="false" snapInterval="1"/>
+
+		<ApplyCancelEffectButtons addBoxPadding="true" premium="{premium}"/>	
+	</mx:VBox>
+
+	<imageOperations:NestedImageOperation id="_op">
+		<imageOperations:children>
+			<imageOperations:CropImageOperation width="{zeroR + cropSize.val}" height="{zeroR + cropSize.val}"
+				x="{zeroR + Math.floor((origImageWidth-cropSize.val)/2)}" y="{zeroR + Math.floor((origImageHeight-cropSize.val)/2)}"/>
+			<imageOperations:SimpleBorderImageOperation
+				dynamicParamsCachePriority="1" 
+				top="{zeroR + topBorder.val}" bottom="{zeroR + bottomBorder.val}"
+				left="{zeroR + lrBorder.val}" right="{zeroR + lrBorder.val}" color="0xffffff"/>
+			<imageOperations:DropShadowImageOperation shadowColor="0x000000"
+				dynamicParamsCachePriority="2" 
+				backgroundColor="{0xff000000 + _cpkrOuter.liveColor}" shadowAlpha=".4"
+				distance="3" angle="{90-_sldrRotate.value}"
+				blurX="8" blurY="8" strength="1" quality="{BitmapFilterQuality.HIGH}"/>
+			<imageOperations:RotateImageOperation dynamicParamsCachePriority="3" degAngle="{_sldrRotate.value}" padBorder="true" borderColor="{0xff000000 | _cpkrOuter.liveColor}"/>
+		</imageOperations:children>
+	</imageOperations:NestedImageOperation>
+</cnt:EffectCanvas>

@@ -1,0 +1,12 @@
+fileName: mk_TangoMacabre.ttf
+name: TangoMacabre
+subfamilyDisplayName: Regular
+fullName: TangoMacabre
+displayName: TangoMacabre
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 6
+pkName: pkmk0TangoMacabre
+authorName: Manfred Kelin
+authorUrl: http://moorstation.org/typoasis/designers/klein/

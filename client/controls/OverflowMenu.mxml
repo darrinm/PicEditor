@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<OverflowMenuBase xmlns="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" verticalAlign="middle" paddingLeft="-10">
+	<mx:Button icon="@Embed('../theme/pngs/inlineDropDownArrowGreen.png')" overIcon="@Embed('../theme/pngs/inlineDropDownArrowBlack.png')"
+		downIcon="@Embed('../theme/pngs/inlineDropDownArrowBlack.png')"
+		label="@Resource(key='_buText', bundle='OverflowMenu')" styleName="buttonBarButton" id="_buText" labelPlacement="left"
+		height="30" textAlign="right"
+		paddingRight="10" paddingLeft="0" horizontalGap="2" />
+</OverflowMenuBase>

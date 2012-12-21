@@ -1,0 +1,272 @@
+// *****************************************************************************************
+// HSLFilter.pbk
+// 
+// Copyright (c) 2008 Ryan Taylor | http://www.boostworthy.com
+// 
+// Permission is hereby granted, free of charge, to any person
+// obtaining a copy of this software and associated documentation
+// files (the "Software"), to deal in the Software without
+// restriction, including without limitation the rights to use,
+// copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the
+// Software is furnished to do so, subject to the following
+// conditions:
+//
+// The above copyright notice and this permission notice shall be
+// included in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+// EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+// OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+// HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+// WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+// OTHER DEALINGS IN THE SOFTWARE.
+// *****************************************************************************************
+// 
+// +          +          +          +          +          +          +          +          +
+// 
+// *****************************************************************************************
+
+// 10/06/08 - DWM - Some Picnik-ification
+
+// 2010-04-23 - steveler: Converted to HueClamp: a selective desaturation filter
+
+<languageVersion : 1.0;>
+
+kernel HueClampFilter
+<
+    title       : "Hue Clamp Filter";
+    namespace   : "Picnik::Filters";
+    vendor      : "Steve Leroux";
+    version     : 1;
+    description : "Filter selectively reducing the saturation of colors by hue.";
+>
+{
+    parameter   float  rSaturation
+    <
+        minValue        :   0.0;
+        maxValue        :   1.0;
+        defaultValue    :   0.25;
+    >;
+    parameter   float  gSaturation
+    <
+        minValue        :   0.0;
+        maxValue        :   1.0;
+        defaultValue    :   0.25;
+    >;
+    parameter   float  bSaturation
+    <
+        minValue        :   0.0;
+        maxValue        :   1.0;
+        defaultValue    :   0.25;
+    >;
+    parameter   float  cSaturation
+    <
+        minValue        :   0.0;
+        maxValue        :   1.0;
+        defaultValue    :   0.25;
+    >;
+    parameter   float  mSaturation
+    <
+        minValue        :   0.0;
+        maxValue        :   1.0;
+        defaultValue    :   0.25;
+    >;
+    parameter   float  ySaturation
+    <
+        minValue        :   0.0;
+        maxValue        :   1.0;
+        defaultValue    :   0.5;
+    >;    
+    parameter   float  cutoff
+    <
+        minValue        :   0.0;
+        maxValue        :   1.0;
+        defaultValue    :   0.5;
+    >;    
+    parameter   float  bleed
+    <
+        minValue        :   0.0;
+        maxValue        :   30.0;
+        defaultValue    :   5.0;
+    >;
+    parameter   float  grayblend
+    <
+        minValue        :   0.0;
+        maxValue        :   1.0;
+        defaultValue    :   0.5;
+    >;
+    
+    input       image4      source;
+    output      pixel4      result;
+    
+    void evaluatePixel()
+    {
+        // Convert sampled pixel from RGB space to HSL space.
+        
+        float4 samp;
+        float  sampMin;
+        float  sampMax;
+        float  sampDiff;
+        float  sampSum;
+        float  sampH;
+        float  sampS;
+        float  sampL;
+        
+        samp     = sampleNearest(source, outCoord());
+        sampMin  = samp.r < samp.g ? samp.r : samp.g;
+        sampMin  = sampMin < samp.b ? sampMin : samp.b;
+        sampMax  = samp.r > samp.g ? samp.r : samp.g;
+        sampMax  = sampMax > samp.b ? sampMax : samp.b;
+        sampDiff = sampMax - sampMin;
+        sampSum  = sampMax + sampMin;
+        sampL    = sampSum * 0.5;
+        
+        if(sampMin == sampMax)
+            sampH = 0.0;
+        else if(sampMax == samp.r) {
+            sampH = mod(60.0 * ((samp.g - samp.b) / sampDiff), 360.0);
+        } else if(sampMax == samp.g)
+            sampH = 60.0 * ((samp.b - samp.r) / sampDiff) + 120.0;
+        else if(sampMax == samp.b)
+            sampH = 60.0 * ((samp.r - samp.g) / sampDiff) + 240.0;
+        else
+            sampH = 0.0;
+        
+        if(sampMin == sampMax)
+            sampS = 0.0;
+        else if(sampL > 0.5)
+            sampS = sampDiff / (2.0 - sampSum);
+        else
+            sampS = sampDiff / sampSum;
+        
+        // Transform the sampled HSL values by the amounts specified
+        // by the hue, saturation, and lightness parameters.
+        
+        float outH;
+        float outS;
+        float outL;
+        float weight;
+        
+        outH = sampH;
+        outS  = sampS;
+        outL  = sampL;
+        
+        if (outL > cutoff-grayblend) {
+            outS *= 1.0-smoothStep(cutoff-grayblend,cutoff+grayblend,outL);
+        }
+        
+        if (outH < 30.0 - bleed || outH > 330.0 + bleed) {
+            outH = 0.0;
+            outS *= rSaturation;
+        } else if (outH < 30.0 + bleed) {
+            weight = (outH - (30.0 - bleed)) / (bleed * 2.0);
+            outH = 60.0 * weight;
+            outS *= mix( rSaturation, ySaturation, weight);
+        } else if (outH < 90.0 - bleed) {
+            outH = 60.0;
+            outS *= ySaturation;
+        } else if (outH < 90.0 + bleed) {
+            weight = (outH - (90.0 - bleed)) / (bleed * 2.0);
+            outH = 60.0 + 60.0 * weight;
+            outS *= mix( ySaturation, gSaturation, weight);
+        } else if (outH < 150.0 - bleed) {
+            outH = 120.0;
+            outS *= gSaturation;
+        } else if (outH < 150.0 + bleed) {
+            weight = (outH - (150.0 - bleed)) / (bleed * 2.0);
+            outH = 120.0 + 60.0 * weight;
+            outS *= mix( gSaturation, cSaturation, weight);
+        } else if (outH < 210.0 - bleed) {
+            outH = 180.0;
+            outS *= cSaturation;
+        } else if (outH < 210.0 + bleed) {
+            weight = (outH - (210.0 - bleed)) / (bleed * 2.0);
+            outH = 180.0 + 60.0 * weight;
+            outS *= mix( cSaturation, bSaturation, weight);
+        } else if (outH < 270.0 - bleed) {
+            outH = 240.0;
+            outS *= bSaturation;
+        } else if (outH < 270.0 + bleed) {
+            weight = (outH - (270.0 - bleed)) / (bleed * 2.0);
+            outH = 240.0 + 60.0 * weight;
+            outS *= mix( bSaturation, mSaturation, weight);
+        } else if (outH < 330.0 - bleed) {
+            outH = 300.0;
+            outS *= mSaturation;
+        } else {
+            weight = (outH - (330.0 - bleed)) / (bleed * 2.0);
+            outH = 300.0 + 60.0 * weight;
+            outS *= mix( mSaturation, rSaturation, weight);
+       }  
+
+        // Convert the transformed HSL values back to RGB space.
+        
+        float q;
+        float p;
+        float h;
+        
+        if(outL < 0.5)
+            q = outL * (1.0 + outS);
+        else
+            q = outL + outS - outL * outS;
+        
+        p = 2.0 * outL - q;
+        h = outH / 360.0;
+        
+        const float  oneOverThree = 1.0 / 3.0;
+        const float  twoOverThree = 2.0 / 3.0;
+        const float  oneOverSix   = 1.0 / 6.0;
+        float3 t = float3(h + oneOverThree, h, h - oneOverThree);
+        
+        if(t.r < 0.0)
+            t.r += 1.0;
+        else if(t.r > 1.0)
+            t.r -= 1.0;
+        
+        if(t.g < 0.0)
+            t.g += 1.0;
+        else if(t.g > 1.0)
+            t.g -= 1.0;
+        
+        if(t.b < 0.0)
+            t.b += 1.0;
+        else if(t.b > 1.0)
+            t.b -= 1.0;
+        
+        float4 c = float4(0.0, 0.0, 0.0, samp.a);
+
+        if(t.r < oneOverSix)
+            c.r = p + (q - p) * 6.0 * t.r;
+        else if(t.r < 0.5)
+            c.r = q;
+        else if(t.r < twoOverThree)
+            c.r = p + (q - p) * 6.0 * (twoOverThree - t.r);
+        else
+            c.r = p;
+
+        if(t.g < oneOverSix)
+            c.g = p + (q - p) * 6.0 * t.g;
+        else if(t.g < 0.5)
+            c.g = q;
+        else if(t.g < twoOverThree)
+            c.g = p + (q - p) * 6.0 * (twoOverThree - t.g);
+        else
+            c.g = p;
+        
+        if(t.b < oneOverSix)
+            c.b = p + (q - p) * 6.0 * t.b;
+        else if(t.b < 0.5)
+            c.b = q;
+        else if(t.b < twoOverThree)
+            c.b = p + (q - p) * 6.0 * (twoOverThree - t.b);
+        else
+            c.b = p;
+
+        // Apply the final ARGB color to the pixel.
+        
+        result = c;
+    }
+}

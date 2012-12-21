@@ -1,0 +1,12 @@
+fileName: mk_Bastarda_K.ttf
+name: Bastarda-K
+subfamilyDisplayName: Regular
+fullName: Bastarda-K
+displayName: Bastarda-K
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 0
+pkName: pkmk0Bastarda0K
+authorName: Manfred Kelin
+authorUrl: http://moorstation.org/typoasis/designers/klein/

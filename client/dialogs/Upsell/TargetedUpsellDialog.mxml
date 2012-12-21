@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<upsell:TargetedUpsellDialogBase xmlns="containers.*" xmlns:upsell="dialogs.Upsell.*" xmlns:mx="http://www.adobe.com/2006/mxml"	xmlns:controls="controls.*"
+	 width="{PicnikBase.app.yahoomail?640:690}" height="390" styleName="TargetedUpsellDialogStyle" initialize="SelectDefaultTab()"
+	 >
+	
+	<mx:Script>
+		<![CDATA[
+			import dialogs.DialogManager;
+			import mx.resources.ResourceBundle;
+			
+			private function ValidateViewstack(): void {
+				if (_vstk && _vstk.numChildren == 0) _vstk.createComponentsFromDescriptors(true);
+			}
+			
+			private function Next(): void {
+				ValidateViewstack();
+				var nIndex:Number = _vstk.selectedIndex + 1;
+				if (nIndex >= _vstk.numChildren) nIndex = 0;
+				_vstk.selectedIndex = nIndex; 
+			} 
+			private function Prev(): void {
+				ValidateViewstack();
+				var nIndex:Number = _vstk.selectedIndex - 1;
+				if (nIndex < 0) nIndex = _vstk.numChildren - 1;
+				_vstk.selectedIndex = nIndex; 
+			}
+			
+			private function SelectDefaultTab(): void {
+				ValidateViewstack();
+				_vstk.selectedIndex = TabNameToIndex(_vstk, defaultTabName);
+			} 
+   		]]>
+	</mx:Script>
+	
+	<mx:Style source="TargetedUpsellDialog.css"/>
+	<mx:DropShadowFilter id="_fiWhiteShine" blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1" quality="3" angle="90"/>
+	<mx:DropShadowFilter id="_fiInnerShad" blurX="1" blurY="1" distance="1" color="#000000" alpha=".2" quality="3" angle="90" inner="true"/>
+
+	<mx:Fade id="_efFadeIn" duration="300" alphaFrom="0" alphaTo="1"/>
+	<mx:Fade id="_efFadeOut" duration="200" alphaFrom="1" alphaTo="0"/>
+
+	<mx:Canvas width="100%" height="100%">
+		<!-- Header -->
+		<mx:HBox top="0" left="0" width="100%" horizontalGap="-8" verticalAlign="middle" paddingTop="4">
+			<controls:ImageVer source="../graphics/premium_sun-large.png" width="63" height="63"/>
+			<mx:VBox verticalGap="-10" width="100%">
+				<controls:ResizingLabel text="@Resource(key='headGetMuchMore',bundle='TargetedUpsellDialog')" styleName="upsellHead"
+					width="100%" autoFontSizeGap="1" filters="{[_fiWhiteShine,_fiInnerShad]}" paddingTop="2" paddingRight="30"/>
+				<controls:ResizingLabel text="@Resource(key='subheadMakePicnikBetter',bundle='TargetedUpsellDialog')" styleName="upsellSubhead"
+					width="100%" autoFontSizeGap="1" filters="{[_fiWhiteShine,_fiInnerShad]}" paddingRight="5"/>
+			</mx:VBox>
+		</mx:HBox>
+		
+		<!-- Close button-->
+		<mx:Button width="22" height="22" right="4" top="4" click="Hide()" styleName="dialogCloseButton"/>
+		
+		<!-- Main Content-->
+		<!-- Include an external MXML file - this will make it easier to swap later? -->
+		<mx:ViewStack top="74" right="0" bottom="62" left="0" creationPolicy="queued" id="_vstk"
+			initialize="SelectDefaultTab()">
+			<upsell:GenericUpsellBox id="_bxGeneric" showEffect="_efFadeIn" hideEffect="_efFadeOut" blendMode="layer"/>
+			<upsell:TouchupUpsellBox showEffect="_efFadeIn" hideEffect="_efFadeOut" blendMode="layer"/>
+			<upsell:UpsellBox area="create" showEffect="_efFadeIn" hideEffect="_efFadeOut" blendMode="layer" imageType="swf"/>
+			<upsell:UpsellBox area="premEffects" showEffect="_efFadeIn" hideEffect="_efFadeOut" blendMode="layer" imageType="swf"/>
+			<upsell:ShapesUpsellBox showEffect="_efFadeIn" hideEffect="_efFadeOut" blendMode="layer"/>
+			<upsell:UpsellBox area="fontShop" showEffect="_efFadeIn" hideEffect="_efFadeOut" blendMode="layer"/>
+			<upsell:UpsellBox area="multiFile" showEffect="_efFadeIn" hideEffect="_efFadeOut" blendMode="layer" imageType="swf"/>
+			<upsell:UpsellBox area="unlimitedHistory" showEffect="_efFadeIn" hideEffect="_efFadeOut" blendMode="layer" imageType="swf"/>
+			<upsell:UpsellBox area="curvesEffect" showEffect="_efFadeIn" hideEffect="_efFadeOut" blendMode="layer" imageType="swf"/>
+			<upsell:MultiTierUpsellBox showEffect="_efFadeIn" hideEffect="_efFadeOut" blendMode="layer"/>
+			<!--<upsell:UpsellBox area="fullscreen" showEffect="_efFadeIn" hideEffect="_efFadeOut" blendMode="layer" imageType="swf"/>-->
+		</mx:ViewStack>
+		
+		<!-- Footer -->
+		<mx:HBox horizontalGap="8" verticalAlign="middle" bottom="6" horizontalCenter="0">
+			<!-- previous -->
+			<controls:ResizingButton icon="@Embed('/assets/bitmaps/icon_arrowPrevious.png')"
+				includeInLayout="{!firstRunMode}" visible="{!firstRunMode}"
+				width="26" height="30" styleName="basketButton" paddingLeft="1" 
+				click="Prev()"/>
+			
+			<!-- Upgrade button -->
+			<controls:ResizingButton styleName="basketButton" label="@Resource(key='upgradeNow',bundle='TargetedUpsellDialog')"
+				minWidth="220" height="38" fontSize="22"
+				click="ShowPaymentSelector()"/>
+				
+			<!-- Try it now button -->
+			<controls:ResizingButton styleName="basketButton" label="@Resource(key='tryIt',bundle='TargetedUpsellDialog')"
+				includeInLayout="{firstRunMode}" visible="{firstRunMode}"
+				minWidth="220" height="38" fontSize="22"
+				click="Hide()"/>
+				
+			<!-- next -->
+			<controls:ResizingButton icon="@Embed('/assets/bitmaps/icon_arrowNext.png')"
+				includeInLayout="{!firstRunMode}" visible="{!firstRunMode}"
+				width="26" height="30" styleName="basketButton" paddingRight="1"
+				click="Next()"/>	
+		</mx:HBox>
+
+		<!-- sign in button, shown only to guests -->
+		<controls:ResizingButton styleName="basketButtonDarkBlue" label="@Resource(key='orSignIn',bundle='TargetedUpsellDialog')"
+			visible="{!AccountMgr.GetInstance().hasCredentials}" includeInLayout="{!AccountMgr.GetInstance().hasCredentials}"
+			click="ShowLogIn()"
+			bottom="11" right="11" height="28" minWidth="97" paddingLeft="-9" paddingRight="-9"/>
+
+		<!-- shadow dealies, drawn on top of all elements -->
+		<controls:ImageVer source="../graphics/upsellPremiumPanelShadow.png" bottom="50" left="0" right="0" scaleContent="true" maintainAspectRatio="false"/>
+		<controls:ImageVer top="71" horizontalCenter="0" source="../graphics/upsellShadowDivider.png" width="{PicnikBase.app.yahoomail?640:690}" height="9" />
+	</mx:Canvas>
+</upsell:TargetedUpsellDialogBase>

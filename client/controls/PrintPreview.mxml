@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PrintPreviewBase xmlns="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" filters="{_af}" xmlns:filters="flash.filters.*">
+	<mx:Array id="_af">
+		<filters:DropShadowFilter angle="90" blurX="5" blurY="5" distance="2" color="0x000000" alpha=".35" quality="3" />
+	</mx:Array>
+</PrintPreviewBase>

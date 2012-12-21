@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/mothersday_tattoo.jpg" flickrPremium="false" id="MothersDayTattoos" numShapes="4" picnikPremium="false" previewUrls="60|48|../clipart/bundles/MothersDayArea_groupPreviews_MothersDayTattoos.png?ver=3f40216e" title="Mom Tattoos">
+	<Shapes>
+		<Clipart alpha="0.6" blendMode="multiply" cHeight="131.2" cWidth="277.35" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|0|../clipart/bundles/MothersDayArea_shapes_MothersDayTattoos.png?ver=0d3a873c" url="shapes/MothersDayTattoos/Mom_Tat1.swf"/>
+		<Clipart alpha="0.6" blendMode="multiply" cHeight="148.35" cWidth="220.8" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|1|../clipart/bundles/MothersDayArea_shapes_MothersDayTattoos.png?ver=0d3a873c" url="shapes/MothersDayTattoos/Mom_Tat2.swf"/>
+		<Clipart alpha="0.6" blendMode="multiply" cHeight="173.7" cWidth="221.85" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|2|../clipart/bundles/MothersDayArea_shapes_MothersDayTattoos.png?ver=0d3a873c" url="shapes/MothersDayTattoos/Mom_Tat3.swf"/>
+		<Clipart alpha="0.6" blendMode="multiply" cHeight="165.20000000000002" cWidth="216.45" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|3|../clipart/bundles/MothersDayArea_shapes_MothersDayTattoos.png?ver=0d3a873c" url="shapes/MothersDayTattoos/Mom_Tat4.swf"/>
+	</Shapes>
+</ShapeCategory>

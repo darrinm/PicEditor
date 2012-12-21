@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DynamicObjectEffectBase xmlns="effects.*" xmlns:cnt="containers.*" xmlns:ctrl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="193"
+	xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*" xmlns:objectOperations="imagine.objectOperations.*" urlid="NationalFlags">
+	<mx:Script>
+	<![CDATA[
+		import mx.resources.ResourceBundle;
+		import mx.resources.ResourceManager;
+		
+		import util.FontManager;
+		import util.LocUtil;
+		import util.PicnikFont;
+   		[Bindable] [ResourceBundle("SoccerFlagEffect")] private var rb:ResourceBundle;
+   		
+   		private const _kobCountryInfo:Object = {
+ 			"au": {label: 'Australia', flagdims: [1280,640] },
+			"jp": {label: 'Japan', flagdims: [900,600] },
+			"kp": {label: 'KoreaDPR', flagdims: [1440,720] },
+			"kr": {label: 'KoreaRepublic', flagdims: [900,600] },
+			"dz": {label: 'Algeria', flagdims: [900,600] },
+			"cm": {label: 'Cameroon', flagdims: [600,400] },
+			"ci": {label: 'IvoryCoast', flagdims: [450,300] },
+			"gh": {label: 'Ghana', flagdims: [450,300] },
+			
+			"ng": {label: 'Nigeria', flagdims: [750,375] },
+			"za": {label: 'SouthAfrica', flagdims: [900,600] },
+			"hn": {label: 'Honduras', flagdims: [1000,500] },
+			"mx": {label: 'Mexico', flagdims: [1400,800] },
+			"us": {label: 'UnitedStates', flagdims: [1235,650] },
+			"ar": {label: 'Argentina', flagdims: [784,504] },
+			"br": {label: 'Brazil', flagdims: [738,504] },
+			"cl": {label: 'Chile', flagdims: [1500,1000] },
+			
+			"py": {label: 'Paraguay', flagdims: [1000,600] },
+			"uy": {label: 'Uraguay', flagdims: [1350,900] },
+			"nz": {label: 'NewZealand', flagdims: [1200,600] },
+			"dk": {label: 'Denmark', flagdims: [370,280] },
+			"england": {label: 'England', flagdims: [1200,720] }, 
+			"fr": {label: 'France', flagdims: [900,600] },
+			"de": {label: 'Germany', flagdims: [1000,600] },
+			"gr": {label: 'Greece', flagdims: [810,540] },
+			
+			"it": {label: 'Italy', flagdims: [1500,1000] },
+			"nl": {label: 'Netherlands', flagdims: [900,600] },
+			"pt": {label: 'Portugal', flagdims: [600,400] },
+			"rs": {label: 'Serbia', flagdims: [900,600] },
+			"sk": {label: 'Slovakia', flagdims: [450,300] },
+			"si": {label: 'Slovenia', flagdims: [1200,600] },
+			"es": {label: 'Spain', flagdims: [750,500] },
+			"ch": {label: 'Switzerland', flagdims: [320,320] },		
+			"ca": {label: 'Canada', flagdims: [650,320] },		
+			"co": {label: 'Colombia', flagdims: [520,320] },		
+			"gq": {label: 'EquatorialGuinea', flagdims: [520,220] },		
+			"no": {label: 'Norway', flagdims: [450,320] },		
+			"se": {label: 'Sweden', flagdims: [550,320] }		
+
+		};
+   		
+		[Bindable(event="flagPropertiesChanged")]
+   		private function GetBigFlagProps(strTeam:String, nWidth:Number, nHeight:Number): Object {
+   			// Position and scale based on the size of the photo
+
+			var cxyImageMax:int = Util.GetMaxImageWidth();
+   			var obProps:Object = {};
+   			var obDims:Array = _kobCountryInfo[strTeam].flagdims;
+   	
+   			obProps.rotation = -5;
+   	
+   			var nRotWidth:Number = nWidth * 1.15;
+   			var nRotHeight:Number = nHeight * 1.15;
+   			if (obDims[0]/obDims[1] > nRotWidth/nRotHeight) {
+	   			obProps.scaleX = obProps.scaleY = nRotHeight/(100*obDims[1]/obDims[0]);
+   			} else {
+	   			obProps.scaleX = obProps.scaleY = nRotWidth/100;
+   			}   			
+   			obProps.x = nWidth/2;
+   			obProps.y = nHeight/2;
+   			obProps.url = "shapes/SoccerFever/" + strTeam + "/flag_" + strTeam + ".swf";
+   			obProps.name = GetObjectName('bigflag');
+   			obProps.alpha = _sldrFade ? (1-_sldrFade.value/100) : 0.5;
+   			obProps.blendMode = "overlay";
+   			return obProps;
+   		}
+
+   		   		
+		[Bindable(event="flagPropertiesChanged")]
+   		private function GetWeeFlagProps(strTeam:String, nWidth:Number, nHeight:Number): Object {
+   			// Position and scale based on the size of the photo
+
+			var cxyImageMax:int = Util.GetMaxImageWidth();
+   			var obProps:Object = {};
+   			var obDims:Array = [100,64];
+   			
+   			if (obDims[0]/obDims[1] > nWidth/nHeight) {
+	   			obProps.scaleX = obProps.scaleY = nHeight/(100*obDims[1]/obDims[0]) * 0.3;
+   			} else {
+	   			obProps.scaleX = obProps.scaleY = nWidth/100 * 0.3;
+   			}   
+   			   			
+   			obProps.x = nWidth - 110 * obProps.scaleX / 2;
+   			obProps.y = nHeight - (100 * (obDims[1]/obDims[0]) + 10 ) * obProps.scaleY / 2;
+   			obProps.url = "shapes/SoccerFever/" + strTeam + "/wavingflag_" + strTeam + ".swf";
+   			obProps.name = GetObjectName('weeflag');
+   			obProps.rotation = 29;
+   			return obProps;
+   		}
+   		   		
+		private var _strTeamId:String = "au";
+		
+		[Bindable] public function set team(t:String): void {
+			_strTeamId = t;
+			var strLabel:String = '_efbtn' + (_fUsaOnly ? 'Usa' : '');
+			_strTitle = Resource.getString('SoccerFlagEffect', strLabel);
+			OnDynamicObjectParamChange();
+		}
+		
+		public function get team():String {
+			return _strTeamId;
+		}   	
+		
+		private var _fUsaOnly:Boolean = false;
+		[Bindable] public var _strTitle:String = "";
+		[Bindable] public function set usaOnly(f:Boolean): void {
+			_fUsaOnly = f;
+			var strLabel:String = '_efbtn' + (_fUsaOnly ? 'Usa' : '');
+			_strTitle = Resource.getString('SoccerFlagEffect', strLabel);
+			OnDynamicObjectParamChange();
+		}
+		
+		public function get usaOnly():Boolean {
+			return _fUsaOnly;
+		}   	
+		
+		override protected function UpdateObjectProperties(nWidth:Number, nHeight:Number, nRandSeed:Number=1): void {
+			SetDynamicObjectProperties("bigflag", GetBigFlagProps(team,imagewidth,imageheight));
+			SetDynamicObjectProperties("weeflag", GetWeeFlagProps(team,imagewidth,imageheight));
+			dispatchEvent(new Event("flagPropertiesChanged"));
+		}	
+		
+   						
+	]]>
+	</mx:Script>
+	<ctrl:EffectButton id="_efbtn" strTitle="{_strTitle}" strAuthor="@Resource(key='_efbtn_1', bundle='SoccerFlagEffect')" strImageSource="{usaOnly ? '../graphics/effects/soccerFever/usaFlag.png' : '../graphics/effects/soccerFever/countryFlags.png'}"/>
+	<mx:String id="_strHelpText">{Resource.getString('SoccerFlagEffect', '_strHelpText')}</mx:String>
+
+	<mx:VBox x="0" y="70" verticalGap="0" paddingLeft="8" paddingRight="8">
+	
+		<mx:HBox paddingBottom="-5" paddingTop="3" width="190" verticalAlign="middle">
+			<mx:VBox>
+				<mx:HBox paddingBottom="-5" paddingTop="3" width="165">
+					<mx:Label text="@Resource(key='fade', bundle='EffectCanvas')" styleName="sliderTitle"/>
+					<mx:Label text="{LocUtil.pct((_sldrFade.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+				</mx:HBox>
+				<ctrl:HSliderPlus width="165" minimum="0" maximum="100" value="{50 + zeroR}" id="_sldrFade" change="OnDynamicObjectParamChange()" liveDragging="true" showDataTip="false"/>
+			</mx:VBox>
+			<ctrl:ImageVer source="{'../graphics/flags/'+team+'.png'}" verticalCenter="-1" width="16" height="11" />
+		</mx:HBox>
+		<ctrl:ApplyCancelEffectButtons addBoxPadding="true" premium="{premium}"/>
+	</mx:VBox>
+
+	<objectOperations:NestedObjectOperation id="_op">
+		<objectOperations:children>
+			<objectOperations:CreateObjectOperation type="Clipart" props="{GetBigFlagProps(team, imagewidth, imageheight)}"/>
+			<objectOperations:CreateObjectOperation type="Clipart" props="{GetWeeFlagProps(team, imagewidth, imageheight)}"/>
+		</objectOperations:children>
+	</objectOperations:NestedObjectOperation>
+</DynamicObjectEffectBase>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FlickrSearchInBridgeBase xmlns="bridges.flickrsearch.*" xmlns:ctl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" 
+		xmlns:flash="flash.filters.*" xmlns:url="urlkit.rules.*"
+		width="100%" height="100%" horizontalScrollPolicy="off" verticalScrollPolicy="off" xmlns:bridges="bridges.*">
+	<mx:Script>
+		import mx.resources.ResourceBundle;
+   		[Bindable] [ResourceBundle("FlickrSearchInBridge")] private var rb:ResourceBundle;
+	</mx:Script>
+
+	<mx:Number id="_cPhotos">0</mx:Number>
+	<mx:Number id="_cPhotoSets">0</mx:Number>
+	<mx:Boolean id="_fIsPro">false</mx:Boolean>
+	<mx:String id="_strQueryTags"></mx:String>
+	<mx:String id="_strQueryOrderBy"></mx:String>
+	
+	<url:UrlRuleSet id="urls" type="any">
+		<url:UrlValueRule id="_uvrTags" urlFormat=";tags=*" urlPattern=";tags=([a-zA-Z0-9,%+\_\-]*)" sourceValue="_strQueryTags"/>
+		<url:UrlValueRule id="_uvrOrderBy" urlFormat=";order=*" sourceValue="_strQueryOrderBy"/>
+	</url:UrlRuleSet>
+	
+	<flash:DropShadowFilter angle="90" blurX="2" blurY="2" distance="1" color="0x999999" alpha=".9" quality="3" inner="true" id="_innerShadow"/>
+	
+	<states>
+		<mx:State name="NoImages">
+			<mx:AddChild position="lastChild">
+				<mx:Canvas width="100%" height="80" top="80" borderSides="top" borderColor="#CCCCCC" borderStyle="solid" backgroundColor="#FFFFFF" backgroundAlpha="1.0" horizontalCenter="0">
+					<mx:Text y="40" width="500" textAlign="center" horizontalCenter="0" condenseWhite="true" selectable="false" id="text1" htmlText="@Resource(key='text1', bundle='FlickrSearchBasket')">
+					</mx:Text>
+				</mx:Canvas>
+			</mx:AddChild>
+			<mx:RemoveChild target="{_tlst}"/>
+		</mx:State>
+		<mx:State name="date-posted"/>
+		<mx:State name="date-taken"/>
+		<mx:State name="interestingness">
+			<mx:SetProperty target="{_rbtnNewestFirst}" name="label" value="{Resource.getString('FlickrSearchInBridge', 'sort_by_most')}"/>
+			<mx:SetProperty target="{_rbtnOldestFirst}" name="label" value="{Resource.getString('FlickrSearchInBridge', 'sort_by_least')}"/>
+		</mx:State>
+	</states>
+	<ctrl:ImageVer source="@Embed('/assets/bitmaps/page_blueGrad.png')" left="0" top="0" width="100%" scaleContent="true" maintainAspectRatio="false"/>
+	<mx:HBox top="15" right="15" left="15" height="55" verticalAlign="middle" horizontalGap="0" id="hbox1">
+		<mx:VBox verticalGap="3" width="100%">
+			<mx:HBox width="100%" verticalAlign="middle">
+				<ctl:TextInputPlus id="_tiText" height="26" width="100%" prompt="@Resource(key='_tiText', bundle='FlickrSearchBasket')" styleName="publishFormField"/>
+				<mx:Button label="@Resource(key='_btnSearch', bundle='FlickrSearchBasket')" id="_btnSearch" width="100" height="26"/>
+			</mx:HBox>
+			<mx:HBox width="100%">
+				<mx:RadioButton id="_rbtnText" groupName="search" label="@Resource(key='_rbtnText', bundle='FlickrSearchBasket')" selected="true"/>
+				<mx:RadioButton id="_rbtnTags" groupName="search" label="@Resource(key='_rbtnTags', bundle='FlickrSearchBasket')"/>
+			</mx:HBox>
+		</mx:VBox>
+		<mx:Spacer width="30" height="30"/>
+		<mx:VBox verticalGap="4" width="300">
+			<mx:HBox width="100%" horizontalGap="0" verticalAlign="middle">
+				<mx:Label text="@Resource(key='Label_1', bundle='FlickrSearchBasket')" fontSize="14" height="20"/>
+				<ctl:ComboBoxPlus id="_cboxOrderBy" rowCount="8" width="180" height="26" fontSize="14" color="#333333">
+				       <mx:ArrayCollection>
+				           <mx:Object label="{Resource.getString('FlickrSearchInBridge', 'Object_1')}" data="date-posted"/>
+				           <mx:Object label="{Resource.getString('FlickrSearchInBridge', 'Object_2')}" data="date-taken"/>
+				           <mx:Object label="{Resource.getString('FlickrSearchInBridge', 'Object_3')}" data="interestingness"/>
+				       </mx:ArrayCollection>
+				</ctl:ComboBoxPlus>
+			</mx:HBox>
+			<mx:HBox width="100%">
+				<mx:Spacer width="60" height="10"/>
+				<mx:RadioButton id="_rbtnNewestFirst" groupName="order" label="@Resource(key='_rbtnNewestFirst', bundle='FlickrSearchBasket')" selected="true"/>
+				<mx:RadioButton id="_rbtnOldestFirst" groupName="order" label="@Resource(key='_rbtnOldestFirst', bundle='FlickrSearchBasket')" paddingRight="0"/>
+			</mx:HBox>
+		</mx:VBox>
+		<mx:Spacer id="_spcCC" width="30" height="30"/>
+		<mx:Canvas id="_cvsCC" height="55" cornerRadius="8" borderColor="#CCCCCC" borderStyle="solid" verticalScrollPolicy="off" horizontalScrollPolicy="off" 
+				clipContent="false" backgroundColor="#FFFFFF" backgroundAlpha="{_btnCreativeCommons.selected?1:0}"
+				filters="{_btnCreativeCommons.selected?[_innerShadow]:[]}">
+			<mx:CheckBox id="_chkbCommercial" x="24" y="3" label="@Resource(key='_chkbCommercial', bundle='FlickrSearchBasket')" paddingRight="5" enabled="{_btnCreativeCommons.selected}"/>
+			<mx:CheckBox id="_chkbDerivative" x="24" y="28" label="@Resource(key='_chkbDerivative', bundle='FlickrSearchBasket')" paddingRight="5" enabled="{_btnCreativeCommons.selected}"/>
+			<mx:Button id="_btnCreativeCommons" width="29" height="28" icon="@Embed('/assets/bitmaps/creativecommons.png')" 
+					horizontalGap="0" labelPlacement="right" paddingLeft="0" selected="true" toggle="true" x="-14" verticalCenter="0"/>
+		</mx:Canvas>
+	</mx:HBox>
+	<bridges:BasketItemTileList left="0" top="80" bottom="0" right="0" id="_tlst"/>
+</FlickrSearchInBridgeBase>

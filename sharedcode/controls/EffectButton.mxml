@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<controls:EffectButtonBase xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:thumbnails="controls.thumbnails.*" 
+	width="210" height="100%" styleName="effectButton"
+	backgroundSize="100%" 
+	mouseOver="{if ('Selected'!=currentState) currentState='RollOver'}" 
+	mouseOut="{if ('Selected'!=currentState) currentState=''}"
+	inspirationTarget="{_thm}"
+	xmlns:controls="controls.*" xmlns:filters="flash.filters.*">
+	<controls:states>
+		<mx:State name="Selected">
+			<mx:SetProperty name="height" value="100%"/>
+			<mx:SetEventHandler name="mouseOver"/>
+			<mx:SetEventHandler name="mouseOut"/>
+		</mx:State>
+		<mx:State name="RollOver"/>
+	</controls:states>
+	
+	<mx:SetPropertyAction id="_efRollOver" name="currentState" value="RollOver"/>
+	<mx:SetPropertyAction id="_efRollOut" name="currentState" value=""/>
+	
+	<mx:Parallel id="_efSelect" target="{_btnInfo}">
+		<mx:Sequence>
+			<mx:SetPropertyAction name="visible" value="true"/>
+			<mx:Fade alphaFrom="0" alphaTo="1" duration="200"/>
+		</mx:Sequence>
+	</mx:Parallel>
+	<mx:Parallel id="_efDeselect" target="{_btnInfo}">
+		<mx:Sequence>
+			<mx:Fade alphaFrom="1" alphaTo="0" duration="150"/>
+			<mx:SetPropertyAction name="visible" value="false"/>
+		</mx:Sequence>
+	</mx:Parallel>
+
+	<mx:Style>
+		.newTag {
+			border-style: solid;
+			border-thickness: 0;
+			border-skin: ClassReference("skins.GradientBackground");
+			gradient-fill-colors: #ffffb2, #ffff00;
+			gradient-rotation: 90; 	
+		}
+	</mx:Style>
+	<filters:DropShadowFilter id="_fiShine" blurX="0" blurY="0" distance="1" color="#FFFFFF" alpha="1" inner="true" quality="3" angle="90"/>
+	<filters:DropShadowFilter id="_fiShadow" blurX="2" blurY="2" distance="1" color="#000000" alpha=".25" quality="3" angle="90"/>
+	<filters:DropShadowFilter id="_fiTextShine" blurX="0" blurY="0" distance="1" color="#FFFFFF" alpha="1" quality="3" angle="90"/>
+
+	<mx:Script>
+		<![CDATA[
+			import picnik.util.LocaleInfo;
+			
+			import util.GooglePlusUtil;
+		]]>
+	</mx:Script>
+
+	<thumbnails:Thumbnail id="_thm" x="10" y="9" cornerRadius="{cornerRadius}" source="{strImageSource}" bundled="true" width="{isFancyCollage?90:66}" height="54"/>
+	<mx:Button id="_btnInfo" selected="false" height="20" visible="false" width="20" toggle="true" styleName="aboutButton" paddingLeft="0" y="43" x="{isFancyCollage?106:82}" />
+	<mx:VBox x="{isFancyCollage?103:79}" y="6" verticalGap="-8">
+		<controls:ResizingLabel fontSize="14" color="#000000" fontWeight="{LocaleInfo.BoldWeight()}" id="_title" width="{isFancyCollage?200:125}" text="{strTitle}">
+			<controls:size_states>
+				<mx:State name="5">
+					<mx:SetStyle name="fontSize" value="13"/>
+				</mx:State>
+				<mx:State name="6">
+					<mx:SetStyle name="fontSize" value="12"/>
+					<mx:SetProperty name="scaleY" value="1.1"/>
+				</mx:State>
+				<mx:State name="7">
+					<mx:SetStyle name="letterSpacing" value="-1"/>
+				</mx:State>
+				<mx:State name="8">
+					<mx:SetStyle name="fontSize" value="11"/>
+				</mx:State>
+				<mx:State name="9">
+					<mx:SetStyle name="fontSize" value="10"/>
+					<mx:SetProperty name="scaleY" value="1.2"/>
+				</mx:State>
+			</controls:size_states>
+		</controls:ResizingLabel>
+		<controls:ResizingLabel text="{strAuthor}" width="100%" fontSize="12" fontSize_1="11" fontSize_2="10" fontSize_3="9" 
+				color="#808080" id="_byline" visible="{!GooglePlusUtil.UsingGooglePlusAPIKey(PicnikBase.app.parameters)}"/>
+	</mx:VBox>
+	<mx:HRule x="0" width="100%" top="0" height="1" strokeColor="#FFFFFF"/>
+	<controls:ImageEx id="image1" top="0" right="2" width="15" height="72"
+		source="{premium?'../graphics/'+PicnikBase.Locale()+'/premium_banner.png':''}"
+		scaleContent="false" verticalAlign="middle" horizontalAlign="right"/>
+	<mx:HRule x="0" width="100%" height="1" bottom="0" strokeColor="#d4d4d4"/>
+
+	<!-- new! tag, controlled by newEffect boolean -->
+	<mx:Canvas top="9" left="10" width="{isFancyCollage?90:66}" height="59" visible="{newEffect}" includeInLayout="{newEffect}"
+			verticalScrollPolicy="off" horizontalScrollPolicy="off" clipContent="false">
+		<mx:Box horizontalCenter="0" bottom="0" cornerRadius="5" styleName="newTag"
+				paddingBottom="-4" paddingTop="-2"
+				paddingLeft="5" paddingRight="5" filters="{[_fiShine,_fiShadow]}">
+			<controls:ResizingLabel text="@Resource(key='new',bundle='LocUtil')" color="#2d4006" filters="{[_fiTextShine]}"
+				width="100%" fontSize="12" fontSize_1="11" fontSize_2="10"/>
+		</mx:Box>
+	</mx:Canvas>
+
+	<!-- beta and admin indicators
+	<controls:ImageEx x="10" y="9" source="../graphics/effects/beta_banner.png" width="66" height="54" horizontalAlign="center" verticalAlign="bottom"
+		scaleContent="false" visible="{booleanBeta}" includeInLayout="{booleanBeta}"/>
+	<controls:ImageEx x="10" y="9" source="../graphics/effects/admin_banner.png" width="66" height="54" horizontalAlign="center" verticalAlign="bottom"
+		scaleContent="false" visible="{booleanAdmin}" includeInLayout="{booleanAdmin}"/>
+	-->
+</controls:EffectButtonBase>

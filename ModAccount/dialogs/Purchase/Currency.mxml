@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:CurrencyBase xmlns="*" xmlns:mx="http://www.adobe.com/2006/mxml" backgroundColor="#ffffff"
+		cornerRadius="8" dropShadowEnabled="true" dropShadowColor="#999999" shadowDistance="1"
+		 borderStyle="solid" borderThickness="0" borderColor="#FFFFFF" backgroundAlpha="0.95">
+	<mx:VBox id="_ctnr" paddingTop="3" paddingBottom="3" paddingLeft="3" paddingRight="3" verticalGap="0">	
+	</mx:VBox>
+</mx:CurrencyBase>

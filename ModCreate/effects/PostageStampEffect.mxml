@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cnt:EffectCanvas xmlns:cnt="containers.*" xmlns="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" 
+	xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" xmlns:util="util.*" premium="true" urlid="PostageStamp">
+	<mx:Script>
+		import mx.resources.ResourceBundle;
+   		[Bindable] [ResourceBundle("PostageStampEffect")] private var rb:ResourceBundle;
+	</mx:Script>
+
+
+	<mx:Array id="_resetValues">
+		<local:StoredValue target="_cpkrFace.selectedColor"/>
+		<!--<local:StoredValue target="_cpkrOutline.selectedColor"/>-->
+		<local:StoredValue target="_cpkrOuter.selectedColor"/>
+		<!--<local:StoredValue target="_sldrThickness.value"/>-->
+		<!--<local:StoredValue target="_sldrHoliness.value"/>-->
+		<!--<local:StoredValue target="_sldrSpacing.value"/>-->
+		<!--<local:StoredValue target="_sldrDistance.value"/>-->
+		<local:StoredValue target="_sldrBlur.value"/>
+	</mx:Array>
+		
+	<EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='PostageStampEffect')" strAuthor="@Resource(key='_efbtn_1', bundle='PostageStampEffect')"
+		strImageSource="../graphics/effects/Frames/stamp.png" premium="{premium}"/>
+	<mx:String id="_strHelpText">{Resource.getString('PostageStampEffect', '_strHelpText')}</mx:String>
+
+		<mx:VBox x="10" y="70" verticalGap="0" paddingTop="5">
+
+		<mx:VBox paddingTop="5" paddingLeft="5" paddingRight="8" paddingBottom="5" horizontalGap="5" width="190" horizontalScrollPolicy="off"
+				cornerRadius="5" backgroundColor="#ffffff" borderColor="#d9d9d9" borderStyle="solid" backgroundAlpha=".4" verticalAlign="middle">
+			<mx:HBox width="100%">
+				<ResizingLabel text="@Resource(key='Label_3', bundle='PostageStampEffect')" text_5="@Resource(key='Label_3_short', bundle='PostageStampEffect')" styleName="sliderTitle" paddingTop="2" width="100%" autoFontSizeGap="1"/>
+				<HSBColorPicker id="_cpkrFace" selectedColor="0xFFFFF9" liveColorChange="OnBufferedOpChange()" width="50"/>
+			</mx:HBox>
+			<mx:HBox width="100%">
+				<ResizingLabel text="@Resource(key='Label_1', bundle='PostageStampEffect')" text_5="@Resource(key='Label_1_short', bundle='PostageStampEffect')" styleName="sliderTitle" paddingTop="2" width="100%" autoFontSizeGap="1"/>
+				<HSBColorPicker id="_cpkrOuter" selectedColor="0xFFFFFF" liveColorChange="OnBufferedOpChange()" width="50"/>
+			</mx:HBox>	
+		</mx:VBox>
+
+		<mx:Spacer width="10" height="3"/>
+		
+		<!--<mx:HBox x="15" y="80" verticalAlign="middle" horizontalGap="3">
+			<mx:Label text="@Resource(key='Thickness', bundle='PostageStampEffect')" styleName="sliderTitle" width="100%"/>
+			<mx:Label text="{Math.round(_sldrThickness.value*100)/100}" styleName="sliderValue" textAlign="right"/>
+		</mx:HBox>
+		<HSliderPlus width="191" minimum="0.05" maximum="0.2" value="0.05" 
+				id="_sldrThickness" change="OnOpChange()" liveDragging="true" showDataTip="false"/>		
+	
+		<mx:HBox width="194" paddingBottom="-5" paddingTop="3">
+			<mx:Label text="@Resource(key='Holiness', bundle='PostageStampEffect')" styleName="sliderTitle"/>
+			<mx:Label text="{Math.round(_sldrHoliness.value*100)/100}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<HSliderPlus width="191" minimum="0.1" maximum="1.0" value="0.4" 
+				id="_sldrHoliness" change="OnOpChange()" liveDragging="true" showDataTip="false"/>		
+	
+		<mx:HBox width="194" paddingBottom="-5" paddingTop="3">
+			<mx:Label text="@Resource(key='Spacing', bundle='PostageStampEffect')" styleName="sliderTitle"/>
+			<mx:Label text="{Math.round(_sldrSpacing.value*100)/100}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<HSliderPlus width="191" minimum="1" maximum="5" value="1.7" 
+				id="_sldrSpacing" change="OnOpChange()" liveDragging="true" showDataTip="false"/>-->		
+	
+		<mx:Spacer width="10" height="3"/>
+
+		<!--<mx:HBox width="194" paddingBottom="-5" paddingTop="3">
+			<mx:Label text="@Resource(key='ShadowDistance', bundle='PostageStampEffect')" styleName="sliderTitle"/>
+			<mx:Label text="{Math.round(_sldrDistance.liveValue*100)/100}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<HSliderFastDrag updateSpeed="{updateSpeed}" width="191" minimum="0" maximum="30" value="2" id="_sldrDistance" change="OnOpChange()" liveDragging="true" showDataTip="false" snapInterval="1"/>-->
+
+		<mx:HBox width="194" paddingBottom="-5" paddingTop="3">
+			<mx:Label x="8" y="233" text="@Resource(key='ShadowAmount', bundle='PostageStampEffect')" styleName="sliderTitle"/>
+			<mx:Label x="152" y="233" text="{Math.round(_sldrBlur.liveValue*100)/100}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<HSliderFastDrag updateSpeed="{updateSpeed}" width="191" minimum="0" maximum="100" value="6" id="_sldrBlur" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+	
+		<!--<cnt:ResizingHBox paddingTop="5" paddingLeft="5" paddingRight="5" paddingBottom="5" horizontalGap="5" width="190" horizontalScrollPolicy="off"
+				cornerRadius="5" backgroundColor="#ffffff" borderColor="#d9d9d9" borderStyle="solid" backgroundAlpha=".4"
+				verticalAlign="middle" horizontalAlign="center">
+			<ResizingLabel text="@Resource(key='Label_2', bundle='PostageStampEffect')" text_5="@Resource(key='Label_2_short', bundle='PostageStampEffect')" styleName="sliderTitle" paddingTop="2" paddingLeft="-4"/>
+			<HSBColorPicker id="_cpkrOutline" selectedColor="0xFFFFF9" liveColorChange="OnOpChange()" width="50"/>
+		</cnt:ResizingHBox>-->
+
+		
+		<!--
+		<mx:HBox width="190" paddingBottom="-5" paddingTop="5">
+			<mx:Label text="Rotate" styleName="sliderTitle"/>
+			<mx:Label text="{LocUtil.deg(_sldrRotate.value)}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<HSliderPlus width="190" minimum="-10" maximum="10" value="5" id="_sldrRotate" change="OnOpChange()" liveDragging="true" showDataTip="false" snapInterval="1"/>
+		-->
+
+		<ApplyCancelEffectButtons addBoxPadding="true" premium="{premium}"/>	
+	</mx:VBox>
+
+</cnt:EffectCanvas>

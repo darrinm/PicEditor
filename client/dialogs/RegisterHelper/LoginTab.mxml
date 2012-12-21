@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LoginTabBase xmlns="dialogs.RegisterHelper.*" xmlns:fc="dialogs.RegisterHelper.FormControls.*"
+	xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:ctrl="controls.*" xmlns:cntr="containers.*" xmlns:ds="com.darronschall.effects.*" verticalScrollPolicy="off" horizontalScrollPolicy="off"
+	googleLoginVisible="{PicnikConfig.googleLoginEnabled &amp;&amp; !showErrorPopup &amp;&amp; !hideGoogleLogin}"
+	xmlns:vld="validators.*" logEventBase="Register">
+<mx:Script>
+	<![CDATA[
+		import dialogs.RegisterDialogBase;
+		
+		import mx.core.UIComponent;
+		
+		import picnik.util.LocaleInfo;
+		
+		import util.UsernameDictionary;
+	]]>
+</mx:Script>
+	<states>
+		<mx:State name="Upgrading">
+			<mx:AddChild relativeTo="{_stdTitle}" position="after">
+				<mx:Text condenseWhite="true" fontSize="13" paddingLeft="-3" paddingTop="-10" fontWeight="{LocaleInfo.BoldWeight()}" color="#4d4d4d" 
+					width="100%" leading="-1" id="_txtSubhead" htmlText="@Resource(key='_txtSubhead', bundle='LoginTab')">
+				</mx:Text>
+			</mx:AddChild>
+			<mx:SetProperty target="{_stdTitle}" name="text" value="{Resource.getString('LoginTab', 'first_sign_in')}"/>
+			<mx:SetStyle target="{hbox3}" name="paddingTop" value="5"/>
+			<mx:SetStyle target="{_stdFooter}" name="paddingTop" value="20"/>
+		</mx:State>
+		<mx:State name="UpgradingFlickr" basedOn="Upgrading">
+		</mx:State>						
+		<mx:State name="RedeemingGift" basedOn="Upgrading">
+			<mx:SetProperty target="{_txtSubhead}" name="text" value="{Resource.getString('LoginTab', '_txtSubheadGift')}"/>
+		</mx:State>
+		<mx:State name="HelpHub">
+			<mx:SetProperty target="{_stdTitle}" name="text" value="{Resource.getString('LoginTab', 'helpHubTitle')}"/>
+			<mx:SetProperty target="{_stdFooter}" name="text" value="{Resource.getString('LoginTab', 'helpHubFooter')}"/>
+			<mx:SetProperty target="{_stdCloseBox}" name="text" value="{Resource.getString('LoginTab', 'helpHubHeadText')}"/>
+		</mx:State>
+		<mx:State name="InlineNoForgot">
+			<mx:RemoveChild target="{_stdBackground}"/>
+			<mx:RemoveChild target="{_stdTitle}"/>
+			<mx:RemoveChild target="{_stdCloseBox}"/>
+			<mx:RemoveChild target="{_stdFooter}"/>
+			<mx:SetProperty target="{canvas1}" name="width"/>
+			<mx:SetProperty target="{canvas1}" name="height"/>
+			<mx:SetStyle target="{vbox3}" name="paddingLeft"/>
+			<mx:SetStyle target="{vbox3}" name="paddingRight"/>
+			<mx:RemoveChild target="{_etUsernameNotFound}"/>
+		</mx:State>
+		<mx:State name="Inline" basedOn="InlineNoForgot">
+			<mx:AddChild relativeTo="{hbox2}" position="lastChild">
+				<ctrl:ResizingButton width="100%" label="@Resource(key='Button_1', bundle='LoginTab')" styleName="clearButton"
+					color="#618430" fontSize="13" autoFontSizeGap="1" textAlign="left" paddingLeft="0"
+					click="RegisterDialogBase.ShowForgotPW()"/>
+			</mx:AddChild>
+		</mx:State>
+		<mx:State name="DoWeKnowYou" basedOn="Upgrading">
+			<mx:SetProperty target="{_txtSubhead}" name="text" value="{Resource.getString('LoginTab', '_txtSubheadAccountFound')}"/>
+			<mx:SetProperty target="{_stdTitle}" name="text" value="{Resource.getString('LoginTab', '_labelAccountFound')}"/>
+		</mx:State>
+	</states>
+	
+	<mx:String id="_strSuccessFeedbackMessage">{Resource.getString('LoginTab', '_strSuccessFeedbackMessage')}</mx:String>
+	<mx:String id="_strAccountNotFoundError">{Resource.getString('LoginTab', '_strAccountNotFoundError')}</mx:String>
+	<vld:UsernameValidator id="_vldUsername" required="true" source="{_tiUsername}" property="text" dictCheck="require">
+		<vld:requiredFieldError>{Resource.getString('LoginTab', '_vldUsername')}</vld:requiredFieldError>
+		<vld:userDoesNotExistsError>{Resource.getString('LoginTab', '_vldUsername_1')}</vld:userDoesNotExistsError>
+		<vld:googleUserCollisionError>{Resource.getString('LoginTab', submitOverride==null ? 'signInWithGoogle' : 'accountAlreadyMerged')}</vld:googleUserCollisionError>
+	</vld:UsernameValidator>	
+	<vld:PasswordValidator id="_vldPassword" required="true" source="{_tiPassword}" property="text">
+		<vld:requiredFieldError>{Resource.getString('LoginTab', '_vldUsername')}</vld:requiredFieldError>
+		<vld:passwordTooShort> </vld:passwordTooShort>
+	</vld:PasswordValidator>
+	<DataModel id="_dtmFormFields">
+		<DataField name="username" validator="{_vldUsername}"/>
+		<DataField name="password" validator="{_vldPassword}"/>
+	</DataModel>
+	<mx:Boolean id="showErrorPopup">{(_tiUsername.errorString == Resource.getString('LoginTab', '_vldUsername_1')) || 
+			(_tiUsername.errorString == Resource.getString('LoginTab', 'signInWithGoogle')) ||
+			(_tiUsername.errorString == Resource.getString('LoginTab', 'accountAlreadyMerged'))}</mx:Boolean>
+	<mx:String id="errorPopupText">{iff(_tiUsername.errorString == Resource.getString('LoginTab', '_vldUsername_1'), 
+			Resource.getString('LoginTab', 'noUsernameTip'), Resource.getString('LoginTab', 'signInWithGoogleTip'))}</mx:String>
+
+	<fc:StandardEffects id="effects" errorTargets="{[_lblUnError,_lblPwError]}"/>
+
+	<mx:Canvas width="100%" height="100%" id="canvas1">
+
+		<fc:StandardBackground id="_stdBackground" />
+		
+		<mx:VBox verticalGap="0" paddingLeft="15" paddingRight="15" width="100%" height="100%" id="vbox3">
+			<fc:StandardTitle id="_stdTitle" text="@Resource(key='label1', bundle='LoginTab')" titleWidth="400"/>
+
+			<!-- warning box for linking a picnik account with a flickr account 
+			<mx:Box paddingTop="0" paddingBottom="5" width="100%" visible="{!AccountMgr.GetInstance().isGuest}" includeInLayout="{!AccountMgr.GetInstance().isGuest}">
+				<mx:VBox width="100%" verticalGap="0"
+						backgroundColor="#ffffb2" backgroundAlpha=".75" cornerRadius="8" borderStyle="solid" borderThickness="0" 
+						paddingTop="5" paddingRight="8" paddingBottom="5" paddingLeft="8">
+					<mx:HBox horizontalGap="0" width="100%" verticalAlign="middle">
+						<ctrl:ImageVer source="@Embed('/theme/pngs/alertIcon.png')"/>
+						<mx:Text text="@Resource(key='connectWarningHead', bundle='LoginTab')" width="100%" fontSize="15" fontWeight="bold" color="#000000" leading="-2"/>
+					</mx:HBox>
+					<mx:Text text="@Resource(key='connectWarningSubhead', bundle='LoginTab')" width="100%" fontSize="13" color="#000000" leading="-2"/>
+					<mx:Text text="• {Resource.getString('LoginTab', 'connectBullet1')}" width="100%" color="#000000" leading="-1"/>
+					<mx:Text text="• {Resource.getString('LoginTab', 'connectBullet2')}" width="100%" color="#000000" leading="-1"/>
+					<mx:Text text="• {Resource.getString('LoginTab', 'connectBullet3')}" width="100%" color="#000000" leading="-1"/>
+					<mx:Text text="• {Resource.getString('LoginTab', 'connectBullet4')}" width="100%" color="#000000" leading="-1"/>
+				</mx:VBox>
+			</mx:Box>
+			-->
+			<!-- main content canvas -->
+			<mx:Canvas width="100%" height="100%" id="_cnvContents">
+				<!-- Google Login Parts -->
+				<mx:HBox width="{_cnvContents.width * 0.5 - 5}" right="0" height="100%" verticalAlign="middle" horizontalGap="0" id="_hbxGoogleLogIn" 
+						 visible="{googleLoginVisible}" includeInLayout="{googleLoginVisible}"
+						 showEffect="{effects.effFadeIn}" hideEffect="{effects.effFadeOut}" paddingBottom="15">
+					<!-- or -->
+					<mx:VBox height="100%" horizontalAlign="center" id="_vbxOR" verticalGap="0">
+						<ctrl:FadingVRule height="50%" shadowColor="#ffffff" strokeColor="#cee5f5" topFadeSize="25%"/>
+						<mx:Label text="@Resource(key='or', bundle='LoginTab')" color="#005580" fontSize="16"/>
+						<ctrl:FadingVRule height="50%" shadowColor="#ffffff" strokeColor="#cee5f5" bottomFadeSize="25%"/>
+					</mx:VBox>
+					<mx:Spacer width="15" id="_sp1"/>
+					<ctrl:MultiLineButton label="@Resource(key='SignInWithAGoogleAccount', bundle='LoginTab')"
+										  width="{_hbxGoogleLogIn.width - _vbxOR.width - _sp1.width - _sp2.width}"
+										  fontSize="20" styleName="BigButton" click="DoGoogleLogIn()"/>
+					<mx:Spacer width="10" id="_sp2"/>
+				</mx:HBox>
+				<!-- Picnik Login Parts -->
+				<mx:VBox verticalGap="0" width="100%" height="100%">
+					<mx:HBox width="200" verticalAlign="bottom" clipContent="false" id="hbox3">
+						<mx:Label text="@Resource(key='Label_1', bundle='LoginTab')" styleName="publishForm" paddingBottom="-4" width="100%"
+								  click="if (event.altKey &amp;&amp; event.ctrlKey &amp;&amp; event.shiftKey) PicnikConfig.googleLoginEnabled = !PicnikConfig.googleLoginEnabled;"/>
+						<mx:Label styleName="formError" paddingBottom="-3" right="0"  id="_lblUnError"
+								  text="{_tiUsername.errorString}" showEffect="{effects.effFadeIn}"
+								  visible="{_tiUsername.errorString.length > 0}"/>
+					</mx:HBox>
+					<mx:HBox height="26" clipContent="false">
+						<ctrl:NoTipTextInput id="_tiUsername" height="26" styleName="publishFormField" width="200"
+											 restrict="{UsernameDictionary.textInputRestrictChars}" enter="OnLoginClick()"/>
+					</mx:HBox>
+					<mx:HBox horizontalGap="10">
+						<mx:VBox verticalGap="0">
+							<mx:HBox width="235" verticalAlign="bottom" clipContent="false">
+								<mx:Label text="@Resource(key='Label_2', bundle='LoginTab')" styleName="publishForm" paddingBottom="-4" paddingTop="5" width="100%"/>
+								<mx:Label styleName="formError" right="0"  id="_lblPwError" paddingBottom="-3"
+										  text="{_tiPassword.errorString}" showEffect="{effects.effFadeIn}"
+										  visible="{_tiPassword.errorString.length > 0}"/>
+							</mx:HBox>
+							<mx:HBox paddingBottom="10">
+								<ctrl:NoTipTextInput id="_tiPassword" displayAsPassword="true" height="26" styleName="publishFormField" width="235"
+													 fontSize="16" letterSpacing="2" fontWeight="bold" fontSharpness="-200" enter="OnLoginClick()" fontFamily="trebuchetMS"/>
+							</mx:HBox>
+						</mx:VBox>
+					</mx:HBox>
+					
+					<mx:HBox id="hbox2" verticalAlign="middle" horizontalGap="8" width="100%" 
+							 visible="{showSignInButton}" includeInLayout="{showSignInButton}">
+						<ctrl:ResizingButton label="@Resource(key='button1', bundle='LoginTab')" keyDown="OnLoginClick()" horizontalGap="4"
+											 fontSize="18" styleName="BigButton" click="OnLoginClick()" enabled="{!working}" height="32" icon="@Embed('/assets/bitmaps/lockOpenIcon.png')" id="button1" paddingLeft="10" paddingRight="10"/>
+						<ctrl:ResizingButton label="@Resource(key='_btnCancel', bundle='LoginTab')" 
+											 includeInLayout="{_fDoWeKnowYou}" visible="{_fDoWeKnowYou}" enabled="{!working}" 
+											 fontSize="16" click="Hide()" height="28" paddingLeft="10" paddingRight="10"/>
+					</mx:HBox>
+				</mx:VBox>
+			</mx:Canvas>
+			<fc:StandardFooter id="_stdFooter" text="@Resource(key='Text_1', bundle='LoginTab')" height="NaN" percentHeight="NaN"/>
+		</mx:VBox>
+
+		<fc:StandardCloseBox id="_stdCloseBox" text="@Resource(key='_lbHeadtext', bundle='LoginTab')" fnClose="{Hide}" />
+
+		<!-- notification images & errortips go on top (dandelions, checks, etc) -->
+		<!-- Note: y position of error tips is set in the .as file -->
+		<ctrl:ResizingErrorTip id="_etUsernameNotFound" visible="{showErrorPopup}" styleName="helpTip" 
+			autoFontSizeGap="1" maxWidth="275" width="275" x="215" text="{errorPopupText}"/>						
+	</mx:Canvas>
+</LoginTabBase>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ct:SpecialEffectsCanvasBase xmlns="*" xmlns:ct="creativeTools.*" xmlns:mx="http://www.adobe.com/2006/mxml" 
+		xmlns:eff="effects.*" xmlns:filters="flash.filters.*" xmlns:ctr="containers.*"
+		width="100%" verticalLineScrollSize="38" horizontalScrollPolicy="off" verticalScrollPolicy="on" xmlns:controls="controls.*">
+	<filters:DropShadowFilter blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1" quality="3" angle="90" id="_fiWhiteShad"/>
+	<filters:DropShadowFilter id="_efEmbossed" blurX="0" blurY="0" distance="1" color="#000000" alpha=".4" quality="3" angle="-90"/>
+
+	<mx:Style>
+		.redirectTextBG {
+			border-style: solid;
+			border-thickness: 0;
+			border-skin: ClassReference("skins.GradientBackground");
+			gradient-fill-colors: #324707, #1d2a04;
+			gradient-fill-alphas: .8,.8;
+			gradient-fill-ratios: 0,255;
+			gradient-rotation: 90;
+		}
+	</mx:Style>
+	
+<mx:Script>
+	<![CDATA[
+		import picnik.util.LocaleInfo;
+	]]>
+</mx:Script>
+	
+	<ctr:IncrementalInitVBox verticalGap="0" width="100%" x="0" id="_vb">
+		
+		<ct:HalloweenSet _imgd="{_imgd}" _imgv="{_imgv}"/>
+		
+		<!-- seasonal redirect -->
+		<ctr:BoxPlus id="_bxSeasonalRedirect" backgroundImage="{PicnikBase.StaticUrl('../graphics/seasonal/lookingforseasonal.png')}"
+					 backgroundColor="#fefefe" width="210" height="92" horizontalAlign="left" paddingLeft="8"
+					 horizontalScrollPolicy="off"
+					 borderSides="bottom" borderStyle="solid" borderColor="#d1d1d1"
+					 buttonMode="true" mouseChildren="false"
+					 urlType="promo" urlid="seasonalRedirect"
+					 visible="{!PicnikBase.app.singleDocMode}" includeInLayout="{!PicnikBase.app.singleDocMode}"
+					 click="{OnSeasonalClick(null)}">				
+			<controls:TextPlus htmlText="@Resource(key='promoSeasonalHeader', bundle='Seasonal')" color="#2d4006"
+							   fontSize="21" filters="{[_fiWhiteShad]}" fontWeight="bold" paddingTop="13" paddingBottom="1"/>
+			<mx:HBox id="_hbSeasonalRedirect" width="95%" height="35" paddingLeft="8" paddingRight="8" cornerRadius="8"
+					 borderStyle="solid" borderThickness="0" horizontalScrollPolicy="off" verticalAlign="middle" styleName="redirectTextBG" verticalScrollPolicy="off">
+				<controls:TextPlus htmlText="@Resource(key='promoSeasonalRedirect', bundle='Seasonal')" maxWidth="160" fontSize="13"
+								   width="100%" color="#ffffff" filters="{[_efEmbossed]}" textAlign="left"/>
+				<controls:ImageEx source="../graphics/arrow_right_white.png" width="7" height="11" filters="{[_efEmbossed]}"/>
+			</mx:HBox>
+		</ctr:BoxPlus>
+		<!--seasonal redirect end-->
+		
+		<mx:Spacer height="24"/>
+		
+		<!--<mx:HBox backgroundImage="@Embed('/theme/pngs/effects_bg_header.png')" backgroundSize="100%"
+				borderSides="bottom" borderStyle="solid" borderColor="#d1d1d1" width="100%" paddingLeft="8" height="20" paddingTop="1">
+			<mx:Label text="@Resource(key='teamPicks', bundle='CreativeTools')" color="#354d13" filters="{[_fiWhiteShad]}" fontWeight="{LocaleInfo.BoldWeight()}"/>
+		</mx:HBox>
+		<eff:OrtonEffect tags="effect"/>
+		<eff:TeethWhitenEffect tags="effect,touchup"/>
+		<eff:FocalAttentionEffect id="_effFocalAttentionEffect" tags="effect"/>
+		<eff:DaisyFrameEffect tags="frame"/>
+		<controls:ShapeArea imgd="{_imgd}" imgv="{_imgv}" area="Daisies" verticalScrollPolicy="off" ignoreErrors="true" width="210"/>
+		<eff:CrossProcessEffect tags="effect"/>
+		<eff:CurvesEffect id="_effCurves" tags="effect,advanced"/>
+		<mx:HBox backgroundImage="@Embed('/theme/pngs/effects_bg_header.png')" backgroundSize="100%"
+				borderSides="bottom" borderStyle="solid" borderColor="#d1d1d1" width="100%" paddingLeft="8" height="20" paddingTop="1">
+			<mx:Label text="@Resource(key='popular', bundle='CreativeTools')" color="#354d13" filters="{[_fiWhiteShad]}" fontWeight="{LocaleInfo.BoldWeight()}"/>
+		</mx:HBox>
+		<eff:GritEffect tags="effect"/>		
+		<eff:BoostEffect tags="effect"/>
+		<eff:SkinSmoothing tags="effect,touchup"/>
+		<eff:VibranceEffect tags="effect"/>
+		<controls:ShapeArea imgd="{_imgd}" imgv="{_imgv}" area="HandDrawnHearts" verticalScrollPolicy="off" ignoreErrors="true" width="210"/>
+		<controls:ShapeArea imgd="{_imgd}" imgv="{_imgv}" area="SketchyStars" verticalScrollPolicy="off" ignoreErrors="true" width="210"/>-->
+		
+	</ctr:IncrementalInitVBox>
+</ct:SpecialEffectsCanvasBase>

@@ -1,0 +1,12 @@
+fileName: ba_GREENPIL.TTF
+name: green piloww
+subfamilyDisplayName: Regular
+fullName: green piloww
+displayName: green piloww
+ital: 0
+bold: 1
+weight: 5
+panose.weight: 4
+pkName: pkba0GREENPIL
+authorName: Billy Argel
+authorUrl: http://billyargel.blogspot.com/

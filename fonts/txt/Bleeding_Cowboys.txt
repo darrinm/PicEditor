@@ -1,0 +1,12 @@
+fileName: Bleeding_Cowboys.ttf
+name: Bleeding Cowboys
+subfamilyDisplayName: Normal
+fullName: Bleeding Cowboys
+displayName: Bleeding Cowboys
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 0
+pkName: pkBleeding0Cowboys
+authorName: Gyom.Typo
+authorUrl: http://gyom.nebullus.com/

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Box xmlns="bridges.qoop.*" xmlns:mx="http://www.adobe.com/2006/mxml" 
+		horizontalAlign="left" verticalAlign="middle" xmlns:ctl="controls.*"
+		xmlns:filters="flash.filters.*" buttonMode="true">
+	<!-- base filters -->
+    <filters:DropShadowFilter id="_fiInnerShadow" alpha=".10" blurX="1" blurY="1" angle="-90" distance="1" quality="3" inner="true"/>
+    <filters:DropShadowFilter id="_fiDropShadow" alpha=".4" blurX="4" blurY="4" angle="90" distance="1" quality="3"/>
+    
+    <!-- effects -->
+    <mx:Glow id="_efGlowOver" color="#618430" alphaFrom="0" alphaTo=".5" blurXFrom="0" blurXTo="12" blurYFrom="0" blurYTo="12" duration="200"/>
+    <mx:Glow id="_efGlowOut" color="#618430" alphaFrom=".5" alphaTo="0" duration="100"/>
+    
+    <mx:VBox id="_vbxItem" horizontalAlign="center" verticalAlign="bottom" height="110" width="120"
+    		backgroundColor="#FFFFFF" backgroundAlpha="1.0" cornerRadius="5" borderStyle="solid" borderColor="#bbe57f" borderThickness="1" verticalGap="0"
+			visible="{data.visible}" includeInLayout="{data.visible}">
+        <ctl:ImageVer id="_imgItem" horizontalAlign="center" verticalAlign="middle" source="{data.thumbnailurl}"/>
+        <mx:Text id="_lblItem" width="100%" text="{data.label}" paddingBottom="1" selectable="false"
+			fontSize="13" fontWeight="bold" color="#000000"/>
+    </mx:VBox>
+</mx:Box>

@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="utf-8"?>
+<OverlayEffectCanvas xmlns="containers.*" xmlns:mx="http://www.adobe.com/2006/mxml">
+<mx:Script>
+	<![CDATA[
+		import util.DashedLine;
+		import controls.AdvancedBWSlider;
+		import containers.NestedControlCanvasBase;
+		import overlays.helpers.RGBColor;
+		import mx.controls.sliderClasses.Slider;
+
+		//========== BEGIN: DESIGN CONSTANTS ==========//
+
+    	[Embed("../assets/bitmaps/dotDrag.png")]
+		private static var _clsDotDrag:Class; // This is a bitmap class
+		private static var _bmDotDrag:Bitmap = new _clsDotDrag();
+		private static var _bmdDotDrag:BitmapData = _bmDotDrag.bitmapData;  
+			
+    	[Embed("../assets/bitmaps/focusCrosshairs.png")]
+		private static var _clsFocusCrosshairs:Class; // This is a bitmap class
+		private static var _bmFocusCrosshairs:Bitmap = new _clsFocusCrosshairs();
+		private static var _bmdFocusCrosshairs:BitmapData = _bmFocusCrosshairs.bitmapData;
+		private static const knFocusCrosshairsYOffset:Number = 0; // Draw the crosshairs this much off of the cursor position
+		private static const knFocusHatYOffset:Number = -11; // Draw the hat circle this much off the cursor
+
+		private static const knLineWidth:Number = 3;
+		private static const knLineAlpha:Number = 0.5;
+		
+		private static const knDotDragRadius:Number = 11/2;
+		private static const knLoupeRadius:Number = 0.5 + 41/2;
+		private static const knHatRadius:Number = Math.ceil(7/2);
+		
+		//========== END: DESIGN CONSTANTS ==========//
+
+	   	protected const knSliderMin:Number = -200;
+	   	protected const knSliderMax:Number = 200; 
+	   	
+	   	private var _bmdOrig:BitmapData = null;
+	   	
+	   	private var _ptvOrigin:Point = null;
+	   	private var _ptvDrag:Point = null;
+	   	private var _sldrSelected:AdvancedBWSlider = null;
+	   	private var _nSliderStartVal:Number = 0;
+	
+	   	private var _asldr:Array = null;
+	
+	   	private var _fOverlayInvalid:Boolean = true;
+
+  		private const knDragFactor:Number = 1;
+	   	
+	   	protected function set ptvOrigin(ptv:Point): void {
+	   		if (!PointsEqual(_ptvOrigin, ptv)) {
+	   			selectedSlider = GetSliderForPtv(ptv);
+	   			if (selectedSlider) _nSliderStartVal = selectedSlider.value; 
+	   			_ptvOrigin = ptv;
+	   			invalidateOverlay();
+	   		} 
+	   	}
+	   	protected function get ptvOrigin(): Point {
+	   		return _ptvOrigin;
+	   	}
+	   	
+	   	private var _ptvDragMin:Point = new Point();
+	   	private var _ptvDragMax:Point = new Point();
+
+		private function UpdateDragMinMax(): void {
+			Debug.Assert(ptvOrigin != null);
+			Debug.Assert(selectedSlider != null);
+			_ptvDragMin.y = ptvOrigin.y;
+			_ptvDragMax.y = ptvOrigin.y;
+			
+			/*
+			sldr.value = sldr.startVal + ((ptDarg.x - ptOrigin.x) / knDragFactor);
+			sldr.value - sldr.startVal = ((ptDarg.x - ptOrigin.x) / knDragFactor);
+			(sldr.value - sldr.startVal) * knDragFoactor = ptDarg.x - ptOrigin.x;
+			(sldr.value - sldr.startVal) * knDragFoactor + ptOrigin.x = ptDarg.x ;
+			*/
+			_ptvDragMin.x = (knSliderMin - selectedSlider.value) * knDragFactor + ptvOrigin.x;
+			_ptvDragMax.x = (knSliderMax - selectedSlider.value) * knDragFactor + ptvOrigin.x;
+		}
+	   	
+	   	protected function set ptvDrag(ptv:Point): void {
+	   		if (ptv && ptvOrigin) ptv.y = ptvOrigin.y; // Lock to origin y value 
+	   		if (!PointsEqual(_ptvDrag, ptv)) {
+	   			_ptvDrag = ptv;
+	   			invalidateOverlay();
+	   			if (ptvOrigin && ptvDrag && selectedSlider) {
+	   				// Drag changed. Adjust slider value
+	   				var dx:Number = (_ptvDrag.x - ptvOrigin.x) / knDragFactor;
+	   				var nVal:Number = _nSliderStartVal + dx;
+	   				nVal = Math.max(Math.min(knSliderMax, nVal), knSliderMin);
+	   				selectedSlider.value = nVal;
+	   				// Now, calculate _ptvDrag backwards so that we don't overdrag the slider
+	   				ptvDrag.x = ptvOrigin.x + knDragFactor * (nVal - _nSliderStartVal); 
+	   				
+	   				OnOpChange();
+	   			}
+	   		} 
+	   	}
+	   	protected function get ptvDrag(): Point {
+	   		return _ptvDrag;
+	   	}
+	   	
+	   	private function set selectedSlider(sldr:AdvancedBWSlider): void {
+			if (_sldrSelected != sldr) {
+				if (_sldrSelected) _sldrSelected.selected = false;
+				_sldrSelected = sldr;
+				if (_sldrSelected) _sldrSelected.selected = true;
+			}
+	   	}
+	   	private function get selectedSlider(): AdvancedBWSlider {
+	   		return _sldrSelected;
+	   	}
+	
+	   	protected function SaveOrigImage(): void {
+	   		if (_bmdOrig) _bmdOrig.dispose();
+	   		_bmdOrig = null;
+	   		if (_imgd && _imgd.background) {
+	   			_bmdOrig = _imgd.background.clone();
+	   		}
+	   	}
+	   	
+	   	public override function Deselect(fForceRollOutEffect:Boolean=true, efcvsNew:NestedControlCanvasBase=null): void {
+	   		if (_bmdOrig) _bmdOrig.dispose();
+	   		_bmdOrig = null;
+	   		super.Deselect(fForceRollOutEffect, efcvsNew);
+	   	}  
+	   	
+	   	// Returns null if the point is out of bounds
+	   	protected function GetSliderForPtv(ptv:Point): AdvancedBWSlider {
+	   		if (!ptv || !_imgv) return null;
+	   		return GetSliderForPtd(_imgv.PtdFromPtv(ptv));
+	   	}
+	
+	   	protected function GetSliderForPtd(ptd:Point): AdvancedBWSlider {
+	   		if (!ptd || !_bmdOrig) return null; 
+			if (_bmdOrig.rect.containsPoint(ptd)) {
+				return GetSliderForColor(_bmdOrig.getPixel(ptd.x, ptd.y));
+			}
+			return null;
+	   	}
+
+		// Override this in the sub-class
+	   	protected function get sliderArray(): Array {
+	   		return null;
+	   	}
+	   	
+	   	protected function GetSliderForColor(clr:Number): AdvancedBWSlider {
+	   		// Calculate hue, divide by 60, round to nearest whole number, %6 -> index.
+	   		var obHSV:Object = RGBColor.Uint2HSV(clr);
+	   		var i:Number = Math.round(obHSV.h / 60) % 6;
+	   		if (isNaN(i)) i = 0; // Default to red for grey colors
+	   		return sliderArray[i];
+	   	}
+	   	
+	   	protected function InsidePtvFromViewCoords(xv:Number, yv:Number): Point {
+	   		if (!_bmdOrig || !_imgv) return null;
+	   		var ptv:Point = new Point(xv, yv);
+	   		var ptd:Point = _imgv.PtdFromPtv(ptv);
+			if (!_bmdOrig.rect.containsPoint(ptd)) {
+				ptv = null;
+			}
+			return ptv;
+	   	}
+	   	
+	   	protected function PointsEqual(pt1:Point, pt2:Point): Boolean {
+	   		if (pt1 == null && pt2 == null) return true;
+	   		if (pt1 == null || pt2 == null) return false;
+	   		return (pt1.x == pt2.x) && (pt1.y == pt2.y);
+	   	}
+	   	
+	   	public override function OnOverlayMouseMove():Boolean {
+	   		if (!_fOverlayMouseDown && _bmdOrig) {
+	   			MoveOriginToMouse();
+	   		}
+	   		return super.OnOverlayMouseMove();
+	   	}
+	   	
+	   	public override function OnOverlayPress(evt:MouseEvent):Boolean {
+	   		invalidateOverlay();
+	   		var fRet:Boolean = super.OnOverlayPress(evt);
+	   		UpdateDragMinMax();
+	   		return fRet;
+	   	}
+	   	
+	   	protected function MoveOriginToMouse(): void {
+	   		var ptvNewOrigin:Point = InsidePtvFromViewCoords(_mcOverlay.mouseX, _mcOverlay.mouseY);
+   			if (_fOverlayMouseDown && selectedSlider) {
+   				// Moving the origin with the mouse down means we need to move the destination too.
+   				var nDragDist:Number = knDragFactor * (selectedSlider.value - _nSliderStartVal);
+   				// By setting the point children, we don't trigger an update
+   				// which would be bad (could change the selected slider)
+   				ptvDrag.x = ptvNewOrigin.x;
+   				ptvOrigin.x = ptvDrag.x - nDragDist;
+   				ptvOrigin.y = ptvDrag.y = ptvNewOrigin.y;
+   				invalidateOverlay();	 
+   			} else {
+   				ptvOrigin = ptvNewOrigin;
+   			}
+	   	}
+	   	
+	   	public override function OnOverlayRelease():Boolean {
+	   		ptvDrag = null;
+	   		invalidateOverlay();
+	   		return super.OnOverlayRelease();
+	   	}
+	   	
+	   	public override function HideOverlay():void {
+	   		super.HideOverlay();
+	   		ptvOrigin = null;
+	   		ptvDrag = null;
+	   	}
+	
+	   	public override function OnOverlayMouseDrag():Boolean {
+	   		if (ptvOrigin) ptvDrag = new Point(_mcOverlay.mouseX, _mcOverlay.mouseY);
+	   		return super.OnOverlayMouseDrag();
+	   	}
+	   	
+	   	private function invalidateOverlay(): void {
+	   		_fOverlayInvalid = true;
+	   		invalidateProperties();
+	   	}
+	   	
+	   	protected override function commitProperties():void {
+	   		super.commitProperties();
+	   		if (_fOverlayInvalid) {
+	   			DrawOverlay();
+	   		}
+	   	}
+	   	
+	   	public override function OnZoom(evt:Event):void {
+	   		super.OnZoom(evt);
+	   		// We zoomed. We need to update our points.
+	   		// Do this later so the overlay has time to adjust the moust coordinates.
+	   		callLater(MoveOriginToMouse);
+	   	}
+
+		public function DrawOverlay(): void {
+			if (_fOverlayInvalid && _mcOverlay) {
+				// Draw some stuff
+				var gr:Graphics = _mcOverlay.graphics;
+				var mat:Matrix;
+				var rcTarg:Rectangle;
+				
+				gr.clear();
+				if (ptvOrigin) {
+					if (_fOverlayMouseDown) {
+						var ptvDragLoc:Point = ptvDrag ? ptvDrag : ptvOrigin;
+						
+						// Draw the dashed limit line
+						var dl:DashedLine = new DashedLine(_mcOverlay, 3, 3);
+
+						dl.lineStyle(1.5, 0, 0.5);
+						dl.moveTo(_ptvDragMin.x, _ptvDragMin.y);
+						dl.lineTo(_ptvDragMax.x, _ptvDragMax.y);
+
+						dl.lineStyle(1, 0xcccccc, 0.5);
+						dl.moveTo(_ptvDragMin.x, _ptvDragMin.y);
+						dl.lineTo(_ptvDragMax.x, _ptvDragMax.y);
+						
+
+						// Draw the drag line.
+						gr.moveTo(ptvOrigin.x, ptvOrigin.y);
+						gr.lineStyle(knLineWidth, 0xffffff, knLineAlpha);
+						gr.lineTo(ptvDragLoc.x, ptvDragLoc.y);
+
+						gr.lineStyle(0,0,0);
+						gr.moveTo(0,0);
+						
+						// Fill the drag circle
+						if (!selectedSlider) {
+							trace("ERROR: Dragging with no selected slider");
+						} else {
+							gr.beginFill(selectedSlider.color);
+							gr.drawCircle(ptvDragLoc.x, ptvDragLoc.y, knDotDragRadius);
+							gr.endFill();
+						}
+						
+						// Draw the overlay
+						mat = new Matrix();
+						rcTarg = new Rectangle(ptvDragLoc.x, ptvDragLoc.y, _bmdDotDrag.width, _bmdDotDrag.height);
+						// Center it
+						rcTarg.offset(-_bmdDotDrag.width/2, 2 - _bmdDotDrag.height/2);
+						mat.translate(rcTarg.x, rcTarg.y);
+						gr.beginBitmapFill(_bmdDotDrag, mat);
+						gr.drawRect(rcTarg.x, rcTarg.y, rcTarg.width, rcTarg.height);
+					} else {
+	
+						// Punch out the loupe
+						var rcvTarg:Rectangle = new Rectangle(ptvOrigin.x, ptvOrigin.y, knLoupeRadius * 2, knLoupeRadius * 2);
+						rcvTarg.offset(-knLoupeRadius, -knLoupeRadius);
+						var rcdTarg:Rectangle = _imgv.RcdFromRcl(rcvTarg); // Rcl == Rcv
+						mat = new Matrix();
+						mat.scale(rcvTarg.width/rcdTarg.width, rcvTarg.height/rcdTarg.height);
+						
+						gr.beginBitmapFill(_bmdOrig, mat);
+						gr.drawCircle(ptvOrigin.x, ptvOrigin.y, knLoupeRadius);
+						gr.endFill();
+						
+						// Draw the hat
+						// Fill the drag circle
+						if (!selectedSlider) {
+							trace("ERROR: Dragging with no selected slider");
+						} else {
+							gr.beginFill(selectedSlider.color);
+							gr.drawCircle(ptvOrigin.x, ptvOrigin.y + knFocusHatYOffset, knHatRadius);
+							gr.endFill();
+							gr.beginFill(selectedSlider.color);
+							gr.drawCircle(ptvOrigin.x-0.5, ptvOrigin.y+0.5 + knFocusHatYOffset, knHatRadius);
+							gr.endFill();
+						}
+	
+						// Draw the loupe crosshairs
+						rcTarg = new Rectangle(ptvOrigin.x, ptvOrigin.y, _bmdFocusCrosshairs.width, _bmdFocusCrosshairs.height);
+						rcTarg.offset(-2*_bmdFocusCrosshairs.width/2, -2*_bmdFocusCrosshairs.height/2 + knFocusCrosshairsYOffset);
+						rcTarg.width *= 2;
+						rcTarg.height *= 2;
+						mat = new Matrix();
+						mat.scale(2,2);
+						mat.translate(rcTarg.x, rcTarg.y);
+						gr.beginBitmapFill(_bmdFocusCrosshairs, mat);
+						gr.drawRect(rcTarg.x, rcTarg.y, rcTarg.width, rcTarg.height);
+					}
+				}
+				
+				_fOverlayInvalid = false;
+			}
+		}   		
+	]]>
+</mx:Script>
+</OverlayEffectCanvas>

@@ -1,0 +1,12 @@
+fileName: mk_Wenceslas.ttf
+name: Wenceslas
+subfamilyDisplayName: Regular
+fullName: Wenceslas
+displayName: Wenceslas
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 6
+pkName: pkmk0Wenceslas
+authorName: Manfred Kelin
+authorUrl: http://moorstation.org/typoasis/designers/klein/

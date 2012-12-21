@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- HACK: we can't reliably inherit from MXML components because of some stupid Flex
+	 compiler bug so here we duplicate a number of properties from SectionList.mxml and
+	 have FontListBase inherit directly from SectionListBase.as instead of SectionList.mxml
+-->
+<local:FontListBase xmlns:local="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml"
+		borderStyle="none" verticalGap="0" selectable="true" keepSelectedItemVisible="true" 
+		sectionRenderer="containers.sectionList.BoxSection" itemRenderer="controls.FontItemRenderer"
+		width="226" height="100%" minHeight="73" backgroundColor="#fafafa"
+		verticalScrollPolicy="on" horizontalScrollPolicy="off" verticalLineScrollSize="38" 
+		borderSides="bottom" borderColor="#d1d1d1">
+</local:FontListBase>

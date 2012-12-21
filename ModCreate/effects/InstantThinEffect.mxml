@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cnt:EffectCanvas xmlns:cnt="containers.*" xmlns="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="233"
+	xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*" premium="{PicnikBase.GetApp().freemiumModel}" urlid="InstaThin">
+	<mx:Script>
+		import util.LocUtil;
+		import mx.resources.ResourceBundle;
+	</mx:Script>
+
+	<mx:Array id="_resetValues">
+		<local:StoredValue target="_sldrThin.value"/>
+	</mx:Array>
+
+	<EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='InstantThinEffect')" strAuthor="@Resource(key='byPicnik', bundle='EffectCanvas')"
+		strImageSource="../graphics/effects/Touchup/thinning.jpg" premium="{premium}"/>
+	<mx:String id="_strHelpText">{Resource.getString('InstantThinEffect', '_strHelpText')}</mx:String>
+	
+	<mx:VBox x="8" y="70" verticalGap="0">
+		<mx:HBox width="190" paddingBottom="-5" paddingTop="3">
+			<mx:Label text="{LocUtil.iff('InstantThinEffect',_sldrThin.value>=0,'weightLost','weightGained')}" styleName="sliderTitle"/>
+			<mx:Label text="{LocUtil.pct(Math.abs(_sldrThin.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<HSliderPlus width="190" minimum="-50" maximum="50" value="25" id="_sldrThin" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+
+		<ApplyCancelEffectButtons addBoxPadding="true" premium="{premium}"/>	
+	</mx:VBox>
+	<imageOperations:NestedImageOperation id="_op">
+		<imageOperations:children>
+			<imageOperations:ResizeImageOperation width="{zeroR + imagewidth * (1 - _sldrThin.value * 0.06 / 100)}" height="{imageheight}"/>
+			<imageOperations:SharpenImageOperation sharpness="5"/>
+		</imageOperations:children>
+	</imageOperations:NestedImageOperation>
+</cnt:EffectCanvas>

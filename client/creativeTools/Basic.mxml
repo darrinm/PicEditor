@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ct:SpecialEffectsCanvasBase xmlns="*" xmlns:ct="creativeTools.*" xmlns:mx="http://www.adobe.com/2006/mxml" 
+		xmlns:eff="effects.*" xmlns:basiceffects="effects.basic.*" xmlns:filters="flash.filters.*" xmlns:ctr="containers.*" 
+		width="100%" verticalLineScrollSize="38" horizontalScrollPolicy="off" verticalScrollPolicy="on" xmlns:controls="controls.*">
+
+	<mx:Style>
+		.blueGradientBG {
+			border-style: solid;
+			border-thickness: 0;
+			border-skin: ClassReference("skins.GradientBackground");
+			gradient-fill-colors: #b2e5ff, #b2e5ff;
+			gradient-fill-alphas: 0.6, 0.2;
+			gradient-rotation: 90;
+		}
+	</mx:Style>
+
+	<filters:DropShadowFilter blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1" quality="3" angle="90" id="_fiWhiteShad"/>
+	
+	<mx:Fade id="_efFadeFast" duration="150" />
+	<mx:Fade id="_efFadeSlow" duration="300" />
+	
+	<mx:AnimateProperty id="_efBGdim" fromValue="1" toValue=".7" property="backgroundAlpha" isStyle="true" duration="150"/>
+	<mx:AnimateProperty id="_efBGbrighten" fromValue=".7" toValue="1" property="backgroundAlpha" isStyle="true" duration="300"/>
+	
+	<mx:VBox verticalGap="0" x="0" width="100%" id="_vb" horizontalScrollPolicy="off">
+		<!-- Edit Tools Tip -->
+		<mx:Canvas width="100%" visible="{!PicnikBase.app._pas.googlePlusUI}" includeInLayout="{!PicnikBase.app._pas.googlePlusUI}">
+			<mx:VBox id="_bxEditTip"
+					 styleName="blueGradientBG"
+					 width="100%" paddingLeft="8" paddingRight="10" paddingBottom="9">
+				<mx:Label text="@Resource(key='_tipTitle', bundle='Adjustments')"
+						  color="#005580"
+						  fontSize="15" filters="{[_fiWhiteShad]}" fontWeight="bold"
+						  width="100%" paddingTop="8" paddingBottom="0"/>
+				<mx:Text text="@Resource(key='_tipText', bundle='Adjustments')"
+						 color="#333333"
+						 fontSize="13" filters="{[_fiWhiteShad]}"
+						 width="100%" paddingTop="-7"/>
+			</mx:VBox>
+			<controls:ImageEx right="0" bottom="0" source="@Embed('/assets/bitmaps/watermark_basic.png')" alpha="1.0"/>
+		</mx:Canvas>
+		<controls:ImageVer x="0" source="@Embed('/assets/bitmaps/panel_shadow.png')" width="100%" scaleContent="true" maintainAspectRatio="false"
+						   visible="{!PicnikBase.app._pas.googlePlusUI}" includeInLayout="{!PicnikBase.app._pas.googlePlusUI}"/>
+		<!--Edit Tools Tip end-->
+		<basiceffects:AutoFixEffect id="_btnAutoFix" parentCanvas="{this}"/>
+		<basiceffects:CropEffect id="_btnCrop" _nCollapsedHeight="40"/>
+		<basiceffects:RotateEffect id="_btnRotate" _nCollapsedHeight="40"/>
+		<basiceffects:ExposureEffect id="_btnExposure" _nCollapsedHeight="40"/>
+		<basiceffects:ColorsEffect id="_btnColors" _nCollapsedHeight="40"/>
+		<basiceffects:SharpenEffect id="_btnSharpen" _nCollapsedHeight="40"/>
+		<basiceffects:ResizeEffect id="_btnResize" _nCollapsedHeight="40"/>
+	</mx:VBox>
+</ct:SpecialEffectsCanvasBase>

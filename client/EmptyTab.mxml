@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PageContainer xmlns="containers.*" xmlns:bk="controls.*" xmlns:pp="pages.*" 
+		xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:url="urlkit.rules.*"
+		width="100%" height="100%"> 
+	<mx:ViewStack id="_vstk">
+	</mx:ViewStack>
+</PageContainer>

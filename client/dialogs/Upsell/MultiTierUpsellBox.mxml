@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:controls="controls.*"
+	width="100%" height="100%" paddingLeft="20" paddingRight="20" verticalGap="0" horizontalAlign="center"
+	xmlns:thumbnails="controls.thumbnails.*">
+	<mx:String id="area">MultiTier</mx:String>
+	
+<mx:Script>
+	<![CDATA[
+	private function GetFeatureList(): Array {
+				var astr:Array = [];
+				for (var i:Number = 1; i <= 7; i++) {
+					astr.push(Resource.getString("FeaturedFeatures", "TouchUpList_" + i));
+				}
+				return astr;
+			}
+	]]>
+</mx:Script>
+	
+	<mx:Style>
+		.priceGradient {
+			border-style: solid;
+			border-thickness: 0;
+			border-skin: ClassReference("skins.GradientBackground");
+			gradient-fill-colors: #b2e5ff, #b2e5ff;
+			gradient-fill-alphas: .2,0;
+			gradient-fill-ratios: 0,255;
+			gradient-rotation: 90;
+		}
+	</mx:Style>
+	
+	<mx:DropShadowFilter id="_fiWhiteShine" blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1" quality="3" angle="90"/>
+	<mx:DropShadowFilter id="_fiInnerShad" blurX="1" blurY="1" distance="1" color="#b2e5ff" alpha=".2" quality="3" angle="90" inner="true"/>
+	<mx:DropShadowFilter id="_fiDropShad" blurX="7" blurY="7" distance="2" color="#000000" alpha=".25" quality="3" angle="90"/>
+	<mx:DropShadowFilter id="_fiWhiteShad" blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha=".7" quality="3" angle="90"/>
+	<mx:GlowFilter id="_fiGlow" alpha=".8" blurX="20" blurY="20" color="#ffffff"/>
+	<mx:GlowFilter id="_bluGlow" alpha=".4" blurX="20" blurY="20" color="#b2e5ff"/>
+	
+
+
+	<mx:Canvas   width="100%" height="100%" clipContent="false" bottom="0" left="0" horizontalScrollPolicy="off" verticalScrollPolicy="off">
+		<controls:ImageVer source="../graphics/upsell/MultiTier.png" width="690" top="-3" left="-20"/>
+		
+		<mx:HBox width="600" paddingTop="100" horizontalGap="19" horizontalCenter="0">
+			
+			<mx:Canvas width="100%">
+				<mx:VBox styleName="priceGradient" height="90" width="100%" paddingTop="6" horizontalAlign="center" verticalGap="0" filters="{[_fiInnerShad]}" cornerRadius="8"/>	
+				<mx:VBox height="80" width="100%" paddingTop="16" horizontalAlign="center" verticalGap="0">
+					<mx:Label text="@Resource(key='1monthPrice',bundle='FeaturedFeatures')" fontSize="30" color="#002a40" filters="{[_fiWhiteShad]}" textAlign="center" paddingBottom="-6"/>
+					<mx:Label text="@Resource(key='1month',bundle='FeaturedFeatures')" fontSize="18" color="#005580" filters="{[_fiWhiteShad]}" textAlign="center" />
+				</mx:VBox>	
+			</mx:Canvas>
+			
+			<mx:Canvas width="100%">
+				<mx:VBox styleName="priceGradient" height="90" width="100%" paddingTop="6" horizontalAlign="center" verticalGap="0" filters="{[_fiInnerShad]}" cornerRadius="8"/>	
+				<mx:VBox height="80" width="100%" paddingTop="16" horizontalAlign="center" verticalGap="0">
+					<mx:Label text="@Resource(key='6monthPrice',bundle='FeaturedFeatures')" fontSize="30" color="#002a40" filters="{[_fiWhiteShad]}" textAlign="center" paddingBottom="-6"/>
+					<mx:Label text="@Resource(key='6months',bundle='FeaturedFeatures')" fontSize="18" color="#005580" filters="{[_fiWhiteShad]}" textAlign="center" />
+				</mx:VBox>	
+			</mx:Canvas>
+			
+			
+			<mx:Canvas width="100%">
+				<mx:VBox styleName="priceGradient" height="90" width="100%" paddingTop="6" horizontalAlign="center" verticalGap="0" filters="{[_fiInnerShad]}" cornerRadius="8"/>	
+				<mx:VBox height="80" width="100%" paddingTop="16" horizontalAlign="center" verticalGap="0">
+					<mx:Label text="@Resource(key='1yearPrice',bundle='FeaturedFeatures')" fontSize="30" color="#002a40" filters="{[_fiWhiteShad]}" textAlign="center" paddingBottom="-6"/>
+					<mx:Label text="@Resource(key='1year',bundle='FeaturedFeatures')" fontSize="18" color="#005580" filters="{[_fiWhiteShad]}" textAlign="center" />
+				</mx:VBox>	
+			</mx:Canvas>
+		</mx:HBox>
+
+		<controls:ResizingLabel htmlText="@Resource(key='MultiIntro', bundle='MultiTierUpsellBox')" styleName="targetedUpsellHead"
+								width="100%" autoFontSizeGap="1" filters="{[_fiWhiteShine,_fiInnerShad]}" paddingBottom="-8" paddingTop="200"/>
+		<mx:Text htmlText="@Resource(key='MultiSubhead', bundle='MultiTierUpsellBox')" width="593" styleName="targetedUpsellSubhead"
+				 filters="{[_fiWhiteShine,_fiInnerShad]}" paddingTop="224"/>	
+		
+		<controls:ImageVer source="../graphics/upsell/MultiTierTop.png" width="690" top="-3" left="-20" filters="{[_fiDropShad]}"/>
+		
+		</mx:Canvas>
+
+	<!--<controls:ResizingLabel htmlText="{Resource.getString('PremiumTour', 'touchupIntro')}" styleName="targetedUpsellHead"
+		width="100%" autoFontSizeGap="1" filters="{[_fiWhiteShine,_fiInnerShad]}" paddingBottom="-8" paddingTop="-5"/>
+	<mx:Text htmlText="{Resource.getString('PremiumTour', 'touchupSubhead')}" width="100%" styleName="targetedUpsellSubhead"
+		filters="{[_fiWhiteShine,_fiInnerShad]}"/>-->
+	
+</mx:VBox>

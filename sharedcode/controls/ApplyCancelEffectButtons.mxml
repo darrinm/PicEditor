@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ApplyCancelEffectButtonsBase xmlns="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="{addBoxPadding?192:210}" 
+	paddingTop="{addBoxPadding?8:0}" horizontalAlign="center" xmlns:ctr="containers.*"
+	horizontalGap="0" horizontalScrollPolicy="off" upgradeNeeded="{premium &amp;&amp; !actm.isPremium}">
+	<mx:Script>
+		<![CDATA[
+			import util.LocUtil;
+			import mx.resources.ResourceBundle;
+	   		[Bindable] [ResourceBundle("ApplyCancelEffectButtons")] private var rb:ResourceBundle;
+		]]>
+	</mx:Script>
+	<mx:Spacer width="100%"/>
+	<ctr:ResizingHTile horizontalGap="5" horizontalGap_5="3" horizontalGap_9="1"
+			paddingLeft="{addBoxPadding?0:9}" paddingRight="{addBoxPadding?0:9}">
+		<ResizingButton width="100%" height="25" 
+			paddingLeft_0="0" paddingRight_0="0"
+			paddingLeft_3="-3" paddingRight_3="-3"
+			paddingLeft_6="-6" paddingRight_6="-6"
+			paddingLeft_7="-8" paddingRight_7="-8"
+			fontSize_1="13" fontSize_4="12" fontSize_7="11" fontSize_8="10" fontSize_9="9"
+			label="{premium &amp;&amp; PicnikConfig.freeForAll ?
+						!actm.isPaid ? 
+							( actm.isPremium ? Resource.getString( 'ApplyCancelEffectButtons', 'freeToday' ) : 
+											   Resource.getString( 'ApplyCancelEffectButtons', 'tryForFree' ) ) :
+						Resource.getString( 'ApplyCancelEffectButtons', 'apply' ) :
+					LocUtil.iff('ApplyCancelEffectButtons', upgradeNeeded, 'upgrade', 'apply' ) }"
+			styleName="{(premium &amp;&amp; (!actm.isPaid))?'upgradeButton':'applyStyle'}" click="ApplyClick()"/>
+		<ResizingButton width="100%" height="25" 
+			paddingLeft_0="0" paddingRight_0="0"
+			paddingLeft_3="-3" paddingRight_3="-3"
+			paddingLeft_6="-6" paddingRight_6="-6"
+			paddingLeft_7="-8" paddingRight_7="-8"
+			fontSize_1="13" fontSize_4="12" fontSize_7="11" fontSize_8="10" fontSize_9="9"
+			label="@Resource(key='Button_1', bundle='ApplyCancelEffectButtons')" styleName="cancelStyle" click="CancelClick()"/>
+	</ctr:ResizingHTile>
+	<mx:Spacer width="100%"/>
+</ApplyCancelEffectButtonsBase>

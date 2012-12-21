@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<eff:PaintOnEffectBase xmlns:eff="effects.*" xmlns:cnt="containers.*" xmlns="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="269" _nBrushHardness="0.35"
+	xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*" urlid="VampireEyes">
+<mx:Script>
+	<![CDATA[
+		import mx.controls.Button;
+		import util.LocUtil;
+		
+		private static const kclrRed:Number = 0xff0000;
+		private static const kclrOrange:Number = 0xff6e00;
+		private static const kclrYellow:Number = 0xffea00;
+		private static const kclrWhite:Number = 0xffffff;
+		
+		private function SelectButton(btnToSelect:Button): void {
+			if (_hbxButtons == null) return;
+			for (var i:Number = 0; i < _hbxButtons.numChildren; i++) {
+				var btnChild:Button = _hbxButtons.getChildAt(i) as Button;
+				if (btnChild) {
+					btnChild.selected = (btnToSelect == btnChild);
+					if (btnChild.selected)
+						eyeColor = Number(btnChild.data);
+				}
+			}
+			OnOpChange();
+		}
+		 
+	]]>
+</mx:Script>
+	<mx:Number id="eyeColor">{kclrRed + zeroR}</mx:Number>
+	<EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='VampireEyeColorEffect')" strAuthor="@Resource(key='byPicnik', bundle='EffectCanvas')"
+		strImageSource="../graphics/effects/Halloween/vampire_eyecolor.jpg" premium="{premium}"/>
+	<mx:String id="_strHelpText">{Resource.getString('VampireEyeColorEffect', '_strHelpText')}</mx:String>
+
+	<mx:VBox x="10" y="70" verticalGap="0">
+		<!-- eye color buttons -->
+		<mx:HBox width="100%" horizontalGap="6" paddingTop="3" paddingBottom="6" id="_hbxButtons">
+			<ResizingButton width="43" height="29" icon="@Embed('/assets/bitmaps/eye_color/red.png')" offsetDown="1"
+				data="{kclrRed}" selected="{zeroR == 0}"
+				click="SelectButton(event.target as Button)" toggle="true"/>
+			<ResizingButton width="43" height="29" icon="@Embed('/assets/bitmaps/eye_color/orange.png')" offsetDown="1"
+				data="{kclrOrange}" selected="{zeroR != 0}"
+				click="SelectButton(event.target as Button)" toggle="true"/>
+			<ResizingButton width="43" height="29" icon="@Embed('/assets/bitmaps/eye_color/yellow.png')" offsetDown="1"
+				data="{kclrYellow}" selected="{zeroR != 0}"
+				click="SelectButton(event.target as Button)" toggle="true"/>
+			<ResizingButton width="43" height="29" icon="@Embed('/assets/bitmaps/eye_color/white.png')" offsetDown="1"
+				data="{kclrWhite}" selected="{zeroR != 0}"
+				click="SelectButton(event.target as Button)" toggle="true"/>
+		</mx:HBox>
+    
+    	<!-- brush size / eraser toggle -->
+    	<BrushSizeAndEraserButton id="_brshbtn" selected="{_fSelected}"
+    		startValueFactor="0.03"
+    		maximumFactor="0.2"
+    		imageWidth="{origImageWidth}" imageHeight="{origImageHeight}"
+    		change="OnOpChange()" thumbPress="ShowBrushPreview()" thumbDrag="UpdateBrushPreview()" thumbRelease="HideBrushPreview()"
+    		/>
+
+		<!-- Constrast Slider -->
+		<mx:HBox paddingBottom="-5" paddingTop="3" width="190">
+			<mx:Label text="@Resource(key='contrast', bundle='EffectCanvas')" styleName="sliderTitle"/>
+			<mx:Label text="{LocUtil.pct((_sldrContrast.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<HSliderPlus width="190" minimum="0" maximum="100" value="{zeroR + 50}" id="_sldrContrast" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+
+		<!-- Fade label/percent/slider box -->
+		<mx:HBox paddingBottom="-5" paddingTop="3" width="190">
+			<mx:Label text="@Resource(key='fade', bundle='EffectCanvas')" styleName="sliderTitle"/>
+			<mx:Label text="{LocUtil.pct((_sldrFade.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<HSliderPlus width="190" minimum="0" maximum="100" value="{zeroR + 20}" id="_sldrFade" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+
+		<ApplyCancelEffectButtons addBoxPadding="true" premium="{premium}"/>
+	</mx:VBox>
+
+	<mx:Number id="_cxyBrush">{_brshbtn.value}</mx:Number>
+	<imageOperations:NestedImageOperation id="_op" BlendAlpha="{1-(_sldrFade.value/100)}" BlendMode="{BlendMode.ADD}" Mask="{_mctr.mask}"
+			dynamicAlphaCachePriority="5">
+		<imageOperations:children>
+			<imageOperations:NestedImageOperation BlendAlpha="{_sldrContrast.value/100}"
+					dynamicAlphaCachePriority="7"
+				>
+				<imageOperations:children>
+						<imageOperations:AdjustCurvesImageOperation ExposureAdjustmentStops="1" />
+						<imageOperations:LocalContrastImageOperation Radius="64" Strength="1"/>
+				</imageOperations:children>
+			</imageOperations:NestedImageOperation>
+			<imageOperations:TintImageOperation Color="{eyeColor}"/>
+		</imageOperations:children>
+	</imageOperations:NestedImageOperation>
+</eff:PaintOnEffectBase>

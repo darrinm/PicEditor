@@ -1,0 +1,101 @@
+<languageVersion : 1.0;>
+
+kernel NewFilter
+<   title       : "Advanced Black and White";
+    namespace   : "Picnik::Filters";
+    vendor      : "Brian Terry";
+    version     : 1;
+    description : "Advanced Black and White adjustment";
+    websiteURL: "http://www.picnik.com";
+>
+{
+    parameter   float       rFact
+    <
+        minValue        :   -2.0;
+        maxValue        :   2.0;
+        defaultValue    :   0.0;
+    >;
+
+    parameter   float       yFact
+    <
+        minValue        :   -2.0;
+        maxValue        :   2.0;
+        defaultValue    :   0.0;
+    >;
+
+    parameter   float       gFact
+    <
+        minValue        :   -2.0;
+        maxValue        :   2.0;
+        defaultValue    :   0.0;
+    >;
+
+    parameter   float       cFact
+    <
+        minValue        :   -2.0;
+        maxValue        :   2.0;
+        defaultValue    :   0.0;
+    >;
+
+    parameter   float       bFact
+    <
+        minValue        :   -2.0;
+        maxValue        :   2.0;
+        defaultValue    :   0.0;
+    >;
+
+    parameter   float       mFact
+    <
+        minValue        :   -2.0;
+        maxValue        :   2.0;
+        defaultValue    :   0.0;
+    >;
+
+    input image4 src;
+    output pixel4 result;
+
+    void
+    evaluatePixel()
+    {
+        float4 samp = sampleNearest(src,outCoord());
+
+        float lum = 0.3086 * samp.r + 0.6094 * samp.g + 0.0820 * samp.b;
+        float3 rgbSat;
+        float3 ycmSat;
+        float temp1;
+        float temp2;
+        
+        if (samp.r > samp.g) {
+            if (samp.g > samp.b) { // RGB, YMC
+                rgbSat = float3(samp.r-samp.g, 0.0, 0.0);
+                ycmSat = float3((samp.g-samp.b), 0.0, 0.0);
+            } else if (samp.r > samp.b) { // RBG, MYC
+                rgbSat = float3(samp.r-samp.b, 0.0, 0.0);
+                ycmSat = float3(0.0, 0.0, (samp.b-samp.g));
+            } else { // BRG, MCY
+                rgbSat = float3(0.0, 0.0, samp.b-samp.r);
+                ycmSat = float3(0.0, 0.0, (samp.r-samp.g));
+            }
+        } else { // R is less than G or equal to G
+            if (samp.b > samp.g) { // BGR, CMY
+                rgbSat = float3(0.0, 0.0, samp.b-samp.g);
+                ycmSat = float3(0.0, (samp.g-samp.r), 0.0);
+            } else if (samp.r > samp.b) { // GRB, YCM
+                rgbSat = float3(0.0, samp.g-samp.r, 0.0);
+                ycmSat = float3((samp.r-samp.b), 0.0, 0.0);
+            } else { // GBR, CYM
+                rgbSat = float3(0.0, samp.g-samp.b, 0.0);
+                ycmSat = float3(0.0, (samp.b-samp.r), 0.0);
+            }
+        }
+        
+        //float3 rgbSat = max(samp.rgb - max(samp.gbr, samp.brg), float3(0.0));
+        //float3 ycm = max(samp.rgb + samp.gbr, float3(0.0));
+        //float3 ycmSat = max(ycm - max(ycm.gbr, ycm.brg), float3(0.0));
+        
+        lum += dot(ycmSat, float3(yFact,cFact,mFact));
+        lum += dot(rgbSat, float3(rFact,gFact,bFact));
+        
+        result = float4(lum, lum, lum, samp.a);
+    }
+}

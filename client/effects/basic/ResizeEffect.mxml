@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ResizeEffectBase xmlns="effects.basic.*" xmlns:effects="effects.*" xmlns:bk="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%"
+	xmlns:vld="validators.*"
+	xmlns:flash="flash.filters.*" xmlns:bkctr="containers.*" xmlns:ut="util.*" xmlns:imageOperations="imagine.imageOperations.*"
+	title="@Resource(key='label1', bundle='ResizeOverlay')" help="{Resource.getString('ResizeOverlay', 'AboutResize')}" styleName="resizeEffect">
+
+	<mx:Script>
+		import picnik.util.LocaleInfo;
+		import mx.resources.ResourceBundle;
+		import util.LocUtil;
+   		[Bindable] [ResourceBundle("ResizeOverlay")] private var rb:ResourceBundle;
+	</mx:Script>
+	
+	<editControls>
+		<mx:Label text="@Resource(key='label2', bundle='ResizeOverlay')" styleName="sliderTitle" paddingTop="1" paddingBottom="-7" paddingLeft="-3"/>
+		<mx:HBox width="100%">
+			<bk:TextInputPlus width="50%" id="_tiResizeWidth" maxChars="4" styleName="numInput" restrict="0-9" height="24" change="OnResizeTextInputChange(event)"/>
+			<mx:Label text="@Resource(key='Label_1', bundle='ResizeOverlay')" paddingLeft="-10" paddingRight="-10" paddingTop="1" fontSize="14" fontWeight="{LocaleInfo.BoldWeight()}" textAlign="center" color="#333333">
+			</mx:Label>
+			<bk:TextInputPlus width="50%" id="_tiResizeHeight" maxChars="4" styleName="numInput" restrict="0-9" height="24" change="OnResizeTextInputChange(event)"/>
+		</mx:HBox>
+		<mx:Box paddingTop="2" paddingBottom="-1" verticalGap="3">
+			<mx:CheckBox id="_chkPercentToggle" label="@Resource(key='_chkPercentToggle', bundle='ResizeOverlay')" 
+								 selected="{displayPercentage}" change="OnPercentToggleClick(event)" />
+			<mx:CheckBox id="_chkKeepProportions" label="@Resource(key='_chkKeepProportions', bundle='ResizeOverlay')" 
+								 selected="{keepProportions}" change="OnKeepProportionsClick(event)" />
+		</mx:Box>
+	</editControls>
+
+	<imageOperations:ResizeImageOperation id="_op" width="{scaledWidth}" height="{scaledHeight}" />
+	
+</ResizeEffectBase>

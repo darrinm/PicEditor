@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LostEmailTabBase xmlns="dialogs.RegisterHelper.*" xmlns:fc="dialogs.RegisterHelper.FormControls.*" 
+					xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:ctrl="controls.*" xmlns:cntr="containers.*" xmlns:ds="com.darronschall.effects.*"
+					xmlns:vld="validators.*"
+					width="100%" height="100%" logEventBase="">
+	<mx:Script>
+		<![CDATA[
+			import util.LocUtil;
+			import util.UserEmailDictionary;
+		]]>
+		
+	</mx:Script>
+	
+	<states>
+		<mx:State name="Upgrading"/>
+		<mx:State name="RedeemingGift"/>
+		<mx:State name="HelpHub"/>
+		<mx:State name="UpgradingFlickr" basedOn="Upgrading"/>
+		<!-- TODO(bsharon): test this state -->
+		<mx:State name="Inline">
+			<mx:RemoveChild target="{_stdBackground}"/>
+			<mx:RemoveChild target="{_stdCloseBox}"/>
+			<mx:RemoveChild target="{_stdTitle}"/>
+			<mx:RemoveChild target="{_stdFooter}"/>
+			<!-- remove some extra padding -->
+			<mx:SetStyle target="{_vbMainForm}" name="paddingLeft" value="0"/>
+			<mx:SetStyle target="{_lblLast4}" name="paddingTop" value="0"/>
+			<mx:SetStyle target="{_lblOldUsernameOrEmail}" name="paddingTop" value="0"/>
+		</mx:State>
+	</states>
+	<mx:String id="payload"/>
+	<vld:UsernameValidator id="_vldOldInfoAsUsername" required="true" source="{_tiOldUsernameOrEmail}" enabled='{_tiOldUsernameOrEmail.text.indexOf("@") == -1}' property="text" dictCheck="require">
+		<vld:requiredFieldError>{Resource.getString('LostEmailTab', 'required')}</vld:requiredFieldError>
+		<vld:userDoesNotExistsError>{Resource.getString('LostEmailTab', '_vldUsername')}</vld:userDoesNotExistsError>
+	</vld:UsernameValidator>	
+	<vld:EmailValidatorPlus id="_vldOldInfoAsEmail" required="true" source="{_tiOldUsernameOrEmail}" enabled='{_tiOldUsernameOrEmail.text.indexOf("@") != -1}' property="text" dictCheck="require">
+		<vld:requiredFieldError>{Resource.getString('LostEmailTab', 'required')}</vld:requiredFieldError>
+		<vld:emailDoesNotExistsError>{Resource.getString('LostEmailTab', '_vldUsername')}</vld:emailDoesNotExistsError>
+		<vld:charError>{Resource.getString('LostEmailTab', '_vldEmail_1')}</vld:charError>
+	</vld:EmailValidatorPlus>
+	<vld:EmailValidatorPlus id="_vldEmail" required="false" source="{_tiEmail}" property="text" dictCheck="ignore">
+		<vld:requiredFieldError>{Resource.getString('LostEmailTab', 'required')}</vld:requiredFieldError>
+		<vld:emailExistsError>{Resource.getString('LostEmailTab', '_vldEmailAddressTaken')}</vld:emailExistsError>
+		<vld:emailExistsAndIsSpecialError>{Resource.getString('LostEmailTab', '_vldEmailAddressTaken')}</vld:emailExistsAndIsSpecialError>
+		<vld:charError>{Resource.getString('LostEmailTab', '_vldEmail_1')}</vld:charError>
+	</vld:EmailValidatorPlus>
+	<vld:EqualToValidator id="_vldEmailAgain" required="false" source="{_tiEmailAgain}" property="text"  equalTo="{_tiEmail.text}">
+		<vld:valuesNotEqual>{Resource.getString('LostEmailTab', '_vldEmailAgain')}</vld:valuesNotEqual>
+		<vld:requiredFieldError>{Resource.getString('LostEmailTab', 'required')}</vld:requiredFieldError>
+	</vld:EqualToValidator>
+	<vld:Last4Validator id="_vldLast4" required="true" source="{_tiLast4}" property="text" expression="[0-9]\{4\}">
+		<vld:noMatchError>{Resource.getString('LostEmailTab', '_vldLast4')}</vld:noMatchError>
+		<vld:last4RejectedByServerError>{Resource.getString('LostEmailTab', 'error_last4_mismatch')}</vld:last4RejectedByServerError>
+	</vld:Last4Validator>
+	<DataModel id="_dtmFormFields">
+		<DataField name="oldUsernameOrEmail" validator='{_tiOldUsernameOrEmail.text.indexOf("@") == -1 ? _vldOldInfoAsUsername : _vldOldInfoAsEmail}'/>
+		<DataField name="newEmail" validator="{_vldEmail}"/>
+		<DataField name="emailAgain" validator="{_vldEmailAgain}"/>
+		<DataField name="last4" validator="{_vldLast4}"/>
+	</DataModel>
+	
+	<!-- dynamic variables -->
+	<mx:Boolean id="_fEmailHasFocus">false</mx:Boolean>
+	<mx:Boolean id="_fEmConfirmed">false</mx:Boolean>
+	<mx:Boolean id="fShowEmailAgain">{and(!_fEmConfirmed, or( _fEmailHasFocus, _tiEmail.text.length > 0))}</mx:Boolean>
+	
+	
+	<!-- effects -->
+	<fc:StandardEffects id="effects" errorTargets="{[_lblLast4Error, _lblOldUsernameOrEmailError, _lblEmError, _lblEmAgainError]}"/>
+	<mx:Fade alphaFrom="0" alphaTo=".75" duration="300" id="_efQuarterFadeInEmConfirmed" effectEnd="_btnSend.setFocus()"/>
+	
+	
+	<mx:Canvas width="100%" height="100%" horizontalScrollPolicy="off" verticalScrollPolicy="off">
+		<fc:StandardBackground id="_stdBackground" />
+		<fc:StandardCloseBox id="_stdCloseBox" text="@Resource(key='_lbHeadtext', bundle='LostEmailTab')" fnClose="{Hide}" />
+		
+		<mx:VBox id="_vbMainForm" horizontalScrollPolicy="off" verticalScrollPolicy="off" width="100%" verticalGap="0" paddingLeft="15" paddingRight="15" height="100%">
+			<fc:StandardTitle id="_stdTitle" text="@Resource(key='Label_1', bundle='LostEmailTab')" subtext="@Resource(key='Text_1', bundle='LostEmailTab')" />
+			
+			<!--username-->
+			<mx:HBox paddingTop="4" horizontalGap="10" clipContent="false">
+				<mx:VBox id="_nameOC" verticalGap="0" width="230" clipContent="false">
+					<mx:Label id="_lblOldUsernameOrEmail" text="@Resource(key='Label_3', bundle='LostEmailTab')" styleName="publishForm" width="100%" paddingBottom="-3"/>
+					<ctrl:NoTipTextInput id="_tiOldUsernameOrEmail" height="26" width="100%" styleName="publishFormField" change="OnUsernameOrLast4Changed()" enter="OnSendClick()" text="{payload}" paddingBottom="-10"/>
+					<mx:Label  styleName="formError" id="_lblOldUsernameOrEmailError" text="{_tiOldUsernameOrEmail.errorString}" showEffect="_efFadeIn" visible="{_tiOldUsernameOrEmail.errorString.length > 0}" includeInLayout="{_tiOldUsernameOrEmail.errorString.length > 0}" textAlign="left" paddingLeft="-2" paddingTop="0" paddingBottom="-10" width="100%"/>
+				</mx:VBox>
+			</mx:HBox>
+						
+			<!--cc last 4-->
+			<mx:HBox paddingTop="11" horizontalGap="10" clipContent="false">
+				<mx:VBox id="_ccLast4" verticalGap="0" width="230" clipContent="false">
+					<mx:Label id="_lblLast4" text="@Resource(key='Label_2', bundle='LostEmailTab')" styleName="publishForm" width="100%" paddingBottom="-3"/>
+					<ctrl:NoTipTextInput id="_tiLast4" height="26" width="80" styleName="publishFormField" change="OnUsernameOrLast4Changed()" enter="OnSendClick()" maxChars="4" restrict="0-9" text="{payload}"/>
+					<mx:Label id="_lblLast4Error" textAlign="left"  paddingLeft="-2" paddingTop="0" paddingBottom="-10" width="100%" text="{_tiLast4.errorString}" styleName="formError" showEffect="_efFadeIn" visible="{_tiLast4.errorString.length > 0}" includeInLayout="{_tiLast4.errorString.length > 0}"/>
+				</mx:VBox>
+			</mx:HBox>
+			
+			<!-- email -->			
+			<mx:HBox paddingTop="11" paddingBottom="15" horizontalGap="10" clipContent="false">
+				<mx:VBox id="_vbEmail" verticalGap="0" width="230" clipContent="false">
+					<mx:Label id="_lblEmail" text="@Resource(key='Label_4', bundle='LostEmailTab')" styleName="publishForm" width="100%" paddingBottom="-3"/>
+					<mx:Canvas id="cvsEmail" width="100%" height="26" clipContent="false">
+						<ctrl:NoTipTextInput id="_tiEmail" height="26" styleName="publishFormField" width="100%" focusIn="_fEmailHasFocus=true" focusOut="_fEmailHasFocus=false" maxChars="255"
+											 change="_tiEmailAgain.text = '', _tiEmailAgain.errorString = ''"
+											 text="{AccountMgr.GetInstance().email}"/>
+						
+						<ctrl:ImageVer source="@Embed('/theme/pngs/yesIcon.png')" visible="{_fEmConfirmed}" 
+									   showEffect="{_efQuarterFadeInEmConfirmed}" hideEffect="{effects.effQuarterFadeOut}" y="4" right="3" alpha=".75"/>
+					</mx:Canvas>
+					<mx:Label id="_lblEmError" textAlign="left" paddingLeft="-2" paddingTop="0" paddingBottom="-10" width="100%" styleName="formError" text="{_tiEmail.errorString}" showEffect="_efFadeIn" visible="{_tiEmail.errorString.length > 0}" includeInLayout="{_tiEmail.errorString.length > 0}"/>
+				</mx:VBox>
+				
+				<!--email again-->
+				<mx:VBox id="_vbEmailAgain" verticalGap="0" showEffect="{effects.effFadeIn}" width="230" visible="{fShowEmailAgain}">
+					<ctrl:ResizingLabel text="@Resource(key='Label_5', bundle='LostEmailTab')" styleName="publishForm" fontWeight="normal" enabled="{_tiEmailAgain.enabled}" fontSize="12" width="230" autoFontSizeGap="1" paddingBottom="-2" paddingTop="2"/>
+					<ctrl:NoTipTextInput id="_tiEmailAgain" width="100%" height="26" styleName="publishFormField"
+										 enabled="{and(_tiEmail.text.length > 0, _tiEmail.errorString.length == 0)}" maxChars="255"
+										 text="{AccountMgr.GetInstance().email}"
+										 restrict="{UserEmailDictionary.textInputRestrictChars}"/>
+					<mx:Label textAlign="left" paddingLeft="-2" paddingTop="0" paddingBottom="-10" width="100%" styleName="formError" id="_lblEmAgainError" text="{_tiEmailAgain.errorString}" showEffect="_efFadeIn" visible="{_tiEmailAgain.errorString.length > 0}" includeInLayout="{_tiEmailAgain.errorString.length > 0}"/>
+				</mx:VBox>
+			</mx:HBox>
+			
+			<!--send email btn-->
+			
+			<mx:Button id="_btnSend" label="@Resource(key='send_new_password', bundle='LostEmailTab')" paddingLeft="20" paddingRight="20" enabled="{!working}"
+					   fontSize="18" styleName="BigButton" click="OnSendClick()" keyDown="if (event.keyCode==Keyboard.ENTER) OnSendClick()"
+					   visible="{showSendButton}" includeInLayout="{showSendButton}"
+					   />
+			
+			<fc:StandardFooter id="_stdFooter" text="@Resource(key='Footer', bundle='LostEmailTab')" visible="{footerVisible}"/>
+		</mx:VBox>
+	</mx:Canvas>
+</LostEmailTabBase>

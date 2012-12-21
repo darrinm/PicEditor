@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CloudyResizingDialog xmlns="dialogs.*" xmlns:mx="http://www.adobe.com/2006/mxml"	xmlns:controls="controls.*"
+	xmlns:containers="containers.*" xmlns:bridges="gallery.bridges.*" xmlns:flash="flash.filters.*"
+	width="625" height="450" verticalScrollPolicy="off" horizontalScrollPolicy="off" styleName="TargetedUpsellDialogStyle">
+
+	<mx:String id="urlkit"/>
+
+	<flash:DropShadowFilter blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1"
+		quality="3" angle="90" id="_fiWhiteShad"/>
+	<flash:DropShadowFilter blurX="3" blurY="3" distance="3" color="#000000" alpha=".2"
+		quality="3" angle="90" id="_fiBlackShad"/>
+		
+<mx:Canvas width="100%" height="100%">
+
+	<mx:Button width="22" height="22" right="4" top="4" click="Hide()" styleName="dialogCloseButton"/>
+
+<mx:VBox width="100%" top="0" left="0" verticalGap="-10" paddingLeft="15" paddingRight="15" paddingTop="15">
+	<controls:ResizingLabel text="@Resource(key='popupBlockedHeader', bundle='BlockedPopupDialog')" paddingRight="10" color="#005580" fontWeight="bold" fontSize="30"
+	filters="{[_fiWhiteShad]}"  width="100%" top="15"/>
+	<mx:Text width="100%" top="30" text="@Resource(key='chooseBrowser', bundle='BlockedPopupDialog')" fontSize="14" fontWeight="bold"/>
+</mx:VBox>
+
+		<mx:Accordion horizontalCenter="0" width="595" height="290" top="90">
+		
+		<!--IE 6-->
+			<mx:VBox label="@Resource(key='ie6', bundle='BlockedPopupDialog')" width="100%" height="100%" paddingBottom="15" >
+				<mx:HBox paddingTop="10" paddingLeft="10">
+				   		<controls:ImageVer source="../graphics/yahoomail_ie6s1.png" id="ie6PopupBlock1" filters="{[_fiBlackShad]}"/>
+						<mx:VBox paddingTop="0" verticalGap="-1">
+							<mx:Text width="250" text="@Resource(key='step1', bundle='BlockedPopupDialog')" fontSize="18" color="#005580" fontWeight="bold" filters="{[_fiWhiteShad]}" paddingBottom="-1"/>
+							<mx:Text width="250" htmlText="@Resource(key='ie6Step1', bundle='BlockedPopupDialog')" fontSize="14"/>
+						</mx:VBox>
+				</mx:HBox>
+				<mx:HBox paddingTop="10" paddingLeft="10">
+				   		<controls:ImageVer source="../graphics/yahoomail_ie6s2.png" id="ie6PopupBlock2" filters="{[_fiBlackShad]}"/>
+						<mx:VBox paddingTop="0" verticalGap="-1">
+							<mx:Text width="250" text="@Resource(key='step2', bundle='BlockedPopupDialog')" fontSize="18" color="#005580" fontWeight="bold" filters="{[_fiWhiteShad]}" paddingBottom="-1"/>
+							<mx:Text width="250" htmlText="@Resource(key='ie6Step2', bundle='BlockedPopupDialog')" fontSize="14"/>
+						</mx:VBox>
+				</mx:HBox>
+				<mx:HBox paddingTop="10" paddingLeft="10">
+				   		<controls:ImageVer source="../graphics/yahoomail_ie6s3.png" id="ie6PopupBlock3" filters="{[_fiBlackShad]}"/>
+						<mx:VBox paddingTop="0" verticalGap="-1">
+							<mx:Text width="250" text="@Resource(key='step3', bundle='BlockedPopupDialog')" fontSize="18" color="#005580" fontWeight="bold" filters="{[_fiWhiteShad]}" paddingBottom="-1"/>
+							<mx:Text width="250" htmlText="@Resource(key='ie6Step3', bundle='BlockedPopupDialog')" fontSize="14"/>
+						</mx:VBox>
+				</mx:HBox>
+			</mx:VBox>
+	
+			<!--IE7-->		
+			<mx:VBox label="@Resource(key='ie7', bundle='BlockedPopupDialog')" width="100%" height="100%" paddingBottom="15">
+				<mx:HBox paddingTop="15" paddingLeft="15">
+				   		<controls:ImageVer source="../graphics/yahoomail_ie7s1.png" id="ie7PopupBlock1" filters="{[_fiBlackShad]}"/>
+						<mx:VBox paddingTop="0" verticalGap="-1">
+							<mx:Text width="250" text="@Resource(key='step1', bundle='BlockedPopupDialog')" fontSize="18" color="#005580" fontWeight="bold" filters="{[_fiWhiteShad]}"/>
+							<mx:Text width="250" htmlText="@Resource(key='ie7Step1', bundle='BlockedPopupDialog')" fontSize="14"/>
+						</mx:VBox>
+				</mx:HBox>
+				<mx:HBox paddingTop="15" paddingLeft="15">
+				   		<controls:ImageVer source="../graphics/yahoomail_ie7s2.png" id="ie7PopupBlock2" filters="{[_fiBlackShad]}"/>
+						<mx:VBox paddingTop="0" verticalGap="-1">
+							<mx:Text width="250" text="@Resource(key='step2', bundle='BlockedPopupDialog')" fontSize="18" color="#005580" fontWeight="bold" filters="{[_fiWhiteShad]}"/>
+							<mx:Text width="250" htmlText="@Resource(key='ie7Step2', bundle='BlockedPopupDialog')" fontSize="14"/>
+						</mx:VBox>
+				</mx:HBox>
+				<mx:HBox paddingTop="15" paddingLeft="15">
+				   		<controls:ImageVer source="../graphics/yahoomail_ie7s3.png" id="ie7PopupBlock3" filters="{[_fiBlackShad]}"/>
+						<mx:VBox paddingTop="0" verticalGap="-1">
+							<mx:Text width="250" text="@Resource(key='step3', bundle='BlockedPopupDialog')" fontSize="18" color="#005580" fontWeight="bold" filters="{[_fiWhiteShad]}"/>
+							<mx:Text width="250" htmlText="@Resource(key='ie7Step3', bundle='BlockedPopupDialog')" fontSize="14"/>
+						</mx:VBox>
+				</mx:HBox>	
+			</mx:VBox>
+			
+			<!--Firefox-->
+			<mx:VBox label="@Resource(key='FF', bundle='BlockedPopupDialog')" width="100%" height="100%" paddingBottom="15">
+				<mx:HBox paddingTop="15" paddingLeft="15">
+				   		<controls:ImageVer source="../graphics/yahoomail_ffs1.png" id="FFPopupBlock1" filters="{[_fiBlackShad]}"/>
+						<mx:VBox paddingTop="0" verticalGap="-1">
+							<mx:Text width="250" text="@Resource(key='step1', bundle='BlockedPopupDialog')" fontSize="18" color="#005580" fontWeight="bold" filters="{[_fiWhiteShad]}"/>
+							<mx:Text width="250" htmlText="@Resource(key='FFStep1', bundle='BlockedPopupDialog')" fontSize="14"/>
+						</mx:VBox>
+				</mx:HBox>
+				<mx:HBox paddingTop="15" paddingLeft="15">
+				   		<controls:ImageVer source="../graphics/yahoomail_ffs3.png" id="FFPopupBlock2" filters="{[_fiBlackShad]}"/>
+						<mx:VBox paddingTop="0" verticalGap="-1">
+							<mx:Text width="250" text="@Resource(key='step2', bundle='BlockedPopupDialog')" fontSize="18" color="#005580" fontWeight="bold" filters="{[_fiWhiteShad]}"/>
+							<mx:Text width="250" htmlText="@Resource(key='FFStep2', bundle='BlockedPopupDialog')" fontSize="14"/>
+						</mx:VBox>
+				</mx:HBox>
+				<mx:HBox paddingTop="15" paddingLeft="15">
+				   		<controls:ImageVer source="../graphics/yahoomail_ffs2.png" id="FFPopupBlock3" filters="{[_fiBlackShad]}"/>
+						<mx:VBox paddingTop="0" verticalGap="-1">
+							<mx:Text width="250" text="@Resource(key='step3', bundle='BlockedPopupDialog')" fontSize="18" color="#005580" fontWeight="bold" filters="{[_fiWhiteShad]}"/>
+							<mx:Text width="250" htmlText="@Resource(key='FFStep3', bundle='BlockedPopupDialog')" fontSize="14"/>
+						</mx:VBox>
+				</mx:HBox>
+				<mx:HBox paddingTop="15" paddingLeft="15">
+				   		<controls:ImageVer source="../graphics/yahoomail_ffs4.png" id="FFPopupBlock4" filters="{[_fiBlackShad]}"/>
+						<mx:VBox paddingTop="0" verticalGap="-1">
+							<mx:Text width="250" text="@Resource(key='step4', bundle='BlockedPopupDialog')" fontSize="18" color="#005580" fontWeight="bold" filters="{[_fiWhiteShad]}"/>
+							<mx:Text width="250" htmlText="@Resource(key='FFStep4', bundle='BlockedPopupDialog')" fontSize="14"/>
+						</mx:VBox>
+				</mx:HBox>
+			</mx:VBox>
+			
+		</mx:Accordion>
+		
+		<!-- Footer -->
+		<controls:ResizingButton styleName="basketButton" label="@Resource(key='close', bundle='BlockedPopupDialog')"
+			paddingLeft="20" paddingRight="20" height="39" bottom="6" horizontalCenter="0" fontSize="23"
+			click="Hide()"/>
+			
+		<!-- shadow dealies, drawn on top of all elements -->
+		<controls:ImageVer source="../graphics/upsellPremiumPanelShadow.png" bottom="50" left="0" right="0" scaleContent="true" maintainAspectRatio="false"/>	
+		                    
+</mx:Canvas>
+	<mx:Style source="../dialogs/BlueBarDialog.css"/>	
+</CloudyResizingDialog>

@@ -1,0 +1,12 @@
+fileName: tm_meta_language.ttf
+name: Meta Language
+subfamilyDisplayName: Regular
+fullName: Meta Language
+displayName: Meta Language
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 4
+pkName: pktm0meta0language
+authorName: Tom Murphy
+authorUrl: http://fonts.tom7.com/

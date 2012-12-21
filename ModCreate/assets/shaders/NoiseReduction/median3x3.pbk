@@ -1,0 +1,57 @@
+<languageVersion: 1.0;>
+
+/*
+3x3 Median
+Morgan McGuire and Kyle Whitson
+http://graphics.cs.williams.edu
+
+Ported to Pixel Bender shader language by Darrin Massena
+gcc -E -x c -P -C median3x3.c > median3x3.pbk
+*/
+
+kernel Median3x3
+< 
+	title: "Median 3x3";
+	namespace: "com.picnik";
+	vendor: "Picnik";
+	version: 1;
+	description: "A 3x3 median filter for noise reduction";
+>
+{
+#define getPixel(dx, dy)        sampleNearest(src, outCoord() + float2(dx, dy))
+#define s2(a, b)			    temp = a; a = min(a, b); b = max(temp, b);
+#define mn3(a, b, c)			s2(a, b); s2(a, c);
+#define mx3(a, b, c)			s2(b, c); s2(a, c);
+
+#define mnmx3(a, b, c)			mx3(a, b, c); s2(a, b);                           // 3 exchanges
+#define mnmx4(a, b, c, d)		s2(a, b); s2(c, d); s2(a, c); s2(b, d);           // 4 exchanges
+#define mnmx5(a, b, c, d, e)	s2(a, b); s2(c, d); mn3(a, c, e); mx3(b, d, e);           // 6 exchanges
+#define mnmx6(a, b, c, d, e, f) s2(a, d); s2(b, e); s2(c, f); mn3(a, b, c); mx3(d, e, f); // 7 exchanges
+
+	input image4 src;
+	output pixel4 dst;
+
+	void evaluatePixel()
+	{
+		pixel4 v0 = getPixel(-1, -1);
+		pixel4 v1 = getPixel(0, -1);
+		pixel4 v2 = getPixel(1, -1);
+		pixel4 v3 = getPixel(-1, 0);
+		pixel4 v4 = getPixel(0, 0);
+		pixel4 v5 = getPixel(1, 0);
+		pixel4 v6 = getPixel(-1, 1);
+		pixel4 v7 = getPixel(0, 1);
+		pixel4 v8 = getPixel(1, 1);
+
+		pixel4 temp;
+
+		// Starting with a subset of size 6, remove the min and max each time
+		mnmx6(v0, v1, v2, v3, v4, v5);
+		mnmx5(v1, v2, v3, v4, v6);
+		mnmx4(v2, v3, v4, v7);
+		mnmx3(v3, v4, v8);
+
+		dst = v4;
+	}
+}
+

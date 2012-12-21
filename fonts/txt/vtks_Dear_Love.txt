@@ -1,0 +1,12 @@
+fileName: vtks_Dear_Love.ttf
+name: VTKS Dear Love
+subfamilyDisplayName: Regular
+fullName: VTKS Dear Love
+displayName: VTKS Dear Love
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 0
+pkName: pkvtks0Dear0Love
+authorName: Douglas Vitkauskas
+authorUrl: http://www.vtks.com.br/

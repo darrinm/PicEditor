@@ -1,0 +1,12 @@
+fileName: georgiab.ttf
+name: Georgia
+subfamilyDisplayName: Negreta
+fullName: Georgia Negreta
+displayName: Georgia
+ital: 0
+bold: 1
+weight: 5
+panose.weight: 8
+pkName: pkgeorgiab
+authorName: Matthew Carter
+authorUrl: http://carterandcone.com/

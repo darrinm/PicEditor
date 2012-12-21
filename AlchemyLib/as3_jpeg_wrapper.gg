@@ -1,0 +1,201 @@
+{ // start pass-thru C code
+
+#include <stdlib.h>
+#include <stdio.h>
+#include <jpeglib.h>
+
+#include "badatadst.h"
+
+void sztrace(char*);
+
+AS3_Val no_params = NULL;
+AS3_Val zero_param = NULL;
+AS3_Val ByteArray_class = NULL;
+
+#define GGINIT_DEFINED true
+static void ggInit()
+{
+//	sztrace("setting up as3_jpeg_wrapper library");
+
+	no_params = AS3_Array("");
+	zero_param = AS3_Int(0);
+	AS3_Val flash_utils_namespace = AS3_String("flash.utils");
+	ByteArray_class = AS3_NSGetS(flash_utils_namespace, "ByteArray");
+	AS3_Release(flash_utils_namespace);
+}
+
+/* Copy the byteArray data into a malloc'd buffer */
+static void* newMallocFromByteArray(AS3_Val byteArray, unsigned int* size)
+{
+	AS3_Val byteArraySize = AS3_GetS(byteArray, "length");
+	*size = AS3_IntValue(byteArraySize);
+	AS3_Release(byteArraySize);
+	void* bytes = malloc(*size);
+	AS3_SetS(byteArray, "position", zero_param);
+	AS3_ByteArray_readBytes((char*)bytes, byteArray, (int)*size);
+	return bytes;
+}
+
+static AS3_Val _encode_jpeg(void* data, int width, int height, int bytes_per_pixel, int color_space, int quality, 
+		AS3_Val aobMarkers, int nChromaSubsampling, AS3_Val fnCallback)
+{
+	/* nChromaSubsampling (-1=default, 0=none, 1=medium, 2=high) */
+
+	struct jpeg_compress_struct cinfo;
+	struct jpeg_error_mgr jerr;
+
+	unsigned int size = width * height * 4;
+	unsigned char* raw_image32 = (unsigned char*)data;
+	unsigned char* raw_image24 = (unsigned char*)data;
+
+	AS3_Val array = AS3_New(ByteArray_class, no_params);
+
+	/* this is a pointer to one row of image data */
+	JSAMPROW row_pointer[1];
+
+	/* semi-lame conversion from 32bit pixels to 24bit pixels. */
+	// NOTE: Do it in-place to save memory
+	int i=0, j=0;
+	while (i++ < size) {
+		raw_image24[j++] = raw_image32[i++];
+		raw_image24[j++] = raw_image32[i++];
+		raw_image24[j++] = raw_image32[i++];
+	}
+
+	cinfo.err = jpeg_std_error(&jerr);
+	jpeg_create_compress(&cinfo);
+	jpeg_bytearray_dest(&cinfo, array);
+
+	/* Setting the parameters of the output file here */
+	cinfo.image_width = width;	
+	cinfo.image_height = height;
+	cinfo.input_components = bytes_per_pixel;
+	cinfo.in_color_space = color_space;
+	
+        /* default compression parameters, we shouldn't be worried about these */
+	jpeg_set_defaults(&cinfo);
+
+	switch (nChromaSubsampling) {
+	case 0:	/* 1x1 1x1 1x1 (4:4:4) : None */
+		cinfo.comp_info[0].h_samp_factor = 1;
+		cinfo.comp_info[0].v_samp_factor = 1;
+		cinfo.comp_info[1].h_samp_factor = 1;
+		cinfo.comp_info[1].v_samp_factor = 1;
+		cinfo.comp_info[2].h_samp_factor = 1;
+		cinfo.comp_info[2].v_samp_factor = 1;
+		break;
+		
+	case 1:	/* 2x1, 1x1, 1x1 (4:2:2) : Medium */
+		cinfo.comp_info[0].h_samp_factor = 2;
+		cinfo.comp_info[0].v_samp_factor = 1;
+		cinfo.comp_info[1].h_samp_factor = 1;
+		cinfo.comp_info[1].v_samp_factor = 1;
+		cinfo.comp_info[2].h_samp_factor = 1;
+		cinfo.comp_info[2].v_samp_factor = 1;
+		break;
+		
+	case 2:	/* 2x2, 1x1, 1x1 (4:1:1) : High */
+		cinfo.comp_info[0].h_samp_factor = 2;
+		cinfo.comp_info[0].v_samp_factor = 2;
+		cinfo.comp_info[1].h_samp_factor = 1;
+		cinfo.comp_info[1].v_samp_factor = 1;
+		cinfo.comp_info[2].h_samp_factor = 1;
+		cinfo.comp_info[2].v_samp_factor = 1;
+		break;
+		
+	default: /* Use the lib's default */
+		break;
+	}
+	
+	jpeg_set_quality(&cinfo, quality, FALSE);
+	
+	/* Now do the compression .. */
+	jpeg_start_compress(&cinfo, TRUE);
+
+	if (aobMarkers != NULL) {
+		AS3_Val vLength = AS3_GetS(aobMarkers, "length");
+		int cobMarkers = AS3_IntValue(vLength);
+		
+		for (i=0; i < cobMarkers; i++) {
+			// UNDONE: is this the best way to index into an Array?
+			char szIndex[2];
+			szIndex[0] = '0' + i; // # segments must be < 10
+			szIndex[1] = 0;
+			AS3_Val obMarker = AS3_GetS(aobMarkers, szIndex);
+			AS3_Val vSegment = AS3_GetS(obMarker, "segment");
+			int nSegment = AS3_IntValue(vSegment);
+			AS3_Release(vSegment);
+			AS3_Val vData = AS3_GetS(obMarker, "data");
+			unsigned char *pbData;
+			unsigned int cbData;
+			pbData = newMallocFromByteArray(vData, &cbData);
+			AS3_Release(vData);
+			AS3_Release(obMarker);
+			
+			jpeg_write_marker(&cinfo, nSegment, pbData, cbData);
+			free(pbData);
+		}
+		AS3_Release(vLength);
+	}
+	
+	/* like reading a file, this time write one row at a time */
+	int nPercentLastCallback = -100;
+	int fContinue = 1;
+	while (cinfo.next_scanline < cinfo.image_height) {
+		// Inform caller of progress and flyield so the UI can update
+		int nPercent = cinfo.next_scanline * 100 / cinfo.image_height;
+		// UNDONE: use getTimer to call back every 250 ms
+		if (fnCallback != NULL && nPercent >= nPercentLastCallback + 3) {
+			nPercentLastCallback = nPercent;
+			
+			// fContinue:Boolean = OnJpegEncodeProgress(nPercent:int, baResult:ByteArray)
+			AS3_Val vContinue = AS3_CallT(fnCallback, NULL, "IntType, AS3ValType", nPercent, array);
+			fContinue = AS3_IntValue(vContinue);
+			AS3_ReleaseX(vContinue);
+			if (!fContinue)
+				break;
+			flyield();
+		}
+		
+		row_pointer[0] = &raw_image24[cinfo.next_scanline * cinfo.image_width *  cinfo.input_components];
+		jpeg_write_scanlines(&cinfo, row_pointer, 1);
+	}
+	
+	/* clean up after we're done compressing */
+	if (fContinue)
+		jpeg_finish_compress(&cinfo);
+	else
+		jpeg_abort_compress(&cinfo);
+	jpeg_destroy_compress(&cinfo);
+
+	if (fnCallback != NULL)
+		AS3_CallT(fnCallback, NULL, "IntType, AS3ValType", fContinue ? 100 : -1, array);
+		
+	return array;
+}
+
+/* end pass-thru C code */
+}
+
+import flash.utils.ByteArray;
+
+// expose "ram" getter that returns the ByteArray from ram
+// - the function decl is very AS-like...
+public function get ram/AS3_Ram():ByteArray;
+
+// expose "malloc" as "alloc" casting malloc's ret of type void *
+// to unsigned (then marshalled to AS3 as uint);
+public function alloc/malloc(size:uint):(unsigned)uint;
+
+// expose "free" casting ptr param from marshalled C type unsigned to void *
+public function free(ptr:(void *)uint):void;
+
+public function encode_jpeg_sync(data:(void *)uint, width:int, height:int, bytes_per_pixel:int, color_space:int, quality:int, 
+		aobMarkers:Array, nChromaSubsampling:int): ByteArray {
+	return _encode_jpeg(data, width, height, bytes_per_pixel, color_space, quality, aobMarkers, nChromaSubsampling, NULL);
+}
+
+async public function encode_jpeg_async(data:(void *)uint, width:int, height:int, bytes_per_pixel:int, color_space:int, quality:int, 
+		aobMarkers:Array, nChromaSubsampling:int, fnCallback:Function):void {
+	_encode_jpeg(data, width, height, bytes_per_pixel, color_space, quality, aobMarkers, nChromaSubsampling, fnCallback);
+}

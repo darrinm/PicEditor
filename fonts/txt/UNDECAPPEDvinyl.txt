@@ -1,0 +1,12 @@
+fileName: UNDECAPPEDvinyl.ttf
+name: UNDECAPPED Vinyl
+subfamilyDisplayName: Normal
+fullName: UNDECAPPED Vinyl
+displayName: UNDECAPPED Vinyl
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 0
+pkName: pkUNDECAPPEDvinyl
+authorName: Gyom.Typo
+authorUrl: http://gyom.nebullus.com/

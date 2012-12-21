@@ -1,0 +1,12 @@
+fileName: Sue_Ellen_Francis.ttf
+name: Sue Ellen Francisco
+subfamilyDisplayName: Normal
+fullName: Sue Ellen Francis
+displayName: Sue Ellen Francis
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 0
+pkName: pkSue0Ellen0Francis
+authorName: Kimberly Geswein
+authorUrl: http://gesweinfamily.com/

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WebShareBridgeBase xmlns="bridges.web.*" xmlns:pk="*" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:ctl="controls.*"
+		xmlns:itempicker="controls.itempicker.*"  
+		width="100%" height="100%" xmlns:flash="flash.filters.*" horizontalScrollPolicy="off">
+	<mx:Script>
+		import util.LocUtil;
+		import mx.resources.ResourceBundle;
+   		[Bindable] [ResourceBundle("EmailShareBridge")] private var rb:ResourceBundle;
+	</mx:Script>
+	<flash:DropShadowFilter blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1"
+		quality="3" angle="90" id="_fiWhiteShad"/>
+
+	<mx:HBox width="100%" top="0" bottom="{footerHeight}" paddingLeft="30" x="0" horizontalGap="20">
+		<!-- left column, preview -->
+		<mx:Box width="45%" height="100%" paddingTop="5" paddingBottom="100">
+		</mx:Box>		
+		<!-- right column, controls -->		
+  		<mx:Box height="{height-footerHeight-2}" verticalGap="0" width="55%" horizontalScrollPolicy="off">
+  			<mx:VBox verticalGap="15" width="100%" paddingTop="20" id="leftCol">
+				
+				<!-- URL -->
+				<mx:VBox>                            
+					<mx:Text htmlText="{item.species != 'gallery' ? Resource.getString('WebShareBridge', 'galleryUrlPhoto') : Resource.getString('WebShareBridge', 'galleryUrlShow')}"
+						fontSize="16" fontWeight="bold" color="#005580" paddingBottom="-4" selectable="false"/>                                
+					<ctl:TextInputPlus id="_tiGalleryUrl" width="320" height="26" text="{item.webpageurl}" editable="false"
+						focusIn="{OnUrlFocusIn()}"/>                                    
+					<mx:Spacer width="100%" height="-6"/>                                    
+						<mx:Button id="CopyURL" label="@Resource(key='copyToClipboard', bundle='WebShareBridge')" fontSize="12" styleName="BigButton" mouseFocusEnabled="false"
+									click="{System.setClipboard(_tiGalleryUrl.text)}"
+									height="25" width="130"/>  
+				</mx:VBox>                            
+				
+				<!--Embed-->
+				<mx:VBox paddingBottom="10">                                
+					<mx:Text htmlText="@Resource(key='galleryEmbed', bundle='WebShareBridge')" fontSize="16" fontWeight="bold" color="#005580" paddingBottom="-4" selectable="false"/>
+					<mx:HBox horizontalGap="10">
+						<mx:VBox verticalGap="0">
+							<ctl:TextAreaPlus id="_taGalleryEmbedTag" width="320" height="52" editable="false" autoSize="false"
+									 focusIn="{OnEmbedFocusIn()}"/>                    
+							<mx:Spacer width="100%" height="5"/> 
+							<mx:Button id="CopyEmbed" label="@Resource(key='copyToClipboard', bundle='WebShareBridge')" fontSize="12" styleName="BigButton" mouseFocusEnabled="false"
+										click="{System.setClipboard(_taGalleryEmbedTag.text)}"
+										height="25" width="130"/>	
+							<mx:Spacer height="7"/>
+							<mx:Text htmlText="@Resource(key='galleryEmbedSize', bundle='WebShareBridge')" fontSize="13" fontWeight="bold" paddingBottom="-5" selectable="false"/>
+								<mx:HBox verticalGap="5" paddingTop="5" paddingBottom="5">
+									<mx:Button id="EmbedSmall" icon="@Embed('/assets/bitmaps/show_size_small.png')" height="70" width="70" mouseFocusEnabled="false"
+										click="{SetEmbedSize(240)}" horizontalCenter="0"/>
+									<mx:Button id="EmbedMedium" icon="@Embed('/assets/bitmaps/show_size_medium.png')" height="70" width="70" mouseFocusEnabled="false"
+										click="{SetEmbedSize(400)}" horizontalCenter="0"/>
+									<mx:Button id="EmbedLarge" icon="@Embed('/assets/bitmaps/show_size_large.png')" height="70" width="70" mouseFocusEnabled="false"
+										click="{SetEmbedSize(600)}" horizontalCenter="0"/>
+								</mx:HBox>
+							<mx:Text htmlText="@Resource(key='embedTip', bundle='WebShareBridge')" fontSize="12" paddingTop="0" selectable="false" width="320"/>
+							<!--<mx:Text htmlText="@Resource(key='galleryCodeChange', bundle='WebShareBridge')" fontSize="12" selectable="false"/>-->
+						</mx:VBox>                                                                 
+					</mx:HBox>                            
+				</mx:VBox>
+			</mx:VBox> 
+		</mx:Box>
+	</mx:HBox>
+
+	<!-- big button vbox -->
+	<mx:VBox verticalGap="8" paddingTop="8" paddingBottom="8" bottom="0" width="100%" height="{footerHeight}" horizontalAlign="center">
+		<ctl:ResizingButton label="@Resource(key='done', bundle='WebShareBridge')" minWidth="200" maxWidth="350" autoFontSizeGap="1" height="34" fontSize="18" id="_btnDone" styleName="BigButton"/>
+	</mx:VBox>
+	
+</WebShareBridgeBase>

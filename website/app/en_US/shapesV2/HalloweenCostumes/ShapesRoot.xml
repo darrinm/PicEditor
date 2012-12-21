@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory area="HalloweenCostumes" id="root">
+	<ShapeCategory flickrPremium="false" id="HalloweenCostumeShapes" numShapes="0" picnikPremium="false" showHeader="false">
+		<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/shape_masks.png" flickrPremium="false" id="HalloweenMasks" numShapes="8" picnikPremium="false" previewUrls="60|48|../clipart/bundles/HalloweenCostumesArea_groupPreviews_HalloweenMasks.png?ver=c4ea0ce0" thumbUrl="66|54|0|../clipart/bundles/HalloweenCostumesArea_groupThumbs.png?ver=f9f4f101" title="Masks"/>
+		<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/shape_eyeballs.png" flickrPremium="false" id="eyeballs" numShapes="4" picnikPremium="false" previewUrls="60|48|../clipart/bundles/HalloweenCostumesArea_groupPreviews_eyeballs.png?ver=79965f3f" thumbUrl="66|54|1|../clipart/bundles/HalloweenCostumesArea_groupThumbs.png?ver=f9f4f101" title="Eyeballs"/>
+	</ShapeCategory>
+</ShapeCategory>

@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cnt:EffectCanvas xmlns="effects.*" xmlns:cnt="containers.*" xmlns:ctrl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml"
+		xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*"
+		width="100%" height="314" premium="true" xmlns:objectOperations="imagine.objectOperations.*" xmlns:doml="doml.*" urlid="Watermark">
+	<mx:Script>
+		<![CDATA[
+			import containers.NestedControlCanvasBase;
+			
+			import doml.DOML;
+			
+			import imagine.imageOperations.ImageOperation;
+			
+			import mx.resources.ResourceBundle;
+			
+			import util.LocUtil;
+	   		[Bindable] [ResourceBundle("WatermarkEffect")] private var rb:ResourceBundle;
+	   		
+			public override function Select(efcnvCleanup:NestedControlCanvasBase): Boolean {
+				if (super.Select(efcnvCleanup)) {
+					OnOpChange();
+					return true;
+				} else {
+					return false;
+				}
+			}
+	   		
+			// This updates the style objects' positions as other parameters change
+			public override function OnOpChange(): void {
+				if (_imgd == null) {
+					super.OnOpChange();
+					return;
+				}
+				
+				var fnSuper:Function = super.OnOpChange;
+				
+				// Remove previous style CreateObjectOperations (if any)
+				_op.children.length = 0;
+				
+				var dml:DOML = new DOML();
+
+				// After they're created, add the ImageOperations as children of the NestedImageOperation _op					
+				var fnOnDOMLInitialized:Function = function (fSuccess:Boolean): void {
+					if (!fSuccess)
+						return;
+						
+					var aop:Array = dml.CreateOperationsFromDescriptors(new Rectangle(0, 0, _imgd.width, _imgd.height));
+					
+					for each (var op:ImageOperation in aop)
+						_op.children.push(op);
+					
+					fnSuper();
+				}
+				
+				var aobDescriptors:Array = this[_cboxStyles.selectedItem.style];
+				dml.Init(aobDescriptors, fnOnDOMLInitialized);
+			}
+		]]>
+	</mx:Script>
+
+	<mx:Array id="_resetValues">
+		<local:StoredValue target="_cpkrBackground.selectedColor"/>
+		<local:StoredValue target="_cboxStyles.selectedIndex"/>
+	</mx:Array>
+	
+	<mx:ArrayCollection id="_acStyles">
+		<mx:Object label="{Resource.getString('WatermarkEffect', 'style1')}" style='style1'/>
+		<mx:Object label="{Resource.getString('WatermarkEffect', 'style2')}" style='style2'/>
+		<mx:Object label="{Resource.getString('WatermarkEffect', 'style3')}" style='style3'/>
+		<mx:Object label="{Resource.getString('WatermarkEffect', 'style4')}" style='style4'/>
+		<mx:Object label="{Resource.getString('WatermarkEffect', 'style5')}" style='style5'/>
+		<mx:Object label="{Resource.getString('WatermarkEffect', 'style6')}" style='style6'/>
+	</mx:ArrayCollection>
+
+	<mx:DropShadowFilter id="_fiWhiteShad" blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1" quality="3" angle="90"/>
+
+	<ctrl:EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='WatermarkEffect')"
+			strAuthor="@Resource(key='_efbtn_1', bundle='WatermarkEffect')"
+			strImageSource="../graphics/effects/Frames/watermark.jpg" premium="{premium}" newEffect="true"/>
+	<mx:String id="_strHelpText">{Resource.getString('WatermarkEffect', '_strHelpText')}</mx:String>
+	
+	<mx:VBox x="10" y="70" verticalGap="0">
+		<mx:Spacer width="10" height="3"/>
+		
+		<!-- background color and gap -->
+		<mx:VBox paddingTop="5" paddingLeft="5" paddingRight="8" paddingBottom="6" width="190" horizontalScrollPolicy="off" verticalGap="0" filters="{[_fiWhiteShad]}"
+				cornerRadius="5" backgroundColor="#ffffff" borderColor="#d9d9d9" borderStyle="solid" backgroundAlpha=".4" verticalAlign="middle">
+			<!-- background color picker -->
+			<mx:HBox horizontalGap="5" width="100%">
+				<ctrl:ResizingLabel text="@Resource(key='_lbBackgroundColor', bundle='WatermarkEffect')" styleName="sliderTitle" paddingTop="2" width="100%" autoFontSizeGap="1"/>
+				<ctrl:HSBColorPicker id="_cpkrBackground" selectedColor="{0xffffff + zeroR}" liveColorChange="OnBufferedOpChange()" width="50"/>
+			</mx:HBox>
+		</mx:VBox>
+
+		<!-- caption styles dropdown -->
+		<mx:Label text="@Resource(key='styles', bundle='WatermarkEffect')" styleName="sliderTitle" paddingBottom="-3"/>
+		<mx:ComboBox id="_cboxStyles" rowCount="10" width="190" height="26"
+				dataProvider="{_acStyles}" change="OnOpChange()"/>
+				
+		<ctrl:TextAreaPlus id="_taName" width="100%" height="40" fontFamily="trebuchetMS"
+				leading="-1" verticalScrollPolicy="auto" autoSize="false" 
+				prompt="@Resource(key='name_prompt', bundle='WatermarkEffect')"
+				change="OnOpChange()"/>
+		<mx:Spacer height="10"/>
+		
+		<ctrl:ApplyCancelEffectButtons addBoxPadding="true" premium="{premium}"/>
+	</mx:VBox>
+	
+ 	<mx:Array id="style1">
+		<doml:Create type="Text" horizontalCenter="2" bottom="-2" height="10%"
+				font="Impact" textColor="0x000000" alpha="0.5" text="{_taName.text}"/>
+		<doml:Create type="Text" horizontalCenter="0" bottom="0" height="10%"
+				font="Impact" textColor="0xffffff" text="{_taName.text}"/>
+ 	</mx:Array>
+ 	
+	<mx:Array id="style2">
+		<!-- Expand document to include caption area at bottom -->
+		<doml:Border outercolor="{_cpkrBackground.liveColor}" captionheight="10%"/>
+		<!-- UNDONE: conditionals for Chinese, Japanese, Korean -->
+		<doml:Create type="Text" horizontalCenter="0" bottom="-10%" height="10%"
+				font="Impact" textColor="0x000000" text="DON'T COPY ME!"/>
+	</mx:Array>
+	
+	<mx:Array id="style3">
+		<doml:Create type="PRectangle" left="0" width="100%" bottom="0" height="8%" 
+				color="0x000000" alpha="0.5"/>
+		<doml:Create type="Text" left="{imageheight * .02}" bottom="0" height="8%" 
+				font="Trebuchet MS" bold="true" textColor="0xffffff" text="{_taName.text}"/>
+	</mx:Array>
+	
+	<mx:Array id="style4">
+		<doml:Create type="Text" left="{imageheight * .05}" horizontalCenter="0" verticalCenter="0"
+				height="20%" font="Daniel" bold="true" alpha="0.2" textColor="0xffffff" blendMode="difference" 
+				rotation="-20" text="Copyright (c) 2009 Darrin Massena"/>
+	</mx:Array>
+
+	<mx:Array id="style5">
+		<doml:Create type="RoundedRectangle" alignmentBounds="txtAfter5" left="-20%" top="-10%" width="300%" height="120%"
+				color="0x000000" alpha="0.8"/>
+		<doml:Create type="Text" name="txtAfter5" right="{imageheight * .02}" top="3%" height="5%" 
+				font="Arial Rounded MT Bold" textColor="0xffffff" text="{'© ' + _taName.text}"/>
+	</mx:Array>
+	
+	<mx:Array id="style6">
+		<doml:Create type="RoundedRectangle" alignmentBounds="txtAfter6" left="-20%" top="-10%" width="500%" height="128%"
+				color="0x4c7300" alpha="0.9"/>
+		<doml:Create type="Text" name="txtAfter6" alignmentBounds="logo" top="0" right="107%" height="100%" 
+				font="Arial Rounded MT Bold" textColor="0xffffff" alpha="0.8" 
+				text="{_taName.text}"/>
+		<doml:Create type="Clipart" name="logo" right="1%" bottom="3%" height="5%" 
+				color="0xffffff" url="shapes/picnikcom_logo.swf"/>
+	</mx:Array>
+	
+	
+</cnt:EffectCanvas>

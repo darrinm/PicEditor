@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<privacy:PrivacyDetourDialogBase xmlns="containers.*" xmlns:privacy="dialogs.Privacy.*" xmlns:mx="http://www.adobe.com/2006/mxml"	xmlns:controls="controls.*"
+	 width="600" height="220" footerHeight="50" styleName="PrivacyDialogStyle" creationComplete="_btnAccept.setFocus()">
+	
+	<mx:Script>
+		<![CDATA[
+			import util.LocUtil;
+			import flash.net.navigateToURL;
+			import dialogs.DialogManager;
+			import mx.resources.ResourceBundle;
+			
+	  		[Bindable] [ResourceBundle("PrivacyDetourDialog")] protected var _rb:ResourceBundle;		 
+   		]]>
+	</mx:Script>
+	
+	<mx:Style source="PrivacyDialog.css"/>
+	<mx:DropShadowFilter id="_fiWhiteShine" blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1" quality="3" angle="90"/>
+	<mx:DropShadowFilter id="_fiInnerShad" blurX="1" blurY="1" distance="1" color="#000000" alpha=".2" quality="3" angle="90" inner="true"/>
+
+	<mx:Fade id="_efFadeIn" duration="300" alphaFrom="0" alphaTo="1"/>
+	<mx:Fade id="_efFadeOut" duration="200" alphaFrom="1" alphaTo="0"/>
+
+	<mx:Canvas width="100%" height="100%">
+		<!-- Header -->
+		<controls:ResizingLabel text="@Resource(key='deletionDone',bundle='PrivacyDetourDialog')" styleName="dialogHead"
+			top="10" left="15" right="15"
+			width="100%" autoFontSizeGap="1" filters="{[_fiWhiteShine,_fiInnerShad]}" />
+		
+		<!-- Close button
+		<mx:Button width="22" height="22" right="4" top="4" click="Cancel()" styleName="dialogCloseButton"/>-->
+		
+		<!-- Main Content-->
+		<!-- Include an external MXML file - this will make it easier to swap later? -->
+		<mx:VBox top="45" right="15" left="15" horizontalAlign="center" verticalGap="10">
+			<mx:Text htmlText="@Resource(key='deletionDetails',bundle='PrivacyDetourDialog')" color="#333333" fontSize="16"
+				width="100%" filters="{[_fiWhiteShine,_fiInnerShad]}" selectable="true"/>		
+		</mx:VBox>
+
+		<!-- Footer -->
+		<mx:HBox horizontalGap="8" verticalAlign="middle" bottom="6" horizontalCenter="0">
+			<controls:ResizingButton id="_btnAccept" styleName="basketButton" 
+				label="{LocUtil.rbSubst('PrivacyDetourDialog',PicnikBase.app.AsService().IsServiceActive() ? 'backToPicnikApi':'backToPicnik')}"
+				minWidth="220" height="38" fontSize="22"
+				click="Cancel()"/>
+		</mx:HBox>
+
+		<!-- shadow dealies, drawn on top of all elements -->
+		<controls:ImageVer source="../graphics/upsellPremiumPanelShadow.png" bottom="50" left="0" right="0" scaleContent="true" maintainAspectRatio="false"/>
+	</mx:Canvas>
+</privacy:PrivacyDetourDialogBase>

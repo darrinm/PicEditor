@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<purchase:PurchaseDialogBase xmlns="containers.*" xmlns:purchase="dialogs.Purchase.*" xmlns:mx="http://www.adobe.com/2006/mxml"	xmlns:controls="controls.*"
+	 width="{PicnikBase.app.yahoomail?640:690}" styleName="BlueStripeDialogStyle" layout="absolute"
+	 height="{CalcHeight(showTierBox, showCCBox, showInfoBox)}">
+	<mx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import mx.resources.ResourceBundle;
+			import mx.utils.ObjectProxy;
+			import mx.validators.CreditCardValidatorCardType;
+			
+			import util.ABTest;
+			import util.CreditCard;
+			import util.CreditCardTransaction;
+			import util.LocUtil;
+			
+			import validators.PicnikCreditCardValidator;
+			
+			[Bindable] [ResourceBundle("PurchaseDialog")] private var rb:ResourceBundle;
+			
+			override protected function OnResize(evt:Event): void {
+				height = CalcHeight(showTierBox, showCCBox, showInfoBox);
+				super.OnResize(evt);
+			}
+			
+			private function CalcHeight( fShowTierBox:Boolean, fShowCCBox:Boolean, fShowInfoBox:Boolean ): int {
+				var nSize:int = (showTierBox ? 145 : 0) + (showCCBox ? 300 : 0) + (showInfoBox ? 140: 0) + 110;
+				
+				nSize = Math.min(nSize, parentHeight);
+				return nSize;
+			}
+   		]]>
+	</mx:Script>
+	
+	<mx:Style source="PurchaseDialog.css"/>
+	<mx:Style source="../BlueStripeDialog.css"/>
+	<mx:DropShadowFilter id="_fiWhiteShine" blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1" quality="3" angle="90"/>
+	<mx:DropShadowFilter id="_fiInnerShad" blurX="1" blurY="1" distance="1" color="#000000" alpha=".2" quality="3" angle="90" inner="true"/>
+	<mx:DropShadowFilter id="_fiBubbleShadow" blurX="3" blurY="3" distance="1" color="#000000" alpha=".15" quality="3" angle="90"/>
+	<mx:DropShadowFilter id="_fiBubbleShadowSelected" blurX="7" blurY="7" distance="2" color="#000000" alpha=".2" quality="3" angle="90"/>
+	<mx:DropShadowFilter id="_fiBubbleShine" blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1" quality="3" angle="90" inner="true"/>
+	<mx:DropShadowFilter id="_fiSplatShadow" blurX="4" blurY="4" distance="2" color="#000000" alpha=".25" quality="3" angle="90"/>
+	<mx:DropShadowFilter id="_fiEmboss" blurX="1" blurY="1" distance="1" color="#000000" alpha=".35" quality="3" angle="-90"/>
+	
+	<mx:Fade id="_efFadeIn" duration="300" alphaFrom="0" alphaTo="1"/>
+	<mx:Fade id="_efFadeOut" duration="100" alphaFrom="1" alphaTo="0"/>
+	<mx:Boolean id="_fShowingPlausibleCC">{true}</mx:Boolean><!--{showCCBox &amp;&amp; _ccbox.fCreditCardIsPlausible}</mx:Boolean>-->
+	
+	<mx:Canvas width="100%" height="100%" resize="OnResize(event)" move="OnResize(event)" clipContent="false">
+		<!-- Header -->
+		<mx:HBox id="_hbxPurchaseHeader" top="0" left="0" width="100%" horizontalGap="-8" verticalAlign="middle" paddingTop="-4">
+			<controls:ImageVer source="../graphics/premium_sun-large.png" width="63" height="63"/>
+			<controls:ResizingLabel fontSize="28" fontWeight="bold" color="0x005580"
+				text="{Resource.getString('PurchaseDialog',showTierBox?'purchaseHeadTiers':'purchaseHeadPayment')}" 
+				width="100%" autoFontSizeGap="1" filters="{[_fiWhiteShine,_fiInnerShad]}" paddingTop="2" paddingRight="30"/>
+		</mx:HBox>
+
+		<!-- Main Content-->
+		<purchase:TierBox top="60" visible="{showTierBox}" includeInLayout="{showTierBox}" selectedSku="{subscriptionSkuId}"
+						  originalSku="{renewalSkuId}"
+						  id="_tierBox" showEffect="_efFadeIn" blendMode="layer"/>
+		
+		<purchase:CCBox top="{showTierBox ? 195 : 60}" bottom="50" 
+						visible="{gotSubInfo &amp;&amp; showCCBox}" includeInLayout="{showCCBox}"  
+						id="_ccbox" showEffect="_efFadeIn" blendMode="layer" height="100%"
+						subscriptionSkuId="{subscriptionSkuId}" creditCard="{cc}"/>
+		
+		<purchase:CCInfoBox top="{showTierBox ? 195 : 60}" bottom="50" paddingTop="10"
+						visible="{gotSubInfo &amp;&amp; showInfoBox}" includeInLayout="{showInfoBox}"
+						creditCard="{cc}" subscriptionSkuId="{subscriptionSkuId}" 
+						id="_ccInfoBox" showEffect="_efFadeIn" blendMode="layer"/>
+
+		<!-- Close button-->
+		<mx:Button width="22" height="22" right="4" top="4" tabEnabled="false" click="Hide()" styleName="dialogCloseButton"/>
+		
+		<!-- Footer -->
+		<!-- show "join for" to people who are not premium and don't have credit cards. Also shown while we're loading subinfo -->
+		<controls:ResizingButton styleName="basketButton"
+								 label="{LocUtil.rbSubst('PurchaseDialog', 'joinFor', _tierBox.strPrice)}"
+								 click="Purchase();" id="_btnPurchase1" 
+								 enabled="{gotSubInfo &amp;&amp; (_fShowingPlausibleCC || (!showCCBox &amp;&amp; !hasCreditCard))}"
+								 visible="{!AccountMgr.GetInstance().isPaid &amp;&amp; !hasCreditCard}"
+								 minWidth="234" height="38" fontSize="22" bottom="6" horizontalCenter="0" paddingLeft="30" paddingRight="30"/>
+		
+		<!-- show "save changes" to people who are premium -->
+		<controls:ResizingButton styleName="basketButton"
+								 label="{LocUtil.rbSubst('PurchaseDialog', 'saveChanges', _tierBox.strPrice)}"
+								 click="Purchase();" id="_btnPurchase2" 
+								 enabled="{(!showInfoBox) &amp;&amp; gotSubInfo}"
+								 visible="{AccountMgr.GetInstance().isPaid}"
+								 minWidth="234" height="38" fontSize="22" bottom="6" horizontalCenter="0" paddingLeft="30" paddingRight="30"/>
+		
+		<!-- show "reactivate" to people who are not premium but for whom we have credit cards -->
+		<controls:ResizingButton styleName="basketButton"
+								 label="{LocUtil.rbSubst('PurchaseDialog', 'reactivateFor', _tierBox.strPrice)}"
+								 click="Purchase();" id="_btnPurchase3" enabled="{gotSubInfo}"
+								 visible="{hasCreditCard &amp;&amp; !AccountMgr.GetInstance().isPaid}"
+								 minWidth="234" height="38" fontSize="22" bottom="6" horizontalCenter="0" paddingLeft="30" paddingRight="30"/>
+		
+		<!-- cancel/close -->
+		<controls:ResizingButton styleName="basketButtonDarkBlue" label="{Resource.getString('PurchaseDialog',showCCBox ? 'cancel':'close')}"
+							 click="CancelClick()" id="_btnClose"
+							 bottom="11" right="11" height="28" minWidth="97" paddingLeft="-9" paddingRight="-9"/>
+
+		<mx:HBox bottom="11" left="11" height="28" verticalAlign="middle">
+			<controls:ImageEx source="../graphics/icon_lockWhite.png" width="10" height="14" />
+			<controls:ResizingLabel text="@Resource(key='secure', bundle='PurchaseDialog')" fontSize="14" color="#CCCCCC" paddingTop="4"/>	
+		</mx:HBox>
+			
+		
+		<!-- shadow dealies, drawn on top of all elements -->
+		<controls:ImageVer source="../graphics/upsellPremiumPanelShadow.png" bottom="50" left="0" right="0" scaleContent="true" maintainAspectRatio="false"/>
+		<controls:ImageVer top="{showTierBox &amp;&amp; (showCCBox || showInfoBox) ? 200 : 60}" visible="{showCCBox || showInfoBox}"
+						   horizontalCenter="0" source="../graphics/upsellShadowDivider.png" width="100%" height="9" />		
+	</mx:Canvas>
+</purchase:PurchaseDialogBase>

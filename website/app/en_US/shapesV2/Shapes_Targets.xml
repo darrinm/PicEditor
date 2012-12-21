@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory flickrPremium="false" id="Targets" numShapes="4" picnikPremium="false" previewUrls="60|48|../clipart/bundles/groupPreviews_Targets.png?ver=f8cb6f78" restrictedAccess="collageAuthor" title="Targets">
+	<Shapes>
+		<Target alpha="0.7" color="0" crop="true" drawPlaceholder="true" flickrPremium="false" picnikPremium="false"/>
+		<Target alpha="0.7" circular="true" color="0" crop="true" drawPlaceholder="true" flickrPremium="false" picnikPremium="false"/>
+		<Clipart cHeight="36" cWidth="173" flickrPremium="false" picnikPremium="false" previewUrl="40|40|2|../clipart/bundles/shapes_Targets.png?ver=a9df0c7c" url="shapes/picnikcom_logo.swf"/>
+		<Text autoSize="none" flickrPremium="false" picnikPremium="false" text="Text"/>
+	</Shapes>
+</ShapeCategory>

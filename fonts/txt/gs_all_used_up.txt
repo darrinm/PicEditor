@@ -1,0 +1,12 @@
+fileName: gs_all_used_up.ttf
+name: all used up
+subfamilyDisplayName: Normal
+fullName: all used up
+displayName: all used up
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 0
+pkName: pkgs0all0used0up
+authorName: Guillaume Seguin
+authorUrl: http://lastsoundtrack.fontspace.com/

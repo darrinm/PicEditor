@@ -1,0 +1,12 @@
+fileName: trebucit.ttf
+name: Trebuchet MS
+subfamilyDisplayName: Cursiva
+fullName: Trebuchet MS Cursiva
+displayName: Trebuchet MS
+ital: 1
+bold: 0
+weight: 5
+panose.weight: 6
+pkName: pktrebucit
+authorName: Vincent Connare
+authorUrl: http://www.connare.com/typography.htm

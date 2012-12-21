@@ -1,0 +1,1224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GenericEmailOutBridgeBase xmlns="bridges.genericemail.*" xmlns:ctl="controls.*" xmlns:bkctr="containers.*" xmlns:pk="*" xmlns:mx="http://www.adobe.com/2006/mxml" 
+		width="100%" height="100%" defaultButton="{_btnSend}" xmlns:flash="flash.filters.*" horizontalScrollPolicy="off">
+	<mx:Script>
+		import mx.resources.ResourceBundle;
+   		[Bindable] [ResourceBundle("GenericEmailOutBridge")] private var rb:ResourceBundle;
+	</mx:Script>
+
+	<ctl:ImageVer source="@Embed('/assets/bitmaps/page_blueGrad.png')" left="0" top="0" width="100%" scaleContent="true" maintainAspectRatio="false"/>
+	<mx:Grid width="100%" height="100%" paddingTop="20" paddingBottom="20" paddingLeft="20" paddingRight="26" y="0" x="0">
+		<mx:GridRow width="100%" height="100%">
+			<mx:GridItem width="50%" height="100%" horizontalAlign="center" paddingRight="20">
+			<pk:ImageView id="_imgvPreview" width="100%" height="100%" verticalAlign="top" minWidth="75" minHeight="75"/>
+			<mx:filters>
+				<flash:DropShadowFilter distance="1" angle="90" blurX="4" blurY="4" alpha=".5" quality="3"/>
+  			</mx:filters>
+			</mx:GridItem>
+			<mx:GridItem width="50%" height="100%">
+				<mx:Grid verticalGap="0">
+					<mx:GridRow width="100%" height="100%" paddingBottom="5">
+						<mx:GridItem width="100%" height="100%" verticalAlign="middle">
+							<mx:Label text="@Resource(key='Label_1', bundle='GenericEmailOutBridge')" color="#618430" fontWeight="bold" fontSize="21" styleName="publishForm"/>
+							<!--<mx:Button id="_btnInfo" selected="true" height="20" width="20" toggle="true" icon="@Embed('/theme/pngs/questionmark.png')" paddingLeft="0"/>-->
+						</mx:GridItem>
+					</mx:GridRow>
+					<mx:GridRow width="100%" height="100%" paddingBottom="15">
+						<mx:GridItem width="100%" height="100%" verticalAlign="middle">
+							<mx:Box backgroundColor="#dbeefd" borderStyle="solid" borderThickness="0" cornerRadius="8" paddingTop="5" paddingLeft="10" paddingRight="5" paddingBottom="5">
+								<ctl:TextPlus htmlText="@Resource(key='Deprecated', bundle='GenericEmailOutBridge')" width="400"
+							  selectable="false" link="OnLink(event)"
+							  color="#333333" condenseWhite="true" fontWeight="bold" fontSize="14" styleName="publishForm"/>
+							</mx:Box>
+						</mx:GridItem>
+					</mx:GridRow>
+					<!--
+					<mx:GridRow width="100%" height="100%" paddingBottom="12">
+						<mx:GridItem width="100%" verticalAlign="middle">
+							<mx:ComboBox id="_cmboService" dataProvider="{_aobStackItems}" change="SetViewStackToServiceComboBox()" rowCount="6" width="295" height="26">
+								<mx:itemRenderer>
+									<mx:Component>
+						            	<mx:HBox verticalAlign="middle">
+						                	<mx:Label text="{data.label}" fontSize="14"/>
+											<mx:Spacer width="100%"/>
+						                	<ctl:ImageVer source="{data.icon}" height="36"/>
+						            	</mx:HBox>
+									</mx:Component>
+					            </mx:itemRenderer>
+						 	</mx:ComboBox>
+							<mx:Spacer width="5" height="10"/>
+							<ctl:ImageVer id="_imgPhotoSet" source="{_cmboService.selectedItem.icon}">
+							</ctl:ImageVer>
+						</mx:GridItem>
+					</mx:GridRow>
+					-->
+					<mx:GridRow width="100%" height="100%">
+						<mx:GridItem width="100%" height="100%">
+							<mx:ViewStack id="_vstkServices" resizeToContent="true" creationPolicy="all">
+
+								<!--
+								<mx:Canvas label="PhotoBucket">
+									<ctl:ImageEx name="_imgIcon" source="../graphics/thirdpartylogos/menulogos/photobucket.png" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblToEmail" text="{Chomp(_tiPhotoBucketUser.text,'@')}@uploads.photobucket.com" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblFromEmail" text="user@mywebsite.com" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblSubject" text="{_tiPhotoBucketTitle.text}" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblMessage" text="" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblImageTitle" text="{_tiPhotoBucketTitle.text}" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblMaxImageDim" text="{_cmboPhotoBucketImageSize.selectedItem.data}" visible="false" includeInLayout="false"/>
+									<mx:Grid verticalGap="0" x="0" y="0">
+										<mx:GridRow width="100%" height="100%">
+											<mx:GridItem width="100%" height="100%">
+												<mx:Label text="@Resource(key='Label_2', bundle='GenericEmailOutBridge')" styleName="publishForm" height="20"/>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%" paddingBottom="5" paddingLeft="2">
+											<mx:GridItem>
+												<ctl:TextInputPlus width="300" id="_tiPhotoBucketUser" text="{account.GetUserAttribute('GenericEmailOutBridge.PhotoBucket.user', '')}" height="26" styleName="publishFormField"
+													 valueCommit="SetUserAttribute('GenericEmailOutBridge.PhotoBucket.user', Chomp(event.target.text,'@') + '@uploads.photobucket.com', '@uploads.photobucket.com')" maxChars="500"/>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow paddingBottom="12">
+											<mx:GridItem>
+												<mx:Text fontSize="12" fontWeight="normal" condenseWhite="true" selectable="true" width="400" htmlText="@Resource(key='Text_1', bundle='GenericEmailOutBridge')">
+												</mx:Text>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%">
+											<mx:GridItem width="100%" height="100%">
+												<mx:Label text="@Resource(key='Label_3', bundle='GenericEmailOutBridge')" styleName="publishForm" height="20"/>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%" paddingBottom="12">
+											<mx:GridItem width="100%" height="100%">
+												<mx:ComboBox width="200" id="_cmboPhotoBucketImageSize" dataProvider="{_aobDefaultImageSizes}" height="26">
+											 	</mx:ComboBox>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%">
+											<mx:GridItem width="100%" height="100%">
+												<mx:Text styleName="publishForm" height="20" condenseWhite="true" selectable="false" htmlText="@Resource(key='Text_2', bundle='GenericEmailOutBridge')">
+												</mx:Text>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%" paddingBottom="20" paddingLeft="2">
+											<mx:GridItem width="100%" height="100%">
+												<ctl:TextInputPlus width="390" id="_tiPhotoBucketTitle" text="{_imgd.properties.title}" height="26" styleName="publishFormField"  maxChars="500"/>
+											</mx:GridItem>
+										</mx:GridRow>
+									</mx:Grid>
+								</mx:Canvas>
+								
+								<mx:Canvas label="Flickr">
+									<ctl:ImageEx name="_imgIcon" source="../graphics/thirdpartylogos/menulogos/flickr.png" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblToEmail" text="{Chomp(_tiFlickrKey.text,'@')}@photos.flickr.com" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblFromEmail" text="user@mywebsite.com" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblSubject" text="{_tiFlickrTitle.text} tags:{_tiFlickrTags.text}" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblMessage" text="{_taFlickrMessage.text}" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblImageTitle" text="@Resource(key='Label_4', bundle='GenericEmailOutBridge')" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblMaxImageDim" text="{_cmboFlickrImageSize.selectedItem.data}" visible="false" includeInLayout="false"/>
+									<mx:Grid verticalGap="0" x="0" y="0">
+										<mx:GridRow width="100%" height="100%">
+											<mx:GridItem width="100%" height="100%">
+												<mx:Label text="@Resource(key='Label_5', bundle='GenericEmailOutBridge')" styleName="publishForm" height="20"/>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%" paddingBottom="5" paddingLeft="2">
+											<mx:GridItem>
+												<ctl:TextInputPlus width="300" id="_tiFlickrKey" height="26" styleName="publishFormField" paddingRight="0"
+														text="{account.GetUserAttribute('GenericEmailOutBridge.Flickr.uploadEmail', '')}"
+														valueCommit="SetUserAttribute('GenericEmailOutBridge.Flickr.uploadEmail', Chomp(event.target.text,'@') + '@photos.flickr.com', '@photos.flickr.com')" maxChars="500"/>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow paddingBottom="12">
+											<mx:GridItem>
+												<mx:Text fontSize="12" fontWeight="normal" condenseWhite="true" selectable="true" width="375" htmlText="@Resource(key='Text_3', bundle='GenericEmailOutBridge')">
+												</mx:Text>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%">
+											<mx:GridItem width="100%" height="100%">
+												<mx:Label text="@Resource(key='Label_3', bundle='GenericEmailOutBridge')" styleName="publishForm" height="20"/>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%" paddingBottom="12">
+											<mx:GridItem width="100%" height="100%">
+												<mx:ComboBox width="200" id="_cmboFlickrImageSize" dataProvider="{_aobDefaultImageSizes}" height="26">
+											 	</mx:ComboBox>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%">
+											<mx:GridItem width="100%" height="100%">
+												<mx:Text styleName="publishForm" height="20" condenseWhite="true" selectable="false" htmlText="@Resource(key='Text_2', bundle='GenericEmailOutBridge')">
+												</mx:Text>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%" paddingBottom="12" paddingLeft="2">
+											<mx:GridItem width="100%" height="100%">
+												<ctl:TextInputPlus width="390" id="_tiFlickrTitle" text="{_imgd.properties.title}" height="26" styleName="publishFormField" maxChars="500"/>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%">
+											<mx:GridItem width="100%" height="100%">
+												<mx:Text styleName="publishForm" height="20" condenseWhite="true" selectable="false" htmlText="@Resource(key='Text_4', bundle='GenericEmailOutBridge')">
+												</mx:Text>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%" paddingBottom="12" paddingLeft="2">
+											<mx:GridItem width="100%" height="100%">
+												<ctl:TextAreaPlus width="390" height="62" text="{_imgd.properties.description}" styleName="publishFormField" id="_taFlickrMessage" maxChars="1200"/>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%">
+											<mx:GridItem width="100%" height="100%">
+												<mx:Text styleName="publishForm" height="20" condenseWhite="true" selectable="false" htmlText="@Resource(key='Text_5', bundle='GenericEmailOutBridge')">
+												</mx:Text>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%" paddingBottom="20" paddingLeft="2">
+											<mx:GridItem width="100%" height="100%">
+												<ctl:TextInputPlus width="320" id="_tiFlickrTags" text="{_imgd.properties.tags}" height="26" styleName="publishFormField" maxChars="500"/>
+											</mx:GridItem>
+										</mx:GridRow>
+									</mx:Grid>
+								</mx:Canvas>
+
+								<mx:Canvas label="ImageShack">
+									<ctl:ImageEx name="_imgIcon" source="../graphics/thirdpartylogos/menulogos/imageshack.png" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblToEmail" text="@Resource(key='Label_7', bundle='GenericEmailOutBridge')" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblFromEmail" text="user@mywebsite.com" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblSubject" text="{_tiImageShackCode.text}" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblMessage" text=" " visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblImageTitle" text="{_tiImageShackTitle.text}.jpg" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblMaxImageDim" text="{_cmboImageShackImageSize.selectedItem.data}" visible="false" includeInLayout="false"/>
+									<mx:Grid verticalGap="0" x="0" y="0">
+										<mx:GridRow width="100%" height="100%">
+											<mx:GridItem width="100%" height="100%">
+												<mx:Label text="@Resource(key='Label_8', bundle='GenericEmailOutBridge')" styleName="publishForm" height="20"/>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%" paddingBottom="5" paddingLeft="2">
+											<mx:GridItem>
+												<ctl:TextInputPlus width="300" id="_tiImageShackCode" text="{account.GetUserAttribute('GenericEmailOutBridge.ImageShack.code', '')}" height="26" styleName="publishFormField"
+														valueCommit="SetUserAttribute('GenericEmailOutBridge.ImageShack.code', event.target.text)" maxChars="500"/>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow paddingBottom="12">
+											<mx:GridItem>
+												<mx:Text fontSize="12" fontWeight="normal" condenseWhite="true" selectable="true" width="400" htmlText="@Resource(key='Text_6', bundle='GenericEmailOutBridge')">
+												</mx:Text>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%">
+											<mx:GridItem width="100%" height="100%">
+												<mx:Label text="@Resource(key='Label_3', bundle='GenericEmailOutBridge')" styleName="publishForm" height="20"/>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%" paddingBottom="12">
+											<mx:GridItem width="100%" height="100%">
+ 												<mx:ComboBox width="200" id="_cmboImageShackImageSize" dataProvider="{_aobDefaultImageSizes}" height="26">
+											 	</mx:ComboBox>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%">
+											<mx:GridItem width="100%" height="100%">
+												<mx:Text styleName="publishForm" height="20" condenseWhite="true" selectable="false" htmlText="@Resource(key='Text_2', bundle='GenericEmailOutBridge')">
+												</mx:Text>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%" paddingBottom="20" paddingLeft="2">
+											<mx:GridItem width="100%" height="100%">
+												<ctl:TextInputPlus width="390" id="_tiImageShackTitle" text="{_imgd.properties.title}" height="26" styleName="publishFormField" maxChars="500"/>
+											</mx:GridItem>
+										</mx:GridRow>
+									</mx:Grid>
+								</mx:Canvas>
+
+								<mx:Canvas label="Webs">
+									<ctl:ImageEx name="_imgIcon" source="../graphics/thirdpartylogos/menulogos/freewebs.png" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblToEmail" text="@Resource(key='Label_10', bundle='GenericEmailOutBridge')" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblFromEmail" text="{_tiFreewebsAccountEmail.text}" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblSubject" text="{_tiFreewebsAccountUsername.text}" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblMessage" text="@Resource(key='Label_11', bundle='GenericEmailOutBridge')" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblImageTitle" text="{_imgd.properties.title}.jpg" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblMaxImageDim" text="{_cmboFreewebsImageSize.selectedItem.data}" visible="false" includeInLayout="false"/>
+									<mx:Grid verticalGap="0" x="0" y="0">
+										<mx:GridRow width="100%" height="100%">
+											<mx:GridItem width="100%" height="100%">
+												<mx:Label text="@Resource(key='Label_12', bundle='GenericEmailOutBridge')" styleName="publishForm" height="20"/>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%" paddingBottom="5" paddingLeft="2">
+											<mx:GridItem>
+												<ctl:TextInputPlus width="250" id="_tiFreewebsAccountEmail" height="26" styleName="publishFormField"
+														text="{account.GetUserAttribute('GenericEmailOutBridge.Freewebs.senderEmail', '')}"
+														valueCommit="SetUserAttribute('GenericEmailOutBridge.Freewebs.senderEmail', event.target.text)" maxChars="500"/>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow paddingBottom="12">
+											<mx:GridItem>
+												<mx:Text fontSize="12" fontWeight="normal" condenseWhite="true" selectable="true" width="375" htmlText="@Resource(key='Text_7', bundle='GenericEmailOutBridge')">
+												</mx:Text>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%">
+											<mx:GridItem width="100%" height="100%">
+												<mx:Text styleName="publishForm" height="20" condenseWhite="true" selectable="false" htmlText="@Resource(key='Text_8', bundle='GenericEmailOutBridge')">
+												</mx:Text>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%" paddingBottom="5" paddingLeft="2">
+											<mx:GridItem>
+												<ctl:TextInputPlus width="250" id="_tiFreewebsAccountUsername" height="26" styleName="publishFormField"
+														text="{account.GetUserAttribute('GenericEmailOutBridge.Freewebs.username', '')}"
+														valueCommit="SetUserAttribute('GenericEmailOutBridge.Freewebs.username', event.target.text)" maxChars="500"/>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow paddingBottom="12">
+											<mx:GridItem>
+												<mx:Text fontSize="12" fontWeight="normal" condenseWhite="true" selectable="true" width="375" htmlText="@Resource(key='Text_9', bundle='GenericEmailOutBridge')">
+												</mx:Text>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%">
+											<mx:GridItem width="100%" height="100%">
+												<mx:Label text="@Resource(key='Label_3', bundle='GenericEmailOutBridge')" styleName="publishForm" height="20"/>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%" paddingBottom="20">
+											<mx:GridItem width="100%" height="100%">
+												<mx:ComboBox width="200" id="_cmboFreewebsImageSize" dataProvider="{_aobDefaultImageSizes}" height="26">
+											 	</mx:ComboBox>
+											</mx:GridItem>
+										</mx:GridRow>
+									</mx:Grid>
+								</mx:Canvas>
+
+								<mx:Canvas label="Walmart Photos">
+									<ctl:ImageEx name="_imgIcon" source="../graphics/thirdpartylogos/menulogos/walmart.png" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblToEmail" text="@Resource(key='Label_14', bundle='GenericEmailOutBridge')" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblFromEmail" text="{_tiWalmartReplyEmail.text}" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblSubject" text="" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblMessage" text="" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblImageTitle" text="{_imgd.properties.title}.jpg" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblMaxImageDim" text="0" visible="false" includeInLayout="false"/>
+									<mx:Grid verticalGap="0" x="0" y="0">
+										<mx:GridRow width="100%" height="100%">
+											<mx:GridItem width="100%" height="100%">
+												<mx:Text fontSize="13" fontWeight="normal" condenseWhite="true" selectable="false" width="390" x="165" y="16" color="#333333" htmlText="@Resource(key='Text_10', bundle='GenericEmailOutBridge')">
+												</mx:Text>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%" paddingBottom="5" paddingLeft="2">
+											<mx:GridItem>
+												<ctl:TextInputPlus width="250" id="_tiWalmartReplyEmail" height="26" styleName="publishFormField"
+														text="{account.GetUserAttribute('GenericEmailOutBridge.Walmart.replyEmail', '')}"
+														valueCommit="SetUserAttribute('GenericEmailOutBridge.Walmart.replyEmail', event.target.text)" maxChars="500"/>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow paddingBottom="20">
+											<mx:GridItem>
+												<mx:Text fontSize="12" fontWeight="normal" condenseWhite="true" selectable="true" width="400" htmlText="@Resource(key='Text_11', bundle='GenericEmailOutBridge')">
+												</mx:Text>
+											</mx:GridItem>
+										</mx:GridRow>
+									</mx:Grid>
+								</mx:Canvas>
+
+								<mx:Canvas label="TypePad">
+									<ctl:ImageEx name="_imgIcon" source="../graphics/thirdpartylogos/menulogos/typepad.png" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblToEmail" text="{Chomp(_tiTypePadToEmail.text,'@')}@typepad.com" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblFromEmail" text="{_tiTypePadFromEmail.text}" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblSubject" text="{_tiTypePadSubject.text}" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblMessage" text="{_taTypePadBody.text}" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblImageTitle" text="@Resource(key='Label_4', bundle='GenericEmailOutBridge')" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblMaxImageDim" text="{_cmboTypePadImageSize.selectedItem.data}" visible="false" includeInLayout="false"/>
+									<mx:Grid verticalGap="0" x="0" y="0">
+										<mx:GridRow width="100%" height="100%">
+											<mx:GridItem width="100%" height="100%">
+												<mx:Text fontSize="13" fontWeight="normal" condenseWhite="true" selectable="false" width="390" x="165" y="16" color="#333333" htmlText="@Resource(key='Text_12', bundle='GenericEmailOutBridge')">
+												</mx:Text>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%" paddingBottom="5" paddingLeft="2">
+											<mx:GridItem>
+												<ctl:TextInputPlus width="250" id="_tiTypePadToEmail" height="26" styleName="publishFormField"
+														text="{account.GetUserAttribute('GenericEmailOutBridge.TypePad.uploadEmail', '')}"
+														valueCommit="SetUserAttribute('GenericEmailOutBridge.TypePad.uploadEmail', Chomp(event.target.text,'@') + '@typepad.com', '@typepad.com')"  maxChars="500"/>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%">
+											<mx:GridItem width="100%" height="100%">
+												<mx:Text fontSize="13" fontWeight="normal" condenseWhite="true" selectable="false" width="390" x="165" y="16" color="#333333" htmlText="@Resource(key='Text_13', bundle='GenericEmailOutBridge')">
+												</mx:Text>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%" paddingBottom="5" paddingLeft="2">
+											<mx:GridItem>
+												<ctl:TextInputPlus width="250" id="_tiTypePadFromEmail" height="26" styleName="publishFormField"
+														text="{account.GetUserAttribute('GenericEmailOutBridge.TypePad.senderEmail', '')}"
+														valueCommit="SetUserAttribute('GenericEmailOutBridge.TypePad.senderEmail', event.target.text)" maxChars="500"/>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow paddingBottom="12">
+											<mx:GridItem>
+												<mx:Text fontSize="12" fontWeight="normal" condenseWhite="true" selectable="true" width="400" htmlText="@Resource(key='Text_14', bundle='GenericEmailOutBridge')">
+												</mx:Text>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%">
+											<mx:GridItem width="100%" height="100%">
+												<mx:Label text="@Resource(key='Label_3', bundle='GenericEmailOutBridge')" styleName="publishForm" height="20"/>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%" paddingBottom="20">
+											<mx:GridItem width="100%" height="100%">
+												<mx:ComboBox width="200" id="_cmboTypePadImageSize" dataProvider="{_aobDefaultImageSizes}" height="26">
+											 	</mx:ComboBox>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%">
+											<mx:GridItem width="100%" height="100%">
+												<mx:Text styleName="publishForm" height="20" condenseWhite="true" selectable="false" htmlText="@Resource(key='Text_15', bundle='GenericEmailOutBridge')">
+												</mx:Text>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%" paddingBottom="12" paddingLeft="2">
+											<mx:GridItem width="100%" height="100%">
+												<ctl:TextInputPlus width="250" text="{_imgd.properties.title}" styleName="publishFormField" id="_tiTypePadSubject" maxChars="500"/>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%">
+											<mx:GridItem width="100%" height="100%">
+												<mx:Text styleName="publishForm" height="20" condenseWhite="true" selectable="false" htmlText="@Resource(key='Text_16', bundle='GenericEmailOutBridge')">
+												</mx:Text>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%" paddingBottom="20" paddingLeft="2">
+											<mx:GridItem width="100%" height="100%">
+												<ctl:TextAreaPlus width="390" height="62" text="{_imgd.properties.description}" styleName="publishFormField" id="_taTypePadBody" maxChars="1200"/>
+											</mx:GridItem>
+										</mx:GridRow>
+									</mx:Grid>
+								</mx:Canvas>
+								
+								<mx:Canvas label="Costco Photos">
+									<ctl:ImageEx name="_imgIcon" source="../graphics/thirdpartylogos/menulogos/costco.png" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblToEmail" text="@Resource(key='Label_17', bundle='GenericEmailOutBridge')" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblFromEmail" text="{_tiCostcoReplyEmail.text}" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblSubject" text="" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblMessage" text="" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblImageTitle" text="{_imgd.properties.title}.jpg" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblMaxImageDim" text="0" visible="false" includeInLayout="false"/>
+									<mx:Grid verticalGap="0" x="0" y="0">
+										<mx:GridRow width="100%" height="100%">
+											<mx:GridItem width="100%" height="100%">
+												<mx:Text fontSize="13" fontWeight="normal" condenseWhite="true" selectable="true" width="390" x="165" y="16" color="#333333" htmlText="@Resource(key='Text_17', bundle='GenericEmailOutBridge')">
+												</mx:Text>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%" paddingBottom="5" paddingLeft="2">
+											<mx:GridItem>
+												<ctl:TextInputPlus width="250" id="_tiCostcoReplyEmail" height="26" styleName="publishFormField"
+														text="{account.GetUserAttribute('GenericEmailOutBridge.Costco.replyEmail', '')}"
+														valueCommit="SetUserAttribute('GenericEmailOutBridge.Costco.replyEmail', event.target.text)" maxChars="500"/>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow paddingBottom="20">
+											<mx:GridItem>
+												<mx:Text fontSize="12" fontWeight="normal" condenseWhite="true" selectable="true" width="400" htmlText="@Resource(key='Text_18', bundle='GenericEmailOutBridge')">
+												</mx:Text>
+											</mx:GridItem>
+										</mx:GridRow>
+									</mx:Grid>
+								</mx:Canvas>
+
+								<mx:Canvas label="Snapfish">
+									<ctl:ImageEx name="_imgIcon" source="../graphics/thirdpartylogos/menulogos/snapfish.png" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblToEmail" text="@Resource(key='Label_18', bundle='GenericEmailOutBridge')" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblFromEmail" text="{_tiSnapFishReplyEmail.text}" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblSubject" text="" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblMessage" text="" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblImageTitle" text="{_imgd.properties.title}.jpg" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblMaxImageDim" text="0" visible="false" includeInLayout="false"/>
+									<mx:Grid verticalGap="0" x="0" y="0">
+										<mx:GridRow width="100%" height="100%">
+											<mx:GridItem width="100%" height="100%">
+												<mx:Text fontSize="13" fontWeight="normal" condenseWhite="true" selectable="true" width="390" x="165" y="16" color="#333333" htmlText="@Resource(key='Text_17', bundle='GenericEmailOutBridge')">
+												</mx:Text>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%" paddingBottom="5" paddingLeft="2">
+											<mx:GridItem>
+												<ctl:TextInputPlus width="250" id="_tiSnapFishReplyEmail" height="26" styleName="publishFormField"
+														text="{account.GetUserAttribute('GenericEmailOutBridge.SnapFish.replyEmail', '')}"
+														valueCommit="SetUserAttribute('GenericEmailOutBridge.SnapFish.replyEmail', event.target.text)" maxChars="500"/>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow paddingBottom="20">
+											<mx:GridItem>
+												<mx:Text fontSize="12" fontWeight="normal" condenseWhite="true" selectable="true" width="400" htmlText="@Resource(key='Text_19', bundle='GenericEmailOutBridge')">
+												</mx:Text>
+											</mx:GridItem>
+										</mx:GridRow>
+									</mx:Grid>
+								</mx:Canvas>
+
+								<mx:Canvas label="SmugMug">
+									<ctl:ImageEx name="_imgIcon" source="../graphics/thirdpartylogos/menulogos/smugmug.png" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblToEmail" text="{_tiSmugMugNickname.text}@email.smugmug.com" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblFromEmail" text="user@mywebsite.com" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblSubject" text="{_tiSmugMugEmailPassword.text}" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblMessage" text="" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblImageTitle" text="@Resource(key='Label_4', bundle='GenericEmailOutBridge')" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblMaxImageDim" text="0" visible="false" includeInLayout="false"/>
+									<mx:Grid verticalGap="0" x="0" y="0">
+										<mx:GridRow width="100%" height="100%">
+											<mx:GridItem width="100%" height="100%">
+												<mx:Label text="@Resource(key='Label_20', bundle='GenericEmailOutBridge')" styleName="publishForm" height="20"/>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%" paddingBottom="12">
+											<mx:GridItem width="100%" height="100%">
+												<ctl:TextInputPlus width="250" id="_tiSmugMugNickname" height="26" styleName="publishFormField"
+														text="{account.GetUserAttribute('GenericEmailOutBridge.SmugMug.nickname', '')}"
+														valueCommit="SetUserAttribute('GenericEmailOutBridge.SmugMug.nickname', event.target.text)" maxChars="500"/>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%">
+											<mx:GridItem width="100%" height="100%">
+												<mx:Label text="@Resource(key='Label_21', bundle='GenericEmailOutBridge')" styleName="publishForm" height="20"/>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%" paddingBottom="5">
+											<mx:GridItem width="100%" height="100%">
+												<ctl:TextInputPlus width="250" id="_tiSmugMugEmailPassword" height="26" styleName="publishFormField"
+														text="{account.GetUserAttribute('GenericEmailOutBridge.SmugMug.emailPassword', '')}"
+														valueCommit="SetUserAttribute('GenericEmailOutBridge.SmugMug.emailPassword', event.target.text)" maxChars="500"/>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow paddingBottom="20">
+											<mx:GridItem>
+												<mx:Text fontSize="12" fontWeight="normal" condenseWhite="true" selectable="true" width="400" htmlText="@Resource(key='Text_20', bundle='GenericEmailOutBridge')">
+												</mx:Text>
+											</mx:GridItem>
+										</mx:GridRow>
+									</mx:Grid>
+								</mx:Canvas>
+								
+								<mx:Canvas label="Tumblr">
+									<ctl:ImageEx name="_imgIcon" source="../graphics/thirdpartylogos/menulogos/tumblr.png" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblToEmail" text="{Chomp(_tiTumblrUser.text,'@')}@tumblr.com" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblFromEmail" text="user@mywebsite.com" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblSubject" text="{_tiTumblrCaption.text}" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblMessage" text="" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblImageTitle" text="" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblMaxImageDim" text="500" visible="false" includeInLayout="false"/>
+									<mx:Grid verticalGap="0" x="0" y="0">
+										<mx:GridRow width="100%" height="100%">
+											<mx:GridItem width="100%" height="100%">
+												<mx:Label text="@Resource(key='Label_22', bundle='GenericEmailOutBridge')" styleName="publishForm" height="20"/>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%" paddingBottom="5" paddingLeft="2">
+											<mx:GridItem>
+												<ctl:TextInputPlus width="300" id="_tiTumblrUser" text="{account.GetUserAttribute('GenericEmailOutBridge.Tumblr.user', '')}" height="26" styleName="publishFormField"
+														valueCommit="SetUserAttribute('GenericEmailOutBridge.Tumblr.user', Chomp(event.target.text,'@') + '@tumblr.com', '@tumblr.com')" maxChars="500"/>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow paddingBottom="12">
+											<mx:GridItem>
+												<mx:Text fontSize="12" fontWeight="normal" condenseWhite="true" selectable="true" width="400" htmlText="@Resource(key='Text_21', bundle='GenericEmailOutBridge')">
+												</mx:Text>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%">
+											<mx:GridItem width="100%" height="100%">
+												<mx:Text styleName="publishForm" height="20" condenseWhite="true" selectable="false" htmlText="@Resource(key='Text_22', bundle='GenericEmailOutBridge')">
+												</mx:Text>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%" paddingBottom="20" paddingLeft="2">
+											<mx:GridItem width="100%" height="100%">
+												<ctl:TextInputPlus width="390" id="_tiTumblrCaption" text="{_imgd.properties.title}" height="26" styleName="publishFormField"  maxChars="500"/>
+											</mx:GridItem>
+										</mx:GridRow>
+									</mx:Grid>
+								</mx:Canvas>
+								
+								<mx:Canvas label="Windows Live Spaces">
+									<ctl:ImageEx name="_imgIcon" source="../graphics/thirdpartylogos/menulogos/livespaces.png" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblToEmail" text="{Chomp(_tiMSNToEmail.text,'@')}@spaces.live.com" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblFromEmail" text="{_tiMSNFromEmail.text}" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblSubject" text="{_tiMSNSubject.text}" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblMessage" text="{_taMSNBody.text}" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblImageTitle" text="{_tiMSNImageName.text}.jpg" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblMaxImageDim" text="{_cmboMSNImageSize.selectedItem.data}" visible="false" includeInLayout="false"/>
+									<mx:Grid verticalGap="0" x="0" y="0">
+										<mx:GridRow width="100%" height="100%">
+											<mx:GridItem width="100%" height="100%">
+												<mx:Text fontSize="13" fontWeight="normal" condenseWhite="true" width="390" x="165" y="16" selectable="false" color="#333333" htmlText="@Resource(key='Text_23', bundle='GenericEmailOutBridge')">
+												</mx:Text>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%" paddingBottom="12" paddingLeft="2">
+											<mx:GridItem>
+												<ctl:TextInputPlus width="250" id="_tiMSNToEmail" height="26" styleName="publishFormField"
+														text="{account.GetUserAttribute('GenericEmailOutBridge.LiveSpaces.uploadEmail', '')}"
+														valueCommit="SetUserAttribute('GenericEmailOutBridge.LiveSpaces.uploadEmail', Chomp(event.target.text,'@') + '@spaces.live.com', '@spaces.live.com')" maxChars="500"/>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%">
+											<mx:GridItem>
+												<mx:Text fontSize="13" fontWeight="normal" condenseWhite="true" width="390" x="165" y="16" selectable="false" color="#333333" htmlText="@Resource(key='Text_13', bundle='GenericEmailOutBridge')">
+												</mx:Text>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%" paddingBottom="5" paddingLeft="2">
+											<mx:GridItem>
+												<ctl:TextInputPlus width="250" id="_tiMSNFromEmail" height="26" styleName="publishFormField"
+														text="{account.GetUserAttribute('GenericEmailOutBridge.LiveSpaces.senderEmail', '')}"
+														valueCommit="SetUserAttribute('GenericEmailOutBridge.LiveSpaces.senderEmail', event.target.text)" maxChars="500"/>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow paddingBottom="12">
+											<mx:GridItem>
+												<mx:Text fontSize="12" fontWeight="normal" condenseWhite="true" selectable="true" width="400" htmlText="@Resource(key='Text_24', bundle='GenericEmailOutBridge')">
+												</mx:Text>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%">
+											<mx:GridItem width="100%" height="100%">
+												<mx:Label text="@Resource(key='Label_3', bundle='GenericEmailOutBridge')" styleName="publishForm" height="20"/>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%" paddingBottom="12">
+											<mx:GridItem width="100%" height="100%">
+												<mx:ComboBox width="200" id="_cmboMSNImageSize" dataProvider="{_aobDefaultImageSizes}" height="26">
+											 	</mx:ComboBox>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%">
+											<mx:GridItem width="100%" height="100%">
+												<mx:Text styleName="publishForm" height="20" condenseWhite="true" selectable="false" htmlText="@Resource(key='Text_15', bundle='GenericEmailOutBridge')">
+												</mx:Text>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%" paddingBottom="12" paddingLeft="2">
+											<mx:GridItem width="100%" height="100%">
+												<ctl:TextInputPlus width="250" text="{_imgd.properties.title}" styleName="publishFormField" id="_tiMSNSubject" maxChars="500"/>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%">
+											<mx:GridItem width="100%" height="100%">
+												<mx:Text styleName="publishForm" height="20" condenseWhite="true" selectable="false" htmlText="@Resource(key='Text_25', bundle='GenericEmailOutBridge')">
+												</mx:Text>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%" paddingBottom="12" paddingLeft="2">
+											<mx:GridItem width="100%" height="100%">
+												<ctl:TextInputPlus width="250" text="{_imgd.properties.title}" styleName="publishFormField" id="_tiMSNImageName" maxChars="500"/>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%">
+											<mx:GridItem width="100%" height="100%">
+												<mx:Text styleName="publishForm" height="20" condenseWhite="true" selectable="false" htmlText="@Resource(key='Text_16', bundle='GenericEmailOutBridge')">
+												</mx:Text>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%" paddingBottom="20" paddingLeft="2">
+											<mx:GridItem width="100%" height="100%">
+												<ctl:TextAreaPlus width="390" height="62" text="{_imgd.properties.description}" styleName="publishFormField" id="_taMSNBody" maxChars="1200"/>
+											</mx:GridItem>
+										</mx:GridRow>
+									</mx:Grid>
+								</mx:Canvas>
+
+								<mx:Canvas label="Kodak EasyShare">
+									<ctl:ImageEx name="_imgIcon" source="../graphics/thirdpartylogos/menulogos/kodak.png" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblToEmail" text="@Resource(key='Label_24', bundle='GenericEmailOutBridge')" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblFromEmail" text="{_tiKodakPhoneEmail.text}" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblSubject" text="@Resource(key='Label_25', bundle='GenericEmailOutBridge')" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblMessage" text="{_tiKodakCaption.text}" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblImageTitle" text="@Resource(key='Label_4', bundle='GenericEmailOutBridge')" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblMaxImageDim" text="0" visible="false" includeInLayout="false"/>
+									<mx:Grid verticalGap="0" x="0" y="0">
+										<mx:GridRow width="100%" height="100%">
+											<mx:GridItem width="100%" height="100%">
+												<mx:Text styleName="publishForm" height="20" condenseWhite="true" selectable="false" htmlText="@Resource(key='Text_26', bundle='GenericEmailOutBridge')">
+												</mx:Text>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%" paddingBottom="5" paddingLeft="2">
+											<mx:GridItem width="100%" height="100%">
+												<ctl:TextInputPlus width="390" id="_tiKodakPhoneEmail" height="26" styleName="publishFormField"
+														text="{account.GetUserAttribute('GenericEmailOutBridge.Kodak.phoneEmail', '')}"
+														valueCommit="SetUserAttribute('GenericEmailOutBridge.Kodak.phoneEmail', event.target.text)" maxChars="500"/>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow paddingBottom="12">
+											<mx:GridItem>
+												<mx:Text fontSize="12" fontWeight="normal" condenseWhite="true" selectable="true" width="400" htmlText="@Resource(key='Text_27', bundle='GenericEmailOutBridge')">
+												</mx:Text>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%">
+											<mx:GridItem width="100%" height="100%">
+												<mx:Text styleName="publishForm" height="20" condenseWhite="true" selectable="false" htmlText="@Resource(key='Text_22', bundle='GenericEmailOutBridge')">
+												</mx:Text>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%" paddingBottom="20" paddingLeft="2">
+											<mx:GridItem width="100%" height="100%">
+												<ctl:TextInputPlus width="390" id="_tiKodakCaption" text="{_imgd.properties.title}" height="26" styleName="publishFormField" maxChars="500"/>
+											</mx:GridItem>
+										</mx:GridRow>
+									</mx:Grid>
+									
+								</mx:Canvas>
+
+								<mx:Canvas label="LiveJournal">
+									<ctl:ImageEx name="_imgIcon" source="../graphics/thirdpartylogos/menulogos/livejournal.png" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblToEmail" id="_lblTestTo" text="{_tiLiveJournalUser.text}+{_tiLiveJournalPIN.text}@post.livejournal.com" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblFromEmail" text="{_tiLiveJournalSender.text}" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblSubject" text="{_tiLiveJournalTitle.text}" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblMessage" text="{_taLiveJournalBody.text}" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblImageTitle" text="@Resource(key='Label_4', bundle='GenericEmailOutBridge')" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblMaxImageDim" text="{_cmboLiveJournalImageSize.selectedItem.data}" visible="false" includeInLayout="false"/>
+									<mx:Grid verticalGap="0" x="0" y="0">
+										<mx:GridRow width="100%" height="100%">
+											<mx:GridItem width="100%" height="100%">
+												<mx:Label text="@Resource(key='Label_28', bundle='GenericEmailOutBridge')" styleName="publishForm" height="20"/>
+												<mx:Spacer width="50"/>
+												<mx:Label text="@Resource(key='Label_29', bundle='GenericEmailOutBridge')" styleName="publishForm" height="20"/>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%" paddingBottom="5" paddingLeft="2">
+											<mx:GridItem>
+												<ctl:TextInputPlus width="120" id="_tiLiveJournalUser" height="26" styleName="publishFormField"
+														text="{account.GetUserAttribute('GenericEmailOutBridge.LiveJournal.user', '')}"
+														valueCommit="SetUserAttribute('GenericEmailOutBridge.LiveJournal.user', event.target.text)" maxChars="500"/>
+												<mx:Label text="@Resource(key='Label_30', bundle='GenericEmailOutBridge')" styleName="publishForm" height="20" width="12"/>
+												<ctl:TextInputPlus width="80" id="_tiLiveJournalPIN" height="26" styleName="publishFormField"
+														text="{account.GetUserAttribute('GenericEmailOutBridge.LiveJournal.emailPIN', '')}"
+														valueCommit="SetUserAttribute('GenericEmailOutBridge.LiveJournal.emailPIN', event.target.text)" maxChars="500"/>
+												<mx:Label text="@Resource(key='Label_31', bundle='GenericEmailOutBridge')" styleName="publishForm" height="20"/>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%">
+											<mx:GridItem width="100%" height="100%">
+												<mx:Text styleName="publishForm" height="20" condenseWhite="true" selectable="false" htmlText="@Resource(key='Text_28', bundle='GenericEmailOutBridge')">
+												</mx:Text>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%" paddingBottom="5" paddingLeft="2">
+											<mx:GridItem width="100%" height="100%">
+												<ctl:TextInputPlus width="390" id="_tiLiveJournalSender" height="26" styleName="publishFormField"
+														text="{account.GetUserAttribute('GenericEmailOutBridge.LiveJournal.senderEmail', '')}"
+														valueCommit="SetUserAttribute('GenericEmailOutBridge.LiveJournal.senderEmail', event.target.text)" maxChars="500"/>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow paddingBottom="12">
+											<mx:GridItem>
+												<mx:Text fontSize="12" fontWeight="normal" condenseWhite="true" selectable="true" width="375" htmlText="@Resource(key='Text_29', bundle='GenericEmailOutBridge')">
+												</mx:Text>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%">
+											<mx:GridItem width="100%" height="100%">
+												<mx:Label text="@Resource(key='Label_3', bundle='GenericEmailOutBridge')" styleName="publishForm" height="20"/>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%" paddingBottom="12">
+											<mx:GridItem width="100%" height="100%">
+												<mx:ComboBox width="200" id="_cmboLiveJournalImageSize" dataProvider="{_aobDefaultImageSizes}" height="26">
+											 	</mx:ComboBox>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%">
+											<mx:GridItem width="100%" height="100%">
+												<mx:Text styleName="publishForm" height="20" condenseWhite="true" selectable="false" htmlText="@Resource(key='Text_2', bundle='GenericEmailOutBridge')">
+												</mx:Text>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%" paddingBottom="12" paddingLeft="2">
+											<mx:GridItem width="100%" height="100%">
+												<ctl:TextInputPlus width="390" id="_tiLiveJournalTitle" text="{_imgd.properties.title}" height="26" styleName="publishFormField" maxChars="500"/>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%">
+											<mx:GridItem width="100%" height="100%">
+												<mx:Text styleName="publishForm" height="20" condenseWhite="true" selectable="false" htmlText="@Resource(key='Text_30', bundle='GenericEmailOutBridge')">
+												</mx:Text>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%" paddingBottom="20" paddingLeft="2">
+											<mx:GridItem width="100%" height="100%">
+												<ctl:TextAreaPlus width="390" height="62" text="{_imgd.properties.description}" styleName="publishFormField" id="_taLiveJournalBody" maxChars="1200"/>
+											</mx:GridItem>
+										</mx:GridRow>
+									</mx:Grid>
+								</mx:Canvas>
+
+								<mx:Canvas label="Fotolog">
+									<ctl:ImageEx name="_imgIcon" source="../graphics/thirdpartylogos/menulogos/fotolog.png" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblToEmail" text="@Resource(key='Label_33', bundle='GenericEmailOutBridge')" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblFromEmail" text="user@mywebsite.com" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblSubject" text="{_tiFotologUser.text}:{_tiFotologPassword.text}" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblMessage" text="{_taFotologCaption.text}" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblImageTitle" text="@Resource(key='Label_4', bundle='GenericEmailOutBridge')" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblMaxImageDim" text="{_cmboFotologImageSize.selectedItem.data}" visible="false" includeInLayout="false"/>
+									<mx:Text fontSize="12" fontWeight="normal" condenseWhite="true" selectable="true" width="225" x="165" y="16" htmlText="@Resource(key='Text_31', bundle='GenericEmailOutBridge')">
+									</mx:Text>
+									<mx:Grid verticalGap="0" x="0" y="0">
+										<mx:GridRow width="100%" height="100%">
+											<mx:GridItem width="100%" height="100%">
+												<mx:Label text="@Resource(key='Label_28', bundle='GenericEmailOutBridge')" styleName="publishForm" height="20"/>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%" paddingBottom="12" paddingLeft="2">
+											<mx:GridItem>
+												<ctl:TextInputPlus width="150" id="_tiFotologUser" height="26" styleName="publishFormField"
+														text="{account.GetUserAttribute('GenericEmailOutBridge.Fotolog.user', '')}"
+														valueCommit="SetUserAttribute('GenericEmailOutBridge.Fotolog.user', event.target.text)" maxChars="500"/>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%">
+											<mx:GridItem>
+												<mx:Label text="@Resource(key='Label_36', bundle='GenericEmailOutBridge')" styleName="publishForm" height="20"/>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%" paddingBottom="12" paddingLeft="2">
+											<mx:GridItem>
+												<ctl:TextInputPlus width="120" id="_tiFotologPassword" height="26" styleName="publishFormField"
+														text="{account.GetUserAttribute('GenericEmailOutBridge.Fotolog.password', '')}"
+														valueCommit="SetUserAttribute('GenericEmailOutBridge.Fotolog.password', event.target.text)" maxChars="500"/>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%">
+											<mx:GridItem width="100%" height="100%">
+												<mx:Label text="@Resource(key='Label_3', bundle='GenericEmailOutBridge')" styleName="publishForm" height="20"/>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%" paddingBottom="12">
+											<mx:GridItem width="100%" height="100%">
+												<mx:ComboBox width="200" id="_cmboFotologImageSize" dataProvider="{_aobDefaultImageSizes}" height="26">
+											 	</mx:ComboBox>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%">
+											<mx:GridItem width="100%" height="100%">
+												<mx:Text styleName="publishForm" height="20" condenseWhite="true" selectable="false" htmlText="@Resource(key='Text_22', bundle='GenericEmailOutBridge')">
+												</mx:Text>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%" paddingBottom="20" paddingLeft="2">
+											<mx:GridItem width="100%" height="100%">
+												<ctl:TextAreaPlus width="390" height="62" text="{_imgd.properties.description}" styleName="publishFormField" id="_taFotologCaption" maxChars="1200"/>
+											</mx:GridItem>
+										</mx:GridRow>
+									</mx:Grid>
+								</mx:Canvas>
+
+								<mx:Canvas label="Moblog">
+									<ctl:ImageEx name="_imgIcon" source="../graphics/thirdpartylogos/menulogos/mobloguk.png" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblToEmail" text="mb-{_tiMoblogUser.text}-{_tiMoblogPass.text}@moblg.net" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblFromEmail" text="user@mywebsite.com" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblSubject" text="{_tiMoblogTitle.text}" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblMessage" text="{_taMoblogDescription.text}#!{_tiMoblogTags.text.replace(/(,| )+/g,'#')}" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblImageTitle" text="{_tiMoblogTitle.text}" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblMaxImageDim" text="{_cmboMoblogImageSize.selectedItem.data}" visible="false" includeInLayout="false"/>
+									<mx:Grid verticalGap="0" x="0" y="0">
+										<mx:GridRow width="100%" height="100%">
+											<mx:GridItem width="100%" height="100%">
+												<mx:Label text="@Resource(key='Label_38', bundle='GenericEmailOutBridge')" styleName="publishForm" height="20"/>
+												<mx:Spacer width="50"/>
+												<mx:Label text="@Resource(key='Label_36', bundle='GenericEmailOutBridge')" styleName="publishForm" height="20"/>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%" paddingBottom="5" paddingLeft="2">
+											<mx:GridItem>
+												<mx:Label text="@Resource(key='Label_40', bundle='GenericEmailOutBridge')" styleName="publishForm" height="20"/>
+												<ctl:TextInputPlus width="120" id="_tiMoblogUser" height="26" styleName="publishFormField"
+														text="{account.GetUserAttribute('GenericEmailOutBridge.Moblog.user', '')}"
+														valueCommit="SetUserAttribute('GenericEmailOutBridge.Moblog.user', event.target.text)" maxChars="500"/>
+												<mx:Label text="@Resource(key='Label_41', bundle='GenericEmailOutBridge')" styleName="publishForm" height="20" width="10"/>
+												<ctl:TextInputPlus width="80" id="_tiMoblogPass" height="26" styleName="publishFormField"
+														text="{account.GetUserAttribute('GenericEmailOutBridge.Moblog.password', '')}" displayAsPassword="true"
+														valueCommit="SetUserAttribute('GenericEmailOutBridge.Moblog.password', event.target.text)" maxChars="500"/>
+												<mx:Label text="@Resource(key='Label_42', bundle='GenericEmailOutBridge')" styleName="publishForm" height="20"/>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow paddingBottom="12">
+											<mx:GridItem>
+												<mx:Text fontSize="12" fontWeight="normal" condenseWhite="true" selectable="true" width="375" htmlText="@Resource(key='Text_32', bundle='GenericEmailOutBridge')">
+												</mx:Text>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%">
+											<mx:GridItem width="100%" height="100%">
+												<mx:Label text="@Resource(key='Label_3', bundle='GenericEmailOutBridge')" styleName="publishForm" height="20"/>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%" paddingBottom="12">
+											<mx:GridItem width="100%" height="100%">
+												<mx:ComboBox width="200" id="_cmboMoblogImageSize" dataProvider="{GetImageSizesForMaxDim(516)}" height="26">
+											 	</mx:ComboBox>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%">
+											<mx:GridItem width="100%" height="100%">
+												<mx:Text styleName="publishForm" height="20" condenseWhite="true" selectable="false" htmlText="@Resource(key='Text_2', bundle='GenericEmailOutBridge')">
+												</mx:Text>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%" paddingBottom="12" paddingLeft="2">
+											<mx:GridItem width="100%" height="100%">
+												<ctl:TextInputPlus width="390" id="_tiMoblogTitle" text="{_imgd.properties.title}" height="26" styleName="publishFormField" maxChars="500"/>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%">
+											<mx:GridItem width="100%" height="100%">
+												<mx:Text styleName="publishForm" height="20" condenseWhite="true" selectable="false" htmlText="@Resource(key='Text_4', bundle='GenericEmailOutBridge')">
+												</mx:Text>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%" paddingBottom="12" paddingLeft="2">
+											<mx:GridItem width="100%" height="100%">
+												<ctl:TextAreaPlus width="390" height="62" text="{_imgd.properties.description}" styleName="publishFormField" id="_taMoblogDescription" maxChars="1200"/>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%">
+											<mx:GridItem width="100%" height="100%">
+												<mx:Text styleName="publishForm" height="20" condenseWhite="true" selectable="false" htmlText="@Resource(key='Text_5', bundle='GenericEmailOutBridge')">
+												</mx:Text>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%" paddingBottom="20" paddingLeft="2">
+											<mx:GridItem width="100%" height="100%">
+												<ctl:TextInputPlus width="320" id="_tiMoblogTags" text="{_imgd.properties.tags}" height="26" styleName="publishFormField" maxChars="500"/>
+											</mx:GridItem>
+										</mx:GridRow>
+									</mx:Grid>
+								</mx:Canvas>
+
+								<mx:Canvas label="PictureTrail">
+									<ctl:ImageEx name="_imgIcon" source="../graphics/thirdpartylogos/menulogos/picturetrail.png" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblToEmail" text="{Chomp(_tiPictureTrailToEmail.text,'@')}@ptmobile.com" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblFromEmail" text="user@mywebsite.com" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblSubject" text="" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblMessage" text="" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblImageTitle" text="@Resource(key='Label_4', bundle='GenericEmailOutBridge')" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblMaxImageDim" text="{_cmboPictureTrailImageSize.selectedItem.data}" visible="false" includeInLayout="false"/>
+									<mx:Grid verticalGap="0" x="0" y="0">
+										<mx:GridRow width="100%" height="100%">
+											<mx:GridItem width="100%" height="100%">
+												<mx:Text fontSize="13" fontWeight="normal" condenseWhite="true" selectable="true" width="390" x="165" y="16" color="#333333" htmlText="@Resource(key='Text_33', bundle='GenericEmailOutBridge')">
+												</mx:Text>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%" paddingBottom="5" paddingLeft="2">
+											<mx:GridItem>
+												<ctl:TextInputPlus width="250" id="_tiPictureTrailToEmail" height="26" styleName="publishFormField"
+														text="{account.GetUserAttribute('GenericEmailOutBridge.PictureTrail.uploadEmail', '')}"
+														valueCommit="SetUserAttribute('GenericEmailOutBridge.PictureTrail.uploadEmail', Chomp(event.target.text,'@') + '@ptmobile.com', '@ptmobile.com')" maxChars="500"/>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow paddingBottom="12">
+											<mx:GridItem>
+												<mx:Text fontSize="12" fontWeight="normal" condenseWhite="true" selectable="true" width="400" htmlText="@Resource(key='Text_34', bundle='GenericEmailOutBridge')">
+												</mx:Text>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%">
+											<mx:GridItem width="100%" height="100%">
+												<mx:Label text="@Resource(key='Label_3', bundle='GenericEmailOutBridge')" styleName="publishForm" height="20"/>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%" paddingBottom="20">
+											<mx:GridItem width="100%" height="100%">
+												<mx:ComboBox width="200" id="_cmboPictureTrailImageSize" dataProvider="{_aobDefaultImageSizes}" height="26">
+											 	</mx:ComboBox>
+											</mx:GridItem>
+										</mx:GridRow>
+									</mx:Grid>
+								</mx:Canvas>
+
+								<mx:Canvas label="Nakama">
+									<ctl:ImageEx name="_imgIcon" source="../graphics/thirdpartylogos/menulogos/nakama.png" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblToEmail" text="{_tiNakamaUser.text}.{_tiNakamaPIN.text}@mopics.us" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblFromEmail" text="user@mywebsite.com" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblSubject" text="{_tiNakamaTitle.text}" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblMessage" text="{_taNakamaDescription.text.replace(/(\r|\n)+/g,' ')}{'\n'}{_tiNakamaTags.text.replace(/(,| )+/g,'\n')}" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblImageTitle" text="{_tiNakamaTitle.text}" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblMaxImageDim" text="{_cmboNakamaImageSize.selectedItem.data}" visible="false" includeInLayout="false"/>
+									<mx:Grid verticalGap="0" x="0" y="0">
+										<mx:GridRow width="100%" height="100%">
+											<mx:GridItem width="100%" height="100%">
+												<mx:Label text="@Resource(key='Label_28', bundle='GenericEmailOutBridge')" styleName="publishForm" height="20"/>
+												<mx:Spacer width="50"/>
+												<mx:Label text="@Resource(key='Label_47', bundle='GenericEmailOutBridge')" styleName="publishForm" height="20"/>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%" paddingBottom="5" paddingLeft="2">
+											<mx:GridItem>
+												<ctl:TextInputPlus width="120" id="_tiNakamaUser" height="26" styleName="publishFormField"
+														text="{account.GetUserAttribute('GenericEmailOutBridge.Nakama.user', '')}"
+														valueCommit="SetUserAttribute('GenericEmailOutBridge.Nakama.user', event.target.text)" maxChars="500"/>
+												<mx:Label text="@Resource(key='Label_48', bundle='GenericEmailOutBridge')" styleName="publishForm" height="20" width="10"/>
+												<ctl:TextInputPlus width="80" id="_tiNakamaPIN" height="26" styleName="publishFormField"
+														text="{account.GetUserAttribute('GenericEmailOutBridge.Nakama.secret', '')}"
+														valueCommit="SetUserAttribute('GenericEmailOutBridge.Nakama.secret', event.target.text)" maxChars="500"/>
+												<mx:Label text="@Resource(key='Label_49', bundle='GenericEmailOutBridge')" styleName="publishForm" height="20"/>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow paddingBottom="12">
+											<mx:GridItem>
+												<mx:Text fontSize="12" fontWeight="normal" condenseWhite="true" selectable="true" width="375" htmlText="@Resource(key='Text_35', bundle='GenericEmailOutBridge')">
+												</mx:Text>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%">
+											<mx:GridItem width="100%" height="100%">
+												<mx:Label text="@Resource(key='Label_3', bundle='GenericEmailOutBridge')" styleName="publishForm" height="20"/>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%" paddingBottom="12">
+											<mx:GridItem width="100%" height="100%">
+												<mx:ComboBox width="200" id="_cmboNakamaImageSize" dataProvider="{_aobDefaultImageSizes}" height="26">
+											 	</mx:ComboBox>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%">
+											<mx:GridItem width="100%" height="100%">
+												<mx:Text styleName="publishForm" height="20" condenseWhite="true" selectable="false" htmlText="@Resource(key='Text_2', bundle='GenericEmailOutBridge')">
+												</mx:Text>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%" paddingBottom="12" paddingLeft="2">
+											<mx:GridItem width="100%" height="100%">
+												<ctl:TextInputPlus width="390" id="_tiNakamaTitle" text="{_imgd.properties.title}" height="26" styleName="publishFormField" maxChars="500"/>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%">
+											<mx:GridItem width="100%" height="100%">
+												<mx:Text styleName="publishForm" height="20" condenseWhite="true" selectable="false" htmlText="@Resource(key='Text_4', bundle='GenericEmailOutBridge')">
+												</mx:Text>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%" paddingBottom="12" paddingLeft="2">
+											<mx:GridItem width="100%" height="100%">
+												<ctl:TextAreaPlus width="390" height="62" text="{_imgd.properties.description}" styleName="publishFormField" id="_taNakamaDescription" maxChars="1200"/>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%">
+											<mx:GridItem width="100%" height="100%">
+												<mx:Text styleName="publishForm" height="20" condenseWhite="true" selectable="false" htmlText="@Resource(key='Text_5', bundle='GenericEmailOutBridge')">
+												</mx:Text>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%" paddingBottom="20" paddingLeft="2">
+											<mx:GridItem width="100%" height="100%">
+												<ctl:TextInputPlus width="320" id="_tiNakamaTags" text="{_imgd.properties.tags}" height="26" styleName="publishFormField" maxChars="500"/>
+											</mx:GridItem>
+										</mx:GridRow>
+									</mx:Grid>
+								</mx:Canvas>
+
+								<mx:Canvas label="Fotopic">
+									<ctl:ImageEx name="_imgIcon" source="../graphics/thirdpartylogos/menulogos/fotopic.png" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblToEmail" text="@Resource(key='Label_51', bundle='GenericEmailOutBridge')" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblFromEmail" text="{_tiFotopicAccountEmail.text}" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblSubject" text="@Resource(key='Label_52', bundle='GenericEmailOutBridge')" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblMessage" text="@Resource(key='Label_11', bundle='GenericEmailOutBridge')" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblImageTitle" text="@Resource(key='Label_4', bundle='GenericEmailOutBridge')" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblMaxImageDim" text="{_cmboFotopicImageSize.selectedItem.data}" visible="false" includeInLayout="false"/>
+									<mx:Grid verticalGap="0" x="0" y="0">
+										<mx:GridRow width="100%" height="100%">
+											<mx:GridItem width="100%" height="100%">
+												<mx:Label text="@Resource(key='Label_55', bundle='GenericEmailOutBridge')" styleName="publishForm" height="20"/>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%" paddingBottom="5" paddingLeft="2">
+											<mx:GridItem>
+												<ctl:TextInputPlus width="250" id="_tiFotopicAccountEmail" height="26" styleName="publishFormField"
+														text="{account.GetUserAttribute('GenericEmailOutBridge.Fotopic.senderEmail', '')}"
+														valueCommit="SetUserAttribute('GenericEmailOutBridge.Fotopic.senderEmail', event.target.text)" maxChars="500"/>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow paddingBottom="12">
+											<mx:GridItem>
+												<mx:Text fontSize="12" fontWeight="normal" condenseWhite="true" selectable="true" width="375" htmlText="@Resource(key='Text_36', bundle='GenericEmailOutBridge')">
+												</mx:Text>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%">
+											<mx:GridItem width="100%" height="100%">
+												<mx:Label text="@Resource(key='Label_3', bundle='GenericEmailOutBridge')" styleName="publishForm" height="20"/>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%" paddingBottom="20">
+											<mx:GridItem width="100%" height="100%">
+												<mx:ComboBox width="200" id="_cmboFotopicImageSize" dataProvider="{_aobDefaultImageSizes}" height="26">
+											 	</mx:ComboBox>
+											</mx:GridItem>
+										</mx:GridRow>
+									</mx:Grid>
+								</mx:Canvas>
+
+								<mx:Canvas label="AOL pictures">
+									<ctl:ImageEx name="_imgIcon" source="../graphics/thirdpartylogos/menulogos/aol.png" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblToEmail" text="{Chomp(_tiAOLUser.text,'@')}@shoebox.aol.com" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblFromEmail" text="user@mywebsite.com" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblSubject" text="{_tiAOLTitle.text}" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblMessage" text="" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblImageTitle" text="{_tiAOLTitle.text}" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblMaxImageDim" text="{_cmboAOLImageSize.selectedItem.data}" visible="false" includeInLayout="false"/>
+									<mx:Grid verticalGap="0" x="0" y="0">
+										<mx:GridRow width="100%" height="100%">
+											<mx:GridItem width="100%" height="100%">
+												<mx:Label text="@Resource(key='Label_57', bundle='GenericEmailOutBridge')" styleName="publishForm" height="20"/>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%" paddingBottom="5" paddingLeft="2">
+											<mx:GridItem>
+												<ctl:TextInputPlus width="300" id="_tiAOLUser" text="{account.GetUserAttribute('GenericEmailOutBridge.AOL.user', '')}" height="26" styleName="publishFormField"
+														valueCommit="SetUserAttribute('GenericEmailOutBridge.AOL.user', Chomp(event.target.text,'@') + '@shoebox.aol.com', '@shoebox.aol.com')" maxChars="500"/>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow paddingBottom="12">
+											<mx:GridItem>
+												<mx:Text fontSize="12" fontWeight="normal" condenseWhite="true" selectable="true" width="400" htmlText="@Resource(key='Text_37', bundle='GenericEmailOutBridge')">
+												</mx:Text>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%">
+											<mx:GridItem width="100%" height="100%">
+												<mx:Label text="@Resource(key='Label_3', bundle='GenericEmailOutBridge')" styleName="publishForm" height="20"/>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%" paddingBottom="12">
+											<mx:GridItem width="100%" height="100%">
+												<mx:ComboBox width="200" id="_cmboAOLImageSize" dataProvider="{_aobDefaultImageSizes}" height="26">
+											 	</mx:ComboBox>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%">
+											<mx:GridItem width="100%" height="100%">
+												<mx:Text styleName="publishForm" height="20" condenseWhite="true" selectable="false" htmlText="@Resource(key='Text_2', bundle='GenericEmailOutBridge')">
+												</mx:Text>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%" paddingBottom="20" paddingLeft="2">
+											<mx:GridItem width="100%" height="100%">
+												<ctl:TextInputPlus width="390" id="_tiAOLTitle" text="{_imgd.properties.title}" height="26" styleName="publishFormField"  maxChars="500"/>
+											</mx:GridItem>
+										</mx:GridRow>
+									</mx:Grid>
+								</mx:Canvas>
+								-->
+								
+								<mx:Canvas label="Other...">
+									<ctl:ImageEx name="_imgIcon" source="../graphics/thirdpartylogos/menulogos/nologo.png" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblToEmail" text="{_tiOtherUser.text}" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblFromEmail" text="{_tiOtherFrom.text}" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblSubject" text="{_tiOtherTitle.text}" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblMessage" text="" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblImageTitle" text="{_tiOtherTitle.text}" visible="false" includeInLayout="false"/>
+									<mx:Label name="_lblMaxImageDim" text="{_cmboOtherImageSize.selectedItem.data}" visible="false" includeInLayout="false"/>
+									<mx:Grid verticalGap="0" x="0" y="0">
+										<mx:GridRow width="100%" height="100%">
+											<mx:GridItem width="100%" height="100%">
+												<mx:Label text="@Resource(key='Label_59', bundle='GenericEmailOutBridge')" styleName="publishForm" height="20"/>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%" paddingBottom="5" paddingLeft="2">
+											<mx:GridItem>
+												<ctl:TextInputPlus width="300" id="_tiOtherUser" text="{account.GetUserAttribute('GenericEmailOutBridge.Other.user', '')}" height="26" styleName="publishFormField"
+														valueCommit="SetUserAttribute('GenericEmailOutBridge.Other.user', event.target.text)" maxChars="500"/>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow paddingBottom="12">
+											<mx:GridItem>
+												<mx:Text fontSize="12" fontWeight="normal" condenseWhite="true" selectable="true" width="400" htmlText="@Resource(key='Text_38', bundle='GenericEmailOutBridge')">
+												</mx:Text>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%">
+											<mx:GridItem width="100%" height="100%">
+												<mx:Label text="@Resource(key='Label_60', bundle='GenericEmailOutBridge')" styleName="publishForm" height="20"/>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%" paddingBottom="5" paddingLeft="2">
+											<mx:GridItem>
+												<ctl:TextInputPlus width="300" id="_tiOtherFrom" text="{account.GetUserAttribute('GenericEmailOutBridge.Other.from', '')}" height="26" styleName="publishFormField"
+														valueCommit="SetUserAttribute('GenericEmailOutBridge.Other.from', event.target.text)" maxChars="500"/>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow paddingBottom="12">
+											<mx:GridItem>
+												<mx:Text fontSize="12" fontWeight="normal" condenseWhite="true" selectable="true" width="400" htmlText="@Resource(key='Text_39', bundle='GenericEmailOutBridge')">
+												</mx:Text>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%">
+											<mx:GridItem width="100%" height="100%">
+												<mx:Label text="@Resource(key='Label_3', bundle='GenericEmailOutBridge')" styleName="publishForm" height="20"/>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%" paddingBottom="12">
+											<mx:GridItem width="100%" height="100%">
+												<mx:ComboBox width="200" id="_cmboOtherImageSize" dataProvider="{_aobDefaultImageSizes}" height="26">
+											 	</mx:ComboBox>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%">
+											<mx:GridItem width="100%" height="100%">
+												<mx:Text styleName="publishForm" height="20" condenseWhite="true" selectable="false" htmlText="@Resource(key='Text_2', bundle='GenericEmailOutBridge')">
+												</mx:Text>
+											</mx:GridItem>
+										</mx:GridRow>
+										<mx:GridRow width="100%" height="100%" paddingBottom="20" paddingLeft="2">
+											<mx:GridItem width="100%" height="100%">
+												<ctl:TextInputPlus width="390" id="_tiOtherTitle" text="{_imgd.properties.title}" height="26" styleName="publishFormField"  maxChars="500"/>
+											</mx:GridItem>
+										</mx:GridRow>
+									</mx:Grid>
+								</mx:Canvas>
+								
+							</mx:ViewStack>
+						</mx:GridItem>
+					</mx:GridRow>
+					<mx:GridRow width="100%" height="100%">
+						<mx:GridItem width="100%" height="100%" horizontalAlign="center">
+							<mx:Grid verticalGap="10">
+								<mx:GridRow width="100%" height="100%">
+									<mx:GridItem width="100%" height="100%">
+										<ctl:ImageVer source="@Embed('/assets/bitmaps/saveshad_top.png')"/>
+									</mx:GridItem>
+								</mx:GridRow>
+								<mx:GridRow width="100%" height="100%">
+									<mx:GridItem width="100%" height="100%" horizontalAlign="center">
+										<mx:Button label="@Resource(key='_btnSend', bundle='GenericEmailOutBridge')" width="200" height="34" fontSize="18" id="_btnSend" styleName="BigButton" enabled="{_imgd != null}" />
+									</mx:GridItem>
+								</mx:GridRow>
+								<mx:GridRow width="100%" height="100%">
+									<mx:GridItem width="100%" height="100%">
+										<ctl:ImageVer source="@Embed('/assets/bitmaps/saveshad_bot.png')"/>
+									</mx:GridItem>
+								</mx:GridRow>
+							</mx:Grid>
+						</mx:GridItem>
+					</mx:GridRow>
+				</mx:Grid>
+			</mx:GridItem>
+		</mx:GridRow>
+	</mx:Grid>
+	<mx:String id="_strEmailSentNotifyMessage">{Resource.getString('GenericEmailOutBridge', '_strEmailSentNotifyMessage')}</mx:String>
+	<mx:String id="_strInvalidEmailText">{Resource.getString('GenericEmailOutBridge', '_strInvalidEmailText')}</mx:String>
+	<mx:Array id="_aobSizes">
+	    <mx:Object label="{Resource.getString('GenericEmailOutBridge', 'Object_1')}" data="480"/>
+	    <mx:Object label="{Resource.getString('GenericEmailOutBridge', 'Object_2')}" data="800"/>
+	    <mx:Object label="{Resource.getString('GenericEmailOutBridge', 'Object_3')}" data="1024"/>
+	    <mx:Object label="{Resource.getString('GenericEmailOutBridge', 'Object_4')}" data="0"/><!-- Data = 0 means full image size. Do not remove this - otherwise, images smaller than your smallest size will break -->
+	</mx:Array>
+</GenericEmailOutBridgeBase>

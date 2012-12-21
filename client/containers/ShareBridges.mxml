@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ShareBridgesBase xmlns="containers.*" xmlns:control="controls.*" 
+		xmlns:bridges="bridges.*" 
+		xmlns:picnik="bridges.picnik.*"
+ 		xmlns:email="bridges.email.*"
+ 		xmlns:web="bridges.web.*"
+ 		xmlns:flash="flash.filters.*"
+ 		xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:url="urlkit.rules.*"
+		width="100%" height="100%">
+	<mx:Script>
+		<![CDATA[
+			import bridges.ShareBridge;
+		]]>
+	</mx:Script>
+	<mx:Style>
+		.whiteGradient {
+			border-style: solid;
+			border-thickness: 0;
+			border-skin: ClassReference("skins.GradientBackground");
+			gradient-fill-colors: #ffffff, #ffffff;
+			gradient-fill-alphas: 1,0;
+			gradient-rotation: 90;
+		}
+	</mx:Style>
+	<flash:DropShadowFilter blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1" quality="3" angle="90" id="_fiWhiteShad"/>
+	<flash:DropShadowFilter blurX="3" blurY="3" distance="1" color="#000000" alpha=".25" quality="3" angle="90" id="_fiPreviewShad"/>
+	<flash:DropShadowFilter id="_fiInnerShad" blurX="1" blurY="1" distance="1" color="#000000" alpha=".2" quality="3" angle="90" inner="true"/>
+	
+	<control:ImageEx source="@Embed('/assets/bitmaps/tab_shadow_up.png')" width="100%" height="3" maintainAspectRatio="false" top="49"/>
+	<mx:Box width="100%" height="30" top="52" styleName="whiteGradient" />
+	
+	<TabNavigatorPlus id="_vstk" left="0" top="20" bottom="0" right="0" _tabBarLeftPadding="215"
+			tabHeight="33" horizontalAlign="left" paddingBottom="0" paddingLeft="0" paddingRight="0" paddingTop="0" 
+			borderThickness="0" creationPolicy="all" selectedIndex="0" backgroundAlpha="0"
+			centerTabs="false" focusEnabled="false">
+		<email:EmailShareBridge item="{item}" label="@Resource(key='_brgEmailOut', bundle='ShareBridges')" width="100%" id="_brgEmailOut"
+			container="{container}" footerHeight="{footerHeight}"/>
+		<web:WebShareBridge item="{item}" label="@Resource(key='_brgWebOut', bundle='ShareBridges')" width="100%" id="_brgWebOut"
+			container="{container}" footerHeight="{footerHeight}"/>
+	</TabNavigatorPlus>
+	
+	<control:ResizingLabel text="@Resource(key='_brgcOut', bundle='Picnik')" left="11" width="190" top="12" fontSize="30" color="#005580"
+		filters="{[_fiWhiteShad,_fiInnerShad]}"/>
+	
+	<mx:VBox width="290" height="290" top="67" left="15" filters="{[_fiPreviewShad]}">
+		<!--<control:ResizingLabel text="{selectedBridge != null ? selectedBridge.headline : ''}" 
+			color="#005580" fontWeight="bold" fontSize="30" styleName="publishForm"
+			filters="{[_fiWhiteShad]}" width="100%" autoFontSizeGap="1"/>-->		
+		<mx:Box paddingLeft="10" paddingTop="12">
+			<control:GalleryPreview id="_galPreview" itemInfo="{item}" width="280" height="210" cornerRadius="8"/>		
+		</mx:Box>
+	</mx:VBox>
+	
+	<control:Gears id="_grsBusy" y="2" width="45" height="24" right="5" visible="false"/>
+</ShareBridgesBase>

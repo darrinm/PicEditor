@@ -1,0 +1,12 @@
+fileName: kg_TunaAndHotDogsOnRye.ttf
+name: Tuna and Hot Dogs on Rye
+subfamilyDisplayName: Normal
+fullName: Tuna and Hot Dogs on Rye
+displayName: Tuna and Hot Dogs on Rye
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 0
+pkName: pkkg0TunaAndHotDogsOnRye
+authorName: Kimberly Geswein
+authorUrl: http://www.dafont.com/kimberly-geswein.d1468

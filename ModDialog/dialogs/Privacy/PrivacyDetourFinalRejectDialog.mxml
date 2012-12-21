@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<privacy:PrivacyDetourFinalRejectDialogBase xmlns="containers.*" xmlns:privacy="dialogs.Privacy.*"
+		xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:controls="controls.*" xmlns:fc="dialogs.RegisterHelper.FormControls.*"
+	 	width="600" height="280" styleName="PrivacyDialogStyle" creationComplete="_btnAccept.setFocus()" xmlns:vld="validators.*">
+	
+	<mx:Script>
+		<![CDATA[
+			import flash.net.navigateToURL;
+			import dialogs.DialogManager;
+			import mx.resources.ResourceBundle;
+			import util.LocUtil;
+			
+	  		[Bindable] [ResourceBundle("PrivacyDetourDialog")] protected var _rb:ResourceBundle;		 
+   		]]>
+	</mx:Script>
+	
+	<mx:Style source="PrivacyDialog.css"/>
+	<mx:DropShadowFilter id="_fiWhiteShine" blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1" quality="3" angle="90"/>
+	<mx:DropShadowFilter id="_fiInnerShad" blurX="1" blurY="1" distance="1" color="#000000" alpha=".2" quality="3" angle="90" inner="true"/>
+
+	<mx:Fade id="_efFadeIn" duration="300" alphaFrom="0" alphaTo="1"/>
+	<mx:Fade id="_efFadeOut" duration="200" alphaFrom="1" alphaTo="0"/>
+	
+	<vld:EmailValidatorPlus dictCheck="ignore" id="_vldEmail" required="true" source="{_tiEmail}" property="text">
+		<vld:requiredFieldError>{Resource.getString('ForgotPasswordTab', '_vldEmail')}</vld:requiredFieldError>
+		<vld:charError>{Resource.getString('ForgotPasswordTab', '_vldEmail_1')}</vld:charError>
+		<vld:emailDoesNotExistsError>{Resource.getString('ForgotPasswordTab', '_vldEmail_2')}</vld:emailDoesNotExistsError>
+	</vld:EmailValidatorPlus>
+
+	<fc:StandardEffects id="effects" errorTargets="{[_lblUnError]}"/>
+	<mx:Boolean id="_fSubmitted">false</mx:Boolean>
+	
+	<mx:Canvas width="100%" height="100%">
+		<!-- Header -->
+		<controls:ResizingLabel text="{username ? LocUtil.rbSubst('PrivacyDetourDialog', 'deleteMyAccount', username) : LocUtil.rbSubst('PrivacyDetourDialog', 'deleteMyAccountNoUsername')}" styleName="dialogHead"
+			top="10" left="15" right="15"
+			width="100%" autoFontSizeGap="1" filters="{[_fiWhiteShine,_fiInnerShad]}" />
+		
+		<!-- Close button
+		<mx:Button width="22" height="22" right="4" top="4" click="Cancel()" styleName="dialogCloseButton"/>-->
+		
+		<!-- Main Content-->
+		<mx:VBox top="45" right="15" left="15" horizontalAlign="center" verticalGap="10">
+			<mx:Text text="@Resource(key='deleteDetails',bundle='PrivacyDetourDialog')" 
+				color="#333333"	width="100%" fontSize="15" leading="-1"/>
+				
+			<mx:HBox horizontalGap="10" paddingTop="0" verticalAlign="middle">
+				<!-- email label -->
+				<controls:ResizingLabel text="@Resource(key='email',bundle='PrivacyDetourDialog')" color="#333333" fontSize="16"
+					paddingRight="-5" paddingTop="16"/>
+				<!-- email field -->
+				<mx:VBox horizontalAlign="right" paddingTop="-2">
+					<mx:Label styleName="formError" paddingTop="0" paddingBottom="-7" id="_lblUnError"
+						text="{_tiEmail.errorString}" fontSize="10"
+						showEffect="_efFadeIn" visible="{_tiEmail.errorString.length > 0 &amp;&amp; _fSubmitted}"/>
+					<controls:NoTipTextInput id="_tiEmail" paddingRight="10" width="200" paddingTop="2" height="26" styleName="publishFormField" focusAlpha="0"/>			
+				</mx:VBox>
+				<!-- delete button -->
+				<mx:VBox paddingTop="13">
+					<controls:ResizingButton label="{username ? LocUtil.rbSubst('PrivacyDetourDialog', 'deleteMyAccount', username) : LocUtil.rbSubst('PrivacyDetourDialog', 'deleteMyAccountNoUsername')}"
+						height="26"
+						click="_fSubmitted=true; Reject()"/>
+				</mx:VBox>	
+			</mx:HBox>
+			<mx:VBox verticalGap="0">
+				<mx:CheckBox id="_cbSendArchive" selected="false" paddingRight="-10" label="@Resource(key='sendHistory', bundle='PrivacyDetourDialog')"/>
+				<controls:ResizingLabel text="@Resource(key='sendHistoryNote', bundle='PrivacyDetourDialog')"
+					color="#666666" fontSize="12" width="100%" autoFontSizeGap="1" paddingLeft="22" fontWeight="normal"/>
+			</mx:VBox>
+		</mx:VBox>
+		
+		<!-- Footer -->
+		<mx:HBox horizontalGap="8" verticalAlign="middle" bottom="6" horizontalCenter="0">
+			<controls:ResizingButton id="_btnAccept" label="@Resource(key='neverMind',bundle='PrivacyDetourDialog')"
+				minWidth="280" height="38" fontSize="22"  styleName="basketButton"
+				click="Accept()"/>	
+		</mx:HBox>
+
+		<!-- shadow dealies, drawn on top of all elements -->
+		<controls:ImageVer source="../graphics/upsellPremiumPanelShadow.png" bottom="50" left="0" right="0" scaleContent="true" maintainAspectRatio="false"/>
+	</mx:Canvas>
+</privacy:PrivacyDetourFinalRejectDialogBase>

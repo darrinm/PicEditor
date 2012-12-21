@@ -1,0 +1,12 @@
+fileName: dz_tombots.ttf
+name: Tombots
+subfamilyDisplayName: Regular
+fullName: Tombots
+displayName: Tombots
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 4
+pkName: pkdz0tombots
+authorUrl: http://fonts.tom7.com/
+authorName: Divide by Zero

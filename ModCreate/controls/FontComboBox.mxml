@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FontComboBoxBase xmlns="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:filters="flash.filters.*"
+		dropdownHeight="100" width="100%" height="34" verticalScrollPolicy="off" horizontalScrollPolicy="off"
+		selectedIndex="{_fntl.selectedIndex}" premiumColor="#005580">
+	<mx:Script>
+		import mx.resources.ResourceBundle;
+		import mx.utils.StringUtil;
+   		[Bindable] [ResourceBundle("FontComboBox")] private var rb:ResourceBundle;
+	</mx:Script>
+	<mx:HBox width="100%" height="100%" paddingLeft="8" paddingRight="8">
+		<mx:Button id="_btnDropdown" width="100%" height="100%" visible="{dropdown}" 
+				styleName="tallComboBox"/>
+	</mx:HBox>
+	<!-- TODO(darrinm): need to substitute a label for device fonts -->
+    <ImageEx id="_imgSelected" source="{_fntl.selectedItem.smallPreviewUrl}" bundled="true" toolTip="{StringUtil.substitute(Resource.getString('FontComboBox', 'tooltip'), _fntl.selectedItem.name, _fntl.selectedItem.authorName)}" 
+    		scaleContent="false" x="11" height="30" mouseEnabled="false" mouseChildren="false" visible="{dropdown}" />
+	<FontList id="_fntl" width="226" height="100%" visible="{!dropdown}"/>
+	<filters:DropShadowFilter id="_fltDropdown" blurX="2" blurY="2" distance="1" color="#333333" alpha=".5" quality="3" angle="90"/>
+</FontComboBoxBase>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<HelpDialogSettingsBase xmlns="dialogs.DialogContent.*" xmlns:dlg="dialogs.*" xmlns:RegisterHelper="dialogs.RegisterHelper.*" 
+		xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:ctl="controls.*" xmlns:pages="pages.*">
+	<states>
+		<mx:State name="Free">
+			<mx:AddChild relativeTo="{_vboxMain}" position="firstChild">
+				<mx:Text htmlText="@Resource(key='freeSettingsSubhead', bundle='HelpDialogSettings')" width="100%" fontSize="13" leading="0" color="#000000"
+						 top="0" left="0" link="OnLink(event);" paddingLeft="10" paddingRight="10" paddingTop="5" paddingBottom="4"/>
+			</mx:AddChild>
+		</mx:State>
+		<mx:State name="Premium">
+			<mx:AddChild relativeTo="{_vboxMain}" position="firstChild">
+				<mx:Text htmlText="{LocUtil.rbSubst('HelpDialogSettings', 'premiumSettingsSubhead', LocUtil.shortDate(AccountMgr.GetInstance().dateSubscriptionExpires))}" 
+					width="100%" fontSize="13" leading="0" color="#000000"
+					top="0" left="0" link="OnLink(event);" paddingLeft="10" paddingRight="10" paddingTop="5" paddingBottom="4"/>
+			</mx:AddChild>
+		</mx:State>
+	</states>	
+	<mx:Script>
+		<![CDATA[
+			import util.LocUtil;
+		]]>
+	</mx:Script>
+		
+	<mx:Canvas width="100%" height="100%" id="_cvsSettings" visible="true" includeInLayout="true" horizontalScrollPolicy="off" verticalScrollPolicy="off">
+		<mx:VBox id="_vboxMain" width="100%" height="100%" horizontalScrollPolicy="off" verticalScrollPolicy="off">
+			<mx:VBox verticalScrollPolicy="auto" width="100%" height="100%" minHeight="10" maxHeight="500"
+			 		borderColor="#d9d9d9" borderStyle="solid" borderThickness="1" borderSides="top,bottom">
+			 		
+			 	<pages:SettingsComponent Inline="true" width="100%" minHeight="10" maxHeight="500" id="_tabFreeSettings"/>
+			</mx:VBox>				
+		</mx:VBox>		
+	</mx:Canvas>
+</HelpDialogSettingsBase>

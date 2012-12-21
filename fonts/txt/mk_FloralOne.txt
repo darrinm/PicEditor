@@ -1,0 +1,12 @@
+fileName: mk_FloralOne.ttf
+name: FloralOne
+subfamilyDisplayName: Regular
+fullName: FloralOne
+displayName: FloralOne
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 6
+pkName: pkmk0FloralOne
+authorName: Manfred Kelin
+authorUrl: http://moorstation.org/typoasis/designers/klein/

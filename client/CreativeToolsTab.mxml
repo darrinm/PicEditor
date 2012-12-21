@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CreativeToolsTabBase xmlns="*" xmlns:mx="http://www.adobe.com/2006/mxml" label="@Resource(key='CreativeToolsBase_1', bundle='CreativeTools')"
+		width="100%" height="100%" resize="util.StateSize.UpdateState(this)"
+		xmlns:flash="flash.filters.*" xmlns:bk="controls.*" xmlns:ct="creativeTools.*"
+		xmlns:bkctr="containers.*" xmlns:ut="util.*" xmlns:url="urlkit.rules.*"
+		horizontalScrollPolicy="off" verticalScrollPolicy="off">
+<mx:Script>
+	<![CDATA[
+		private static function HeaderHeight(): Number {
+			return PicnikBase.IsGooglePlus() ? 43 : 30;
+		}
+		
+	]]>
+</mx:Script>	
+	<mx:String id="urlkit"/>
+	<mx:Array id="_astszStateSizes">
+		<ut:StateSize state="FlickrSubset" />
+		<ut:StateSize state="8x6" maxwidth="910"/>
+		<ut:StateSize state="6x4" maxwidth="675"/>
+	</mx:Array>
+	<url:UrlNavigatorRule id="urls" viewStack="{_vstk}" urlFormat="/*" useChildLabelForTitle="false" urlField="urlkit"/>
+	
+	<states>
+		<mx:State name="FlickrSubset">
+		</mx:State>
+		<mx:State name="8x6" basedOn="FlickrSubset">
+			<mx:SetStyle target="{_btnUndo}" name="fontSize" value="12"/>
+			<mx:SetStyle target="{_btnRedo}" name="fontSize" value="12"/>
+			<mx:SetProperty target="{_btnUndo}" name="width"/>
+			<mx:SetProperty target="{_btnRedo}" name="width"/>
+			<mx:SetStyle target="{_btnUndo}" name="paddingLeft" value="-2"/>
+			<mx:SetStyle target="{_btnRedo}" name="paddingLeft" value="-2"/>
+			<mx:SetStyle target="{_btnUndo}" name="paddingRight" value="-2"/>
+			<mx:SetStyle target="{_btnRedo}" name="paddingRight" value="-2"/>
+			<mx:SetStyle target="{hbox1}" name="horizontalGap" value="5"/>
+			<mx:RemoveChild target="{image2}"/>
+		</mx:State>
+		<mx:State name="6x4" basedOn="8x6">
+			<mx:SetStyle target="{_btnUndo}" name="paddingLeft" value="-4"/>
+			<mx:SetStyle target="{_btnRedo}" name="paddingLeft" value="-4"/>
+			<mx:SetStyle target="{_btnUndo}" name="paddingRight" value="-4"/>
+			<mx:SetStyle target="{_btnRedo}" name="paddingRight" value="-4"/>
+		</mx:State>
+	</states>
+	<mx:Canvas left="226" top="{HeaderHeight()}" right="0" bottom="0" id="_cvsTemplate"/>
+	<bk:ImageVer source="@Embed('assets/bitmaps/bar_bg_x30.png')" left="0" top="0" width="100%" scaleContent="true" maintainAspectRatio="false" height="{HeaderHeight()}"/>
+	<bk:CreativeToolsResizingThumbToggleButtonBar left="0" y="0" dataProvider="_vstk" id="_tbbarOpen"
+		height="{HeaderHeight()}" maxWidth="{width - 170}" selectedButtonTextStyleName="buttonBarButtonSelectedText" focusEnabled="false" horizontalScrollPolicy="off" verticalScrollPolicy="off">
+		<bk:selectedThumbSkin>@Embed('theme/pngs/buttonbar/pointerSelectedUp.png')</bk:selectedThumbSkin>
+	</bk:CreativeToolsResizingThumbToggleButtonBar>
+	<mx:ViewStack id="_vstk" left="0" top="{HeaderHeight()}" bottom="{PicnikBase.app.basket.visible ? 24 : 0}" right="0">
+		<ct:Basic id="_ctBasic" top="30" left="0" bottom="0" label="@Resource(key='_ctBasic', bundle='CreativeTools')"
+				urlkit="basic" googlePlus="true" undoRedoSave="{_urs}" styleName="basicEffectTab"
+				backgroundSize="100%" width="226"/>
+		<bkctr:ActivatableModuleLoader id="_ctFeatured" top="30" left="0" bottom="0" label="@Resource(key='_ctFeatured', bundle='CreativeTools')"
+				urlkit="featured"
+				activatableId="creativeTools:featured" url="{PicnikBase.app.GetLocModuleName('ModCreate')}" 
+				backgroundSize="100%" width="226" icon="@Embed('assets/bitmaps/icon_star.png')"/>
+		<bkctr:ActivatableModuleLoader id="_ctEffects" top="30" left="0" bottom="0" label="@Resource(key='_ctEffects', bundle='CreativeTools')" toolTip="@Resource(key='_ctEffects_1', bundle='CreativeTools')" 
+				urlkit="effects"
+				activatableId="creativeTools:effects" url="{PicnikBase.app.GetLocModuleName('ModCreate')}" 
+				backgroundSize="100%" width="226" icon="@Embed('assets/bitmaps/icon_effects.png')"/>
+		<bkctr:ActivatableModuleLoader id="_ctGPEffects" top="30" left="0" bottom="0" label="@Resource(key='_ctEffects', bundle='CreativeTools')" toolTip="@Resource(key='_ctEffects_1', bundle='CreativeTools')" 
+				urlkit="effects" googlePlus="true" googlePlusExclusive="true"
+				activatableId="creativeTools:googlePlusEffects" url="{PicnikBase.app.GetLocModuleName('ModCreate')}" 
+				backgroundSize="100%" width="226" styleName="googlePlusEffectsTab"/>
+		<bkctr:ActivatableModuleLoader id="_ctGPVandalize" top="30" left="0" bottom="0" label="@Resource(key='_ctHalloween', bundle='CreativeTools')" 
+				urlkit="vandalize" googlePlus="true" googlePlusExclusive="true"
+				activatableId="creativeTools:googlePlusVandalize" url="{PicnikBase.app.GetLocModuleName('ModCreate')}" 
+				backgroundSize="100%" width="226" styleName="googlePlusVandalizeTab"/>
+		<bkctr:ActivatableModuleLoader id="_ctType" label="@Resource(key='_ctType', bundle='CreativeTools')" top="30" left="0" toolTip="@Resource(key='_ctType_1', bundle='CreativeTools')" 
+				urlkit="text" googlePlus="true"
+				activatableId="creativeTools:type" url="{PicnikBase.app.GetLocModuleName('ModCreate')}" 
+				backgroundSize="100%" width="226" styleName="textSubTab" />
+		<bkctr:ActivatableModuleLoader id="_ctShape" label="@Resource(key='_ctShape', bundle='CreativeTools')" top="30" left="0" toolTip="@Resource(key='_ctShape_1', bundle='CreativeTools')" 
+				urlkit="shapes"
+				activatableId="creativeTools:shape" url="{PicnikBase.app.GetLocModuleName('ModCreate')}" 
+				backgroundSize="100%" width="226" icon="@Embed('assets/bitmaps/icon_smiley.png')"/>
+		<bkctr:ActivatableModuleLoader id="_ctBeauty" top="30" left="0" bottom="0" label="@Resource(key='_ctBeauty', bundle='CreativeTools')" toolTip="@Resource(key='_ctBeauty_1', bundle='CreativeTools')" 
+				urlkit="touchup"
+				activatableId="creativeTools:beauty" url="{PicnikBase.app.GetLocModuleName('ModCreate')}" 
+				backgroundSize="100%" width="226" icon="@Embed('assets/bitmaps/icon_touchup2.png')"/>
+		<bkctr:ActivatableModuleLoader id="_ctFrames" top="30" left="0" bottom="0" label="@Resource(key='Frames_1', bundle='CreativeTools')" toolTip="@Resource(key='Frames_2', bundle='CreativeTools')" 
+				urlkit="frames"
+				activatableId="creativeTools:frames" url="{PicnikBase.app.GetLocModuleName('ModCreate')}" 
+				backgroundSize="100%" width="226" icon="@Embed('assets/bitmaps/icon_frames.png')"/>
+		<bkctr:ActivatableModuleLoader id="_ctAdvanced" top="30" left="0" bottom="0" label="@Resource(key='_ctAdvanced', bundle='CreativeTools')" toolTip="@Resource(key='_ctAdvanced_1', bundle='CreativeTools')" 
+				urlkit="advanced"
+				activatableId="creativeTools:advanced" url="{PicnikBase.app.GetLocModuleName('ModCreate')}" 
+				backgroundSize="100%" width="226" icon="@Embed('assets/bitmaps/icon_advanced.png')"/>
+		<bkctr:ActivatableModuleLoader id="_ctSeasonal" top="30" left="0" bottom="0" label="@Resource(key='_ctSeasonal', bundle='CreativeTools')"
+				urlkit="seasonal"
+				activatableId="creativeTools:seasonal" url="{PicnikBase.app.GetLocModuleName('ModCreate')}" 
+				backgroundSize="100%" width="226" icon="@Embed('assets/bitmaps/icon_calendar.png')"/>
+		<bkctr:ActivatableModuleLoader id="_ctAdmin" top="30" left="0" bottom="0" label="@Resource(key='_ctAdmin', bundle='CreativeTools')" toolTip="@Resource(key='_ctAdmin_1', bundle='CreativeTools')" 
+				urlkit="admin"
+				activatableId="creativeTools:admin" url="{PicnikBase.app.GetLocModuleName('ModCreate')}" 
+				backgroundSize="100%" width="226" icon="@Embed('assets/bitmaps/icon_admin.png')"/>
+	</mx:ViewStack>
+	<mx:Canvas id="_cvsDisable" left="0" top="{HeaderHeight()}" bottom="0" width="226" backgroundColor="0xf8f8f8" backgroundAlpha=".55" visible="{!hasDocument}"/>
+	<bk:ImageVer x="0" source="@Embed('assets/bitmaps/panel_shadow.png')" width="100%" top="{HeaderHeight()}" scaleContent="true" maintainAspectRatio="false"/>
+	<bk:ImageVer x="0" source="@Embed('assets/bitmaps/effects_panel_shadow.png')" height="100%" top="{HeaderHeight() + 1}" left="226" scaleContent="true" maintainAspectRatio="false"/>
+
+	<mx:Canvas x="0" y="0" width="100%" height="{HeaderHeight()}" backgroundAlpha="0" horizontalScrollPolicy="off">
+		<bkctr:ResizingHBox x="0" width="100%" y="0"
+				paddingTop="0" paddingBottom="0" paddingLeft="5" paddingRight="5" verticalAlign="middle" id="hbox1" height="{HeaderHeight()}">
+			<mx:Spacer width="100%"/>
+			
+			<mx:Button height="24" styleName="optionsButton" id="_btnOptions"/>
+			<!--
+			<bk:ResizingButton fontSize_1="12" fontSize_7="11" fontSize_8="9" fontSize_9="10"
+					label="@Resource(key='options', bundle='LocUtil')" id="_btnOptions" styleName="clearButton" textRollOverColor="#000000" textSelectedColor="#000000"
+					icon="@Embed('theme/pngs/inlineDropDownArrowGreen.png')" overIcon="@Embed('theme/pngs/inlineDropDownArrowBlack.png')"
+					downIcon="@Embed('theme/pngs/inlineDropDownArrowBlack.png')"
+					labelPlacement="left" height="{HeaderHeight()}" textAlign="right" horizontalGap="2" paddingRight="0"/>
+			-->
+			<bk:ImageVer source="@Embed('assets/bitmaps/divider_short.png')" id="image2" height="{HeaderHeight()}" maintainAspectRatio="false"/>
+			<bkctr:ResizingHTile paddingLeft="0" paddingRight="0" paddingTop="0" paddingBottom="0" horizontalGap="0">
+				<bk:ResizingButton fontSize_1="12" paddingLeft_2="-2" paddingRight_2="-2" paddingLeft_3="-3" paddingRight_3="-3" paddingLeft_4="-4" paddingRight_4="-4" paddingLeft_5="-5" paddingRight_5="-5" paddingLeft_7="-6" paddingRight_7="-6" paddingLeft_8="-7" paddingRight_8="-7"  fontSize_7="11" fontSize_8="9" fontSize_9="10"
+				   label="@Resource(key='_btnUndo', bundle='CreativeTools')" id="_btnUndo" styleName="buttonLeft" height="24" width="100%" paddingLeft="-5" paddingRight="-5" maxWidth="58"/>
+				<bkctr:ResizingHBox paddingLeft="0" paddingRight="0" paddingTop="0" paddingBottom="0" horizontalGap="0" width="100%">
+					<bk:ResizingButton fontSize_1="12" paddingLeft_2="-2" paddingRight_2="-2" paddingLeft_3="-3" paddingRight_3="-3" paddingLeft_4="-4" paddingRight_4="-4" paddingLeft_5="-5" paddingRight_5="-5" paddingLeft_7="-6" paddingRight_7="-6" paddingLeft_8="-7" paddingRight_8="-7"  fontSize_7="11" fontSize_8="9" fontSize_9="10"
+				   label="@Resource(key='_btnRedo', bundle='CreativeTools')" id="_btnRedo" styleName="buttonRight" height="24" width="100%" paddingLeft="-5" paddingRight="-5"  maxWidth="58"/>
+				</bkctr:ResizingHBox>
+			</bkctr:ResizingHTile>
+			<bk:ResizingButton fontSize_1="12" paddingLeft_2="-2" paddingRight_2="-2" paddingLeft_3="-3" paddingRight_3="-3" paddingLeft_4="-4" paddingRight_4="-4" paddingLeft_5="-5" paddingRight_5="-5" paddingLeft_7="-6" paddingRight_7="-6" paddingLeft_8="-7" paddingRight_8="-7"  fontSize_7="11" fontSize_8="9" fontSize_9="10"
+				   label="@Resource(key='_btnSave', bundle='CreativeTools')" id="_btnSave" height="24" styleName="BigButton"
+				   visible="{PicnikBase.app.multiMode &amp;&amp; !PicnikBase.app.flickrlite}" includeInLayout="{PicnikBase.app.multiMode &amp;&amp; !PicnikBase.app.flickrlite}"/>
+
+			<bk:ImageVer source="@Embed('assets/bitmaps/divider_short.png')" height="{HeaderHeight()}" maintainAspectRatio="false"/>
+
+			<!-- Save/Cancel buttons for Google Plus -->
+			<bk:ResizingButton label="@Resource(key='_btnCancel2', bundle='Picnik')" styleName="liteCancelButton" height="30" ignoreheight="true"
+							   click="PicnikBase.app.LiteUICancel()"
+							   visible="{PicnikBase.IsGooglePlus()}" includeInLayout="{PicnikBase.IsGooglePlus()}"/>
+			<bk:ResizingButton label="{PicnikBase.app.GetSaveButtonTitle(false, PicnikBase.app._pas.exportButtonTitle)}" styleName="liteSaveButton" height="30" ignoreheight="true"
+							   click="PicnikBase.app.DoSave()"
+							   visible="{PicnikBase.IsGooglePlus()}" includeInLayout="{PicnikBase.IsGooglePlus()}"/>
+		</bkctr:ResizingHBox>
+	</mx:Canvas>
+	
+	<mx:Resize duration="200" id="_efResize"/>
+	<mx:Fade id="_efFadeIn" duration="150" suspendBackgroundProcessing="true"/>
+	<mx:Fade id="_efFadeOut" duration="200" suspendBackgroundProcessing="true"/>
+	<mx:Fade id="_efSoftFadeIn" duration="300" alphaFrom=".95" alphaTo="1"/>
+	<mx:Fade id="_efSoftFadeOut" duration="500" alphaFrom="1" alphaTo=".95"/>
+	
+	<flash:DropShadowFilter id="_fiInnerShadow" alpha=".15" blurX="4" blurY="4" angle="-90" distance="2" quality="3" inner="true"/>
+	<bkctr:PaletteWindow id="_pwndInfo" isPopUp="true" visible="false" layout="vertical" backgroundColor="#ffffff"
+			includeInLayout="false"
+			resizeEffect="{_efResize}" x="237" y="102"
+			horizontalAlign="right" alpha=".95" showCloseButton="true" headerHeight="18"
+			horizontalScrollPolicy="off" verticalScrollPolicy="off" title="@Resource(key='_pwndInfo', bundle='CreativeTools')" paddingBottom="2"
+			rollOverEffect="{_efSoftFadeIn}" rollOutEffect="{_efSoftFadeOut}" showEffect="{_efFadeIn}" hideEffect="{_efFadeOut}"
+			filters="{[_fiInnerShadow]}">
+		<mx:Text id="_txtHelp" fontSize="12" condenseWhite="true" selectable="false" styleName="aboutText" width="250" htmlText="@Resource(key='_txtHelp', bundle='CreativeTools')">
+		</mx:Text>
+	</bkctr:PaletteWindow>
+	
+	<!-- EFFECTS PAINTING PALETTE -->
+	<ct:BrushPaletteWindow id="_pwndBrush" visible="false" x="237" y="105" priority="1"
+			includeInLayout="false"
+			creationComplete="{_pwndBrush.size=50}"/>
+</CreativeToolsTabBase>

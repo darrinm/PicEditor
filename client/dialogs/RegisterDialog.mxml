@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RegisterDialogBase xmlns="dialogs.*" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:flash="flash.filters.*"
+	xmlns:containers="containers.*" xmlns:RegisterHelper="dialogs.RegisterHelper.*" xmlns:ctrl="controls.*"
+	autoLayout="true"
+	styleName="{PicnikBase.GetApp().liteUI?'liteDialog':'fixedDialog'}" borderStyle="solid" borderThickness="0" cornerRadius="10" backgroundColor="#85b4cc" backgroundAlpha=".75"
+	horizontalAlign="center" verticalAlign="middle" filters="{[_fiShadow]}"
+	paddingLeft="3" paddingRight="3" paddingTop="3"	paddingBottom="3">
+	<flash:DropShadowFilter id="_fiShadow" alpha=".60" blurX="12" blurY="12" angle="90" distance="2" quality="3"/>
+	<states>
+		<mx:State name="FullHeight">
+			<mx:AddChild relativeTo="{canvas1}" position="before">
+				<mx:Canvas width="510" height="{parentHeight}" id="canvasFH"/>
+			</mx:AddChild>
+			<mx:RemoveChild target="{_cnvContent}"/>
+			<mx:RemoveChild target="{canvas1}"/>
+			<mx:AddChild relativeTo="{canvasFH}" position="firstChild" target="{_cnvContent}"/>
+			<mx:SetStyle name="cornerRadius" value="0"/>
+		</mx:State>
+		<mx:State name="ForgotPW">
+			<mx:SetProperty target="{canvas1}" name="height" value="260"/>
+		</mx:State>
+		<mx:State name="LostEmail">
+			<mx:SetProperty target="{canvas1}" name="height" value="390"/>
+		</mx:State>
+		<mx:State name="Login">
+			<mx:SetProperty target="{canvas1}" name="height" value="260"/>
+		</mx:State>
+		<mx:State name="Register">
+			<mx:SetProperty target="{canvas1}" name="height" value="350"/>
+		</mx:State>
+		<mx:State name="Welcome">
+			<mx:SetProperty target="{canvas1}" name="height" value="375"/>
+		</mx:State>
+		<mx:State name="RegisterForUpgrade">
+			<mx:SetProperty target="{canvas1}" name="height" value="350"/>
+		</mx:State>
+		<mx:State name="ForgotPWForUpgrade">
+			<mx:SetProperty target="{canvas1}" name="height" value="260"/>
+		</mx:State>
+		<mx:State name="LoginForUpgrade">
+			<mx:SetProperty target="{_vstk}" name="selectedIndex" value="10"/>
+			<mx:SetProperty target="{canvas1}" name="height" value="{!AccountMgr.GetInstance().isGuest?440:300}"/>
+		</mx:State>
+		<mx:State name="DoWeKnowYou">
+			<mx:SetProperty target="{canvas1}" name="height" value="{!AccountMgr.GetInstance().isGuest?440:300}"/>
+		</mx:State>
+		<mx:State name="RegisterForRedeemGift">
+			<mx:SetProperty target="{canvas1}" name="height" value="350"/>
+		</mx:State>
+		<mx:State name="ForgotPWForRedeemGift">
+			<mx:SetProperty target="{canvas1}" name="height" value="260"/>
+		</mx:State>
+		<mx:State name="LoginForRedeemGift">
+			<mx:SetProperty target="{canvas1}" name="height" value="{!AccountMgr.GetInstance().isGuest?440:300}"/>
+		</mx:State>
+		<mx:State name="RedeemGiftForUpgrade">
+			<mx:SetProperty target="{canvas1}" name="height" value="290"/>
+		</mx:State>
+		<mx:State name="Survey">
+			<mx:SetProperty target="{canvas1}" name="height" value="300"/>
+		</mx:State>
+		<mx:State name="ForgotPWSent">
+			<mx:SetProperty target="{canvas1}" name="height" value="180"/>
+		</mx:State>
+		<mx:State name="ForgotPWReset">
+			<mx:SetProperty target="{canvas1}" name="height" value="255"/>
+		</mx:State>
+		<mx:State name="RegisterForHelpHub">
+			<mx:SetProperty target="{canvas1}" name="height" value="350"/>
+		</mx:State>
+		<mx:State name="ForgotPWForHelpHub">
+			<mx:SetProperty target="{canvas1}" name="height" value="260"/>
+		</mx:State>
+		<mx:State name="LoginForHelpHub">
+			<mx:SetProperty target="{canvas1}" name="height" value="260"/>
+		</mx:State>
+		
+ 	</states>
+
+	<mx:Fade alphaFrom="0" alphaTo="1" duration="100" id="_efFadeIn"/>
+	<mx:Fade alphaFrom="1" alphaTo="0" duration="100" id="_efFadeOut"/>
+	
+	<mx:Fade alphaFrom="0" alphaTo="1" duration="300" id="_efLongFadeIn"/>
+	<mx:Fade alphaFrom="1" alphaTo="0" duration="300" id="_efLongFadeOut"/>
+
+	<containers:AutoShrinkCanvas id="canvas1" width="510" height="328" maximumHeight="{parentHeight - 6}">
+		<mx:Canvas id="_cnvContent" backgroundColor="#e8f4fd" cornerRadius="9" borderStyle="solid" borderThickness="0" width="100%" height="100%"
+			horizontalScrollPolicy="off" verticalScrollPolicy="off">
+			<mx:ViewStack id="_vstk" width="100%" height="100%" resizeToContent="true" creationPolicy="none">
+				<RegisterHelper:RegisterTab id="_rbxRegister" name="Register" showEffect="{_efFadeIn}" hideEffect="{_efFadeOut}"/>
+				<RegisterHelper:LoginTab id="_rbxLogin" name="Login" showEffect="{_efFadeIn}" hideEffect="{_efFadeOut}"/>
+				<RegisterHelper:ForgotPasswordTab id="_rbxForgotPassword" name="ForgotPW" showEffect="{_efFadeIn}" hideEffect="{_efFadeOut}"/>
+				<RegisterHelper:LostEmailTab id="_rbxLostEmail" name="LostEmail" showEffect="{_efFadeIn}" hideEffect="{_efFadeOut}"/>
+				<RegisterHelper:WelcomeTab id="_rbxWelcome" name="Welcome" showEffect="{_efFadeIn}" hideEffect="{_efFadeOut}"/>
+				<RegisterHelper:RegisterTab id="_rbxRegisterForUpgrade" name="RegisterForUpgrade" showEffect="{_efFadeIn}" hideEffect="{_efFadeOut}"/>
+				<RegisterHelper:ForgotPasswordTab id="_rbxForgotPasswordForUpgrade" name="ForgotPWForUpgrade" showEffect="{_efFadeIn}" hideEffect="{_efFadeOut}"/>
+				<RegisterHelper:LoginTab id="_rbxLoginForUpgrade" name="LoginForUpgrade" showEffect="{_efFadeIn}" hideEffect="{_efFadeOut}"/>
+				<RegisterHelper:LoginTab id="_rbxDoWeKnowYou" name="DoWeKnowYou" doWeKnowYou="true" showEffect="{_efFadeIn}" hideEffect="{_efFadeOut}"/>
+				<RegisterHelper:RegisterTab id="_rbxRegisterForRedeemGift" name="RegisterForRedeemGift" showEffect="{_efFadeIn}" hideEffect="{_efFadeOut}"/>
+				<RegisterHelper:ForgotPasswordTab id="_rbxForgotPasswordForRedeemGift" name="ForgotPWForRedeemGift" showEffect="{_efFadeIn}" hideEffect="{_efFadeOut}"/>
+				<RegisterHelper:LoginTab id="_rbxLoginForRedeemGift" name="LoginForRedeemGift" showEffect="{_efFadeIn}" hideEffect="{_efFadeOut}"/>
+				<RegisterHelper:SurveyTab id="_rbxSurvey" name="Survey" showEffect="{_efFadeIn}" hideEffect="{_efFadeOut}"/>
+				<RegisterHelper:ForgotPasswordSentTab id="_rbxForgotPasswordSent" name="ForgotPWSent" showEffect="{_efFadeIn}" hideEffect="{_efFadeOut}"/>
+				<RegisterHelper:ForgotPasswordResetTab id="_rbxForgotPasswordReset" name="ForgotPWReset" showEffect="{_efFadeIn}" hideEffect="{_efFadeOut}"/>
+				<RegisterHelper:RegisterTab id="_rbxRegisterForHelpHub" name="RegisterForHelpHub" showEffect="{_efFadeIn}" hideEffect="{_efFadeOut}"/>
+				<RegisterHelper:ForgotPasswordTab id="_rbxForgotPasswordForHelpHub" name="ForgotPWForHelpHub" showEffect="{_efFadeIn}" hideEffect="{_efFadeOut}"/>
+				<RegisterHelper:LoginTab id="_rbxLoginForHelpHub" name="LoginForHelpHub" showEffect="{_efFadeIn}" hideEffect="{_efFadeOut}"/>
+			</mx:ViewStack>
+			<containers:HideRemoveCanvas id="_cnvWorking" width="100%" height="100%"
+				showEffect="{_efLongFadeIn}" hideEffect="{_efLongFadeOut}"
+				backgroundColor="#e8f4fd" cornerRadius="9" borderStyle="solid" borderThickness="0" backgroundAlpha=".75"
+				horizontalScrollPolicy="off" verticalScrollPolicy="off" visible="{working}">
+				<ctrl:Gears horizontalCenter="0" verticalCenter="0"/>
+			</containers:HideRemoveCanvas>
+		</mx:Canvas>
+	</containers:AutoShrinkCanvas>
+</RegisterDialogBase>

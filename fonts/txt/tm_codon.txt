@@ -1,0 +1,12 @@
+fileName: tm_codon.ttf
+name: CODON
+subfamilyDisplayName: Regular
+fullName: CODON
+displayName: CODON
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 4
+pkName: pktm0codon
+authorName: Tom Murphy
+authorUrl: http://fonts.tom7.com/

@@ -1,0 +1,12 @@
+fileName: EpoXY_histoRy.ttf
+name: EpoXY histoRy
+subfamilyDisplayName: Normal
+fullName: EpoXY histoRy
+displayName: EpoXY histoRy
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 0
+pkName: pkEpoXY0histoRy
+authorName: Gyom.Typo
+authorUrl: http://gyom.nebullus.com/

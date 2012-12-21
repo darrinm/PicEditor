@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns="dialogs.DialogContent.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%" xmlns:filters="flash.filters.*"
+	xmlns:RegisterHelper="dialogs.RegisterHelper.*" verticalScrollPolicy="off" horizontalScrollPolicy="off" 
+	xmlns:ctl="controls.*" xmlns:thumbnails="controls.thumbnails.*" clipContent="true">
+	<mx:Script>
+		<![CDATA[
+			import dialogs.DialogManager;
+			import flash.net.navigateToURL;
+			import flash.net.URLRequest;
+			import flash.net.URLVariables;
+			import imagine.ImageDocument;
+			import mx.resources.ResourceBundle;
+			import util.LocUtil;
+
+			[Bindable] public var dialogMode:Boolean = false;
+			[Bindable] public var navigateParent:Object = null;
+			
+			
+	  		[Bindable] [ResourceBundle("HelpHub")] protected var rb:ResourceBundle;
+	  		private var _fShownLogin:Boolean = false;
+
+			private function doHelpSearch(): void {
+				PicnikBase.app.NavigateToURL(new URLRequest("http://www.google.com/support/picnik/bin/search.py?query=" + encodeURIComponent(_textSearchTerms.text)), "_blank");
+			}
+			
+			private function doHelpCenter(): void {
+				PicnikBase.app.NavigateToURL(new URLRequest("http://www.google.com/support/picnik/?hl=" + LocUtil.PicnikLocToGoogleLoc()), "_blank");
+			}
+
+			private function doForums(): void {
+				PicnikBase.app.NavigateToURL(new URLRequest("http://www.google.com/support/forum/p/Picnik?hl=" + LocUtil.PicnikLocToGoogleLoc()), "_blank");
+			}
+
+			private function doContactUs(): void {
+				DialogManager.Show("FeedbackDialog", this, function(obResult:Object): void {
+						if ('navigate' in obResult) {
+							if (dialogMode && navigateParent != null && 'Navigate' in navigateParent) {
+								 navigateParent['Navigate'](obResult['navigate']);
+							} else {
+								if (obResult['navigate'] == 'settings') {
+									PicnikBase.app.ShowDialog("usersettings");
+								}
+							}
+						}
+					} );
+			}
+			
+			private function doForgotPassword(): void {
+				PicnikBase.app.ShowDialog("forgotpw");
+			}
+			
+			private function doPicnikMaster(): void {
+				PicnikBase.app.NavigateToURL(new URLRequest("http://google.com/support/picnik/bin/answer.py?answer=179556&hl=" + LocUtil.PicnikLocToGoogleLoc()), "_blank");
+			}
+			
+			private function doCurrentIssues(): void {
+				PicnikBase.app.NavigateToURL(new URLRequest("http://www.google.com/support/picnik/bin/static.py?page=known_issues.cs"), "_blank");				
+			} 	
+			
+			private function OnLink(evt:TextEvent): void {
+				if (evt.text == "forum") {
+					doForums();
+				} else if (evt.text == "helpcenter") {
+					doHelpCenter();
+				}
+			}	 
+			
+			public function OnActivate(): void {
+				if (!_fShownLogin && AccountMgr.GetInstance().isGuest) {
+					DialogManager.ShowRegisterTab("LoginForHelpHub");
+				}
+				_fShownLogin = true;
+			}
+		]]>
+	</mx:Script>
+
+	<filters:DropShadowFilter blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1" quality="3" angle="90" id="_fiWhiteShad"/>
+	<filters:DropShadowFilter id="_fiStripeShadow" blurX="4" blurY="4" distance="1" color="#000000" alpha=".2" quality="3" angle="90"/>
+	<filters:DropShadowFilter id="_efEmbossed" blurX="0" blurY="0" distance="1" color="#000000" alpha=".4" quality="3" angle="-90"/>
+	<filters:DropShadowFilter blurX="2" blurY="2" distance="1.5" color="#005580" alpha=".3" quality="3" angle="90" id="_fiModShadow"/>
+	<filters:DropShadowFilter id="_fiModuleShine" blurX="0" blurY="0" distance="1" color="#FFFFFF" alpha="1" inner="true" quality="3" angle="90"/>
+
+	<!-- white glow -->
+	<mx:Parallel id="_efGlowOver">
+		<mx:Glow blurXFrom="0" blurYFrom="0" blurXTo="10" blurYTo="10" color="#FFFFFF" alphaFrom="0" alphaTo=".8" duration="50" strength="2"/>	
+	</mx:Parallel>
+	<mx:Parallel id="_efGlowOut">
+		<mx:Glow blurXFrom="10" blurYFrom="10" blurXTo="0" blurYTo="0" color="#FFFFFF" alphaFrom=".8" alphaTo="0" duration="150" strength="2"/>
+	</mx:Parallel>
+
+	<mx:Canvas width="100%" height="100%" clipContent="true" includeInLayout="false" visible="{!dialogMode}">
+		<ctl:ImageEx source="../graphics/bluegrad_short.gif" left="0" top="0" width="100%" height="702" maintainAspectRatio="false" includeInLayout="false"/>
+		<ctl:ImageEx source="../graphics/clouds.jpg" horizontalCenter="0" top="0" width="983" height="177" includeInLayout="false" horizontalAlign="center"/>			
+	</mx:Canvas>
+
+	<!-- this canvas generates the scroll bars, allowing the above images to stay pinned to the top of the page -->
+	<mx:Canvas bottom="0" top="0" left="0" right="0" horizontalScrollPolicy="off" verticalLineScrollSize="38">
+		<mx:VBox top="0" horizontalAlign="center" width="100%" height="100%" paddingRight="20">
+		
+			<!-- Header and Search Boxes -->
+			<mx:HBox width="100%" horizontalAlign="center" paddingTop="25" paddingLeft="15" paddingRight="25">
+				<mx:VBox verticalGap="0" minWidth="350" width="100%" maxWidth="630" verticalScrollPolicy="off" horizontalScrollPolicy="off" paddingBottom="15">
+					<mx:Label text="@Resource(key='Label_1', bundle='HelpHub')" fontWeight="bold" visible="{!dialogMode}" includeInLayout="{!dialogMode}"
+						fontSize="30" horizontalCenter="0" color="#005580" paddingBottom="-8" filters="{[_fiWhiteShad]}"/>
+					<mx:Text width="100%" fontSize="15" selectable="true" color="#333333" condenseWhite="true" leading="-2" htmlText="@Resource(key='Text_1', bundle='HelpHub')" link="OnLink(event)"/>
+					
+					<mx:Spacer height="18"></mx:Spacer>
+					
+					<mx:HBox height="65" width="630">
+						<!-- browse current issues -->
+						<ctl:ResizingButton autoFontSizeGap="1"
+							label="@Resource(key='Button_3', bundle='HelpHub')" 
+							styleName="basketButton" click="doCurrentIssues()"
+							fontSize="20" height="46" minWidth="225" maxWidth="275"/>
+						
+						<mx:Spacer width="15"></mx:Spacer>
+						
+						<!-- search box -->
+						<mx:Canvas>
+							<ctl:ResizingButton autoFontSizeGap="1"
+							styleName="basketButtonSearch" id="_btnSearchButtonContainer"
+							fontSize="20" height="46" minWidth="317"/>
+							<ctl:TextInputPlus id="_textSearchTerms" backgroundColor="#ffffff" width="270" height="36" borderStyle="solid" borderThickness="2.5" 
+								cornerRadius="6" left="4" verticalCenter="-1" fontSize="22" color="#333333" prompt="@Resource(key='Label_7', bundle='HelpHub')" 
+								styleName="publishFormField2" paddingLeft="6" enter="doHelpSearch()"/>
+							<mx:Button icon="@Embed('/assets/bitmaps/MagnifyingGlass.png')" right="0" verticalCenter="0" styleName="clearButton" click="doHelpSearch()" rollOverEffect="{_efGlowOver}" rollOutEffect="{_efGlowOut}"/>
+						</mx:Canvas>
+						
+					</mx:HBox>
+					<ctl:ImageEx source="../graphics/page_divider.png" scaleContent="true" width="100%" height="2" maintainAspectRatio="false" id="image2"/>
+					<mx:Spacer height="20"></mx:Spacer>
+					
+				<!-- Body Copy -->
+				<mx:VBox top="0" horizontalAlign="center" width="100%" verticalScrollPolicy="off" horizontalScrollPolicy="off">
+			
+					<mx:HBox width="100%">
+						<mx:VBox width="100%">
+							<!-- Picnik Help Center -->		
+							<mx:VBox verticalGap="0" minWidth="350" width="100%" maxWidth="620" verticalScrollPolicy="off" horizontalScrollPolicy="off">
+								<mx:Label text="@Resource(key='Label_2', bundle='HelpHub')" styleName="clearButton" fontWeight="bold" fontSize="20" 
+									horizontalCenter="0" color="#618430" paddingBottom="-8" filters="{[_fiWhiteShad]}" paddingLeft="0"
+									useHandCursor="true" buttonMode="true" mouseEnabled="true" mouseChildren="false" click="doHelpCenter()"
+									rollOver="{(event.target as Label).setStyle('color','#2d4006')}" 
+									rollOut="{(event.target as Label).setStyle('color','#618430')}"/>
+								
+								<mx:Text width="100%" fontSize="15" selectable="false" color="#333333" condenseWhite="true" leading="-2" htmlText="@Resource(key='Text_2', bundle='HelpHub')"/>
+							</mx:VBox>
+							<mx:Spacer height="15"></mx:Spacer>
+							
+							<mx:Spacer height="14" visible="{!AccountMgr.GetInstance().isGuest &amp;&amp; !AccountMgr.GetInstance().isPaid}" includeInLayout="{!AccountMgr.GetInstance().isGuest &amp;&amp; !AccountMgr.GetInstance().isPaid}"></mx:Spacer>
+							
+							<!-- Picnik Forums -->
+							<mx:VBox verticalGap="0" minWidth="350" width="100%" maxWidth="620" verticalScrollPolicy="off" horizontalScrollPolicy="off">
+								<mx:Label text="@Resource(key='Label_3', bundle='HelpHub')" styleName="clearButton" fontWeight="bold" fontSize="20" 
+									horizontalCenter="0" color="#618430" paddingBottom="-8" filters="{[_fiWhiteShad]}" paddingLeft="0"
+									useHandCursor="true" buttonMode="true" mouseEnabled="true" mouseChildren="false" click="doForums()"
+									rollOver="{(event.target as Label).setStyle('color','#2d4006')}" 
+									rollOut="{(event.target as Label).setStyle('color','#618430')}"/>
+								<mx:Text width="100%" fontSize="15" selectable="false" color="#333333" condenseWhite="true" leading="-2" htmlText="@Resource(key='Text_3', bundle='HelpHub')"/>
+							</mx:VBox>							
+						</mx:VBox>
+					</mx:HBox>
+						<!--Product Ideas Module-->
+						<HelpHubContentIdeas paddingLeft="20" paddingTop="38" visible="{dialogMode}" includeInLayout="{dialogMode}"/>
+					
+
+					<!-- Contact us -->
+					<mx:VBox verticalGap="0" minWidth="350" width="100%" maxWidth="620" verticalScrollPolicy="off" horizontalScrollPolicy="off" paddingTop="22">
+						<mx:Label text="@Resource(key='Label_4', bundle='HelpHub')" styleName="clearButton" fontWeight="bold" fontSize="20" 
+							horizontalCenter="0" color="#618430" paddingBottom="-8" filters="{[_fiWhiteShad]}" paddingLeft="0"
+							useHandCursor="true" buttonMode="true" mouseEnabled="true" mouseChildren="false" click="doContactUs()"
+							visible="{AccountMgr.GetInstance().isPaid}" includeInLayout="{AccountMgr.GetInstance().isPaid}"
+							rollOver="{(event.target as Label).setStyle('color','#2d4006')}" 
+							rollOut="{(event.target as Label).setStyle('color','#618430')}"/>
+						<mx:Text width="100%" fontSize="15" selectable="false" color="#333333" condenseWhite="true" leading="-2" htmlText="@Resource(key='Text_4', bundle='HelpHub')"
+							visible="{AccountMgr.GetInstance().isPaid}" includeInLayout="{AccountMgr.GetInstance().isPaid}"/>
+					</mx:VBox>
+					
+					<!-- Forgot password? -->
+					<mx:VBox verticalGap="0" minWidth="350" width="100%" maxWidth="620" verticalScrollPolicy="off" horizontalScrollPolicy="off" paddingBottom="15" paddingTop="-5">
+						<mx:Label text="@Resource(key='Label_pw', bundle='HelpHub')" styleName="clearButton" fontWeight="bold" fontSize="20" 
+							horizontalCenter="0" color="#618430" paddingBottom="-8" filters="{[_fiWhiteShad]}" paddingLeft="0"
+							useHandCursor="true" buttonMode="true" mouseEnabled="true" mouseChildren="false" click="doForgotPassword()"
+							visible="{!AccountMgr.GetInstance().hasCredentials}" includeInLayout="{!AccountMgr.GetInstance().hasCredentials}"
+							rollOver="{(event.target as Label).setStyle('color','#2d4006')}" 
+							rollOut="{(event.target as Label).setStyle('color','#618430')}"/>
+						<mx:Text width="100%" fontSize="15" selectable="false" color="#333333" condenseWhite="true" leading="-2" htmlText="@Resource(key='Text_pw', bundle='HelpHub')" 
+							visible="{!AccountMgr.GetInstance().hasCredentials}" includeInLayout="{!AccountMgr.GetInstance().hasCredentials}"/>
+					</mx:VBox>
+					
+					<!-- Premium Not Active -->
+					<mx:VBox verticalGap="0" minWidth="350" width="100%" maxWidth="620" verticalScrollPolicy="off" horizontalScrollPolicy="off" paddingBottom="15" paddingTop="-6">
+						<mx:Label text="@Resource(key='Label_pna', bundle='HelpHub')" styleName="clearButton" fontWeight="bold" fontSize="20" 
+								  horizontalCenter="0" color="#618430" paddingBottom="-8" filters="{[_fiWhiteShad]}" paddingLeft="0"
+								  useHandCursor="true" buttonMode="true" mouseEnabled="true" mouseChildren="false" click="PicnikBase.app.NavigateToURL(new URLRequest('http://goo.gl/8Op1'),'pna')"
+								  visible="{!AccountMgr.GetInstance().isGuest &amp;&amp; !AccountMgr.GetInstance().isPaid}" includeInLayout="{!AccountMgr.GetInstance().isGuest &amp;&amp; !AccountMgr.GetInstance().isPaid}"
+								  rollOver="{(event.target as Label).setStyle('color','#2d4006')}" 
+								  rollOut="{(event.target as Label).setStyle('color','#618430')}"/>
+						<mx:Text width="100%" fontSize="15" selectable="false" color="#333333" condenseWhite="true" leading="-2" htmlText="@Resource(key='Text_pna', bundle='HelpHub')" 
+								 visible="{!AccountMgr.GetInstance().isGuest &amp;&amp; !AccountMgr.GetInstance().isPaid}" includeInLayout="{!AccountMgr.GetInstance().isGuest &amp;&amp; !AccountMgr.GetInstance().isPaid}"/>
+					</mx:VBox>
+					
+					<mx:Spacer height="35" visible="{!AccountMgr.GetInstance().isGuest &amp;&amp; !AccountMgr.GetInstance().isPaid}" includeInLayout="{!AccountMgr.GetInstance().isGuest &amp;&amp; !AccountMgr.GetInstance().isPaid}"></mx:Spacer>
+					
+				</mx:VBox>
+				
+				<!-- Picnik Master Module -->
+				<mx:Spacer height="20"></mx:Spacer>
+				<mx:Canvas minWidth="350" width="100%" maxWidth="620" height="100%" cornerRadius="8" borderStyle="solid" borderThickness="0" clipContent="false" 
+						backgroundColor="{dialogMode ? 0xecf8fe: 0xffffff}" backgroundAlpha="1" backgroundImage="{PicnikBase.StaticUrl('../graphics/MasterIcons.png')}" filters="{[_fiModuleShine,_fiModShadow]}">
+					<mx:VBox width="245" paddingLeft="20" height="100%">
+						<mx:Text htmlText="@Resource(key='Label_5', bundle='HelpHub')" fontSize="16" paddingBottom="-6" paddingTop="13"
+							color="#005580" fontWeight="bold" width="100%" leading="-3" selectable="false" mouseEnabled="false" mouseChildren="false"/>
+						<mx:Text htmlText="@Resource(key='Text_5', bundle='HelpHub')" fontSize="14" color="#4c99bf" fontWeight="bold"
+							width="100%" leading="-2" selectable="false" mouseEnabled="false" mouseChildren="false" paddingBottom="2"/>
+						<ctl:ResizingButton autoFontSizeGap="1"
+							label="@Resource(key='Button_5', bundle='HelpHub')"
+							fontSize="14" height="26" minWidth="145" maxWidth="225"
+							click="doPicnikMaster()"/>
+						<mx:Spacer height="15"></mx:Spacer>	
+					</mx:VBox>	
+				</mx:Canvas>
+				
+				<mx:Spacer height="30"></mx:Spacer>
+				
+				<!--Which Version of Picnik?-->
+				<mx:Text fontSize="13" condenseWhite="false" selectable="true" width="100%" paddingTop="10" paddingBottom="15"
+						color="#666666" htmlText="{LocUtil.rbSubst('HelpHub', 'Version', PicnikBase.getVersionStamp())}"/>
+				
+				<!-- urls for flickr debuggering -->
+				<mx:Spacer height="50" includeInLayout="{GetPicnikLiteTestUrl() != null}"/>
+				<mx:Text htmlText="{GetPicnikLiteTestUrl()}" width="100%"
+					visible="{GetPicnikLiteTestUrl() != null}" includeInLayout="{GetPicnikLiteTestUrl() != null}"/>
+						
+			</mx:VBox>
+			<mx:VBox>
+				<!--Product Ideas Module-->
+				<!--<HelpHubContentIdeas paddingLeft="20" paddingTop="38" visible="{!dialogMode}" includeInLayout="{!dialogMode}"/>-->
+				<!--Usability Test Module-->
+				<!--<HelpHubUsabilityStudy paddingLeft="20" paddingTop="38" visible="{!dialogMode}" includeInLayout="{!dialogMode}"/>-->
+			</mx:VBox>		
+			
+		</mx:HBox>
+	</mx:VBox>
+</mx:Canvas>
+<mx:HRule strokeColor="#d9d9d9" width="100%" strokeWidth="1" bottom="0" visible="{dialogMode}" includeInLayout="{dialogMode}"/>		
+	
+	
+	
+	<mx:Script>
+		<![CDATA[
+			public function GetPicnikLiteTestUrl(): String {
+				if (!(AccountMgr.GetInstance().isAdmin))
+					return null;
+					
+				var strOut:String = null;
+				try {
+					var tpa:ThirdPartyAccount = AccountMgr.GetThirdPartyAccount("flickr");
+					if (tpa == null || !tpa.HasCredentials()) return null;
+					var imgd:ImageDocument = PicnikBase.app.activeDocument as ImageDocument; 
+					if (!imgd) return null; // No photo open
+					var imgp:Object = imgd.properties;
+					if (imgp == null) return null; // No image open
+					if (!imgp.flickr_photo_id || imgp.flickr_photo_id.length == 0) return null; // Image is not a flickr image
+					var astrMatch:Array = PicnikService.serverURL.match(/\/\/([^\/]*)/i); // Extract the domain
+					var strDomain:String = "local.mywebsite.com";
+					if (astrMatch)
+						strDomain = (astrMatch[1] as String).toLowerCase();
+					
+					var strQuery:String = "_ss_itemid=" + imgp.flickr_photo_id + 
+							"&token=" + tpa.GetToken() + "&userid=" + tpa.GetUserId() + 
+							"&serverurl=http://" + strDomain;
+							
+					var strBatch:String = "<_multi><item id='" + imgp.id + "' service='flickr'>";					
+					strBatch += "<thumbnailurl>" + imgp.thumbnailurl + "</thumbnailurl>";
+					strBatch += "</item></_multi>";
+					var strQuery2:String = "_ss_cmd=multi&_multi=" + encodeURIComponent(strBatch) +
+							"&token=" + tpa.GetToken() + "&userid=" + tpa.GetUserId() + 
+							"&serverurl=http://" + strDomain;
+					
+					if (strDomain == "www.mywebsite.com") {
+						// No changes to the query
+					} else if (strDomain == "test.mywebsite.com") {
+						strQuery += "&openInDomain=test.mywebsite.com";
+						strQuery2 += "&openInDomain=test.mywebsite.com";
+					} else { // default is local.mywebsite.com
+						strQuery += "&openInDomain=localhost";
+						strQuery2 += "&openInDomain=localhost";
+					}
+					var strBase:String;
+					var strUrl:String = "";
+					strOut = "<b>Admin Links</b><br>";
+	
+					strUrl = "http://static.mywebsite.com/flickr/picnik/flickr/index.html?" + strQuery + "&locale=" + PicnikBase.Locale();
+					strOut += "Static: <a href='" + strUrl + "'>" + strUrl + "</a><br>";
+	
+					strUrl = "http://test.mywebsite.com/flickr/index.html?" + strQuery;
+					strOut += "<br>Test: <a href='" + strUrl + "'>" + strUrl + "</a><br>";
+	
+					strUrl = "http://local.mywebsite.com/flickr/index.html?" + strQuery;
+					strOut += "<br>Local: <a href='" + strUrl + "'>" + strUrl + "</a><br>";
+					
+					strOut += "<br><b>Multi-Image Admin Links</b><br>";
+	
+					strUrl = "http://static.mywebsite.com/flickr/picnik/flickr/index.html?" + strQuery2 + "&locale=" + PicnikBase.Locale();
+					strOut += "Static: <a href=\"" + strUrl + "\">" + strUrl + "</a><br>";
+	
+					strUrl = "http://test.mywebsite.com/flickr/index.html?" + strQuery2;
+					strOut += "<br>Test: <a href=\"" + strUrl + "\">" + strUrl + "</a><br>";
+	
+					strUrl = "http://local.mywebsite.com/flickr/index.html?" + strQuery2;
+					strOut += "<br>Local: <a href=\"" + strUrl + "\">" + strUrl + "</a><br>";
+					
+				} catch (e:Error) {
+					trace(e);
+					strOut = null;
+				}
+				return strOut;
+			}
+		]]>
+	</mx:Script>
+</mx:Canvas>

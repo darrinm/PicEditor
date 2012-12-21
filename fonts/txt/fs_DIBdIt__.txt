@@ -1,0 +1,12 @@
+fileName: fs_DIBdIt__.ttf
+name: DIN-BoldItalic
+subfamilyDisplayName: Regular
+fullName: DIN-BoldItalic
+displayName: DIN-BoldItalic
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 6
+pkName: pkfs0DIBdIt00
+authorName: FontShop
+authorUrl: http://www.fontshop.com/

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cnt:EffectCanvas xmlns="effects.*" xmlns:cnt="containers.*" xmlns:ctrl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="193"
+	xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*" xmlns:objectOperations="imagine.objectOperations.*" urlid="FrameItPink">
+	<mx:Script>
+	<![CDATA[
+		import mx.resources.ResourceManager;
+		import util.FontManager;
+		import util.PicnikFont;
+	
+		import util.LocUtil;
+		import mx.resources.ResourceBundle;
+   		[Bindable] [ResourceBundle("PinkFrameEffect")] private var rb:ResourceBundle;
+   		
+   		// Get object positions
+   		private function CalcBarSize(nWidth:Number, nHeight:Number): Object {
+   			var obPositions:Object = {};
+   			var nBarAspect:Number = 841/52; // width/height
+   			obPositions.barWidth = nWidth;
+   			obPositions.barHeight = nWidth / nBarAspect;
+   			return obPositions;
+   		}
+   		
+   		private function GetRibbonProps(nWidth:Number, nHeight:Number): Object {
+   			// Position and scale based on the size of the photo
+
+			var cxyImageMax:int = Util.GetMaxImageWidth();
+   			var obProps:Object = {};
+   			obProps.scaleX = obProps.scaleY = nWidth * 2 * 3.475 / cxyImageMax;
+   			obProps.x = nWidth * 2 * 150 / cxyImageMax;
+   			obProps.y = nHeight - 2 * nWidth * 207 / cxyImageMax;
+   			obProps.rotation = -20.37;
+   			obProps.url = "shapes/ribbon_pink.swf";
+   			return obProps;
+   		}
+   		
+   		private function GetRibbonShadowProps(nWidth:Number, nHeight:Number): Object {
+   			// Position and scale based on the size of the photo
+
+			var cxyImageMax:int = Util.GetMaxImageWidth();
+   			var obProps:Object = {};
+   			obProps.scaleX = obProps.scaleY = nWidth * 2 * 3.475 / cxyImageMax;
+   			obProps.x = nWidth * 2 * 157 / cxyImageMax;
+   			obProps.y = nHeight - nWidth * 2 * 191 / cxyImageMax;
+   			obProps.rotation = -20.37;
+   			obProps.alpha = 0.2;
+   			obProps.url = "shapes/ribbon_pink.swf";
+   			obProps.blendMode = "subtract";
+   			obProps.color = 0xffffff;
+   			return obProps;
+   		}
+   		
+   		private function GetBarProps(nWidth:Number, nHeight:Number): Object {
+   			// Position and scale based on the size of the photo
+   			
+   			var obBarSize:Object = CalcBarSize(nWidth, nHeight);
+   			
+   			var nBarHeight:Number = obBarSize.barHeight; 
+   			var nBarWidth:Number = obBarSize.barWidth;
+
+   			var obProps:Object = {};
+   			obProps.scaleX = nBarWidth / 100;
+   			obProps.scaleY = nBarHeight / 100;
+   			obProps.x = nWidth/2; // Centered horizontally
+   			obProps.y = nHeight - nBarHeight/2; // At the bottom
+   			obProps.alpha = 0.79;
+   			obProps.color = 0xFF9CBF; // From Peter's mockup
+   			return obProps;
+   		}
+   		
+   		private var _fInit:Boolean = DoInit();
+   		private var _fnt:PicnikFont = PicnikFont.Default();
+   		
+   		private function DoInit(): Boolean {
+   			FontManager.GetFontList(function(... args:Array): void {
+	   				_fnt = FontManager.FindFontByName("Georgia", false, false, true);
+	   				OnOpChange();
+	   			});
+   			return true;
+   		}
+   		
+   		private function GetTextProps(nWidth:Number, nHeight:Number): Object {
+   			// Position and scale based on the size of the photo
+   			var obBarSize:Object = CalcBarSize(nWidth, nHeight);
+   			var nBarHeight:Number = obBarSize.barHeight;
+   			var nBarWidth:Number = obBarSize.barWidth;
+   			
+   			// Text size 77 => 761 x 54 => perfect for this bar size (800 x 75)
+   			// So text size == bar height is perfect.
+   			// y = 600 - 40 = 40/75ths of the bar height
+   			
+   			var obProps:Object = {};
+   			obProps.x = nWidth/2; // Centered horizontally
+   			obProps.y = nHeight - nBarHeight/2 - nBarHeight * 3.75/71.5; // At the bottom. Bottom padding is 3.75 pixels per 71.5 bar height pixels
+   			obProps.color = 0xffffff;
+   			obProps.text = ResourceManager.getInstance().getString("PinkFrameEffect", "BreastCancerAwarenessMonth");
+   			obProps.font = _fnt;
+   			obProps.fontSize = nBarHeight * 131 / 168; // 131 font size for a 168 bar height
+   			obProps.textAlign = "center";
+   			obProps.leading = -5;
+
+   			return obProps;
+   		}
+   		
+	]]>
+	</mx:Script>
+	<ctrl:EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='PinkFrameEffect')" strAuthor="@Resource(key='_efbtn_1', bundle='PinkFrameEffect')" strImageSource="../graphics/effects/BreastCancerAwareness/pink_frame.png"/>
+	<mx:String id="_strHelpText">{Resource.getString('PinkFrameEffect', '_strHelpText')}</mx:String>
+
+	<mx:VBox x="0" y="70" verticalGap="0" paddingLeft="8" paddingRight="8">
+
+		<ctrl:ApplyCancelEffectButtons addBoxPadding="true" premium="{premium}"/>
+	</mx:VBox>
+
+	<objectOperations:NestedObjectOperation id="_op">
+		<objectOperations:children>
+			<objectOperations:CreateObjectOperation type="PRectangle" props="{GetBarProps(imagewidth, imageheight)}"/>
+			<objectOperations:CreateObjectOperation type="Text" props="{GetTextProps(imagewidth, imageheight)}"/>
+			<objectOperations:CreateObjectOperation type="Clipart" props="{GetRibbonShadowProps(imagewidth, imageheight)}"/>
+			<objectOperations:CreateObjectOperation type="Clipart" props="{GetRibbonProps(imagewidth, imageheight)}"/>
+		</objectOperations:children>
+	</objectOperations:NestedObjectOperation>
+</cnt:EffectCanvas>

@@ -1,0 +1,30 @@
+<languageVersion: 1.0;>
+kernel QuadBlur
+< namespace : "com.leebrimelow.filters";
+    vendor : "Lee Brimelow";
+    version : 1;
+    description : "Creates a four-direction blur.";
+>
+{
+    input image4 src;
+    output pixel4 dst;
+ 
+    parameter int amount
+    < minValue:0;
+        maxValue:100;
+        defaultValue:0;
+    >;
+ 
+    void
+    evaluatePixel()
+    {
+        pixel4 orig = sampleNearest(src, outCoord());
+        float2 pos = outCoord();
+        orig += sampleNearest(src, outCoord()-float2(cos(float(pos.x))*float(amount),0));
+        orig += sampleNearest(src, outCoord()-float2(sin(float(pos.y))*float(amount),0));
+        orig += sampleNearest(src, outCoord()-float2(0,cos(float(pos.x))*float(amount)));
+        orig += sampleNearest(src, outCoord()-float2(0,sin(float(pos.y))*float(amount)));
+ 
+        dst = orig/4.0;
+    }
+}

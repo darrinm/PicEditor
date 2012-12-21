@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox verticalGap="0" width="100%" height="100%"
+		xmlns:filters="flash.filters.*" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:ctl="controls.*" >
+
+	<mx:Script>
+		<![CDATA[
+		
+			import mx.collections.ArrayCollection;
+			import mx.utils.ObjectProxy;
+		
+			// UNDONE: load this dynamically from the server
+			[Bindable] private var _aobpChecksLeft:ArrayCollection = new ArrayCollection([
+						new ObjectProxy({ label: "fonts" }),
+						new ObjectProxy({ label: "shapes" }),
+						new ObjectProxy({ label: "seasonal" }),
+						new ObjectProxy({ label: "blendModes" }),
+						new ObjectProxy({ label: "layer" })
+					]);			
+   		]]>
+	</mx:Script>
+	
+	<filters:DropShadowFilter id="_fiDropShad" blurX="7" blurY="7" distance="2" color="#000000" alpha=".35" quality="3" angle="90"/>
+	<filters:DropShadowFilter id="_fiWhiteShad" blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1" quality="3" angle="90"/>
+
+	<!-- contents -->
+	<mx:HBox horizontalGap="15" width="100%" height="100%" paddingLeft="10" paddingRight="10">
+		<!-- right col copy -->
+		<mx:VBox width="100%" minWidth="240" verticalGap="0" clipContent="false" horizontalScrollPolicy="off" verticalScrollPolicy="off">
+			<ctl:ResizingLabel width="100%" autoFontSizeGap="1" text="@Resource(key='layerIntro', bundle='GuestTour')" styleName="h1" filters="{[_fiWhiteShad]}"/>
+			<ctl:TextPlus text="@Resource(key='layerSubhead', bundle='GuestTour')" styleName="subhead" paddingTop="-6" width="100%"/>
+			<mx:HBox paddingTop="4" paddingLeft="3" horizontalGap="25">
+				<mx:VBox verticalGap="3">
+				<mx:Repeater id="rpChecksLeft" dataProvider="{_aobpChecksLeft}">
+					<mx:HBox horizontalGap="0" filters="{[_fiWhiteShad]}">
+						<ctl:ImageVer source="@Embed('/assets/bitmaps/checkmark.png')" />
+						<ctl:LabelPlus text="{Resource.getString('GuestTour',rpChecksLeft.currentItem.label)}" fontSize="13"/>
+					</mx:HBox>
+				</mx:Repeater>
+				</mx:VBox>
+			</mx:HBox>
+		</mx:VBox>
+		<!-- photos -->
+		<mx:Canvas width="100%" maxWidth="245" height="100%" clipContent="false">
+			<ctl:ImagePlus source="/graphics/welcome/guest_tour/shapes.gif" top="12" right="5"
+				borderThickness="3" borderColor="#ffffff" filters="{[_fiDropShad]}" rotation="-2"/>
+			<ctl:ImagePlus source="/graphics/welcome/guest_tour/type_tool.gif" verticalCenter="6" left="-35"
+				borderThickness="3" borderColor="#ffffff" filters="{[_fiDropShad]}" rotation="-3"/>
+			<ctl:ImagePlus source="/graphics/welcome/guest_tour/layering.jpg" right="10" bottom="20"
+				borderThickness="3" borderColor="#ffffff" filters="{[_fiDropShad]}" rotation="3"/>				
+		</mx:Canvas>
+	</mx:HBox>
+</mx:VBox>

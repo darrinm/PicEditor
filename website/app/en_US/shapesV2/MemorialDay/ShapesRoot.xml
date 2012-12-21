@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory area="MemorialDay" id="root">
+	<ShapeCategory flickrPremium="false" id="memorialDaySection" numShapes="0" picnikPremium="false" showHeader="false">
+		<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/shape_independence_day.png" flickrPremium="true" id="IndependenceDay" numShapes="0" picnikPremium="true" previewUrls="60|48|../clipart/bundles/MemorialDayArea_groupPreviews_IndependenceDay.png?ver=2c07b5be" thumbUrl="66|54|0|../clipart/bundles/MemorialDayArea_groupThumbs.png?ver=26a0d965" title="Independence Day">
+			<ShapeCategory flickrPremium="true" id="IndependenceDayIcons" numShapes="10" picnikPremium="true" title="Independence Day Icons"/>
+			<ShapeCategory flickrPremium="true" id="IndependenceDay" numShapes="20" picnikPremium="true" title="Independence Day"/>
+		</ShapeCategory>
+		<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/shape_memdayparade.png" flickrPremium="true" id="memorialDayParade" numShapes="8" picnikPremium="true" previewUrls="60|48|../clipart/bundles/MemorialDayArea_groupPreviews_memorialDayParade.png?ver=11c627af" thumbUrl="66|54|1|../clipart/bundles/MemorialDayArea_groupThumbs.png?ver=26a0d965" title="Parade"/>
+		<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/shape_memoriam.png" flickrPremium="false" id="memorialDayMemoriam" numShapes="4" picnikPremium="false" previewUrls="60|48|../clipart/bundles/MemorialDayArea_groupPreviews_memorialDayMemoriam.png?ver=99654362" thumbUrl="66|54|2|../clipart/bundles/MemorialDayArea_groupThumbs.png?ver=26a0d965" title="Memoriam"/>
+		<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/shape_bbq.png" flickrPremium="true" id="BBQ" numShapes="20" picnikPremium="true" previewUrls="60|48|../clipart/bundles/MemorialDayArea_groupPreviews_BBQ.png?ver=23d77a78" thumbUrl="66|54|3|../clipart/bundles/MemorialDayArea_groupThumbs.png?ver=26a0d965" title="BBQ"/>
+	</ShapeCategory>
+</ShapeCategory>

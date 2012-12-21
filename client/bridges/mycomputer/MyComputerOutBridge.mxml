@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MyComputerOutBridgeBase xmlns="bridges.mycomputer.*" xmlns:pk="*" xmlns:ctl="controls.*" xmlns:ctr="containers.*" xmlns:mx="http://www.adobe.com/2006/mxml" 
+		xmlns:vld="validators.*" width="100%" height="100%" xmlns:flash="flash.filters.*" currentState="jpg" horizontalScrollPolicy="off" xmlns:views="views.*">
+	<mx:Script>
+		<![CDATA[
+			import imagine.documentObjects.DocumentStatus;
+			
+			import mx.resources.ResourceBundle;
+			
+			import picnik.util.LocaleInfo;
+			
+			import util.LocUtil;
+			import util.Navigation;
+			
+   			[Bindable] [ResourceBundle("MyComputerOutBridge")] private var rb:ResourceBundle;
+		]]>
+	</mx:Script>
+
+	<mx:Binding source="fSizeValid &amp;&amp; _imgd.childStatus != DocumentStatus.Error &amp;&amp; _imgd.numChildrenLoading == 0 &amp;&amp; _sldrQuality != null" 
+			destination="documentReadyToSave"/>
+
+	<mx:Boolean id="canDoLocalSave">{_jenc != null}</mx:Boolean>
+	<mx:Boolean id="readyForLocalSave">{canDoLocalSave &amp;&amp; !encoding &amp;&amp; _jenc.data != null}</mx:Boolean>
+	<mx:Boolean id="localSaveReady">{_jenc != null &amp;&amp; !encoding}</mx:Boolean>
+	<mx:Boolean id="uploadError">{_imgd &amp;&amp; _imgd.baseImageLoading}</mx:Boolean>
+	<mx:Boolean id="elementError">{!uploadError &amp;&amp; _imgd &amp;&amp; ((_imgd.numChildrenLoading > 0) || _imgd.childStatus == DocumentStatus.Error)}</mx:Boolean>
+	<mx:Boolean id="showHistoryWarning">{readyForLocalSave &amp;&amp; (uploadError || elementError) &amp;&amp; !AccountMgr.GetInstance().isGuest}</mx:Boolean>
+	<mx:Boolean id="showRetryUpload">{_imgd &amp;&amp; _imgd.failedUpload &amp;&amp; !canDoLocalSave}</mx:Boolean>
+	<mx:Boolean id="showProcessing">{!readyForLocalSave &amp;&amp; _imgd &amp;&amp; _imgd.numChildrenLoading > 0 &amp;&amp; _imgd.failedUpload == null}</mx:Boolean>
+	
+	<mx:Boolean id="fieldsValid">{_imgd != null &amp;&amp; _tiFileNameBase.text.length > 0 &amp;&amp; fSizeValid}</mx:Boolean>
+	<mx:Boolean id="documentLoaded">{_imgd.childStatus != DocumentStatus.Error &amp;&amp; _imgd.numChildrenLoading == 0}</mx:Boolean>
+	
+	<mx:Boolean id="downloadEnabled">{fieldsValid &amp;&amp; !encoding &amp;&amp; (documentLoaded || readyForLocalSave)}</mx:Boolean>
+										
+	<mx:Boolean id="showBasicDownloadLink">{fieldsValid &amp;&amp; documentLoaded}</mx:Boolean>
+			
+	<mx:String id="_strFileSavedNotifyMessage">{Resource.getString('MyComputerOutBridge', '_strFileSavedNotifyMessage')}</mx:String>
+	<states>
+		<mx:State name="jpg">
+			<mx:AddChild relativeTo="{hbxFormat}" position="after">
+				<mx:VBox width="100%">
+					<mx:VBox paddingTop="15" verticalGap="0" width="100%">
+						<mx:HBox width="100%" paddingBottom="-6">
+							<mx:Label text="@Resource(key='Label_1', bundle='MyComputerOutBridge')" styleName="publishForm" height="20"/>
+							<mx:Label text="{Math.round(_sldrQuality.value)}" id="_lbQuality" styleName="publishForm" paddingLeft="4" width="100%" textAlign="right"/>
+						</mx:HBox>
+						<ctl:HSliderPlus id="_sldrQuality" minimum="1" maximum="10" value="8" liveDragging="true" tickOffset="4" 
+								width="100%" showDataTip="false" snapInterval="1" change="OnQualitySliderChange(event)"
+								thumbRelease="OnQualitySliderThumbRelease(event)"/>
+						<ctl:ResizingLabel autoFontSizeGap="1" text="@Resource(key='_lbQualityDescription', bundle='MyComputerOutBridge')" 
+								id="_lbQualityDescription" styleName="publishForm" color="#666666" width="100%" maxWidth="350" 
+								height="15" textAlign="center" fontSize="12"/>
+					</mx:VBox>
+					
+					<ctr:HideRemoveCanvas visible="{active &amp;&amp; canDoLocalSave}" includeInLayout="{canDoLocalSave}">
+						<mx:VBox horizontalGap="0" paddingTop="10">
+							<!-- encoding gears/text -->
+							<mx:HBox id="_bxEncoding" visible="{fileSizeString == ''}" includeInLayout="{fileSizeString == ''}"  horizontalGap="2" verticalAlign="middle">
+								<mx:Text text="{Resource.getString('MyComputerOutBridge', 'compressing_label')}" paddingTop="2"
+										fontSize="13" fontWeight="bold" selectable="false"/>
+								<ctl:Gears id="_grsEncoding" visible="{fileSizeString == ''}" width="45" height="24"/>
+								<mx:ProgressBar id="_pbarEncoding" mode="manual" paddingLeft="2" paddingRight="10" height="20" trackHeight="21" width="194" label=""/>
+							</mx:HBox>
+							
+							<!-- file size text -->
+							<mx:HBox id="_bxEncoded" visible="{fileSizeString != ''}" includeInLayout="{fileSizeString != ''}" horizontalGap="0" paddingTop="2">
+								<mx:Text text="{Resource.getString('MyComputerOutBridge', 'file_size')}" 
+										fontSize="13" fontWeight="bold" selectable="false"/>
+								<mx:Label id="_txtFileSize" text="{fileSizeString}"
+										fontSize="13" fontWeight="normal" selectable="false" color="#666666"/>
+							</mx:HBox>
+						</mx:VBox>
+					</ctr:HideRemoveCanvas>
+				</mx:VBox>
+			</mx:AddChild>
+		</mx:State>
+		<mx:State name="png"/>
+		<mx:State name="bmp"/>
+		<mx:State name="gif"/>
+		<mx:State name="pdf"/>
+		<mx:State name="tif"/>
+	</states>
+	<flash:DropShadowFilter blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1"
+		quality="3" angle="90" id="_fiWhiteShad"/>
+	
+	<vld:PicnikNumberValidator id="_vldWidth" source="{_tiWidth}" property="text" integerError="@Resource(key='enter_int', bundle='MyComputerOutBridge')"
+			lowerThanMinError="@Resource(key='too_small', bundle='MyComputerOutBridge')"
+			exceedsMaxError="{LocUtil.rbSubst('MyComputerOutBridge', 'width_2800', _maxWidth)}"
+	        minValue="1" maxValue="{_maxWidth}" domain="int" required="true"
+	        trigger="{_tiWidth}" triggerEvent="change"
+	        valid="UpdateOKBtn('width', true)" invalid="UpdateOKBtn('width', false)"/>
+	<vld:PicnikNumberValidator id="_vldHeight" source="{_tiHeight}" property="text" integerError="@Resource(key='enter_int', bundle='MyComputerOutBridge')"
+	        minValue="1" maxValue="{_maxHeight}" domain="int" required='true'
+			lowerThanMinError="@Resource(key='too_small', bundle='MyComputerOutBridge')"
+			exceedsMaxError="{LocUtil.rbSubst('MyComputerOutBridge', 'height_2800', _maxHeight)}"
+	        trigger="{_tiHeight}" triggerEvent="change"
+	        valid="UpdateOKBtn('height', true)" invalid="UpdateOKBtn('height', false)"/>
+	<vld:PicnikNumberValidator id="_vldPercent" source="{_tiPercent}" property="text" integerError="@Resource(key='enter_int', bundle='MyComputerOutBridge')"
+	        minValue="1" maxValue="{_maxScale}" domain="int" required='true' exceedsMaxError="@Resource(key='width_height_2800', bundle='MyComputerOutBridge')"
+			lowerThanMinError="@Resource(key='too_small', bundle='MyComputerOutBridge')"
+	        trigger="{_tiPercent}" triggerEvent="change"
+	        valid="UpdateOKBtn('percent', true)" invalid="UpdateOKBtn('height', false)"/>
+	
+	<ctl:ImageEx source="../graphics/bluegrad_short.gif" left="0" top="0" width="100%" height="260" maintainAspectRatio="false" includeInLayout="false" alpha=".3"/>
+	<ctl:ResizingLabel text="@Resource(key='Label_2', bundle='MyComputerOutBridge')" color="#005580" fontWeight="bold" fontSize="30" styleName="publishForm"
+		filters="{[_fiWhiteShad]}" width="100%" autoFontSizeGap="1"
+		top="13" x="29" paddingRight="29"/>
+	<mx:HBox width="100%" height="100%" top="55" paddingRight="30" paddingLeft="30" x="0" horizontalGap="20">
+		<!-- left column, controls -->
+  		<mx:Box width="55%" height="100%" verticalGap="0" maxWidth="450" verticalScrollPolicy="off">
+  			<mx:VBox verticalGap="0" width="100%" minWidth="350" id="leftCol">
+				<mx:VBox verticalGap="0">
+					<mx:Label text="@Resource(key='Label_3', bundle='MyComputerOutBridge')" styleName="publishForm" height="20"/>
+					<mx:HBox width="100%" horizontalGap="5">
+						<ctl:TextInputPlus width="290" height="26" id="_tiFileNameBase" styleName="publishFormField" maxChars="250"
+							change="_tiFileNameBase.errorString=(_tiFileNameBase.text=='')? Resource.getString('MyComputerOutBridge', 'enter_file_name'):''"/>
+						<mx:Label text=".{currentState}" height="20" fontSize="16" fontWeight="bold"/>
+					</mx:HBox>
+					<mx:Label text="@Resource(key='Label_4', bundle='MyComputerOutBridge')" styleName="publishForm" paddingTop="15"/>
+					<mx:HBox width="100%" horizontalGap="0" verticalAlign="middle" paddingLeft="2">
+						<mx:VBox verticalGap="4" horizontalAlign="left">
+							<mx:Label text="@Resource(key='Label_5', bundle='MyComputerOutBridge')" styleName="publishForm" fontSize="12" height="24" paddingTop="3"/>
+							<mx:Label text="@Resource(key='Label_6', bundle='MyComputerOutBridge')" styleName="publishForm" fontSize="12" paddingTop="3" height="24"/>
+						</mx:VBox>
+						<mx:VBox verticalGap="4">
+							<ctl:TextInputPlus width="62" height="24" restrict="0-9" maxChars="4" id="_tiWidth" fontSize="15" fontWeight="bold" styleName="numInput"
+								enabled="{_imgd != null}"/>
+							<ctl:TextInputPlus width="62" height="24" restrict="0-9" maxChars="4" id="_tiHeight" fontSize="15" fontWeight="bold" styleName="numInput"
+								enabled="{_imgd != null}"/>
+						</mx:VBox>
+						<ctl:ImageVer source="@Embed('/assets/bitmaps/aspect_ratio_locked.png')" height="37" width="23" />
+						<mx:HBox paddingLeft="30" horizontalGap="0" verticalAlign="middle">
+							<mx:Label text="@Resource(key='Label_7', bundle='MyComputerOutBridge')" styleName="publishForm" height="24" paddingTop="2"/>
+							<ctl:TextInputPlus width="42" height="24" restrict="0-9" maxChars="4" id="_tiPercent" styleName="numInput" fontSize="15" fontWeight="bold"  text="100"
+									enabled="{_imgd != null}"/>
+							<mx:Label text="@Resource(key='Label_8', bundle='MyComputerOutBridge')" fontSize="16" styleName="publishForm" height="24" paddingLeft="4"/>
+						</mx:HBox>
+					</mx:HBox>
+					<mx:Label text="@Resource(key='Label_9', bundle='MyComputerOutBridge')" styleName="publishForm" paddingTop="15" height="34"/>
+					<mx:HBox id="hbxFormat">
+						<mx:ComboBox id="_cboxFormat" width="{LocaleInfo.IsEnglish() ? 350 : 250}" rowCount="6" height="26"
+								enabled="{documentLoaded}">
+					        <mx:ArrayCollection>
+					            <mx:Object label="{Resource.getString('MyComputerOutBridge', 'Object_1')}" data="jpg"/>
+					            <mx:Object label="{Resource.getString('MyComputerOutBridge', 'Object_2')}" data="png"/>
+					        </mx:ArrayCollection>
+						</mx:ComboBox>
+						<ctl:ImagePlus source="../graphics/warning_small.png" verticalAlign="center" width="20" height="19"
+							visible="{showHistoryWarning}"
+							includeInLayout="{showHistoryWarning}"/>
+					</mx:HBox>
+				</mx:VBox>
+					
+				<!-- big button vbox -->
+				<mx:VBox verticalGap="8" paddingTop="20" paddingBottom="20" width="100%" horizontalAlign="center">
+					<!-- retry failed upload -->
+					<ctr:HideRemoveCanvas visible="{showRetryUpload}" includeInLayout="{showRetryUpload}">
+						<mx:VBox width="100%" horizontalAlign="center" verticalAlign="middle" horizontalGap="0">
+							<ctl:ImageVer source="@Embed('/assets/bitmaps/saveshad_top.png')" scaleContent="true" width="100%" height="3" maintainAspectRatio="false"/>
+							<mx:Text text="{Resource.getString('MyComputerOutBridge', 'upload_failed')}"
+									paddingTop="4" fontSize="13" fontWeight="bold" selectable="false"/>	
+							<mx:Button id="_btnRetryUpload" label="@Resource(key='_btnRetryUpload', bundle='MyComputerOutBridge')" 
+									width="200" height="34" fontSize="18" styleName="BigButton"/>
+						</mx:VBox>						
+					</ctr:HideRemoveCanvas>
+					
+					<ctl:ImageVer source="@Embed('/assets/bitmaps/saveshad_top.png')" scaleContent="true" width="100%" height="3" maintainAspectRatio="false"/>
+					
+					<!-- processing gear/text -->
+					<ctr:HideRemoveCanvas visible="{showProcessing}" 
+							includeInLayout="{showProcessing}">
+						<mx:HBox width="100%" horizontalAlign="center" verticalAlign="middle" horizontalGap="0">
+							<ctl:Gears id="_grsBusy" width="45" height="24" visible="{_imgd &amp;&amp; _imgd.numChildrenLoading > 0}"/>
+							<mx:Text id="_txtProcessing" text="{Resource.getString('MyComputerOutBridge', 'processing')} {_imgd.numChildrenLoading} {_imgd.numChildrenLoading > 1 ? Resource.getString('MyComputerOutBridge', 'itemsRemaining') : Resource.getString('MyComputerOutBridge', 'itemRemaining')}"
+								paddingTop="4" fontSize="13" fontWeight="bold" selectable="false"/>	
+						</mx:HBox>
+					</ctr:HideRemoveCanvas>
+					
+					<!-- error text -->
+					<mx:Text id="_txtError" text="@Resource(key='errorMessage', bundle='MyComputerOutBridge')"
+							width="75%" fontSize="13" fontWeight="bold" textAlign="center" selectable="false"
+							visible="{!readyForLocalSave &amp;&amp; _imgd &amp;&amp; (_imgd.status == DocumentStatus.Error) &amp;&amp; _imgd.failedUpload == null}"
+							includeInLayout="{!readyForLocalSave &amp;&amp; _imgd &amp;&amp; (_imgd.status == DocumentStatus.Error) &amp;&amp; _imgd.failedUpload == null}"/>
+	
+					<mx:Button label="@Resource(key='_btnDownload', bundle='MyComputerOutBridge')" width="200" height="34" fontSize="18" id="_btnDownload" styleName="BigButton" 
+							enabled="{downloadEnabled}"/>
+					<mx:Text htmlText="@Resource(key='upgradeFlash', bundle='MyComputerOutBridge')" fontSize="13"
+							paddingTop="-4" paddingBottom="-4" filters="{[_fiWhiteShad]}" 
+							click="Navigation.NavigateToFlashUpgrade('myComputerOut')" 
+							width="100%" textAlign="center"
+							visible="{!canDoLocalSave}"
+							includeInLayout="{!canDoLocalSave}"/>
+					<mx:Text htmlText="@Resource(key='HavingProblems', bundle='MyComputerOutBridge')" fontSize="13"
+							paddingTop="-4" paddingBottom="-4" filters="{[_fiWhiteShad]}" click="OnBasicDownload()" width="100%" textAlign="center"
+							visible="{_imgd != null &amp;&amp; _tiFileNameBase.text.length > 0 &amp;&amp; fSizeValid &amp;&amp; _imgd.childStatus != DocumentStatus.Error &amp;&amp; _imgd.numChildrenLoading == 0}"
+							includeInLayout="{_imgd != null &amp;&amp; _tiFileNameBase.text.length > 0 &amp;&amp; fSizeValid &amp;&amp; _imgd.childStatus != DocumentStatus.Error &amp;&amp; _imgd.numChildrenLoading == 0}"/>
+					<ctl:ImageVer source="@Embed('/assets/bitmaps/saveshad_bot.png')" scaleContent="true" width="100%" height="3" maintainAspectRatio="false"/>
+				</mx:VBox>
+				
+				<mx:HBox verticalGap="8" paddingTop="10" paddingBottom="10" paddingLeft="10" width="100%" backgroundColor="#618430" backgroundAlpha="1.0" cornerRadius="8" borderStyle="solid" borderColor="#618430"
+						visible="{showHistoryWarning}" verticalScrollPolicy="off"
+						includeInLayout="{showHistoryWarning}"
+					>
+					<ctl:ImagePlus source="../graphics/warning.png" horizontalAlign="center" width="30" height="28"/>
+					<mx:VBox paddingLeft="2" verticalGap="-4" paddingTop="-4" width="100%" verticalScrollPolicy="off">
+						<ctl:LabelPlus color="#d6efb2" fontSize="16" 
+								text="{Resource.getString('MyComputerOutBridge', uploadError ? 'uploadErrorHeader': 'elementErrorHeader')}" 
+								width="100%" autoFontSizeGap="1" fontWeight="bold" selectable="false"/>
+						<mx:Text color="#ffffff" fontSize="12" 
+								text="{Resource.getString('MyComputerOutBridge', uploadError ? 'uploadErrorText': 'elementErrorText')}"
+								selectable="false" paddingTop="-1" width="100%" paddingRight="10"/>
+					</mx:VBox>
+				</mx:HBox>
+  			</mx:VBox>
+		</mx:Box>
+		<!-- right column, preview -->
+		<mx:Box width="45%" height="100%" paddingTop="5" paddingBottom="20">
+			<views:StatusAwareView id="_imgvPreview" width="100%" height="100%" verticalAlign="top" horizontalAlign="left" minWidth="75" minHeight="75"/>
+			<mx:filters>
+				<flash:DropShadowFilter distance="1" angle="90" blurX="4" blurY="4" alpha=".5" quality="3"/>
+  			</mx:filters>
+		</mx:Box>		
+	</mx:HBox>
+</MyComputerOutBridgeBase>

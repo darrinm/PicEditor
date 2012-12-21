@@ -1,0 +1,12 @@
+fileName: courbi.ttf
+name: Courier New
+subfamilyDisplayName: Negreta cursiva
+fullName: Courier New Negreta cursiva
+displayName: Courier New
+ital: 1
+bold: 1
+weight: 5
+panose.weight: 6
+pkName: pkcourbi
+authorName: Howard "Bud" Kettler
+authorUrl: http://www.graphos.org/courier.html

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<controls:TipNextPrevFooterBase xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" xmlns:controls="controls.*" filters="{null}">
+	<mx:DropShadowFilter id="_fiShad" angle="90" blurX="2" blurY="2" distance="1" color="0x000000" alpha=".5" quality="3"/>
+	<mx:VBox width="100%" verticalGap="4">
+		<controls:ImageEx source="../graphics/tipRule.png" width="100%" height="2" scaleContent="true" maintainAspectRatio="false"/> 
+		<mx:HBox width="100%" height="100%" verticalAlign="middle">
+			<controls:ResizingButton id="_btnPrevious" label="@Resource(key='previous', bundle='TipNextPrevFooter')" styleName="basketButton" minWidth="90"/>
+			<controls:LabelPlus id="_lbXofY" color="#dfff97" width="100%" textAlign="center"/>
+			<controls:ResizingButton id="_btnNext" label="@Resource(key='next', bundle='TipNextPrevFooter')" styleName="basketButton" minWidth="90"/>
+		</mx:HBox>
+	</mx:VBox>
+</controls:TipNextPrevFooterBase>

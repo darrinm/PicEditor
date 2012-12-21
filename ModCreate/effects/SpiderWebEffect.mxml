@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SpiderWebEffectBase xmlns="effects.*" xmlns:cnt="containers.*" xmlns:ctrl="controls.*"
+		xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*"
+		xmlns:flash.filters="flash.filters.*" xmlns:objectOperations="imagine.objectOperations.*" xmlns:util="util.*"
+		premium="false" width="100%" height="314" urlid="SpiderWeb">
+
+	<mx:Script>
+	<![CDATA[
+		import mx.controls.Button;
+	]]>
+	</mx:Script>
+
+	<mx:Array id="_resetValues">
+		<local:StoredValue target="style"/>
+		<local:StoredValue target="radials"/>
+		<local:StoredValue target="spacing"/>
+		<local:StoredValue target="decay"/>
+		<local:StoredValue target="drawFrame"/>
+		<local:StoredValue target="hflip"/>
+		<local:StoredValue target="glowStrength"/>
+		<local:StoredValue target="glowBlur"/>
+		<local:StoredValue target="_sldrVariation.value"/>
+		<local:StoredValue target="_sldrThickness.value"/>
+		<local:StoredValue target="_sldrKookiness.value"/>
+		<local:StoredValue target="_cpkrGlow.selectedColor"/>
+		<local:StoredValue target="_cpkr.selectedColor"/>
+	</mx:Array>
+	
+	<mx:String id="style">standard</mx:String>
+	<mx:Boolean id="hflip">false</mx:Boolean>
+	<mx:Boolean id="drawFrame">false</mx:Boolean>
+	<mx:Number id="decay">10</mx:Number>
+	<mx:Number id="radials">25</mx:Number>
+	<mx:Number id="spacing">25</mx:Number>
+	<mx:Number id="glowStrength">0</mx:Number>
+	<mx:Number id="glowBlur">0</mx:Number>
+	
+	<mx:DropShadowFilter id="_fiWhiteShad" blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1" quality="3" angle="90"/>
+
+	<ctrl:EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='SpiderWebEffect')"
+			strAuthor="@Resource(key='_efbtn_1', bundle='SpiderWebEffect')"
+			strImageSource="../graphics/effects/Halloween/spiderweb.jpg" premium="{premium}"/>
+	<mx:String id="_strHelpText">{Resource.getString('SpiderWebEffect', '_strHelpText')}</mx:String>
+	
+	<mx:VBox x="10" y="70" verticalGap="0">
+		<mx:Label text="@Resource(key='webStyle', bundle='SpiderWebEffect')" styleName="sliderTitle"/>
+		<mx:VBox paddingTop="5" paddingLeft="5" paddingRight="8" paddingBottom="6" width="190" horizontalScrollPolicy="off" verticalGap="3" filters="{[_fiWhiteShad]}"
+				 cornerRadius="5" backgroundColor="#ffffff" borderColor="#d9d9d9" borderStyle="solid" backgroundAlpha=".4" verticalAlign="middle" >
+		<!-- web types -->
+		<mx:HBox id="_hbxButtons" width="100%" horizontalGap="3" paddingTop="3" paddingBottom="6">
+			<ctrl:ResizingButton width="42" height="35" icon="@Embed('/assets/bitmaps/spider_webs/normal.png')" offsetDown="1"
+					toggle="true" selected="{zeroR == 0}" click="SelectButton(event.target as Button)"
+ 					data="{{style: 'standard', drawFrame: false, hflip: false, position: 'center'}}"/>
+			<ctrl:ResizingButton width="42" height="35" icon="@Embed('/assets/bitmaps/spider_webs/corner_left.png')" offsetDown="1"
+					toggle="true" selected="{zeroR != 0}" click="SelectButton(event.target as Button)"
+					data="{{style: 'corner', drawFrame: false, hflip: false, position: 'topleft'}}"/>
+			<ctrl:ResizingButton width="42" height="35" icon="@Embed('/assets/bitmaps/spider_webs/framed.png')" offsetDown="1"
+					toggle="true" selected="{zeroR != 0}" click="SelectButton(event.target as Button)"
+					data="{{style: 'standard', drawFrame: true, hflip: false, position: 'center'}}"/>
+			<ctrl:ResizingButton width="42" height="35" icon="@Embed('/assets/bitmaps/spider_webs/corner_right.png')" offsetDown="1"
+					toggle="true" selected="{zeroR != 0}" click="SelectButton(event.target as Button)"
+					data="{{style: 'corner', drawFrame: false, hflip: true, position: 'topright'}}"/>
+		</mx:HBox>
+
+		<!-- variation -->
+		<mx:HBox width="180" paddingBottom="-5" paddingTop="5">
+			<mx:Label text="@Resource(key='variation', bundle='SpiderWebEffect')" styleName="sliderTitle"/>
+			<mx:Label text="{_sldrVariation.value}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<ctrl:HSliderFastDrag id="_sldrVariation" width="175" change="OnVariationChange()" 
+				minimum="1" maximum="100" value="{zeroR + int(Math.random() * 99 + 1.5)}" liveDragging="true" snapInterval="1" showDataTip="false"/>
+
+		<!-- thickness -->
+		<mx:HBox width="180" paddingBottom="-5" paddingTop="5">
+			<mx:Label text="@Resource(key='thickness', bundle='SpiderWebEffect')" styleName="sliderTitle"/>
+			<mx:Label text="{_sldrThickness.value}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<ctrl:HSliderFastDrag id="_sldrThickness" width="175" change="OnOpChange()" 
+				minimum="1" maximum="20" value="3" liveDragging="true" snapInterval="1" showDataTip="false"/>
+
+		<!-- kookiness -->
+		<mx:HBox width="180" paddingBottom="-5" paddingTop="5">
+			<mx:Label text="@Resource(key='kookiness', bundle='SpiderWebEffect')" styleName="sliderTitle"/>
+			<mx:Label text="{_sldrKookiness.value}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<ctrl:HSliderFastDrag id="_sldrKookiness" width="175" change="OnOpChange()" 
+				minimum="0" maximum="100" value="0" liveDragging="true" snapInterval="1" showDataTip="false"/>
+
+		</mx:VBox>	
+			
+		<mx:Spacer height="8"/>
+		
+		<!-- web styles & color -->
+		<mx:Label text="@Resource(key='webColor', bundle='SpiderWebEffect')" styleName="sliderTitle"/>
+		<mx:VBox paddingTop="5" paddingLeft="5" paddingRight="8" paddingBottom="6" width="190" horizontalScrollPolicy="off" verticalGap="3" filters="{[_fiWhiteShad]}"
+				 cornerRadius="5" backgroundColor="#ffffff" borderColor="#d9d9d9" borderStyle="solid" backgroundAlpha=".4" verticalAlign="middle" >
+		
+			<mx:HBox width="100%" horizontalGap="3">
+				<ctrl:ResizingButton width="42" height="35" icon="@Embed('/assets/bitmaps/spider_webs/black.png')" offsetDown="1"
+									 click="ApplyStyle({color: 0x000000, glowColor: 0xffffff, glowStrength: 0, glowBlur: 0})"/>
+				<ctrl:ResizingButton width="42" height="35" icon="@Embed('/assets/bitmaps/spider_webs/green.png')" offsetDown="1"
+									 click="ApplyStyle({color: 0x000000, glowStrength: 2, glowBlur: 15, glowColor: 0xff6600})"/>
+				<ctrl:ResizingButton width="42" height="35" icon="@Embed('/assets/bitmaps/spider_webs/white.png')" offsetDown="1"
+									 click="ApplyStyle({color: 0xffffff, glowColor: 0x000000, glowStrength: 0, glowBlur: 0})"/>
+				<ctrl:ResizingButton width="42" height="35" icon="@Embed('/assets/bitmaps/spider_webs/blackshadow.png')" offsetDown="1"
+									 click="ApplyStyle({color: 0xffffff, glowColor: 0x000000, glowStrength: 4, glowBlur: 6})"/>
+			</mx:HBox>
+			
+			<mx:HBox horizontalGap="5" width="100%">
+				<ctrl:ResizingLabel text="@Resource(key='_lbColor', bundle='SpiderWebEffect')" styleName="sliderTitle" paddingTop="2" width="100%" autoFontSizeGap="1"/>
+				<ctrl:HSBColorPicker id="_cpkr" selectedColor="{0x000000 + zeroR}" liveColorChange="OnBufferedOpChange()" width="50"/>
+			</mx:HBox>
+			<mx:HBox horizontalGap="5" width="100%">
+				<ctrl:ResizingLabel text="@Resource(key='glowColor', bundle='SpiderWebEffect')" styleName="sliderTitle" paddingTop="2" width="100%" autoFontSizeGap="1"/>
+				<ctrl:HSBColorPicker id="_cpkrGlow" selectedColor="{0xffffff + zeroR}" liveColorChange="OnBufferedOpChange()" width="50"/>
+			</mx:HBox>
+		</mx:VBox>
+
+		<!-- NOTE: Uncomment these to manually play with spacing, radials, decay, glowStrength, glowBlur properties.
+		<mx:HBox width="190" paddingBottom="-5" paddingTop="5">
+			<mx:Label text="@Resource(key='glowStrength', bundle='SpiderWebEffect')" styleName="sliderTitle"/>
+			<mx:Label text="{glowStrength}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<ctrl:HSliderFastDrag id="_sldrGlowStrength" width="190" change="glowStrength=_sldrGlowStrength.value; OnOpChange()" 
+				minimum="0" maximum="50" value="{glowStrength}" liveDragging="true" snapInterval="1" showDataTip="false"/>
+		
+		<mx:HBox width="190" paddingBottom="-5" paddingTop="5">
+			<mx:Label text="@Resource(key='glowBlur', bundle='SpiderWebEffect')" styleName="sliderTitle"/>
+			<mx:Label text="{glowBlur}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<ctrl:HSliderFastDrag id="_sldrGlowBlur" width="190" change="glowBlur=_sldrGlowBlur.value; OnOpChange()" 
+				minimum="0" maximum="100" value="{glowBlur}" liveDragging="true" snapInterval="1" showDataTip="false"/>
+		
+		<mx:HBox width="190" paddingBottom="-5" paddingTop="5">
+			<mx:Label text="@Resource(key='radials', bundle='SpiderWebEffect')" styleName="sliderTitle"/>
+			<mx:Label text="{radials}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<ctrl:HSliderFastDrag id="_sldrRadials" width="190" change="radials=_sldrRadials.value; OnOpChange()" 
+				minimum="3" maximum="100" value="{radials}" liveDragging="true" snapInterval="1" showDataTip="false"/>
+		
+		<mx:HBox width="190" paddingBottom="-5" paddingTop="5">
+			<mx:Label text="@Resource(key='spacing', bundle='SpiderWebEffect')" styleName="sliderTitle"/>
+			<mx:Label text="{spacing}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<ctrl:HSliderFastDrag id="_sldrSpacing" width="190" change="spacing=_sldrSpacing.value; OnOpChange()" 
+				minimum="3" maximum="100" value="{spacing}" liveDragging="true" snapInterval="1" showDataTip="false"/>
+		
+		<mx:HBox width="190" paddingBottom="-5" paddingTop="5">
+			<mx:Label text="@Resource(key='decay', bundle='SpiderWebEffect')" styleName="sliderTitle"/>
+			<mx:Label text="{decay}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<ctrl:HSliderFastDrag id="_sldrDecay" width="190" change="decay=_sldrDecay.value; OnOpChange()" 
+				minimum="0" maximum="100" value="{decay}" liveDragging="true" snapInterval="1" showDataTip="false"/>
+		-->
+		
+		<ctrl:ApplyCancelEffectButtons addBoxPadding="true" premium="{premium}"/>
+	</mx:VBox>
+
+	<objectOperations:CreateObjectOperation id="_op" type="SpiderWeb" 
+			props="{{name:GetObjectName('SpiderWeb'), x:GetX(), y:GetY(), 
+			unscaledWidth:Math.min(imagewidth,imageheight)*.9, unscaledHeight:Math.min(imagewidth,imageheight)*.9, color:_cpkr.liveColor, 
+			seed:_sldrVariation.value, thickness:_sldrThickness.value, spacing:spacing, hflip:hflip,
+			drawFrame:drawFrame, style:style, decay:decay/100,
+			radials:radials, kookiness:_sldrKookiness.value/100, glowStrength:glowStrength,
+			glowBlur:glowBlur, glowColor:_cpkrGlow.liveColor}}"/>
+	
+</SpiderWebEffectBase>

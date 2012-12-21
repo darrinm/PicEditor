@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/shape_BasicShape.png" flickrPremium="false" id="BasicShapes" numShapes="20" picnikPremium="false" previewUrls="60|48|../clipart/bundles/groupPreviews_BasicShapes.png?ver=79bf2557" title="Basic Shapes">
+	<Shapes>
+		<Clipart cHeight="116" cWidth="133" color="13369344" flickrPremium="false" picnikPremium="false" previewUrl="40|40|0|../clipart/bundles/shapes_BasicShapes.png?ver=c2fd2f27" url="shapes/heart.swf"/>
+		<Clipart cHeight="125" cWidth="75" color="5750271" flickrPremium="false" picnikPremium="false" previewUrl="40|40|1|../clipart/bundles/shapes_BasicShapes.png?ver=c2fd2f27" url="shapes/teardrop.swf"/>
+		<Clipart cHeight="82" cWidth="117" flickrPremium="false" picnikPremium="false" previewUrl="40|40|2|../clipart/bundles/shapes_BasicShapes.png?ver=c2fd2f27" url="shapes/arrow.swf"/>
+		<Clipart cHeight="94" cWidth="128" flickrPremium="false" picnikPremium="false" previewUrl="40|40|3|../clipart/bundles/shapes_BasicShapes.png?ver=c2fd2f27" url="shapes/arrow02.swf"/>
+		<Clipart cHeight="116" cWidth="75" color="13369344" flickrPremium="false" picnikPremium="false" previewUrl="40|40|4|../clipart/bundles/shapes_BasicShapes.png?ver=c2fd2f27" url="shapes/broken_heart_left.swf"/>
+		<Clipart cHeight="116" cWidth="75" color="13369344" flickrPremium="false" picnikPremium="false" previewUrl="40|40|5|../clipart/bundles/shapes_BasicShapes.png?ver=c2fd2f27" url="shapes/broken_heart_right.swf"/>
+		<Clipart cHeight="133" cWidth="151" flickrPremium="false" picnikPremium="false" previewUrl="40|40|6|../clipart/bundles/shapes_BasicShapes.png?ver=c2fd2f27" url="shapes/asplode.swf"/>
+		<Clipart cHeight="137" cWidth="59" color="16776244" flickrPremium="false" picnikPremium="false" previewUrl="40|40|7|../clipart/bundles/shapes_BasicShapes.png?ver=c2fd2f27" url="shapes/lightning_bolt.swf"/>
+		<Clipart cHeight="107" cWidth="40" flickrPremium="false" picnikPremium="false" previewUrl="40|40|8|../clipart/bundles/shapes_BasicShapes.png?ver=c2fd2f27" url="shapes/note.swf"/>
+		<Clipart cHeight="119" cWidth="114" flickrPremium="false" picnikPremium="false" previewUrl="40|40|9|../clipart/bundles/shapes_BasicShapes.png?ver=c2fd2f27" url="shapes/note_double.swf"/>
+		<Clipart cHeight="107" cWidth="69" flickrPremium="false" picnikPremium="false" previewUrl="40|40|10|../clipart/bundles/shapes_BasicShapes.png?ver=c2fd2f27" url="shapes/note_eighth.swf"/>
+		<Clipart cHeight="110" cWidth="135" flickrPremium="false" picnikPremium="false" previewUrl="40|40|11|../clipart/bundles/shapes_BasicShapes.png?ver=c2fd2f27" url="shapes/paw_print.swf"/>
+		<Clipart cHeight="113" cWidth="124" flickrPremium="false" picnikPremium="false" previewUrl="40|40|12|../clipart/bundles/shapes_BasicShapes.png?ver=c2fd2f27" url="shapes/radioactive.swf"/>
+		<Clipart cHeight="142" cWidth="84" flickrPremium="false" picnikPremium="false" previewUrl="40|40|13|../clipart/bundles/shapes_BasicShapes.png?ver=c2fd2f27" url="shapes/ribbon.swf"/>
+		<Clipart cHeight="136" cWidth="136" flickrPremium="false" picnikPremium="false" previewUrl="40|40|14|../clipart/bundles/shapes_BasicShapes.png?ver=c2fd2f27" url="shapes/buster_sign.swf"/>
+		<Clipart cHeight="57" cWidth="126" flickrPremium="false" picnikPremium="false" previewUrl="40|40|15|../clipart/bundles/shapes_BasicShapes.png?ver=c2fd2f27" url="shapes/spaceship.swf"/>
+		<Clipart cHeight="159" cWidth="159" flickrPremium="false" picnikPremium="false" previewUrl="40|40|16|../clipart/bundles/shapes_BasicShapes.png?ver=c2fd2f27" url="shapes/peacesign.swf"/>
+		<Clipart cHeight="177" cWidth="105" flickrPremium="false" picnikPremium="false" previewUrl="40|40|17|../clipart/bundles/shapes_BasicShapes.png?ver=c2fd2f27" url="shapes/flame1.swf"/>
+		<Clipart cHeight="176" cWidth="75" flickrPremium="false" picnikPremium="false" previewUrl="40|40|18|../clipart/bundles/shapes_BasicShapes.png?ver=c2fd2f27" url="shapes/flame2.swf"/>
+		<Clipart cHeight="135.8" cWidth="135.55" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|19|../clipart/bundles/shapes_BasicShapes.png?ver=c2fd2f27" url="shapes/happyface.swf"/>
+	</Shapes>
+</ShapeCategory>

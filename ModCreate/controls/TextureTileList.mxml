@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<controls:ExtendedTileList xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:controls="controls.*"
+						   doubleClickEnabled="true" themeColor="#FFFFFF"
+						   dragEnabled="false" horizontalScrollPolicy="on" verticalScrollPolicy="off"
+						   borderStyle="solid" borderThickness="0" vertical="false"
+						   itemRenderer="controls.TextureTileListItem" tileAspectRatio="1" tileSizeInWidth="50"
+						   leftElementPadding="0"
+						   snapScroll="true">
+
+</controls:ExtendedTileList>

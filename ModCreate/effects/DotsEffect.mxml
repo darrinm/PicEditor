@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cnt:PaintEffectCanvas xmlns="effects.*" xmlns:cnt="containers.*" xmlns:ctrl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml"
+		xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*"
+		width="100%" height="305" premium="true" reset="SelectStyle(null)"  urlid="DotsandDots">
+	<mx:Script>
+		<![CDATA[
+			import containers.NestedControlCanvasBase;
+			
+			import imagine.imageOperations.ImageOperation;
+			
+			import mx.resources.ResourceBundle;
+			
+			import util.BitmapCache;
+			import util.LocUtil;
+	   		[Bindable] [ResourceBundle("DotsEffect")] private var rb:ResourceBundle;
+	   		[Bindable] public var _op:ImageOperation;
+	   		
+	   		public function setOp(op:ImageOperation): void {
+	   			if (_op != null) {
+	   				if (_op.opEngine != null)
+	   					_op.opEngine.Clear();
+	   				_op = null;
+	   			}
+	   			_op = op;
+	   		}
+	   		
+	   		private function GetStyles(): Array {
+	   			var aobStyles:Array = [];
+	   			aobStyles.push({label:Resource.getString('DotsEffect', 'Impressions'),data:"_opBlotchy"});
+	   			aobStyles.push({label:Resource.getString('DotsEffect', 'LightPegs'),data:"_opLiteBrite"});
+	   			aobStyles.push({label:Resource.getString('DotsEffect', 'ColorSpots'),data:"_opColorSpots"});
+	   			aobStyles.push({label:Resource.getString('DotsEffect', 'CircleDreams'),data:"_opCircleDreams"});
+	   			aobStyles.push({label:Resource.getString('DotsEffect', 'Newsprint'),data:"_opNewsprint"});
+	   			aobStyles.push({label:Resource.getString('DotsEffect', 'CMYHalftone'),data:"_opCMYHalftone"});
+	   			aobStyles.push({label:Resource.getString('DotsEffect', 'Jumbotron'),data:"_opJumbotron"});
+	   			aobStyles.push({label:Resource.getString('DotsEffect', 'Scoreboard'),data:"_opScoreboard"});	   			
+				return aobStyles;
+			}
+	
+			private function SelectStyle(obItem:Object): void {
+				if (obItem) {
+					if (obItem.data in this) {
+						setOp(this[obItem.data]);
+						this.ResetOperation();
+					}	
+				} else {
+					_cboxStyles.selectedIndex = 0;
+					setOp(this[GetStyles()[0].data]);
+				}			
+			}
+			
+			override protected function OnInitialize(evt:Event): void {
+				setOp(_opJumbotron);
+				super.OnInitialize( evt );
+			}
+			
+			public override function Select(efcnvCleanup:NestedControlCanvasBase): Boolean {
+				var fSelected:Boolean = super.Select(efcnvCleanup);
+				if (fSelected && _sldrImpact) {
+					_sldrImpact.value = Math.max( this.imagewidth, this.imageheight ) / 100;
+					_sldrImpact.value = Math.max( _sldrImpact.value, _sldrImpact.minimum );
+					_sldrImpact.value = Math.min( _sldrImpact.value, _sldrImpact.maximum );
+				}
+				return fSelected;
+			}
+
+		]]>
+	</mx:Script>
+
+	<mx:Array id="_resetValues">
+		<local:StoredValue target="_sldrImpact.value"/>
+		<local:StoredValue target="_sldrFade.value"/>
+		<local:StoredValue target="_cboxStyles.selectedIndex"/>
+		<local:StoredValue target="_cbBlendMode.selectedIndex"/>
+	</mx:Array>
+	
+	<ctrl:EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='DotsEffect')" strAuthor="@Resource(key='_efbtn_1', bundle='DotsEffect')"
+		strImageSource="../graphics/effects/Misc/dots.jpg" premium="{premium}" />
+	<mx:String id="_strHelpText">{Resource.getString('DotsEffect', '_strHelpText')}</mx:String>
+
+	<mx:VBox x="0" y="67" verticalGap="0" paddingLeft="10" paddingRight="10">
+		<!-- style combox box -->
+   	    <mx:VBox verticalGap="-3" paddingTop="5" paddingBottom="5">
+		    <mx:Label text="@Resource(key='style', bundle='DotsEffect')" styleName="sliderTitle"/>
+			<mx:ComboBox id="_cboxStyles" rowCount="10" width="190" height="26"
+				dataProvider="{GetStyles()}"
+				change="SelectStyle(_cboxStyles.selectedItem)"/>
+		</mx:VBox>
+
+		<mx:HBox width="190" paddingBottom="-5" paddingTop="3">
+			<mx:Label text="@Resource(key='Impact', bundle='DotsEffect')" styleName="sliderTitle"/>
+			<mx:Label text="{Math.round(_sldrImpact.liveValue) / 2 - 1}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<ctrl:HSliderFastDrag updateSpeed="{updateSpeed}" width="190" snapInterval="2" minimum="4" maximum="50" value="{zeroR + 20}" id="_sldrImpact" liveDragging="true" showDataTip="false" change="OnOpChange()"/>
+
+
+		<mx:HBox horizontalGap="5" paddingTop="3" verticalAlign="middle">
+			<!-- Fade label/percent/slider box -->
+			<mx:VBox verticalGap="0" width="157" horizontalScrollPolicy="off">
+				<mx:HBox width="100%" paddingBottom="-5">
+					<mx:Label text="@Resource(key='Fade', bundle='DotsEffect')" styleName="sliderTitle"/>
+					<mx:Label text="{LocUtil.pct((_sldrFade.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+				</mx:HBox>
+				<ctrl:HSliderPlus width="157" minimum="0" maximum="100" value="0" id="_sldrFade" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+			</mx:VBox>
+			<mx:Button id="_btnBrushPalette" width="30" height="30" selected="false" toggle="true" icon="@Embed('/assets/bitmaps/icon_paintTall.png')" paddingLeft="0"
+				toolTip="@Resource(key='_btnBrushPalette', bundle='SoftenEffect')"/>
+		</mx:HBox>  
+
+		<mx:Script>
+	        <![CDATA[
+	            [Bindable]
+	            public var aBlendModes:Array = [ 
+	                {label:"Normal", data:"normal"}, 
+	                {label:"Add", data:"add"}, 
+	                {label:"Darken", data:"darken"}, 
+	                {label:"Difference", data:"difference"}, 
+	                {label:"Hardlight", data:"hardlight"}, 
+	                {label:"Lighten", data:"lighten"}, 
+	                {label:"Multiply", data:"multiply"}, 
+	                {label:"Overlay", data:"overlay"}, 
+	                {label:"Screen", data:"screen"}, 
+	                {label:"Subtract", data:"subtract"}];
+	        ]]>
+	    </mx:Script>
+	    
+	    <mx:VBox verticalGap="-3" paddingTop="5" paddingBottom="5">
+		    <mx:Label text="@Resource(key='Label_3', bundle='BlurEffect')" styleName="sliderTitle"/>
+			<mx:ComboBox dataProvider="{aBlendModes}" selectedIndex="0" id="_cbBlendMode" change="OnOpChange()" height="26" width="190" />
+	    </mx:VBox>
+	    
+		<ctrl:ApplyCancelEffectButtons addBoxPadding="true" premium="{premium}"/>
+	</mx:VBox>
+		
+</cnt:PaintEffectCanvas>

@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<bridges:BridgeItemToolTipBase xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:bridges="bridges.*" 
+		implements="mx.core.IToolTip" xmlns:ctrl="controls.*"
+	    borderThickness="2" backgroundColor="0xdddddd" dropShadowEnabled="true" borderColor="black" borderStyle="solid"
+	    mouseOffsetX="10" mouseOffsetY="2">
+    <bridges:states>
+        <mx:State name="Medium">
+            <mx:SetProperty target="{_imgThumbnail}" name="source" value="{imageProperties.GetMediumThumbnail()}"/>
+			<mx:SetProperty target="{_swfGears}" name="alpha" value="0.0"/>
+        </mx:State>
+    </bridges:states>
+
+	<bridges:transitions>
+		<mx:Transition id="_trn" fromState="*" toState="*">
+            <mx:Parallel targets="{[this, _imgThumbnail, _swfGears, _txtDescription, _txtTitle]}" suspendBackgroundProcessing="true">
+                <mx:Move duration="200"/>
+                <mx:Resize duration="200"/>
+                <mx:Fade duration="200" targets="{[_swfGears]}"/>
+			</mx:Parallel>
+        </mx:Transition>
+    </bridges:transitions>
+
+    <mx:Text  id="_txtTitle" text="{imageProperties.title}" left="0" right="0" top="0"/>
+	<ctrl:Gears id="_swfGears" width="28" height="17" right="0" top="0"/>
+    <ctrl:ImageVer id="_imgThumbnail" top="20" source="{imageProperties.thumbnailurl}"/>
+    <mx:Text  id="_txtDescription" text="{imageProperties.description}" left="0" right="0" bottom="0"/>
+</bridges:BridgeItemToolTipBase>

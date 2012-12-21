@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ct:SpecialEffectsCanvasBase xmlns="*" xmlns:ct="creativeTools.*" xmlns:mx="http://www.adobe.com/2006/mxml" 
+		xmlns:eff="effects.*" xmlns:filters="flash.filters.*" xmlns:ctr="containers.*" 
+		width="100%" verticalLineScrollSize="38" horizontalScrollPolicy="off" verticalScrollPolicy="on" xmlns:controls="controls.*">
+	<mx:Style>
+		.promoTextBG {
+		   border-style: solid;
+		   border-thickness: 0;
+		   border-skin: ClassReference("skins.GradientBackground");
+		   gradient-fill-colors: #0e2451, #050d1d;
+		   gradient-fill-alphas: .8,.8;
+		   gradient-fill-ratios: 0,255;
+		   gradient-rotation: 90;
+		}
+	</mx:Style>
+	
+	<mx:Fade id="_efFadeFast" duration="150" />
+	<mx:Fade id="_efFadeSlow" duration="300" />
+	
+	<mx:AnimateProperty id="_efBGdim" fromValue="1" toValue=".7" property="backgroundAlpha" isStyle="true" duration="150"/>
+	<mx:AnimateProperty id="_efBGbrighten" fromValue=".7" toValue="1" property="backgroundAlpha" isStyle="true" duration="300"/>
+	
+	<ctr:IncrementalInitVBox verticalGap="0" x="0" id="_vb" horizontalScrollPolicy="off">
+		<ct:PirateSet _imgd="{_imgd}" _imgv="{_imgv}"/>
+		<ct:ShuttleSet _imgv="{_imgv}" _imgd="{_imgd}" />
+		<ct:NewYearsEveSet _imgv="{_imgv}" _imgd="{_imgd}" />
+		<ct:HolidaySet _imgv="{_imgv}" _imgd="{_imgd}" />
+		<ct:ThanksgivingSet _imgv="{_imgv}" _imgd="{_imgd}"/>
+		<ct:MovemberSet _imgv="{_imgv}" _imgd="{_imgd}"/>
+		<!--<ct:HalloweenSet _imgv="{_imgv}" _imgd="{_imgd}"/>-->
+		<ct:BreastCancerAwarenessSet _imgd="{_imgd}" _imgv="{_imgv}"/>
+		<ct:SoccerFeverSet _imgd="{_imgd}" _imgv="{_imgv}"/>
+		<!--<ct:WomensSoccerFeverSet _imgv="{_imgv}" _imgd="{_imgd}" />-->
+		<ct:July4thSet _imgd="{_imgd}" _imgv="{_imgv}"/>
+		<ct:FathersDaySet _imgd="{_imgd}" _imgv="{_imgv}"/>
+		<ct:MemorialDaySet _imgd="{_imgd}" _imgv="{_imgv}"/>
+		<ct:MothersDaySet _imgd="{_imgd}" _imgv="{_imgv}"/>
+		<ct:EasterSet _imgd="{_imgd}" _imgv="{_imgv}"/>
+		<ct:StPatricksDaySet _imgd="{_imgd}" _imgv="{_imgv}"/>
+		<ct:ValentinesSet _imgv="{_imgv}" _imgd="{_imgd}"/>
+		<ct:FootballSet _imgv="{_imgv}" _imgd="{_imgd}" />
+		<!--<ct:HockeyFinalsSet _imgd="{_imgd}" _imgv="{_imgv}"/>-->
+	</ctr:IncrementalInitVBox>
+</ct:SpecialEffectsCanvasBase>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ctrl:TextAreaPlusBase xmlns="*" xmlns:ctrl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:flash="flash.filters.*"
+	styleName="publishFormField" backgroundColor="#FFFFFF">
+	<ctrl:filters>
+		<flash:DropShadowFilter angle="45" blurX="2" blurY="2" distance="1" color="0x999999" alpha=".9" quality="3" inner="true" id="_inputShadow"/>
+	</ctrl:filters>
+</ctrl:TextAreaPlusBase>

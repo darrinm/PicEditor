@@ -1,0 +1,12 @@
+fileName: fs_Confid__.ttf
+name: Confidential
+subfamilyDisplayName: Regular
+fullName: Confidential
+displayName: Confidential
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 6
+pkName: pkfs0Confid
+authorName: FontShop
+authorUrl: http://www.fontshop.com/

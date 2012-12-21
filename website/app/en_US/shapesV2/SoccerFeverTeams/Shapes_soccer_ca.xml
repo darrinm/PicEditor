@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory flickrPremium="false" id="soccer_ca" numShapes="3" picnikPremium="false" previewUrls="60|48|../clipart/bundles/SoccerFeverTeamsArea_groupPreviews_soccer_ca.png?ver=80c01bbf" title="Canada Stickers">
+	<Shapes>
+		<Clipart cHeight="294.4" cWidth="463.35" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|0|../clipart/bundles/SoccerFeverTeamsArea_shapes_soccer_ca.png?ver=29e76774" url="shapes/ca/wavingflag_ca.swf"/>
+		<Clipart cHeight="191.65" cWidth="383.95" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|1|../clipart/bundles/SoccerFeverTeamsArea_shapes_soccer_ca.png?ver=29e76774" url="shapes/ca/flag_ca.swf"/>
+		<Clipart cHeight="223.65" cWidth="95.1" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|2|../clipart/bundles/SoccerFeverTeamsArea_shapes_soccer_ca.png?ver=29e76774" url="shapes/ca/scarf_ca.swf"/>
+	</Shapes>
+</ShapeCategory>

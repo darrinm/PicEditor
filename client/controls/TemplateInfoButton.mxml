@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ResizingButton xmlns="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" 
+	styleName="basketButton" width="258" autoFontSizeGap="1" click="Go()">
+<mx:Script>
+	<![CDATA[
+		[Bindable] public var url:String = "";
+		private function Go(): void {
+			PicnikBase.app.NavigateToURL(new URLRequest(url), "_blank");
+		}
+	]]>
+</mx:Script>
+	<!-- add custom styling here -->	
+</ResizingButton>

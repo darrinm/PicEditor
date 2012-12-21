@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dialogs:PartyInviteDialogBase 
+		xmlns:containers="containers.*" 
+		xmlns:dialogs="dialogs.*" 
+		xmlns:upsell="dialogs.Upsell.*" 
+ 	 	xmlns:mx="http://www.adobe.com/2006/mxml"	
+ 	 	xmlns:controls="controls.*" 
+ 	 	xmlns:renaun="com.renaun.controls.*"
+ 	 	xmlns:thumbs="controls.thumbnails.*" 
+ 	 	xmlns:itempicker="controls.itempicker.*"
+ 	 	xmlns:email="bridges.email.*"
+	 width="690" height="453" styleName="ShareContentDialogStyle"
+	 resize="OnResize(event)" move="OnResize(event)" >
+	
+	<mx:Script>
+		<![CDATA[
+			import dialogs.DialogManager;
+			import mx.resources.ResourceBundle;		
+			import bridges.email.EmailListItem;
+			import bridges.email.EmailPickedItem;
+			import util.LocUtil;
+			
+			private const kMinSize:int = 350;
+			private const kMaxSize:int = 453;	
+			override protected function OnResize(evt:Event): void {
+				height = Math.max(Math.min(kMaxSize, parentHeight), kMinSize);
+				super.OnResize(evt);
+			}
+   		]]>
+	</mx:Script>
+	
+	<mx:Style source="ShareContentDialog.css"/>
+	<mx:DropShadowFilter id="_fiWhiteShine" blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1" quality="3" angle="90"/>
+	<mx:DropShadowFilter id="_fiInnerShad" blurX="1" blurY="1" distance="1" color="#000000" alpha=".2" quality="3" angle="90" inner="true"/>
+	<mx:DropShadowFilter blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1" quality="3" angle="90" id="_fiWhiteShad"/>
+	<mx:DropShadowFilter blurX="3" blurY="3" distance="1" color="#000000" alpha=".25" quality="3" angle="90" id="_fiPreviewShad"/>
+
+	<mx:Fade id="_efFadeIn" duration="300" alphaFrom="0" alphaTo="1"/>
+	<mx:Fade id="_efFadeOut" duration="200" alphaFrom="1" alphaTo="0"/>
+
+	<containers:AutoShrinkCanvas width="100%" height="100%" cornerRadius="8" clipContent="true" color="#ff6600">
+		
+		<controls:ImageEx source="@Embed('../assets/bitmaps/tab_shadow_up.png')" width="100%" height="3" maintainAspectRatio="false" top="49"/>
+		<mx:Box width="100%" height="30" top="52" styleName="whiteGradient" />
+
+		<mx:HBox width="100%" top="52" bottom="{footerHeight}" paddingLeft="28" x="0" horizontalGap="20">
+			<!-- left column, preview -->
+			<mx:Box width="45%" height="100%" paddingTop="15">
+				<mx:Image source="../graphics/partyInvitePreview.png"/>
+			</mx:Box>		
+
+			<!-- right column, controls -->		
+	  		<mx:Box width="55%" paddingRight="30" height="{height-footerHeight-52}" verticalGap="0" maxWidth="440" horizontalScrollPolicy="off" clipContent="true" verticalScrollPolicy="auto">
+	  			<mx:VBox verticalGap="0" width="100%" paddingTop="15" id="leftCol" clipContent="true" verticalScrollPolicy="auto">
+	  			
+					<!-- email to field -->
+					<mx:Label text="@Resource(key='emailTo', bundle='PartyInviteDialogBase')" styleName="publishForm" paddingBottom="-3"/>
+					<email:EmailItemPicker width="100%" prompt="@Resource(key='textPrompt', bundle='PartyInviteDialogBase')" id="_itemPicker"
+						listItemRenderer="{EmailListItem}" pickedItemRenderer="{EmailPickedItem}">		
+					</email:EmailItemPicker>
+					<mx:Text text="@Resource(key='limitNote', bundle='PartyInviteDialogBase')" width="100%" fontSize="12" selectable="false" color="#999999" fontWeight="bold" paddingLeft="-2" paddingTop="2"/>
+					
+					<!-- email/name from field -->
+					<mx:HBox width="100%">
+						<mx:VBox>
+							<mx:Label text="@Resource(key='yourEmail', bundle='PartyInviteDialogBase')" styleName="publishForm" paddingTop="10" paddingBottom="-3"/>
+							<controls:TextInputPlus width="175" id="_tiFromEmail" height="26" styleName="publishFormField"/>							
+						</mx:VBox>
+						<mx:VBox>
+							<mx:Label text="@Resource(key='yourName', bundle='PartyInviteDialogBase')" styleName="publishForm" paddingTop="10" paddingBottom="-3"/>
+							<controls:TextInputPlus width="175" id="_tiFromName" height="26" styleName="publishFormField"/>							
+						</mx:VBox>
+					</mx:HBox>
+				
+					<!-- location field -->
+					<mx:Text styleName="publishForm" condenseWhite="true" selectable="false" htmlText="@Resource(key='location', bundle='PartyInviteDialogBase')"
+						paddingTop="10" paddingBottom="-3"/>
+					<controls:TextInputPlus width="100%" maxWidth="430" id="_tiLocation" height="26" styleName="publishFormField"
+						 text=""/>
+						 					
+					<!-- date/time from field -->
+					<mx:HBox width="100%">
+						<mx:VBox>
+							<mx:Label text="@Resource(key='date', bundle='PartyInviteDialogBase')" styleName="publishForm" paddingTop="10" paddingBottom="-3"/>
+							<controls:TextInputPlus width="175" id="_tiDate" height="26" styleName="publishFormField"/>							
+						</mx:VBox>
+						<mx:VBox>
+							<mx:Label text="@Resource(key='time', bundle='PartyInviteDialogBase')" styleName="publishForm" paddingTop="10" paddingBottom="-3"/>
+							<controls:TextInputPlus width="175" id="_tiTime" height="26" styleName="publishFormField"/>							
+						</mx:VBox>
+					</mx:HBox>
+				
+					<!-- location field -->
+					<mx:Text styleName="publishForm" condenseWhite="true" selectable="false" htmlText="@Resource(key='rsvpBy', bundle='PartyInviteDialogBase')"
+						paddingTop="10" paddingBottom="-3"/>
+					<controls:TextInputPlus width="100%" maxWidth="430" id="_tiRsvpDate" height="26" styleName="publishFormField"
+						 text=""/>
+						 
+	  			</mx:VBox>
+			</mx:Box>
+		</mx:HBox>
+				
+		<!-- title -->		
+		<controls:ResizingLabel text="@Resource(key='inviteFriendsTitle', bundle='PartyInviteDialogBase')" left="27" width="600" top="12" fontSize="30" color="#005580"
+			filters="{[_fiWhiteShad,_fiInnerShad]}"/>
+		
+		<mx:VBox width="290" height="290" top="67" left="15" filters="{[_fiPreviewShad]}">
+			<!--<control:ResizingLabel text="{selectedBridge != null ? selectedBridge.headline : ''}" 
+				color="#005580" fontWeight="bold" fontSize="30" styleName="publishForm"
+				filters="{[_fiWhiteShad]}" width="100%" autoFontSizeGap="1"/>-->		
+			<mx:Box paddingLeft="10" paddingTop="12">
+		
+			</mx:Box>
+		</mx:VBox>
+		
+		<controls:Gears id="_grsBusy" y="2" width="45" height="24" right="5" visible="false"/>
+
+		<!-- big button vbox -->
+		<mx:VBox verticalGap="8" paddingTop="8" paddingBottom="8" bottom="0" width="100%" height="{footerHeight}" horizontalAlign="center">
+			<controls:ResizingButton label="@Resource(key='sendInvitations', bundle='PartyInviteDialogBase')" minWidth="200" maxWidth="350" autoFontSizeGap="1" height="34" fontSize="18" id="_btnSend" styleName="BigButton"
+				enabled="{_itemPicker.pickedItems.length > 0 &amp;&amp; _tiFromEmail.text != '' &amp;&amp; _tiLocation.text != '' &amp;&amp; _tiDate.text != '' &amp;&amp; _tiTime.text != '' &amp;&amp; _tiRsvpDate.text != ''}"/>
+		</mx:VBox>
+				
+		<!-- Close button-->
+		<mx:Button width="22" height="22" right="4" top="4" click="Hide()" styleName="dialogCloseButton"/>		
+
+		<!-- continue editing button 
+		<controls:ResizingButton styleName="basketButtonDarkBlue" label="@Resource(key='close',bundle='PartyInviteDialogBase')"
+			click="Hide()"
+			bottom="11" right="11" height="28" minWidth="140" paddingLeft="-9" paddingRight="-9"/>-->
+
+		<!-- shadow dealies, drawn on top of all elements -->
+		<controls:ImageVer source="../graphics/upsellPremiumPanelShadow.png" bottom="50" left="0" right="0" scaleContent="true" maintainAspectRatio="false"/>
+	</containers:AutoShrinkCanvas>
+	
+	<!-- notification messages -->
+	<mx:String id="_strEmailSentNotifyMessage">{Resource.getString('EmailOutBridge', '_strEmailSentNotifyMessage')}</mx:String>
+	<mx:String id="_strInvalidEmailText">{Resource.getString('EmailOutBridge', '_strInvalidEmailText')}</mx:String>
+	<mx:String id="_strTooManyRecipients">{Resource.getString('EmailOutBridge', '_strTooManyRecipients')}</mx:String>
+
+</dialogs:PartyInviteDialogBase>

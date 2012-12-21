@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cnt:EffectCanvas xmlns:cnt="containers.*" xmlns="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="269"
+	xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*" premium="{PicnikBase.GetApp().freemiumModel}" urlid="ComicBook">
+	<mx:Script>
+		import util.LocUtil;
+		import mx.resources.ResourceBundle;
+   		[Bindable] [ResourceBundle("BlurEffect")] private var rb:ResourceBundle;
+	</mx:Script>
+
+	<mx:Number id="_nDotSize">{Math.round(imagewidth/70)+1}</mx:Number>
+	<mx:Array id="_resetValues">
+		<local:StoredValue target="_sldrBlurXY.value"/>
+		<!--<local:StoredValue target="_sldrBlurY.value"/>-->
+	</mx:Array>
+
+	<EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='ComicizeEffect')" strAuthor="@Resource(key='_efbtn_1', bundle='ComicizeEffect')"
+		strImageSource="../graphics/effects/comicize.png" premium="{premium}"
+		booleanAdmin="true"/>
+	<mx:String id="_strHelpText">{Resource.getString('ComicizeEffect', '_strHelpText')}</mx:String>
+
+	<mx:VBox x="8" y="70" verticalGap="0">
+	
+	    <mx:HBox width="190" paddingBottom="-5" paddingTop="3">
+			<mx:Label text="@Resource(key='ColorBrush', bundle='ComicizeEffect')" styleName="sliderTitle"/>
+			<mx:Label text="{LocUtil.pct((_sldrBlurXY.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<HSliderPlus width="190" minimum="0" maximum="100" value="20" id="_sldrBlurXY" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+	    	    	 	    
+		<mx:HBox width="190" paddingBottom="-5" paddingTop="3">
+			<mx:Label text="@Resource(key='DotDensity', bundle='ComicizeEffect')" styleName="sliderTitle"/>
+			<mx:Label text="{Math.round(_sldrDotContrast.liveValue)}%" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<HSliderFastDrag updateSpeed="{updateSpeed}" width="190" snapInterval="1" minimum="0" maximum="100" value="{zeroR + 50}" id="_sldrDotContrast" liveDragging="true" showDataTip="false" change="OnOpChange()"/>
+	    	    
+		<mx:HBox width="190" paddingBottom="-5" paddingTop="3">
+			<mx:Label text="@Resource(key='DotFade', bundle='ComicizeEffect')" styleName="sliderTitle"/>
+			<mx:Label text="{Math.round(_sldrDotFade.liveValue)}%" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<HSliderFastDrag updateSpeed="{updateSpeed}" width="190" snapInterval="1" minimum="0" maximum="100" value="{zeroR + 50}" id="_sldrDotFade" liveDragging="true" showDataTip="false" change="OnOpChange()"/>
+	    
+		
+		<ApplyCancelEffectButtons addBoxPadding="true" premium="{premium}"/>
+	</mx:VBox>
+	
+	
+	<!-- Color Spots -->
+	<imageOperations:TiledImageMask
+		tileWidth="{zeroR + _nDotSize}" 
+		tileHeight="{zeroR + _nDotSize}"
+		alphaMin="0.0"
+		width="{zeroR + imagewidth}" height="{zeroR + imageheight}" 
+		id="_mskColorSpots1"/>
+	<imageOperations:TiledImageMask 
+		tileWidth="{zeroR + _nDotSize}" 
+		tileHeight="{zeroR + _nDotSize}" 
+		alphaMin="0.0"
+		width="{zeroR + imagewidth}" height="{zeroR + imageheight}" 
+		offsetX="{zeroR + _nDotSize/2}" offsetY="{zeroR + _nDotSize/2}"
+		id="_mskColorSpots2"/>
+		
+	<imageOperations:NestedImageOperation id="_op" dynamicAlphaCachePriority="3">
+		<imageOperations:children>
+			<imageOperations:BlurImageOperation id="_opBlur" xblur="{1 + 20 * _sldrBlurXY.value/100}" yblur="{1 + 20 * _sldrBlurXY.value/100}" 
+				BlendMode="darken" BlendAlpha="1" quality="3"/>
+
+			<imageOperations:NestedImageOperation id="_opColorSpots" BlendMode="multiply"
+					dynamicAlphaCachePriority="3" BlendAlpha="{0.5-_sldrDotFade.liveValue/200}">
+				<imageOperations:children>
+				
+					<imageOperations:GlowImageOperation color="0" glowalpha="1" 
+						xblur="{35*.02*Math.max(imagewidth, imageheight)/2}" yblur="{35*.02*Math.max(imagewidth, imageheight)/2}" 
+						strength="1.1" quality="3" innerglow="true" knockout="false"/>
+
+					<!-- pass #1 -->
+					<imageOperations:NestedImageOperation>
+						<imageOperations:children>
+							<imageOperations:AdjustCurvesImageOperation MasterCurve="{[{x:0,y:0}, {x:24,y:24}, {x:48,y:48}, {x:90+_sldrDotContrast.liveValue*1.5,y:254},  {x:255,y:255}]}"/>				
+							<imageOperations:SetVar Name="ColorSpots_orig" />
+							<imageOperations:PixelateImageOperation pixelWidth="{zeroR + _nDotSize}" pixelHeight="{zeroR + _nDotSize}"/>
+							<imageOperations:SetVar Name="ColorSpots_pixelated1" />
+							<imageOperations:BWImageOperation />
+							<imageOperations:SetVar Name="ColorSpots_pixelated1BW" />
+							<imageOperations:ColorMatrixImageOperation UseAlpha="true" Matrix="{[0,0,0,0,255, 0,0,0,0,255, 0,0,0,0,255, 0,0,0,0,255]}" />
+							<imageOperations:GetVarImageOperation Name="ColorSpots_pixelated1BW" Mask="{_mskColorSpots1}"/>
+						</imageOperations:children>
+					</imageOperations:NestedImageOperation>
+					<imageOperations:AdjustCurvesImageOperation MasterCurve="{[{x:0,y:0}, {x:150,y:0}, {x:160,y:255}, {x:255,y:255}]}"/>				
+					<imageOperations:GetVarImageOperation Name="ColorSpots_pixelated1" BlendMode="add"/>
+					<imageOperations:SetVar Name="ColorSpots_dots1" />
+		
+					<!-- pass #2 -->
+					<imageOperations:NestedImageOperation>
+						<imageOperations:children>
+							<imageOperations:GetVarImageOperation Name="ColorSpots_orig"/>
+							<imageOperations:PixelateImageOperation pixelWidth="{zeroR + _nDotSize}" pixelHeight="{zeroR + _nDotSize}"
+														offsetX="{zeroR + _nDotSize/2}" offsetY="{zeroR + _nDotSize/2}" />
+							<imageOperations:SetVar Name="ColorSpots_pixelated2" />
+							<imageOperations:BWImageOperation />
+							<imageOperations:SetVar Name="ColorSpots_pixelated2BW" />
+							<imageOperations:ColorMatrixImageOperation UseAlpha="true" Matrix="{[0,0,0,0,255, 0,0,0,0,255, 0,0,0,0,255, 0,0,0,0,255]}" />
+							<imageOperations:GetVarImageOperation Name="ColorSpots_pixelated2BW" Mask="{_mskColorSpots2}"/>
+						</imageOperations:children>
+					</imageOperations:NestedImageOperation>
+					<imageOperations:AdjustCurvesImageOperation MasterCurve="{[{x:0,y:0}, {x:150,y:0}, {x:160,y:255}, {x:255,y:255}]}"/>							
+					<imageOperations:GetVarImageOperation Name="ColorSpots_pixelated2" BlendMode="add"/>
+		
+					<!-- combine the passes --> 
+					<imageOperations:GetVarImageOperation Name="ColorSpots_dots1" BlendMode="darken"/>
+				
+					<!-- boost saturation 
+					<imageOperations:SimpleColorMatrixImageOperation Saturation="100"/>-->
+
+				</imageOperations:children>
+			</imageOperations:NestedImageOperation>
+
+		</imageOperations:children>
+	</imageOperations:NestedImageOperation>
+				
+		
+</cnt:EffectCanvas>

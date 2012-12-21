@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PrinterOutBridgeBase xmlns="bridges.printer.*" xmlns:pk="*" xmlns:qoop="bridges.qoop.*" xmlns:ctl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" 
+		width="100%" height="100%" defaultButton="{_btnPrint}" xmlns:flash="flash.filters.*" horizontalScrollPolicy="off" xmlns:util="util.*" xmlns:containers="containers.*">
+<mx:Script>
+	<![CDATA[
+		import bridges.OutBridge;
+		import bridges.mycomputer.UploadInterface;
+		
+		import events.NavigationEvent;
+		
+		import mx.collections.ArrayCollection;
+		import mx.resources.ResourceBundle;
+		import mx.utils.ObjectProxy;
+		
+		import picnik.util.LocaleInfo;
+   		[Bindable] [ResourceBundle("PrinterOutBridge")] private var rb:ResourceBundle;
+   		
+   		private function DoUpload(): void {
+			var ui:UploadInterface = new UploadInterface(this);
+			ui.DoUploadTo(true, new NavigationEvent(null, null, null)); // Go nowhere
+		}
+		
+		protected override function OnSizeChange(): void {
+			super.OnSizeChange();
+			_strSelectedLayout = _cmboLayout.selectedItem.data;
+		}
+		
+		protected function GetPhotoSizes(): ArrayCollection {
+			var aop:Array = [];
+			for each (var obSize:Object in _aobSizes)
+				aop.push(new ObjectProxy(obSize));
+			return new ArrayCollection(aop);
+		}
+	]]>
+</mx:Script>
+	<mx:String id="_strSentToPrinterNotifyMessage">{Resource.getString('PrinterOutBridge', '_strSentToPrinterNotifyMessage')}</mx:String>
+	<mx:Array id="_aobSizes">
+		<mx:Object label="{Resource.getString('PrinterOutBridge', 'Object_1')}" data="full page"/>
+		<mx:Object label="{Resource.getString('PrinterOutBridge', 'Object_2')}" data="single 4x6"/>
+		<mx:Object label="{Resource.getString('PrinterOutBridge', 'FourByEight')}" data="single 4x8"/>
+		<mx:Object label="{Resource.getString('PrinterOutBridge', 'Object_3')}" data="single 5x7"/>
+		<mx:Object label="{Resource.getString('PrinterOutBridge', 'SixBySix')}" data="single 6x6"/>
+		<mx:Object label="{Resource.getString('PrinterOutBridge', 'Object_4')}" data="single 8x10"/>
+		<mx:Object label="{Resource.getString('PrinterOutBridge', 'Object_5')}" data="single 3x5"/>
+		<mx:Object label="{Resource.getString('PrinterOutBridge', 'Object_6')}" data="single 2x3"/>
+		<mx:Object label="{Resource.getString('PrinterOutBridge', 'Object_7')}" data="single 4x12"/>
+		<mx:Object label="{Resource.getString('PrinterOutBridge', 'Object_8')}" data="single 10x15cm"/>
+		<mx:Object label="{Resource.getString('PrinterOutBridge', 'Object_9')}" data="single 13x18cm"/>
+		<mx:Object label="{Resource.getString('PrinterOutBridge', 'Object_10')}" data="single 15x20cm"/>
+		<mx:Object label="{Resource.getString('PrinterOutBridge', 'Object_11')}" data="single 20x25cm"/>
+	</mx:Array>
+	
+	<!-- Show an alert with this text when a user hits cancel instead of print in the print dialog when calibrationg -->
+	<mx:String id="_strCalibratePageSetupCancelTitle">{Resource.getString('PrinterOutBridge', '_strCalibratePageSetupCancelTitle')}</mx:String>
+	<mx:String id="_strCalibratePageSetupCancelText">{Resource.getString('PrinterOutBridge', '_strCalibratePageSetupCancelText')}</mx:String>
+
+	<flash:DropShadowFilter blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1"
+			quality="3" angle="90" id="_fiWhiteShad"/>
+	<flash:DropShadowFilter id="_fiDropShadow" alpha=".4" blurX="4" blurY="4" angle="90" distance="1" quality="3"/>
+	<flash:DropShadowFilter id="_fiInnerShadow" alpha=".10" blurX="1" blurY="1" angle="-90" distance="1" quality="3" inner="true"/>
+
+	<mx:String id="_strPageSize">{Resource.getString('PrinterOutBridge', '_strPageSize')}</mx:String>
+	<mx:String id="_strSelectedLayout">{Resource.getString('PrinterOutBridge', '_strSelectedLayout')}</mx:String>
+
+	<ctl:ImageVer id="_imgPrint" includeInLayout="false" visible="false"/>	
+	<ctl:ImageEx source="../graphics/bluegrad_short.gif" left="0" top="0" width="100%" height="260" maintainAspectRatio="false" includeInLayout="false" alpha=".3"/>
+	<mx:VBox width="100%" height="100%" paddingLeft="29" paddingTop="13" verticalGap="0" x="0" y="0" horizontalScrollPolicy="off" verticalScrollPolicy="off">
+		<!-- header content -->
+		<mx:HBox width="100%" maxWidth="850" paddingTop="10">
+			
+			<mx:Canvas width="137" height="137">
+				<!-- photo thumbnail -->
+				<mx:VBox verticalCenter="0" left="0" width="130" height="130" horizontalAlign="center" verticalAlign="middle" rotation="-3" id="_vbPhotoSlide"
+						backgroundColor="#ffffff" backgroundAlpha="1.0" cornerRadius="8" borderStyle="solid" borderThickness="0"
+						rollOver="{if(_imgd == null) _vbPhotoSlide.setStyle('backgroundColor',0xe5ffb2)}"
+						rollOut="{if(_imgd == null) _vbPhotoSlide.setStyle('backgroundColor',0xffffff)}"
+						buttonMode="{_imgd == null}"
+						click="{if(_imgd == null) DoUpload()}"
+						filters="{[_fiDropShadow,_fiInnerShadow]}">
+					<pk:ImageView id="_imgvPreview" width="100%" height="100%" minWidth="40" minHeight="40" maxHeight="115" maxWidth="115" horizontalCenter="0"
+						verticalAlign="center" imageDocument="{_imgd}" mouseEnabled="false"/>
+				</mx:VBox>
+				
+				<!-- upload button -->
+				<ctl:ImagePlus source="../graphics/arrow_upload_lrg.png" verticalCenter="0" horizontalCenter="0"
+					visible="{_imgd == null}" rotation="-3" mouseEnabled="false" mouseChildren="false"/>
+			</mx:Canvas>
+			
+			<mx:VBox width="100%">
+				<ctl:ResizingLabel text="@Resource(key='Label_1', bundle='PrinterOutBridge')" color="#005580" fontWeight="bold" styleName="publishForm"
+					fontSize="30" autoFontSizeGap="1" width="100%"
+					filters="{[_fiWhiteShad]}" paddingBottom="5"/>
+					
+				<mx:HBox width="100%" verticalAlign="middle" horizontalGap="15" paddingRight="26">
+					<mx:VBox maxWidth="420" minWidth="300" width="100%" verticalGap="0">
+						<ctl:ResizingLabel text="@Resource(key='qooptitle', bundle='QoopPicker')" color="#4d99bf" fontWeight="bold" styleName="publishForm"
+							filters="{[_fiWhiteShad]}" width="100%" fontSize="20" autoFontSizeGap="1"/>
+						<mx:Text htmlText="@Resource(key='qoopSubhead', bundle='QoopPicker')" width="100%" fontSize="14"
+							paddingTop="-8" paddingRight="10" paddingBottom="4" leading="0"/>
+					</mx:VBox>
+			
+					<ctl:ResizingButton visible="{_imgd == null}" includeInLayout="{_imgd == null}"
+						label="@Resource(key='_btnUpload',bundle='MyComputerInBridge')" icon="@Embed('/assets/bitmaps/icon_uploadArrow.png')"
+						horizontalGap="4"
+						width="225" height="41" fontSize="20" autoFontSizeGap="1"
+						click="DoUpload()" styleName="BigButton"/>
+					<ctl:ResizingButton visible="{_imgd != null}" includeInLayout="{_imgd != null}"
+						label="@Resource(key='_btnQoop', bundle='PrinterOutBridge')"
+						width="225" height="41" fontSize="20" autoFontSizeGap="1"
+						id="_btnQoop" styleName="BigButton" click="{_qoopPicker.GoToQoop(null)}" />
+				</mx:HBox>
+			</mx:VBox>
+		</mx:HBox>	
+		
+		<!-- qoop thumbs -->
+		<qoop:QoopPicker width="100%" maxWidth="850" imgd="{_imgd}" id="_qoopPicker" paddingTop="10" paddingBottom="30"/>
+		
+		<ctl:ImageEx source="../graphics/page_divider.png" scaleContent="true" width="100%" maxWidth="760" height="2" maintainAspectRatio="false"/>
+		
+		<!-- local print content -->
+		<mx:Label text="@Resource(key='orLocalPrint', bundle='PrinterOutBridge')" color="#005580" fontWeight="bold" fontSize="20" styleName="publishForm"
+				filters="{[_fiWhiteShad]}" width="100%" id="_lblLocalPrintHead" paddingTop="20"/>
+		<mx:HBox width="100%" height="100%" paddingLeft="1" horizontalGap="10">
+			
+			<!-- left column, controls -->
+  			<mx:VBox verticalGap="0" width="30%" minWidth="300" id="leftCol" maxWidth="500">
+				<mx:VBox verticalGap="0">
+					<mx:Label text="@Resource(key='Label_2', bundle='PrinterOutBridge')" styleName="publishForm" height="20"/>
+					<mx:ComboBox width="230" id="_cmboLayout" height="26" change="OnSizeChange()" dataProvider="{GetPhotoSizes()}"/>
+				</mx:VBox>
+				<mx:HBox width="100%" horizontalGap="30" paddingTop="15">
+					<mx:RadioButton id="_rbtnScale" groupName="CropOrScale" label="@Resource(key='_rbtnScale', bundle='PrinterOutBridge')" selected="true"/>
+					<mx:RadioButton id="_rbtnCrop" groupName="CropOrScale" label="@Resource(key='_rbtnCrop', bundle='PrinterOutBridge')"/>
+				</mx:HBox>
+				<!-- big button vbox -->
+				<mx:VBox verticalGap="8" paddingTop="20" width="100%" horizontalAlign="center">
+					<ctl:ImageVer source="@Embed('/assets/bitmaps/saveshad_top.png')" scaleContent="true" width="100%" height="3" maintainAspectRatio="false" maxWidth="300"/>
+					<mx:Button enabled="{_imgd != null}" label="@Resource(key='_btnPrint', bundle='PrinterOutBridge')" width="200" height="34" fontSize="18" id="_btnPrint" styleName="BigButton"/>
+					<ctl:ImageVer source="@Embed('/assets/bitmaps/saveshad_bot.png')" scaleContent="true" width="100%" height="3" maintainAspectRatio="false" maxWidth="300"/>
+				</mx:VBox>
+				
+				<mx:Spacer height="35"/>
+				
+				<!--Saving to Computer Message to Windows users-->
+				<mx:HBox width="100%" paddingLeft="44">
+					<mx:VBox rotation="-4" paddingTop="8" paddingRight="10" paddingBottom="8" paddingLeft="20" verticalGap="0"
+							 backgroundColor="#ffffb2" backgroundAlpha=".75" cornerRadius="8" borderStyle="solid" borderThickness="0"
+							 horizontalScrollPolicy="off" verticalScrollPolicy="off" width="200" visible="{Util.IsWindows()}" includeInLayout="{Util.IsWindows()}">
+						<mx:Label styleName="publishForm" width="100%" text="@Resource(key='MoreOptionsTitle', bundle='PrinterOutBridge')" paddingLeft="0"/>									
+						<mx:Text width="100%" htmlText="@Resource(key='MoreOptionsBody', bundle='PrinterOutBridge')" paddingTop="-6" paddingBottom="4"/>
+						<mx:Button height="28" label="@Resource(key='MoreOptionsButton', bundle='PrinterOutBridge')" 
+								   styleName="clearButton" fontSize="13" paddingLeft="0" textAlign="left"
+								   click="PicnikBase.app.NavigateTo(PicnikBase.OUT_BRIDGES_TAB, OutBridge.DOWNLOAD_SUB_TAB)"/>
+				</mx:VBox>
+				</mx:HBox>
+				
+  			</mx:VBox>
+			<!-- right column, preview -->
+			<mx:Canvas width="100%" minWidth="260" height="100%" minHeight="360" horizontalScrollPolicy="off" verticalScrollPolicy="off" clipContent="true" id="_cnvPrintPrev">
+				<mx:VBox left="10" width="100%" height="100%" paddingRight="10" paddingTop="1" verticalGap="0">
+					<mx:Text visible="{!calibrated}" includeInLayout="{!calibrated}" click="Calibrate()" selectable="false" paddingBottom="0"
+							 width="100%" condenseWhite="true" color="#ff6600" fontWeight="{LocaleInfo.BoldWeight()}" fontSize="13" htmlText="@Resource(key='Text_2', bundle='PrinterOutBridge')">
+					</mx:Text>
+					<mx:Text visible="{calibrated}" includeInLayout="{calibrated}" width="100%" leading="-2" condenseWhite="true" color="#333333" 
+							 htmlText="{ReplaceVars(_obPrintMetrics, _strPageSize)}" fontSize="13" paddingBottom="0"
+							 click="Calibrate()" selectable="false"/>
+					<containers:ProportionalScaleCanvas id="_pscnv" height="100%" paddingTop="5" paddingLeft="5" paddingBottom="8" paddingRight="5" width="320">
+						<ctl:PrintPreview id="_prpv" OutOfBoundsImageAlpha="0.4"
+										  PrintSize="{SelectedPrintAreaToObject(_strSelectedLayout)}" 
+										  Crop="{_rbtnCrop.selected}" Photo="{_imgd.composite}"/>
+					</containers:ProportionalScaleCanvas>
+					
+				</mx:VBox>
+				<mx:HBox horizontalGap="0"  visible="{_prpv.OutOfBounds}" includeInLayout="{_prpv.OutOfBounds}" width="{_pscnv.ChildWidth - 20}" y="{20 + _pscnv.y}" left="25"
+					paddingTop="5" paddingRight="5" paddingBottom="5" paddingLeft="5"
+					borderStyle="solid" borderThickness="0" cornerRadius="8" backgroundColor="#FFFFFF" dropShadowColor="#CCCCCC" dropShadowEnabled="true">
+					<ctl:ImageVer source="@Embed('/theme/pngs/alertIcon.png')"/>
+					<mx:Text click="Calibrate()" selectable="false"	width="100%" condenseWhite="true" color="#ff6600" fontSize="13" htmlText="@Resource(key='Text_3', bundle='PrinterOutBridge')">
+					</mx:Text>
+				</mx:HBox>
+			</mx:Canvas>
+		</mx:HBox>
+	</mx:VBox>
+	
+	<mx:Canvas visible="{_imgd == null}" x="0" top="{_lblLocalPrintHead.y}" width="100%" height="{_cnvPrintPrev.height}" backgroundColor="#ffffff" backgroundAlpha=".6" />
+	
+</PrinterOutBridgeBase>

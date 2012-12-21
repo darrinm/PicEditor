@@ -1,0 +1,12 @@
+fileName: mk_WenceslasOblique.ttf
+name: Wenceslas
+subfamilyDisplayName: Medium Italic
+fullName: Wenceslas-Oblique
+displayName: Wenceslas
+ital: 1
+bold: 0
+weight: 5
+panose.weight: 6
+pkName: pkmk0WenceslasOblique
+authorName: Manfred Kelin
+authorUrl: http://moorstation.org/typoasis/designers/klein/

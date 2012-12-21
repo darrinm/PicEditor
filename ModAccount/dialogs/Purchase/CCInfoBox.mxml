@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<purchase:CCInfoBoxBase xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:controls="controls.*" xmlns:purchase="dialogs.Purchase.*"
+	xmlns:vld="validators.*" xmlns:ds="com.darronschall.effects.*" xmlns:flash.filters="flash.filters.*" xmlns:bkctr="containers.*" 
+	width="100%" height="100%" paddingLeft="0" paddingRight="5" verticalGap="0" horizontalAlign="center"
+	xmlns:RegisterHelper="dialogs.RegisterHelper.*"
+	>
+<mx:Script>
+	<![CDATA[
+		import mx.resources.ResourceBundle;
+		
+		import validators.PicnikCreditCardValidator;
+		[Bindable] [ResourceBundle("PremiumTour")] private var rb:ResourceBundle; // Make sure this is linked
+		import mx.validators.CreditCardValidatorCardType;
+		import util.LocUtil;
+		import util.CreditCard;
+		import util.CreditCardTransaction;
+		import mx.effects.easing.*;
+		import picnik.util.LocaleInfo;
+		
+		
+		private function skuToKey( strKeyRoot:String, strSkuId:String ): String {
+			return strKeyRoot + "_" + strSkuId;
+		}
+	]]>
+</mx:Script>
+
+	<mx:ArrayCollection id="_acPaymentTypes">
+		<mx:Object label="{Resource.getString('CCInfoBox', 'visa')}" icon="visa.png" data="{CreditCardValidatorCardType.VISA}" />
+		<mx:Object label="{Resource.getString('CCInfoBox', 'mastercard')}" icon="mastercard.png" data="{CreditCardValidatorCardType.MASTER_CARD}" />
+		<mx:Object label="{Resource.getString('CCInfoBox', 'americanexpress')}" cv2Digits="4" maxCCDigits="15"  icon="amex.png" data="{CreditCardValidatorCardType.AMERICAN_EXPRESS}" />
+		<mx:Object label="{Resource.getString('CCInfoBox', 'discover')}" icon="discover.png" data="{CreditCardValidatorCardType.DISCOVER}" />
+		<mx:Object label="{Resource.getString('CCInfoBox', 'jcb')}" cv2Digits="4" icon="jcb.png" data="{PicnikCreditCardValidator.JCB}" />
+	</mx:ArrayCollection>
+	
+	<mx:Fade alphaFrom="0" alphaTo="1" duration="500" id="_efFadeIn" />
+	<mx:Fade alphaFrom="1" alphaTo="0" duration="500" id="_efFadeOut" />
+	<mx:Fade alphaFrom="0" alphaTo=".75" duration="300" id="_efQuarterFadeIn" />
+	<mx:Fade alphaFrom=".75" alphaTo="0" duration="150" id="_efQuarterFadeOut" />
+
+	<flash.filters:DropShadowFilter blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1"
+		quality="3" angle="90" id="_fiWhiteShad"/>
+
+	<!-- this vbox handles scrolling -->
+	<mx:VBox width="100%" height="100%" minHeight="125" verticalGap="0" paddingTop="0" paddingLeft="20" paddingRight="15" 
+			horizontalScrollPolicy="off" verticalScrollPolicy="auto" verticalScrollBarStyleName="clearVScrollBar">
+
+		<mx:VBox id="_vboxCCInfo" width="100%">
+			<controls:ResizingLabel text="@Resource(key='ccinfo', bundle='CCInfoBox')" id="_txtCCInfo"
+						paddingBottom="-3" paddingTop="6" autoFontSizeGap="1" filters="{[_fiWhiteShad]}" paddingRight="-1" fontSize="18" fontWeight="bold" color="0x333333"/>
+			<mx:HBox visible="{!hasCreditCard &amp;&amp; !subscriptionStatus.isGift}"
+					 includeInLayout="{!hasCreditCard &amp;&amp; !subscriptionStatus.isGift}"
+					 width="100%" height="100%" horizontalGap="30">
+				<controls:ResizingLabel text="@Resource(key='nocreditcard', bundle='CCInfoBox')" id="_txtNoCCInfo" width="100%" paddingTop="3"
+										paddingBottom="-3" autoFontSizeGap="1" filters="{[_fiWhiteShad]}" paddingRight="-1" color="0x666666" fontSize="15" fontStyle="italic"/>
+				<mx:Button label="@Resource(bundle='CCInfoBox',key='addcard')" click="AddCard()"/>
+			</mx:HBox>
+			<mx:HBox visible="{hasCreditCard}" includeInLayout="{hasCreditCard}"
+					width="100%" horizontalGap="30" verticalAlign="middle">
+
+				<mx:Image source="../graphics/thirdpartylogos/ccards/visa.png" 
+						  visible="{creditCard &amp;&amp; creditCard.chCCType == CreditCard.kchVisa}"
+						  includeInLayout="{creditCard &amp;&amp; creditCard.chCCType == CreditCard.kchVisa}"/>
+				<mx:Image source="../graphics/thirdpartylogos/ccards/mastercard.png" 
+						  visible="{creditCard &amp;&amp; creditCard.chCCType == CreditCard.kchMastercard}"
+						  includeInLayout="{creditCard &amp;&amp; creditCard.chCCType == CreditCard.kchMastercard}"/>
+				<mx:Image source="../graphics/thirdpartylogos/ccards/amex.png" 
+						  visible="{creditCard &amp;&amp; creditCard.chCCType == CreditCard.kchAmex}"
+						  includeInLayout="{creditCard &amp;&amp; creditCard.chCCType == CreditCard.kchAmex}"/>
+				<mx:Image source="../graphics/thirdpartylogos/ccards/discover.png"
+						  visible="{creditCard &amp;&amp; creditCard.chCCType == CreditCard.kchDiscover}"
+						  includeInLayout="{creditCard &amp;&amp; creditCard.chCCType == CreditCard.kchDiscover}"/>
+				<mx:Image source="../graphics/thirdpartylogos/ccards/jcb.png"
+						  visible="{creditCard &amp;&amp; creditCard.chCCType == CreditCard.kchJCB}"
+						  includeInLayout="{creditCard &amp;&amp; creditCard.chCCType == CreditCard.kchJCB}"/>
+				
+				<mx:Text htmlText="{LocUtil.rbSubst('CCInfoBox','securecardinfo', creditCard ? creditCard.strCCLast4 : '', LocUtil.ccExpirationDate(creditCard ? creditCard.dtExpiry : null))}" 
+							id="_txtExpirationCCInfo" width="100%" paddingBottom="-3" filters="{[_fiWhiteShad]}" paddingRight="-1" fontSize="15" color="#666666">
+				</mx:Text>	
+				
+				<mx:HBox>	
+					<mx:Button label="@Resource(bundle='CCInfoBox',key='remove')" click="RemoveCard()"/>
+					<mx:Button label="@Resource(bundle='CCInfoBox',key='change')" click="ChangeCard()"/>
+				</mx:HBox>
+			</mx:HBox>
+		</mx:VBox>
+
+		<!-- TODO: chargeWarning -->
+		
+		<mx:HBox id="_vboxFreeMembership" width="100%" paddingTop="4" 
+				 visible="{!hasCreditCard &amp;&amp; subscriptionStatus &amp;&amp; subscriptionStatus.isGift}"
+				 includeInLayout="{!hasCreditCard &amp;&amp; subscriptionStatus &amp;&amp; subscriptionStatus.isGift}">
+			<mx:Text text="{Resource.getString('CCInfoBox', subscriptionStatus.isGift ? 'gifted' : 'comped')}" id="_txtFreeMembership" width="100%"
+					 paddingBottom="-3" filters="{[_fiWhiteShad]}" paddingRight="-1" color="#666666" fontSize="16" leading="-1" fontStyle="italic"/>
+			<mx:Button label="@Resource(bundle='CCInfoBox',key='addcard')" click="AddCard()"/>			
+		</mx:HBox>
+		<mx:HBox id="_vboxExpirationWarning" width="577" paddingTop="20" paddingLeft="60"
+				 visible="{!hasCreditCard || !AccountMgr.GetInstance().autoRenew}" 
+				 includeInLayout="{!hasCreditCard || !AccountMgr.GetInstance().autoRenew}">
+			<mx:Text text="{LocUtil.rbSubst('CCInfoBox', 'expirationWarning', LocUtil.mediumDate(AccountMgr.GetInstance().dateSubscriptionExpires))}" id="_txtExpirationWarning" width="100%" textAlign="center"
+					 paddingBottom="-3" filters="{[_fiWhiteShad]}" paddingRight="-1" color="#005580" fontSize="15" leading="-1"/>
+		</mx:HBox>
+		<mx:HBox id="_vboxRenewalWarning" width="100%" paddingTop="25"
+				 visible="{hasCreditCard &amp;&amp; AccountMgr.GetInstance().isPremium &amp;&amp; AccountMgr.GetInstance().autoRenew}" 
+				 includeInLayout="{hasCreditCard &amp;&amp; AccountMgr.GetInstance().isPremium &amp;&amp; AccountMgr.GetInstance().autoRenew}">
+			<mx:Text text="{LocUtil.rbSubst('CCInfoBox', skuToKey('renewalWarning',subscriptionSkuId), LocUtil.mediumDate(AccountMgr.GetInstance().dateSubscriptionExpires))}" 
+					 id="_txtRenewalWarning" width="100%" textAlign="center"
+					 paddingBottom="-3" filters="{[_fiWhiteShad]}" paddingRight="-1" color="#005580" fontSize="15" leading="-1"/>
+		</mx:HBox>
+		<mx:HBox id="_vboxReactivateWarning" width="100%" paddingTop="25"
+				 visible="{hasCreditCard &amp;&amp; !AccountMgr.GetInstance().isPremium}" 
+				 includeInLayout="{hasCreditCard &amp;&amp; !AccountMgr.GetInstance().isPremium}">
+			<mx:Text text="{LocUtil.rbSubst('CCInfoBox', skuToKey('reactivateWarning',subscriptionSkuId), LocUtil.mediumDate(AccountMgr.GetInstance().dateSubscriptionExpires))}" 
+					 id="_txtReactivateWarning" width="100%" textAlign="center"
+					 paddingBottom="-3" filters="{[_fiWhiteShad]}" paddingRight="-1" color="#005580" fontSize="15" leading="-1"/>
+		</mx:HBox>
+	</mx:VBox>
+</purchase:CCInfoBoxBase>

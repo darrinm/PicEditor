@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory area="Haunted" id="root">
+	<ShapeCategory flickrPremium="false" id="HauntedShapes" numShapes="0" picnikPremium="false" showHeader="false">
+		<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/haunted_ghosts.png" flickrPremium="true" id="GhostsHalloween" numShapes="24" picnikPremium="true" previewUrls="60|48|../clipart/bundles/HauntedArea_groupPreviews_GhostsHalloween.png?ver=2fced92c" thumbUrl="66|54|0|../clipart/bundles/HauntedArea_groupThumbs.png?ver=747b3ae4" title="Ghosts"/>
+		<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/shape_graves.png" flickrPremium="false" id="HalloweenGraves" numShapes="4" picnikPremium="false" previewUrls="60|48|../clipart/bundles/HauntedArea_groupPreviews_HalloweenGraves.png?ver=44316570" thumbUrl="66|54|1|../clipart/bundles/HauntedArea_groupThumbs.png?ver=747b3ae4" title="Graves"/>
+	</ShapeCategory>
+</ShapeCategory>

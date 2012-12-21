@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ApplyCancelEffectButtonsBase xmlns="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="{addBoxPadding?192:210}" 
+	paddingTop="{addBoxPadding?8:0}" horizontalAlign="center" xmlns:ctr="containers.*"
+	horizontalGap="0" horizontalScrollPolicy="off" visible="{!actm.isPremium}" includeInLayout="{!actm.isPremium}">
+	<mx:Script>
+		<![CDATA[
+			import util.LocUtil;
+			import mx.resources.ResourceBundle;
+	   		[Bindable] [ResourceBundle("ApplyCancelEffectButtons")] private var rb:ResourceBundle;
+		]]>
+	</mx:Script>
+	
+	<mx:DropShadowFilter id="_fiWhiteShad" blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1" quality="3" angle="90"/>
+	
+	<mx:VBox width="100%" minHeight="62" verticalGap="3" horizontalAlign="center">
+		<mx:Text htmlText="@Resource(key='premiumStyleText',bundle='GalleryStyle')" width="100%" textAlign="center" filters="{[_fiWhiteShad]}"/>
+		<ResizingButton minWidth="110" height="25" 
+			paddingLeft_0="0" paddingRight_0="0"
+			paddingLeft_3="-3" paddingRight_3="-3"
+			paddingLeft_6="-6" paddingRight_6="-6"
+			paddingLeft_7="-8" paddingRight_7="-8"
+			fontSize_1="13" fontSize_4="12" fontSize_7="11" fontSize_8="10" fontSize_9="9"
+			label="@Resource(key='goPremium',bundle='ApplyCancelEffectButtons')"
+			styleName="upgradeButton" click="ApplyClick()"/>
+	</mx:VBox>
+</ApplyCancelEffectButtonsBase>

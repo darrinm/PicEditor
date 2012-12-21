@@ -1,0 +1,12 @@
+fileName: tm_angstrom.ttf
+name: Angstrom
+subfamilyDisplayName: Regular
+fullName: Angstrom
+displayName: Angstrom
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 4
+pkName: pktm0angstrom
+authorName: Tom Murphy
+authorUrl: http://fonts.tom7.com/

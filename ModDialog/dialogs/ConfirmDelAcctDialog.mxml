@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ConfirmDelAcctDialogBase xmlns="dialogs.*" xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" horizontalAlign="center"
+		width="400" defaultButton="{_btnCancel}" xmlns:ns1="*" styleName="DialogNoCloseBox" verticalGap="8" xmlns:controls="controls.*">
+<mx:Script>
+	<![CDATA[
+		import picnik.util.LocaleInfo;
+	]]>
+</mx:Script>
+	<mx:HBox horizontalGap="0" width="100%">
+		<controls:ImageVer source="@Embed('../theme/pngs/alertIcon.png')"/>		
+		<mx:Text id="_txtHeader" fontSize="13" condenseWhite="true" selectable="false" width="100%" leading="-1" htmlText="@Resource(key='_txtHeader', bundle='ConfirmDelAcctDialog')">
+		</mx:Text>
+	</mx:HBox>
+	<mx:Button label="@Resource(key='_btnCancel', bundle='ConfirmDelAcctDialog')" id="_btnCancel" styleName="BigButton" tabIndex="2" minWidth="200" height="28" fontSize="16"/>
+	<mx:Text id="_txtHeader" fontSize="13" condenseWhite="true" selectable="false" width="100%" leading="-1" htmlText="@Resource(key='_txtHeader_1', bundle='ConfirmDelAcctDialog')">
+	</mx:Text>
+	<mx:VBox width="100%" verticalGap="8" horizontalAlign="center">	
+		<controls:ResizingButton label="@Resource(key='_btnYes', bundle='ConfirmDelAcctDialog')" id="_btnYes" icon="@Embed('../theme/pngs/noIcon.png')" styleName="dialogButton"
+			height="25" tabIndex="1" color="#CC0000" textRollOverColor="#FF0000" textSelectedColor="#CC0000"
+			fontWeight="{LocaleInfo.BoldWeight()}" horizontalGap="3" minWidth="160" toolTip="@Resource(key='_btnYes_1', bundle='ConfirmDelAcctDialog')"/>
+	</mx:VBox>
+</ConfirmDelAcctDialogBase>

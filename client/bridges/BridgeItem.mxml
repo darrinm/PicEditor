@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<BridgeItemBase xmlns="bridges.*" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:controls="controls.*"
+	cornerRadius="8" borderStyle="solid" borderThickness="0" 
+	horizontalAlign="center" verticalAlign="middle" currentState="NotSelected" width="220" height="198" minWidth="190"
+	initialize="OnInitialize()"
+	>
+    <states>
+        <mx:State name="Selected">
+            <mx:SetStyle target="{_tiName}" name="backgroundAlpha" value="1"/>
+            <mx:SetStyle name="backgroundColor" value="#bbe57f"/>
+            <mx:SetStyle target="{_tiName}" name="borderColor" value="#CCCCCC"/>
+            <mx:SetProperty target="{_btnMenu}" name="alpha" value="1.0"/>
+            <mx:SetStyle target="{_tiName}" name="color" value="#333333"/>
+        </mx:State>
+        <mx:State name="NotSelected">
+            <mx:SetStyle target="{_tiName}" name="borderStyle" value="solid"/>
+            <mx:SetStyle target="{_tiName}" name="borderColor" value="#FFFFFF"/>
+            <mx:SetProperty target="{_btnMenu}" name="alpha" value="0.0"/>
+        </mx:State>
+        <mx:State name="Highlight">
+            <mx:SetStyle target="{_tiName}" name="borderStyle" value="solid"/>
+            <mx:SetStyle name="backgroundColor" value="#d6efb2"/>
+            <mx:SetStyle target="{_tiName}" name="borderColor" value="#d6efb2"/>
+            <mx:SetStyle target="{_tiName}" name="color" value="#333333"/>
+            <mx:SetProperty target="{_btnMenu}" name="alpha" value="1.0"/>
+        </mx:State>
+        <mx:State name="ReadOnly">
+            <mx:AddChild relativeTo="{_btnMenu}" position="before">
+                <mx:Label id="_lbCaption" text="{data.title}" width="145" height="22" 
+		        	toolTip="{data.title}" textAlign="left" fontSize="12" fontWeight="{LocaleInfo.BoldWeight()}" color="#4d4d4d"
+        			paddingLeft="5" paddingRight="5" styleName="deviceFonts"/>
+            </mx:AddChild>
+            <mx:RemoveChild target="{_tiName}"/>
+        </mx:State>
+        
+        <mx:State name="SelectedReadOnly" basedOn="ReadOnly">
+            <mx:SetStyle name="backgroundColor" value="#bbe57f"/>
+            <mx:SetProperty target="{_btnMenu}" name="alpha" value="1.0"/>
+        </mx:State>
+        <mx:State name="NotSelectedReadOnly" basedOn="ReadOnly">
+            <mx:SetProperty target="{_btnMenu}" name="alpha" value="0.0"/>
+        </mx:State>
+        <mx:State name="HighlightReadOnly" basedOn="ReadOnly">
+            <mx:SetStyle name="backgroundColor" value="#d6efb2"/>
+            <mx:SetProperty target="{_btnMenu}" name="alpha" value="1.0"/>
+        </mx:State>
+        
+        <mx:State name="DisabledSelectedReadOnly" basedOn="ReadOnly">
+            <mx:SetStyle name="backgroundColor" value="#bbe57f"/>
+            <mx:SetProperty target="{_btnMenu}" name="alpha" value="1.0"/>
+            <mx:SetProperty target="{_vbxThumbnail}" name="alpha" value="0.4"/>
+            <mx:SetStyle target="{_lbCaption}" name="color" value="#9d9d9d"/>
+        </mx:State>
+        <mx:State name="DisabledNotSelectedReadOnly" basedOn="ReadOnly">
+            <mx:SetProperty target="{_btnMenu}" name="alpha" value="0.0"/>
+            <mx:SetProperty target="{_vbxThumbnail}" name="alpha" value="0.4"/>
+            <mx:SetStyle target="{_lbCaption}" name="color" value="#9d9d9d"/>
+        </mx:State>
+        <mx:State name="DisabledHighlightReadOnly" basedOn="ReadOnly">
+            <mx:SetStyle name="backgroundColor" value="#d6efb2"/>
+            <mx:SetProperty target="{_btnMenu}" name="alpha" value="1.0"/>
+            <mx:SetProperty target="{_vbxThumbnail}" name="alpha" value="0.4"/>
+            <mx:SetStyle target="{_lbCaption}" name="color" value="#9d9d9d"/>
+        </mx:State>
+    </states>
+    <mx:Script>
+    	<![CDATA[
+    		import picnik.util.LocaleInfo;
+    	]]>
+    </mx:Script>
+    <mx:Fade alphaFrom="0" alphaTo="1" duration="150" id="_efFadeIn"/>
+    <mx:Canvas width="180" height="180">
+	    <mx:VBox id="_vbxThumbnail" width="180" height="180" horizontalAlign="center" verticalAlign="middle"
+	    		backgroundColor="#FFFFFF" backgroundAlpha="1.0" cornerRadius="8" borderStyle="solid" borderColor="#f7f7f7"
+	    		dropShadowEnabled="true" dropShadowColor="#666666" shadowDistance="0">
+		        <controls:ImagePreview id="_imgThumbnail" maxHeight="160" maxWidth="160" horizontalAlign="center" verticalAlign="middle"
+		        	source="{data}" showingSomethingChange="_imgEllipses.visible = !ImagePreview(event.target).showingSomething"
+		        	slowLoadCompleteEffect="{_efFadeIn}" toolTip="{data.description ? data.description : data.title}"/>
+	    </mx:VBox>
+		<controls:ImageVer id="_imgEllipses" verticalCenter="0" horizontalCenter="0" source="@Embed('/assets/bitmaps/icon_ellipses.png')"/>
+    </mx:Canvas>
+    <mx:HBox id="_hbxCaption" width="100%" horizontalAlign="center" horizontalGap="4">
+        <mx:TextInput id="_tiName" text="{data.title}" editable="true" width="145" height="22" toolTip="{data.title}"
+        	backgroundAlpha="0" textAlign="left" fontSize="12" fontWeight="{LocaleInfo.BoldWeight()}" color="#4d4d4d"
+        	paddingLeft="5" paddingRight="5" styleName="deviceFonts"/>
+        <mx:Button width="32" height="22" id="_btnMenu" icon="@Embed('/theme/pngs/thumbMenuIcon.png')"/>
+    </mx:HBox>
+</BridgeItemBase>

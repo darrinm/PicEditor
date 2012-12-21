@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<effects:ShaderEffectBase xmlns:effects="effects.*" xmlns:cnt="containers.*" xmlns="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml"
+		xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*"
+		width="100%" height="430" premium="false" urlid="title">
+	<mx:Script>
+		import util.LocUtil;
+	</mx:Script>
+
+	<mx:Array id="_resetValues">
+		<local:StoredValue target="_sldrFade.value"/>
+		<local:StoredValue target="_cbBlendMode.selectedIndex"/>
+	</mx:Array>
+	
+	<EffectButton id="_efbtn" width="100%" strTitle="{title}" strAuthor="{author}" strImageSource="{iconURL}"
+			horizontalScrollPolicy="off" verticalScrollPolicy="off"/>
+	<mx:String id="_strHelpText">{description}</mx:String>
+
+	<mx:VBox x="8" y="67" verticalGap="0">
+		<mx:VBox id="_vbxParameters" width="100%">
+		</mx:VBox>
+		
+		<mx:Script>
+	        <![CDATA[
+	        	[Bindable]
+	            public var aobBlendModes:Array = [ 
+	                {label:"Normal", data:"normal"}, 
+	                {label:"Add", data:"add"}, 
+	                {label:"Darken", data:"darken"}, 
+	                {label:"Difference", data:"difference"}, 
+	                {label:"Hardlight", data:"hardlight"}, 
+	                {label:"Lighten", data:"lighten"}, 
+	                {label:"Multiply", data:"multiply"}, 
+	                {label:"Overlay", data:"overlay"}, 
+	                {label:"Screen", data:"screen"}, 
+	                {label:"Subtract", data:"subtract"}];
+	        ]]>
+	    </mx:Script>
+	    <mx:VBox verticalGap="-3" paddingTop="5" paddingBottom="5">
+		    <mx:Label text="@Resource(key='advanced_modes', bundle='ShaderEffect')" styleName="sliderTitle" paddingBottom="1"/>
+			<ComboBoxPlus id="_cbBlendMode" dataProvider="{aobBlendModes}" change="OnOpChange()" height="26" width="190" rowCount="10"
+					liveChange="liveBlendMode = _cbBlendMode.liveSelectedItem.data; OnOpChange()"/>
+	    </mx:VBox>
+	
+		<mx:HBox horizontalGap="5" paddingTop="5" verticalAlign="middle">
+			<!-- Fade label/percent/slider box -->
+			<mx:VBox verticalGap="0" width="157" horizontalScrollPolicy="off">
+				<mx:HBox width="100%" paddingBottom="-5" paddingTop="3">
+					<mx:Label text="@Resource(key='fade', bundle='ShaderEffect')" styleName="sliderTitle"/>
+					<mx:Label text="{LocUtil.pct((_sldrFade.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+				</mx:HBox>
+				<HSliderPlus width="157" minimum="0" maximum="100" value="0" id="_sldrFade" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+			</mx:VBox>
+			<mx:Button id="_btnBrushPalette" width="30" height="30" selected="false" toggle="true" icon="@Embed('/assets/bitmaps/icon_paintTall.png')" paddingLeft="0"
+					toolTip="@Resource(key='_btnBrushPalette', bundle='BWEffect')"/>
+		</mx:HBox>
+	
+		<ApplyCancelEffectButtons addBoxPadding="true" premium="{premium}"/>
+	</mx:VBox>
+
+	<imageOperations:NestedImageOperation id="_op" BlendAlpha="{1-(_sldrFade.value/100)}" BlendMode="{liveBlendMode}" Mask="{_mctr.mask}">
+		<imageOperations:children>
+			<imageOperations:ShaderImageOperation params="{params}" bytecode="{bytecode}"/>
+		</imageOperations:children>
+	</imageOperations:NestedImageOperation>
+
+</effects:ShaderEffectBase>

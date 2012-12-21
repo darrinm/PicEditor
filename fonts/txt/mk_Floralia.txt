@@ -1,0 +1,12 @@
+fileName: mk_Floralia.ttf
+name: Floralia
+subfamilyDisplayName: Regular
+fullName: Floralia
+displayName: Floralia
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 6
+pkName: pkmk0Floralia
+authorName: Manfred Kelin
+authorUrl: http://moorstation.org/typoasis/designers/klein/

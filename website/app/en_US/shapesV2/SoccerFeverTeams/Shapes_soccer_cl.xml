@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory flickrPremium="false" id="soccer_cl" numShapes="3" picnikPremium="false" previewUrls="60|48|../clipart/bundles/SoccerFeverTeamsArea_groupPreviews_soccer_cl.png?ver=8a37b627" title="Chile Stickers">
+	<Shapes>
+		<Clipart cHeight="294.6" cWidth="463.3" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|0|../clipart/bundles/SoccerFeverTeamsArea_shapes_soccer_cl.png?ver=d58c7d75" url="shapes/SoccerFever/cl/wavingflag_cl.swf"/>
+		<Clipart cHeight="1000" cWidth="1500" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|1|../clipart/bundles/SoccerFeverTeamsArea_shapes_soccer_cl.png?ver=d58c7d75" url="shapes/SoccerFever/cl/flag_cl.swf"/>
+		<Clipart cHeight="223.55" cWidth="95.95" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|2|../clipart/bundles/SoccerFeverTeamsArea_shapes_soccer_cl.png?ver=d58c7d75" url="shapes/SoccerFever/cl/scarf_cl.swf"/>
+	</Shapes>
+</ShapeCategory>

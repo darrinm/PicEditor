@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MyComputerInBridgeBase xmlns="bridges.mycomputer.*" xmlns:mx="http://www.adobe.com/2006/mxml"
+	width="100%" height="100%" busyShowing="{UploadManager.Instance().uploading}" showListForGuests="true"
+	horizontalScrollPolicy="off" xmlns:filters="flash.filters.*" xmlns:controls="controls.*" xmlns:basket="bridges.basket.*" xmlns:containers="containers.*">
+	<mx:Style>
+		.liteGreenText {
+			color: #f2ffd9;	
+		}
+	</mx:Style>
+	<filters:DropShadowFilter id="_fiStripeShadow" blurX="4" blurY="4" distance="1" color="#000000" alpha=".2" quality="3" angle="90"/>
+	<filters:DropShadowFilter id="_fiWhiteShad" blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1" quality="3" angle="90"/>
+	
+	<mx:Parallel id="_efGlowOver">
+		<mx:AnimateProperty isStyle="true" property="backgroundAlpha" fromValue=".65" toValue="1" duration="200"/>
+		<mx:Glow blurXFrom="0" blurYFrom="0" blurXTo="25" blurYTo="25" color="#d5e4e4" alphaFrom="0" alphaTo=".2" duration="400"/>	
+	</mx:Parallel>
+	<mx:Parallel id="_efGlowOut">
+		<mx:AnimateProperty isStyle="true" property="backgroundAlpha" fromValue="1" toValue=".65" duration="500"/>
+		<mx:Glow blurXFrom="25" blurYFrom="25" blurXTo="0" blurYTo="0" color="#d5e4e4" alphaFrom=".2" alphaTo="0" duration="400"/>	
+	</mx:Parallel>
+	
+	<mx:Script>
+		<![CDATA[
+			import util.UploadManager;
+			import util.LocUtil;
+			import mx.resources.ResourceBundle;
+   			[Bindable] [ResourceBundle("MyComputerBasket")] private var rb:ResourceBundle;
+   			[Bindable] [ResourceBundle("MyComputerInBridge")] private var rbIn:ResourceBundle;
+		]]>
+	</mx:Script>
+	<filters:DropShadowFilter id="_efEmboss" alpha="0.35" quality="3" blurX="0" blurY="0" angle="-90" color="#000000" distance="1"/>
+	
+	<!-- thumbnail tile list -->
+	<basket:BasketItemTileList left="0" right="0" top="28" bottom="0" id="_tlst"/>
+	
+	<mx:HBox top="0" left="188" right="75" paddingTop="3" horizontalGap="2">
+		<!-- upload a photo / upload photo button -->
+		<controls:ResizingButton id="_btnUpload" label="{LocUtil.iff('MyComputerBasket', isGuest, '_btnUpload', '_btnUploadMulti')}"  
+			height="24" styleName="basketButton" click="DoUpload(false)" paddingLeft="10" paddingRight="10" />
+		
+		<!-- Cancel upload button-->
+		<!--<controls:ResizingButton id="_btnCancelUpload" label="@Resource(key='CancelUpload',bundle='MyComputerInBridge')" 
+			height="24" styleName="basketButton" enabled="{_imgd != null}"/>-->
+		<mx:Spacer width="5"/>
+						
+		<!-- clear button -->
+		<controls:ResizingButton id="_btnClear" label="@Resource(key='ClearAll',bundle='MyComputerInBridge')" click="Clear()"  
+			height="24" styleName="basketButton" />
+	</mx:HBox>
+	
+	<!-- upgrade enticement message
+	<mx:HBox top="0" left="300" paddingTop="3" horizontalGap="2" visible="{isUnpaidRegistered}" includeInLayout="{isUnpaidRegistered}">
+		<controls:ResizingButton label="@Resource(key='_btnUpgrade',bundle='MyComputerInBridge')" height="24" styleName="basketButton"/>
+		<controls:ResizingLabel text="@Resource(key='upload100',bundle='MyComputerInBridge')" styleName="liteGreenText" filters="{[_efEmboss]}" paddingTop="2"/>
+	</mx:HBox> 
+	-->
+	
+	<!-- register/upgrade enticement message -->
+	
+	<mx:Canvas top="30" height="{_tlst.tileSizeInWidth}" left="{_tlst.tileSizeInWidth * 5 + 20}" right="10" horizontalScrollPolicy="off" verticalScrollPolicy="off" clipContent="false"
+			visible="{!isPaid}" includeInLayout="{!isPaid}">
+		<containers:ResizingVBox backgroundColor="#000000" backgroundAlpha=".1" borderStyle="solid" borderThickness="0" cornerRadius="8"
+				verticalAlign="left" ignoreheight="true"
+				width="100%" maxWidth="260" horizontalAlign="left" 
+				left="10" verticalCenter="0"
+				paddingTop="5" paddingRight="5" paddingBottom="2" paddingLeft="5" 
+				verticalGap="0" verticalScrollPolicy="off">
+			<controls:ResizingButton id="_btnRegisterOrUpgrade"
+				label="{LocUtil.iff('MyComputerInBridge', isGuest, '_btnRegister', '_btnUpgrade')}"
+				height="32"
+				fontSize="17" fontSize_1="16" fontSize_2="14" fontSize_3="13" styleName="basketButton"/>
+			<controls:ResizingLabel selectable="false" textAlign="left" condenseWhite="true" fontWeight="normal"
+				htmlText="{LocUtil.iff('MyComputerInBridge', isGuest, 'upload5', 'upload100')}"
+				fontSize="13" fontSize_1="12" fontSize_2="11"
+				color="#ffffff" filters="{[_efEmboss]}"/>
+		</containers:ResizingVBox>
+	</mx:Canvas>
+	
+	<!-- top right stripe, UNDONE: this isn't smart about repositioning itself if the label is too long -->
+	
+	<!-- Go Premium upsell banner
+	
+	<mx:VBox rotation="-22" backgroundAlpha=".65" bottom="-47" right="-68" filters="{[_fiStripeShadow]}" verticalGap="0" height="38" backgroundImage="{PicnikBase.StaticUrl('/graphics/clouds.jpg')}" backgroundColor="#d0ebff"
+			 color="#ffffff" paddingLeft="100" paddingRight="30" paddingTop="2" width="320" borderSides="top bottom" borderStyle="solid" borderColor="#ffffff"
+			 rollOverEffect="{_efGlowOver}" rollOutEffect="{_efGlowOut}" buttonMode="true">
+			<controls:LabelPlus text="Go Premium!" fontWeight="bold" fontSize="14" color="#333333" paddingLeft="30" paddingRight="30" filters="{[_fiWhiteShad]}"/>
+			<controls:LabelPlus text="Upload 100 photos at once." fontSize="12" color="#333333" paddingTop="-10" filters="{[_fiWhiteShad]}"/>
+	</mx:VBox>
+	
+	-->
+
+</MyComputerInBridgeBase>

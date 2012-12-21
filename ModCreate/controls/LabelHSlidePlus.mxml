@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" paddingTop="3" verticalGap="0" xmlns:controls="controls.*">
+   <mx:Metadata>
+        [Event(name="change", type="flash.events.Event")]
+    </mx:Metadata>
+
+	<mx:Script>
+		<![CDATA[
+			
+			import util.LocUtil;
+			
+			private function OnChange(): void {
+				if (value != _sldr.value) {
+					value = _sldr.value;
+					dispatchEvent(new Event("change"));
+				}
+			}
+			
+			protected function FormatValue(nValue:Number, fIsPercent:Boolean, fIsDegree:Boolean): String {
+				if (fIsPercent)
+					return LocUtil.pct(nValue);
+				else if (fIsDegree)
+					return LocUtil.deg(nValue);
+				else
+					return String(Math.round(nValue));
+			} 
+		]]>
+	</mx:Script>
+	<mx:String id="label"></mx:String>
+	<mx:Number id="labelValueMultiplier">100</mx:Number>
+	<mx:Boolean id="isPercent">false</mx:Boolean>
+	<mx:Boolean id="isDegree">false</mx:Boolean>
+	<mx:Number id="minimum">0</mx:Number>
+	<mx:Number id="maximum">100</mx:Number>
+	<mx:Number id="value">50</mx:Number>
+	<mx:Number id="snapInterval">0</mx:Number>
+	<mx:HBox width="194" paddingBottom="-5" >
+		<mx:Label text="{label}" styleName="sliderTitle"/>
+		<mx:Label text="{FormatValue(_sldr.value * labelValueMultiplier, isPercent, isDegree)}" styleName="sliderValue" textAlign="right" width="100%"/>
+	</mx:HBox>
+	<controls:HSliderPlus width="191" minimum="{minimum}" maximum="{maximum}" value="{value}" id="_sldr" change="OnChange()" liveDragging="true" showDataTip="false" snapInterval="{snapInterval}"/>
+</mx:VBox>

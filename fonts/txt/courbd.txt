@@ -1,0 +1,12 @@
+fileName: courbd.ttf
+name: Courier New
+subfamilyDisplayName: Negreta
+fullName: Courier New Negreta
+displayName: Courier New
+ital: 0
+bold: 1
+weight: 5
+panose.weight: 6
+pkName: pkcourbd
+authorName: Howard "Bud" Kettler
+authorUrl: http://www.graphos.org/courier.html

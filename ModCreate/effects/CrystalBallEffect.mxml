@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cnt:DraggableOverlayEffectCanvasBase xmlns="effects.*" xmlns:cnt="containers.*" xmlns:ctrl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="335" xmlns:local="*" 
+	xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*"
+	xFocus = "{zeroR + imagewidth/2+_imageslop}"
+	yFocus = "{zeroR + imageheight/2+_imageslop}"
+	xFocusMin = "{_imagesize/2-_imageslop}"
+	xFocusMax = "{imagewidth+_imageslop*2-_imagesize/2}"
+	yFocusMin = "{_imagesize/2-_imageslop}"
+	yFocusMax = "{imageheight+_imageslop*2-_imagesize/2}"
+	liveUpdate="true" urlid="CrystalBall">
+
+	<mx:Script>
+		import util.LocUtil;
+		import mx.resources.ResourceBundle;
+   		[Bindable] [ResourceBundle("CrystalBallEffect")] private var rb:ResourceBundle;
+	</mx:Script>
+
+	<mx:Array id="_resetValues">
+		<local:StoredValue target="_sldrImpact.value"/>
+		<local:StoredValue target="_cpkrOuter.selectedColor"/>
+		<local:StoredValue target="_cpkrInner.selectedColor"/>
+		<local:StoredValue target="_cpkrGlow.selectedColor"/>
+		<local:StoredValue target="_opRasterize.rasterizedContainerId"/>
+	</mx:Array>
+		
+	<mx:HRule x="0" width="100%" top="0" height="1" strokeColor="#FFFFFF"/>
+	<mx:HRule x="0" width="100%" height="1" bottom="0" strokeColor="#d4d4d4"/>
+	
+	<ctrl:EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='CrystalBallEffect')" strAuthor="@Resource(key='_efbtn_1', bundle='FocalZoomEffect')"
+		strImageSource="../graphics/effects/Halloween/crystalball.jpg"/>
+		
+	<mx:String id="_strHelpText">{Resource.getString('CrystalBallEffect', '_strHelpText')}</mx:String>
+	
+	<mx:Number id="_imagesize">{Math.floor(Math.min(imagewidth,imageheight))*0.91}</mx:Number>
+	<mx:Number id="_imageslop">{Math.floor(_imagesize*0.05)}</mx:Number>
+
+	<mx:VBox x="0" y="70" horizontalAlign="center">
+		<cnt:ResizingHBox width="190" paddingBottom="-5" paddingTop="3" verticalAlign="bottom">
+			<mx:Label text="@Resource(key='Distortion', bundle='CrystalBallEffect')" styleName="sliderTitle" paddingBottom="-5"/>
+			<mx:Label text="{LocUtil.pct(Math.round(_sldrImpact.liveValue))}" styleName="sliderValue" paddingBottom="-5" textAlign="right" width="100%"/>
+		</cnt:ResizingHBox>
+		<ctrl:HSliderFastDrag updateSpeed="{updateSpeed}" width="190" minimum="0" maximum="100" value="{zeroR + 50}" id="_sldrImpact" liveDragging="true" showDataTip="false"
+			change="OnOpChange()"/>		
+	
+	<mx:VBox paddingTop="5" paddingLeft="5" paddingRight="5" paddingBottom="5" horizontalGap="5" width="194" horizontalScrollPolicy="off"
+			 cornerRadius="5" backgroundColor="#ffffff" borderColor="#d9d9d9" borderStyle="solid" backgroundAlpha=".4" verticalAlign="middle">
+		
+		<mx:HBox width="100%">
+			<ctrl:ResizingLabel text="@Resource(key='Tint', bundle='CrystalBallEffect')" styleName="sliderTitle" width="100%"/>
+			<ctrl:HSBColorPicker id="_cpkrInner" selectedColor="0x280033" liveColorChange="OnBufferedOpChange()" width="50"/>			
+		</mx:HBox>
+		
+		<mx:HBox width="100%">
+			<ctrl:ResizingLabel text="@Resource(key='Glow', bundle='CrystalBallEffect')" styleName="sliderTitle" width="100%"/>	
+			<ctrl:HSBColorPicker id="_cpkrGlow" selectedColor="0x56197F" liveColorChange="OnBufferedOpChange()" width="50"/>
+		</mx:HBox>
+		
+		<mx:HBox width="100%">
+			<ctrl:ResizingLabel text="@Resource(key='Background', bundle='CrystalBallEffect')" styleName="sliderTitle" width="100%"/>	
+			<ctrl:HSBColorPicker id="_cpkrOuter" selectedColor="0x100010" liveColorChange="OnBufferedOpChange()" width="50"/>
+		</mx:HBox>
+		
+		</mx:VBox>
+
+		<ctrl:ApplyCancelEffectButtons/>
+	</mx:VBox>
+
+	<imageOperations:NestedImageOperation id="_op">
+		<imageOperations:children>
+
+			<imageOperations:NestedImageOperation>
+				<imageOperations:children>
+					<!-- flatten so that the shapes get processed correctly -->
+					<imageOperations:RasterizeImageOperation 
+								id="_opRasterize" includeBackground="true" hiQuality="false"
+								width="{origImageWidth}" height="{origImageHeight}" selfCaching="true"/>		
+		
+					<!-- add a tiny border so that more image ends up visible in the ball -->
+					<imageOperations:BorderImageOperation 
+								outerthickness="{_imageslop}" outercolor="{0xff000000}" innerthickness="0"/>
+
+					<!-- crop square -->
+					<imageOperations:CropImageOperation
+								dynamicParamsCachePriority="1"
+								width="{_imagesize}" height="{_imagesize}" 
+								x="{imagewidth+_imageslop*2-(xFocus+_imagesize/2)}" 
+								y="{imageheight+_imageslop*2-(yFocus+_imagesize/2)}"
+								ignoreObjects="true"/>				
+		
+				</imageOperations:children>		
+			</imageOperations:NestedImageOperation>
+
+			<!-- fish eye -->
+			<imageOperations:FishEyeImageOperation dynamicParamsCachePriority="1" 
+						x="{zeroR + _imagesize/2}" y="{zeroR + _imagesize/2}" strength="{_sldrImpact.value}"
+						size="90" xSkew="50" ySkew="50" ignoreObjects="true"/>
+												
+			<imageOperations:NestedImageOperation>
+				<imageOperations:children>
+					<!-- save for later -->
+					<imageOperations:SetVar 
+								Name="crystalball_orig"/>
+			
+					<!-- shrink it so we can make a tiny inverted reflection -->
+					<imageOperations:ResizeImageOperation 
+								width="{_imagesize/4}" height="{_imagesize/4}"
+								ignoreObjects="true" hiQuality="false"/>
+
+					<imageOperations:SimpleColorMatrixImageOperation 
+								Brightness="30" Contrast="20"/>
+			
+					<!-- skew it up -->
+					<imageOperations:FishEyeImageOperation 
+								x="{zeroR + _imagesize/4}" y="{zeroR + _imagesize/4}" strength="{80}"
+								size="80" xSkew="10" ySkew="90" ignoreObjects="true"/>
+		
+					<!-- save for later -->
+					<imageOperations:SetVar  
+								Name="crystalball_tiny"/>
+		
+					<!-- skew it one more time  -->
+					<imageOperations:ResizeImageOperation 
+								width="{_imagesize/6}" height="{_imagesize/3}" 
+								ignoreObjects="true" hiQuality="false"/>
+		
+					<!-- give it a black gradient and crop to a circle, and a bit of a border too -->
+					<imageOperations:GradientShapeImageOperation 
+								color1="{0x000000}" color2="{0x000000}"
+								alpha0="0.3" alpha1="0.3" alpha2="1.0" alpha3="1.0"
+								shape="rect"
+								gradType="radial" gradBlend="normal"
+								ignoreObjects="true"/>		
+												
+					<imageOperations:BorderImageOperation  
+								outerthickness="{_imagesize/3}" outercolor="{0xff000000}" innerthickness="0"/>
+							
+					<!-- rotate & flip it --> 
+					<imageOperations:RotateImageOperation 
+								flipV="{true}" degAngle="40" ignoreObjects="true"/>
+		
+					<!-- save for later -->
+					<imageOperations:SetVar 
+								Name="crystalball_tiny1"/>
+														
+					<!-- retrieve tiny -->
+					<imageOperations:GetVarImageOperation 
+								Name="crystalball_tiny"/>
+		
+					<!-- rotate & flip it --> 
+					<imageOperations:RotateImageOperation 
+								flipH="{true}" degAngle="-30" ignoreObjects="true"/>
+							
+					<!-- give it a black gradient and crop to a circle -->
+					<imageOperations:GradientShapeImageOperation 
+								color1="{0x000000}" color2="{0x000000}"
+								alpha0="0.3" alpha1="0.3" alpha2="1.0" alpha3="1.0" 
+								shape="rect"
+								gradType="radial" gradBlend="normal"
+								ignoreObjects="true"/>						
+		
+					<!-- skew it one more time  -->
+					<imageOperations:ResizeImageOperation 
+								width="{_imagesize/4}" height="{_imagesize/2}"
+								ignoreObjects="true" hiQuality="false"/>
+		
+					<!-- save for later -->
+					<imageOperations:SetVar 
+								Name="crystalball_tiny2"/>
+		
+					<!-- back to the original -->
+					<imageOperations:GetVarImageOperation  
+								Name="crystalball_orig"/>
+																
+					<!-- tint the ball -->						
+					<imageOperations:GradientShapeImageOperation dynamicParamsCachePriority="7" 
+								x="{zeroR+_imagesize/2}" y="{zeroR+_imagesize/2}" 
+								color1="{_cpkrInner.liveColor}" color2="{_cpkrInner.liveColor}"
+								alpha0="0.05" alpha1="0.05" alpha2="1.0" alpha3="1.0"
+								pad1="0.1" pad2="0.15"
+								width="{_imagesize+2}" height="{_imagesize+2}" 
+								gradType="radial" gradBlend="normal" shape="ellipse"
+								ignoreObjects="true"/>
+								
+					<!-- retrieve the tiny versions -->					
+					<imageOperations:OverlayGetVarImageOperation 
+								Name="crystalball_tiny1" overlayAlpha="0.4" overlayBlendMode="add" 
+								xOffset="{_imagesize*0.50}" yOffset="{_imagesize*-0.10}"/>
+								
+					<imageOperations:OverlayGetVarImageOperation 
+								Name="crystalball_tiny2" overlayAlpha="0.4" overlayBlendMode="add" 
+								xOffset="{_imagesize*0.07}" yOffset="{_imagesize*0.18}"/>
+		
+					<!-- top highlight -->
+					<imageOperations:GradientShapeImageOperation 
+								x="{zeroR+_imagesize/2}" y="{zeroR+_imagesize*0.26}" 
+								width="{_imagesize*0.6}" height="{_imagesize/2}" 
+								xOffset="0" yOffset="{_imagesize/-4}" 
+								color1="{0xFFFFFF}" color2="{0xFFFFFF}"
+								alpha0="0.4" alpha1="0.4" alpha2="0" alpha3="0"
+								gradType="radial" gradBlend="normal" shape="ellipse"
+								ignoreObjects="true"/>
+								
+					<!-- bottom highlight -->
+					<imageOperations:GradientShapeImageOperation 
+								x="{zeroR+_imagesize/2}" y="{zeroR+_imagesize+1}" 
+								color1="{0xFFFFFF}" color2="{0xFFFFFF}"
+								alpha0="0.4" alpha1="0.4" alpha2="0" alpha3="0"
+								width="{_imagesize}" height="{_imagesize}" 
+								gradType="radial" gradBlend="normal" shape="ellipse"
+								ignoreObjects="true"/>
+		
+					<!-- central highlight --> 
+					<imageOperations:GradientShapeImageOperation 
+								x="{zeroR+_imagesize*0.6+_imageslop}" y="{zeroR+_imagesize*0.2+_imageslop}" 
+								color1="{0xFFFFFF}" color2="{0xFFFFFF}"
+								alpha0="0.3" alpha1="0.3" alpha2="0.0" alpha3="0.0" 
+								width="{_imagesize}" height="{_imagesize}" 
+								gradType="radial" gradBlend="normal" shape="ellipse"
+								ignoreObjects="true" />
+									
+					<!-- add a bit of a border-->				 
+					<imageOperations:BorderImageOperation dynamicParamsCachePriority="8"
+								outercolor="{0xff000000 + _cpkrOuter.liveColor}" innercolor="0" 
+								outerthickness="{_imageslop}" innerthickness="0"/>
+								
+					<!-- crop to circle and add a glow --> 
+					<imageOperations:GradientShapeImageOperation dynamicParamsCachePriority="9"
+								x="{zeroR+_imagesize/2+_imageslop}" y="{zeroR+_imagesize/2+_imageslop}" 
+								color1="{_cpkrGlow.liveColor}" color2="{_cpkrOuter.liveColor}"
+								alpha0="0.0" alpha1="1.0" alpha2="1.0" alpha3="1.0" 
+								pad1="{_imagesize/(_imagesize+_imageslop*1.5)* 0.995}"
+								pad2="0"
+								width="{_imagesize+_imageslop*1.5}" height="{_imagesize+_imageslop*1.5}" 
+								gradType="radial" gradBlend="normal" shape="rect"
+								ignoreObjects="true" />
+				
+				</imageOperations:children>		
+			</imageOperations:NestedImageOperation>
+		</imageOperations:children>		
+	</imageOperations:NestedImageOperation>
+</cnt:DraggableOverlayEffectCanvasBase>

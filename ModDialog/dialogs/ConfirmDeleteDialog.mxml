@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ConfirmDeleteDialogBase xmlns="dialogs.*" xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute"
+		width="352" height="350" defaultButton="{_btnCancel}" xmlns:ns1="*" styleName="DialogNoCloseBox" xmlns:controls="controls.*">
+	<mx:Button label="@Resource(key='_btnYes', bundle='ConfirmDeleteDialog')" id="_btnYes" bottom="5" styleName="BigButton" tabIndex="1" emphasized="true" height="25" leading="1" width="150" left="5"/>
+	<mx:Button label="@Resource(key='_btnCancel', bundle='ConfirmDeleteDialog')" id="_btnCancel" right="5" bottom="5" width="70" styleName="dialogButton" tabIndex="3" height="25" leading="1"/>
+	<mx:Text id="_txtHeader" y="3" height="70" fontSize="13" condenseWhite="true" selectable="false" right="5" left="37" htmlText="{GetHeader()}"/>
+	<mx:Grid left="5" right="5" bottom="35" top="70">
+		<mx:GridRow width="100%" height="100%">
+			<mx:GridItem width="100%" height="100%" horizontalAlign="center" verticalAlign="middle"
+					paddingTop="5" paddingRight="5" paddingBottom="5" paddingLeft="5"
+					borderStyle="solid" borderThickness="1" borderColor="#CCCCCC" backgroundColor="#f7f7f7" cornerRadius="5" clipContent="true">
+				<controls:ImagePreview id="_img" source="{_iinfo}" width="100%" height="100%" horizontalAlign="center" verticalAlign="middle"/>
+			</mx:GridItem>
+		</mx:GridRow>
+	</mx:Grid>
+	<controls:ImageVer x="5" y="3" source="@Embed('../theme/pngs/alertIcon.png')"/>
+</ConfirmDeleteDialogBase>

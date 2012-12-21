@@ -1,0 +1,154 @@
+URL: http://blog.oaxoa.com/
+Version: 0.5
+License: MIT
+License File: LICENSE
+
+Description:
+AS3 Class to mimic a real lightning or electric discharge
+
+
+Local Modifications:
+
+==== Lightning.as ====
+ - is PM_PRNG to support repeatable random numbers (with seeds)
+ - Performance improvements: reduce number of sprites generated
+ - Added jaggedAmmount parameter
+
+diff:
+133c130,136
+< 		public function Lightning(pcolor:uint=0xffffff, pthickness:Number=2, pgeneration:uint=0) {
+---
+> 		private var _rnd:PM_PRNG;
+> 		private var _mature:Boolean=false;
+> 		public var jaggedAmount:Number=0.0;
+> 		
+> 		public function Lightning(pcolor:uint=0xffffff, pthickness:Number=2, pgeneration:uint=0, rnd:PM_PRNG=null, mature:Boolean=false) {
+> 			_rnd = rnd ? rnd : new PM_PRNG();
+> 			_mature = mature;
+151c154,155
+< 			holder=new Sprite();
+---
+> //			holder=new Sprite();
+> 			holder = this;
+179c183
+< 			addChild(holder);
+---
+> //			addChild(holder);
+183,184c187,188
+< 			seed1=Math.random()*100;
+< 			seed2=Math.random()*100;
+---
+> 			seed1=_rnd.nextDouble()*100;
+> 			seed2=_rnd.nextDouble()*100;
+189a194,195
+> 			if (sbd)
+> 				sbd.dispose();
+190a197,198
+> 			if (bbd)
+> 				bbd.dispose();
+221,222c229,234
+< 			this.parent.removeChild(this);
+< 			delete this;
+---
+> 			if (parent)
+> 				parent.removeChild(this);
+> 			if (sbd)
+> 				sbd.dispose();
+> 			if (bbd)
+> 				bbd.dispose();
+231c243
+< 			if(generation<childrenMaxGenerations && childrenArray.length<childrenMaxCount) {
+---
+> 			if(generation<childrenMaxGenerations) {
+234,238c246,250
+< 					for(var i:uint=0; i<n; i++) {
+< 						var startStep:uint=Math.random()*steps;
+< 						var endStep:uint=Math.random()*steps;
+< 						while(endStep==startStep) endStep=Math.random()*steps;
+< 						var childAngle:Number=Math.random()*childrenAngleVariation-childrenAngleVariation/2;
+---
+> 					for(var i:uint=0; i<n && childrenArray.length<childrenMaxCount; i++) {
+> 						var startStep:uint=_rnd.nextDouble()*steps;
+> 						var endStep:uint=_rnd.nextDouble()*steps;
+> 						while(endStep==startStep) endStep=_rnd.nextDouble()*steps;
+> 						var childAngle:Number=_rnd.nextDouble()*childrenAngleVariation-childrenAngleVariation/2;
+240c252
+< 						var child:Lightning=new Lightning(color, thickness, generation+1);
+---
+> 						var child:Lightning=new Lightning(color, thickness, generation+1, _rnd, _mature);
+243c255
+< 						child.lifeSpan=Math.random()*(childrenLifeSpanMax-childrenLifeSpanMin)+childrenLifeSpanMin;
+---
+> 						child.lifeSpan=_rnd.nextDouble()*(childrenLifeSpanMax-childrenLifeSpanMin)+childrenLifeSpanMin;
+260a273
+> 						child.jaggedAmount=jaggedAmount;
+312c325
+< 						isVisible=Math.random() < isVisibleProbability ? true : false;
+---
+> 						isVisible=_rnd.nextDouble()< isVisibleProbability ? true : false;
+316,317c329,331
+< 				var generateChildRandom:Number=Math.random();
+< 				if(generateChildRandom<childrenProbability) generateChild();
+---
+> 				var childrenToGenerate:int = _mature ? childrenMaxCount - childrenArray.length : 1;
+> 				var generateChildRandom:Number=_rnd.nextDouble();
+> 				if(generateChildRandom<childrenProbability) generateChild(childrenToGenerate, _mature);
+329c343
+< 			holder.graphics.lineStyle(thickness, _color);
+---
+> 			holder.graphics.lineStyle(thickness, _color, 1.0);
+332a347,367
+> 			if (alphaFadeType == LightningFadeType.TIP_TO_END) {						
+> 				var w:Number = endX - startX;
+> 				var h:Number = endY - startY;
+> 
+> 				var cos:Number = Math.cos(angle);
+> 				var sin:Number = Math.sin(angle)
+> 				var w2:Number = Math.abs(w * cos) + Math.abs(h * sin);
+> 				var h2:Number = Math.abs(h * cos) + Math.abs(w * sin);
+> 				var max:Number = Math.max(w2, h2, Math.abs(w * cos), Math.abs(h * sin), Math.abs(h * cos), Math.abs(w * sin));
+> 				
+> 				// createGradientBox translates and rotates in the wrong order so we let it set up then take over.
+> 				var mat:Matrix = new Matrix();
+> 				mat.createGradientBox(max, max, 0, 0, 0);
+> 				mat.rotate(angle);
+> 				mat.translate(startX, startY);
+> 
+> 				holder.graphics.lineGradientStyle(GradientType.LINEAR, [ _color, _color, _color ], 
+> 						[ absolutePosition, absolutePosition / 2, 0.0 ], [ 0, 179, 255 ], mat);
+> 			}
+> 			var lastThickness:Number = thickness;
+> 
+347,348c382,390
+< 				if(alphaFadeType==LightningFadeType.TIP_TO_END || thicknessFadeType==LightningFadeType.TIP_TO_END) {
+< 					holder.graphics.lineStyle(int(relThickness), _color, relAlpha);
+---
+> 				if(thicknessFadeType==LightningFadeType.TIP_TO_END) {
+> 					// Every time the lineStyle is changed the line segments show an ugly join.
+> 					// This reduces the frequency of lineStyle changes.
+> 					if (int(lastThickness) != int(relThickness)) {
+> 						holder.graphics.lineStyle(int(relThickness), _color, 1.0);
+> 						holder.graphics.lineGradientStyle(GradientType.LINEAR, [ _color, _color, _color ], 
+> 								[ absolutePosition, absolutePosition / 2, 0.0 ], [ 0, 179, 255 ], mat);
+> 						lastThickness = relThickness;
+> 					}
+358,359c400,407
+< 				tx=startX+dx/(steps-1)*i+soffx+boffx;
+< 				ty=startY+dy/(steps-1)*i-soffy-boffy;
+---
+> 				var dxs:Number = dx/(steps-1);
+> 				var dys:Number = dy/(steps-1);
+> 				tx=startX+dxs*i+soffx+boffx;
+> 				ty=startY+dys*i-soffy-boffy;
+> 				if (jaggedAmount != 0.0) {
+> 					tx += _rnd.nextDoubleRange(-dxs, dxs) * jaggedAmount;
+> 					ty += _rnd.nextDoubleRange(-dys, dys) * jaggedAmount;
+> 				}
+424a473
+> 			if (glow) {
+426a476
+> 			}
+504c554
+< 				o.childAngle=Math.random()*arg-arg/2;
+---
+> 				o.childAngle=_rnd.nextDouble()*arg-arg/2;

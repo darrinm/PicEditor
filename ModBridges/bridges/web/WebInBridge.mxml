@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WebInBridgeBase xmlns="bridges.web.*" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:url="urlkit.rules.*" xmlns:flash="flash.filters.*"
+		width="100%" height="100%" horizontalScrollPolicy="off" verticalScrollPolicy="off" xmlns:bridges="bridges.*" xmlns:ctrl="controls.*">
+		
+	<url:UrlRuleSet id="urls" type="any">
+		<url:UrlValueRule id="_uvrUrl" urlFormat=";url=*" urlPattern=";url=(.*)"/>
+	</url:UrlRuleSet>
+	
+	<ctrl:ImageVer source="@Embed('/assets/bitmaps/page_blueGrad.png')" left="0" top="0" width="100%" scaleContent="true" maintainAspectRatio="false" includeInLayout="false"/>
+	<mx:VBox verticalGap="0" height="100%" width="100%" paddingTop="10">
+		<mx:HBox top="17" paddingLeft="10" paddingRight="10" paddingTop="5" verticalAlign="top" horizontalGap="5" width="100%">
+			<mx:Label text="@Resource(key='Label_1', bundle='WebInBridge')" styleName="publishForm" fontSize="15" color="#000000" paddingTop="3">
+				<mx:filters>
+					<flash:DropShadowFilter angle="45" blurX="3" blurY="3" distance="1" color="0x000000" alpha=".25" quality="3" />
+				</mx:filters>
+			</mx:Label>
+			<!-- input field and about text -->
+			<mx:VBox width="100%" verticalGap="2">
+				<bridges:URLTextInput width="100%" id="_tiURL" height="26" styleName="publishFormField"/>
+				<mx:Text text="@Resource(key='Text_1', bundle='WebInBridge')"	paddingBottom="8" paddingLeft="-2"
+					fontSize="13" width="100%" leading="0"/>
+			</mx:VBox>
+			<mx:Button label="@Resource(key='_btnOpen', bundle='WebInBridge')" id="_btnOpen" width="100" height="26" styleName="BigButton"/>
+		</mx:HBox>
+		<bridges:InBridgeTileList height="100%" left="0" top="80" bottom="0" right="0" id="_tlst" width="100%"/>
+	</mx:VBox>
+</WebInBridgeBase>

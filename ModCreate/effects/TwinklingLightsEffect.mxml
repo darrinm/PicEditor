@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cnt:EffectCanvas xmlns="effects.*" xmlns:cnt="containers.*" xmlns:ctrl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="634" xmlns:local="*" 
+	xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*"
+	xmlns:flash.geom="flash.geom.*" premium="false"
+	 urlid="TwinklingLights">
+	<mx:Script>
+		<![CDATA[
+			import imagine.imageOperations.paintMask.GlitterBrush;
+			import imagine.imageOperations.paintMask.Brush;
+			import util.LocUtil;
+		]]>
+	</mx:Script>
+
+	<mx:Array id="_resetValues">
+		<local:StoredValue target="_sldrBlur1.value"/>
+		<local:StoredValue target="_sldrFilter.value"/>
+		<local:StoredValue target="_sldrDefinition.value"/>
+		<local:StoredValue target="_sldrFade.value"/>
+	</mx:Array>
+		
+	<ctrl:EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='TwinklingLightsEffect')" strAuthor="@Resource(key='byPicnik', bundle='EffectCanvas')" strImageSource="../graphics/effects/Misc/glitter.png" premium="{premium}" newEffect="true"/>
+	<mx:String id="_strHelpText">{Resource.getString('GlitterEffect', '_strHelpText')}</mx:String>
+
+	<mx:VBox x="9" y="70" verticalGap="0">
+		<mx:HBox width="194" paddingBottom="-5" paddingTop="3">
+			<mx:Label text="@Resource(key='blur1', bundle='TwinklingLightsEffect')" styleName="sliderTitle"/>
+			<mx:Label text="{Math.floor(_sldrBlur1.value)}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<ctrl:HSliderPlus width="191" minimum="0" maximum="100" value="75" id="_sldrBlur1" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+
+		<mx:HBox width="194" paddingBottom="-5" paddingTop="3">
+			<mx:Label text="@Resource(key='filter', bundle='TwinklingLightsEffect')" styleName="sliderTitle"/>
+			<mx:Label text="{Math.floor(_sldrFilter.value)}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<ctrl:HSliderPlus width="191" minimum="0" maximum="100" value="30" id="_sldrFilter" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+			
+		<mx:HBox width="194" paddingBottom="-5" paddingTop="3">
+			<mx:Label text="@Resource(key='definition', bundle='TwinklingLightsEffect')" styleName="sliderTitle"/>
+			<mx:Label text="{Math.floor(_sldrDefinition.value)}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<ctrl:HSliderPlus width="191" minimum="0" maximum="100" value="80" id="_sldrDefinition" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+		
+			<!-- add this back in for a rainbow effect
+		<mx:HBox width="194" paddingBottom="-5" paddingTop="3">
+			<mx:Label text="@Resource(key='rainbows', bundle='TwinklingLightsEffect')" styleName="sliderTitle"/>
+			<mx:Label text="{Math.floor(_sldrRainbow.value)}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<ctrl:HSliderPlus width="191" minimum="0" maximum="100" value="50" id="_sldrRainbow" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+					 -->
+		<mx:HBox width="194" paddingBottom="-5" paddingTop="3">
+			<mx:Label text="@Resource(key='Label_2', bundle='OrtonEffect')" styleName="sliderTitle"/>
+			<mx:Label text="{LocUtil.pct((_sldrFade.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<ctrl:HSliderPlus width="191" minimum="0" maximum="100" value="0" id="_sldrFade" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+
+		<ctrl:ApplyCancelEffectButtons premium="{premium}" addBoxPadding="true"/>
+	</mx:VBox>
+	
+	<mx:Script>
+		<![CDATA[
+			[Bindable] private var aobGradientArray:Array = 
+				[{color:{h:0,s:0,v:0}, position:0},
+				 {color:{h:180,s:50,v:25}, position:25},
+				 {color:{h:359,s:75,v:50}, position:50},
+				 {color:{h:180,s:100,v:75}, position:75},
+				 {color:{h:0,s:100,v:100}, position:100},
+				 {color:{h:180,s:100,v:125}, position:125},
+				 {color:{h:359,s:0,v:100}, position:255}];
+				 
+		]]>
+	</mx:Script>
+	
+	<imageOperations:NestedImageOperation id="_op" BlendAlpha="{1-(_sldrFade.value/100)}" dynamicAlphaCachePriority="10">
+		<imageOperations:children>
+			<imageOperations:NestedImageOperation BlendMode="screen">
+				<imageOperations:children>
+					<imageOperations:AdjustCurvesImageOperation MasterCurve="{[{x:0, y:0}, {x:253-_sldrFilter.value/3, y:0}, {x:254-_sldrFilter.value/3, y:254-_sldrFilter.value/3}, {x:255, y:255}]}" dynamicParamsCachePriority="4" />
+					<imageOperations:SetVar Name="ChristmasGlow_brights"/>
+					<imageOperations:BlurImageOperation xblur="{imagewidth/1000*_sldrBlur1.value/4+50}" quality="3" BlendMode="lighten" dynamicParamsCachePriority="3"/>
+					<imageOperations:NestedImageOperation BlendMode="screen">
+						<imageOperations:children>
+							<imageOperations:GetVarImageOperation Name="ChristmasGlow_brights"/>
+							<imageOperations:BlurImageOperation yblur="{imagewidth/1000*_sldrBlur1.value/4+50}" quality="3" BlendMode="lighten"/>
+						</imageOperations:children>
+					</imageOperations:NestedImageOperation>
+					<imageOperations:SharpenImageOperation sharpness="{_sldrDefinition.value/2}" dynamicParamsCachePriority="2"/>
+					<!-- add this back in to have a rainbow effect
+					<imageOperations:NestedImageOperation BlendMode="lighten" BlendAlpha="{_sldrRainbow.value/100}">
+						<imageOperations:children>
+							<!- - heat map rainbow	
+							<imageOperations:BWImageOperation />					
+							<imageOperations:HSVGradientMapImageOperation hueOffset="0" gradientObjectArray="{aobGradientArray}" dynamicParamsCachePriority="5"/>									
+						</imageOperations:children>
+					</imageOperations:NestedImageOperation>
+					-->
+				</imageOperations:children>
+			</imageOperations:NestedImageOperation>
+		</imageOperations:children>
+	</imageOperations:NestedImageOperation>
+
+</cnt:EffectCanvas>
+

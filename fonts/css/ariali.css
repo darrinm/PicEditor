@@ -1,0 +1,23 @@
+/*
+ * Copyright 2011 Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an Apache 2.0 License.
+ * See the COPYING file for details.
+ */
+
+
+@font-face {
+    src:local("Arial");
+    font-family: "pkariali";
+    unicodeRange: U+0000-U+00FF, U+0301-U+0301, U+0400-U+045F;
+    flashType: true;
+    fontWeight: normal;
+    fontStyle: italic;
+}
+
+.pkariali
+{
+    font-family: "pkariali";
+    fontWeight: normal;
+    fontStyle: italic;
+}

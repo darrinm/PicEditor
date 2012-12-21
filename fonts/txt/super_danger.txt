@@ -1,0 +1,12 @@
+fileName: super_danger.ttf
+name: super danger
+subfamilyDisplayName: Normal
+fullName: super danger
+displayName: super danger
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 0
+pkName: pksuper0danger
+authorName: Gyom.Typo
+authorUrl: http://gyom.nebullus.com/

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<BlueCloudsDialog xmlns="containers.*" xmlns:controls="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="400" xmlns:filters="flash.filters.*">
+	<filters:BlurFilter id="_efDOFBlur" blurX="3" blurY="3" quality="3"/>
+		<!-- dandy lions -->
+		<controls:ImageEx bundled="true" source="../graphics/dandelions/dandelion1.png" bottom="0" left="35" alpha=".3" filters="{[_efDOFBlur]}"/>
+		<controls:ImageEx bundled="true" source="../graphics/dandelions/dandelion2.png" bottom="0" right="85" alpha=".4" filters="{[_efDOFBlur]}"/>
+		<controls:ImageEx bundled="true" source="../graphics/dandelions/dandelion4.png" bottom="0" right="45" alpha=".3" filters="{[_efDOFBlur]}"/>
+	<mx:Script>
+		<![CDATA[
+			import containers.ResizingDialog;
+			import mx.core.UIComponent;
+			import bridges.mycomputer.MyComputerInBridgeBase;
+			import mx.utils.StringUtil;
+			import util.LocUtil;
+			import mx.resources.ResourceBundle;
+			
+			[Bindable] public var tipPath:String = '';
+
+	   		[Bindable] [ResourceBundle("UserMessageDialog")] private var rb:ResourceBundle;
+	   		
+			public static function Show(uicParent:UIComponent, msgName:String): UserMessageDialog {
+				var dlg:UserMessageDialog = new UserMessageDialog();
+				dlg.tipPath = "tips.xml/" + msgName;
+				ResizingDialog.Show(dlg, uicParent);
+				return dlg;
+			}
+			
+		]]>
+	</mx:Script>
+	<controls:TipRenderer id="_tr" tipPath="{tipPath}" width="385" close="Hide()"
+			verticalGap="0" verticalScrollPolicy="off"
+			paddingLeft="12" paddingRight="12" paddingTop="8" paddingBottom="14"
+			horizontalAlign="center">
+	</controls:TipRenderer>
+</BlueCloudsDialog>

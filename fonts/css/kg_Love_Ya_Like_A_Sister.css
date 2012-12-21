@@ -1,0 +1,23 @@
+/*
+ * Copyright 2011 Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an Apache 2.0 License.
+ * See the COPYING file for details.
+ */
+
+
+@font-face {
+    src:local("Love Ya Like A Sister");
+    font-family: "pkkg0Love0Ya0Like0A0Sister";
+    unicodeRange: U+0000-U+00FF;
+    flashType: true;
+    fontWeight: normal;
+    fontStyle: normal;
+}
+
+.pkkg0Love0Ya0Like0A0Sister
+{
+    font-family: "pkkg0Love0Ya0Like0A0Sister";
+    fontWeight: normal;
+    fontStyle: normal;
+}

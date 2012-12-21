@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<bridges:BridgeItemBase xmlns="bridges.history.*" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:bridges="bridges.*" 
+		horizontalAlign="center" verticalAlign="middle" currentState="NotSelected" width="280" height="180"
+		initialize="OnInitialize()" paddingLeft="8" direction="horizontal" minWidth="280" xmlns:controls="controls.*" xmlns:filters="flash.filters.*">
+    <bridges:states>
+        <mx:State name="Selected">
+            <mx:SetStyle target="{_tiName}" name="backgroundAlpha" value="1"/>
+            <mx:SetStyle name="backgroundColor" value="#bbe57f"/>
+            <mx:SetProperty target="{_btnMenu}" name="alpha" value="1.0"/>
+        </mx:State>
+        <mx:State name="NotSelected">
+            <mx:SetProperty target="{_btnMenu}" name="alpha" value="0.0"/>
+        </mx:State>
+        <mx:State name="Highlight">
+            <mx:SetStyle name="backgroundColor" value="#d6efb2"/>
+            <mx:SetProperty target="{_btnMenu}" name="alpha" value="1.0"/>
+        </mx:State>
+        <mx:State name="ReadOnly">
+			<mx:SetProperty target="{_vbxThumbnail}" name="filters" value="{[_fiInnerShadow,_fiDropShadow]}"/>
+			<mx:SetProperty target="{_boxThumbnail}" name="alpha" value="1.0"/>
+			<mx:SetProperty target="{_imgFavIcon}" name="alpha" value="1.0"/>
+			<mx:SetProperty target="{_imgDivider}" name="alpha" value="1.0"/>
+			<mx:SetStyle target="{_lbSavedOn}" name="color" value="#999999"/>
+			<mx:SetStyle target="{_lbDay}" name="color" value="#000000"/>
+			<mx:SetStyle target="{_lbMonthDate}" name="color" value="#333333"/>
+			<mx:SetStyle target="{_lbTime}" name="color" value="#333333"/>
+        </mx:State>
+        <mx:State name="Disabled">
+			<mx:SetProperty target="{_vbxThumbnail}" name="filters" value="{[_fiInnerShadow,_fiDropShadowLight]}"/>
+			<mx:SetProperty target="{_boxThumbnail}" name="alpha" value="0.4"/>
+			<mx:SetProperty target="{_imgFavIcon}" name="alpha" value="0.4"/>
+			<mx:SetProperty target="{_imgDivider}" name="alpha" value="0.5"/>
+			<mx:SetStyle target="{_lbSavedOn}" name="color" value="#d9d9d9"/>
+			<mx:SetStyle target="{_lbDay}" name="color" value="#808080"/>
+			<mx:SetStyle target="{_lbMonthDate}" name="color" value="#b3b3b3"/>
+			<mx:SetStyle target="{_lbTime}" name="color" value="#b3b3b3"/>
+        </mx:State>
+        <mx:State name="SelectedReadOnly" basedOn="ReadOnly">
+            <mx:SetStyle name="backgroundColor" value="#bbe57f"/>
+            <mx:SetProperty target="{_btnMenu}" name="alpha" value="1.0"/>
+        </mx:State>
+        <mx:State name="NotSelectedReadOnly" basedOn="ReadOnly">
+            <mx:SetProperty target="{_btnMenu}" name="alpha" value="0.0"/>
+        </mx:State>
+        <mx:State name="HighlightReadOnly" basedOn="ReadOnly">
+            <mx:SetStyle name="backgroundColor" value="#d6efb2"/>
+            <mx:SetProperty target="{_btnMenu}" name="alpha" value="1.0"/>
+        </mx:State>
+        
+        <mx:State name="DisabledSelectedReadOnly" basedOn="Disabled">
+            <mx:SetStyle name="backgroundColor" value="#bbe57f"/>
+            <mx:SetProperty target="{_btnMenu}" name="alpha" value="1.0"/>
+        </mx:State>
+        <mx:State name="DisabledNotSelectedReadOnly" basedOn="Disabled">
+            <mx:SetProperty target="{_btnMenu}" name="alpha" value="0.0"/>
+        </mx:State>
+        <mx:State name="DisabledHighlightReadOnly" basedOn="Disabled">
+            <mx:SetStyle name="backgroundColor" value="#d6efb2"/>
+            <mx:SetProperty target="{_btnMenu}" name="alpha" value="1.0"/>
+        </mx:State>
+    </bridges:states>
+    <mx:Script>
+    	<![CDATA[
+    		import mx.formatters.DateFormatter;
+    		import util.LocUtil;
+    		import picnik.util.LocaleInfo;
+    	]]>
+    </mx:Script>
+    <!-- thumbnail fade in -->
+    <mx:Fade alphaFrom="0" alphaTo="1" duration="150" id="_efFadeIn"/>
+    <!-- filters -->
+    <filters:DropShadowFilter id="_fiInnerShadow" alpha=".10" blurX="1" blurY="1" angle="-90" distance="1" quality="3" inner="true"/>
+    <filters:DropShadowFilter id="_fiDropShadow" alpha=".4" blurX="4" blurY="4" angle="90" distance="1" quality="3"/>
+    <filters:DropShadowFilter id="_fiDropShadowLight" alpha=".2" blurX="3" blurY="3" angle="90" distance="1" quality="3"/>
+    <!-- main box -->
+    <mx:HBox id="_vbxThumbnail" width="270" height="160" horizontalAlign="center" verticalAlign="middle" horizontalGap="0"
+    		backgroundColor="#FFFFFF" backgroundAlpha="1.0" cornerRadius="8"
+    		borderStyle="solid" borderThickness="0"
+    		filters="{[_fiInnerShadow,_fiDropShadow]}">
+        <mx:Box id="_boxThumbnail" width="160" height="160" horizontalAlign="center" verticalAlign="middle">
+	        <ctrl:ImageVer id="_imgThumbnail" maxHeight="140" maxWidth="140" horizontalAlign="center" verticalAlign="middle"
+	        	source="{data.thumbnailurl}" completeEffect="{_efFadeIn}" toolTip="{data.title}"/>
+        </mx:Box>
+        <ctrl:ImageVer id="_imgDivider" source="@Embed('/assets/bitmaps/historyVertRule160.png')" />
+        <mx:VBox id="_hbxCaption" width="100%" height="100%" verticalGap="0" verticalAlign="bottom"
+        		paddingTop="10" paddingBottom="7" paddingLeft="6">
+			<mx:Box paddingLeft="3">
+				<ctrl:ImageVer id="_imgFavIcon" source="{HistoryInBridgeBase.GetServiceFavIconUrl(data.history_serviceid)}"
+					toolTip="{HistoryInBridgeBase.GetServiceName(data.history_serviceid)}"/>
+			</mx:Box>
+            <mx:VBox verticalGap="-6" paddingTop="5">
+            	<controls:LabelPlus id="_lbSavedOn" text="{HistoryInBridgeBase.GetSavedOnString(data.history_serviceid)}" fontSize="11" 
+            			fontWeight="{LocaleInfo.BoldWeight()}" color="#999999" paddingBottom="1"/>
+            	<controls:LabelPlus id="_lbDay" text="{LocUtil.FormatNumberAsDate(data.last_update, 'EEEE')}" fontSize="14" 
+            			fontWeight="{LocaleInfo.BoldWeight()}" color="#000000"/>
+            	<controls:LabelPlus id="_lbMonthDate" text="{LocUtil.FormatNumberAsDate(data.last_update, 'MMMM D')}" fontSize="12" 
+            			fontWeight="{LocaleInfo.BoldWeight()}" color="#333333"/>
+            	<controls:LabelPlus id="_lbTime" text="{LocUtil.fileTime(new Date(data.last_update)) + ' ' + LocUtil.FormatNumberAsDate(data.last_update, 'A').toLowerCase()}" 
+            			fontSize="12" fontWeight="{LocaleInfo.BoldWeight()}" color="#333333"/>
+			</mx:VBox>
+            <!-- hidden for now -->
+            <controls:LabelPlus id="_lbService" text="{HistoryInBridgeBase.GetServiceName(data.history_serviceid)}" width="145" height="22" 
+                textAlign="left" fontSize="12" fontWeight="{LocaleInfo.BoldWeight()}" color="#4d4d4d"
+                paddingLeft="5" paddingRight="5" styleName="deviceFonts"
+                visible="false" includeInLayout="false"/>
+			<mx:Box paddingLeft="3"><mx:Button id="_btnMenu" width="32" height="22" icon="@Embed('/theme/pngs/thumbMenuIcon.png')"/></mx:Box>
+	    </mx:VBox>
+    </mx:HBox>
+</bridges:BridgeItemBase>

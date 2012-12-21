@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ExpandingVBox xmlns="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" expanded="true" xmlns:sectionList="containers.sectionList.*"
+		width="100%" verticalGap="0" xmlns:shapeList="controls.shapeList.*">
+<mx:Number id="numShapes">NaN</mx:Number>
+<mx:Boolean id="showHeader">true</mx:Boolean>
+<mx:Script>
+	<![CDATA[
+		import mx.utils.ObjectProxy;
+		[Bindable] public var _obpHeader:ObjectProxy = new ObjectProxy();
+		[Bindable] public var shapeData:XML;
+		public override function set data(value:Object):void {
+			super.data = value;
+			if (value.hasOwnProperty('@numShapes')) numShapes = Number(value.@numShapes);
+			if (value.hasOwnProperty('@title'))
+				_obpHeader.title = _obpHeader.title1 = String(value.@title);
+			else
+				_obpHeader.title = _obpHeader.title1 = "Untitled";
+			
+			var strPremiumKey:String = PicnikBase.app.freemiumModel ? "@flickrPremium" : "@picnikPremium";				
+			if (value.hasOwnProperty(strPremiumKey))
+				_obpHeader.premium = String(value[strPremiumKey]) == 'true';
+			else 
+				_obpHeader.premium = false;
+		}
+	]]>
+</mx:Script>
+	<shapeList:SubGroupHeader data="{_obpHeader}" id="_hdr" visible="{showHeader}" includeInLayout="{showHeader}" expanded="{expanded}"/>
+	<shapeList:ShapeTile numShapes="{numShapes}" width="100%" id="_shptl" verticalScrollPolicy="off" 
+		dataProvider="{shapeData}" itemRenderer="controls.UIDocumentObjectFactory"/>
+</ExpandingVBox>

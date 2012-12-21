@@ -1,0 +1,12 @@
+fileName: tm_linear.ttf
+name: Linear
+subfamilyDisplayName: Regular
+fullName: Linear
+displayName: Linear
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 4
+pkName: pktm0linear
+authorName: Tom Murphy
+authorUrl: http://fonts.tom7.com/

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameEffectBase xmlns="effects.*" xmlns:cnt="containers.*" xmlns:ctrl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="193"
+	xmlns:local="*" premium="true" xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*" xmlns:objectOperations="imagine.objectOperations.*"
+	urlid="frostframe">
+	<mx:Script>
+		<![CDATA[
+			import util.LocUtil;
+		]]>
+	</mx:Script>
+	
+	<mx:XML xmlns="" id="_xmlFrame">
+	<frames>
+		<backgroundFilters>
+			<DropShadowFilter alpha="1" angle="45" 
+					blurX="{Math.min(imagewidth, imageheight) * 100/768}" 
+					blurY="{Math.min(imagewidth, imageheight) * 100/768}" 
+					color="0" distance="0" quality="3" strength="2" inner="true"/>
+		</backgroundFilters>
+
+		<frame cornerRounding="0.567"  
+				density="2" 
+				size="0.18" 
+				inset="0.53" 
+				alpha="0.39"
+				rotationJitter="1" 
+				insetJitter="0.1" insetJitterOrder="1"
+				positionJitter="0.1" positionJitterOrder="2"
+				fillEndToEnd="false"
+				>
+	        <Clipart url="shapes/FrostBrushes/SS-frost_2.swf" cWidth="517" cHeight="391"/>
+	        <Clipart url="shapes/FrostBrushes/SS-frost_38.swf" cWidth="488" cHeight="320"/>
+	        <Clipart url="shapes/FrostBrushes/SS-frost_39.swf" cWidth="276" cHeight="733"/>
+	        <Clipart url="shapes/FrostBrushes/SS-frost_41.swf" cWidth="432" cHeight="288"/>
+	        <Clipart url="shapes/FrostBrushes/SS-frost_42.swf" cWidth="491" cHeight="504"/>
+	        <Clipart url="shapes/FrostBrushes/SS-frost_43.swf" cWidth="484" cHeight="421"/>
+	        <Clipart url="shapes/FrostBrushes/SS-frost_44.swf" cWidth="550" cHeight="301"/>
+	        <Clipart url="shapes/FrostBrushes/SS-frost_45.swf" cWidth="504" cHeight="416"/>
+	        <Clipart url="shapes/FrostBrushes/SS-frost_47.swf" cWidth="272" cHeight="256"/>
+	        <Clipart url="shapes/FrostBrushes/SS-frost_48.swf" cWidth="176" cHeight="168"/>
+	        <Clipart url="shapes/FrostBrushes/SS-frost_49.swf" cWidth="256" cHeight="256"/>
+		</frame>
+		<frame cornerRounding="0.567"  
+				density="3" 
+				size="0.18" 
+				inset="0.185" 
+				alpha="0.84"
+				cornerFill="1.5" 
+				rotationJitter="1" fillEndToEnd="false">
+	        <Clipart url="shapes/FrostBrushes/SS-frost_2.swf" cWidth="517" cHeight="391"/>
+	        <Clipart url="shapes/FrostBrushes/SS-frost_38.swf" cWidth="488" cHeight="320"/>
+	        <Clipart url="shapes/FrostBrushes/SS-frost_39.swf" cWidth="276" cHeight="733"/>
+	        <Clipart url="shapes/FrostBrushes/SS-frost_41.swf" cWidth="432" cHeight="288"/>
+	        <Clipart url="shapes/FrostBrushes/SS-frost_42.swf" cWidth="491" cHeight="504"/>
+	        <Clipart url="shapes/FrostBrushes/SS-frost_43.swf" cWidth="484" cHeight="421"/>
+	        <Clipart url="shapes/FrostBrushes/SS-frost_44.swf" cWidth="550" cHeight="301"/>
+	        <Clipart url="shapes/FrostBrushes/SS-frost_45.swf" cWidth="504" cHeight="416"/>
+	        <Clipart url="shapes/FrostBrushes/SS-frost_47.swf" cWidth="272" cHeight="256"/>
+	        <Clipart url="shapes/FrostBrushes/SS-frost_48.swf" cWidth="176" cHeight="168"/>
+	        <Clipart url="shapes/FrostBrushes/SS-frost_49.swf" cWidth="256" cHeight="256"/>
+		</frame>
+	</frames>
+	</mx:XML>
+	
+	<mx:Array id="_resetValues">
+		<local:StoredValue target="_chkEffect.selected"/>
+	</mx:Array>
+	
+	<ctrl:EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='FrostFrameEffect')"
+		strAuthor="@Resource(key='_efbtn_1', bundle='FrostFrameEffect')" strImageSource="../graphics/effects/Holiday/frost.jpg"
+		premium="{premium}"/>
+	<mx:String id="_strHelpText">{Resource.getString('FrostFrameEffect', '_strHelpText')}</mx:String>
+
+	<mx:VBox x="0" y="72" verticalGap="0" paddingLeft="10" paddingRight="10">
+		<ctrl:BlushColorPalette id="_cpkr" colors="{[0xffffff, 0xecf1f4, 0xd0dce5, 0xb3c7d6, 0xa3bbcc]}" selectedColorIndex="{zeroR}"
+			change="frameColor = _cpkr.color; OnFramePropsChanged();"/>
+		<mx:Box width="100%" horizontalAlign="center" paddingTop="4">
+			<ctrl:ResizingCheckbox id="_chkEffect" label="@Resource(key='effectCheckbox', bundle='SnowflakeFrameEffect')" selected="true" change="OnOpChange()"/>
+		</mx:Box>
+		<ctrl:ApplyCancelEffectButtons addBoxPadding="true" premium="{premium}"/>
+	</mx:VBox>
+
+
+</FrameEffectBase>

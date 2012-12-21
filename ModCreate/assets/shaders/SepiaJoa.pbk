@@ -1,0 +1,24 @@
+<languageVersion: 1.0;>
+kernel SepiaJoa
+<   namespace: "popforge::ImageProcessing";
+    vendor: "joa ebert";
+    version: 1;
+    description: "a real sepia using y transform";
+>
+{
+    input image3 source;
+    output pixel3 result;
+    
+    void evaluatePixel()
+    {
+        pixel3 color = sampleLinear( source, outCoord() );
+        float y = 0.299 * color.r + 0.587 * color.g + 0.114 * color.b;
+        
+        // use min/max instead of if's
+        float r = min(1.0,y + 0.19);
+        float g = max(0.0,y - 0.055);
+        float b = max(0.0,y - 0.22);
+        
+        result = pixel3(r,g,b);
+    }
+}

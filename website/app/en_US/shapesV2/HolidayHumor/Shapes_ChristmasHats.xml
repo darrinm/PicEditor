@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/xmas_santahats.png" flickrPremium="false" id="ChristmasHats" numShapes="0" picnikPremium="false" previewUrls="60|48|../clipart/bundles/HolidayHumorArea_groupPreviews_ChristmasHats.png?ver=9f88d5fb" title="Christmas Hats">
+	<ShapeCategory flickrPremium="false" id="FreeChristmasHats" numShapes="8" picnikPremium="false" title="Free">
+		<Shapes>
+			<Clipart cHeight="125" cWidth="97" flickrPremium="false" picnikPremium="false" previewUrl="40|40|0|../clipart/bundles/HolidayHumorArea_shapes_ChristmasHats.png?ver=faef8fd4" url="shapes/xmas_cap1.swf"/>
+			<Clipart cHeight="132" cWidth="94" flickrPremium="false" picnikPremium="false" previewUrl="40|40|1|../clipart/bundles/HolidayHumorArea_shapes_ChristmasHats.png?ver=faef8fd4" url="shapes/xmas_cap2.swf"/>
+			<Clipart cHeight="95" cWidth="107" flickrPremium="false" picnikPremium="false" previewUrl="40|40|2|../clipart/bundles/HolidayHumorArea_shapes_ChristmasHats.png?ver=faef8fd4" url="shapes/xmas_cap3.swf"/>
+			<Clipart cHeight="85" cWidth="91" flickrPremium="false" picnikPremium="false" previewUrl="40|40|3|../clipart/bundles/HolidayHumorArea_shapes_ChristmasHats.png?ver=faef8fd4" url="shapes/xmas_cap4.swf"/>
+			<Clipart cHeight="137" cWidth="98" flickrPremium="false" picnikPremium="false" previewUrl="40|40|4|../clipart/bundles/HolidayHumorArea_shapes_ChristmasHats.png?ver=faef8fd4" url="shapes/xmas_cap5.swf"/>
+			<Clipart cHeight="52" cWidth="91" flickrPremium="false" picnikPremium="false" previewUrl="40|40|5|../clipart/bundles/HolidayHumorArea_shapes_ChristmasHats.png?ver=faef8fd4" url="shapes/xmas_cap6.swf"/>
+			<Clipart cHeight="149" cWidth="160" flickrPremium="false" picnikPremium="false" previewUrl="40|40|6|../clipart/bundles/HolidayHumorArea_shapes_ChristmasHats.png?ver=faef8fd4" url="shapes/xmas_cap7.swf"/>
+			<Clipart cHeight="236" cWidth="295" flickrPremium="false" picnikPremium="false" previewUrl="40|40|7|../clipart/bundles/HolidayHumorArea_shapes_ChristmasHats.png?ver=faef8fd4" url="shapes/xmas_cap8.swf"/>
+		</Shapes>
+	</ShapeCategory>
+	<ShapeCategory flickrPremium="true" id="PremiumChristmasHats" numShapes="4" picnikPremium="true" title="Premium">
+		<Shapes>
+			<Clipart cHeight="1368" cWidth="1205" flickrPremium="true" isVector="false" picnikPremium="true" previewUrl="40|40|8|../clipart/bundles/HolidayHumorArea_shapes_ChristmasHats.png?ver=faef8fd4" url="shapes/santa_hats/x_santa_hat3.swf"/>
+			<Clipart cHeight="1072" cWidth="1374" flickrPremium="true" isVector="false" picnikPremium="true" previewUrl="40|40|9|../clipart/bundles/HolidayHumorArea_shapes_ChristmasHats.png?ver=faef8fd4" url="shapes/santa_hats/x_misc-santa_hat.swf"/>
+			<Clipart cHeight="1121" cWidth="1469" flickrPremium="true" isVector="false" picnikPremium="true" previewUrl="40|40|10|../clipart/bundles/HolidayHumorArea_shapes_ChristmasHats.png?ver=faef8fd4" url="shapes/santa_hats/x_santa_hat2.swf"/>
+			<Clipart cHeight="1118" cWidth="1474" flickrPremium="true" isVector="false" picnikPremium="true" previewUrl="40|40|11|../clipart/bundles/HolidayHumorArea_shapes_ChristmasHats.png?ver=faef8fd4" url="shapes/santa_hats/x_santa_hat1.swf"/>
+		</Shapes>
+	</ShapeCategory>
+</ShapeCategory>

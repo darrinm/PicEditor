@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PaintOnEffectBase xmlns="effects.*" xmlns:cnt="containers.*" xmlns:ctrl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="189"
+	premium="true" 
+	xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*" urlid="SunlessTan">
+<mx:Script>
+	<![CDATA[
+		import overlays.helpers.RGBColor;
+		import util.BlendModeMath;
+		
+		private static const knHueMin:Number = 9.5;
+		private static const knHueMax:Number = 41;
+		
+		private static function GetColors(): Array {
+			var anColors:Array = [];
+			for (var i:Number = 0; i < 5; i++)
+				anColors.push(RGBColor.HSVtoUint(knHueMin + (knHueMax - knHueMin) * (i/4),72,48));
+			return anColors;
+		}
+	]]>
+</mx:Script>
+	
+	<ctrl:EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='SprayTanEffect')" strAuthor="@Resource(key='byPicnik', bundle='EffectCanvas')"
+		strImageSource="../graphics/effects/Touchup/spray_tan.jpg" premium="{premium}"/>
+		
+	<mx:String id="_strHelpText">{Resource.getString('SprayTanEffect', '_strHelpText')}</mx:String>
+	
+	<mx:VBox x="8" y="74" verticalGap="0">
+
+		<!-- Spray on color -->
+		<ctrl:BlushColorPalette id="_clrsw" wet="true" colors="{GetColors()}" selectedColorIndex="{zeroR + 1}" change="OnOpChange()"/>
+		<mx:Spacer height="2"/>
+    	<!-- brush size / eraser toggle -->
+    	<ctrl:BrushSizeAndEraserButton id="_brshbtn" selected="{_fSelected}"
+    		imageWidth="{origImageWidth}" imageHeight="{origImageHeight}"
+    		change="OnOpChange()" thumbPress="ShowBrushPreview()" thumbDrag="UpdateBrushPreview()" thumbRelease="HideBrushPreview()"
+    		/>
+
+		<!-- Color strength -->
+		<mx:HBox width="190" paddingBottom="-5" paddingTop="5">
+			<ctrl:ResizingLabel autoFontSizeGap="1" text="@Resource(key='colorStrength', bundle='EffectCanvas')" styleName="sliderTitle" width="130"/>
+			<mx:Label text="{Math.round(_sldrColor.value)}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<ctrl:HSliderPlus width="190" minimum="0" maximum="100" value="{80+zeroR}" id="_sldrColor" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+
+		<!-- BEGIN: Darken -->
+		<mx:HBox width="190" paddingBottom="-5" paddingTop="5">
+			<mx:Label text="@Resource(key='blend_Darken', bundle='EffectCanvas')" styleName="sliderTitle" width="100"/>
+			<mx:Label text="{Math.round(_sldrExposure.value)}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<ctrl:HSliderPlus width="190" minimum="0" maximum="100" value="{zeroR}" id="_sldrExposure" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+		<!-- END: Darken -->
+	
+		<ctrl:ApplyCancelEffectButtons addBoxPadding="true" premium="{premium}"/>
+	</mx:VBox>
+	
+	<mx:Number id="_cxyBrush">{_brshbtn.value}</mx:Number>
+
+	
+</PaintOnEffectBase>

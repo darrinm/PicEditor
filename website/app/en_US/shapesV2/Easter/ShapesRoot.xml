@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory area="Easter" id="root">
+	<ShapeCategory flickrPremium="false" id="easterSection" numShapes="0" picnikPremium="false" showHeader="false">
+		<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/shape_easter.png" flickrPremium="true" id="Easter" numShapes="0" picnikPremium="true" previewUrls="60|48|../clipart/bundles/EasterArea_groupPreviews_Easter.png?ver=9032330c" thumbUrl="66|54|0|../clipart/bundles/EasterArea_groupThumbs.png?ver=280ebc04" title="Easter">
+			<ShapeCategory flickrPremium="true" id="Easter" numShapes="23" picnikPremium="true" title="Easter"/>
+			<ShapeCategory flickrPremium="true" id="EasterEggs" numShapes="6" picnikPremium="true" title="Easter Eggs"/>
+			<ShapeCategory flickrPremium="true" id="EasterElements" numShapes="14" picnikPremium="true" title="Easter Elements"/>
+		</ShapeCategory>
+		<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/sketchy_easter.png" flickrPremium="true" id="sketchyEaster" numShapes="26" picnikPremium="true" previewUrls="60|48|../clipart/bundles/EasterArea_groupPreviews_sketchyEaster.png?ver=d3a61256" thumbUrl="66|54|1|../clipart/bundles/EasterArea_groupThumbs.png?ver=280ebc04" title="Sketchy Easter"/>
+	</ShapeCategory>
+</ShapeCategory>

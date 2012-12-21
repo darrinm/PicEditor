@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<eff:PaintOnEffectBase xmlns:eff="effects.*" xmlns:cnt="containers.*" xmlns="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="269" _nBrushHardness="0"
+	xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*" premium="true" urlid="Blush">
+<mx:Script>
+	<![CDATA[
+		import util.BlendModeMath;
+		import util.LocUtil;
+	]]>
+</mx:Script>
+	
+	<EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='BlushEffect')" strAuthor="@Resource(key='byPicnik', bundle='EffectCanvas')"
+		strImageSource="../graphics/effects/Touchup/blush.jpg" premium="{premium}"/>
+	<mx:String id="_strHelpText">{Resource.getString('BlushEffect', '_strHelpText')}</mx:String>
+
+	<mx:VBox x="10" y="73" verticalGap="0">
+		<BlushMultiColorPalette id="_clrsw" change="OnOpChange()" selected="{_fSelected}"/>
+    
+    	<!-- brush size / eraser toggle -->
+    	<BrushSizeAndEraserButton id="_brshbtn" selected="{_fSelected}"
+    		imageWidth="{origImageWidth}" imageHeight="{origImageHeight}"
+    		change="OnOpChange()" thumbPress="ShowBrushPreview()" thumbDrag="UpdateBrushPreview()" thumbRelease="HideBrushPreview()"
+    		/>
+
+		<!-- Fade label/percent/slider box -->
+		<mx:HBox paddingBottom="-5" paddingTop="3" width="190">
+			<mx:Label text="@Resource(key='fade', bundle='EffectCanvas')" styleName="sliderTitle"/>
+			<mx:Label text="{LocUtil.pct((_sldrFade.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<HSliderPlus width="190" minimum="0" maximum="100" value="{50 + zeroR}" id="_sldrFade" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+
+		<ApplyCancelEffectButtons addBoxPadding="true" premium="{premium}"/>
+	</mx:VBox>
+
+	<mx:Number id="_cxyBrush">{_brshbtn.value}</mx:Number>
+</eff:PaintOnEffectBase>

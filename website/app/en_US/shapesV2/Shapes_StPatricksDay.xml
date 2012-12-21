@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/shape_saint_patricks_day.png" flickrPremium="true" id="StPatricksDay" numShapes="0" picnikPremium="true" previewUrls="60|48|../clipart/bundles/groupPreviews_StPatricksDay.png?ver=952764de" title="St. Patrick&apos;s Day">
+	<ShapeCategory flickrPremium="true" id="StPatricksDay" numShapes="12" picnikPremium="true" title="St. Patrick&apos;s Day">
+		<Shapes>
+			<Clipart cHeight="113" cWidth="106" flickrPremium="true" picnikPremium="true" previewUrl="40|40|0|../clipart/bundles/shapes_StPatricksDay.png?ver=7316f997" url="shapes/spd_icons_clover1.swf"/>
+			<Clipart cHeight="107" cWidth="104" flickrPremium="true" picnikPremium="true" previewUrl="40|40|1|../clipart/bundles/shapes_StPatricksDay.png?ver=7316f997" url="shapes/spd_icons_clover2.swf"/>
+			<Clipart cHeight="366" cWidth="170" flickrPremium="true" picnikPremium="true" previewUrl="40|40|2|../clipart/bundles/shapes_StPatricksDay.png?ver=7316f997" url="shapes/spd_icons_flagpole.swf"/>
+			<Clipart cHeight="113" cWidth="153" flickrPremium="true" picnikPremium="true" previewUrl="40|40|3|../clipart/bundles/shapes_StPatricksDay.png?ver=7316f997" url="shapes/spd_icons_flag.swf"/>
+			<Clipart cHeight="140" cWidth="140" flickrPremium="true" picnikPremium="true" previewUrl="40|40|4|../clipart/bundles/shapes_StPatricksDay.png?ver=7316f997" url="shapes/spd_icons_goldcoin.swf"/>
+			<Clipart cHeight="51" cWidth="233" flickrPremium="true" picnikPremium="true" previewUrl="40|40|5|../clipart/bundles/shapes_StPatricksDay.png?ver=7316f997" url="shapes/spd_icons_goldcoins.swf"/>
+			<Clipart cHeight="121" cWidth="172" flickrPremium="true" picnikPremium="true" previewUrl="40|40|6|../clipart/bundles/shapes_StPatricksDay.png?ver=7316f997" url="shapes/spd_icons_hat.swf"/>
+			<Clipart cHeight="220" cWidth="78" flickrPremium="true" picnikPremium="true" previewUrl="40|40|7|../clipart/bundles/shapes_StPatricksDay.png?ver=7316f997" url="shapes/spd_icons_cane.swf"/>
+			<Clipart cHeight="170" cWidth="165" flickrPremium="true" picnikPremium="true" previewUrl="40|40|8|../clipart/bundles/shapes_StPatricksDay.png?ver=7316f997" url="shapes/spd_icons_potofgold.swf"/>
+			<Clipart cHeight="275" cWidth="216" flickrPremium="true" picnikPremium="true" previewUrl="40|40|9|../clipart/bundles/shapes_StPatricksDay.png?ver=7316f997" url="shapes/spd_icons_irelandmap.swf"/>
+			<Clipart cHeight="840" cWidth="810" flickrPremium="true" picnikPremium="true" previewUrl="40|40|10|../clipart/bundles/shapes_StPatricksDay.png?ver=7316f997" url="shapes/spd_icons_rainbow.swf"/>
+			<Clipart cHeight="100" cWidth="160" flickrPremium="true" picnikPremium="true" previewUrl="40|40|11|../clipart/bundles/shapes_StPatricksDay.png?ver=7316f997" url="shapes/spd_leprechaunhat.swf"/>
+		</Shapes>
+	</ShapeCategory>
+	<ShapeCategory flickrPremium="true" id="StPatricksDayStickers" numShapes="4" picnikPremium="true" title="Stickers">
+		<Shapes>
+			<Clipart cHeight="109" cWidth="99" flickrPremium="true" picnikPremium="true" previewUrl="40|40|12|../clipart/bundles/shapes_StPatricksDay.png?ver=7316f997" url="shapes/spd_stickers_clover.swf"/>
+			<Clipart cHeight="104" cWidth="99" flickrPremium="true" picnikPremium="true" previewUrl="40|40|13|../clipart/bundles/shapes_StPatricksDay.png?ver=7316f997" url="shapes/spd_stickers_potofgold.swf"/>
+			<Clipart cHeight="109" cWidth="92" flickrPremium="true" picnikPremium="true" previewUrl="40|40|14|../clipart/bundles/shapes_StPatricksDay.png?ver=7316f997" url="shapes/spd_stickers_beer.swf"/>
+			<Clipart cHeight="100" cWidth="106" flickrPremium="true" picnikPremium="true" previewUrl="40|40|15|../clipart/bundles/shapes_StPatricksDay.png?ver=7316f997" url="shapes/spd_stickers_hat.swf"/>
+		</Shapes>
+	</ShapeCategory>
+	<ShapeCategory flickrPremium="true" id="StPatricksDayIcons" numShapes="14" picnikPremium="true" title="Icons">
+		<Shapes>
+			<Clipart cHeight="59" cWidth="81" flickrPremium="true" picnikPremium="true" previewUrl="40|40|16|../clipart/bundles/shapes_StPatricksDay.png?ver=7316f997" url="shapes/spd_elements_boot.swf"/>
+			<Clipart cHeight="90" cWidth="50" flickrPremium="true" picnikPremium="true" previewUrl="40|40|17|../clipart/bundles/shapes_StPatricksDay.png?ver=7316f997" url="shapes/spd_elements_candle.swf"/>
+			<Clipart cHeight="44" cWidth="39" flickrPremium="true" picnikPremium="true" previewUrl="40|40|18|../clipart/bundles/shapes_StPatricksDay.png?ver=7316f997" url="shapes/spd_elements_clover1.swf"/>
+			<Clipart cHeight="28" cWidth="24" flickrPremium="true" picnikPremium="true" previewUrl="40|40|19|../clipart/bundles/shapes_StPatricksDay.png?ver=7316f997" url="shapes/spd_elements_clover2.swf"/>
+			<Clipart cHeight="81" cWidth="54" flickrPremium="true" picnikPremium="true" previewUrl="40|40|20|../clipart/bundles/shapes_StPatricksDay.png?ver=7316f997" url="shapes/spd_elements_coffee.swf"/>
+			<Clipart cHeight="79" cWidth="61" flickrPremium="true" picnikPremium="true" previewUrl="40|40|21|../clipart/bundles/shapes_StPatricksDay.png?ver=7316f997" url="shapes/spd_elements_cross.swf"/>
+			<Clipart cHeight="80" cWidth="64" flickrPremium="true" picnikPremium="true" previewUrl="40|40|22|../clipart/bundles/shapes_StPatricksDay.png?ver=7316f997" url="shapes/spd_elements_flag.swf"/>
+			<Clipart cHeight="83" cWidth="66" flickrPremium="true" picnikPremium="true" previewUrl="40|40|23|../clipart/bundles/shapes_StPatricksDay.png?ver=7316f997" url="shapes/spd_elements_harp.swf"/>
+			<Clipart cHeight="210" cWidth="180" flickrPremium="true" picnikPremium="true" previewUrl="40|40|24|../clipart/bundles/shapes_StPatricksDay.png?ver=7316f997" url="shapes/spd_elements_irishguy.swf"/>
+			<Clipart cHeight="180" cWidth="120" flickrPremium="true" picnikPremium="true" previewUrl="40|40|25|../clipart/bundles/shapes_StPatricksDay.png?ver=7316f997" url="shapes/spd_elements_leprechaun.swf"/>
+			<Clipart cHeight="70" cWidth="100" flickrPremium="true" picnikPremium="true" previewUrl="40|40|26|../clipart/bundles/shapes_StPatricksDay.png?ver=7316f997" url="shapes/spd_elements_pipe.swf"/>
+			<Clipart cHeight="70" cWidth="70" flickrPremium="true" picnikPremium="true" previewUrl="40|40|27|../clipart/bundles/shapes_StPatricksDay.png?ver=7316f997" url="shapes/spd_elements_potofgold.swf"/>
+			<Clipart cHeight="75" cWidth="70" flickrPremium="true" picnikPremium="true" previewUrl="40|40|28|../clipart/bundles/shapes_StPatricksDay.png?ver=7316f997" url="shapes/spd_cloverbasic.swf"/>
+			<Clipart cHeight="52" cWidth="80" flickrPremium="true" picnikPremium="true" previewUrl="40|40|29|../clipart/bundles/shapes_StPatricksDay.png?ver=7316f997" url="shapes/spd_irishflag.swf"/>
+		</Shapes>
+	</ShapeCategory>
+	<ShapeCategory flickrPremium="true" id="Beer" numShapes="6" picnikPremium="true" title="Beer">
+		<Shapes>
+			<Clipart cHeight="280" cWidth="150" flickrPremium="true" picnikPremium="true" previewUrl="40|40|30|../clipart/bundles/shapes_StPatricksDay.png?ver=7316f997" url="shapes/spd_beer1.swf"/>
+			<Clipart cHeight="280" cWidth="150" flickrPremium="true" picnikPremium="true" previewUrl="40|40|31|../clipart/bundles/shapes_StPatricksDay.png?ver=7316f997" url="shapes/spd_beer2.swf"/>
+			<Clipart cHeight="280" cWidth="150" flickrPremium="true" picnikPremium="true" previewUrl="40|40|32|../clipart/bundles/shapes_StPatricksDay.png?ver=7316f997" url="shapes/spd_beer3.swf"/>
+			<Clipart cHeight="280" cWidth="150" flickrPremium="true" picnikPremium="true" previewUrl="40|40|33|../clipart/bundles/shapes_StPatricksDay.png?ver=7316f997" url="shapes/spd_beer4.swf"/>
+			<Clipart cHeight="275" cWidth="180" flickrPremium="true" picnikPremium="true" previewUrl="40|40|34|../clipart/bundles/shapes_StPatricksDay.png?ver=7316f997" url="shapes/spd_drainedbeer.swf"/>
+			<Clipart cHeight="280" cWidth="150" flickrPremium="true" picnikPremium="true" previewUrl="40|40|35|../clipart/bundles/shapes_StPatricksDay.png?ver=7316f997" url="shapes/spd_beerbottle.swf"/>
+		</Shapes>
+	</ShapeCategory>
+</ShapeCategory>

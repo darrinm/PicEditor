@@ -1,0 +1,12 @@
+fileName: mk_SpidersClub.ttf
+name: SpidersClub
+subfamilyDisplayName: Regular
+fullName: SpidersClub
+displayName: SpidersClub
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 6
+pkName: pkmk0SpidersClub
+authorName: Manfred Kelin
+authorUrl: http://moorstation.org/typoasis/designers/klein/

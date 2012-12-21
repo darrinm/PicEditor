@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/shape_halloween.png" flickrPremium="true" id="VampireHalloween" numShapes="3" picnikPremium="true" previewUrls="60|48|../clipart/bundles/VampiresArea_groupPreviews_VampireHalloween.png?ver=09e1bfae" title="Vampires">
+	<Shapes>
+		<Clipart cHeight="240" cWidth="384" flickrPremium="true" picnikPremium="true" previewUrl="40|40|0|../clipart/bundles/VampiresArea_shapes_VampireHalloween.png?ver=4a47f5fe" url="shapes/Halloween_vampteeth.swf"/>
+		<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="65" cWidth="100" flickrPremium="true" picnikPremium="true" previewUrl="40|40|1|../clipart/bundles/VampiresArea_shapes_VampireHalloween.png?ver=4a47f5fe" url="shapes/VampyrBats/VampyrBats_117.swf"/>
+		<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="47" cWidth="100" flickrPremium="true" picnikPremium="true" previewUrl="40|40|2|../clipart/bundles/VampiresArea_shapes_VampireHalloween.png?ver=4a47f5fe" url="shapes/VampyrBats/VampyrBats_068.swf"/>
+	</Shapes>
+</ShapeCategory>

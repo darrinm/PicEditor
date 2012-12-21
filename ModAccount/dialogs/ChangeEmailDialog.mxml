@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ChangeEmailDialogBase xmlns="dialogs.*" 
+		xmlns:mx="http://www.adobe.com/2006/mxml"
+		xmlns:ctrl="controls.*" 
+		xmlns:flash="flash.filters.*" 
+		xmlns:ctr="containers.*" 
+		xmlns:bridges="gallery.bridges.*"
+		xmlns:vld="validators.*"
+		xmlns:RegisterHelper="dialogs.RegisterHelper.*" 
+		xmlns:ds="com.darronschall.effects.*"
+	 	width="550" height="260" verticalScrollPolicy="off" horizontalScrollPolicy="off" styleName="TargetedUpsellDialogStyle">
+
+	<mx:Script>
+		<![CDATA[
+			import dialogs.DialogManager;
+			import mx.resources.ResourceBundle;
+			import mx.utils.ObjectProxy;
+			import picnik.util.LocaleInfo;
+			import util.LocUtil;
+			import util.UserEmailDictionary;
+
+			[Bindable] public var upgradeSource:String = '/show/publicprivate';
+
+			private function and(... args:Array): Boolean {
+				var fRet:Boolean = true;
+				for each (var f:Boolean in args) {
+					fRet = fRet && f;
+					if (!fRet) break;
+				}
+				return fRet;
+			}
+			
+			private function or(... args:Array): Boolean {
+				var fRet:Boolean = false;
+				for each (var f:Boolean in args) {
+					fRet = fRet || f;
+					if (fRet) break;
+				}
+				return fRet;
+			}
+			
+			private function iff(f:Boolean, obTrue:Object, obFalse:Object): Object {
+				return f ? obTrue : obFalse;
+			}			
+		]]>
+	</mx:Script>
+
+	<flash:DropShadowFilter id="_fiPremShadow" blurX="3" blurY="3" distance="1" color="#000000" alpha=".25" quality="3" angle="90"/>
+	<flash:DropShadowFilter id="_fiPremShine" blurX="0" blurY="0" distance="1" color="#FFFFFF" alpha=".9" inner="true" quality="3" angle="90"/>
+
+	<mx:String id="_strSuccessFeedbackMessage">{Resource.getString('ChangeEmailDialog', '_strSuccessFeedbackMessage')}</mx:String>
+	<mx:String id="_strOldPasswordIncorrectError">{Resource.getString('ChangePasswordDialog', '_strOldPasswordIncorrectError')}</mx:String>
+
+	<mx:Boolean id="_fEmFocus">false</mx:Boolean>
+	<mx:Boolean id="_fEmConfirmed">false</mx:Boolean>
+	<mx:Boolean id="_fPwConfirmed">{_vldOldPassword.passedDeepValidation}</mx:Boolean>
+	
+	<mx:Binding source="and(_tiEmail.text.length > 0, _tiEmail.errorString.length == 0, _tiEmail.text.toLowerCase() == _tiEmailAgain.text.toLowerCase())"
+				destination="_fEmConfirmed"/>
+	<vld:CurrentPasswordValidator id="_vldOldPassword" source="{_tiOldPassword}" property="text" dictCheck="require">
+		<vld:requiredFieldError>{Resource.getString('ChangePasswordDialog', '_vldOldPassword')}</vld:requiredFieldError>
+		<vld:passwordIncorrectError>{Resource.getString('ChangePasswordDialog', '_vldOldPassword_1')}</vld:passwordIncorrectError>
+	</vld:CurrentPasswordValidator>
+	<vld:EmailValidatorPlus id="_vldEmail" required="true" source="{_tiEmail}" property="text" 
+							alsoValid="{AccountMgr.GetInstance().GetUserAttribute('email')}" dictCheck="prohibit">
+		<vld:requiredFieldError>{Resource.getString('ChangeEmailDialog', '_vldOldPassword')}</vld:requiredFieldError>
+		<vld:emailExistsError>{Resource.getString('ChangeEmailDialog', '_vldEmail')}</vld:emailExistsError>
+		<vld:charError>{Resource.getString('ChangeEmailDialog', '_vldEmail_1')}</vld:charError>
+	</vld:EmailValidatorPlus>
+	<vld:EqualToValidator id="_vldEmailAgain" required="true" source="{_tiEmailAgain}" property="text"  equalTo="{_tiEmail.text}">
+		<vld:valuesNotEqual>{Resource.getString('ChangeEmailDialog', '_vldPasswordAgain')}</vld:valuesNotEqual>
+		<vld:requiredFieldError>{Resource.getString('ChangeEmailDialog', '_vldOldPassword')}</vld:requiredFieldError>
+	</vld:EqualToValidator>
+
+	<RegisterHelper:DataModel id="_dtmFormFields">
+		<RegisterHelper:DataField id="_dtfOldPassword" name="oldpassword" validator="{_vldOldPassword}"/>
+		<RegisterHelper:DataField name="email" validator="{_vldEmail}"/>
+		<RegisterHelper:DataField name="emailagain" validator="{_vldEmailAgain}"/>
+		<RegisterHelper:DataField name="wantsmail" value="{_cbWantsMail.selected}"/>
+	</RegisterHelper:DataModel>
+	
+	<mx:Fade alphaFrom="0" alphaTo="1" duration="500" id="_efFadeIn" />
+	<mx:Fade alphaFrom="1" alphaTo="0" duration="500" id="_efFadeOut" />
+	<mx:Fade alphaFrom="0" alphaTo=".75" duration="300" id="_efQuarterFadeIn" />
+	<mx:Fade alphaFrom=".75" alphaTo="0" duration="300" id="_efQuarterFadeOut" />
+
+	<mx:Sequence id="_effError" targets="{[_lblOldPwError, _lblEmError, _lblEmAgainError]}">
+		<mx:Parallel duration="200">
+			<mx:Glow alphaFrom="0" alphaTo=".4" blurXFrom="0" blurYFrom="0" blurXTo="8" blurYTo="8" color="#005580"/>
+			<ds:AnimateColor isStyle="true" property="color" toValue="0xCC0000"/>
+		</mx:Parallel>
+		<mx:Pause duration="100"/>
+		<mx:Parallel duration="400">
+			<mx:Glow alphaFrom=".4" alphaTo="0" blurXFrom="8" blurYFrom="8" blurXTo="0" blurYTo="0" color="#005580"/>
+			<ds:AnimateColor isStyle="true" property="color" toValue="0x618430"/>
+		</mx:Parallel>
+	</mx:Sequence>
+	
+	<mx:Fade alphaFrom="0" alphaTo=".75" duration="300" id="_efQuarterFadeInEmConfirmed"/>
+
+	<mx:Canvas height="100%" width="100%" verticalScrollPolicy="off" horizontalScrollPolicy="off">
+	
+		<!-- Close button-->
+		<mx:Button width="22" height="22" top="4" right="4" click="Hide()" styleName="dialogCloseButton"/>
+		
+	    <ctr:AutoShrinkCanvas id="canvas1" width="550" height="260" verticalScrollPolicy="off" horizontalScrollPolicy="off">
+			<mx:VBox width="100%" height="100%" paddingTop="7" paddingLeft="12" paddingRight="25" verticalGap="0">
+				<ctrl:ResizingLabel htmlText="@Resource(key='title', bundle='ChangeEmailDialog')" 
+					fontSize="28" color="#005580" autoFontSizeGap="1"/>
+				
+				<mx:HBox id="_hbOldpassLabel" width="250" verticalAlign="bottom" clipContent="false" paddingLeft="5">
+					<mx:Label text="@Resource(key='password', bundle='ChangeEmailDialog')" styleName="publishForm" 
+							  paddingBottom="-4" paddingTop="5" width="100%"/>
+					<mx:Label styleName="formError" paddingBottom="-4" right="0" id="_lblOldPwError"
+							  text="{_tiOldPassword.errorString}" showEffect="{_efFadeIn}" 
+							  visible="{_tiOldPassword.errorString.length > 0}"/>
+				</mx:HBox>
+				<mx:HBox id="_hbOldpass" height="26" clipContent="false" paddingLeft="5">
+					<mx:Canvas id="cvsOldPassword" width="100%" height="26" clipContent="false">
+						<ctrl:NoTipTextInput id="_tiOldPassword" height="26" styleName="publishFormField" width="250" maxChars="32" fontFamily="trebuchetMS"
+											 displayAsPassword="true" enter="SaveSettings()" fontSize="16" letterSpacing="2" fontWeight="bold" fontSharpness="-200"/>
+						<ctrl:ImageVer source="@Embed('/theme/pngs/yesIcon.png')" id="_imgOldPWCorrect"
+									   visible="{_fPwConfirmed}" 
+									   showEffect="{_efQuarterFadeIn}" hideEffect="{_efQuarterFadeOut}" y="4" right="3" alpha=".75"/>
+					</mx:Canvas>					
+				</mx:HBox>
+				
+				<mx:HBox id="_hbEmail" horizontalGap="10" paddingTop="10">
+					<mx:VBox verticalGap="0">
+						<mx:HBox width="100%" verticalAlign="bottom" clipContent="false" paddingLeft="5">
+							<mx:Label text="@Resource(key='Label_8', bundle='ChangeEmailDialog')" styleName="publishForm" paddingBottom="-4" paddingTop="5" width="100%"/>
+							<mx:Label styleName="formError" paddingBottom="-3" right="0" id="_lblEmError"
+									  text="{_tiEmail.errorString}" showEffect="{_efFadeIn}" 
+									  visible="{_tiEmail.errorString.length > 0}"/>
+						</mx:HBox>
+						<mx:HBox paddingLeft="5">
+							<mx:Canvas id="cvsEmail" width="100%" height="26" clipContent="false">
+								<ctrl:NoTipTextInput id="_tiEmail" height="26" styleName="publishFormField" width="240"
+													 focusIn="_fEmFocus=true" focusOut="_fEmFocus=false" maxChars="255"
+													 text="{AccountMgr.GetInstance().GetUserAttribute('email')}"
+													 change="_tiEmailAgain.text = '', _tiEmailAgain.errorString = ''"
+													 restrict="{UserEmailDictionary.textInputRestrictChars}" enter="SaveSettings()"/>
+								<ctrl:ImageVer source="@Embed('/theme/pngs/yesIcon.png')" id="_imgEmConfirmed"
+											   visible="{_fEmConfirmed &amp;&amp; _fPwConfirmed}" 
+											   showEffect="{_efQuarterFadeInEmConfirmed}" hideEffect="{_efQuarterFadeOut}" y="4" right="3" alpha=".75"/>
+							</mx:Canvas>
+						</mx:HBox>
+					</mx:VBox>
+					<mx:Canvas>
+						<mx:VBox id="_vbConfirmEmail" verticalGap="0" showEffect="{_efFadeIn}" 
+								 visible="{and(!_fEmConfirmed, or( _fEmFocus, _tiEmail.text.length > 0))}">
+							<mx:HBox verticalAlign="bottom" width="100%">
+								<mx:Label text="@Resource(key='Label_9', bundle='ChangeEmailDialog')" styleName="publishForm" paddingBottom="-4" paddingTop="8" fontWeight="normal"
+										  enabled="{_tiEmailAgain.enabled}" fontSize="12" width="100%"/>
+								<mx:Label styleName="formError" right="0"  id="_lblEmAgainError" paddingBottom="-3"
+										  text="{_tiEmailAgain.errorString}" showEffect="{_efFadeIn}" 
+										  visible="{and(_tiEmailAgain.errorString.length > 0, _tiEmailAgain.enabled)}"/>
+							</mx:HBox>
+							<ctrl:NoTipTextInput id="_tiEmailAgain" height="26" styleName="publishFormField" width="240"
+												 text="{AccountMgr.GetInstance().GetUserAttribute('email')}"
+												 enabled="{and(_tiEmail.text.length > 0, _tiEmail.errorString.length == 0)}" maxChars="255"
+												 restrict="{UserEmailDictionary.textInputRestrictChars}"/>
+						</mx:VBox>
+					</mx:Canvas>
+				</mx:HBox>
+				<mx:HBox id="_hbWantsMail" paddingLeft="3" paddingTop="6" clipContent="false">
+					<mx:CheckBox id="_cbWantsMail" label="@Resource(key='_cbWantsMail', bundle='ChangeEmailDialog')" labelPlacement="right" height="40"/>
+				</mx:HBox>
+			</mx:VBox>
+			
+			<!-- Disapearing dandelion -->
+			<ctrl:ImageEx bundled="true" source="../graphics/dandelions/dandelion4.png" visible="{!_vbConfirmEmail.visible}" 
+						  showEffect="{_efFadeIn}" hideEffect="{_efFadeOut}" scaleX="-1" bottom="50" right="-56"
+						  width="66" height="77"/>
+
+			<!-- Footer -->
+			<mx:HBox width="100%" paddingTop="215" horizontalAlign="center" verticalAlign="middle">			
+				<mx:Button id="_btnDone" height="39" fontSize="22" paddingLeft="15" paddingRight="15" horizontalCenter="0" styleName="basketButton" 
+						click="SaveSettings()" mouseFocusEnabled="false" label="{Resource.getString('ChangeEmailDialog', 'ok')}"
+						enabled="{_fEmConfirmed &amp;&amp; _fPwConfirmed}"/>
+			</mx:HBox>
+			<!-- cancel -->
+			<ctrl:ResizingButton styleName="basketButtonDarkBlue" label="@Resource(key='cancel',bundle='ChangeEmailDialog')"
+									 click="Hide()"
+									 bottom="11" right="11" height="28" minWidth="97" paddingLeft="-9" paddingRight="-9"/>
+		</ctr:AutoShrinkCanvas>
+		
+		<!-- shadow dealies, drawn on top of all elements -->
+		<ctrl:ImageVer source="../graphics/upsellPremiumPanelShadow.png" bottom="50" left="0" right="0" scaleContent="true" maintainAspectRatio="false"/>
+		
+	</mx:Canvas>	
+	<mx:Style source="../dialogs/Upsell/TargetedUpsellDialog.css"/>	
+</ChangeEmailDialogBase>

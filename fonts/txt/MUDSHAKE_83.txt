@@ -1,0 +1,12 @@
+fileName: MUDSHAKE_83.ttf
+name: MUDSHAKE 83
+subfamilyDisplayName: Normal
+fullName: MUDSHAKE 83
+displayName: MUDSHAKE 83
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 0
+pkName: pkMUDSHAKE083
+authorName: Gyom.Typo
+authorUrl: http://gyom.nebullus.com/

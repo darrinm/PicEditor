@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory area="Pirates" id="root">
+	<ShapeCategory flickrPremium="false" id="PiratesSection" numShapes="0" picnikPremium="false" showHeader="false">
+		<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/shape_CartoonPirates.png" flickrPremium="false" id="CartoonPirates" numShapes="44" picnikPremium="false" previewUrls="60|48|../clipart/bundles/PiratesArea_groupPreviews_CartoonPirates.png?ver=cba6c0c4" thumbUrl="66|54|0|../clipart/bundles/PiratesArea_groupThumbs.png?ver=3d478bb7" title="Avast Ye Matey!"/>
+		<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/shape_PirateMap.png" flickrPremium="false" id="PirateMaps" numShapes="28" picnikPremium="false" previewUrls="60|48|../clipart/bundles/PiratesArea_groupPreviews_PirateMaps.png?ver=307d4133" thumbUrl="66|54|1|../clipart/bundles/PiratesArea_groupThumbs.png?ver=3d478bb7" title="Thar Be Dragons!"/>
+	</ShapeCategory>
+</ShapeCategory>

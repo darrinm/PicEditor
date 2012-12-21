@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VDividedBox xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:ctl="controls.*" width="100%" height="100%" initialize="Init()">
+<mx:Script>
+	<![CDATA[
+		import imagine.imageOperations.engine.BitmapReferenceData;
+		import mx.core.ScrollPolicy;
+		import mx.controls.Label;
+		import mx.core.Container;
+		import mx.containers.HDividedBox;
+		import mx.controls.ComboBox;
+		import mx.controls.CheckBox;
+		import mx.core.UIComponent;
+		import imagine.imageOperations.engine.OpInstructionCache;
+		import util.VBitmapData;
+		import mx.utils.ObjectProxy;
+		import imagine.imageOperations.engine.instructions.OpInstruction;
+		import mx.collections.ArrayCollection;
+		import imagine.imageOperations.engine.BitmapReference;
+		import imagine.imageOperations.engine.OpStateMachine;
+		private var _opsmc:OpStateMachine = null;
+		[Bindable] public var futureInstructionSelected:Boolean = false;
+		
+		private var _tmrUpdateUndisposed:Timer = null;
+		
+		
+		public function set stateMachine(opsmc:OpStateMachine): void {
+			if (_opsmc == opsmc)
+				return;
+				
+			_opsmc = opsmc;
+			UpdateDynamicData();
+		} 
+		
+		private var _auicLists:Array = [];
+		private var _obLists:Object = {};
+		private var _ahbxListHolders:Array = [];
+		
+		private function Init(): void {
+			VBitmapData.s_edChangeListener = this;
+			addEventListener("VBitmapChange", OnUndisposedChange);
+			
+			var iInsertAt:Number = getChildIndex(_vbxLists);
+			var i:Number;
+			for (i = 0; i < 4; i++) {
+				var hbx:HDividedBox = new HDividedBox();
+				hbx.percentHeight = 100;
+				hbx.percentWidth = 100;
+				hbx.horizontalScrollPolicy = ScrollPolicy.OFF;
+				hbx.verticalScrollPolicy = ScrollPolicy.OFF;
+				_ahbxListHolders.push(hbx);
+				addChildAt(hbx, iInsertAt);
+				iInsertAt += 1;
+			}
+			
+			var auicLists:Array = [];
+			while (_vbxLists.numChildren > 0) {
+				var uicList:UIComponent = _vbxLists.getChildAt(0) as UIComponent;
+				var vbx:VBox = new VBox();
+				var lbl:Label;
+				lbl = new Label();
+				lbl.text = uicList.name;
+				vbx.addChild(lbl);
+				uicList.parent.removeChild(uicList);
+				vbx.addChild(uicList);
+				vbx.name = uicList.name;
+				vbx.percentHeight = 100;
+				vbx.percentWidth = 100;
+				vbx.horizontalScrollPolicy = ScrollPolicy.OFF;
+				vbx.verticalScrollPolicy = ScrollPolicy.OFF;
+				uicList = vbx;
+				
+				_auicLists.push(uicList);
+				_obLists[uicList.name] = uicList;
+				
+				var fSelect:Boolean = i < 2;
+
+				var cb:ComboBox = new ComboBox();
+				cb.dataProvider = ['None', 'First', 'Second', 'Third', 'Fourth'];
+				cb.data = uicList;
+				cb.addEventListener(Event.CHANGE, function(evt:Event): void {
+					var cb2:ComboBox = evt.target as ComboBox;
+					var uic2:UIComponent = cb2.data as UIComponent;
+					if (uic2.parent)
+						uic2.parent.removeChild(uic2);
+					if (cb2.selectedIndex > 0) {
+						// Add it to the appropriate hbox.
+						var hbx:Container = _ahbxListHolders[cb2.selectedIndex-1];
+						hbx.addChild(uic2);
+					}
+					UpdateHboxVisible();
+				});
+				vbx = new VBox();
+				lbl = new Label();
+				lbl.text = uicList.name;
+				vbx.addChild(lbl);
+				vbx.addChild(cb);
+				_hbxControls.addChild(vbx);
+			}
+			UpdateHboxVisible();
+		}
+		
+		private function UpdateHboxVisible(): void {
+			for each (var uic:UIComponent in _ahbxListHolders) {
+				uic.visible = uic.numChildren > 0;
+				uic.includeInLayout = uic.numChildren > 0;
+			}
+		}
+		
+		private function OnUndisposedChange(evt:Event=null): void {
+			if (_tmrUpdateUndisposed == null) {
+				_tmrUpdateUndisposed = new Timer(100, 1);
+				_tmrUpdateUndisposed.addEventListener(TimerEvent.TIMER, function(evt:Event): void {
+					_tmrUpdateUndisposed = null;
+					UpdateVBitmaps();
+				});
+				_tmrUpdateUndisposed.start();
+			}
+		}
+		
+		private function UpdateVBitmaps(evt:Event=null): void {
+			var avbmdUndisposed:Array = [];
+			var vbmd:VBitmapData; 
+			for each (vbmd in VBitmapData.s_dtCreated) 
+				avbmdUndisposed.push(vbmd);
+			
+			avbmdUndisposed.sortOn('_id', Array.NUMERIC);
+			
+			_lstUndisposed.dataProvider = avbmdUndisposed;
+		}
+		
+		public function OnStep(): void {
+			if (_lstInstructions == null) return;
+			if (_lstInstructions.dataProvider == null) return;
+			_lstInstructions.scrollToIndex(_opsmc.nextInstructionIndex);
+		}
+		
+		public function UpdateDynamicData(): void {
+			var i:Number;
+			var strKey:String;
+			if (_opsmc == null) {
+				_lstBitmapStack.dataProvider = [];
+				_lstInstructions.dataProvider = [];
+				_lstVars.dataProvider = [];
+				_taChildren.text = "None";
+			} else {
+				if (_opsmc.imageDocument != null)
+					_taChildren.text = _opsmc.imageDocument.Serialize(false);
+				_lstBitmapStack.dataProvider = _opsmc.bitmapStack;
+				var aobInst:Array = [];
+				for (i = 0; i < _opsmc.instructions.length; i++) {
+					var opinst:OpInstruction = _opsmc.instructions[i];
+					var strName:String = getQualifiedClassName(opinst) + ": " + opinst.key.substr(0, 50);
+					var strText:String = getQualifiedClassName(opinst) + "\n" +
+							"cachePriority: " + opinst.cachePriority + ", hasCache: " + (opinst.cacheOb != null) + "\n" +
+							opinst.key;
+					
+					aobInst.push(new ObjectProxy({label:strName,
+							hasCache:opinst.cacheOb != null,
+							cacheOb: opinst.cacheOb,
+							selected:i == _opsmc.nextInstructionIndex, 
+							text:strText}));
+				}
+				
+				// Before we do this, remember our selected item and scroll pos
+				var nSelected:Number = _lstInstructions.selectedIndex;
+				_lstInstructions.dataProvider = aobInst;
+				if (nSelected > -1) {
+					_lstInstructions.selectedIndex = nSelected;
+					_lstInstructions.scrollToIndex(nSelected);
+					futureInstructionSelected=_lstInstructions.selectedIndex > _opsmc.nextInstructionIndex; 
+				}
+				
+				
+				// Vars
+				var aobVars:Array = [];
+				for (strKey in _opsmc.namedBitmaps)
+					aobVars.push(new ObjectProxy({name:strKey, bmdr:_opsmc.namedBitmaps[strKey], label:strKey + ": " + BitmapReference(_opsmc.namedBitmaps[strKey]).label}));
+				aobVars.sortOn('name');
+				_lstVars.dataProvider = aobVars;
+				
+				
+			}
+			UpdateCache();
+			OnUndisposedChange();
+		}
+		
+		private function UpdateCache(): void {
+			var i:Number;
+			var strKey:String;
+			var aobCache:Array = [];
+			var obInstSel:Object = _lstInstructions.selectedItem;
+			if (obInstSel != null) {
+				var opic:OpInstructionCache = obInstSel.cacheOb;
+				if (opic != null) {
+					for (i = 0; i < opic._abmdrStack.length; i++)
+						 aobCache.push(new ObjectProxy({
+						 		label:'stack:' + i + ": " + BitmapReference(opic._abmdrStack[i]).label,
+						 		bmdr: opic._abmdrStack[i]}));
+					for (strKey in opic._obNamed)
+						 aobCache.push(new ObjectProxy({
+						 		label:'var:' + strKey + ": " + BitmapReference(opic._obNamed[strKey]).label,
+						 		bmdr: opic._obNamed[strKey]}));
+				}
+			} 
+			_lstCache.dataProvider = aobCache;
+		}
+			
+		private var _bmdCopy:BitmapData = null;
+		private function UpdateBmd(ob:Object): void {
+			var strText:String = "";
+			var bmd:BitmapData = ob as BitmapData;
+			var bmdr:BitmapReference = ob as BitmapReference;
+			if (ob != null) {
+				if (bmdr == null && 'bmdr' in ob)
+					bmdr = ob['bmdr'];
+				if (bmdr != null) {
+					bmd = bmdr._bmd;
+				} 
+			}
+
+			strText = String(ob) + "\n";
+			
+			if (bmd != null) 
+				strText += BitmapReferenceData.GetDebugInfo(bmd);
+			
+			var bmdDispose:BitmapData = _bmdCopy;
+			if (bmd == null)
+				_bmdCopy = null;
+			else {
+				_bmdCopy = new BitmapData(bmd.width, bmd.height, bmd.transparent);
+				_bmdCopy.draw(bmd);
+			}
+			_img.source = new Bitmap(_bmdCopy);
+			if (bmdDispose != null)
+				bmdDispose.dispose();
+				
+			_txt.text = strText;
+		}
+	]]>
+</mx:Script>
+<mx:HBox width="100%" id="_hbxControls">
+</mx:HBox>
+<mx:VBox includeInLayout="false" visible="false" id="_vbxLists">
+	<mx:List name="Instructions" id="_lstInstructions" height="100%" width="100%" change="UpdateCache();
+		futureInstructionSelected=_lstInstructions.selectedIndex > _opsmc.nextInstructionIndex;
+		_txt.text = _lstInstructions.selectedItem.text;
+		">
+		<mx:itemRenderer>
+			<mx:Component>
+				<mx:HBox verticalAlign="middle" backgroundAlpha="1" backgroundColor="{data.selected ? 0xC6DBAE : 0xffffff}" width="100%"
+					horizontalScrollPolicy="off"
+					>
+					<ctl:ImageVer source="@Embed('bolt.png')" visible="{data.hasCache}"/>
+					<mx:Label text="{data.label}"/>
+				</mx:HBox>
+			</mx:Component>
+		</mx:itemRenderer>
+	</mx:List>
+	<mx:List name="Stack" id="_lstBitmapStack" click="UpdateBmd(_lstBitmapStack.selectedItem)" height="100%" width="100%"/>
+	<mx:List name="Vars" id="_lstVars" click="UpdateBmd(_lstVars.selectedItem)" height="100%" width="100%"/>
+	<mx:List name="Cache" id="_lstCache" click="UpdateBmd(_lstCache.selectedItem)" height="100%" width="100%"/>
+	<mx:List name="Undisposed" id="_lstUndisposed" click="UpdateBmd(_lstUndisposed.selectedItem as VBitmapData)" height="100%" width="100%"/>
+	<mx:TextArea name="Children" id="_taChildren" height="100%" width="100%"/>
+</mx:VBox>
+<mx:HDividedBox width="100%" height="100%">
+	<mx:VBox width="100%" height="100%">
+		<mx:Label text="Bmd Preview"/>
+		<ctl:ImageVer height="100%" width="100%" id="_img" source="" minWidth="100" minHeight="100" opaqueBackground="0xffffff"/>
+	</mx:VBox>
+	<mx:VBox width="100%" height="100%">
+		<mx:Label text="Text Value"/>
+		<mx:Text id="_txt" width="100%" height="100%" text="{_lstInstructions.selectedItem.text}"/>
+	</mx:VBox>
+</mx:HDividedBox>
+</mx:VDividedBox>

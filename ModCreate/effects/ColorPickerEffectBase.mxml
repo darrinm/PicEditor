@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<OverlayEffectCanvas xmlns="containers.*" xmlns:mx="http://www.adobe.com/2006/mxml">
+<mx:Script>
+	<![CDATA[
+		import util.DashedLine;
+		import containers.NestedControlCanvasBase;
+		import overlays.helpers.RGBColor;
+		import mx.controls.sliderClasses.Slider;
+
+		//========== BEGIN: DESIGN CONSTANTS ==========//
+
+    	[Embed("../assets/bitmaps/dotDrag.png")]
+		private static var _clsDotDrag:Class; // This is a bitmap class
+		private static var _bmDotDrag:Bitmap = new _clsDotDrag();
+		private static var _bmdDotDrag:BitmapData = _bmDotDrag.bitmapData;  
+			
+    	[Embed("../assets/bitmaps/focusCrosshairs2.png")]
+		private static var _clsFocusCrosshairs:Class; // This is a bitmap class
+		private static var _bmFocusCrosshairs:Bitmap = new _clsFocusCrosshairs();
+		private static var _bmdFocusCrosshairs:BitmapData = _bmFocusCrosshairs.bitmapData;
+		private static const knFocusCrosshairsYOffset:Number = -4; // Draw the crosshairs this much off of the cursor position
+		private static const knFocusHatYOffset:Number = -22; // Draw the hat circle this much off the cursor
+
+		private static const knLineWidth:Number = 3;
+		private static const knLineAlpha:Number = 0.5;
+		
+		private static const knLoupeRadius:Number = 0.5 + 82/2;
+		private static const knHatRadius:Number = Math.ceil(14/2);
+		
+		//========== END: DESIGN CONSTANTS ==========//
+	   	private var _bmdOrig:BitmapData = null;
+	   	private var _ptvOrigin:Point = null;
+	   	private var _ptvDrag:Point = null;	
+	   	private var _fOverlayInvalid:Boolean = true;
+	   	private var _clrHover:uint = 0x000000;
+	   	private var _clrClick:uint = 0x000000;
+
+		[Bindable] 
+		public function set hoverColor( c:uint ): void {
+			_clrHover = c;
+		}
+		
+		public function get hoverColor(): uint {
+			return _clrHover;
+		}
+
+		[Bindable] 
+		public function set clickColor( c:uint ): void {
+			_clrClick = c;
+		}
+		
+		public function get clickColor(): uint {
+			return _clrClick;
+		}
+
+	   	protected function set ptvOrigin(ptv:Point): void {
+	   		if (!PointsEqual(_ptvOrigin, ptv)) {
+	   			hoverColor = GetColorForPtv(ptv);
+	   			if (_fOverlayMouseDown) {
+	   				clickColor = hoverColor;
+	   			}
+	   			_ptvOrigin = ptv;
+	   			invalidateOverlay();
+	   		} 
+	   	}
+	   	protected function get ptvOrigin(): Point {
+	   		return _ptvOrigin;
+	   	}
+	
+	   	protected function SaveOrigImage(): void {
+	   		if (_bmdOrig) _bmdOrig.dispose();
+	   		_bmdOrig = null;
+	   		if (_imgd && _imgd.background) {
+	   			_bmdOrig = _imgd.background.clone();
+	   		}
+	   	}
+	   	
+	   	public override function Deselect(fForceRollOutEffect:Boolean=true, efcvsNew:NestedControlCanvasBase=null): void {
+	   		if (_bmdOrig) _bmdOrig.dispose();
+	   		_bmdOrig = null;
+	   		super.Deselect(fForceRollOutEffect, efcvsNew);
+	   	}  
+	   	
+	   	// Returns 0x000000 if the point is out of bounds
+	   	protected function GetColorForPtv(ptv:Point): uint {
+	   		if (!ptv || !_imgv) return null;
+	   		return GetColorForPtd(_imgv.PtdFromPtv(ptv));
+	   	}
+	
+	   	protected function GetColorForPtd(ptd:Point): uint {
+	   		if (!ptd || !_bmdOrig) return null; 
+			if (_bmdOrig.rect.containsPoint(ptd)) {
+				return _bmdOrig.getPixel(ptd.x, ptd.y);
+			}
+			return null;
+	   	}
+
+	   	protected function InsidePtvFromViewCoords(xv:Number, yv:Number): Point {
+	   		if (!_bmdOrig || !_imgv) return null;
+	   		var ptv:Point = new Point(xv, yv);
+	   		var ptd:Point = _imgv.PtdFromPtv(ptv);
+			if (!_bmdOrig.rect.containsPoint(ptd)) {
+				ptv = null;
+			}
+			return ptv;
+	   	}
+	   	
+	   	protected function PointsEqual(pt1:Point, pt2:Point): Boolean {
+	   		if (pt1 == null && pt2 == null) return true;
+	   		if (pt1 == null || pt2 == null) return false;
+	   		return (pt1.x == pt2.x) && (pt1.y == pt2.y);
+	   	}
+	   	
+	   	public override function OnOverlayMouseMove():Boolean {
+	   		if (!_fOverlayMouseDown && _bmdOrig) {
+	   			MoveOriginToMouse();
+	   		}
+	   		return super.OnOverlayMouseMove();
+	   	}
+
+	   	protected function MoveOriginToMouse(): void {
+	   		var ptvNewOrigin:Point = InsidePtvFromViewCoords(_mcOverlay.mouseX, _mcOverlay.mouseY);
+			ptvOrigin = ptvNewOrigin;
+	   	}
+	   	
+	   	public override function OnOverlayPress(evt:MouseEvent):Boolean {
+	   		invalidateOverlay();
+	   		var fRet:Boolean = super.OnOverlayPress(evt);
+	   		clickColor = hoverColor;
+	   		return fRet;
+	   	}
+	   		   	
+	   	public override function HideOverlay():void {
+	   		super.HideOverlay();
+	   		ptvOrigin = null;
+	   	}
+	
+	   	private function invalidateOverlay(): void {
+	   		_fOverlayInvalid = true;
+	   		invalidateProperties();
+	   	}
+	   	
+	   	protected override function commitProperties():void {
+	   		super.commitProperties();
+	   		if (_fOverlayInvalid) {
+	   			DrawOverlay();
+	   		}
+	   	}
+	   	
+	   	public override function OnZoom(evt:Event):void {
+	   		super.OnZoom(evt);
+	   		// We zoomed. We need to update our points.
+	   		// Do this later so the overlay has time to adjust the moust coordinates.
+	   		callLater(MoveOriginToMouse);
+	   	}
+
+		public function DrawOverlay(): void {
+			if (_fOverlayInvalid && _mcOverlay) {
+				// Draw some stuff
+				var gr:Graphics = _mcOverlay.graphics;
+				var mat:Matrix;
+				var rcTarg:Rectangle;
+				
+				gr.clear();
+				if (ptvOrigin) {
+					const knLoupeScaleFactor:Number = 1;
+					
+					// Punch out the loupe
+					var rcvTarg:Rectangle = new Rectangle(ptvOrigin.x, ptvOrigin.y, knLoupeRadius * knLoupeScaleFactor, knLoupeRadius * knLoupeScaleFactor);
+					rcvTarg.offset(-knLoupeRadius, -knLoupeRadius);
+					var rcdTarg:Rectangle = _imgv.RcdFromRcl(rcvTarg); // Rcl == Rcv
+					mat = new Matrix();
+					mat.scale(rcvTarg.width/rcdTarg.width, rcvTarg.height/rcdTarg.height);
+					
+					gr.beginBitmapFill(_bmdOrig, mat);
+					gr.drawCircle(ptvOrigin.x, ptvOrigin.y, knLoupeRadius / 2);
+					gr.endFill();
+					
+					// Draw the hat
+					// Fill the drag circle
+					gr.beginFill(hoverColor);
+					gr.drawCircle(ptvOrigin.x, ptvOrigin.y + knFocusHatYOffset, knHatRadius);
+					gr.endFill();
+					gr.beginFill(hoverColor);
+					gr.drawCircle(ptvOrigin.x-0.5, ptvOrigin.y+0.5 + knFocusHatYOffset, knHatRadius);
+					gr.endFill();
+
+					// Draw the loupe crosshairs
+					rcTarg = new Rectangle(ptvOrigin.x, ptvOrigin.y, _bmdFocusCrosshairs.width, _bmdFocusCrosshairs.height);
+					rcTarg.offset(-1*knLoupeScaleFactor*_bmdFocusCrosshairs.width/2, -1*knLoupeScaleFactor*_bmdFocusCrosshairs.height/2 + knFocusCrosshairsYOffset);
+					rcTarg.width *= knLoupeScaleFactor;
+					rcTarg.height *= knLoupeScaleFactor;
+					mat = new Matrix();
+					mat.scale(knLoupeScaleFactor,knLoupeScaleFactor);
+					mat.translate(rcTarg.x, rcTarg.y);
+					gr.beginBitmapFill(_bmdFocusCrosshairs, mat);
+					gr.drawRect(rcTarg.x, rcTarg.y, rcTarg.width, rcTarg.height);
+				}
+				
+				_fOverlayInvalid = false;
+			}
+		}   		
+	]]>
+</mx:Script>
+</OverlayEffectCanvas>

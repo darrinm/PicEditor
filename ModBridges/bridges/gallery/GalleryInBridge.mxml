@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GalleryInBridgeBase xmlns="bridges.gallery.*" xmlns:mx="http://www.adobe.com/2006/mxml" 
+		xmlns:flash="flash.filters.*" xmlns:local="*" xmlns:ctrl="controls.*" xmlns:bridges="bridges.*"
+		width="100%" height="100%" horizontalScrollPolicy="off" verticalScrollPolicy="off">
+	<mx:Script>
+		<![CDATA[
+			import dialogs.DialogManager;
+		]]>
+	</mx:Script>
+	<mx:Number id="_cItems">-1</mx:Number>
+	<mx:Number id="_cSets">-1</mx:Number>
+	<mx:Boolean id="_fIsPro">false</mx:Boolean>
+	
+	<mx:Boolean id="isGuestMode">{AccountMgr.GetInstance().isGuest}</mx:Boolean>
+	<mx:Boolean id="isRegisteredMode">{!AccountMgr.GetInstance().isGuest &amp;&amp; !AccountMgr.GetInstance().isPremium}</mx:Boolean>
+	<mx:Boolean id="isPremiumMode">{AccountMgr.GetInstance().isPremium}</mx:Boolean>
+	
+	<flash:DropShadowFilter id="_fiBannerShadow" blurX="7" blurY="7" distance="2" color="#000000" alpha=".35" quality="3" angle="90"/>
+	<mx:DropShadowFilter id="_fiWhiteShine" blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1" quality="3" angle="90"/>
+	
+	<states>
+		<mx:State name="NeedAuthorization">
+			<mx:RemoveChild target="{_tlst}"/>
+			<mx:RemoveChild target="{hbox1}"/>
+		</mx:State>
+		
+		<mx:State name="NoImages">
+			<mx:RemoveChild target="{_tlst}"/>
+			<mx:AddChild position="lastChild">
+				<mx:HBox x="0" y="81" width="100%" horizontalAlign="center" paddingTop="20" visible="{!isGuestMode}">
+					<mx:Text width="500" textAlign="center" condenseWhite="true" selectable="false" htmlText="@Resource(key='Text_2', bundle='GalleryInBridge')"
+						filters="{[_fiWhiteShine]}"/>
+				</mx:HBox>
+			</mx:AddChild>
+			
+			<!-- Add this back in when we have a sort order drop down:
+			<mx:SetStyle target="{label1}" name="color" value="#999999"/>
+			<mx:SetProperty target="{_cboxOrderBy}" name="enabled" value="false"/>
+			-->
+		</mx:State>
+		
+		<mx:State name="PremiumPreview">
+			<mx:RemoveChild target="{_tlst}"/>
+			<mx:SetProperty target="{hbox1}" name="enabled" value="false"/>
+			<mx:AddChild position="lastChild">
+				<mx:HRule x="0" y="80" width="100%" height="1"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:VBox x="0" y="101" width="100%" styleName="premiumPreviewBar" horizontalAlign="center" 
+						paddingTop="3" paddingBottom="12" filters="{[_fiBannerShadow]}" >
+					<mx:Text width="500" textAlign="center" condenseWhite="true" selectable="false" htmlText="@Resource(key='PremiumPreview', bundle='GalleryInBridge')"/>
+					<ctrl:ResizingButton label="@Resource(key='upgradeButton', bundle='GalleryInBridge')" minWidth="180" maxWidth="180" height="34" styleName="upgradeButton"
+						fontSize="16" autoFontSizeGap="1" click="DialogManager.ShowUpgrade( '/in_gallery/prempreview', PicnikBase.app);"/>
+				</mx:VBox>
+			</mx:AddChild>
+			<!-- Add this back in when we have a sort order drop down:
+			<mx:SetStyle target="{label1}" name="color" value="#999999"/>
+			<mx:SetProperty target="{_cboxOrderBy}" name="enabled" value="false"/>
+			-->
+		</mx:State>
+	</states>
+	
+	<ctrl:ImageVer source="../graphics/bluegrad_short.gif" left="0" top="0" width="100%" height="420" maintainAspectRatio="false" includeInLayout="false" alpha=".5"/>
+	<ctrl:ImageEx left="0" top="0" source="../graphics/gallery_crop.png" id="image2"/>
+	
+	<mx:HBox top="0" paddingLeft="15" height="80" verticalAlign="middle" horizontalGap="0" id="hbox1" width="100%">
+		
+		<mx:HBox verticalAlign="middle" horizontalAlign="left" width="100%" paddingLeft="10">
+			<ctrl:ResizingButton id="_btnNew" label="@Resource(key='createNewGallery', bundle='GalleryInBridge')" icon="@Embed('/assets/bitmaps/icon_gallery.png')" disabledIcon="@Embed('/assets/bitmaps/icon_gallery_dis.png')"
+						height="44" styleName="BigButton" fontSize="21" click="OnNewShowClick()" enabled="{!isGuestMode}"/>
+				<!--<mx:Label text="{GetPhotosAndAlbums(_cItems,_cSets)}" id="_lbPhotoSummary" fontSize="14" color="#666666" filters="{[_fiWhiteShine]}"/>-->
+		</mx:HBox>
+
+<!--Upgrade Message-->
+		<mx:HBox verticalAlign="middle" horizontalAlign="right" width="100%" horizontalGap="10" paddingRight="10"
+				visible="{isRegisteredMode}" includeInLayout="{isRegisteredMode}">
+			<mx:Text htmlText="@Resource(key='registeredUpgradeMessage', bundle='GalleryInBridge')" width="100%" maxWidth="260" minWidth="200"
+				fontSize="15" color="#000000" leading="-1" textAlign="right"/>
+			<mx:Button label="@Resource(key='upgradeButton', bundle='GalleryInBridge')" minWidth="180" height="34" fontSize="16" styleName="BigButton"
+						click="DialogManager.ShowUpgrade('/in_gallery',PicnikBase.app)"/>
+		</mx:HBox>
+		
+		<!-- _cboxOrderBy place holder -->
+		<mx:VBox verticalGap="0" visible="false" includeInLayout="false">
+
+<!-- HACK: this 'enabled != enabled' hack is to work around a bug in Flex which partially enables the editable stat whenever the combobox is enabled -->
+			<ctrl:ComboBoxPlus id="_cboxSets" rowCount="8" width="250" height="26" fontSize="14" color="#333333" editable="{_cboxSets.enabled != _cboxSets.enabled}" styleName="deviceFonts">
+				<ctrl:itemRenderer>
+					<mx:Component>
+		            	<mx:HBox verticalAlign="middle">
+		                	<mx:Label text="{data.label}" fontSize="14" width="160" paddingRight="5" styleName="deviceFonts"/>
+							<mx:Spacer width="100%"/>
+		                	<ctrl:ImageEx source="{data.icon}" height="36" width="36"/>
+		            	</mx:HBox>
+					</mx:Component>
+	            </ctrl:itemRenderer>
+			</ctrl:ComboBoxPlus>
+		</mx:VBox>
+	</mx:HBox>
+
+<!-- hr -->
+	<mx:VBox id="_hrShine" top="79" width="100%" verticalGap="0" paddingBottom="-1">
+		<mx:HRule width="100%" strokeColor="#acd2e5" strokeWidth="1"/>
+		<mx:HRule width="100%" strokeColor="#ffffff" strokeWidth="1" alpha=".75"/>	
+	</mx:VBox>
+	
+<!--Register Box-->	
+	<mx:HBox id="regBox" horizontalAlign="center" verticalAlign="middle" width="100%" paddingTop="100" horizontalGap="-35" visible="{isGuestMode}">
+		<mx:VBox horizontalAlign="left" verticalGap="0">
+			<mx:Text htmlText="@Resource(key='egads', bundle='GalleryInBridge')" width="100%" fontSize="28" fontWeight="bold" color="#002a40" leading="0" selectable="false"/>
+			<mx:Text htmlText="@Resource(key='notRegistered', bundle='GalleryInBridge')" fontSize="18" fontWeight="bold" color="#002a40" selectable="false" leading="0"/>	
+			<mx:Text htmlText="@Resource(key='needRegister', bundle='GalleryInBridge')" width="300" fontSize="14" color="#333333" selectable="false"/>	
+			<mx:Spacer height="15"/>
+			<ctrl:ResizingButton id="_btnRegister" label="@Resource(key='registerButton', bundle='GalleryInBridge')"
+						height="44" styleName="BigButton" fontSize="21" horizontalGap="5" click="DialogManager.ShowRegister()"/>
+		</mx:VBox>
+	<ctrl:ImageVer source="../graphics/register_slides.png" right="0" minWidth="75"/>
+	</mx:HBox>
+	
+	<bridges:InBridgeTileList left="0" top="80" bottom="0" right="0" id="_tlst" itemRenderer="bridges.gallery.GalleryInBridgeItem"
+			rowHeight="180" tileSizeInWidth="280"/>
+</GalleryInBridgeBase>

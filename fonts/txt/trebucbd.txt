@@ -1,0 +1,12 @@
+fileName: trebucbd.ttf
+name: Trebuchet MS
+subfamilyDisplayName: Negreta
+fullName: Trebuchet MS Negreta
+displayName: Trebuchet MS
+ital: 0
+bold: 1
+weight: 5
+panose.weight: 7
+pkName: pktrebucbd
+authorName: Vincent Connare
+authorUrl: http://www.connare.com/typography.htm

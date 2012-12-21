@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FeedbackContentBase xmlns="dialogs.DialogContent.*" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:ctl="controls.*" xmlns:vld="validators.*" >
+<mx:Script>
+	<![CDATA[
+		import util.LocUtil;
+		import mx.collections.ArrayCollection;
+		import mx.utils.ObjectProxy;
+		
+		[Bindable] private var _aobpIssues:ArrayCollection = new ArrayCollection([
+					new ObjectProxy({ id:"selectAnIssue", label:Resource.getString('FeedbackDialog', 'selectAnIssue'), data:"selectAnIssue"}),
+					new ObjectProxy({ id:"cancelSubscription", label:Resource.getString('FeedbackDialog', 'cancelSubscription'), data:"Cancel Subscription"}),
+					new ObjectProxy({ id:"signInProblem", label:Resource.getString('FeedbackDialog', 'signInProblem'), data:"Sign in problem"}),
+					new ObjectProxy({ id:"billing", label:Resource.getString('FeedbackDialog', 'billing'), data:"billing"}),
+					new ObjectProxy({ id:"premiumNotActivated", label:Resource.getString('FeedbackDialog', 'premiumNotActivated'), data:"Premium not activated"}),
+					new ObjectProxy({ id:"featureRequest", label:Resource.getString('FeedbackDialog', 'featureRequest'), data:"Feature Request"}),
+					new ObjectProxy({ id:"featureHelp", label: Resource.getString('FeedbackDialog', 'featureHelp'), data:"Feature help" }),
+					new ObjectProxy({ id:"picnikIsBroken", label:Resource.getString('FeedbackDialog', 'picnikIsBroken'), data:"Picnik is broken"}),
+					new ObjectProxy({ id:"picnikLove", label:Resource.getString('FeedbackDialog', 'picnikLove'), data:"Picnik Love"}),
+					new ObjectProxy({ id:"other", label:Resource.getString('FeedbackDialog', 'other'), data:"Other"}),
+				]);		
+	]]>
+</mx:Script>
+	<states>
+		<mx:State name="Thanks">
+			<mx:SetProperty name="visible" value="false" target="{_vbxForm}" />
+			<mx:SetProperty name="includeInLayout" value="false" target="{_vbxForm}" />
+			<mx:SetProperty name="visible" value="true" target="{_thanks}" />
+			<mx:SetProperty name="includeInLayout" value="true" target="{_thanks}" />
+		</mx:State>
+	</states>
+
+	<mx:Boolean id="_fPremiumNotActivated">{_cboIssueType.selectedItem.id == 'premiumNotActivated'}</mx:Boolean>
+	<mx:Boolean id="_fAccountTypeNeeded">{!_rbtnYesPremium.selected &amp;&amp; !_rbtnNoPremium.selected &amp;&amp; !AccountMgr.GetInstance().hasCredentials}</mx:Boolean>
+	<mx:Boolean id="_fPremiumSignInNeeded">{_rbtnYesPremium.selected &amp;&amp; _cboIssueType.selectedItem.id != 'signInProblem'}</mx:Boolean>
+	<mx:Boolean id="_fEmailNeeded">{_vboxEmailAddress.visible &amp;&amp; (_tiEmailAddress.text.indexOf("@") == -1 || _tiEmailAddress.text.indexOf(".") == -1) }</mx:Boolean>
+	<mx:Boolean id="_fSigninIssueCCNeeded">{_cboIssueType.selectedItem.id == 'signInProblem' &amp;&amp; _rbtnYesPremium.selected &amp;&amp; _tiLastFourDigits.text.length &lt; 4}</mx:Boolean>
+	<mx:Boolean id="_fMessageNeeded">{_taMessage.text.length == 0 &amp;&amp; _cboIssueType.selectedItem.id != 'cancelSubscription'}</mx:Boolean>
+	<mx:Boolean id="_fPrerequisitesValid">{(AccountMgr.GetInstance().hasCredentials || (!_fAccountTypeNeeded &amp;&amp; !_fPremiumSignInNeeded &amp;&amp; !_fEmailNeeded &amp;&amp; !_fSigninIssueCCNeeded))}</mx:Boolean>
+	<mx:Boolean id="isFormValid">{!_fMessageNeeded &amp;&amp; _fPrerequisitesValid}</mx:Boolean>
+	<mx:Boolean id="fTrigger">{OnIssueTypeChange(_cboIssueType.selectedItem.id == 'premiumNotActivated', AccountMgr.GetInstance().hasCredentials)}</mx:Boolean>
+	
+	
+	<mx:String id="_strFeedbackSentNotifyMessage">{Resource.getString('FeedbackDialog', '_strFeedbackSentNotifyMessage')}</mx:String>
+	<mx:String id="okLabel">{Resource.getString('FeedbackDialog', (_cboIssueType.selectedItem.id =='cancelSubscription' ? 'cancelSubscriptionButton' : '_btnSend'))}</mx:String>
+	
+	<mx:VBox id="_vbxForm" width="100%" paddingLeft="5" paddingRight="8">		
+		<mx:VBox width="100%" verticalGap="0">
+			<mx:HBox verticalAlign="middle">
+				<mx:Text text="{Resource.getString('FeedbackDialog', 'issueType')}" id="label1" styleName="publishForm" paddingBottom="-3" selectable="false"/>
+				<mx:ComboBox id="_cboIssueType" width="200" rowCount="10" dataProvider="{_aobpIssues}"/>				
+			</mx:HBox>
+			
+			<mx:VBox width="100%" visible="{_cboIssueType.selectedItem.id != 'selectAnIssue'}" includeInLayout="{_cboIssueType.selectedItem.id != 'selectAnIssue'}">
+				<!-- greeting/signin option 1: unknown user; ask to sign in or otherwise identify -->
+				<mx:VBox width="100%" id="_vboxHaveYouUpgraded" paddingTop="15"
+					visible="{!AccountMgr.GetInstance().hasCredentials}" includeInLayout="{!AccountMgr.GetInstance().hasCredentials}">
+					<mx:Text text="{Resource.getString('FeedbackDialog', 'upgraded')}" paddingBottom="-3" width="100%" styleName="publishForm"/>
+					<mx:RadioButton label="{_cboIssueType.selectedItem.id == 'signInProblem' ? Resource.getString('FeedbackDialog', 'yep') : Resource.getString('FeedbackDialog','yesPremium')}" id="_rbtnYesPremium" 
+							selected="false" groupName="freeOrPremium" click="_loginTrio.currentState='Login'"/>	
+	
+					<!-- maybe premium: give the user a signin dialog -->
+					<mx:VBox id="_vboxSignin" width="100%" height="240" paddingTop="5" paddingLeft="5" paddingRight="5" clipContent="true"
+						backgroundColor="#d8efff" cornerRadius="8" borderStyle="solid" borderThickness="1" borderColor="#92c4df"
+						visible="{_rbtnYesPremium.selected &amp;&amp; _cboIssueType.selectedItem.id != 'signInProblem'}"
+						includeInLayout="{_rbtnYesPremium.selected &amp;&amp; _cboIssueType.selectedItem.id != 'signInProblem'}">
+						<LoginTrio id="_loginTrio" currentState="Login" minimal="true" width="100%" height="100%"/>
+					</mx:VBox>		
+															
+					<mx:RadioButton label="@Resource(key='noPremium', bundle='FeedbackDialog')" id="_rbtnNoPremium" 
+							selected="false" groupName="freeOrPremium"/>
+					
+					<!-- not premium: give the user a place to put his/her email address -->
+					<mx:VBox id="_vboxEmailAddress" paddingLeft="30" paddingRight="20" width="85%"
+						visible="{_rbtnNoPremium.selected || (_rbtnYesPremium.selected &amp;&amp; _cboIssueType.selectedItem.id == 'signInProblem')}"
+						includeInLayout="{_rbtnNoPremium.selected || (_rbtnYesPremium.selected &amp;&amp; _cboIssueType.selectedItem.id == 'signInProblem')}">
+						<mx:Text text="{(_cboIssueType.selectedItem.id == 'signInProblem') ? Resource.getString('FeedbackDialog', 'providePicnikEmail') : Resource.getString('FeedbackDialog', 'provideEmail')}" width="100%" 
+								styleName="publishForm" paddingBottom="-6"/>
+						<ctl:TextInputPlus id="_tiEmailAddress" height="26" maxChars="200" width="100%" tabIndex="1" styleName="publishFormField"
+								text="{AccountMgr.GetInstance().email}"/>
+					</mx:VBox>		
+					
+					<!-- maybe premium but the user can't signin: ask for the creditcard digits  -->
+					<mx:VBox id="_hboxLastFourDigits" width="100%" verticalAlign="middle" paddingLeft="30" paddingRight="20"
+						visible="{_rbtnYesPremium.selected &amp;&amp; _cboIssueType.selectedItem.id == 'signInProblem'}" cornerRadius="8"
+						includeInLayout="{_rbtnYesPremium.selected &amp;&amp; _cboIssueType.selectedItem.id == 'signInProblem'}">
+						<mx:Text text="{Resource.getString('FeedbackDialog', 'last4DigitsRequest')}" paddingBottom="-3" width="100%" styleName="publishForm"/>
+						<ctl:TextInputPlus id="_tiLastFourDigits" height="26" maxChars="200" width="35%" tabIndex="1" styleName="publishFormField"/>
+					</mx:VBox>
+				</mx:VBox>
+				
+				<!-- greeting option 2: registered user. Just say hello! -->
+				<mx:VBox width="100%" id="_vboxPremiumHello" paddingTop="15"
+					visible="{AccountMgr.GetInstance().hasCredentials}" includeInLayout="{AccountMgr.GetInstance().hasCredentials}">
+					<mx:Text styleName="publishForm"  fontSize="14"
+						visible="{!_fPremiumNotActivated}" includeInLayout="{!_fPremiumNotActivated}"
+						text="{LocUtil.rbSubst('FeedbackDialog', 'signedInGreeting' + (_cboIssueType.selectedItem.id =='cancelSubscription' ? 'Short' : ''), AccountMgr.GetInstance().name)}" 
+						paddingBottom="-3" width="100%"/>
+					<mx:Text styleName="publishForm"  fontSize="14"
+						visible="{_fPremiumNotActivated}" includeInLayout="{_fPremiumNotActivated}"
+						htmlText="{GetPremiumCheckText(_strPremiumCheckStatus)}"
+					 	paddingBottom="-3" width="100%"/>
+					<!--
+					<mx:Text styleName="publishForm"  fontSize="14"
+						visible="{_fPremiumNotActivated &amp;&amp; AccountMgr.GetInstance().isPaid}" 
+						includeInLayout="{_fPremiumNotActivated &amp;&amp; AccountMgr.GetInstance().isPaid}"
+						htmlText="@Resource(key='helpRefreshPicnik', bundle='FeedbackDialog')"
+					 	paddingBottom="-3" width="100%"/>
+					 -->
+				</mx:VBox>
+				
+				<!-- premium: Cancel Subscription -->
+					<mx:VBox id="_vboxCancelSub" width="100%" height="100" paddingTop="5" paddingLeft="5" paddingRight="5" clipContent="true"
+						visible="{_cboIssueType.selectedItem.id =='cancelSubscription'}"
+						includeInLayout="{_cboIssueType.selectedItem.id == 'cancelSubscription'}">
+						<mx:Text width="100%" fontSize="13" condenseWhite="true" selectable="true" htmlText="{Resource.getString('FeedbackDialog', 'cancelSubscriptionText')}"/>
+						<!-- To be finished by Eng. The "Tell us how we can help" will need to show/hide based on if Cancel Subscription
+						is selected. Likewise the button currently labeled "Send It! will need to change to green and be labeled "My Account"
+						and take users there when clicked. Still waiting on Ed. For Copy.-->
+					</mx:VBox>
+				
+				<!-- message --> 
+				<mx:VBox width="100%" visible="{_cboIssueType.selectedItem.id !='cancelSubscription' &amp;&amp; (_fPrerequisitesValid || _taMessage.text.length > 0)}"
+						 includeInLayout="{_cboIssueType.selectedItem.id !='cancelSubscription' &amp;&amp; (_fPrerequisitesValid || _taMessage.text.length > 0)}">
+					<mx:Label text="{Resource.getString('FeedbackDialog', 'label2')}" id="label2" styleName="publishForm" paddingTop="8" paddingBottom="-3"/>
+					<ctl:TextAreaPlus id="_taMessage" maxChars="10000" width="100%" tabIndex="2" height="67" styleName="publishFormField" fontSize="13" maxHeight="67" minHeight="67"/>					
+				</mx:VBox>
+			</mx:VBox>
+		</mx:VBox>			
+	</mx:VBox>
+	<mx:Box id="_thanks" visible="false" includeInLayout="false" paddingLeft="6">
+		<mx:Label text="{Resource.getString('FeedbackDialog', '_strFeedbackSentNotifyMessage')}" fontSize="18"/>
+		<mx:Button label="{Resource.getString('FeedbackDialog', 'back_to_feedback')}" click="{ResetState()}"/>
+	</mx:Box>
+</FeedbackContentBase>

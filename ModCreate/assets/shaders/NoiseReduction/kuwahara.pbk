@@ -1,0 +1,154 @@
+/*****************************************************************************
+ *
+ * Kuwahara filter v1.0
+ * Last Change: Oct 9 2007
+ *
+ * Author: Joa Ebert
+ * http://blog.je2050.de
+ * Contact: j -at- je2050.de
+ *
+ * This work is licensed under a Creative Commons Attribution-Share Alike 3.0 Unported License
+ * http://creativecommons.org/licenses/by-sa/3.0/
+ * 
+ *****************************************************************************/
+<languageVersion: 1.0;>
+kernel Kuwahara
+<   namespace: "popforge::ImageProcessing";
+    vendor: "joa ebert";
+    version: 1;
+    description: "kuwahara filter with a kernal size of k = 2";
+>
+{
+    #define HANDLE_SQUARE(mean,variance) \
+        v = float4(0.0); \
+        vv = float4(0.0); \
+        mean += (val=sampleLinear(source, float2(x + 0.0, y + 0.0))); \
+        v += val; \
+        vv += val * val; \
+         \
+        mean += (val=sampleLinear(source, float2(x + 1.0, y + 0.0))); \
+        v += val; \
+        vv += val * val; \
+         \
+        mean += (val=sampleLinear(source, float2(x + 0.0, y + 1.0))); \
+        v += val; \
+        vv += val * val; \
+         \
+        mean += (val=sampleLinear(source, float2(x + 1.0, y + 1.0))); \
+        v += val; \
+        vv += val * val; \
+         \
+        variance = ( ( k2 * vv - v * v ) / k2 ); \
+        mean = mean * ik2;
+        
+    const float k = 2.0;
+    const float k2 = k*k;
+    const float ik2 = 1.0/k2;
+    
+    input image4 source;
+    output pixel4 sampled;
+    
+    void evaluatePixel()
+    {
+        float2 pos = outCoord();
+        
+        float4 v0, v1, v2, v3;
+        float x, y;
+        float4 v, vv;
+        float oldV = 1.0;
+        float bestV = 1.0;
+        
+        pixel4 m0, m1, m2, m3;
+        pixel4 val;
+        pixel4 bestM;
+        
+        // reset mean values;
+        m0 = m1 = m2 = m3 = pixel4(0.0);
+        
+        // top left
+        x = pos.x - k;
+        y = pos.y - k;
+        
+        HANDLE_SQUARE(m0,v0);
+        
+        // top right
+        x = pos.x;
+        y = pos.y - k;
+        
+        HANDLE_SQUARE(m1,v1);
+        
+        // bottom left
+        x = pos.x - k;
+        y = pos.y;
+        
+        HANDLE_SQUARE(m2,v2);
+        
+        // bottom right
+        x = pos.x;
+        y = pos.y;
+        
+        HANDLE_SQUARE(m3,v3);
+        
+        /* local variance minimum for red channel */
+        bestV = ( v0.r < bestV ) ? v0.r : bestV;
+        bestM.r = ( oldV != bestV ) ? m0.r : bestM.r;
+        oldV = bestV;
+        
+        bestV = ( v1.r < bestV ) ? v1.r : bestV;
+        bestM.r = ( oldV != bestV ) ? m1.r : bestM.r;
+        oldV = bestV;
+        
+        bestV = ( v2.r < bestV ) ? v2.r : bestV;
+        bestM.r = ( oldV != bestV ) ? m2.r : bestM.r;
+        oldV = bestV;
+        
+        bestV = ( v3.r < bestV ) ? v3.r : bestV;
+        bestM.r = ( oldV != bestV ) ? m3.r : bestM.r;
+        oldV = bestV;
+        
+        /* reset local minimum */
+        bestV = 1.0;
+        oldV = 1.0;
+        
+        /* local variance minimum for green channel */
+        bestV = ( v0.g < bestV ) ? v0.g : bestV;
+        bestM.g = ( oldV != bestV ) ? m0.g : bestM.g;
+        oldV = bestV;
+        
+        bestV = ( v1.g < bestV ) ? v1.g : bestV;
+        bestM.g = ( oldV != bestV ) ? m1.g : bestM.g;
+        oldV = bestV;
+        
+        bestV = ( v2.g < bestV ) ? v2.g : bestV;
+        bestM.g = ( oldV != bestV ) ? m2.g : bestM.g;
+        oldV = bestV;
+        
+        bestV = ( v3.g < bestV ) ? v3.g : bestV;
+        bestM.g = ( oldV != bestV ) ? m3.g : bestM.g;
+        oldV = bestV;
+        
+        /* reset local minimum */
+        bestV = 1.0;
+        oldV = 1.0;
+        
+        /* local variance minimum for blue channel */
+        bestV = ( v0.b < bestV ) ? v0.b : bestV;
+        bestM.b = ( oldV != bestV ) ? m0.b : bestM.b;
+        oldV = bestV;
+        
+        bestV = ( v1.b < bestV ) ? v1.b : bestV;
+        bestM.b = ( oldV != bestV ) ? m1.b : bestM.b;
+        oldV = bestV;
+        
+        bestV = ( v2.b < bestV ) ? v2.b : bestV;
+        bestM.b = ( oldV != bestV ) ? m2.b : bestM.b;
+        oldV = bestV;
+        
+        bestV = ( v3.b < bestV ) ? v3.b : bestV;
+        bestM.b = ( oldV != bestV ) ? m3.b : bestM.b;
+        oldV = bestV;
+        
+        /* finally */
+        sampled = pixel4(bestM.r, bestM.g, bestM.b, 1.0);
+    }
+}

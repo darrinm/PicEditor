@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory area="HomeForTheHolidays" id="root">
+	<ShapeCategory flickrPremium="false" id="HomeForTheHolidaysSection" numShapes="0" picnikPremium="false" showHeader="false">
+		<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/xmas_lights.png" flickrPremium="true" id="ChristmasLights" numShapes="8" picnikPremium="true" previewUrls="60|48|../clipart/bundles/HomeForTheHolidaysArea_groupPreviews_ChristmasLights.png?ver=f85ad575" thumbUrl="66|54|0|../clipart/bundles/HomeForTheHolidaysArea_groupThumbs.png?ver=7b9d421d" title="Christmas Lights"/>
+		<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/xmas_ornaments.png" flickrPremium="false" id="Ornaments" numShapes="0" picnikPremium="false" previewUrls="60|48|../clipart/bundles/HomeForTheHolidaysArea_groupPreviews_Ornaments.png?ver=46520744" thumbUrl="66|54|1|../clipart/bundles/HomeForTheHolidaysArea_groupThumbs.png?ver=7b9d421d" title="Ornaments">
+			<ShapeCategory flickrPremium="false" id="FreeOrnaments" numShapes="20" picnikPremium="false" title="Free"/>
+			<ShapeCategory flickrPremium="true" id="PremiumOrnaments" numShapes="42" picnikPremium="true" title="Premium"/>
+		</ShapeCategory>
+		<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/xmas_stockings.png" flickrPremium="false" id="Stockings" numShapes="0" picnikPremium="false" previewUrls="60|48|../clipart/bundles/HomeForTheHolidaysArea_groupPreviews_Stockings.png?ver=440f33a7" thumbUrl="66|54|2|../clipart/bundles/HomeForTheHolidaysArea_groupThumbs.png?ver=7b9d421d" title="Stockings">
+			<ShapeCategory flickrPremium="false" id="FreeStockings" numShapes="8" picnikPremium="false" title="Free"/>
+			<ShapeCategory flickrPremium="true" id="PremiumStockings" numShapes="20" picnikPremium="true" title="Premium"/>
+		</ShapeCategory>
+		<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/xmas_candycanes.png" flickrPremium="true" id="CandyCanes" numShapes="12" picnikPremium="true" previewUrls="60|48|../clipart/bundles/HomeForTheHolidaysArea_groupPreviews_CandyCanes.png?ver=550771fe" thumbUrl="66|54|3|../clipart/bundles/HomeForTheHolidaysArea_groupThumbs.png?ver=7b9d421d" title="Candy Canes"/>
+		<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/xmas_misc.png" flickrPremium="true" id="OtherChristmas" numShapes="0" picnikPremium="true" previewUrls="60|48|../clipart/bundles/HomeForTheHolidaysArea_groupPreviews_OtherChristmas.png?ver=33fa1a79" thumbUrl="66|54|4|../clipart/bundles/HomeForTheHolidaysArea_groupThumbs.png?ver=7b9d421d" title="Miscellaneous">
+			<ShapeCategory flickrPremium="true" id="OtherChristmasDecorations" numShapes="13" picnikPremium="true" title="Decorations"/>
+			<ShapeCategory flickrPremium="true" id="OtherChristmasGifts" numShapes="8" picnikPremium="true" title="Gifts"/>
+			<ShapeCategory flickrPremium="true" id="OtherHolly" numShapes="14" picnikPremium="true" title="Holly"/>
+		</ShapeCategory>
+		<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/shape_hanukkah.png" flickrPremium="false" id="Hanukkah" numShapes="6" picnikPremium="false" previewUrls="60|48|../clipart/bundles/HomeForTheHolidaysArea_groupPreviews_Hanukkah.png?ver=04df0814" thumbUrl="66|54|5|../clipart/bundles/HomeForTheHolidaysArea_groupThumbs.png?ver=7b9d421d" title="Hanukkah"/>
+		<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/hanukkah_dreidels.png" flickrPremium="true" id="Dreidels" numShapes="4" picnikPremium="true" previewUrls="60|48|../clipart/bundles/HomeForTheHolidaysArea_groupPreviews_Dreidels.png?ver=32d1382e" thumbUrl="66|54|6|../clipart/bundles/HomeForTheHolidaysArea_groupThumbs.png?ver=7b9d421d" title="Dreidels"/>
+		<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/shape_Christmas.png" flickrPremium="false" id="Christmas" numShapes="0" picnikPremium="false" previewUrls="60|48|../clipart/bundles/HomeForTheHolidaysArea_groupPreviews_Christmas.png?ver=d54fe36c" thumbUrl="66|54|7|../clipart/bundles/HomeForTheHolidaysArea_groupThumbs.png?ver=7b9d421d" title="Christmas">
+			<ShapeCategory flickrPremium="false" id="ChristmasIcons" numShapes="8" picnikPremium="false" title="Christmas Icons"/>
+			<ShapeCategory flickrPremium="true" id="ChristmasStickers" numShapes="16" picnikPremium="true" title="Premium Christmas Stickers"/>
+			<ShapeCategory flickrPremium="true" id="Presents" numShapes="12" picnikPremium="true" title="Premium Presents"/>
+			<ShapeCategory flickrPremium="true" id="ChristmasLetter" numShapes="8" picnikPremium="true" title="Premium Christmas Letter"/>
+			<ShapeCategory flickrPremium="false" id="HollyBorders" numShapes="8" picnikPremium="false" title="Holly Borders"/>
+		</ShapeCategory>
+		<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/xmas_sketchy.png" flickrPremium="true" id="SketchyChristmas" numShapes="28" picnikPremium="true" previewUrls="60|48|../clipart/bundles/HomeForTheHolidaysArea_groupPreviews_SketchyChristmas.png?ver=368943c1" thumbUrl="66|54|8|../clipart/bundles/HomeForTheHolidaysArea_groupThumbs.png?ver=7b9d421d" title="Sketchy Christmas"/>
+		<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/xmas_labels.png" flickrPremium="false" id="HolidayLabels" numShapes="12" picnikPremium="false" previewUrls="60|48|../clipart/bundles/HomeForTheHolidaysArea_groupPreviews_HolidayLabels.png?ver=059d3078" thumbUrl="66|54|9|../clipart/bundles/HomeForTheHolidaysArea_groupThumbs.png?ver=7b9d421d" title="Gift Tags"/>
+		<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/xmas_nuts.png" flickrPremium="false" id="OtherNuts" numShapes="24" picnikPremium="false" previewUrls="60|48|../clipart/bundles/HomeForTheHolidaysArea_groupPreviews_OtherNuts.png?ver=5b303845" thumbUrl="66|54|10|../clipart/bundles/HomeForTheHolidaysArea_groupThumbs.png?ver=7b9d421d" title="Nuts!"/>
+	</ShapeCategory>
+</ShapeCategory>

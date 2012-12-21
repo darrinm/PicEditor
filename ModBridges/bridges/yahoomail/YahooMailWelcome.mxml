@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<YahooMailInBridgeBase xmlns="bridges.yahoomail.*" xmlns:mx="http://www.adobe.com/2006/mxml" 
+		xmlns:flash="flash.filters.*" xmlns:local="*" xmlns:basket="bridges.basket.*"
+		width="100%" height="100%" horizontalScrollPolicy="off" verticalScrollPolicy="off"  
+		xmlns:ctrl="controls.*" xmlns:components="bridges.components.*"
+		styleName="yahooGradient" cornerRadius="8" filters="{[_fiPremShine,_fiPremShadow]}">
+	<mx:Number id="_cItems">0</mx:Number>
+	<mx:Number id="_cSets">0</mx:Number>
+	<mx:Boolean id="_fIsPro">false</mx:Boolean>
+
+	<mx:Script>
+		<![CDATA[
+			import util.LocUtil;
+			import mx.utils.ObjectProxy;
+			private function GetProgressInfo(tpa:ThirdPartyAccount): ObjectProxy {
+				return (tpa.storageService as YahooMailStorageService).GetProgressInfo();
+			}
+		]]>
+	</mx:Script>
+	
+	<mx:DropShadowFilter id="_fiDropShad" blurX="7" blurY="7" distance="2" color="#000000" alpha=".35" quality="3" angle="90"/>
+	<mx:DropShadowFilter id="_fiModuleShine" blurX="0" blurY="0" distance="1" color="#FFFFFF" alpha="1" inner="true" quality="3" angle="90"/>
+	<mx:DropShadowFilter id="_fiModuleShadow" blurX="3" blurY="3" distance="1" color="#000000" alpha=".15" quality="3" angle="90" knockout="true"/>
+	<mx:DropShadowFilter id="_fiStartShadow" blurX="4" blurY="4" distance="1" color="#000000" alpha=".1" quality="3" angle="90" knockout="true"/>
+	<mx:DropShadowFilter id="_fiWhiteShad" blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1" quality="3" angle="90"/>
+	<mx:DropShadowFilter id="_fiStripeShadow" blurX="4" blurY="4" distance="1" color="#000000" alpha=".2" quality="3" angle="90"/>
+	<mx:DropShadowFilter id="_fiTileShadow" blurX="3" blurY="3" distance="1" color="#000000" alpha=".15" quality="3" angle="90"/>
+	<mx:DropShadowFilter id="_fiGlow" alpha="0.5" blurX="5" blurY="5" quality="3" color="#ffffff"/>
+	<mx:DropShadowFilter id="_efEmbossed" blurX="0" blurY="0" distance="1" color="#000000" alpha=".4" quality="3" angle="-90"/>
+	
+	<mx:DropShadowFilter id="_fiPremShadow" blurX="3" blurY="3" distance="1" color="#000000" alpha=".25" quality="3" angle="90"/>
+	<mx:DropShadowFilter id="_fiPremShine" blurX="0" blurY="0" distance="1" color="#FFFFFF" alpha=".9" inner="true" quality="3" angle="90"/>
+	<mx:DropShadowFilter id="_fiPremBigShadow" blurX="10" blurY="10" distance="4" color="#000000" alpha=".35" quality="3" angle="90"/>
+	
+	<mx:Fade id="_efFadeIn" duration="300" alphaFrom="0" alphaTo="1"/>
+	<mx:Fade id="_efFadeOut" duration="200" alphaFrom="1" alphaTo="0"/>
+	
+	<states>
+		<mx:State name="NeedAuthorization">
+			<mx:RemoveChild target="{_tlst}"/>
+			<mx:RemoveChild target="{hbox1}"/>
+			<mx:RemoveChild target="{canvas1}"/>
+			<mx:AddChild position="lastChild">
+				<YahooMailWelcomeAccount id="_ssa" _tpa="{_tpa}" horizontalCenter="0" paddingBottom="10" top="0"/>
+			</mx:AddChild>
+		</mx:State>
+		<mx:State name="NoSets">
+			<mx:RemoveChild target="{_tlst}"/>
+			<mx:SetProperty target="{_cboxSets}" name="enabled" value="false"/>
+			<mx:AddChild position="lastChild">
+				<mx:HBox x="0" top="70" width="100%" horizontalAlign="center">
+					<mx:Text width="600" textAlign="center" condenseWhite="true" selectable="false"
+						htmlText="@Resource(key='noPhotos', bundle='YahooMailBasket')" filters="{[_efEmboss]}" color="#ffffff"/>
+				</mx:HBox>
+			</mx:AddChild>
+			<!-- Add this back in when we have a sort order drop down:
+			mx:SetProperty target="{_cboxOrderBy}" name="enabled" value="false"/>
+			<mx:SetStyle target="{label1}" name="color" value="#999999"/> 
+			-->
+		</mx:State>
+		<mx:State name="NoImages">
+			<mx:RemoveChild target="{_tlst}"/>
+			<mx:AddChild position="lastChild">
+				<mx:HBox x="0" top="70" width="100%" horizontalAlign="center">
+					<mx:Text width="600" textAlign="center" condenseWhite="true" selectable="false"
+						htmlText="@Resource(key='emptyAlbum', bundle='YahooMailBasket')" filters="{[_efEmboss]}" color="#ffffff"/>
+				</mx:HBox>
+			</mx:AddChild>
+			<!-- Add this back in when we have a sort order drop down:
+			<mx:SetStyle target="{label1}" name="color" value="#999999"/>
+			<mx:SetProperty target="{_cboxOrderBy}" name="enabled" value="false"/>
+			-->
+		</mx:State>
+		<mx:State name="SlowGetItems">
+			<mx:RemoveChild target="{_tlst}"/>
+			<mx:AddChild position="lastChild">
+				<mx:HBox x="0" top="100" width="100%" horizontalAlign="center">
+					<mx:Text width="600" textAlign="center" condenseWhite="true" selectable="false"
+						htmlText="@Resource(key='slowgetitems', bundle='YahooMailBasket')" filters="{[_efEmboss]}" color="#ffffff"/>
+				</mx:HBox>
+			</mx:AddChild>
+			<!-- Add this back in when we have a sort order drop down:
+			<mx:SetStyle target="{label1}" name="color" value="#999999"/>
+			<mx:SetProperty target="{_cboxOrderBy}" name="enabled" value="false"/>
+			-->
+		</mx:State>
+	</states>
+
+	<flash:DropShadowFilter id="_efEmboss" alpha="0.35" quality="3" blurX="0" blurY="0" angle="-90" color="#000000" distance="1"/>
+	<flash:DropShadowFilter id="_efShadow" distance="1" angle="90" blurX="3" blurY="3" alpha=".5" quality="3"/>
+
+	<ctrl:Gears source="@Embed('/assets/swfs/gearsGreen.swf')" id="_grsBusy" top="40" right="180" width="45" height="18" visible="false"
+			filters="{[_efEmboss]}" mouseEnabled="false" mouseChildren="false"/>
+	<mx:Canvas width="100%" height="100%" id="canvas1">
+		<mx:Label id="_lbGreeting" width="100%" htmlText="@Resource(key='greeting', bundle='YahooMailBasket')"
+	   			fontSize="24" color="#FFFFFF" filters="{[_efEmboss]}" top="10" left="10"/>
+		<ctrl:ResizingLabel width="400" htmlText="@Resource(key='short_get_started_tip', bundle='YahooMailInBridge')"
+		   		fontSize="14" color="#FFFFFF" condenseWhite="true" filters="{[_efEmboss]}" top="38" left="10"
+		   		fontSize_9="13" fontSize_8="12"/>
+	   	<!-- UI HACK: Until we have time to do this right, swap out the quick view text for the progress text
+		<mx:Text width="100%" htmlText="@Resource(key='quickView', bundle='YahooMailBasket')"
+	   		fontSize="14" leading="-1" color="#FFFFFF" filters="{[_efEmboss]}" top="38" left="10"/>
+	   	-->
+		<mx:Text width="100%" htmlText="{LocUtil.zeroOneOrMany2('YahooMailInBridge', GetProgressInfo(_tpa).ymf.cImagesFound, GetProgressInfo(_tpa).ymf.cMessagesScanned,'num_images_emails')}"
+		   		fontSize="13" leading="-1" color="#FFFFFF" filters="{[_efEmboss]}" top="56" left="10" alpha=".7"/>
+		   		
+		<mx:VBox top="10" right="9" verticalAlign="middle" verticalGap="3" id="hbox1" width="180">
+			<ctrl:ResizingButton right="9" bottom="20" label="@Resource(key='seeAll', bundle='YahooMailBasket')" autoFontSizeGap="1"
+		   			styleName="basketButton" fontSize="13" height="24" width="100%"
+					click="NavigateTo(PicnikBase.IN_BRIDGES_TAB, '_brgYahooMailIn')"/>
+		<!-- HACK: this 'enabled != enabled' hack is to work around a bug in Flex which partially enables the editable state
+			whenever the combobox is enabled -->
+			<ctrl:ComboBoxPlus id="_cboxSets" rowCount="8" width="180" height="24"
+					editable="{_cboxSets.enabled != _cboxSets.enabled}" styleName="greenComboBox">
+				<ctrl:itemRenderer>
+					<mx:Component>
+		                  	<mx:Label text="{data.label}" fontSize="14" width="100%" paddingRight="5" styleName="deviceFonts"/>
+		            </mx:Component>
+	            </ctrl:itemRenderer>
+			</ctrl:ComboBoxPlus>
+		</mx:VBox>
+		<basket:BasketItemTileList tileSizeInWidth="85" left="0" top="80" bottom="10" right="10" id="_tlst"/>
+   	</mx:Canvas>
+</YahooMailInBridgeBase>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ctnr:InfoWindow xmlns:ctnr="containers.*" xmlns:mx="http://www.adobe.com/2006/mxml">
+<mx:Script>
+	<![CDATA[
+		import containers.InfoWindow;
+		
+		import imagine.documentObjects.IDocumentObject;
+		
+		import events.ActiveDocumentEvent;
+		import events.ImageDocumentEvent;
+		
+		import imagine.ImageDocument;
+		
+		import mx.containers.ViewStack;
+		import mx.core.UIComponent;
+		import mx.events.CloseEvent;
+		import mx.events.FlexEvent;
+		
+		[Bindable] public var _vstk:ViewStack;
+		
+		public var _doco:IDocumentObject;
+		public var _imgd:ImageDocument;
+		
+		public function Show(): void {
+			if (visible)
+				return;
+				
+			// Latch onto the active document and watch for selection changes
+			PicnikBase.app.addEventListener(ActiveDocumentEvent.CHANGE, OnActiveDocumentChange);
+			OnActiveDocumentChange(new ActiveDocumentEvent(ActiveDocumentEvent.CHANGE, null,
+					PicnikBase.app.activeDocument), false);
+					
+			addEventListener(CloseEvent.CLOSE, OnClose);
+					
+			// Kill these because we don't want them to interfere with our overlapped target/palette fading
+			setStyle("rollOverEffect", null);
+			setStyle("rollOutEffect", null);
+			setStyle("resizeEffect", null);
+			
+			alpha = 1.0;
+			visible = true;
+		}
+		
+		public function Hide(): void {
+			visible = false;
+			if (_imgd)
+				_imgd.addEventListener(ImageDocumentEvent.SELECTED_ITEMS_CHANGE, OnSelectedItemsChange);
+			_imgd = null;
+			
+			PicnikBase.app.removeEventListener(ActiveDocumentEvent.CHANGE, OnActiveDocumentChange);
+			removeEventListener(CloseEvent.CLOSE, OnClose);
+			_doco = null;
+		}
+		
+		// Override default positioning which is mostly concerned with keeping palette windows
+		// from colliding with each other.
+		override protected function OnShow(evt:FlexEvent): void {
+			// Don't do anything
+		}
+		
+		private function OnActiveDocumentChange(evt:ActiveDocumentEvent, fPlayTransition:Boolean=true): void {
+			if (evt.docNew != _imgd && _imgd != null) {
+				_imgd.removeEventListener(ImageDocumentEvent.SELECTED_ITEMS_CHANGE, OnSelectedItemsChange);
+			}
+	
+			_imgd = evt.docNew as ImageDocument;
+			
+			if (_imgd) {
+				_imgd.addEventListener(ImageDocumentEvent.SELECTED_ITEMS_CHANGE, OnSelectedItemsChange);
+				OnSelectedItemsChange(new ImageDocumentEvent(ImageDocumentEvent.SELECTED_ITEMS_CHANGE, null,
+						_imgd.selectedItems), fPlayTransition);
+			}
+		}
+		
+		private function OnClose(evt:CloseEvent): void {
+			// Clearing the selection causes the Object Palette to be hidden
+			if (_imgd)
+				_imgd.selectedItems = null;
+		}
+		
+		private function OnSelectedItemsChange(evt:ImageDocumentEvent, fPlayTransition:Boolean=true): void {
+			// Hide the Object Palette if there is no selected object
+			var aobSelected:Array = evt.obNew as Array; 
+			if (aobSelected == null || aobSelected.length == 0) {
+				Hide();
+				return;
+			}
+			
+			// Show the palette corresponding to the type of DocumentObject selected
+			// UNDONE: multiple selection
+			_doco = aobSelected[0] as IDocumentObject;
+			var cmnp:CommonPaletteBase = _vstk.getChildByName(_doco.objectPaletteName) as CommonPaletteBase;
+			cmnp._doco = _doco;
+			cmnp._imgd = _imgd;
+			title = cmnp.title;
+			
+			if (_vstk.selectedChild == cmnp)
+				return; 
+	
+			_vstk.selectedChild = cmnp;
+			ForceRelayout();
+		}
+		
+		// ObjectPalette includeInLayout=false so scrollbars won't get added when it is partially off
+		// window. This has an unfortunate side effect of killing ObjectPalette resizing when the
+		// ViewStack changes! ForceRelayout causes parent-level invalidation to occur which results
+		// in the relayout of the ObjectPalette.
+		private function ForceRelayout(): void {
+			UIComponent(parent).invalidateDisplayList();
+		}
+		
+		// HACK: There is some built-in offsetting going on inside the Panel the Object Palette 
+		// ultimately derives from. We want a different offset so we take care of it here.
+		override protected function layoutChrome(unscaledWidth:Number, unscaledHeight:Number):void {
+	        super.layoutChrome(unscaledWidth, unscaledHeight);
+	       	titleTextField.x -= 4;
+	    }
+	]]>
+</mx:Script>	
+</ctnr:InfoWindow> 

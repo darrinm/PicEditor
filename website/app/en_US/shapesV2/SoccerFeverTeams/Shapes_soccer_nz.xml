@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory flickrPremium="false" id="soccer_nz" numShapes="3" picnikPremium="false" previewUrls="60|48|../clipart/bundles/SoccerFeverTeamsArea_groupPreviews_soccer_nz.png?ver=94481fbe" title="New Zealand Stickers">
+	<Shapes>
+		<Clipart cHeight="294" cWidth="463.7" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|0|../clipart/bundles/SoccerFeverTeamsArea_shapes_soccer_nz.png?ver=ad14d0cc" url="shapes/SoccerFever/nz/wavingflag_nz.swf"/>
+		<Clipart cHeight="186.2" cWidth="360.34999999999997" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|1|../clipart/bundles/SoccerFeverTeamsArea_shapes_soccer_nz.png?ver=ad14d0cc" url="shapes/SoccerFever/nz/flag_nz.swf"/>
+		<Clipart cHeight="223.55" cWidth="95.95" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|2|../clipart/bundles/SoccerFeverTeamsArea_shapes_soccer_nz.png?ver=ad14d0cc" url="shapes/SoccerFever/nz/scarf_nz.swf"/>
+	</Shapes>
+</ShapeCategory>

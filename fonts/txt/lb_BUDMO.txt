@@ -1,0 +1,12 @@
+fileName: lb_BUDMO.TTF
+name: Budmo Jiggler
+subfamilyDisplayName: Regular
+fullName: Budmo Jiggler
+displayName: Budmo Jiggler
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 4
+pkName: pklb0BUDMO
+authorName: Ray Larabie
+authorUrl: http://www.larabiefonts.com/

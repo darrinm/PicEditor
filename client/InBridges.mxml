@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<InBridgeContainer xmlns="containers.*" xmlns:bk="controls.*" xmlns:bridges="bridges.*" 
+		xmlns:mycomputer="bridges.mycomputer.*"
+		xmlns:mypicnik="bridges.mypicnik.*"
+		xmlns:history="bridges.history.*"
+		xmlns:gallery="bridges.gallery.*"
+		xmlns:flickr="bridges.flickr.*"
+		xmlns:facebook="bridges.facebook.*"
+		xmlns:picasaweb="bridges.picasaweb.*"
+		xmlns:photobucket="bridges.photobucket.*"
+		xmlns:flickrsearch="bridges.flickrsearch.*"
+		xmlns:web="bridges.web.*"
+		xmlns:webcam="bridges.webcam.*"
+		xmlns:projects="bridges.projects.*"
+		xmlns:yahoomail="bridges.yahoomail.*"
+		xmlns:twitter="bridges.twitter.*"
+		xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:url="urlkit.rules.*"
+		width="100%" height="100%">
+		
+	<mx:Script>
+		<![CDATA[
+			import bridges.Bridge;
+			import mx.utils.StringUtil;
+		]]>
+	</mx:Script>
+	
+	<url:UrlRuleSet id="urls" type="any">
+		<url:UrlNavigatorRule id="unr" viewStack="{_vstk}" urlFormat="/*" useChildLabelForTitle="false" urlField="urlkit"/>
+		<url:UrlDelegateRule rule="{unr.navigatorChildRule}"/>
+	</url:UrlRuleSet>
+    
+	<bk:ImageVer source="@Embed('assets/bitmaps/bar_bg_x30.png')" left="0" top="0" width="100%" scaleContent="true" maintainAspectRatio="false"/>
+	<bk:ThumbToggleButtonBar x="0" y="0" dataProvider="_vstk" id="_tbbar" 
+			height="30" selectedButtonTextStyleName="buttonBarButtonSelectedText" focusEnabled="false">
+		<bk:selectedThumbSkin>@Embed('theme/pngs/buttonbar/pointerSelectedUp.png')</bk:selectedThumbSkin>
+	</bk:ThumbToggleButtonBar>
+	<bk:OverflowMenu id="_oflw" y="0" viewStack="{_vstk}" buttonBar="{_tbbar}" text="@Resource(key='_oflw', bundle='InBridges')" 
+			fontSize="15" height="30" visible="false" styleName="buttonBarButton" verticalAlign="middle"/>
+	<mx:ViewStack id="_vstk" left="0" top="30" bottom="0" right="0">
+		<projects:ProjectsInBridge urlkit="start" label="@Resource(key='excitedStart', bundle='InBridges')" icon="@Embed('assets/bitmaps/icon_ladybug.png')" 
+			width="100%" height="100%" id="_brgProjects"/>
+		<mycomputer:MyComputerInBridge urlkit="upload" label="@Resource(key='_brgMyComputerIn', bundle='InBridges')" width="100%" height="100%" id="_brgMyComputerIn" 
+			icon="@Embed('theme/gifs/blank.gif')"/>
+		<!--
+		<mypicnik:MyPicnikInBridge urlkit="picnik" label="@Resource(key='_brgPicnikIn', bundle='InBridges')" width="100%" height="100%" id="_brgPicnikIn"
+			icon="@Embed('assets/bitmaps/thirdpartyfavicons/picnik.png')"/>
+		-->
+		<ActivatableModuleLoader urlkit="show" icon="@Embed('assets/bitmaps/icon_gallery.png')"
+								 label="@Resource(key='_brgGallery', bundle='InBridges')" initParams="{{serviceid:'gallery'}}"
+								 activatableId="_brgGalleryIn" url="{PicnikBase.app.GetLocModuleName('ModBridges')}" 
+								 width="100%" height="100%" id="_brgGalleryIn" name="_brgGalleryIn"
+								 horizontalScrollPolicy="off" verticalScrollPolicy="off" creationPolicy="none"/>
+		<ActivatableModuleLoader urlkit="history" icon="@Embed('assets/bitmaps/icon_history.png')"
+								 label="@Resource(key='_brgHistory', bundle='InBridges')"
+								 activatableId="_brgHistoryIn" url="{PicnikBase.app.GetLocModuleName('ModBridges')}" 
+								 width="100%" height="100%" id="_brgHistoryIn" name="_brgHistoryIn"
+								 horizontalScrollPolicy="off" verticalScrollPolicy="off" creationPolicy="none"/>
+		<!--
+		<twitter:TwitterInBridge urlkit="twitter" serviceid="twitter" label="@Resource(key='_brgTwitter', bundle='InBridges')" icon="@Embed('assets/bitmaps/thirdpartyfavicons/twitter.png')" 
+			width="100%" height="100%" id="_brgTwitterIn"/>
+		-->
+		<ActivatableModuleLoader urlkit="picasaweb" icon="@Embed('assets/bitmaps/thirdpartyfavicons/picasa.png')"
+								 label="Picasa Web Albums" initParams="{{serviceid:'picasaweb'}}"
+								 activatableId="_brgPicasaWebIn" url="{PicnikBase.app.GetLocModuleName('ModBridges')}" 
+								 width="100%" height="100%" id="_brgPicasaWebIn" name="_brgPicasaWebIn"
+								 horizontalScrollPolicy="off" verticalScrollPolicy="off" creationPolicy="none"/>
+		<ActivatableModuleLoader urlkit="facebook" icon="@Embed('theme/gifs/blank.gif')"
+								 label="Facebook" initParams="{{serviceid:'facebook'}}"
+								 activatableId="_brgFacebookIn" url="{PicnikBase.app.GetLocModuleName('ModBridges')}" 
+								 width="100%" height="100%" id="_brgFacebookIn" name="_brgFacebookIn"
+								 horizontalScrollPolicy="off" verticalScrollPolicy="off" creationPolicy="none"/>
+		<ActivatableModuleLoader urlkit="flickr" icon="@Embed('assets/bitmaps/thirdpartyfavicons/flickr.png')" 
+								 label="Flickr" initParams="{{serviceid:'flickr'}}"
+								 activatableId="_brgFlickrIn" url="{PicnikBase.app.GetLocModuleName('ModBridges')}" 
+								 width="100%" height="100%" id="_brgFlickrIn" name="_brgFlickrIn"
+								 horizontalScrollPolicy="off" verticalScrollPolicy="off" creationPolicy="none"/>
+		<ActivatableModuleLoader urlkit="photobucket" icon="@Embed('assets/bitmaps/thirdpartyfavicons/photobucket.png')"
+								 label="Photobucket" initParams="{{serviceid:'photobucket'}}"
+								 activatableId="_brgPhotobucketIn" url="{PicnikBase.app.GetLocModuleName('ModBridges')}" 
+								 width="100%" height="100%" id="_brgPhotobucketIn" name="_brgPhotobucketIn"
+								 horizontalScrollPolicy="off" verticalScrollPolicy="off" creationPolicy="none"/>
+		<ActivatableModuleLoader urlkit="webcam" icon="@Embed('theme/gifs/blank.gif')"
+								 label="@Resource(key='_brgWebCamIn', bundle='InBridges')"
+								 activatableId="_brgWebCamIn" url="{PicnikBase.app.GetLocModuleName('ModBridges')}" 
+								 width="100%" height="100%" id="_brgWebCamIn" name="_brgWebCamIn"
+								 horizontalScrollPolicy="off" verticalScrollPolicy="off" creationPolicy="none"/>
+		<ActivatableModuleLoader urlkit="yahoomail" icon="@Embed('theme/gifs/blank.gif')"
+								 label="@Resource(key='_brgYahooMail', bundle='InBridges')"
+								 initParams="{{serviceid:'yahoomail'}}"
+								 activatableId="_brgYahooMailIn" url="{PicnikBase.app.GetLocModuleName('ModBridges')}" 
+								 width="100%" height="100%" id="_brgYahooMailIn" name="_brgYahooMailIn"
+								 horizontalScrollPolicy="off" verticalScrollPolicy="off" creationPolicy="none"/>
+		<ActivatableModuleLoader urlkit="url" icon="@Embed('theme/gifs/blank.gif')"
+								 label="@Resource(key='_brgWebIn', bundle='InBridges')"
+								 activatableId="_brgWebIn" url="{PicnikBase.app.GetLocModuleName('ModBridges')}" 
+								 width="100%" height="100%" id="_brgWebIn" name="_brgWebIn"
+								 horizontalScrollPolicy="off" verticalScrollPolicy="off" creationPolicy="none"/>
+		
+		<!-- Not ready for prime time
+		<bridges:LconInBridge urlkit="local" label="{Capabilities.version.substr(0, 3).toLowerCase()=='mac'?'My Mac':'My PC'}" 
+			icon="@Embed('theme/gifs/blank.gif')"
+			width="100%" height="100%" id="_brgLconIn"/>
+		Waiting for a better idea
+		<flickrsearch:FlickrSearchInBridge urlkit="flickrsearch" width="100%" height="100%" label="@Resource(key='_brgFlickrSearchIn', bundle='InBridges')" id="_brgFlickrSearchIn"
+			icon="@Embed('theme/gifs/blank.gif')"/>
+		-->
+	</mx:ViewStack>
+	<bk:ImageVer x="0" source="@Embed('assets/bitmaps/panel_shadow.png')" width="100%" top="30" scaleContent="true" maintainAspectRatio="false"/>
+	<bk:Gears id="_grsBusy" y="2" width="45" height="24" right="5" visible="false"/>
+</InBridgeContainer>

@@ -1,0 +1,12 @@
+fileName: cour.ttf
+name: Courier New
+subfamilyDisplayName: Normal
+fullName: Courier New
+displayName: Courier New
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 3
+pkName: pkcour
+authorName: Howard "Bud" Kettler
+authorUrl: http://www.graphos.org/courier.html

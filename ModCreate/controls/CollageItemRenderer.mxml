@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CollageItemRendererBase xmlns="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:ds="com.darronschall.effects.*"
+		horizontalScrollPolicy="off" width="52" backgroundAlpha="0">
+	<mx:Box id="_box" width="52" height="52" verticalAlign="middle" horizontalAlign="center" 
+			horizontalScrollPolicy="off" 
+			backgroundColor="{isPremium ? 0xb2d6ef : 0xdefab4}" 
+			backgroundAlpha="{isPremium ? 0.5 : 0.0}"
+			rollOver="_box.setStyle('backgroundAlpha', isPremium ? 0.75 : 0.6)"
+			rollOut="_box.setStyle('backgroundAlpha', isPremium ? 0.5 : 0.0)">
+		<SmartLoadImage bundled="true" id="_imgPreview" source="{data.previewUrl}" scaleContent="false"/>
+	</mx:Box>
+	<mx:VRule right="0" top="0" visible="{rightDivider}" includeInLayout="{rightDivider}" xmlns:mx="http://www.adobe.com/2006/mxml" strokeWidth="1" strokeColor="#e6e6e6" height="52">
+	</mx:VRule>
+</CollageItemRendererBase>

@@ -1,0 +1,23 @@
+/*
+ * Copyright 2011 Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an Apache 2.0 License.
+ * See the COPYING file for details.
+ */
+
+
+@font-face {
+    src:local("GeosansLight");
+    font-family: "pkmk0GeosansLight0Oblique";
+    unicodeRange: U+0000-U+00FF;
+    flashType: true;
+    fontWeight: normal;
+    fontStyle: italic;
+}
+
+.pkmk0GeosansLight0Oblique
+{
+    font-family: "pkmk0GeosansLight0Oblique";
+    fontWeight: normal;
+    fontStyle: italic;
+}

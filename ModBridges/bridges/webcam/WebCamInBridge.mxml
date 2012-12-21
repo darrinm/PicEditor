@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WebCamInBridgeBase xmlns="bridges.webcam.*" xmlns:ctl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%" xmlns:flash="flash.filters.*" verticalScrollPolicy="off" horizontalScrollPolicy="off">
+	<mx:Script>
+		import mx.resources.ResourceBundle;
+   		[Bindable] [ResourceBundle("WebCamInBridge")] private var rb:ResourceBundle;
+	</mx:Script>
+
+	<mx:String id="_strUploadedNotifyMessage">{Resource.getString('WebCamInBridge', '_strUploadedNotifyMessage')}</mx:String>
+	<states>
+		<mx:State name="no_camera">
+			<mx:AddChild position="lastChild">
+				<mx:VBox horizontalCenter="0" horizontalAlign="center" verticalGap="15" verticalAlign="middle" paddingTop="10" paddingBottom="10" top="80" id="vbox1">
+					<mx:Button id="_btnTryCameraAgain" label="@Resource(key='_btnTryCameraAgain', bundle='WebCamInBridge')" fontSize="26" 
+							minWidth="250" height="46" styleName="BigButton" enabled="true" click="TryCameraAgain()"/>
+					<mx:Text text="@Resource(key='text1', bundle='WebCamInBridge')"
+							width="450" fontSize="16" 
+							selectable="false" textAlign="center" id="text1"/>
+				</mx:VBox>
+			</mx:AddChild>
+		</mx:State>
+		<mx:State name="need_permission" basedOn="no_camera">
+			<mx:AddChild relativeTo="{vbox1}" position="lastChild">
+				<mx:Text text="@Resource(key='Text_1', bundle='WebCamInBridge')"
+						width="360" fontSize="16" 
+						selectable="false" textAlign="center"/>
+			</mx:AddChild>
+			<mx:RemoveChild target="{text1}"/>
+		</mx:State>
+		<mx:State name="take_photo">
+			<mx:SetEventHandler target="{_btnTakePhoto}" name="click" handlerFunction="OnTakePhotoClick"/>
+			<mx:AddChild position="lastChild">
+				<mx:Button id="_btnKeepPhoto" label="@Resource(key='_btnKeepPhoto', bundle='WebCamInBridge')" fontSize="26" 
+						minWidth="200" height="46" styleName="BigButton" y="446" enabled="false" horizontalCenter="111.5" visible="false"/>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:VBox width="100%" horizontalAlign="center" paddingTop="15" paddingLeft="15" paddingRight="15" id="vbox2" verticalGap="10" paddingBottom="15" height="100%">
+					<ctl:ImageVer id="_imgPreview" width="100%" horizontalAlign="center" height="100%" maxWidth="640" maxHeight="480" minWidth="160" minHeight="120">
+						<ctl:filters>
+							<flash:DropShadowFilter distance="1" angle="90" blurX="4" blurY="4" alpha=".5" quality="3"/>
+								</ctl:filters>
+							</ctl:ImageVer>
+					<mx:HBox width="100%" horizontalAlign="center" id="hbox1">
+						<mx:Button id="_btnTakePhoto" label="@Resource(key='_btnTakePhoto', bundle='WebCamInBridge')" fontSize="26" 
+								minWidth="350" height="46" styleName="BigButton"/>
+					</mx:HBox>
+				</mx:VBox>
+			</mx:AddChild>
+			<mx:SetStyle target="{_bxWcs}" name="horizontalCenter"/>
+			<mx:SetProperty target="{_bxWcs}" name="y"/>
+			<mx:RemoveChild target="{_bxWcs}"/>
+			<mx:AddChild relativeTo="{vbox2}" position="lastChild" target="{_bxWcs}"/>
+		</mx:State>
+		<mx:State name="keep_photo" basedOn="take_photo">
+			<mx:SetEventHandler target="{_btnTakePhoto}" name="click" handlerFunction="OnTakePhotoClick"/>
+			<mx:SetEventHandler target="{_btnKeepPhoto}" name="click" handlerFunction="OnKeepPhotoClick"/>
+			<mx:SetProperty target="{_btnTakePhoto}" name="label" value="{Resource.getString('WebCamInBridge', 'try_again')}"/>
+			<mx:SetProperty target="{_btnKeepPhoto}" name="enabled" value="true"/>
+			<mx:SetProperty target="{_btnKeepPhoto}" name="visible" value="true"/>
+			<mx:SetProperty target="{_btnTakePhoto}" name="minWidth" value="200"/>
+			<mx:SetStyle target="{_btnKeepPhoto}" name="horizontalCenter"/>
+			<mx:SetStyle target="{_btnTakePhoto}" name="horizontalCenter" value="-104.5"/>
+			<mx:SetProperty target="{_btnKeepPhoto}" name="y"/>
+			<mx:RemoveChild target="{_btnKeepPhoto}"/>
+			<mx:AddChild relativeTo="{hbox1}" position="lastChild" target="{_btnKeepPhoto}"/>
+			<mx:SetStyle target="{_imgPreview}" name="verticalAlign" value="middle"/>
+		</mx:State>
+	</states>
+	<ctl:ImageVer source="../graphics/bluegrad_short.gif" left="0" top="0" width="100%" height="420" maintainAspectRatio="false" includeInLayout="false" alpha=".4"/>
+	<mx:Box id="_bxWcs" y="506" horizontalCenter="0"/>
+</WebCamInBridgeBase>

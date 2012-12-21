@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<BridgeMenuItemBase xmlns="bridges.*" xmlns:mx="http://www.adobe.com/2006/mxml"
+		backgroundColor="#ffffff" cornerRadius="8" dropShadowEnabled="true" dropShadowColor="#999999" shadowDistance="1"
+		borderStyle="solid" borderColor="#f2f2f2" autoLayout="true"
+		paddingLeft="2" paddingTop="2" paddingRight="2" paddingBottom="2" backgroundAlpha="0.95" verticalGap="0">
+	<mx:LinkButton label="@Resource(key='LinkButton_1', bundle='BridgeMenuItem')" name="edit" width="100%" height="20" styleName="helpMenu" color="#000000" textRollOverColor="#000000"/>
+	<mx:LinkButton label="@Resource(key='LinkButton_10', bundle='BridgeMenuItem')" name="edit_gallery" width="100%" height="20" styleName="helpMenu" color="#000000" textRollOverColor="#000000"/>
+	<mx:LinkButton label="@Resource(key='LinkButton_15', bundle='BridgeMenuItem')" name="share_gallery" width="100%" height="20" styleName="helpMenu"/>
+	<mx:LinkButton label="@Resource(key='LinkButton_12', bundle='BridgeMenuItem')" name="email_gallery" width="100%" height="20" styleName="helpMenu"/>
+	<mx:LinkButton label="@Resource(key='LinkButton_13', bundle='BridgeMenuItem')" name="add_gallery_item" width="100%" height="20" styleName="helpMenu"/>
+	<mx:LinkButton label="@Resource(key='LinkButton_14', bundle='BridgeMenuItem')" name="launch_gallery" width="100%" height="20" styleName="helpMenu"/>
+	<mx:LinkButton label="@Resource(key='LinkButton_11', bundle='BridgeMenuItem')" name="delete_gallery" width="100%" height="20" styleName="helpMenu"/>
+	<mx:LinkButton label="@Resource(key='LinkButton_2', bundle='BridgeMenuItem')" name="delete" width="100%" height="20" styleName="helpMenu" />
+	<mx:LinkButton label="@Resource(key='LinkButton_3', bundle='BridgeMenuItem')" name="rename" width="100%" height="20" styleName="helpMenu" />
+	<mx:LinkButton label="@Resource(key='LinkButton_4', bundle='BridgeMenuItem')" name="email" width="100%" height="20" styleName="helpMenu" />
+	<mx:LinkButton label="@Resource(key='LinkButton_5', bundle='BridgeMenuItem')" name="download" width="100%" height="20" styleName="helpMenu" />
+	<mx:LinkButton label="@Resource(key='LinkButton_6', bundle='BridgeMenuItem')" name="openWebPage" width="100%" height="20" styleName="helpMenu" />
+	<mx:LinkButton label="@Resource(key='LinkButton_7', bundle='BridgeMenuItem')" name="openFlickrPage" width="100%" height="20" styleName="helpMenu" />
+	<mx:LinkButton label="@Resource(key='LinkButton_8', bundle='BridgeMenuItem')" name="postToProfile" width="100%" height="20" styleName="helpMenu" />
+	<mx:LinkButton label="@Resource(key='LinkButton_9', bundle='BridgeMenuItem')" name="sendToFriend" width="100%" height="20" styleName="helpMenu" />
+	<mx:LinkButton label="@Resource(key='PublishTemplate', bundle='BridgeMenuItem')" name="publishTemplate" width="100%" height="20" styleName="helpMenu" />
+</BridgeMenuItemBase>

@@ -1,0 +1,12 @@
+fileName: fs_MH114772.ttf
+name: MetaSerifLf-BookIta
+subfamilyDisplayName: Regular
+fullName: MetaSerifLf-BookIta
+displayName: MetaSerifLf-BookIta
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 5
+pkName: pkfs0MH114772
+authorName: FontShop
+authorUrl: http://www.fontshop.com/

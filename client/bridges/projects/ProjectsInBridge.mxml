@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ProjectsInBridgeBase xmlns="bridges.projects.*" xmlns:ctl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" 
+		width="100%" height="100%" xmlns:flash="flash.filters.*" verticalScrollPolicy="off" horizontalScrollPolicy="off" xmlns:containers="flexlib.containers.*" xmlns:containers1="containers.*">
+	<mx:Script>
+		import mx.resources.ResourceBundle;
+   		[Bindable] [ResourceBundle("ProjectsInBridge")] private var rb:ResourceBundle;
+	</mx:Script>
+	
+	<mx:Style>
+		.h1 {
+			color: #005580;
+			fontWeight: bold;
+			fontSize: 21;
+		}
+		.description {
+			color: #005580;
+			fontWeight: bold;
+			fontSize: 14;
+			leading: -2;
+		}
+		.moduleGradient {
+		   border-style: solid;
+		   border-thickness: 0;
+		   border-skin: ClassReference("skins.GradientBackground");
+		   gradient-fill-colors: #b2e5ff, #ffffff;
+		   gradient-fill-alphas: .6,.6;
+		   gradient-fill-ratios: 0,255;
+		   gradient-fixed-size: 45;
+		   gradient-rotation: 90;
+		}
+		.premiumPreviewBar {
+			 border-style: solid;
+			 border-thickness: 0;
+			 border-skin: ClassReference("skins.GradientBackground");
+			 gradient-fill-colors: #2587ae, #278cb3, #175480;
+			 gradient-fill-ratios: 0,64,255;
+			gradient-rotation: 90;
+		}
+		.premiumPreviewBug {
+			 border-style: solid;
+			 border-thickness: 0;
+			 border-skin: ClassReference("skins.GradientBackground");
+			 gradient-fill-colors: #2587ae, #278cb3, #175480;
+			 gradient-fill-ratios: 0,64,255;
+			gradient-rotation: 90;
+		}
+	</mx:Style>
+	
+	<flash:DropShadowFilter id="_fiWhiteShad" blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1" quality="3" angle="90"/>
+	<flash:DropShadowFilter id="_fiModuleShine" blurX="0" blurY="0" distance="1" color="#FFFFFF" alpha="1" inner="true" quality="3" angle="90"/>
+	<flash:DropShadowFilter id="_fiModuleShadow" blurX="3" blurY="3" distance="1" color="#000000" alpha=".15" quality="3" angle="90" knockout="true"/>
+	<flash:DropShadowFilter id="_fiDropShad" blurX="7" blurY="7" distance="2" color="#000000" alpha=".35" quality="3" angle="90"/>
+	
+	<flash:DropShadowFilter id="_fiEmbossed" blurX="0" blurY="0" distance="1" color="#000000" alpha=".4" quality="3" angle="-90"/>
+	<flash:DropShadowFilter id="_fiBannerShadow" blurX="7" blurY="7" distance="2" color="#000000" alpha=".35" quality="3" angle="90"/>
+	
+	<mx:Parallel id="_efGlowOver">
+		<mx:AnimateProperty isStyle="true" property="backgroundAlpha" fromValue="0" toValue="1" duration="200"/>
+		<mx:Glow blurXFrom="0" blurYFrom="0" blurXTo="25" blurYTo="25" color="#528013" alphaFrom="0" alphaTo=".2" duration="400"/>	
+	</mx:Parallel>
+	<mx:Parallel id="_efGlowOut">
+		<mx:AnimateProperty isStyle="true" property="backgroundAlpha" fromValue="1" toValue="0" duration="600"/>
+		<mx:Glow blurXFrom="25" blurYFrom="25" blurXTo="0" blurYTo="0" color="#528013" alphaFrom=".2" alphaTo="0" duration="400"/>	
+	</mx:Parallel>
+	
+	
+	<ctl:ImageEx source="../graphics/bluegrad_short.gif" left="0" top="0" width="100%" height="702" maintainAspectRatio="false" includeInLayout="false"/>
+	<ctl:ImageEx source="../graphics/clouds.jpg" horizontalCenter="0" top="0" width="983" height="177" includeInLayout="false" horizontalAlign="center"/>
+	<!-- this canvas generates the scroll bars, allowing the above images to stay pinned to the top of the page -->
+	<mx:Canvas bottom="0" top="0" left="0" right="0" horizontalScrollPolicy="off" verticalLineScrollSize="38">
+		
+		<!-- header text -->
+		<ctl:ResizingLabel text="@Resource(key='projectsHead', bundle='ProjectsInBridge')" width="100%" styleName="h1" filters="{[_fiWhiteShad]}"
+			horizontalCenter="0" y="14" textAlign="center" autoFontSizeGap="1"/>
+		
+		<!-- module container -->
+		<containers:FlowBox horizontalCenter="0" y="57" width="100%" horizontalAlign="center" horizontalGap="20" verticalGap="20" paddingLeft="10" paddingRight="10">
+			<!-- edit photos module -->
+			<mx:VBox verticalGap="8">
+				<mx:Canvas id="_cnvEditPhotos" width="310" height="240" cornerRadius="8" borderStyle="solid" borderThickness="0"
+						backgroundColor="#ffffff" backgroundAlpha="0"
+						rollOverEffect="{_efGlowOver}" rollOutEffect="{_efGlowOut}" buttonMode="true"
+						click="NavigateTo(PicnikBase.IN_BRIDGES_TAB, '_brgMyComputerIn')">
+					<mx:Box width="100%" height="100%" filters="{[_fiModuleShadow]}" backgroundColor="#FFFFFF" borderStyle="solid" cornerRadius="8" borderThickness="0" x="0" y="0"/>
+					<mx:VBox width="100%" height="100%" styleName="moduleGradient" cornerRadius="8" filters="{[_fiModuleShine]}"
+							x="0" y="0" verticalGap="0" horizontalAlign="center" paddingBottom="10">
+						<mx:Canvas width="100%" height="100%">
+							<ctl:ImagePlus source="/graphics/girls_after1.jpg" horizontalCenter="60" verticalCenter="-10" rotation="4" filters="{[_fiDropShad]}"
+								borderThickness="2" borderColor="#ffffff" nobundle="true"/>
+							<ctl:ImagePlus source="/graphics/girls_after2.jpg" horizontalCenter="-50" verticalCenter="35" rotation="-6" filters="{[_fiDropShad]}"
+								borderThickness="2" borderColor="#ffffff" nobundle="true"/>
+							<ctl:ImagePlus source="/graphics/girls_before.jpg" horizontalCenter="-65" verticalCenter="-40" rotation="-3" filters="{[_fiDropShad]}"
+								borderThickness="2" borderColor="#ffffff" nobundle="true"/>
+						</mx:Canvas>
+						<mx:Button label="@Resource(key='_btnEditPhotos', bundle='ProjectsInBridge')" styleName="BigButton" fontSize="18" minWidth="230" height="36"/>
+					</mx:VBox>
+				</mx:Canvas>
+				<ctl:ResizingText text="@Resource(key='editPhotosDescription', bundle='ProjectsInBridge')" width="100%" textAlign="center" styleName="description"
+					paddingLeft="10" paddingRight="10" filters="{[_fiWhiteShad]}" selectable="false"/>
+			</mx:VBox>
+												
+			<!-- create a collage module -->
+			<mx:VBox verticalGap="8">
+				<mx:Canvas id="_cnvCreateCollage" width="310" height="240" cornerRadius="8" borderStyle="solid" borderThickness="0"
+						backgroundColor="#ffffff" backgroundAlpha="0"
+						rollOverEffect="{_efGlowOver}" rollOutEffect="{_efGlowOut}" buttonMode="true" clipContent="false">
+																	
+					<mx:Box width="100%" height="100%" filters="{[_fiModuleShadow]}" backgroundColor="#FFFFFF" borderStyle="solid" cornerRadius="8" borderThickness="0" x="0" y="0"/>
+					<mx:VBox width="100%" height="100%" styleName="moduleGradient" cornerRadius="8" filters="{[_fiModuleShine]}"
+							x="0" y="0" verticalGap="0" horizontalAlign="center" paddingBottom="10">
+																												
+						<mx:Canvas width="100%" height="100%">
+							<ctl:ImagePlus source="/graphics/mosaic_collage3.jpg" horizontalCenter="65" verticalCenter="15" rotation="6" filters="{[_fiDropShad]}"/>
+							<ctl:ImagePlus source="/graphics/mosaic_collage2.jpg" horizontalCenter="-5" verticalCenter="-10" rotation="2" filters="{[_fiDropShad]}"/>
+							<ctl:ImagePlus source="/graphics/mosaic_collage1.jpg" horizontalCenter="-85" verticalCenter="5" rotation="-7" filters="{[_fiDropShad]}"/>
+						</mx:Canvas>
+						<mx:Button id="_btnGridCollage" label="@Resource(key='_btnGridCollage', bundle='ProjectsInBridge')" styleName="BigButton" fontSize="18" width="208" height="36"/>
+					</mx:VBox>
+					<!-- premium preview banner 
+					<mx:Canvas width="100%" height="100%" backgroundColor="#ffffff" backgroundAlpha=".5" cornerRadius="8" borderStyle="solid" borderThickness="0"
+							visible="{!AccountMgr.GetInstance().isPremium}" includeInLayout="{!AccountMgr.GetInstance().isPremium}">
+						<mx:VBox styleName="premiumPreviewBar" verticalCenter="0" width="100%" paddingTop="3" paddingRight="4" paddingBottom="6" paddingLeft="4"
+								verticalGap="-6" horizontalAlign="center" filters="{[_fiBannerShadow]}" mouseChildren="false">
+							<ctl:ResizingLabel text="@Resource(key='premPrevHead', bundle='ProjectsInBridge')" color="#ffffff" fontSize="18" filters="{[_fiEmbossed]}"
+								width="100%" autoFontSizeGap="1" textAlign="center"/>
+							<ctl:TextPlus htmlText="@Resource(key='premPrevMessage', bundle='ProjectsInBridge')"
+								color="#b2e5ff" fontSize="13" width="100%" textAlign="center" filters="{[_fiEmbossed]}" leading="-2"/>
+						</mx:VBox>
+					</mx:Canvas>
+					-->
+					
+					<!-- premium early access bug 
+					<containers1:BitmapBox rotation="18" paddingTop="3" paddingBottom="3" paddingLeft="4" right="-30" top="-15"
+							mouseChildren="false" 
+							visible="{AccountMgr.GetInstance().isPremium}" includeInLayout="{AccountMgr.GetInstance().isPremium}">
+						<mx:HBox styleName="premiumPreviewBug" verticalGap="-6" horizontalGap="-3" filters="{[_fiBannerShadow]}" cornerRadius="8">
+							<ctl:ImagePlus source="/graphics/sun_solo.png"/>
+							<mx:VBox paddingRight="5" paddingLeft="5">
+								<ctl:ResizingLabel text="@Resource(key='premEarlyAccessPrem', bundle='ProjectsInBridge')" color="#ffffff" fontSize="16" filters="{[_fiEmbossed]}"
+										width="100%" autoFontSizeGap="1" textAlign="left"/>
+								<ctl:ResizingLabel text="@Resource(key='premEarlyAccess', bundle='ProjectsInBridge')" color="#ffffff" fontSize="16" filters="{[_fiEmbossed]}"
+										width="100%" autoFontSizeGap="1" textAlign="left" paddingTop="-15"/>
+							</mx:VBox>
+						</mx:HBox>
+					</containers1:BitmapBox>
+					-->
+				</mx:Canvas>
+				<ctl:ResizingText text="@Resource(key='createCollageDescription', bundle='ProjectsInBridge')" width="100%" textAlign="center" styleName="description"
+					paddingLeft="10" paddingRight="10" filters="{[_fiWhiteShad]}" selectable="false"/>
+			</mx:VBox>
+			
+			<!-- create an advanced collage module -->
+			<mx:VBox verticalGap="8">
+				<mx:Canvas width="310" height="240" cornerRadius="8" borderStyle="solid" borderThickness="0"
+						backgroundColor="#ffffff" backgroundAlpha="0" click="OnAdvancedCollageClick()"
+						rollOverEffect="{_efGlowOver}" rollOutEffect="{_efGlowOut}" buttonMode="true" clipContent="false">
+																	
+					<mx:Box width="100%" height="100%" filters="{[_fiModuleShadow]}" backgroundColor="#FFFFFF" borderStyle="solid" cornerRadius="8" borderThickness="0" x="0" y="0"/>
+					<mx:VBox width="100%" height="100%" styleName="moduleGradient" cornerRadius="8" filters="{[_fiModuleShine]}"
+							x="0" y="0" verticalGap="0" horizontalAlign="center" paddingBottom="10">
+						<!-- collages -->
+						<mx:Canvas width="100%" height="100%">
+							<ctl:ImagePlus source="/graphics/welcome/featured/fancy_collage3.jpg" width="130" height="92"
+								horizontalCenter="70" verticalCenter="-30" rotation="6" filters="{[_fiDropShad]}"
+								borderThickness="2" borderColor="#ffffff" nobundle="true"/>
+							<ctl:ImagePlus source="/graphics/fancy_collage1.jpg" horizontalCenter="-70" verticalCenter="0" rotation="-5" filters="{[_fiDropShad]}"
+								borderThickness="2" borderColor="#ffffff" nobundle="true"/>
+							<ctl:ImagePlus source="/graphics/welcome/featured/fancy_collage4.jpg" width="130" height="92"
+								horizontalCenter="10" verticalCenter="35" rotation="2" filters="{[_fiDropShad]}"
+								borderThickness="2" borderColor="#ffffff" nobundle="true"/>
+						</mx:Canvas>
+
+						<!-- old collages 
+						<mx:Canvas width="100%" height="100%">
+							<ctl:ImagePlus source="/graphics/fancy_collage6.jpg" horizontalCenter="60" verticalCenter="-40" rotation="4" filters="{[_fiDropShad]}"
+								borderThickness="2" borderColor="#ffffff"/>
+							<ctl:ImagePlus source="/graphics/fancy_collage4.jpg" horizontalCenter="-60" verticalCenter="0" rotation="-3" filters="{[_fiDropShad]}"
+								borderThickness="2" borderColor="#ffffff"/>
+							<ctl:ImagePlus source="/graphics/fancy_collage5.jpg" horizontalCenter="20" verticalCenter="40" rotation="2" filters="{[_fiDropShad]}"
+								borderThickness="2" borderColor="#ffffff"/>
+						</mx:Canvas>
+						-->
+						<mx:Button label="@Resource(key='createAdvancedCollage', bundle='ProjectsInBridge')" styleName="BigButton" fontSize="18" minWidth="230" height="36"/>
+					</mx:VBox>
+				</mx:Canvas>
+				<ctl:ResizingText text="@Resource(key='createAdvancedCollageDescription', bundle='ProjectsInBridge')" width="100%" textAlign="center" styleName="description"
+					paddingLeft="10" paddingRight="10" filters="{[_fiWhiteShad]}" selectable="false"/>
+			</mx:VBox>
+			
+			<!-- create a gallery module -->
+			<mx:VBox verticalGap="8" horizontalScrollPolicy="off" verticalScrollPolicy="off" 
+					visible="{PicnikConfig.galleryVisible}" includeInLayout="{PicnikConfig.galleryVisible}">
+				<mx:Canvas id="_cnvCreateGallery" width="310" height="240" cornerRadius="8" borderStyle="solid" borderThickness="0"
+						backgroundColor="#ffffff" backgroundAlpha="0"
+						rollOverEffect="{_efGlowOver}" rollOutEffect="{_efGlowOut}" buttonMode="true"
+						horizontalScrollPolicy="off" verticalScrollPolicy="off">
+					<mx:Box width="100%" height="100%" filters="{[_fiModuleShadow]}" backgroundColor="#FFFFFF" borderStyle="solid" cornerRadius="8" borderThickness="0" x="0" y="0"/>
+					<mx:VBox width="100%" height="100%" styleName="moduleGradient" cornerRadius="8" filters="{[_fiModuleShine]}"
+							x="0" y="0" verticalGap="0" horizontalAlign="center" paddingBottom="10">
+						<mx:Canvas width="100%" height="100%">
+						<!--<ctl:ImageVer source="../graphics/beta_banner_big.png"/>-->
+							<ctl:ImagePlus source="/graphics/gallery_example.png" horizontalCenter="0" verticalCenter="0" filters="{[_fiDropShad]}"/>
+						</mx:Canvas>
+						<mx:Button id="_btnGallery" label="@Resource(key='_btnGallery', bundle='ProjectsInBridge')" styleName="BigButton" fontSize="18" minWidth="230" height="36"/>
+					</mx:VBox>
+
+					<!-- preview message for non-premium users -->
+					<mx:Canvas width="100%" height="100%" backgroundColor="#ffffff" backgroundAlpha=".5" cornerRadius="8" borderStyle="solid" borderThickness="0"
+							visible="{PicnikConfig.galleryUpgradeForAccess}" 
+							includeInLayout="{PicnikConfig.galleryUpgradeForAccess}">
+						<mx:VBox styleName="premiumPreviewBar" verticalCenter="0" width="100%" paddingTop="3" paddingRight="4" paddingBottom="6" paddingLeft="4"
+								verticalGap="-6" horizontalAlign="center" filters="{[_fiBannerShadow]}" mouseChildren="false"
+								verticalScrollPolicy="off" horizontalScrollPolicy="off">
+							<ctl:ResizingLabel text="@Resource(key='premPrevHead', bundle='ProjectsInBridge')" color="#ffffff" fontSize="18" filters="{[_fiEmbossed]}"
+								width="100%" autoFontSizeGap="1" textAlign="center"/>
+							<ctl:TextPlus htmlText="@Resource(key='premPrevMessageShow', bundle='ProjectsInBridge')"
+								color="#b2e5ff" fontSize="13" width="100%" textAlign="center" filters="{[_fiEmbossed]}" leading="-2"/>
+						</mx:VBox>
+					</mx:Canvas>
+					
+					<!-- preview message for premium users -->
+					<containers1:BitmapBox rotation="18" paddingTop="3" paddingBottom="3" paddingLeft="4" right="-15" top="-10"
+							mouseChildren="false" 
+							visible="{PicnikConfig.galleryExclusiveAccess}" 
+							includeInLayout="{PicnikConfig.galleryExclusiveAccess}"
+							verticalScrollPolicy="off" horizontalScrollPolicy="off">
+						<mx:HBox styleName="premiumPreviewBug" verticalGap="-6" horizontalGap="-3" filters="{[_fiBannerShadow]}" cornerRadius="8">
+							<ctl:ImagePlus source="/graphics/sun_solo.png"/>
+							<mx:VBox paddingRight="5" paddingLeft="5">
+								<ctl:ResizingLabel text="@Resource(key='premEarlyAccessPrem', bundle='ProjectsInBridge')" color="#ffffff" fontSize="16" filters="{[_fiEmbossed]}"
+										width="100%" autoFontSizeGap="1" textAlign="left"/>
+								<ctl:ResizingLabel text="@Resource(key='premEarlyAccess', bundle='ProjectsInBridge')" color="#ffffff" fontSize="16" filters="{[_fiEmbossed]}"
+										width="100%" autoFontSizeGap="1" textAlign="left" paddingTop="-15"/>
+							</mx:VBox>
+						</mx:HBox>
+					</containers1:BitmapBox>				
+				</mx:Canvas>
+				<ctl:ResizingText text="@Resource(key='createGalleryDescription', bundle='ProjectsInBridge')" width="100%" textAlign="center" styleName="description"
+					paddingLeft="10" paddingRight="10" filters="{[_fiWhiteShad]}" selectable="false"/>
+			</mx:VBox>
+			
+			<!-- print your photos module -->
+			<mx:VBox verticalGap="8" horizontalScrollPolicy="off" verticalScrollPolicy="off" click="NavigateTo(PicnikBase.OUT_BRIDGES_TAB,'_brgPrinterOut')" 
+					visible="{PicnikConfig.galleryVisible}" includeInLayout="{PicnikConfig.galleryVisible}">
+				<mx:Canvas id="_cnvCreatePrint" width="310" height="240" cornerRadius="8" borderStyle="solid" borderThickness="0"
+						backgroundColor="#ffffff" backgroundAlpha="0"
+						rollOverEffect="{_efGlowOver}" rollOutEffect="{_efGlowOut}" buttonMode="true"
+						horizontalScrollPolicy="off" verticalScrollPolicy="off">
+					<mx:Box width="100%" height="100%" filters="{[_fiModuleShadow]}" backgroundColor="#FFFFFF" borderStyle="solid" cornerRadius="8" borderThickness="0" x="0" y="0"/>
+					<mx:VBox width="100%" height="100%" styleName="moduleGradient" cornerRadius="8" filters="{[_fiModuleShine]}"
+							x="0" y="0" verticalGap="10" horizontalAlign="center" paddingBottom="10" paddingTop="15">
+							<ctl:ImagePlus source="/graphics/print_example.png" horizontalCenter="0" verticalCenter="0" filters="{[_fiDropShad]}"/>
+						<mx:Button id="_btnPrint" label="@Resource(key='_btnPrint', bundle='ProjectsInBridge')" styleName="BigButton" fontSize="18" minWidth="230" height="36"/>
+						</mx:VBox>
+				</mx:Canvas>
+				<ctl:ResizingText text="@Resource(key='printPhotosDescription', bundle='ProjectsInBridge')" width="100%" textAlign="center" styleName="description"
+					paddingLeft="10" paddingRight="10" filters="{[_fiWhiteShad]}" selectable="false"/>
+			</mx:VBox>
+						
+			<!-- create a blank canvas module -->
+			<mx:VBox verticalGap="8" visible="{AccountMgr.GetInstance().isAdmin}" includeInLayout="{AccountMgr.GetInstance().isAdmin}">
+				<mx:Canvas id="_cnvBlankCanvas" width="310" height="240" cornerRadius="8" borderStyle="solid" borderThickness="0"
+						backgroundColor="#ffffff" backgroundAlpha="0"
+						horizontalScrollPolicy="off" verticalScrollPolicy="off"
+						rollOverEffect="{_efGlowOver}" rollOutEffect="{_efGlowOut}" buttonMode="true">
+					<mx:Box width="100%" height="100%" filters="{[_fiModuleShadow]}" backgroundColor="#FFFFFF" borderStyle="solid" cornerRadius="8" borderThickness="0" x="0" y="0"/>
+					<mx:VBox width="100%" height="100%" styleName="moduleGradient" cornerRadius="8" filters="{[_fiModuleShine]}"
+							x="0" y="0" verticalGap="0" horizontalAlign="center" paddingBottom="10">
+						<mx:Canvas width="100%" height="100%">
+							<ctl:ImagePlus source="/graphics/blank_canvas3.jpg" horizontalCenter="65" verticalCenter="15" rotation="6" filters="{[_fiDropShad]}"/>
+							<ctl:ImagePlus source="/graphics/blank_canvas2.jpg" horizontalCenter="-5" verticalCenter="-10" rotation="2" filters="{[_fiDropShad]}"/>
+							<ctl:ImagePlus source="/graphics/blank_canvas1.jpg" horizontalCenter="-85" verticalCenter="5" rotation="-7" filters="{[_fiDropShad]}"/>
+						</mx:Canvas>
+						<mx:Button id="_btnBlankCanvas" label="@Resource(key='_btnBlankCanvas', bundle='ProjectsInBridge')" styleName="BigButton" fontSize="18" width="208" height="36"/>
+					</mx:VBox>
+					<containers1:BitmapBox rotation="18" right="-10" top="5" paddingTop="3" paddingBottom="3" paddingLeft="4" mouseChildren="false">
+						<mx:HBox styleName="premiumPreviewBug" verticalGap="-6" horizontalGap="-3" filters="{[_fiBannerShadow]}" cornerRadius="8" >
+							<ctl:ImagePlus source="/graphics/red_x.png"/>
+							<mx:VBox paddingRight="5" paddingLeft="5">
+								<ctl:ResizingLabel text="@Resource(key='premPreAlphaAdmin', bundle='ProjectsInBridge')" color="#ffffff" fontSize="16" filters="{[_fiEmbossed]}"
+										width="100%" autoFontSizeGap="1" textAlign="left"/>
+								<ctl:ResizingLabel text="@Resource(key='premPreAlpha', bundle='ProjectsInBridge')" color="#ffffff" fontSize="16" filters="{[_fiEmbossed]}"
+										width="100%" autoFontSizeGap="1" textAlign="left" paddingTop="-15"/>
+							</mx:VBox>
+						</mx:HBox>
+					</containers1:BitmapBox>
+				</mx:Canvas>
+				<ctl:ResizingText text="@Resource(key='blankCanvasDescription', bundle='ProjectsInBridge')" width="100%" textAlign="center" styleName="description"
+					paddingLeft="10" paddingRight="10" filters="{[_fiWhiteShad]}" selectable="false"/>
+			</mx:VBox>			
+		</containers:FlowBox>
+	</mx:Canvas>
+</ProjectsInBridgeBase>

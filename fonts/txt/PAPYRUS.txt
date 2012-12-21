@@ -1,0 +1,12 @@
+fileName: PAPYRUS.TTF
+name: Papyrus
+subfamilyDisplayName: Normal
+fullName: Papyrus
+displayName: Papyrus
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 5
+pkName: pkPAPYRUS
+authorName: Chris Costello
+authorUrl: http://www.costelloart.com/

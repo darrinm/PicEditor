@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox xmlns:filters="flash.filters.*" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:ctl="controls.*" 
+	xmlns:containers="containers.*"	styleName="premiumGradient" cornerRadius="8" filters="{[_fiPremShine,_fiPremShadow]}" 
+	verticalGap="0" verticalAlign="middle">
+
+	<mx:Script>
+		<![CDATA[
+			import dialogs.DialogManager;
+			
+			[Bindable] public var upgradeSource:String = '/home_welcome/learnmore';
+		]]>
+	</mx:Script>
+
+	<!-- feature modules -->
+	
+	<filters:DropShadowFilter id="_fiPremShadow" blurX="3" blurY="3" distance="1" color="#000000" alpha=".25" quality="3" angle="90"/>
+	<filters:DropShadowFilter id="_fiPremShine" blurX="0" blurY="0" distance="1" color="#FFFFFF" alpha=".9" inner="true" quality="3" angle="90"/>
+	<filters:DropShadowFilter id="_fiPremBigShadow" blurX="10" blurY="10" distance="4" color="#000000" alpha=".35" quality="3" angle="90"/>
+	<filters:DropShadowFilter id="_efEmbossed" blurX="0" blurY="0" distance="1" color="#000000" alpha=".4" quality="3" angle="-90"/>
+
+	<mx:Fade id="_efFadeIn" duration="200" alphaFrom="0" alphaTo="1"/>
+	<mx:Fade id="_efFadeOut" duration="100" alphaFrom="1" alphaTo="0"/>
+
+	<!-- find out more! NOTE: SWITCH BOTTOM PADDING TO 5 WHEN ROTATING MODULES COME BACK -->
+	<mx:HBox width="100%" horizontalGap="0" paddingTop="7" paddingRight="9" paddingBottom="7" paddingLeft="5" verticalAlign="middle">
+		<ctl:ImageEx source="../graphics/premium_sun.png" width="38" height="38"/>
+		<mx:VBox width="100%" verticalGap="0" paddingLeft="-5" clipContent="false" paddingRight="5">
+			<ctl:ResizingLabel text="@Resource(key='premiumAdHead', bundle='PremiumModule')" width="100%" styleName="h2Prem" paddingBottom="-8"
+				filters="{[_efEmbossed]}" fontSize_1="15" fontSize_2="14" fontSize_3="13"/>
+			<ctl:TextPlus text="@Resource(key='superStarPowers', bundle='PremiumModule')" selectable="false"
+				width="100%" styleName="subheadPrem" filters="{[_efEmbossed]}"/>
+		</mx:VBox>
+		<ctl:ResizingButton label="@Resource(key='findOutMore', bundle='PremiumModule')" maxWidth="155" width="100%" height="34"
+			styleName="basketButton" fontSize="16" autoFontSizeGap="1" 
+			click="DialogManager.ShowUpgrade(upgradeSource,PicnikBase.app)"/>
+	</mx:HBox>
+	<!-- UNDONE: the rotating content is getting cut for 1.0 release
+	<mx:HRule width="100%" strokeWidth="1" strokeColor="#000000" alpha=".2"/>
+	<mx:HRule width="100%" strokeWidth="1" strokeColor="#ffffff" alpha=".2"/>
+	<containers:RotatingViewStack width="100%" minHeight="75" clipContent="true" horizontalScrollPolicy="off" delay="7000">
+		-->
+		<!-- advanced editing tools 
+		<mx:HBox width="100%" horizontalGap="10" verticalCenter="0" verticalAlign="middle" showEffect="_efFadeIn" hideEffect="_efFadeOut"
+				paddingTop="10" paddingRight="10" paddingBottom="10" paddingLeft="8" clipContent="false">
+			<mx:HBox width="100%" horizontalGap="0" verticalAlign="top">
+				<ctl:ImageVer source="/graphics/welcome/premium/rocket_bubble.png"/>
+				<mx:VBox verticalGap="0" width="100%">
+					<ctl:LabelPlus text="Advanced editing tools" styleName="h2Prem" filters="{[_efEmbossed]}" paddingBottom="-8"/>
+					<ctl:TextPlus htmlText="Take your photo editing to new heights with Picnik Premium’s advanced editing tools." width="100%"
+						filters="{[_efEmbossed]}" styleName="subheadPrem" selectable="false" fontSize="15"/>
+				</mx:VBox>
+			</mx:HBox>
+			<ctl:ImageVer source="/graphics/effects/curves.png" filters="{[_fiPremBigShadow]}"/>
+			<ctl:ImageVer source="/graphics/effects/levels.png" filters="{[_fiPremBigShadow]}"/>
+		</mx:HBox>
+		-->
+		<!-- other premium upselliness
+		<mx:HBox width="100%" horizontalGap="10" verticalCenter="0" verticalAlign="middle" showEffect="_efFadeIn" hideEffect="_efFadeOut"
+				paddingTop="10" paddingRight="10" paddingBottom="10" paddingLeft="8" clipContent="false">
+			<mx:HBox width="100%" horizontalGap="0" verticalAlign="top">
+				<ctl:ImageVer source="/graphics/welcome/premium/rocket_bubble.png"/>
+				<mx:VBox verticalGap="0" width="100%">
+					<ctl:LabelPlus text="Bigger History" styleName="h2Prem" filters="{[_efEmbossed]}" paddingBottom="-8"/>
+					<ctl:TextPlus htmlText="Get access to your history." width="100%"
+						filters="{[_efEmbossed]}" styleName="subheadPrem" selectable="false" fontSize="15"/>
+				</mx:VBox>
+			</mx:HBox>
+			<ctl:ImageVer source="/graphics/effects/curves.png" filters="{[_fiPremBigShadow]}"/>
+			<ctl:ImageVer source="/graphics/effects/levels.png" filters="{[_fiPremBigShadow]}"/>
+		</mx:HBox>
+		-->
+		<!-- even more premium upselliness 
+		<mx:HBox width="100%" horizontalGap="10" verticalCenter="0" verticalAlign="middle" showEffect="_efFadeIn" hideEffect="_efFadeOut"
+				paddingTop="10" paddingRight="10" paddingBottom="10" paddingLeft="8" clipContent="false">
+			<mx:HBox width="100%" horizontalGap="0" verticalAlign="top">
+				<ctl:ImageVer source="/graphics/welcome/premium/rocket_bubble.png"/>
+				<mx:VBox verticalGap="0" width="100%">
+					<ctl:LabelPlus text="Fullscreen Mode" styleName="h2Prem" filters="{[_efEmbossed]}" paddingBottom="-8"/>
+					<ctl:TextPlus htmlText="More screen space!" width="100%"
+						filters="{[_efEmbossed]}" styleName="subheadPrem" selectable="false" fontSize="15"/>
+				</mx:VBox>
+			</mx:HBox>
+			<ctl:ImageVer source="/graphics/effects/curves.png" filters="{[_fiPremBigShadow]}"/>
+			<ctl:ImageVer source="/graphics/effects/levels.png" filters="{[_fiPremBigShadow]}"/>
+		</mx:HBox>
+		-->
+	<!--</containers:RotatingViewStack>-->
+</mx:VBox>
+

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cnt:EffectCanvas xmlns:cnt="containers.*" xmlns="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="300"
+	xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*"
+	premium="{PicnikBase.GetApp().freemiumModel}" urlid="BunnyTone">
+
+	<mx:Script>
+	<![CDATA[
+		import util.LocUtil;
+		import mx.resources.ResourceBundle;
+   		[Bindable] [ResourceBundle("BunnyToneEffect")] private var rb:ResourceBundle;   		
+   		
+   		//[Bindable] public var _aColors:Array = [0x000000,0x3364c2,0xf31900,0x44c400,0xf7d72b,0xFFFFFF]; // Googley colors
+   		[Bindable] public var _aColors:Array = [0xDDe5FE,0xFFCBCF,0xF9FC9D,0xBAF3C3,0xD9B2FF,0xFFFFFF];	// Pastel Easter Eggs
+   		
+   		private function Mix(): void {
+   			for (var i:int = 1; i < _aColors.length-1; i++) {
+				var clr:uint = _aColors[i];
+				var rn:int = Math.random() * (_aColors.length-2)+1;
+				_aColors[i] = _aColors[rn];
+				_aColors[rn] = clr;	
+   			}
+   			_opMultiColor.Colors = _aColors;
+   			OnOpChange();
+   		}
+   		
+	]]>			   		
+	</mx:Script>
+
+	<mx:Array id="_resetValues">
+		<local:StoredValue target="_aColors"/>
+		<local:StoredValue target="_sldrFade.value"/>
+	</mx:Array>
+
+	<EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='BunnyToneEffect')" strAuthor="@Resource(key='_efbtn_1', bundle='BunnyToneEffect')"
+		strImageSource="../graphics/effects/Easter/Bunnytone.jpg" premium="{premium}"
+		booleanAdmin="true"/>
+	<mx:String id="_strHelpText">{Resource.getString('BunnyToneEffect', '_strHelpText')}</mx:String>
+
+	<mx:VBox x="10" y="70" verticalGap="0">
+
+		<mx:HBox horizontalAlign="center" verticalAlign="middle">
+			<mx:VBox verticalGap="0" width="114" horizontalScrollPolicy="off">
+				<mx:HBox width="100%" paddingBottom="-5">
+					<mx:Label text="@Resource(key='Label_2', bundle='SepiaEffect')" styleName="sliderTitle"/>
+					<mx:Label text="{LocUtil.pct((_sldrFade.value-50)*2)}" styleName="sliderValue" textAlign="right" width="100%"/>
+				</mx:HBox>
+				<HSliderPlus width="111" minimum="50" maximum="100" value="50" id="_sldrFade" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+			</mx:VBox>			
+			<ResizingButton id="_btnMix" label="@Resource(key='Mix', bundle='GooToneEffect')" height="24" styleName="" click="Mix()"/>
+		</mx:HBox>
+				
+		<mx:Script>
+	        <![CDATA[
+	            [Bindable]
+	            public var aBlendModes:Array = [ 
+	                {label:Resource.getString('BunnyToneEffect', 'blend_Normal'), data:"normal"}, 
+	                {label:Resource.getString('BunnyToneEffect', 'blend_Add'), data:"add"}, 
+	                {label:Resource.getString('BunnyToneEffect', 'blend_Darken'), data:"darken"}, 
+	                {label:Resource.getString('BunnyToneEffect', 'blend_Difference'), data:"difference"}, 
+	                {label:Resource.getString('BunnyToneEffect', 'blend_Hardlight'), data:"hardlight"}, 
+	                {label:Resource.getString('BunnyToneEffect', 'blend_Lighten'), data:"lighten"}, 
+	                {label:Resource.getString('BunnyToneEffect', 'blend_Multiply'), data:"multiply"}, 
+	                {label:Resource.getString('BunnyToneEffect', 'blend_Overlay'), data:"overlay"}, 
+	                {label:Resource.getString('BunnyToneEffect', 'blend_Screen'), data:"screen"}, 
+	                {label:Resource.getString('BunnyToneEffect', 'blend_Subtract'), data:"subtract"}];
+	        ]]>
+	    </mx:Script>
+	    <mx:VBox verticalGap="-3" paddingTop="5" paddingBottom="5">
+		    <mx:Label text="@Resource(key='advancedmodes', bundle='BunnyToneEffect')" styleName="sliderTitle"/>
+			<ComboBoxPlus dataProvider="{aBlendModes}" id="_cbBlendMode" height="26" width="190" selectedIndex="{zeroR}" rowCount="10" liveChange="OnOpChange()"/>
+	    </mx:VBox>
+	    				
+		<ApplyCancelEffectButtons addBoxPadding="true" premium="{premium}"/>
+	</mx:VBox>
+
+	<imageOperations:NestedImageOperation id="_op" BlendAlpha="{1-(_sldrFade.value/100)}" BlendMode="{_cbBlendMode.liveValue}" dynamicAlphaCachePriority="3">	
+		<imageOperations:children>		
+			<!--<imageOperations:BlurImageOperation xblur="{Math.max(imagewidth/400,1.3)}" yblur="{Math.max(imagewidth/400,1.3)}" quality="3"/>-->
+			<imageOperations:BWImageOperation/>
+			<imageOperations:MultiColorImageOperation id="_opMultiColor" Colors="{_aColors}" Spread="0.1"/>
+		</imageOperations:children>					
+	</imageOperations:NestedImageOperation>
+</cnt:EffectCanvas>

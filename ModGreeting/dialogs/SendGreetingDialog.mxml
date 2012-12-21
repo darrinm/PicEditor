@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dialogs:SendGreetingDialogBase
+		xmlns:containers="containers.*"
+		xmlns:dialogs="dialogs.*"
+		xmlns:mx="http://www.adobe.com/2006/mxml"
+		xmlns:controls="controls.*"
+		xmlns:pages="pages.*"
+		width="{PicnikBase.app.yahoomail?640:690}" height="530" styleName="ShareContentDialogStyle"
+		resize="OnResize(event)" move="OnResize(event)">
+	
+	<mx:Script>
+		<![CDATA[
+			private const kMinSize:int = 350;
+			private const kMaxSize:int = 500;
+			
+			override protected function OnResize(evt:Event): void {
+				height = Math.max(Math.min(kMaxSize, parentHeight), kMinSize);
+				super.OnResize(evt);
+			}
+   		]]>
+	</mx:Script>
+	
+	<mx:Style source="SendGreetingDialog.css"/>
+	<dialogs:states>
+		<!-- use these states to customize the dialog's look for each occasion -->
+		<mx:State name="holidayGreetings_picnik">
+			<!-- snow shoulders -->
+			<mx:AddChild relativeTo="{cvsMain}">
+				<controls:ImageVer top="-18" left="-16" source="@Embed('../assets/bitmaps/SnowCorner_Left.png')" mouseEnabled="false" />
+			</mx:AddChild>
+			<mx:AddChild relativeTo="{cvsMain}">
+				<controls:ImageVer top="-22" right="-15" source="@Embed('../assets/bitmaps/SnowCorner_Right.png')" mouseEnabled="false"/>
+			</mx:AddChild>
+		</mx:State>
+		<mx:State name="vdayGreetings_picnik">
+			<!-- TODO(darrinm): substitute Valentine's Day theming elements for the snow. -->
+			<mx:AddChild relativeTo="{cvsMain}">
+				<controls:ImageVer top="-18" left="-16" source="@Embed('../assets/bitmaps/SnowCorner_Left.png')" mouseEnabled="false" />
+			</mx:AddChild>
+			<mx:AddChild relativeTo="{cvsMain}">
+				<controls:ImageVer top="-22" right="-15" source="@Embed('../assets/bitmaps/SnowCorner_Right.png')" mouseEnabled="false"/>
+			</mx:AddChild>
+		</mx:State>
+	</dialogs:states>
+	<mx:DropShadowFilter id="_fiWhiteShine" blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1" quality="3" angle="90"/>
+	<mx:DropShadowFilter id="_fiInnerShad" blurX="1" blurY="1" distance="1" color="#000000" alpha=".2" quality="3" angle="90" inner="true"/>
+
+	<mx:Fade id="_efFadeIn" duration="300" alphaFrom="0" alphaTo="1"/>
+	<mx:Fade id="_efFadeOut" duration="200" alphaFrom="1" alphaTo="0"/>
+
+	<mx:Canvas id="cvsMain" width="100%" height="100%" resize="OnResize(event)" move="OnResize(event)" clipContent="false">
+		<containers:AutoShrinkCanvas width="100%" height="100%" cornerRadius="8" clipContent="true" color="#ff6600">
+		    <containers:SendGreetingContent width="100%" height="100%" templateGroupId="{templateGroupId}"
+					footerHeight="{footerHeight}" container="{this}"/>				
+			<!-- Close button-->
+			<mx:Button width="22" height="22" right="18" top="15" click="Hide()" styleName="dialogCloseButton"/>		
+		</containers:AutoShrinkCanvas>
+	</mx:Canvas>
+</dialogs:SendGreetingDialogBase>

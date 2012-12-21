@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory flickrPremium="false" id="soccer_ng" numShapes="3" picnikPremium="false" previewUrls="60|48|../clipart/bundles/SoccerFeverTeamsArea_groupPreviews_soccer_ng.png?ver=40d0623a" title="Nigeria Stickers">
+	<Shapes>
+		<Clipart cHeight="294.75" cWidth="464.2" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|0|../clipart/bundles/SoccerFeverTeamsArea_shapes_soccer_ng.png?ver=cd9a6203" url="shapes/SoccerFever/ng/wavingflag_ng.swf"/>
+		<Clipart cHeight="374.6" cWidth="749.2" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|1|../clipart/bundles/SoccerFeverTeamsArea_shapes_soccer_ng.png?ver=cd9a6203" url="shapes/SoccerFever/ng/flag_ng.swf"/>
+		<Clipart cHeight="223.55" cWidth="95.95" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|2|../clipart/bundles/SoccerFeverTeamsArea_shapes_soccer_ng.png?ver=cd9a6203" url="shapes/SoccerFever/ng/scarf_ng.swf"/>
+	</Shapes>
+</ShapeCategory>

@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Box xmlns="containers.*" xmlns:mx="http://www.adobe.com/2006/mxml" initialize="Init();" verticalScrollPolicy="off" horizontalScrollPolicy="off"
+	width="100%" height="100%" xmlns:controls="controls.*">
+<mx:Script>
+	<![CDATA[
+		import controls.ImagePlus;
+		import mx.binding.utils.ChangeWatcher;
+		import mx.controls.Label;
+		import mx.events.MoveEvent;
+		import mx.events.ResizeEvent;
+		import mx.managers.PopUpManager;
+		import mx.controls.Image;
+	
+		import mx.collections.ArrayCollection;
+		import mx.utils.ObjectProxy;
+
+		private var _img:Image = null;
+		private var _fShowing:Boolean = true;
+		private var _fInitialized:Boolean = false;
+
+		// array for premium checkmark list
+		[Bindable] private var _aobpPremiumChecks:ArrayCollection = new ArrayCollection([
+					new ObjectProxy({ label: "moreEffects" }),
+					new ObjectProxy({ label: "beautyTools" }),
+					new ObjectProxy({ label: "moreCollages" }),
+					new ObjectProxy({ label: "moreFontsStickers" }),
+					new ObjectProxy({ label: "advancedEditingTools" }),
+					new ObjectProxy({ label: "unlimitedHistory" }),
+					new ObjectProxy({ label: "unlimitedConnections" }),
+					new ObjectProxy({ label: "priorityFeedback" }),
+					new ObjectProxy({ label: "adFreeFullscreen" }),
+					new ObjectProxy({ label: "layeringMore" })
+				]);
+
+		public function OnClose(): void {
+			HideImage();
+		}
+		
+		override public function set alpha(value:Number):void {
+			if (_img) _img.alpha = value;
+			super.alpha = value;
+		}
+		private function Init(): void {
+			_fInitialized = true;
+			AddImage();
+		}
+		
+		public function OnShow(): void {
+			AddImage();
+		}
+		
+		public function set showing(f:Boolean): void {
+			if (_fShowing == f) return
+			_fShowing = f;
+			if (_img) _img.alpha = alpha;
+		}
+		
+		// Viewstack calls this instead of setting visible using the accessor. Strange. 
+		public override function setVisible(value:Boolean, noEvent:Boolean=false):void {
+			super.setVisible(value, noEvent);
+			if (_img) _img.visible = value;
+		}
+		
+		public override function set visible(value:Boolean):void {
+			super.visible = value;
+			if (_img) _img.visible = value;
+		}
+		
+		private function AddImage(): void {
+			if (!_fInitialized) return;
+			if (_img) {
+				OnResize();
+			} else {
+				var img:ImagePlus = new ImagePlus();
+				img.autoStartStopSwf = true;
+				img.source= PicnikBase.StaticUrl("../graphics/upsellBeforeAfterSlideshow.swf");
+				img.width=424;
+				img.height=224;
+				PopUpManager.addPopUp(img, this, false);
+				img.setStyle("horizontalAlign", "center");
+				_img = img;
+				// _img.visible = _fShowing;
+				_img.addEventListener(Event.COMPLETE, OnResize);
+				_img.alpha = alpha;
+				AddListeners();
+			}
+		}
+		
+		private function AddListeners(): void {
+			ListenForPosChange([stage, this, _imgLoc, _bx1]); 
+		}
+		
+		private function ListenForPosChange(aedContainers:Array): void {
+			for each (var ed:IEventDispatcher in aedContainers) {
+				if (ed) {
+					ed.addEventListener(ResizeEvent.RESIZE, OnResize);
+					ed.addEventListener(MoveEvent.MOVE, OnResize);
+				}
+			}
+ 		}
+		
+		private function UnListenForPosChange(aedContainers:Array): void {
+			for each (var ed:IEventDispatcher in aedContainers) {
+				if (ed) {
+					ed.removeEventListener(ResizeEvent.RESIZE, OnResize);
+					ed.removeEventListener(MoveEvent.MOVE, OnResize);
+				}
+			}
+ 		}
+		
+		public function OnResize(evt:Event=null): void {
+			// Position the image
+			if (_img == null) return;
+			if (_imgLoc == null) return;
+			var ptLoc:Point = _imgLoc.localToGlobal(new Point(0,0));
+			ptLoc = _img.parent.globalToLocal(ptLoc);
+			_img.x = ptLoc.x;
+			_img.y = ptLoc.y;
+			_img.width = _imgLoc.width;
+			_img.height = _imgLoc.height;
+		}
+		
+		private function HideImage(): void {
+			if (_img == null) return;
+
+			UnListenForPosChange([stage, this, _imgLoc, _bx1]);
+			_img.removeEventListener(Event.COMPLETE, OnResize);
+			
+			PopUpManager.removePopUp(_img);
+			_img = null;
+		}
+	]]>
+</mx:Script>
+
+	<mx:DropShadowFilter id="_fiWhiteShine" blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1" quality="3" angle="90"/>
+	<mx:DropShadowFilter id="_fiInnerShad" blurX="1" blurY="1" distance="1" color="#000000" alpha=".2" quality="3" angle="90" inner="true"/>
+	<mx:DropShadowFilter id="_fiPhotoShadow" blurX="4" blurY="4" distance="1" color="#000000" alpha=".25" quality="3" angle="90"/>
+
+	<ResizingHBox verticalScrollPolicy="off" horizontalScrollPolicy="off"
+			width="100%" height="100%" paddingLeft="20" paddingRight="20" horizontalGap="0" verticalAlign="middle">
+
+		<mx:Spacer width="100%"/>
+		<!-- sample before/after slideshow -->
+		<ResizingBox paddingTop="3" paddingRight="3" paddingBottom="3" paddingLeft="3" backgroundColor="#ffffff" filters="{[_fiPhotoShadow]}" id="_bx1">
+			<size_states>
+				<mx:State name="4">
+				    <mx:SetProperty name="width" target="{_imgLoc}" value="{424*0.95}"/>
+				    <mx:SetProperty name="height" target="{_imgLoc}" value="{224*0.95}"/>
+				</mx:State>
+				<mx:State name="5">
+				    <mx:SetProperty name="width" target="{_imgLoc}" value="{424*0.9}"/>
+				    <mx:SetProperty name="height" target="{_imgLoc}" value="{224*0.9}"/>
+				</mx:State>
+				<mx:State name="6">
+				    <mx:SetProperty name="width" target="{_imgLoc}" value="{424*0.8}"/>
+				    <mx:SetProperty name="height" target="{_imgLoc}" value="{224*0.8}"/>
+				</mx:State>
+				<mx:State name="7">
+				    <mx:SetProperty name="width" target="{_imgLoc}" value="{424*0.7}"/>
+				    <mx:SetProperty name="height" target="{_imgLoc}" value="{224*0.7}"/>
+				</mx:State>
+				<mx:State name="8">
+				    <mx:SetProperty name="width" target="{_imgLoc}" value="{424*0.6}"/>
+				    <mx:SetProperty name="height" target="{_imgLoc}" value="{224*0.6}"/>
+				</mx:State>
+				<mx:State name="9">
+				    <mx:SetProperty name="width" target="{_imgLoc}" value="{424*0.5}"/>
+				    <mx:SetProperty name="height" target="{_imgLoc}" value="{224*0.5}"/>
+				</mx:State>
+			</size_states>
+			<controls:ImageVer id="_imgLoc" horizontalAlign="center"
+				 width="424" height="224"/>	
+		</ResizingBox>
+		<mx:Spacer width="100%" minWidth="25"/>
+		<!-- checkmark list -->
+		<ResizingVBox verticalGap="2" width="100%">
+			<mx:Repeater id="rpPremiumChecks" dataProvider="{_aobpPremiumChecks}">
+				<ResizingHBox horizontalGap="1" verticalAlign="middle" width="100%">
+					<controls:ImageVer source="../graphics/checkmark-small.png" width="14" height="16" filters="{[_fiWhiteShine,_fiInnerShad]}"/>
+					<controls:ResizingLabel text="{Resource.getString('TargetedUpsellDialog',rpPremiumChecks.currentItem.label)}"
+						width="100%"
+						fontSize="14" fontSize_1="13" fontSize_2="12" color="#262626" filters="{[_fiWhiteShine]}"/>
+				</ResizingHBox>
+			</mx:Repeater>
+		</ResizingVBox>
+		<mx:Spacer width="100%"/>
+	</ResizingHBox>
+</mx:Box>

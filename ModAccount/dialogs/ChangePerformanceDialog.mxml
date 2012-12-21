@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ChangePerformanceDialogBase xmlns="dialogs.*" 
+		xmlns:mx="http://www.adobe.com/2006/mxml"
+		xmlns:ctrl="controls.*" 
+		xmlns:flash="flash.filters.*" 
+		xmlns:ctr="containers.*" 
+		xmlns:bridges="gallery.bridges.*"
+		xmlns:vld="validators.*"
+		xmlns:RegisterHelper="dialogs.RegisterHelper.*" 
+		xmlns:ds="com.darronschall.effects.*"
+	 	width="550" height="240" verticalScrollPolicy="off" horizontalScrollPolicy="off" styleName="TargetedUpsellDialogStyle">
+
+	<mx:Script>
+		<![CDATA[
+			import dialogs.DialogManager;
+			
+			import mx.resources.ResourceBundle;
+			import mx.utils.ObjectProxy;
+			
+			import picnik.util.LocaleInfo;
+			
+			import util.LocUtil;
+
+			
+		]]>
+	</mx:Script>
+
+	<flash:DropShadowFilter id="_fiPremShadow" blurX="3" blurY="3" distance="1" color="#000000" alpha=".25" quality="3" angle="90"/>
+	<flash:DropShadowFilter id="_fiPremShine" blurX="0" blurY="0" distance="1" color="#FFFFFF" alpha=".9" inner="true" quality="3" angle="90"/>
+
+	<mx:String id="_strSuccessFeedbackMessage">{Resource.getString('ChangePerformanceDialog', '_strSuccessFeedbackMessage')}</mx:String>
+
+	<mx:Boolean id="_fEmFocus">false</mx:Boolean>
+	<mx:Boolean id="_fEmConfirmed">false</mx:Boolean>
+	
+	<mx:Canvas height="100%" width="100%" verticalScrollPolicy="off" horizontalScrollPolicy="off">
+	
+		<!-- Close button-->
+		<mx:Button width="22" height="22" top="4" right="4" click="Hide()" styleName="dialogCloseButton"/>
+		
+	    <ctr:AutoShrinkCanvas id="canvas1" width="550" height="240">
+			<mx:VBox width="100%" height="100%" paddingTop="7" paddingLeft="12" paddingRight="25" verticalGap="0">
+				<ctrl:ResizingLabel htmlText="@Resource(key='title', bundle='ChangePerformanceDialog')" 
+					fontSize="28" color="#005580" autoFontSizeGap="1"/>
+					
+				<mx:VBox verticalGap="-2" paddingTop="10">
+					<mx:HBox horizontalGap="10">
+						<mx:Script>
+							<![CDATA[
+								import util.AutoResizeMode;
+							]]>
+						</mx:Script>
+						<mx:RadioButton id="_rbtnPrint"
+										label="@Resource(key='print', bundle='ChangePerformanceDialog')" groupName="rbgAutoResizeMode"
+										selected="{AccountMgr.GetInstance().autoResizeMode != AutoResizeMode.ARCHIVAL}" width="250" fontWeight="bold"/>
+						<mx:RadioButton id="_rbtnArchival"
+										label="@Resource(key='archival', bundle='ChangePerformanceDialog')" groupName="rbgAutoResizeMode" 
+										selected="{AccountMgr.GetInstance().autoResizeMode == AutoResizeMode.ARCHIVAL}" width="250" fontWeight="bold"/>
+					</mx:HBox>
+					<mx:HBox horizontalGap="10">
+						<mx:Text htmlText="@Resource(key='printAbout', bundle='ChangePerformanceDialog')"
+								 width="250" paddingLeft="21" leading="1" color="#4d4d4d"/>
+						<mx:Text htmlText="@Resource(key='archivalAbout', bundle='ChangePerformanceDialog')"
+								 width="250" paddingLeft="21" leading="1" color="#4d4d4d"/>
+					</mx:HBox>
+				</mx:VBox>
+
+			</mx:VBox>
+						
+			<!-- Footer -->
+			<mx:HBox width="100%" paddingTop="195" horizontalAlign="center" verticalAlign="middle">			
+				<mx:Button id="_btnDone" height="39" fontSize="22" paddingLeft="15" paddingRight="15" horizontalCenter="0" styleName="basketButton"
+						mouseFocusEnabled="false" label="{Resource.getString('ChangePerformanceDialog', 'ok')}"/>
+			</mx:HBox>
+			<!-- cancel -->
+			<ctrl:ResizingButton styleName="basketButtonDarkBlue" label="@Resource(key='cancel',bundle='ChangePerformanceDialog')"
+									 click="Hide()"
+									 bottom="11" right="11" height="28" minWidth="97" paddingLeft="-9" paddingRight="-9"/>
+		</ctr:AutoShrinkCanvas>
+		
+		<!-- shadow dealies, drawn on top of all elements -->
+		<ctrl:ImageVer source="../graphics/upsellPremiumPanelShadow.png" bottom="50" left="0" right="0" scaleContent="true" maintainAspectRatio="false"/>
+		
+	</mx:Canvas>	
+	<mx:Style source="../dialogs/Upsell/TargetedUpsellDialog.css"/>	
+</ChangePerformanceDialogBase>

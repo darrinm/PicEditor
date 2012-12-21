@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cnt:EffectCanvas xmlns:cnt="containers.*" xmlns="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="193"
+	xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*" premium="{PicnikBase.GetApp().freemiumModel}" urlid="HeatMap">
+	<mx:Script>
+		<![CDATA[
+			import mx.resources.ResourceBundle;
+			
+			import util.LocUtil;
+			[Bindable] [ResourceBundle("HeatMapEffect")] private var rb:ResourceBundle;
+
+			[Bindable]
+			public var aaobGradients:Array = [
+				{label:Resource.getString('HeatMapEffect', 'thermal'), 
+					data:[{color:{h:240,s:100,v:0}, position:0},
+						{color:{h:240,s:100,v:50}, position:50},
+						{color:{h:315,s:100,v:75}, position:100},
+						{color:{h:360,s:75,v:87},  position:150},
+						{color:{h:30,s:100,v:100}, position:180},
+						{color:{h:50,s:100,v:100}, position:210},
+						{color:{h:60,s:15,v:100}, position:255}]
+				},
+				{label:Resource.getString('HeatMapEffect', 'nightVision'), 
+					data:[{position:0, color:{h:232,s:76,v:11}},
+						{position:56, color:{h:228,s:77,v:44}},
+						{position:110, color:{h:226,s:68,v:64}},
+						{position:186, color:{h:221,s:60,v:83}},
+						{position:255, color:{h:196,s:38,v:100}}]
+				},
+				{label:Resource.getString('HeatMapEffect', 'fire'), 
+					data:[{color:{h:0,s:98,v:6}, position:0},
+						{color:{h:29,s:100,v:100}, position:127.5},
+						{color:{h:55,s:100,v:100}, position:255}]
+				},
+				{label:Resource.getString('HeatMapEffect', 'blueyellow'), 
+					data:[{color:{h:95,s:0,v:0}, position:0},
+						{color:{h:95,s:37,v:3}, position:7.65},
+						{color:{h:180,s:69,v:42}, position:115},
+						{color:{h:49,s:19,v:91}, position:219},
+						{color:{h:49,s:0,v:100}, position:255}]
+				},
+				{label:Resource.getString('HeatMapEffect', 'scientific'), 
+					data:[{color:{h:240,s:100,v:50}, position:0},
+						{color:{h:240,s:100,v:100}, position:31.875},
+						{color:{h:120,s:100,v:100}, position:127.5},
+						{color:{h:0,s:100,v:100}, position:223.125},
+						{color:{h:0,s:100,v:50}, position:255}]
+				}];
+			
+			protected function GetArray(obArray:Object): Array {
+				if (obArray as Array)
+					return obArray as Array;
+				return aaobGradients[0].data as Array; // Default				
+			}
+		]]>
+	</mx:Script>
+
+	<EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='HeatMapEffect')" strAuthor="@Resource(key='_efbtn_1', bundle='HeatMapEffect')" strImageSource="../graphics/effects/Color/heatmap.png" premium="{premium}"/>
+	<mx:String id="_strHelpText">{Resource.getString('HeatMapEffect', '_strHelpText')}</mx:String>
+	
+	<mx:VBox x="10" y="67" verticalGap="0">
+		
+		<mx:VBox verticalGap="-3" paddingTop="5" paddingBottom="3">
+			<mx:Label text="@Resource(key='style', bundle='HeatMapEffect')" styleName="sliderTitle"/>
+			<ComboBoxPlus dataProvider="{aaobGradients}" id="_cbGradient" height="26" width="190" selectedIndex="{zeroR}" rowCount="6" liveChange="OnOpChange()"/>
+		</mx:VBox>
+		
+		<mx:VBox verticalGap="-3" paddingBottom="5">
+			<!--<LabelHSlidePlus id="_sldrHue" label="@Resource(key='Label_1', bundle='HeatMapEffect')" minimum="-180" maximum="180" isDegree="true" value="{zeroR}" change="OnOpChange()" labelValueMultiplier="1"/>-->
+			<LabelHSlidePlus id="_sldrFade" label="@Resource(key='Label_2', bundle='HeatMapEffect')" minimum="0" maximum="1" isPercent="true" value="{zeroR}" change="OnOpChange()"/>
+		</mx:VBox>
+
+		<ApplyCancelEffectButtons y="157" premium="{premium}" addBoxPadding="true"/>
+		
+	</mx:VBox>
+
+	<imageOperations:NestedImageOperation id="_op" BlendAlpha="{1-(_sldrFade.value)}" dynamicAlphaCachePriority="10">
+		<imageOperations:children>
+			<imageOperations:SimpleColorMatrixImageOperation Saturation="0"/>
+			<imageOperations:HSVGradientMapImageOperation gradientObjectArray="{GetArray(_cbGradient.liveValue)}" dynamicParamsCachePriority="5"/>
+		</imageOperations:children>
+	</imageOperations:NestedImageOperation>
+</cnt:EffectCanvas>

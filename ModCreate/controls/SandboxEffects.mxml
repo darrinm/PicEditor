@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<controls:SandboxEffectsBase xmlns:controls="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml"
+	xmlns:filters="flash.filters.*"  
+	horizontalScrollPolicy="off" verticalScrollPolicy="off"  
+	width="100%" xmlns:sectionList="containers.sectionList.*">
+<mx:Script>
+	<![CDATA[
+		import picnik.util.LocaleInfo;		
+	]]>
+</mx:Script>
+	<controls:states>
+		<mx:State name="RequiresFlash10">
+			<mx:AddChild relativeTo="{_vbMain}" position="before">
+				<mx:VBox backgroundColor="#f7f7f7" width="100%" height="100%" horizontalAlign="center" paddingTop="20" verticalGap="2"
+						click="ExpressInstall()">
+					<mx:HBox verticalAlign="middle" horizontalGap="0">
+						<controls:ImageVer source="@Embed('/theme/pngs/alertIcon.png')" />	
+						<mx:Label text="@Resource(key='betaFeature', bundle='UserEffects')" fontSize="16" filters="{[_fiWhiteShad]}"/>
+					</mx:HBox>
+					<mx:Text htmlText="@Resource(key='flash10_message', bundle='UserEffects')"
+							width="100%" textAlign="center" selectable="false"
+							paddingLeft="10" paddingRight="10" filters="{[_fiWhiteShad]}"/>
+				</mx:VBox>
+			</mx:AddChild>
+			<mx:RemoveChild target="{_vbMain}"/>
+		</mx:State>
+	</controls:states>
+
+	<filters:DropShadowFilter blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1"
+			quality="3" angle="90" id="_fiWhiteShad"/>
+	
+	<mx:VBox width="100%" height="100%" horizontalAlign="center" id="_vbMain" verticalGap="0">
+		<controls:ExpandingVBox id="_evbx1" expanded="false" width="100%" verticalGap="0" verticalScrollPolicy="off">
+			<sectionList:SectionHeader data="{{premium:false, title1:Resource.getString('UserEffects','sandboxEffects')}}" expanded="{_evbx1.expanded}"/>
+			<mx:VBox id="_vb" verticalGap="0" height="0" width="100%" verticalScrollPolicy="off">
+				<mx:Text htmlText="@Resource(key='sandboxDescription', bundle='UserEffects')" filters="{[_fiWhiteShad]}" width="100%" leading="-1"
+						paddingTop="2" paddingBottom="2" paddingLeft="8"/>
+				<mx:Canvas width="100%" height="1"
+						borderStyle="solid" borderSides="top" borderColor="#d1d1d1"/>
+			</mx:VBox>
+		</controls:ExpandingVBox>
+		<controls:ExpandingVBox id="_evbx2" expanded="false" width="100%" verticalGap="0" verticalScrollPolicy="off">
+			<sectionList:SectionHeader data="{{premium:false, title1:Resource.getString('UserEffects','developer')}}" expanded="{_evbx2.expanded}"/>
+			<mx:VBox id="_vbUser" verticalGap="0" width="100%" verticalScrollPolicy="off" height="0">
+				<mx:HBox id="_hbxHeader" width="100%" paddingTop="6" paddingBottom="7" backgroundImage="@Embed('/theme/pngs/effects_bg_up.png')" backgroundSize="100%"
+						paddingLeft="8" paddingRight="8"
+						borderSides="bottom" borderStyle="solid" borderColor="#d1d1d1">
+					<controls:ResizingButton id="_btnUpload" label="@Resource(key='load_shader', bundle='UserEffects')" autoFontSizeGap="1" width="100%" height="24"/>
+					<mx:Button id="_btnInfo" selected="false" height="24" width="24" toggle="true" icon="@Embed('/theme/pngs/questionmark.png')" paddingLeft="0"/>
+				</mx:HBox>
+			</mx:VBox>
+		</controls:ExpandingVBox>
+	</mx:VBox>
+</controls:SandboxEffectsBase>

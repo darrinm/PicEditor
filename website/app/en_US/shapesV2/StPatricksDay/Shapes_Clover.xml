@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/shape_spd_clovers.png" flickrPremium="true" id="Clover" numShapes="8" picnikPremium="true" previewUrls="60|48|../clipart/bundles/StPatricksDayArea_groupPreviews_Clover.png?ver=f0f03666" title="Clovers">
+	<Shapes>
+		<Clipart cHeight="399" cWidth="293" flickrPremium="true" isVector="false" picnikPremium="true" previewUrl="40|40|0|../clipart/bundles/StPatricksDayArea_shapes_Clover.png?ver=37007540" url="shapes/clover/clover_04.swf"/>
+		<Clipart cHeight="413" cWidth="346" flickrPremium="true" isVector="false" picnikPremium="true" previewUrl="40|40|1|../clipart/bundles/StPatricksDayArea_shapes_Clover.png?ver=37007540" url="shapes/clover/clover_03.swf"/>
+		<Clipart cHeight="460" cWidth="321" flickrPremium="true" isVector="false" picnikPremium="true" previewUrl="40|40|2|../clipart/bundles/StPatricksDayArea_shapes_Clover.png?ver=37007540" url="shapes/clover/clover_02.swf"/>
+		<Clipart cHeight="360" cWidth="229" flickrPremium="true" isVector="false" picnikPremium="true" previewUrl="40|40|3|../clipart/bundles/StPatricksDayArea_shapes_Clover.png?ver=37007540" url="shapes/clover/clover_05.swf"/>
+		<Clipart cHeight="295" cWidth="317" flickrPremium="true" isVector="false" picnikPremium="true" previewUrl="40|40|4|../clipart/bundles/StPatricksDayArea_shapes_Clover.png?ver=37007540" url="shapes/clover/clover_08.swf"/>
+		<Clipart cHeight="292" cWidth="310" flickrPremium="true" isVector="false" picnikPremium="true" previewUrl="40|40|5|../clipart/bundles/StPatricksDayArea_shapes_Clover.png?ver=37007540" url="shapes/clover/clover_06.swf"/>
+		<Clipart cHeight="155" cWidth="206" flickrPremium="true" isVector="false" picnikPremium="true" previewUrl="40|40|6|../clipart/bundles/StPatricksDayArea_shapes_Clover.png?ver=37007540" url="shapes/clover/clover_01.swf"/>
+		<Clipart cHeight="173" cWidth="180" flickrPremium="true" isVector="false" picnikPremium="true" previewUrl="40|40|7|../clipart/bundles/StPatricksDayArea_shapes_Clover.png?ver=37007540" url="shapes/clover/clover_07.swf"/>
+	</Shapes>
+</ShapeCategory>

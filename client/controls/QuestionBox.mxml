@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" initialize="init()" width="100%" xmlns:controls="controls.*" horizontalAlign="center">
+<mx:Script>
+	<![CDATA[
+		import util.QuestionManager;
+		public function init(): void {
+			addChildAt(QuestionManager.GetQuestionControl(),0);
+		}
+	]]>
+</mx:Script>
+<controls:ImageEx source="../graphics/tipDivider.png" width="350" height="1" maintainAspectRatio="false"/>
+<controls:TipText htmlText="{data}" condenseWhite="true" width="90%" fontSize="12" textAlign="center"/>
+</mx:VBox>

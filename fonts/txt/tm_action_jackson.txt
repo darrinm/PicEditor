@@ -1,0 +1,12 @@
+fileName: tm_action_jackson.ttf
+name: Action Jackson
+subfamilyDisplayName: Regular
+fullName: Action Jackson
+displayName: Action Jackson
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 4
+pkName: pktm0action0jackson
+authorName: Tom Murphy
+authorUrl: http://fonts.tom7.com/

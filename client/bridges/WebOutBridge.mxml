@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WebOutBridgeBase xmlns="bridges.*" xmlns:pk="*" xmlns:ctl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" 
+		width="100%" height="100%" defaultButton="{_btnSave}" xmlns:flash="flash.filters.*" currentState="jpeg" horizontalScrollPolicy="off">
+	<mx:Script>
+		import mx.resources.ResourceBundle;
+		import picnik.util.LocaleInfo;
+   		[Bindable] [ResourceBundle("WebOutBridge")] private var rb:ResourceBundle;
+	</mx:Script>
+
+	<mx:String id="_strFileSavedNotifyMessage">{Resource.getString('WebOutBridge', '_strFileSavedNotifyMessage')}</mx:String>
+	<states>
+		<mx:State name="jpeg">
+			<mx:AddChild relativeTo="{griditem1}" position="lastChild">
+				<mx:Label text="@Resource(key='Label_1', bundle='WebOutBridge')" styleName="publishForm" height="20"/>
+			</mx:AddChild>
+			<mx:AddChild relativeTo="{griditem2}" position="lastChild">
+				<ctl:HSliderPlus id="_sldrQuality" minimum="1" maximum="10" value="7" liveDragging="true" tickOffset="4" width="200" showDataTip="false"/>
+			</mx:AddChild>
+			<mx:AddChild relativeTo="{griditem2}" position="lastChild">
+				<mx:Label text="{Math.round(_sldrQuality.value)}" id="_lbQuality" width="40"/>
+			</mx:AddChild>
+		</mx:State>
+		<mx:State name="png"/>
+		<mx:State name="bmp">
+		</mx:State>
+		<mx:State name="tiff"/>
+		<mx:State name="gif"/>
+		<mx:State name="pdf"/>
+	</states>
+	<ctl:ImageVer source="@Embed('../assets/bitmaps/page_blueGrad.png')" left="0" top="0" width="100%" scaleContent="true" maintainAspectRatio="false"/>
+	<mx:Grid width="100%" height="100%" paddingTop="20" paddingBottom="20" paddingLeft="20" paddingRight="26" y="0" x="0">
+		<mx:GridRow width="100%" height="100%">
+			<mx:GridItem width="50%" height="100%" horizontalAlign="center" paddingRight="20">
+				<pk:ImageView id="_imgvPreview" width="100%" height="100%" verticalAlign="top" minWidth="75" minHeight="75"/>
+				<mx:filters>
+					<flash:DropShadowFilter distance="1" angle="90" blurX="4" blurY="4" alpha=".5" quality="3"/>
+	  			</mx:filters>
+			</mx:GridItem>
+			<mx:GridItem width="50%" height="100%">
+				<mx:Grid verticalGap="0">
+					<mx:GridRow width="100%" height="100%" paddingBottom="10">
+						<mx:GridItem width="100%" height="100%">
+							<mx:Label text="@Resource(key='Label_2', bundle='WebOutBridge')" color="#618430" fontWeight="bold" fontSize="21" styleName="publishForm"/>
+						</mx:GridItem>
+					</mx:GridRow>
+					<mx:GridRow width="100%" height="100%">
+						<mx:GridItem width="100%" height="100%">
+							<mx:Label text="@Resource(key='label1', bundle='WebOutBridge')" styleName="publishForm" height="20" id="label1"/>
+						</mx:GridItem>
+					</mx:GridRow>
+					<mx:GridRow width="100%" height="100%" paddingBottom="12">
+						<mx:GridItem>
+							<mx:TextInput width="320" id="_tiURL" height="26" styleName="publishFormField"/>
+						</mx:GridItem>
+					</mx:GridRow>
+					<mx:GridRow width="100%" height="100%">
+						<mx:GridItem width="100%" height="100%">
+							<mx:Label text="@Resource(key='Label_3', bundle='WebOutBridge')" styleName="publishForm" height="20"/>
+						</mx:GridItem>
+					</mx:GridRow>
+					<mx:GridRow width="100%" height="100%" paddingBottom="12">
+						<mx:GridItem>
+							<mx:TextInput width="62" height="26" id="_tiWidth" styleName="publishFormField"/>
+							<mx:Label text="@Resource(key='Label_4', bundle='WebOutBridge')" width="13" height="20" fontSize="14" fontWeight="{LocaleInfo.BoldWeight()}"/>
+							<mx:TextInput width="62" height="26" id="_tiHeight" styleName="publishFormField"/>
+						</mx:GridItem>
+					</mx:GridRow>
+					<mx:GridRow width="100%" height="100%">
+						<mx:GridItem width="100%" height="100%">
+							<mx:Label text="@Resource(key='Label_5', bundle='WebOutBridge')" styleName="publishForm" height="20"/>
+						</mx:GridItem>
+					</mx:GridRow>
+					<mx:GridRow width="100%" height="100%" paddingBottom="12">
+						<mx:GridItem>
+							<mx:ComboBox id="_cboxFormat" width="200" rowCount="6">
+						        <mx:ArrayCollection>
+						            <mx:Object label="{Resource.getString('WebOutBridge', 'Object_1')}" data="jpeg"/>
+						            <mx:Object label="{Resource.getString('WebOutBridge', 'Object_2')}" data="png"/>
+						            <mx:Object label="{Resource.getString('WebOutBridge', 'Object_3')}" data="gif"/>
+						            <mx:Object label="{Resource.getString('WebOutBridge', 'Object_4')}" data="tiff"/>
+						            <mx:Object label="{Resource.getString('WebOutBridge', 'Object_5')}" data="bmp"/>
+						            <mx:Object label="{Resource.getString('WebOutBridge', 'Object_6')}" data="pdf"/>
+						        </mx:ArrayCollection>
+							</mx:ComboBox>
+						</mx:GridItem>
+					</mx:GridRow>
+					<mx:GridRow width="100%" height="100%">
+						<mx:GridItem width="100%" height="100%" id="griditem1">
+						</mx:GridItem>
+					</mx:GridRow>
+					<mx:GridRow width="100%" height="100%">
+						<mx:GridItem width="100%" height="100%" id="griditem2">
+						</mx:GridItem>
+					</mx:GridRow>
+					<mx:GridRow width="100%" height="100%" paddingBottom="20">
+						<mx:GridItem width="100%" height="100%">
+						</mx:GridItem>
+					</mx:GridRow>
+					<mx:GridRow width="100%" height="100%">
+						<mx:GridItem width="100%" height="100%" horizontalAlign="center">
+							<mx:Grid verticalGap="10">
+								<mx:GridRow width="100%" height="100%">
+									<mx:GridItem width="100%" height="100%">
+										<ctl:ImageVer source="@Embed('../assets/bitmaps/saveshad_top.png')"/>
+									</mx:GridItem>
+								</mx:GridRow>
+								<mx:GridRow width="100%" height="100%">
+									<mx:GridItem width="100%" height="100%" horizontalAlign="center">
+										<mx:Button label="@Resource(key='_btnSave', bundle='WebOutBridge')" width="200" height="34" fontSize="18" id="_btnSave" styleName="BigButton"/>
+									</mx:GridItem>
+								</mx:GridRow>
+								<mx:GridRow width="100%" height="100%">
+									<mx:GridItem width="100%" height="100%">
+										<ctl:ImageVer source="@Embed('../assets/bitmaps/saveshad_bot.png')"/>
+									</mx:GridItem>
+								</mx:GridRow>
+							</mx:Grid>
+						</mx:GridItem>
+					</mx:GridRow>
+				</mx:Grid>
+			</mx:GridItem>
+		</mx:GridRow>
+	</mx:Grid>
+</WebOutBridgeBase>

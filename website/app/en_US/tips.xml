@@ -1,0 +1,469 @@
+﻿<!-- Tip attributes:
+quasiModal="true|false" - defaults to false
+relativeTo="component id" | pointAt="component id"
+position="center|left|right|above|below" - defaults to center
+draggable="true|false" - defaults to true
+contentWidth="pixelWidth" - defaults to..?
+-->
+<Tips>
+<Tip id="resize_warning" quasiModal="false" pointAt="_imgResizeWarning" position="above" pointAtPadding="4" draggable="false">
+	<TipTextHeader>That's a huge photo!</TipTextHeader>
+	<VBox width="100%" horizontalAlign="center">
+		<TipText>Picnik can work on photos up to an astonishing 16 megapixels, but large photos can sometimes make things run slowly. Not to worry, the new size will still be optimal for printing or saving to any photo sharing site.</TipText>
+		<ResizingButton height="30" width="100%" fontSize="14" styleName="basketButton" click="ResizePhotoSmaller()">Resize this photo smaller!</ResizingButton>
+		<HRule styleName="tipHRule" width="100%"/>
+		<TipCheckBox selected="ResizeWarningOn()" click="OnResizeWarningClick({event})">Warn me when Picnik is slow</TipCheckBox>
+	</VBox>
+</Tip>
+<Tip id="sandbox_main" quasiModal="true" pointAt="_hbxHeader" position="right">
+	<TipTextHeader>Welcome to the Picnik Sandbox!</TipTextHeader>
+	<VBox percentWidth="100">
+		<TipText>These effects and tools exploit the Flash Player's new "Pixel Bender" technology to manipulate photos in ways not possible before. If you are comfortable with basic computer programming you can create your own effects using the Pixel Bender Toolkit. <font color="#ddff99"><b><a href="http://labs.adobe.com/technologies/pixelbender/" target="_blank">Click here to learn how.</a></b></font><br/>
+<br/>New effects can be loaded straight into Picnik. When you've created something you want to share with millions of Picnikers <font color="#ddff99"><b><a href="mailto:contact@mywebsite.com?subject=Sandbox Effect">please email it to us.</a></b></font> We'll include the top contributions in future Picnik updates.
+		</TipText>
+	</VBox>
+</Tip>
+<Tip id="collage_main" quasiModal="true" relativeTo="_zmv" position="center">
+	<TipTextHeader>Welcome to Picnik Collages!</TipTextHeader>
+	<VBox percentWidth="100">
+		<TipText>Making collages from your photos has never been easier.<br/>
+		<br/>
+1. Choose the basic collage type you want by clicking the thumbnails on the left. Don't worry, you can always change this.<br/>
+<br/>
+2. Drag and drop photos from the Photo Basket below onto your collage, or click Auto-fill. Afterwards you can drag and drop photos within your collage to move or swap them.<br/>
+<br/>
+3. Drag within a photo to adjust its crop.<br/>
+<br/>
+4. Customize your collage by sliding the settings around.<br/>
+<br/>
+All done? Hit <b>Done!</b> and you'll be able to add effects, frames, text and save your collage.
+		</TipText>
+	</VBox>
+</Tip>
+
+<Tip id="collage_upgrade" quasiModal="true" pointAt="" position="right" draggable="false">
+	<TipTextHeader>Premium Collage!</TipTextHeader>
+	<VBox percentWidth="100" verticalGap="4">
+		<TipText>That's a premium collage layout! Get access to this and much, much more for only $24.95 a year.</TipText>
+		<HBox percentWidth="100" horizontalGap="10" horizontalAlign="center">
+			<ResizingButton click="Close()" styleName="basketButton" minWidth="160" height="28" fontSize="14">Maybe later</ResizingButton>
+			<ResizingButton click="ChoosePayment()" styleName="basketButtonBlue" minWidth="160" height="28" fontSize="14">Upgrade!</ResizingButton>
+		</HBox>
+	</VBox>
+</Tip>
+
+<Tip id="collage_register" quasiModal="true" pointAt="" position="right" draggable="false">
+	<TipTextHeader>Premium Collage!</TipTextHeader>
+	<VBox percentWidth="100" verticalGap="4">
+		<TipText>That's a premium collage layout! Today only, register with Picnik to try out our premium collages for free!</TipText>
+		<HBox percentWidth="100" horizontalGap="10" horizontalAlign="center">
+			<ResizingButton click="Close()" styleName="basketButton" minWidth="160" height="28" fontSize="14">Maybe later</ResizingButton>
+			<ResizingButton click="Register()" styleName="basketButtonBlue" minWidth="160" height="28" fontSize="14">Register!</ResizingButton>
+		</HBox>
+	</VBox>
+</Tip>
+
+<Tip id="show_upgrade" quasiModal="true" pointAt="" position="right" draggable="false">
+	<TipTextHeader>Premium Style!</TipTextHeader>
+	<VBox percentWidth="100" verticalGap="4">
+		<TipText>That's a premium show style! Get access to this and much, much more for only $24.95 a year.</TipText>
+		<HBox percentWidth="100" horizontalGap="10" horizontalAlign="center">
+			<ResizingButton click="Close()" styleName="basketButton" minWidth="160" height="28" fontSize="14">Maybe later</ResizingButton>
+			<ResizingButton click="ChoosePayment()" styleName="basketButtonBlue" minWidth="160" height="28" fontSize="14">Upgrade!</ResizingButton>
+		</HBox>
+	</VBox>
+</Tip>
+
+<Tip id="collage_1" pointAt="_btnInfo" position="below" draggable="false">
+	<TipTextHeader>Welcome to Picnik Collages!</TipTextHeader>
+	<VBox percentWidth="100">
+		<TipText>Making collages from your photos has never been easier.</TipText>
+		<HBox percentWidth="100" horizontalGap="20" horizontalAlign="center">
+			<Image source="../graphics/tips/mini_collage1.jpg" width="89" height="89"/>
+			<Image source="../graphics/tips/mini_collage2.jpg" width="89" height="89"/>
+			<Image source="../graphics/tips/mini_collage3.jpg" width="128" height="85"/>
+		</HBox>
+		<TipNextPrevFooter index="1" total="8"/>
+	</VBox>
+</Tip>
+<Tip id="collage_2" pointAt="_slCollages" position="right" draggable="false">
+	<TipTextHeader>Choose a collage style</TipTextHeader>
+	<VBox percentWidth="100">
+		<TipText>Click a preview to select the collage style. Don't worry, you can change this later. If the Basic styles aren't enough for you, upgrade to Premium for dozens more!
+		</TipText>
+		<TipNextPrevFooter index="2" total="8"/>
+	</VBox>
+</Tip>
+<Tip id="collage_3" pointAt="_btnSizer" position="above" draggable="false">
+	<TipTextHeader>Drag &amp; Drop from the Photo Basket</TipTextHeader>
+	<VBox percentWidth="100">
+		<TipText>Use the drop-down to select where you want to pull photos from, then drag and drop thumbnails right onto your collage.</TipText>
+		<ThirdPartyBubbleBox percentWidth="100" horizontalAlign="center" linksEnabled="false"/>
+		<TipNextPrevFooter index="3" total="8"/>
+	</VBox>
+</Tip>
+<Tip id="collage_4" pointAt="_btnAutoFill" position="below" draggable="false">
+	<TipTextHeader>Or, use Auto-fill!</TipTextHeader>
+	<VBox percentWidth="100">
+		<TipText>Hit <font color="#dfff97"><b>Auto-fill</b></font> to populate your collage with the photos currently visible in your Photo Basket. Quick and easy!
+		</TipText>
+		<TipNextPrevFooter index="4" total="8"/>
+	</VBox>
+</Tip>
+<Tip id="collage_5" pointAt="_cvsCollageControls" position="right" draggable="false">
+	<TipTextHeader>Customize!</TipTextHeader>
+	<VBox percentWidth="100">
+		<TipText>Use real-time sliders to tweak your collage to perfection. Adjust <font color="#dfff97"><b>spacing,</b></font> choose a new <font color="#dfff97"><b>background color,</b></font> change <font color="#dfff97"><b>proportions,</b></font> or add some chaos with <font color="#dfff97"><b>kookiness.</b></font>
+		</TipText>
+		<TipNextPrevFooter index="5" total="8"/>
+	</VBox>
+</Tip>
+<Tip id="collage_6" pointAt="_hbxColumnsAndRows" position="right" draggable="false">
+	<TipTextHeader>Grid Collages: Columns and Rows</TipTextHeader>
+	<VBox percentWidth="100">
+		<TipText>Grid collages (Premium only) can be customized even further by adjusting the number of <font color="#dfff97"><b>columns</b></font> and <font color="#dfff97"><b>rows.</b></font> Up to 64 photos!
+		</TipText>
+		<TipNextPrevFooter index="6" total="8"/>
+	</VBox>
+</Tip>
+<Tip id="collage_7" pointAt="_lblQuality" position="below" draggable="false">
+	<TipTextHeader>Adjust your collage quality</TipTextHeader>
+	<VBox percentWidth="100">
+		<TipText>Premium subscribers can choose to increase the collage size to print up to 12" x 12" when printing at 300 dpi (but check your printer's settings!).
+		</TipText>
+		<TipNextPrevFooter index="7" total="8"/>
+	</VBox>
+</Tip>
+<Tip id="collage_8" pointAt="_btnDone" position="below" draggable="false">
+	<TipTextHeader>All finished?</TipTextHeader>
+	<VBox percentWidth="100">
+		<TipText>Got it? Great! Hit <font color="#dfff97"><b>Done!</b></font> and go on to Picnik's editing tools which will allow you to add effects, text and frames.
+		</TipText>
+		<TipNextPrevFooter index="8" total="8"/>
+	</VBox>
+</Tip>
+
+<!-- fancy collage upgrade dialog -->
+<Tip id="fancyCollage_upgrade" quasiModal="true" pointAt="" position="right" draggable="false">
+	<TipTextHeader>Premium Fancy Collage!</TipTextHeader>
+	<VBox percentWidth="100" verticalGap="4">
+		<TipText>That's a Premium Fancy Collage! Get access to this and much, much more for only $24.95 a year.</TipText>
+		<HBox percentWidth="100" horizontalGap="10" horizontalAlign="center">
+			<ResizingButton click="Close()" styleName="basketButton" minWidth="160" height="28" fontSize="14">Maybe later</ResizingButton>
+			<ResizingButton click="ChoosePayment()" styleName="basketButtonBlue" minWidth="160" height="28" fontSize="14">Upgrade!</ResizingButton>
+		</HBox>
+	</VBox>
+</Tip>
+
+<Tip id="fancyCollage_register" quasiModal="true" pointAt="" position="right" draggable="false">
+	<TipTextHeader>Premium Fancy Collage!</TipTextHeader>
+	<VBox percentWidth="100" verticalGap="4">
+		<TipText>That's a Premium Fancy Collage! Today only, register with Picnik to try out our Premium Fancy Collages for free!</TipText>
+		<HBox percentWidth="100" horizontalGap="10" horizontalAlign="center">
+			<ResizingButton click="Close()" styleName="basketButton" minWidth="160" height="28" fontSize="14">Maybe later</ResizingButton>
+			<ResizingButton click="Register()" styleName="basketButtonBlue" minWidth="160" height="28" fontSize="14">Register!</ResizingButton>
+		</HBox>
+	</VBox>
+</Tip>
+
+<!-- fancy collage tip flow -->
+<Tip id="fancyCollage_1" pointAt="_btnInfo" position="below" draggable="false">
+	<TipTextHeader>Welcome to Fancy Collages!</TipTextHeader>
+	<VBox percentWidth="100">
+		<TipText>Fancy Collages lets you make everything from Holiday greeting cards to scrapbook pages in a few simple clicks.</TipText>
+		<HBox percentWidth="100" horizontalAlign="center">
+			<Image source="../graphics/tips/fancy_collage.png" width="297" height="105"/>
+		</HBox>
+		<TipNextPrevFooter index="1" total="6"/>
+	</VBox>
+</Tip>
+<Tip id="fancyCollage_2" pointAt="_tlist" position="right" draggable="false">
+	<TipTextHeader>Choose a collage style</TipTextHeader>
+	<VBox percentWidth="100">
+		<TipText>Click a collage category to open it and see its contents. Then, you can click on any of the previews to apply it. You can always change this later, so experiment away!
+		</TipText>
+		<TipNextPrevFooter index="2" total="6"/>
+	</VBox>
+</Tip>
+<Tip id="fancyCollage_3" pointAt="_btnSizer" position="above" draggable="false">
+	<TipTextHeader>Drag &amp; Drop from the Photo Basket</TipTextHeader>
+	<VBox percentWidth="100">
+		<TipText>Use the drop-down to select where you want to pull photos from, then drag and drop thumbnails right onto your collage.</TipText>
+		<ThirdPartyBubbleBox percentWidth="100" horizontalAlign="center" linksEnabled="false"/>
+		<TipNextPrevFooter index="3" total="6"/>
+	</VBox>
+</Tip>
+<Tip id="fancyCollage_4" pointAt="_btnAutoFill" position="below" draggable="false">
+	<TipTextHeader>Or, use Auto-fill!</TipTextHeader>
+	<VBox percentWidth="100">
+		<TipText>Hit <font color="#dfff97"><b>Auto-fill</b></font> to populate your fancy collage with the photos currently visible in your Photo Basket. Quick and easy!
+		</TipText>
+		<TipNextPrevFooter index="4" total="6"/>
+	</VBox>
+</Tip>
+<Tip id="fancyCollage_5" pointAt="_lblQuality" position="below" draggable="false">
+	<TipTextHeader>Adjust your collage quality</TipTextHeader>
+	<VBox percentWidth="100">
+		<TipText>Premium subscribers can choose to increase the collage size to print up to 12" x 12" when printing at 300 dpi (but check your printer's settings!).
+		</TipText>
+		<TipNextPrevFooter index="5" total="6"/>
+	</VBox>
+</Tip>
+<Tip id="fancyCollage_6" pointAt="_btnDone" position="below" draggable="false">
+	<TipTextHeader>Customize time!</TipTextHeader>
+	<VBox percentWidth="100">
+		<TipText>Got all your photos added? Great! Hit <font color="#dfff97"><b>Customize!</b></font> and go on to Picnik's editing tools which will allow you to edit text, move stuff around, or add effects and frames.
+		</TipText>
+		<TipNextPrevFooter index="6" total="6"/>
+	</VBox>
+</Tip>
+
+<!--Show Tips-->
+
+<Tip id="gallery_styles_1" pointAt="_btnInfo" position="below" draggable="false">
+	<TipTextHeader>Welcome to Picnik Show!</TipTextHeader>
+	<VBox percentWidth="100">
+		<TipText>Showing off your photos has never been easier. Create a digital slideshow by gathering your photos into a Show and share it with the world!</TipText>
+		<HBox percentWidth="100" horizontalGap="20" horizontalAlign="center">
+			<Image source="../graphics/tips/ShowHelpImage.png" width="350" height="99"/>
+		</HBox>
+		<TipNextPrevFooter index="1" total="9"/>
+	</VBox>
+</Tip>
+
+<Tip id="gallery_styles_2" pointAt="_btnSizer" position="above" draggable="false">
+	<TipTextHeader>Get your photos here</TipTextHeader>
+	<VBox percentWidth="100">
+		<TipText>Use the Upload button to browse your hard drive for images. Find the photos you want and select Upload to insert them directly into your Show.</TipText>
+		<ThirdPartyBubbleBox percentWidth="100" horizontalAlign="center" linksEnabled="false"/>
+		<TipNextPrevFooter index="2" total="9"/>
+	</VBox>
+</Tip>
+
+<Tip id="gallery_styles_3" pointAt="_btnUpload" position="right" draggable="false">
+	<TipTextHeader>Upload directly to your Show!</TipTextHeader>
+	<VBox percentWidth="100">
+		<TipText>Use the menus to see where your photos are on any of our third-party sites or your computer or History.  Then drag the thumbnails into the workspace at right where you can reorder and set captions.</TipText>
+		<TipNextPrevFooter index="3" total="9"/>
+	</VBox>
+</Tip>
+
+<Tip id="gallery_styles_4" pointAt="_btnAutoFill" position="above" draggable="false">
+	<TipTextHeader>Or, use Auto-fill!</TipTextHeader>
+	<VBox percentWidth="100">
+		<TipText>Hit <font color="#dfff97"><b>Auto-fill</b></font> and we'll automatically fill up your workspace with photos from the folder you have currently selected.  We'll pick up to 10 for free users, and 100 for Premium Picnikers!  You can still name and reorder them in the next step.</TipText>
+		<TipNextPrevFooter index="4" total="9"/>
+	</VBox>
+</Tip>
+
+<Tip id="gallery_styles_5" pointAt="_vbxPhotoPicker" position="left" draggable="false">
+	<TipTextHeader>Rearrange!</TipTextHeader>
+	<VBox percentWidth="100">
+		<TipText>View all the photos you’ve placed in your Show here. Drag and drop the photos to insert elsewhere in the rotation, you can also click on them to add a <font color="#dfff97"><b>Caption</b></font> and view details!</TipText>
+		<TipNextPrevFooter index="5" total="9"/>
+	</VBox>
+</Tip>
+
+<Tip id="gallery_styles_6" pointAt="_galsSlideshow" position="right" draggable="false">
+	<TipTextHeader>Choose a Show style</TipTextHeader>
+	<VBox percentWidth="100">
+		<TipText>Select a style to preview different varieties of Show. Don’t worry, you can change this later.</TipText>
+		<TipNextPrevFooter index="6" total="9"/>
+	</VBox>
+</Tip>
+
+<Tip id="gallery_styles_7" pointAt="_sldrTransitionTime" position="right" draggable="false">
+	<TipTextHeader>Customize!</TipTextHeader>
+	<VBox percentWidth="100">
+		<TipText>Change these settings to adjust the look of your Show.  Choose from various photo <font color="#dfff97"><b>Transition Types</b></font>.  Set the <font color="#dfff97"><b>Background Color</b></font> to coordinate with your photos. If you’ll be using the Film Strip style, choose a <font color="#dfff97"><b>Highlight Color</b></font> to feature the image being viewed which shows thumbnails of your photos as they go by.  Don’t forget to adjust the Speed, in seconds, for a longer, more leisurely Show, or a snappier one.</TipText>
+		<TipNextPrevFooter index="7" total="9"/>
+	</VBox>
+</Tip>
+
+<Tip id="gallery_styles_8" pointAt="_tiName" position="below" draggable="false">
+	<TipTextHeader>Name that Show!</TipTextHeader>
+	<VBox percentWidth="100">
+		<TipText>Use the Show Title box to let your viewers know what they’re watching. Anything from “Photographic Evidence of Perpetual Motion” to “Suzie’s Bachelorette Party!” will kick off your Show in style and in context.</TipText>
+		<TipNextPrevFooter index="8" total="9"/>
+	</VBox>
+</Tip>
+
+<Tip id="gallery_styles_9" pointAt="_hbxSaveShare" position="below" draggable="false">
+	<TipTextHeader>Finished?</TipTextHeader>
+	<VBox percentWidth="100">
+		<TipText>Great! Hit Save to preserve your updates and publish your show. Then hit <font color="#dfff97"><b>Share</b></font> to email a link to your Show under the <font color="#dfff97"><b>Email this Show</b></font> tab, and under the <font color="#dfff97"><b>Embed this Show</b></font> tab choose to send out your Show’s link for viewing or post to your blog by embedding it!</TipText>
+		<TipNextPrevFooter index="9" total="9"/>
+	</VBox>
+</Tip>
+
+
+<Tip id="guest_tip" priority="1">
+	<TipTextHeader>Welcome!</TipTextHeader>
+	<HBox percentWidth="100">
+		<Image source="../graphics/effects/blemish_fix.png"/>
+		<TipText>-></TipText>
+		<Image source="../graphics/effects/zombify.png"/>
+	</HBox>
+	<TipText>Here is a sample of what you can do with Picnik.</TipText>
+</Tip>
+<Tip id="tip_2" priority="2">
+	<TipTextHeader>Hi again!</TipTextHeader>
+	<TipText>Here is something else you can do.</TipText>
+</Tip>
+<Tip id="hdr" priority="2">
+	<TipTextHeader>Hi you!</TipTextHeader>
+	<TipText>Have you tried HDRish? it is cool.</TipText>
+</Tip>
+
+<!--Renew Warning Messages-->
+<Tip id="renewwarning" priority="1">
+	<TipTextHeader color="#005580" fontSize="23">Don't Forget!</TipTextHeader>
+	<VBox percentWidth="100">
+		<TipText color="#333333">Your Picnik Premium account will expire soon! This means you'll lose access to all but your five most recent photos, as well as all sorts of other Premium goodness!</TipText>
+	</VBox>
+	<VBox percentWidth="100" horizontalGap="10" horizontalAlign="center" paddingTop="10">
+		<Button styleName="BigButton" fontSize="16" click="Renew()" paddingLeft="10" paddingRight="10">Renew Now!</Button>
+		<Button click="Close()">Do It Later</Button>
+	</VBox>
+</Tip>
+
+
+<!--Renew Expired Messages-->
+<Tip id="renewexpired" priority="1">
+	<TipTextHeader color="#005580" fontSize="23">Oh No!</TipTextHeader>
+	<VBox percentWidth="100">
+		<TipText color="#333333">We've missed you! While you were gone, your Picnik Premium account expired. This means you can now only access your five most recent photos, and can no longer use the rest of the Premium goodness!
+		</TipText>
+	</VBox>
+	<VBox percentWidth="100" horizontalGap="10" horizontalAlign="center" paddingTop="10">
+		<Button styleName="BigButton" fontSize="16" click="Renew()" paddingLeft="10" paddingRight="10">Renew Now!</Button>
+		<Button click="Close()">No Thanks</Button>
+	</VBox>
+</Tip>
+
+
+<!--Renew Card Warning Messages-->
+<Tip id="renewfailed" priority="1">
+	<TipTextHeader color="#005580" fontSize="20">We ran into some difficulties!</TipTextHeader>
+	<VBox percentWidth="100">
+		<TipText color="#333333">Oh no! Your automatic Picnik Premium renewal failed and your account has reverted to a free one!</TipText>
+	</VBox>
+	<VBox percentWidth="100" horizontalGap="10" horizontalAlign="center" paddingTop="10">
+		<Button styleName="BigButton" fontSize="16" click="Renew()" paddingLeft="10" paddingRight="10">Update My Billing Info!</Button>
+		<Button click="Close()">Later</Button>
+	</VBox>
+</Tip>
+
+<Tip id="TOS" quasiModal="true" draggable="false" pointAt="_txtTOS" position="above">
+	<TipTextHeader>Terms of Service</TipTextHeader>
+	<VBox percentWidth="100" verticalScrollPolicy="on" paddingTop="3" verticalScrollBarStyleName="basketVScrollBar" height="180">
+		<TipText><b>Picnik has been acquired by Google! <font color="#ddff99"><a href="http://blog.mywebsite.com/2010/03/google-acquires-picnik" target="_blank">Learn more »</a></font></b>
+		<br/><br/><font color="#ddff99" size="14"><b>Description of Membership Services</b></font><br/>
+		Google, dba Picnik, provides subscribers with the ability to retrieve, edit, and save their photos to
+		their computer or several third party sites. Some features of or services provided through
+		Google, including the Premium version of its photo editor, require a fee-based membership
+		(all fee-based memberships are referred to as "Membership Services").  If you elect to purchase 
+		Membership Services you understand that your membership is an ongoing membership until which time 
+		you elect to cancel.  This can be done by visiting the My Accounts page. If you elect
+		to purchase Membership Services you understand that your membership is personal
+		to you and you may not sell, trade, transfer, share, or otherwise make available your
+		account name and password to others, including without limitation your co-workers. Any
+		distribution by you of your account name and password to another person may result
+		in cancellation of your membership without refund and in additional charges based on
+		unauthorized use. You agree to immediately notify Google of any unauthorized use of
+		your password or account or any other breach of security. New features will be added
+		to the Picnik Premium on a regular basis. Some features may become free at the sole
+		discretion of Google. Accordingly, the Membership Services may change without prior
+		notice. We reserve the right, upon prior notice to you, to change the amount of any fees
+		and to institute new fees, effective at the end of your current membership period.
+		<br/><br/><font color="#ddff99" size="14"><b>Payment</b></font>
+		<br/>Picnik Premium is the pay version of Picnik. You can find a current fee schedule posted in the Picnik Premium section of our website. Memberships may be annual, six months, or monthly. The monthly estimation of $3.33 for the six month membership is an approximate breakdown of the total, $19.95, and may not be exact. The monthly estimation of $2.08 for the one year membership is an approximate breakdown of the total, $24.95, and may not be exact. Payment for services must be made by credit card in US Dollars prior to initial sign up. Picnik will claim the entire membership payment in a single transaction within 30 days of initial purchase. Memberships will auto-renew unless the user opts out of that option. Gift Memberships do not Auto-Renew. User may cancel their ongoing membership on the users My Account page.
+		<br/>The Picnik Premium membership enables you to access the all of the features offered under Picnik Premium. To the extent permissible under law, you are responsible for any applicable taxes, whether or not they are listed on your receipt or statement. If payment cannot be charged to your credit card or your payment is returned to Google for any reason, Google reserves the right to either suspend or terminate your access to the unpaid-for Membership Services. Google reserves the right to cancel your account in the case of non-payment. In that case, all information and content contained within http://www.mywebsite.com/ may be deleted permanently. Google accepts no liability for information or content that is deleted due to an invalid credit card or incorrect user contact information.
+		<br/><br/><font color="#ddff99" size="14"><b>Cancellation</b></font><br/>You may cancel your ongoing membership at anytime by visiting the My Accounts page and selecting “Cancel Membership”. Since payment is taken at the beginning of your membership period, you will retain access to the Picnik Premium features through the end of your existing membership time period. During the first seven days of a semi-annual or annual membership - you may cancel and will be credited your membership fee.
+		<br/><br/><font color="#ddff99" size="14"><b>Full Terms of Service</b></font><br/>All other Terms of Service items can be viewed here: <font color="#ddff99"><a href="http://www.mywebsite.com/info/tos" target="_blank">http://www.mywebsite.com/info/tos</a></font>.
+		</TipText>
+	</VBox>
+</Tip>
+
+<Tip id="RenewalPolicy" quasiModal="true" draggable="false" pointAt="_txtTOS" position="above">
+	<TipTextHeader>Renewal Policy</TipTextHeader>
+	<VBox percentWidth="100" verticalScrollPolicy="on" paddingTop="3" verticalScrollBarStyleName="basketVScrollBar" height="90">
+		<TipText>Memberships are monthly, biannual, or annual and will auto-renew at the membership expiration. Auto-renew settings can be changed by the user in the My Account page. For 6 month or 12 month credit card customers, we'll remind you before we charge so you have the option of updating your auto-renew preference.  Note: Auto-renew settings for PayPal memberships can be changed by the user in their PayPal account. <br/><br/>Questions? Please don't hesitate to <font color="#ddff99"><a href="http://www.mywebsite.com/go/help" target="_blank">visit our Help Center.</a></font></TipText>	
+	</VBox>
+</Tip>
+
+<Tip id="RefundPolicy" quasiModal="true" draggable="false" pointAt="_txtTOS" position="above">
+	<TipTextHeader>Cancellation Policy</TipTextHeader>
+	<VBox percentWidth="100" verticalScrollPolicy="on" paddingTop="3" verticalScrollBarStyleName="basketVScrollBar" height="90">
+		<TipText>You may cancel your ongoing membership at anytime by visiting the My Accounts page and selecting “Cancel Membership”.   Since payment is taken at the beginning of your membership period, you will retain access to the Picnik Premium features through the end of your existing membership time period.  During the first seven days of a semi-annual or annual membership - you may cancel and will be credited your membership fee.<br/><br/> Questions? Please don't hesitate to <font color="#ddff99"><a href="http://www.mywebsite.com/go/help" target="_blank">visit our Help Center.</a></font></TipText>
+	</VBox>
+</Tip>
+
+<Tip id="deferfailed" priority="1">
+	<TipTextHeader color="#005580" fontSize="20">We ran into some difficulties!</TipTextHeader>
+	<VBox percentWidth="100">
+		<TipText color="#333333">Sorry, due to a credit card transaction error on our server, your account could not be upgraded to Picnik Premium. Your credit card was not charged so please try upgrading again. Picnik Premium awesomeness awaits!</TipText>
+	</VBox>
+	<VBox percentWidth="100" horizontalGap="10" horizontalAlign="center" paddingTop="10">
+		<Button styleName="BigButton" fontSize="16" click="Renew()" paddingLeft="10" paddingRight="10">Update My Billing Info!</Button>
+		<Button click="Close()">Later</Button>
+	</VBox>
+</Tip>
+
+<!-- show flyouts -->
+<Tip id="gallery_n_slots_left" pointAt="_hboxPickerHeader" position="left" priority="1" contentWidth="285" draggable="false">
+	<TipTextHeader substitutions="true">You have {numslots} left.</TipTextHeader>
+	<VBox percentWidth="100">
+		<TipText fontWeight="bold">Upgrade to Premium to increase your slide limit from 10 to 100.</TipText>
+	</VBox>
+	<HBox percentWidth="100" horizontalGap="3" horizontalAlign="center" paddingTop="3">
+		<ResizingButton click="ChoosePayment()" styleName="basketButtonBlue"  percentWidth="60" height="28" fontSize="14">Upgrade!</ResizingButton>
+		<ResizingButton click="Close()" styleName="basketButtonGrey" height="28" percentWidth="40" fontSize="14">Maybe later</ResizingButton>
+	</HBox>
+</Tip>
+
+<Tip id="gallery_show_is_full" pointAt="_hboxPickerHeader" position="left" priority="1" contentWidth="285" draggable="false">
+	<TipTextHeader>Your Show is full!</TipTextHeader>
+	<VBox percentWidth="100">
+		<TipText fontWeight="bold">Upgrade to Premium to increase your slide limit from 10 to 100.</TipText>
+	</VBox>
+	<HBox percentWidth="100" horizontalGap="3" horizontalAlign="center" paddingTop="3">
+		<ResizingButton click="ChoosePayment()" styleName="basketButtonBlue" percentWidth="60" height="28" fontSize="14">Upgrade!</ResizingButton>
+		<ResizingButton click="Close()" styleName="basketButtonGrey" height="28" percentWidth="40" fontSize="14">Maybe later</ResizingButton>
+	</HBox>
+</Tip>
+
+<Tip id="gallery_n_slots_left_prem" pointAt="_hboxPickerHeader" position="left" priority="1" contentWidth="320" draggable="false">
+	<TipTextHeader substitutions="true">You have {numslots} left.</TipTextHeader>
+	<VBox percentWidth="100">
+		<TipText fontWeight="bold">Premium users like your awesome self can use up to 100 photos in a Show instead of just 10.</TipText>
+	</VBox>
+	<VBox percentWidth="100" horizontalGap="10" horizontalAlign="center" paddingTop="3">
+		<ResizingButton click="Close()" styleName="basketButtonGrey" minWidth="160" height="28" fontSize="14">Good to know!</ResizingButton>
+	</VBox>
+</Tip>
+
+<Tip id="gallery_show_is_full_prem" pointAt="_hboxPickerHeader" position="left" priority="1" contentWidth="320" draggable="false">
+	<TipTextHeader>Your Show is full!</TipTextHeader>
+	<VBox percentWidth="100">
+		<TipText fontWeight="bold">You've totally filled your Premium Show with 100 photos. Delete some photos to make space for new ones, or start a new Show!</TipText>
+	</VBox>
+	<VBox percentWidth="100" horizontalGap="10" horizontalAlign="center" paddingTop="3">
+		<ResizingButton click="Close()" styleName="basketButtonGrey" minWidth="160" height="28" fontSize="14">OK</ResizingButton>
+	</VBox>
+</Tip>
+
+<Tip id="photobasket_dragdrop" pointAt="_btnSizer" position="above" contentWidth="400" draggable="false">
+        <TipTextHeader>Put more layers on your photos!</TipTextHeader>
+        <VBox percentWidth="100">
+                <TipText fontWeight="bold">Drag images out of the Photo Basket onto the image you're working on to add more layers to your photos. Then resize, rotate, and use the edits in the drop-down menu to get your new composed image looking perfect.</TipText>
+        </VBox>
+</Tip>
+<Tip id="basic_edits_intro" pointAt="_btnAutoFix" pointAtPadding="9" hideThumb="true" position="right" draggable="false">
+	<TipTextHeader>Welcome to Basic Edits!</TipTextHeader>
+	<VBox percentWidth="100">
+		<TipText>Here are all your basic edits. Some things have moved.</TipText>
+	</VBox>
+</Tip>
+</Tips>
+

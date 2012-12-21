@@ -1,0 +1,12 @@
+fileName: Chic_decay.ttf
+name: Chic decay
+subfamilyDisplayName: Normal
+fullName: Chic decay
+displayName: Chic decay
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 0
+pkName: pkChic0decay
+authorName: Gyom.Typo
+authorUrl: http://gyom.nebullus.com/

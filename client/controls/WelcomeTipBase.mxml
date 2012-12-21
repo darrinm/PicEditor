@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TipCanvas xmlns="containers.*" xmlns:mx="http://www.adobe.com/2006/mxml" close="OnClose()" mouseDown="OnMouseDown(event)">
+<mx:Script>
+	<![CDATA[
+	import containers.TipCanvas;
+	
+	import flash.display.DisplayObject;
+	import flash.events.MouseEvent;
+	import flash.geom.Point;
+	import flash.geom.Rectangle;
+	
+	import mx.core.UIComponent;
+	import mx.effects.Fade;
+	import mx.events.ResizeEvent;
+	import mx.managers.PopUpManager;
+	
+	import util.RectUtil;
+	
+	// True if the tip is all on or becoming on
+	// False if the tip is hidden or hiding
+	[Bindable] public var showing:Boolean = false;
+	[Bindable] public var tipPath:String;
+	[Bindable] public var efFadeInOut:mx.effects.Fade;
+	
+	[Bindable] public var _tr:TipRenderer;
+	
+	[Bindable] public var quasiModal:Boolean = false;
+	[Bindable] public var draggable:Boolean = true;
+	[Bindable] protected var footer:UIComponent;
+	
+	private var _fPoppedUp:Boolean = false;
+	private var _fListeningToStage:Boolean = false;
+	
+	private var _ptDragOffset:Point = null;
+	private var _xmlContent:XML;
+
+	public function Show(strTipPath:String=null, uicFooter:UIComponent=null, xmlTip:XML=null): void {
+		// If it is visible
+		if (!showing) {
+			if (strTipPath)
+				tipPath = strTipPath;
+			if (uicFooter) {
+				footer = uicFooter;
+			}
+			if (xmlTip)
+				content = xmlTip;
+			addEventListener(ResizeEvent.RESIZE, RepositionTip);
+			AddStageListeners();
+			showing = true;
+			Fade(1);
+			AddPopup();
+		}
+	}
+
+	public function Hide(fFade:Boolean=true): void {
+		if (showing) {
+			showing = false;
+			if (fFade)
+				Fade(0);
+			else
+				RemovePopup();
+
+			if (_fListeningToStage) {
+				stage.removeEventListener(MouseEvent.MOUSE_DOWN, OnGlobalMouseDown, true);
+				_fListeningToStage = false;
+			}
+			removeEventListener(ResizeEvent.RESIZE, RepositionTip);
+		}
+	}
+	
+	public function get tipId(): String {
+		if (content == null)
+			return null;
+		return content.@id;
+	}
+	
+	[Bindable]
+	public function set content(xml:XML): void {
+		_xmlContent = xml;
+		if (_xmlContent) {
+			if (_xmlContent.@quasimodal == "true")
+				quasiModal = true;
+		}
+	}
+	
+	public function get content(): XML {
+		return _xmlContent;
+	}
+	
+	protected function OnMouseDown(evt:MouseEvent): void {
+		if (draggable && stage) {
+			_ptDragOffset = new Point(evt.stageX - x, evt.stageY - y);
+			stage.addEventListener(MouseEvent.MOUSE_MOVE, OnDrag);
+			stage.addEventListener(MouseEvent.MOUSE_UP, OnDragEnd);
+		}
+	}
+	
+	protected function OnDrag(evt:MouseEvent): void {
+		if (_ptDragOffset) {
+			x = evt.stageX - _ptDragOffset.x;
+			y = evt.stageY - _ptDragOffset.y;
+		}
+	}
+	
+	protected function OnDragEnd(evt:MouseEvent): void {
+		_ptDragOffset = null;
+		stage.removeEventListener(MouseEvent.MOUSE_MOVE, OnDrag);
+		stage.removeEventListener(MouseEvent.MOUSE_UP, OnDragEnd);
+	}
+	
+	private function OnClose(evt:Event=null): void {
+		Hide();
+	}
+
+	protected function AddStageListeners(): void {
+		if (!_fListeningToStage && showing && stage) {
+			stage.addEventListener(MouseEvent.MOUSE_DOWN, OnGlobalMouseDown, true);
+			_fListeningToStage = true;
+		}
+	}
+	
+	private function Fade(nToAlpha:Number): void {
+		var nFadeFrom:Number = alpha;
+		endEffectsStarted();
+		efFadeInOut.alphaFrom = nFadeFrom;
+		efFadeInOut.alphaTo = nToAlpha;
+		efFadeInOut.play();
+	}
+	
+	protected function OnFadeFinished(): void {
+		if (!showing) {
+			RemovePopup();
+		}
+	}
+	
+	private function AddPopup(): void {
+		if (!_fPoppedUp) PopUpManager.addPopUp(this, PicnikBase.app, false);
+		_fPoppedUp = true;
+	}
+	
+	private function RemovePopup(): void {
+		if (_fPoppedUp) PopUpManager.removePopUp(this);
+		_fPoppedUp = false;
+	}
+	
+	protected function OnGlobalMouseDown(evt:MouseEvent): void {
+		var dobTarg:DisplayObject = evt.target as DisplayObject;
+		while (dobTarg) {
+			// Check owner first - this helps for child popups (e.g. combo box lists)
+			if ('owner' in dobTarg && dobTarg['owner']) {
+				dobTarg = dobTarg['owner'];
+			} else {
+				dobTarg = dobTarg.parent;
+			}
+			if (dobTarg == this) {
+				return; // Tip event				
+			}
+		}
+		if (quasiModal) {
+			dispatchEvent(new Event(Event.CLOSE)); 
+			Hide();
+		}
+	}
+	
+	protected function RepositionTip(evt:Event): void {
+		AddStageListeners(); // Make sure we have these
+
+		var aobConstraints:Array = [];
+		// These are all stage coordinates
+
+		var pt:Point;
+		var rcNear:Rectangle;
+		
+		// First, it must be on the app
+		var rcApp:Rectangle = new Rectangle(0,0,PicnikBase.app.width,PicnikBase.app.height);
+		aobConstraints.push({rcInside:rcApp});
+		
+		// Next, try to place it inside the image view
+		var rcImageView:Rectangle = rcApp.clone();
+		rcImageView.top += 96; 
+		
+		aobConstraints.push({rcInside:rcImageView});
+		
+		// Add some padding
+		rcImageView = rcImageView.clone();
+		rcImageView.inflate(-10,-10);
+		aobConstraints.push({rcInside:rcImageView});
+		
+		// Add more right padding
+		rcImageView = rcImageView.clone();
+		rcImageView.x -= 10;
+		aobConstraints.push({rcInside:rcImageView});
+		
+		// Position it in the upper right.
+		rcImageView = rcImageView.clone();
+		rcImageView.left = rcImageView.right - width;
+		rcImageView.bottom = rcImageView.top + height;
+		aobConstraints.push({rcInside:rcImageView});
+
+		pt = RectUtil.PlaceRect(aobConstraints, new Point(width, height));
+		x = Math.round(pt.x);
+		y = Math.round(pt.y);
+	}
+	]]>
+</mx:Script>
+</TipCanvas>

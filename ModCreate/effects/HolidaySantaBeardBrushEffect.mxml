@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<BeardBrushEffectBase xmlns="effects.*" xmlns:cnt="containers.*" xmlns:ctrl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="434" xmlns:local="*" 
+	xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*"
+	xmlns:flash.geom="flash.geom.*" premium="true" xmlns:paintMask="imagine.imageOperations.paintMask.*" urlid="santabeardspray"
+	>
+	<mx:Script>
+		import imagine.imageOperations.paintMask.BeardHairBrush;
+		
+		import util.LocUtil;
+		
+	</mx:Script>
+	<paintMask:CircularBrush id="_brEraser" diameter="{_brshbtn.value}"/>
+
+	<ctrl:EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='HolidaySantaBeardBrushEffect')" strAuthor="@Resource(key='byPicnik', bundle='EffectCanvas')" strImageSource="../graphics/effects/Holiday/santabeard.png" premium="{premium}"/>
+	<mx:String id="_strHelpText">{Resource.getString('BeardBrushEffect', '_strHelpTextSanta')}</mx:String>
+
+	<mx:VBox x="9" y="70" verticalGap="0">
+		<mx:Spacer width="10" height="3"/>
+		<!-- Brush Curvature -->
+		<ctrl:LabelHSlidePlus id="_sldrCurve" label="@Resource(key='Curviness', bundle='HolidaySantaBeardBrushEffect')" 
+							  labelValueMultiplier="1" isPercent="true" change="InvalidateBrush()"
+							  minimum="0" maximum="100" value="{0 + zeroR}"/>
+		
+		<ctrl:BrushSizeAndEraserButton id="_brshbtn" selected="{_fSelected}"
+									   minimum="5" maximum="240" startValue="45"
+								  imageWidth="{origImageWidth}" imageHeight="{origImageHeight}"
+								  thumbPress="ShowBrushPreview()" thumbDrag="UpdateBrushPreview()" thumbRelease="HideBrushPreview(); InvalidateBrush()"
+								  />
+
+		<ctrl:ApplyCancelEffectButtons premium="{premium}" addBoxPadding="true"/>
+	</mx:VBox>
+
+	<mx:Number id="_cxyBrush">{_brshbtn.value}</mx:Number>
+
+</BeardBrushEffectBase>

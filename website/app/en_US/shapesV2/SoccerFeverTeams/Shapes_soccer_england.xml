@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory flickrPremium="false" id="soccer_england" numShapes="3" picnikPremium="false" previewUrls="60|48|../clipart/bundles/SoccerFeverTeamsArea_groupPreviews_soccer_england.png?ver=12f61f95" title="England Stickers">
+	<Shapes>
+		<Clipart cHeight="295.1" cWidth="464.2" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|0|../clipart/bundles/SoccerFeverTeamsArea_shapes_soccer_england.png?ver=cf2edeec" url="shapes/SoccerFever/england/wavingflag_england.swf"/>
+		<Clipart cHeight="720" cWidth="1200" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|1|../clipart/bundles/SoccerFeverTeamsArea_shapes_soccer_england.png?ver=cf2edeec" url="shapes/SoccerFever/england/flag_england.swf"/>
+		<Clipart cHeight="223.55" cWidth="95.95" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|2|../clipart/bundles/SoccerFeverTeamsArea_shapes_soccer_england.png?ver=cf2edeec" url="shapes/SoccerFever/england/scarf_england.swf"/>
+	</Shapes>
+</ShapeCategory>

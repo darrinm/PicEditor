@@ -1,0 +1,74 @@
+<languageVersion : 1.0;>
+
+kernel BrightPassFilter
+<   namespace : "com.gun.uieffect.filter";
+    vendor : "Guillaume Nachury. http://proofofconcepts.wordpress.com/";
+    version : 1;
+    description : "Set all the dark pixels to black. The dark threshold value can be modified.";
+>
+{
+    input image4 src;
+    output pixel4 dst;
+
+    parameter float thresholdValue;
+
+    void
+    evaluatePixel()
+    {
+        float Mx;
+        float mn;
+        float l;
+
+        pixel4 p;
+        p = sampleNearest(src,outCoord());
+
+        /*-----------------------------------------------------------------------
+            Here are some formulas to get the lightness :
+        -----------------------------------------------------------------------*/
+
+        /*(1) This one gave the best results so far.*/
+         l = (240.0/255.0)*(0.239*p.r+0.686*p.g+0.075*p.b);
+
+        /*(2) Quite the same as above but a bit tweaked
+         l = (240.0/255.0)*(0.300*p.r+0.590*p.g+0.110*p.b);
+         */
+
+        /*(3) This one requires some steps before getting the lightness
+        //Find which component is the highest
+        if((p.r > p.g) && (p.r > p.b)){
+        Mx = p.r;
+        }
+        else if((p.g > p.r) && (p.g > p.b)){
+        Mx = p.g;
+        }
+        else if((p.b > p.g) && (p.b > p.r)){
+        Mx = p.b;
+        }
+
+        //Find which component is the lowest
+        if((p.r < p.g) && (p.r < p.b)){
+        mn = p.r;
+        }
+        else if((p.g < p.r) && (p.g < p.b)){
+        mn = p.g;
+        }
+        else if((p.b < p.g) && (p.b < p.r)){
+        mn = p.b;
+        }    
+
+        l = 0.5*240.0*( (Mx+mn)/255.0),
+
+      */
+
+       /*Formula I found, but not sure of the result
+         l = (240.0/255.0)*Mx;
+         */
+
+       if(l<thresholdValue){
+            p.r = p.b = p.g = 0.0; //black pxl
+       } 
+
+        dst = p;
+
+    }
+}

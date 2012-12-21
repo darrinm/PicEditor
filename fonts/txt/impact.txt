@@ -1,0 +1,12 @@
+fileName: impact.ttf
+name: Impact
+subfamilyDisplayName: Normal
+fullName: Impact
+displayName: Impact
+ital: 0
+bold: 0
+weight: 3
+panose.weight: 8
+pkName: pkimpact
+authorName: Geoffrey Lee
+authorUrl: http://ascendercorp.com/TypeDesigners/geoffrey_lee.html

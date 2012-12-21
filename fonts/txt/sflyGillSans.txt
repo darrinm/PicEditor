@@ -1,0 +1,12 @@
+fileName: sflyGillSans.ttf
+name: Gill Sans
+subfamilyDisplayName: Digitized data copyright The Monotype Corporation 1991-1999.
+fullName: Gill Sans
+displayName: Gill Sans
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 5
+pkName: pksflyGillSans
+authorName: Eric Gill
+authorUrl: http://en.wikipedia.org/wiki/Eric_Gill

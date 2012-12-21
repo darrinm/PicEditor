@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" xmlns:controls="controls.*">
+<mx:Script>
+	<![CDATA[
+		import dialogs.DialogManager;
+	]]>
+</mx:Script>
+	<mx:Boolean id="isGuest">{AccountMgr.GetInstance().isGuest}</mx:Boolean>
+	<mx:Boolean id="isPaid">{AccountMgr.GetInstance().isPaid}</mx:Boolean>
+	<mx:Boolean id="isRegistered">{!isGuest &amp;&amp; !isPaid}</mx:Boolean>
+	
+	<mx:HRule/>
+	<mx:VBox visible="{isGuest}" includeInLayout="{isGuest}">
+		<controls:TipText condenseWhite="true" htmlText="Hi guest. Please register."/>
+		<mx:Button label="Register" click="DialogManager.ShowRegister()"/>
+		<mx:Button label="Upgrade" click="DialogManager.ShowUpgrade('/welcometip')"/>
+	</mx:VBox>
+	<mx:VBox visible="{isRegistered}" includeInLayout="{isRegistered}">
+		<controls:TipText condenseWhite="true" htmlText="Hi again. Please upgrade."/>
+		<mx:Button label="Upgrade" click="DialogManager.ShowUpgrade('/welcometip')"/>
+	</mx:VBox>
+	<mx:VBox visible="{isPaid}" includeInLayout="{isPaid}">
+		<controls:TipText condenseWhite="true" htmlText="Thanks for upgrading"/>
+	</mx:VBox>
+</mx:VBox>

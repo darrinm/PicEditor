@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory flickrPremium="false" id="stickers_ar" numShapes="3" picnikPremium="false" previewUrls="60|48|../clipart/bundles/SoccerFeverTeamsArea_groupPreviews_stickers_ar.png?ver=f12defba" title="Argentina Stickers">
+	<Shapes>
+		<Clipart cHeight="295" cWidth="464" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|0|../clipart/bundles/SoccerFeverTeamsArea_shapes_stickers_ar.png?ver=84dc78d9" url="shapes/SoccerFever/ar/wavingflag_ar.swf"/>
+		<Clipart cHeight="504" cWidth="784" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|1|../clipart/bundles/SoccerFeverTeamsArea_shapes_stickers_ar.png?ver=84dc78d9" url="shapes/SoccerFever/ar/flag_ar.swf"/>
+		<Clipart cHeight="223" cWidth="95" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|2|../clipart/bundles/SoccerFeverTeamsArea_shapes_stickers_ar.png?ver=84dc78d9" url="shapes/SoccerFever/ar/scarf_ar.swf"/>
+	</Shapes>
+</ShapeCategory>

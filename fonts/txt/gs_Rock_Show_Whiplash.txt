@@ -1,0 +1,12 @@
+fileName: gs_Rock_Show_Whiplash.ttf
+name: Rock Show Whiplash
+subfamilyDisplayName: Normal
+fullName: Rock Show Whiplash
+displayName: Rock Show Whiplash
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 0
+pkName: pkgs0Rock0Show0Whiplash
+authorName: Guillaume Seguin
+authorUrl: http://lastsoundtrack.fontspace.com/

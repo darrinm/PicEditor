@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory flickrPremium="false" id="soccer_it" numShapes="3" picnikPremium="false" previewUrls="60|48|../clipart/bundles/SoccerFeverTeamsArea_groupPreviews_soccer_it.png?ver=56a8e6be" title="Italy Stickers">
+	<Shapes>
+		<Clipart cHeight="294.75" cWidth="464.2" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|0|../clipart/bundles/SoccerFeverTeamsArea_shapes_soccer_it.png?ver=3e35297a" url="shapes/SoccerFever/it/wavingflag_it.swf"/>
+		<Clipart cHeight="1000" cWidth="1500" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|1|../clipart/bundles/SoccerFeverTeamsArea_shapes_soccer_it.png?ver=3e35297a" url="shapes/SoccerFever/it/flag_it.swf"/>
+		<Clipart cHeight="223.55" cWidth="95.95" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|2|../clipart/bundles/SoccerFeverTeamsArea_shapes_soccer_it.png?ver=3e35297a" url="shapes/SoccerFever/it/scarf_it.swf"/>
+	</Shapes>
+</ShapeCategory>

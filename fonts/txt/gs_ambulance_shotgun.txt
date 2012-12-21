@@ -1,0 +1,12 @@
+fileName: gs_ambulance_shotgun.ttf
+name: ambulance shotgun
+subfamilyDisplayName: Normal
+fullName: ambulance shotgun
+displayName: ambulance shotgun
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 0
+pkName: pkgs0ambulance0shotgun
+authorName: Guillaume Seguin
+authorUrl: http://lastsoundtrack.fontspace.com/

@@ -1,0 +1,12 @@
+fileName: HARD_ROCK.ttf
+name: HARD ROCK
+subfamilyDisplayName: Normal
+fullName: HARD ROCK
+displayName: HARD ROCK
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 0
+pkName: pkHARD0ROCK
+authorName: Gyom.Typo
+authorUrl: http://gyom.nebullus.com/

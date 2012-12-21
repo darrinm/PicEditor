@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory flickrPremium="false" id="stickers_kp" numShapes="3" picnikPremium="false" previewUrls="60|48|../clipart/bundles/SoccerFeverTeamsArea_groupPreviews_stickers_kp.png?ver=ddb842a8" title="Korea DPR Stickers">
+	<Shapes>
+		<Clipart cHeight="294.6" cWidth="463.3" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|0|../clipart/bundles/SoccerFeverTeamsArea_shapes_stickers_kp.png?ver=831629fd" url="shapes/SoccerFever/kp/wavingflag_kp.swf"/>
+		<Clipart cHeight="720" cWidth="1440" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|1|../clipart/bundles/SoccerFeverTeamsArea_shapes_stickers_kp.png?ver=831629fd" url="shapes/SoccerFever/kp/flag_kp.swf"/>
+		<Clipart cHeight="223.55" cWidth="95.95" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|2|../clipart/bundles/SoccerFeverTeamsArea_shapes_stickers_kp.png?ver=831629fd" url="shapes/SoccerFever/kp/scarf_kp.swf"/>
+	</Shapes>
+</ShapeCategory>

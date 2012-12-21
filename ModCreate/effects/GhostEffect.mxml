@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cnt:CircularOverlayEffectCanvas xmlns="effects.*" xmlns:cnt="containers.*" xmlns:ctrl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="273" xmlns:local="*" 
+	xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*"
+	xFocus = "{zeroR + imagewidth/2}"
+	yFocus = "{zeroR + imageheight/2}"
+	liveUpdate="true"
+	 urlid="Ghostify">
+<mx:Script>
+	<![CDATA[
+		import mx.binding.utils.ChangeWatcher;
+		import util.LocUtil;
+		import mx.resources.ResourceBundle;
+   		[Bindable] [ResourceBundle("GhostEffect")] private var rb:ResourceBundle;
+		
+		private var _cwStatus:ChangeWatcher = null;
+		
+		public override function OnSelectedEffectReallyDone():void {
+			super.OnSelectedEffectReallyDone();
+			_cwStatus = ChangeWatcher.watch(this, "_imgd.status", OnStatusChange);
+		}
+		
+		private function OnStatusChange(): void {
+			OnOpChange();
+		}
+		
+		protected override function OnDeselectedEffectEnd(evt:Event):void {
+			super.OnDeselectedEffectEnd(evt);
+			if (_cwStatus != null) {
+				_cwStatus.unwatch();
+				_cwStatus = null;
+			}
+		}
+		
+		// nBrightness goes from 0 to 100
+		private static function GetBrightnessCurve(nBrightness:Number): Array {
+			var xyOffset:Number = 64 * nBrightness / 100;
+			return [{x:0, y:0}, {x:128 - xyOffset, y:128 + xyOffset}, {x:255, y:255}];
+		}
+		
+		private static const kaobBaseCurve:Array = [{x:0, y:0}, {x:32, y:18}, {x:255, y:255}]; 
+	]]>
+</mx:Script>
+
+
+	<ctrl:EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='GhostEffect')" strAuthor="@Resource(key='byPicnik', bundle='EffectCanvas')" strImageSource="../graphics/effects/Halloween/ghost.png" premium="{premium}"/>
+
+	<mx:String id="_strHelpText">{Resource.getString('GhostEffect', '_strHelpText')}</mx:String>
+	<mx:Number id="_nHorizontalBlur">{Math.max(10, Math.sqrt(origImageWidth * origImageHeight) / 28)}</mx:Number>
+	<mx:Number id="_nDiffuseBlur">{_nHorizontalBlur / 2}</mx:Number>
+
+	<mx:VBox x="10" y="70" verticalGap="0">
+		<mx:HBox width="190" paddingBottom="-5" paddingTop="3">
+			<mx:Label text="@Resource(key='focalSize', bundle='EffectCanvas')" styleName="sliderTitle"/>
+			<mx:Label text="{LocUtil.pct((100 * (_sldrRadius.value-_sldrRadius.minimum)/(_sldrRadius.maximum-_sldrRadius.minimum)))}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<ctrl:HSliderPlus id="_sldrRadius" width="190" liveDragging="true" showDataTip="false"
+			minimum="10" maximum="{Math.min(imagewidth,imageheight)/2}" value="{zeroR + ((_sldrRadius.maximum - _sldrRadius.minimum) *.2) + _sldrRadius.minimum}" 
+		    thumbPress="ShowOverlay()" change="OnOpChange()" thumbRelease="HideOverlay()"/>
+	
+		<!-- Brightness -->
+		<mx:HBox width="190" paddingBottom="-5" paddingTop="3">
+			<mx:Label text="@Resource(key='brightness', bundle='EffectCanvas')" styleName="sliderTitle"/>
+			<mx:Label text="{LocUtil.pct((_sldrBrightness.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<ctrl:HSliderPlus width="190" minimum="0" maximum="100" value="{30 + zeroR}" id="_sldrBrightness" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+	
+		<!-- Fade -->
+		<mx:HBox width="190" paddingBottom="-5" paddingTop="3">
+			<mx:Label text="@Resource(key='fade', bundle='EffectCanvas')" styleName="sliderTitle"/>
+			<mx:Label text="{LocUtil.pct((_sldrFade.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<ctrl:HSliderPlus width="190" minimum="0" maximum="100" value="{zeroR}" id="_sldrFade" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+	
+		<ctrl:ApplyCancelEffectButtons premium="{premium}" addBoxPadding="true"/>
+	</mx:VBox>
+	
+	<imageOperations:CircularGradientImageMask
+		aspectRatio="2" 
+		width="{zeroR + imagewidth}" height="{zeroR + imageheight}" 
+		xCenter="{zeroR + xFocus}" yCenter="{zeroR + yFocus}" 
+		innerRadius="{0}" 
+		outerRadius="{_sldrRadius.value * 2}" 
+		outerAlpha = "{1}"
+		innerAlpha = "{.73}"
+		id="_msk"/>
+	<imageOperations:NestedImageOperation BlendAlpha="{1-(_sldrFade.value/100)}" id="_op" dynamicAlphaCachePriority="5">
+		<imageOperations:children>
+			<imageOperations:TintImageOperation Color="{0xF4FFF5}"/>
+			<imageOperations:NestedImageOperation Mask="{_msk}">
+				<imageOperations:children>
+					<imageOperations:BlurImageOperation quality="3" xblur="{_nHorizontalBlur}" yblur="{1}" dynamicParamsCachePriority="2"/>
+					<imageOperations:BlurImageOperation quality="3" xblur="{_nDiffuseBlur}" yblur="{_nDiffuseBlur}" BlendMode="{BlendMode.OVERLAY}"/>
+				</imageOperations:children>
+			</imageOperations:NestedImageOperation>
+			<imageOperations:AdjustCurvesImageOperation MasterCurve="{GetBrightnessCurve(_sldrBrightness.value)}" dynamicParamsCachePriority="3"
+					RedCurve="{kaobBaseCurve}"
+					GreenCurve="{kaobBaseCurve}"
+					BlueCurve="{kaobBaseCurve}"/>
+		</imageOperations:children>
+	</imageOperations:NestedImageOperation>
+</cnt:CircularOverlayEffectCanvas>

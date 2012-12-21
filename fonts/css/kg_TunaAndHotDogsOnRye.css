@@ -1,0 +1,23 @@
+/*
+ * Copyright 2011 Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an Apache 2.0 License.
+ * See the COPYING file for details.
+ */
+
+
+@font-face {
+    src:local("Tuna and Hot Dogs on Rye");
+    font-family: "pkkg0TunaAndHotDogsOnRye";
+    unicodeRange: U+0000-U+00FF;
+    flashType: true;
+    fontWeight: normal;
+    fontStyle: normal;
+}
+
+.pkkg0TunaAndHotDogsOnRye
+{
+    font-family: "pkkg0TunaAndHotDogsOnRye";
+    fontWeight: normal;
+    fontStyle: normal;
+}

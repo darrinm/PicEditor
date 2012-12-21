@@ -1,0 +1,12 @@
+fileName: mk_HenryMorganHand.ttf
+name: HenryMorganHand
+subfamilyDisplayName: Regular
+fullName: HenryMorganHand
+displayName: HenryMorganHand
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 6
+pkName: pkmk0HenryMorganHand
+authorName: Manfred Kelin
+authorUrl: http://moorstation.org/typoasis/designers/klein/

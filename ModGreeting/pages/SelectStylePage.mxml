@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SelectStylePageBase xmlns="pages.*" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:containers="containers.*" xmlns:controls="controls.*"
+		width="100%" height="100%" creationComplete="OnCreationComplete(event)" currentState="templateListLoading" xmlns:local="*" xmlns:views="views.*">
+	<mx:DropShadowFilter blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1" quality="3" angle="90" id="_fiWhiteShad"/>
+	<mx:DropShadowFilter distance="1" angle="90" blurX="4" blurY="4" alpha=".5" quality="3" id="_fiDropShad"/>
+	<mx:DropShadowFilter distance="0" angle="90" blurX="2" blurY="2" alpha=".5" quality="3" id="_fiDropShad2"/>
+	
+	<states>
+		<mx:State name="templateListLoading">
+			<mx:RemoveChild target="{vbox1}"/>
+			<mx:AddChild position="lastChild">
+				<controls:Gears horizontalCenter="0" verticalCenter="0">
+				</controls:Gears>
+			</mx:AddChild>
+		</mx:State>
+		<mx:State name="templateListLoadError">
+			<mx:RemoveChild target="{vbox1}"/>
+			<mx:AddChild position="lastChild">
+				<mx:VBox horizontalCenter="0" verticalCenter="0">
+					<mx:Label text="@Resource(key='error_loading_templates', bundle='SelectStylePage')"/>
+					<mx:Button label="@Resource(key='retry_load_templates', bundle='SelectStylePage')" click="LoadTemplateList()"/>
+				</mx:VBox>
+			</mx:AddChild>
+		</mx:State>
+	</states>
+
+	<mx:VBox id="vbox1" width="100%" height="100%">
+		<mx:HBox width="100%" height="100%">
+			<mx:VBox width="345" height="100%">
+				<mx:Text htmlText="@Resource(key='select_style', bundle='SelectStylePage')" fontSize="20" 
+						fontWeight="bold" color="#4d99bf" paddingTop="15" paddingLeft="26" selectable="false"
+						filters="{[_fiWhiteShad]}"/>                                
+				<mx:Tile id="_tlTemplateThumbs" width="100%" height="100%" horizontalGap="25" verticalGap="25"
+						paddingLeft="30" paddingBottom="4"/>
+			</mx:VBox>
+			<mx:VBox width="100%" height="100%" paddingRight="30">
+				<views:TargetAwareView id="_imgv" width="100%" height="100%" verticalAlign="top" paddingTop="49"
+						filters="{[_fiDropShad]}" targetsEnabled="true" targetViewObjectClass="viewObjects.UploadTargetViewObject"/>
+				<mx:HBox horizontalGap="12" horizontalAlign="center" width="100%">
+					<controls:PreviewButtonImage id="_imgVariation1" width="28" height="28" backgroundColor="#ffffff"/>
+					<controls:PreviewButtonImage id="_imgVariation2" width="28" height="28" backgroundColor="#ffffff"/>
+					<controls:PreviewButtonImage id="_imgVariation3" width="28" height="28" backgroundColor="#ffffff"/>
+				</mx:HBox>
+			</mx:VBox>
+		</mx:HBox>
+		
+		<!-- prev & next -->
+		<mx:HBox horizontalGap="8" paddingTop="8" paddingBottom="8" width="100%" height="{footerHeight}" horizontalAlign="center">
+			<controls:ResizingButton id="_btnPrev" label="@Resource(key='back', bundle='SendGreetingDialogBase')" autoFontSizeGap="1" 
+					height="34" fontSize="18" styleName="BigButton" click="greetingParent.DoPrev()" enabled="false"/>
+			<controls:ResizingButton id="_btnNext" label="@Resource(key='next', bundle='SendGreetingDialogBase')" autoFontSizeGap="1"
+					height="34" fontSize="18" styleName="BigButton" click="greetingParent.DoNext()" enabled="{allTargetsPopulated}"/>
+		</mx:HBox>
+	</mx:VBox>
+</SelectStylePageBase>

@@ -1,0 +1,522 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory id="root">
+	<ShapeCategory id="1" numShapes="0" title="Featured">
+		<ShapeCategory id="Targets" numShapes="4" restrictedAccess="collageAuthor" title="Targets">
+			<Shapes>
+				<Target alpha="0.7" color="0" crop="true" drawPlaceholder="true"/>
+				<Target alpha="0.7" circular="true" color="0" crop="true" drawPlaceholder="true"/>
+				<Clipart cHeight="36" cWidth="173" previewUrl="../clipart/previews/shapes/Targets/picnikcom_logo.png" url="shapes/picnikcom_logo.swf"/>
+				<Text autoSize="none" text="Text"/>
+			</Shapes>
+		</ShapeCategory>
+		<ShapeCategory id="Superbowl" numShapes="20" title="Football!">
+			<Shapes>
+				<Clipart url="shapes/superbowl_helmet1.swf"/>
+				<Clipart url="shapes/superbowl_helmet2.swf"/>
+				<Clipart url="shapes/superbowl_helmet3.swf"/>
+				<Clipart url="shapes/superbowl_helmet4.swf"/>
+				<Clipart url="shapes/superbowl_jersey1.swf"/>
+				<Clipart url="shapes/superbowl_jersey2.swf"/>
+				<Clipart url="shapes/superbowl_jersey3.swf"/>
+				<Clipart url="shapes/superbowl_jersey4.swf"/>
+				<Clipart url="shapes/superbowl_finger1.swf"/>
+				<Clipart url="shapes/superbowl_finger2.swf"/>
+				<Clipart url="shapes/superbowl_footballs.swf"/>
+				<Clipart url="shapes/superbowl_firstdown.swf"/>
+				<Clipart url="shapes/superbowl_trophey.swf"/>
+				<Clipart url="shapes/superbowl_goalpost.swf"/>
+				<Clipart url="shapes/superbowl_cleats.swf"/>
+				<Clipart url="shapes/superbowl_hotdog.swf"/>
+				<Clipart url="shapes/superbowl_player.swf"/>
+				<Clipart url="shapes/spd_beer2.swf"/>
+				<Clipart url="shapes/spd_beer3.swf"/>
+				<Clipart url="shapes/spd_beer4.swf"/>
+			</Shapes>
+		</ShapeCategory>
+		<ShapeCategory id="Inauguration" numShapes="20" previewUrls="../clipart/previews/shapes/Inauguration/american_flag01.png,../clipart/previews/shapes/Inauguration/american_flag01.png,../clipart/previews/shapes/Inauguration/american_flag01.png,../clipart/previews/shapes/Inauguration/american_flag01.png" thumbUrl="../clipart/previews/shapes/Inauguration/american_flag01.png" title="Inauguration">
+			<Shapes>
+				<Clipart cHeight="70" cWidth="133" previewUrl="../clipart/previews/shapes/Inauguration/american_flag01.png" url="shapes/american_flag01.swf"/>
+				<Clipart cHeight="70" cWidth="133" previewUrl="../clipart/previews/shapes/Inauguration/american_flag02.png" url="shapes/american_flag02.swf"/>
+				<Clipart cHeight="151" cWidth="152" previewUrl="../clipart/previews/shapes/Inauguration/american_flag03.png" url="shapes/american_flag03.swf"/>
+				<Clipart cHeight="84" cWidth="142" previewUrl="../clipart/previews/shapes/Inauguration/american_flag04.png" url="shapes/american_flag04.swf"/>
+				<Clipart cHeight="109" cWidth="109" previewUrl="../clipart/previews/shapes/Inauguration/american_circle01.png" url="shapes/american_circle01.swf"/>
+				<Clipart cHeight="109" cWidth="109" previewUrl="../clipart/previews/shapes/Inauguration/american_circle02.png" url="shapes/american_circle02.swf"/>
+				<Clipart cHeight="109" cWidth="109" previewUrl="../clipart/previews/shapes/Inauguration/american_circle03.png" url="shapes/american_circle03.swf"/>
+				<Clipart cHeight="109" cWidth="109" previewUrl="../clipart/previews/shapes/Inauguration/american_circle04.png" url="shapes/american_circle04.swf"/>
+				<Clipart cHeight="65" cWidth="65" previewUrl="../clipart/previews/shapes/Inauguration/american_circledstar.png" url="shapes/american_circledstar.swf"/>
+				<Clipart cHeight="91" cWidth="92" previewUrl="../clipart/previews/shapes/Inauguration/american_starcircle.png" url="shapes/american_starcircle.swf"/>
+				<Clipart cHeight="130" cWidth="137" previewUrl="../clipart/previews/shapes/Inauguration/american_flagstar.png" url="shapes/american_flagstar.swf"/>
+				<Clipart cHeight="97" cWidth="102" previewUrl="../clipart/previews/shapes/Inauguration/american_stripedstar.png" url="shapes/american_stripedstar.swf"/>
+				<Clipart cHeight="170" cWidth="94" previewUrl="../clipart/previews/shapes/Inauguration/american_shootingstar.png" url="shapes/american_shootingstar.swf"/>
+				<Clipart cHeight="62" cWidth="242" previewUrl="../clipart/previews/shapes/Inauguration/american_starsstripes.png" url="shapes/american_starsstripes.swf"/>
+				<Clipart cHeight="48" cWidth="51" previewUrl="../clipart/previews/shapes/Inauguration/american_star01.png" url="shapes/american_star01.swf"/>
+				<Clipart cHeight="48" cWidth="51" previewUrl="../clipart/previews/shapes/Inauguration/american_star02.png" url="shapes/american_star02.swf"/>
+				<Clipart cHeight="111" cWidth="513" previewUrl="../clipart/previews/shapes/Inauguration/american_swoopybanner.png" url="shapes/american_swoopybanner.swf"/>
+				<Clipart cHeight="15" cWidth="352" previewUrl="../clipart/previews/shapes/Inauguration/american_horbanner.png" url="shapes/american_horbanner.swf"/>
+				<Clipart cHeight="145" cWidth="43" previewUrl="../clipart/previews/shapes/Inauguration/american_vertbanner.png" url="shapes/american_vertbanner.swf"/>
+				<Clipart cHeight="66" cWidth="520" previewUrl="../clipart/previews/shapes/Inauguration/american_banner.png" url="shapes/american_banner.swf"/>
+			</Shapes>
+		</ShapeCategory>
+		<ShapeCategory id="ValentinesDay" numShapes="0" previewUrls="../clipart/previews/shapes/Hearts/heart01.png,../clipart/previews/shapes/ValentinesStamps/stamp_valentines01.png,../clipart/previews/shapes/CandyHearts/candy_heart01.png,../clipart/previews/shapes/ValentinesIcons/valentines_icon02.png" thumbUrl="../clipart/previews/shapes/Kisses/lips01.png" title="Valentine's Day">
+			<ShapeCategory id="Kisses" numShapes="6" title="Romance">
+				<Shapes>
+					<Clipart cHeight="218" cWidth="458" color="14352425" previewUrl="../clipart/previews/shapes/Kisses/lips01.png" url="shapes/lips01.swf"/>
+					<Clipart cHeight="290" cWidth="421" color="14352425" previewUrl="../clipart/previews/shapes/Kisses/lips02.png" url="shapes/lips02.swf"/>
+					<Clipart cHeight="289" cWidth="357" color="14352425" previewUrl="../clipart/previews/shapes/Kisses/lips03.png" url="shapes/lips03.swf"/>
+					<Clipart cHeight="222" cWidth="396" color="14352425" previewUrl="../clipart/previews/shapes/Kisses/lips04.png" url="shapes/lips04.swf"/>
+					<Clipart cHeight="367" cWidth="426" color="14352425" previewUrl="../clipart/previews/shapes/Kisses/lips05.png" url="shapes/lips05.swf"/>
+					<Clipart cHeight="249" cWidth="408" color="14352425" previewUrl="../clipart/previews/shapes/Kisses/lips06.png" url="shapes/lips06.swf"/>
+				</Shapes>
+			</ShapeCategory>
+			<ShapeCategory id="Hearts" numShapes="9" title="Hearts">
+				<Shapes>
+					<Clipart cHeight="99" cWidth="114" previewUrl="../clipart/previews/shapes/Hearts/heart01.png" url="shapes/heart01.swf"/>
+					<Clipart cHeight="102" cWidth="118" previewUrl="../clipart/previews/shapes/Hearts/heart02.png" url="shapes/heart02.swf"/>
+					<Clipart cHeight="111" cWidth="114" previewUrl="../clipart/previews/shapes/Hearts/heart03.png" url="shapes/heart03.swf"/>
+					<Clipart cHeight="104" cWidth="120" previewUrl="../clipart/previews/shapes/Hearts/heart04.png" url="shapes/heart04.swf"/>
+					<Clipart cHeight="103" cWidth="119" previewUrl="../clipart/previews/shapes/Hearts/heart05.png" url="shapes/heart05.swf"/>
+					<Clipart cHeight="99" cWidth="114" previewUrl="../clipart/previews/shapes/Hearts/heart06.png" url="shapes/heart06.swf"/>
+					<Clipart cHeight="114" cWidth="115" previewUrl="../clipart/previews/shapes/Hearts/heart07.png" url="shapes/heart07.swf"/>
+					<Clipart cHeight="99" cWidth="114" previewUrl="../clipart/previews/shapes/Hearts/heart08.png" url="shapes/heart08.swf"/>
+					<Clipart cHeight="99" cWidth="114" previewUrl="../clipart/previews/shapes/Hearts/heart09.png" url="shapes/heart09.swf"/>
+				</Shapes>
+			</ShapeCategory>
+			<ShapeCategory id="ValentinesStamps" numShapes="9" title="Valentine's Stamps">
+				<Shapes>
+					<Clipart cHeight="166" cWidth="166" color="11477029" previewUrl="../clipart/previews/shapes/ValentinesStamps/stamp_valentines01.png" url="shapes/stamp_valentines01.swf"/>
+					<Clipart cHeight="166" cWidth="166" color="14097487" previewUrl="../clipart/previews/shapes/ValentinesStamps/stamp_valentines02.png" url="shapes/stamp_valentines02.swf"/>
+					<Clipart cHeight="166" cWidth="166" color="11477029" previewUrl="../clipart/previews/shapes/ValentinesStamps/stamp_valentines03.png" url="shapes/stamp_valentines03.swf"/>
+					<Clipart cHeight="166" cWidth="166" color="14504574" previewUrl="../clipart/previews/shapes/ValentinesStamps/stamp_valentines04.png" url="shapes/stamp_valentines04.swf"/>
+					<Clipart cHeight="166" cWidth="166" color="14504574" previewUrl="../clipart/previews/shapes/ValentinesStamps/stamp_valentines05.png" url="shapes/stamp_valentines05.swf"/>
+					<Clipart cHeight="166" cWidth="166" color="11477029" previewUrl="../clipart/previews/shapes/ValentinesStamps/stamp_valentines06.png" url="shapes/stamp_valentines06.swf"/>
+					<Clipart cHeight="166" cWidth="166" color="14097487" previewUrl="../clipart/previews/shapes/ValentinesStamps/stamp_valentines07.png" url="shapes/stamp_valentines07.swf"/>
+					<Clipart cHeight="166" cWidth="166" color="13504834" previewUrl="../clipart/previews/shapes/ValentinesStamps/stamp_valentines08.png" url="shapes/stamp_valentines08.swf"/>
+					<Clipart cHeight="166" cWidth="166" color="13504834" previewUrl="../clipart/previews/shapes/ValentinesStamps/stamp_valentines09.png" url="shapes/stamp_valentines09.swf"/>
+				</Shapes>
+			</ShapeCategory>
+			<ShapeCategory id="CandyHearts" numShapes="16" title="Candy Hearts">
+				<Shapes>
+					<Clipart cHeight="111" cWidth="112" previewUrl="../clipart/previews/shapes/CandyHearts/candy_heart01.png" url="shapes/candy_heart01.swf"/>
+					<Clipart cHeight="112" cWidth="111" previewUrl="../clipart/previews/shapes/CandyHearts/candy_heart02.png" url="shapes/candy_heart02.swf"/>
+					<Clipart cHeight="113" cWidth="114" previewUrl="../clipart/previews/shapes/CandyHearts/candy_heart03.png" url="shapes/candy_heart03.swf"/>
+					<Clipart cHeight="113" cWidth="113" previewUrl="../clipart/previews/shapes/CandyHearts/candy_heart04.png" url="shapes/candy_heart04.swf"/>
+					<Clipart cHeight="108" cWidth="111" previewUrl="../clipart/previews/shapes/CandyHearts/candy_heart05.png" url="shapes/candy_heart05.swf"/>
+					<Clipart cHeight="117" cWidth="116" previewUrl="../clipart/previews/shapes/CandyHearts/candy_heart06.png" url="shapes/candy_heart06.swf"/>
+					<Clipart cHeight="105" cWidth="110" previewUrl="../clipart/previews/shapes/CandyHearts/candy_heart07.png" url="shapes/candy_heart07.swf"/>
+					<Clipart cHeight="116" cWidth="117" previewUrl="../clipart/previews/shapes/CandyHearts/candy_heart08.png" url="shapes/candy_heart08.swf"/>
+					<Clipart cHeight="110" cWidth="112" previewUrl="../clipart/previews/shapes/CandyHearts/candy_heart09.png" url="shapes/candy_heart09.swf"/>
+					<Clipart cHeight="114" cWidth="116" previewUrl="../clipart/previews/shapes/CandyHearts/candy_heart10.png" url="shapes/candy_heart10.swf"/>
+					<Clipart cHeight="109" cWidth="109" previewUrl="../clipart/previews/shapes/CandyHearts/candy_heart11.png" url="shapes/candy_heart11.swf"/>
+					<Clipart cHeight="115" cWidth="116" previewUrl="../clipart/previews/shapes/CandyHearts/candy_heart12.png" url="shapes/candy_heart12.swf"/>
+					<Clipart cHeight="112" cWidth="112" previewUrl="../clipart/previews/shapes/CandyHearts/candy_heart13.png" url="shapes/candy_heart13.swf"/>
+					<Clipart cHeight="115" cWidth="116" previewUrl="../clipart/previews/shapes/CandyHearts/candy_heart14.png" url="shapes/candy_heart14.swf"/>
+					<Clipart cHeight="108" cWidth="111" previewUrl="../clipart/previews/shapes/CandyHearts/candy_heart15.png" url="shapes/candy_heart15.swf"/>
+					<Clipart cHeight="110" cWidth="112" previewUrl="../clipart/previews/shapes/CandyHearts/candy_heart16.png" url="shapes/candy_heart16.swf"/>
+				</Shapes>
+			</ShapeCategory>
+			<ShapeCategory id="ValentinesIcons" numShapes="7" title="Valentine's Icons">
+				<Shapes>
+					<Clipart cHeight="1300" cWidth="820" previewUrl="../clipart/previews/shapes/ValentinesIcons/valentines_icon02.png" url="shapes/valentines_icon02.swf"/>
+					<Clipart cHeight="940" cWidth="920" previewUrl="../clipart/previews/shapes/ValentinesIcons/valentines_icon03.png" url="shapes/valentines_icon03.swf"/>
+					<Clipart cHeight="900" cWidth="1000" previewUrl="../clipart/previews/shapes/ValentinesIcons/valentines_icon05.png" url="shapes/valentines_icon05.swf"/>
+					<Clipart cHeight="1100" cWidth="760" previewUrl="../clipart/previews/shapes/ValentinesIcons/valentines_icon06.png" url="shapes/valentines_icon06.swf"/>
+					<Clipart cHeight="835" cWidth="575" previewUrl="../clipart/previews/shapes/ValentinesIcons/valentines_icon07.png" url="shapes/valentines_icon07.swf"/>
+					<Clipart cHeight="850" cWidth="430" previewUrl="../clipart/previews/shapes/ValentinesIcons/valentines_icon08.png" url="shapes/valentines_icon08.swf"/>
+					<Clipart cHeight="850" cWidth="620" previewUrl="../clipart/previews/shapes/ValentinesIcons/valentines_icon09.png" url="shapes/valentines_icon09.swf"/>
+				</Shapes>
+			</ShapeCategory>
+			<ShapeCategory id="ValentinesTags" numShapes="11" title="Valentine's Tags">
+				<Shapes>
+					<Clipart cHeight="141" cWidth="240" previewUrl="../clipart/previews/shapes/ValentinesTags/tag_valentines01.png" url="shapes/tag_valentines01.swf"/>
+					<Clipart cHeight="167" cWidth="137" previewUrl="../clipart/previews/shapes/ValentinesTags/tag_valentines02.png" url="shapes/tag_valentines02.swf"/>
+					<Clipart cHeight="167" cWidth="137" previewUrl="../clipart/previews/shapes/ValentinesTags/tag_valentines03.png" url="shapes/tag_valentines03.swf"/>
+					<Clipart cHeight="305" cWidth="86" previewUrl="../clipart/previews/shapes/ValentinesTags/tag_valentines04.png" url="shapes/tag_valentines04.swf"/>
+					<Clipart cHeight="207" cWidth="140" previewUrl="../clipart/previews/shapes/ValentinesTags/tag_valentines05.png" url="shapes/tag_valentines05.swf"/>
+					<Clipart cHeight="226" cWidth="124" previewUrl="../clipart/previews/shapes/ValentinesTags/tag_valentines06.png" url="shapes/tag_valentines06.swf"/>
+					<Clipart cHeight="127" cWidth="231" previewUrl="../clipart/previews/shapes/ValentinesTags/tag_valentines07.png" url="shapes/tag_valentines07.swf"/>
+					<Clipart cHeight="148" cWidth="129" previewUrl="../clipart/previews/shapes/ValentinesTags/tag_valentines08.png" url="shapes/tag_valentines08.swf"/>
+					<Clipart cHeight="118" cWidth="137" previewUrl="../clipart/previews/shapes/ValentinesTags/tag_valentines09.png" url="shapes/tag_valentines09.swf"/>
+					<Clipart cHeight="154" cWidth="284" previewUrl="../clipart/previews/shapes/ValentinesTags/tag_valentines10.png" url="shapes/tag_valentines10.swf"/>
+					<Clipart cHeight="163" cWidth="113" previewUrl="../clipart/previews/shapes/ValentinesTags/tag_valentines11.png" url="shapes/tag_valentines11.swf"/>
+				</Shapes>
+			</ShapeCategory>
+			<ShapeCategory id="Presents" numShapes="4" title="Presents">
+				<Shapes>
+					<Clipart cHeight="405" cWidth="340" previewUrl="../clipart/previews/shapes/Presents/present_red-silver.png" url="shapes/present_red-silver.swf"/>
+					<Clipart cHeight="405" cWidth="340" previewUrl="../clipart/previews/shapes/Presents/present_red.png" url="shapes/present_red.swf"/>
+					<Clipart cHeight="245" cWidth="340" previewUrl="../clipart/previews/shapes/Presents/bow_red.png" url="shapes/bow_red.swf"/>
+					<Clipart cHeight="245" cWidth="340" previewUrl="../clipart/previews/shapes/Presents/bow_silver.png" url="shapes/bow_silver.swf"/>
+				</Shapes>
+			</ShapeCategory>
+		</ShapeCategory>
+		<ShapeCategory id="NewYearsEve" numShapes="9" previewUrls="../clipart/previews/shapes/NewYearsEve/fireworks1.png,../clipart/previews/shapes/NewYearsEve/fireworks1.png,../clipart/previews/shapes/NewYearsEve/fireworks1.png,../clipart/previews/shapes/NewYearsEve/fireworks1.png" thumbUrl="../clipart/previews/shapes/NewYearsEve/fireworks1.png" title="New Year's Eve">
+			<Shapes>
+				<Clipart cHeight="1000" cWidth="520" previewUrl="../clipart/previews/shapes/NewYearsEve/fireworks1.png" url="shapes/fireworks1.swf"/>
+				<Clipart cHeight="1000" cWidth="610" previewUrl="../clipart/previews/shapes/NewYearsEve/fireworks2.png" url="shapes/fireworks2.swf"/>
+				<Clipart cHeight="990" cWidth="575" previewUrl="../clipart/previews/shapes/NewYearsEve/fireworks3.png" url="shapes/fireworks3.swf"/>
+				<Clipart cHeight="930" cWidth="329" previewUrl="../clipart/previews/shapes/NewYearsEve/newyears_champglass.png" url="shapes/newyears_champglass.swf"/>
+				<Clipart cHeight="355" cWidth="137" previewUrl="../clipart/previews/shapes/NewYearsEve/bastilleday_wine.png" url="shapes/bastilleday_wine.swf"/>
+				<Clipart cHeight="1091" cWidth="593" previewUrl="../clipart/previews/shapes/NewYearsEve/newyears_partyhat1.png" url="shapes/newyears_partyhat1.swf"/>
+				<Clipart cHeight="1091" cWidth="593" previewUrl="../clipart/previews/shapes/NewYearsEve/newyears_partyhat2.png" url="shapes/newyears_partyhat2.swf"/>
+				<Clipart cHeight="1091" cWidth="593" previewUrl="../clipart/previews/shapes/NewYearsEve/newyears_partyhat3.png" url="shapes/newyears_partyhat3.swf"/>
+				<Clipart cHeight="1091" cWidth="593" previewUrl="../clipart/previews/shapes/NewYearsEve/newyears_partyhat4.png" url="shapes/newyears_partyhat4.swf"/>
+			</Shapes>
+		</ShapeCategory>
+	</ShapeCategory>
+	<ShapeCategory id="2" numShapes="0" title="Other">
+		<ShapeCategory id="Beards" numShapes="16" previewUrls="../clipart/previews/shapes/Beards/beard01.png,../clipart/previews/shapes/Beards/beard01.png,../clipart/previews/shapes/Beards/beard01.png,../clipart/previews/shapes/Beards/beard01.png" thumbUrl="../clipart/previews/shapes/Beards/beard01.png" title="Beards">
+			<Shapes>
+				<Clipart cHeight="147" cWidth="229" previewUrl="../clipart/previews/shapes/Beards/beard01.png" url="shapes/beard01.swf"/>
+				<Clipart cHeight="178" cWidth="235" previewUrl="../clipart/previews/shapes/Beards/beard02.png" url="shapes/beard02.swf"/>
+				<Clipart cHeight="51" cWidth="252" previewUrl="../clipart/previews/shapes/Beards/beard03.png" url="shapes/beard03.swf"/>
+				<Clipart cHeight="193" cWidth="252" previewUrl="../clipart/previews/shapes/Beards/beard04.png" url="shapes/beard04.swf"/>
+				<Clipart cHeight="153" cWidth="114" previewUrl="../clipart/previews/shapes/Beards/beard05.png" url="shapes/beard05.swf"/>
+				<Clipart cHeight="69" cWidth="258" previewUrl="../clipart/previews/shapes/Beards/beard06.png" url="shapes/beard06.swf"/>
+				<Clipart cHeight="70" cWidth="260" previewUrl="../clipart/previews/shapes/Beards/beard07.png" url="shapes/beard07.swf"/>
+				<Clipart cHeight="145" cWidth="231" previewUrl="../clipart/previews/shapes/Beards/beard08.png" url="shapes/beard08.swf"/>
+				<Clipart cHeight="21" cWidth="327" previewUrl="../clipart/previews/shapes/Beards/beard09.png" url="shapes/beard09.swf"/>
+				<Clipart cHeight="317" cWidth="207" previewUrl="../clipart/previews/shapes/Beards/beard10.png" url="shapes/beard10.swf"/>
+				<Clipart cHeight="446" cWidth="251" previewUrl="../clipart/previews/shapes/Beards/beard11.png" url="shapes/beard11.swf"/>
+				<Clipart cHeight="396" cWidth="229" previewUrl="../clipart/previews/shapes/Beards/beard12.png" url="shapes/beard12.swf"/>
+				<Clipart cHeight="44" cWidth="48" previewUrl="../clipart/previews/shapes/Beards/beard15.png" url="shapes/beard15.swf"/>
+				<Clipart cHeight="20" cWidth="45" previewUrl="../clipart/previews/shapes/Beards/beard16.png" url="shapes/beard16.swf"/>
+				<Clipart cHeight="522" cWidth="286" previewUrl="../clipart/previews/shapes/Beards/beard13.png" url="shapes/beard13.swf"/>
+				<Clipart cHeight="522" cWidth="286" previewUrl="../clipart/previews/shapes/Beards/beard14.png" url="shapes/beard14.swf"/>
+			</Shapes>
+		</ShapeCategory>
+		<ShapeCategory id="AwarenessRibbons" numShapes="9" previewUrls="../clipart/previews/shapes/AwarenessRibbons/ribbon_yellow.png,../clipart/previews/shapes/AwarenessRibbons/ribbon_yellow.png,../clipart/previews/shapes/AwarenessRibbons/ribbon_yellow.png,../clipart/previews/shapes/AwarenessRibbons/ribbon_yellow.png" thumbUrl="../clipart/previews/shapes/AwarenessRibbons/ribbon_yellow.png" title="Awareness Ribbons">
+			<Shapes>
+				<Clipart cHeight="200" cWidth="120" previewUrl="../clipart/previews/shapes/AwarenessRibbons/ribbon_yellow.png" url="shapes/ribbon_yellow.swf"/>
+				<Clipart cHeight="200" cWidth="120" previewUrl="../clipart/previews/shapes/AwarenessRibbons/ribbon_red.png" url="shapes/ribbon_red.swf"/>
+				<Clipart cHeight="200" cWidth="120" previewUrl="../clipart/previews/shapes/AwarenessRibbons/ribbon_pink.png" url="shapes/ribbon_pink.swf"/>
+				<Clipart cHeight="200" cWidth="120" previewUrl="../clipart/previews/shapes/AwarenessRibbons/ribbon_green.png" url="shapes/ribbon_green.swf"/>
+				<Clipart cHeight="200" cWidth="120" previewUrl="../clipart/previews/shapes/AwarenessRibbons/ribbon_white.png" url="shapes/ribbon_white.swf"/>
+				<Clipart cHeight="200" cWidth="120" previewUrl="../clipart/previews/shapes/AwarenessRibbons/ribbon_orange.png" url="shapes/ribbon_orange.swf"/>
+				<Clipart cHeight="200" cWidth="120" previewUrl="../clipart/previews/shapes/AwarenessRibbons/ribbon_purple.png" url="shapes/ribbon_purple.swf"/>
+				<Clipart cHeight="200" cWidth="120" previewUrl="../clipart/previews/shapes/AwarenessRibbons/ribbon_blue.png" url="shapes/ribbon_blue.swf"/>
+				<Clipart cHeight="200" cWidth="120" previewUrl="../clipart/previews/shapes/AwarenessRibbons/ribbon_black.png" url="shapes/ribbon_black.swf"/>
+			</Shapes>
+		</ShapeCategory>
+		<ShapeCategory id="CrownsandTiaras" numShapes="8" previewUrls="../clipart/previews/shapes/CrownsandTiaras/princess_crown1.png,../clipart/previews/shapes/CrownsandTiaras/princess_crown1.png,../clipart/previews/shapes/CrownsandTiaras/princess_crown1.png,../clipart/previews/shapes/CrownsandTiaras/princess_crown1.png" thumbUrl="../clipart/previews/shapes/CrownsandTiaras/princess_crown1.png" title="Crowns &amp; Tiaras">
+			<Shapes>
+				<Clipart cHeight="149" cWidth="376" previewUrl="../clipart/previews/shapes/CrownsandTiaras/princess_crown1.png" url="shapes/princess_crown1.swf"/>
+				<Clipart cHeight="63" cWidth="308" previewUrl="../clipart/previews/shapes/CrownsandTiaras/princess_crown2.png" url="shapes/princess_crown2.swf"/>
+				<Clipart cHeight="182" cWidth="240" previewUrl="../clipart/previews/shapes/CrownsandTiaras/princess_crown3.png" url="shapes/princess_crown3.swf"/>
+				<Clipart cHeight="117" cWidth="190" previewUrl="../clipart/previews/shapes/CrownsandTiaras/princess_crown4.png" url="shapes/princess_crown4.swf"/>
+				<Clipart cHeight="119" cWidth="244" previewUrl="../clipart/previews/shapes/CrownsandTiaras/princess_crown5.png" url="shapes/princess_crown5.swf"/>
+				<Clipart cHeight="42" cWidth="80" previewUrl="../clipart/previews/shapes/CrownsandTiaras/princess_pearlnecklace.png" url="shapes/princess_pearlnecklace.swf"/>
+				<Clipart cHeight="385" cWidth="141" previewUrl="../clipart/previews/shapes/CrownsandTiaras/princess_princess.png" url="shapes/princess_princess.swf"/>
+				<Clipart cHeight="251" cWidth="25" previewUrl="../clipart/previews/shapes/CrownsandTiaras/princess_scepter.png" url="shapes/princess_scepter.swf"/>
+			</Shapes>
+		</ShapeCategory>
+		<ShapeCategory id="Geometric" numShapes="12" title="Geometric">
+			<Shapes>
+				<Square/>
+				<PRectangle/>
+				<Circle/>
+				<Ellipse/>
+				<Polygon points="3"/>
+				<Star innerRadiusPct="0.5" points="5"/>
+				<Polygon points="5"/>
+				<Star innerRadiusPct="0.3" points="10"/>
+				<RoundedSquare/>
+				<RoundedRectangle/>
+				<Polygon offsetAngle="22.5" points="8"/>
+				<Burst innerRadiusPct="0.75" points="12"/>
+			</Shapes>
+		</ShapeCategory>
+		<ShapeCategory id="SpeechBubbles" numShapes="12" previewUrls="../clipart/previews/shapes/SpeechBubbles/speechbubble_ellipse.png,../clipart/previews/shapes/SpeechBubbles/speechbubble_ellipse.png,../clipart/previews/shapes/SpeechBubbles/speechbubble_ellipse.png,../clipart/previews/shapes/SpeechBubbles/speechbubble_ellipse.png" thumbUrl="../clipart/previews/shapes/SpeechBubbles/speechbubble_ellipse.png" title="Speech Bubbles">
+			<Shapes>
+				<Clipart cHeight="96" cWidth="156" color="16777215" previewUrl="../clipart/previews/shapes/SpeechBubbles/speechbubble_ellipse.png" url="shapes/speechbubble_ellipse.swf"/>
+				<Clipart cHeight="141" cWidth="151" color="16777215" previewUrl="../clipart/previews/shapes/SpeechBubbles/speechbubble_circle.png" url="shapes/speechbubble_circle.swf"/>
+				<Clipart cHeight="163" cWidth="168" color="16777215" previewUrl="../clipart/previews/shapes/SpeechBubbles/speechbubble_stnd.png" url="shapes/speechbubble_stnd.swf"/>
+				<Clipart cHeight="142" cWidth="173" color="16777215" previewUrl="../clipart/previews/shapes/SpeechBubbles/speechbubble_intense.png" url="shapes/speechbubble_intense.swf"/>
+				<Clipart cHeight="122" cWidth="157" color="16777215" previewUrl="../clipart/previews/shapes/SpeechBubbles/speechbubble_roundcorner.png" url="shapes/speechbubble_roundcorner.swf"/>
+				<Clipart cHeight="140" cWidth="176" color="16777215" previewUrl="../clipart/previews/shapes/SpeechBubbles/speechbubble_square.png" url="shapes/speechbubble_square.swf"/>
+				<Clipart cHeight="122" cWidth="175" color="16777215" previewUrl="../clipart/previews/shapes/SpeechBubbles/speechbubble_ellipse2.png" url="shapes/speechbubble_ellipse2.swf"/>
+				<Clipart cHeight="134" cWidth="176" color="16777215" previewUrl="../clipart/previews/shapes/SpeechBubbles/speechbubble_ellipse3.png" url="shapes/speechbubble_ellipse3.swf"/>
+				<Clipart cHeight="103" cWidth="172" color="16777215" previewUrl="../clipart/previews/shapes/SpeechBubbles/thoughtbubble_ellipse.png" url="shapes/thoughtbubble_ellipse.swf"/>
+				<Clipart cHeight="141" cWidth="168" color="16777215" previewUrl="../clipart/previews/shapes/SpeechBubbles/thoughtbubble_circle.png" url="shapes/thoughtbubble_circle.swf"/>
+				<Clipart cHeight="129" cWidth="153" color="16777215" previewUrl="../clipart/previews/shapes/SpeechBubbles/speechbubble_thought1.png" url="shapes/speechbubble_thought1.swf"/>
+				<Clipart cHeight="120" cWidth="129" color="16777215" previewUrl="../clipart/previews/shapes/SpeechBubbles/speechbubble_thought2.png" url="shapes/speechbubble_thought2.swf"/>
+			</Shapes>
+		</ShapeCategory>
+		<ShapeCategory id="BasicShapes" numShapes="19" previewUrls="../clipart/previews/shapes/BasicShapes/heart.png,../clipart/previews/shapes/BasicShapes/heart.png,../clipart/previews/shapes/BasicShapes/heart.png,../clipart/previews/shapes/BasicShapes/heart.png" thumbUrl="../clipart/previews/shapes/BasicShapes/heart.png" title="Basic Shapes">
+			<Shapes>
+				<Clipart cHeight="116" cWidth="133" color="13369344" previewUrl="../clipart/previews/shapes/BasicShapes/heart.png" url="shapes/heart.swf"/>
+				<Clipart cHeight="125" cWidth="75" color="5750271" previewUrl="../clipart/previews/shapes/BasicShapes/teardrop.png" url="shapes/teardrop.swf"/>
+				<Clipart cHeight="82" cWidth="117" previewUrl="../clipart/previews/shapes/BasicShapes/arrow.png" url="shapes/arrow.swf"/>
+				<Clipart cHeight="94" cWidth="128" previewUrl="../clipart/previews/shapes/BasicShapes/arrow02.png" url="shapes/arrow02.swf"/>
+				<Clipart cHeight="116" cWidth="75" color="13369344" previewUrl="../clipart/previews/shapes/BasicShapes/broken_heart_left.png" url="shapes/broken_heart_left.swf"/>
+				<Clipart cHeight="116" cWidth="75" color="13369344" previewUrl="../clipart/previews/shapes/BasicShapes/broken_heart_right.png" url="shapes/broken_heart_right.swf"/>
+				<Clipart cHeight="133" cWidth="151" previewUrl="../clipart/previews/shapes/BasicShapes/asplode.png" url="shapes/asplode.swf"/>
+				<Clipart cHeight="137" cWidth="59" color="16776244" previewUrl="../clipart/previews/shapes/BasicShapes/lightning_bolt.png" url="shapes/lightning_bolt.swf"/>
+				<Clipart cHeight="107" cWidth="40" previewUrl="../clipart/previews/shapes/BasicShapes/note.png" url="shapes/note.swf"/>
+				<Clipart cHeight="119" cWidth="114" previewUrl="../clipart/previews/shapes/BasicShapes/note_double.png" url="shapes/note_double.swf"/>
+				<Clipart cHeight="107" cWidth="69" previewUrl="../clipart/previews/shapes/BasicShapes/note_eighth.png" url="shapes/note_eighth.swf"/>
+				<Clipart cHeight="110" cWidth="135" previewUrl="../clipart/previews/shapes/BasicShapes/paw_print.png" url="shapes/paw_print.swf"/>
+				<Clipart cHeight="113" cWidth="124" previewUrl="../clipart/previews/shapes/BasicShapes/radioactive.png" url="shapes/radioactive.swf"/>
+				<Clipart cHeight="142" cWidth="84" previewUrl="../clipart/previews/shapes/BasicShapes/ribbon.png" url="shapes/ribbon.swf"/>
+				<Clipart cHeight="136" cWidth="136" previewUrl="../clipart/previews/shapes/BasicShapes/buster_sign.png" url="shapes/buster_sign.swf"/>
+				<Clipart cHeight="57" cWidth="126" previewUrl="../clipart/previews/shapes/BasicShapes/spaceship.png" url="shapes/spaceship.swf"/>
+				<Clipart cHeight="159" cWidth="159" previewUrl="../clipart/previews/shapes/BasicShapes/peacesign.png" url="shapes/peacesign.swf"/>
+				<Clipart cHeight="177" cWidth="105" previewUrl="../clipart/previews/shapes/BasicShapes/flame1.png" url="shapes/flame1.swf"/>
+				<Clipart cHeight="176" cWidth="75" previewUrl="../clipart/previews/shapes/BasicShapes/flame2.png" url="shapes/flame2.swf"/>
+			</Shapes>
+		</ShapeCategory>
+		<ShapeCategory id="PhotoLicenses" numShapes="8" previewUrls="../clipart/previews/shapes/PhotoLicenses/copyright.png,../clipart/previews/shapes/PhotoLicenses/copyright.png,../clipart/previews/shapes/PhotoLicenses/copyright.png,../clipart/previews/shapes/PhotoLicenses/copyright.png" thumbUrl="../clipart/previews/shapes/PhotoLicenses/copyright.png" title="Photo Licenses">
+			<Shapes>
+				<Clipart cHeight="137" cWidth="137" previewUrl="../clipart/previews/shapes/PhotoLicenses/copyright.png" toolTipText="Copyright (all rights reserved)" url="shapes/copyright.swf"/>
+				<Clipart cHeight="137" cWidth="137" previewUrl="../clipart/previews/shapes/PhotoLicenses/cc_attribution.png" toolTipText="Creative Commons Attribution License" url="shapes/cc_attribution.swf"/>
+				<Clipart cHeight="137" cWidth="137" previewUrl="../clipart/previews/shapes/PhotoLicenses/cc_noncommercial.png" toolTipText="Creative Commons Noncommercial License" url="shapes/cc_noncommercial.swf"/>
+				<Clipart cHeight="137" cWidth="137" previewUrl="../clipart/previews/shapes/PhotoLicenses/cc_noderivatives.png" toolTipText="Creative Commons No Derivatives License" url="shapes/cc_noderivatives.swf"/>
+				<Clipart cHeight="137" cWidth="137" previewUrl="../clipart/previews/shapes/PhotoLicenses/cc_sharealike.png" toolTipText="Creative Commons Share Alike License" url="shapes/cc_sharealike.swf"/>
+				<Clipart cHeight="137" cWidth="137" previewUrl="../clipart/previews/shapes/PhotoLicenses/registered_trademark.png" toolTipText="Registered Trademark" url="shapes/registered_trademark.swf"/>
+				<Clipart cHeight="70" cWidth="141" previewUrl="../clipart/previews/shapes/PhotoLicenses/tm.png" toolTipText="Trademark Symbol" url="shapes/tm.swf"/>
+				<Clipart cHeight="203" cWidth="521" previewUrl="../clipart/previews/shapes/PhotoLicenses/picnik_logo.png" toolTipText="Picnik" url="shapes/picnik_logo.swf"/>
+			</Shapes>
+		</ShapeCategory>
+		<ShapeCategory id="Kisses" numShapes="12" previewUrls="../clipart/previews/shapes/Kisses/lips01.png,../clipart/previews/shapes/Kisses/lips01.png,../clipart/previews/shapes/Kisses/lips01.png,../clipart/previews/shapes/Kisses/lips01.png" thumbUrl="../clipart/previews/shapes/Kisses/lips01.png" title="Romance">
+			<Shapes>
+				<Clipart cHeight="218" cWidth="458" color="14352425" previewUrl="../clipart/previews/shapes/Kisses/lips01.png" url="shapes/lips01.swf"/>
+				<Clipart cHeight="289" cWidth="357" color="14352425" previewUrl="../clipart/previews/shapes/Kisses/lips03.png" url="shapes/lips03.swf"/>
+				<Clipart cHeight="104" cWidth="120" previewUrl="../clipart/previews/shapes/Hearts/heart04.png" url="shapes/heart04.swf"/>
+				<Clipart cHeight="99" cWidth="114" previewUrl="../clipart/previews/shapes/Hearts/heart06.png" url="shapes/heart06.swf"/>
+				<Clipart cHeight="1100" cWidth="760" previewUrl="../clipart/previews/shapes/ValentinesIcons/valentines_icon06.png" url="shapes/valentines_icon06.swf"/>
+				<Clipart cHeight="850" cWidth="620" previewUrl="../clipart/previews/shapes/ValentinesIcons/valentines_icon09.png" url="shapes/valentines_icon09.swf"/>
+				<Clipart cHeight="850" cWidth="430" previewUrl="../clipart/previews/shapes/ValentinesIcons/valentines_icon08.png" url="shapes/valentines_icon08.swf"/>
+				<Clipart cHeight="835" cWidth="575" previewUrl="../clipart/previews/shapes/ValentinesIcons/valentines_icon07.png" url="shapes/valentines_icon07.swf"/>
+				<Clipart cHeight="405" cWidth="340" previewUrl="../clipart/previews/shapes/Presents/present_red-silver.png" url="shapes/present_red-silver.swf"/>
+				<Clipart cHeight="405" cWidth="340" previewUrl="../clipart/previews/shapes/Presents/present_red.png" url="shapes/present_red.swf"/>
+				<Clipart cHeight="245" cWidth="340" previewUrl="../clipart/previews/shapes/Presents/bow_red.png" url="shapes/bow_red.swf"/>
+				<Clipart cHeight="245" cWidth="340" previewUrl="../clipart/previews/shapes/Presents/bow_silver.png" url="shapes/bow_silver.swf"/>
+			</Shapes>
+		</ShapeCategory>
+		<ShapeCategory id="WeddingIcons" numShapes="12" previewUrls="../clipart/previews/shapes/WeddingIcons/wedding01.png,../clipart/previews/shapes/WeddingIcons/wedding01.png,../clipart/previews/shapes/WeddingIcons/wedding01.png,../clipart/previews/shapes/WeddingIcons/wedding01.png" thumbUrl="../clipart/previews/shapes/WeddingIcons/wedding01.png" title="Wedding Icons">
+			<Shapes>
+				<Clipart cHeight="232" cWidth="176" previewUrl="../clipart/previews/shapes/WeddingIcons/wedding01.png" url="shapes/wedding01.swf"/>
+				<Clipart cHeight="225" cWidth="79" previewUrl="../clipart/previews/shapes/WeddingIcons/wedding02.png" url="shapes/wedding02.swf"/>
+				<Clipart cHeight="90" cWidth="60" previewUrl="../clipart/previews/shapes/WeddingIcons/wedding03.png" url="shapes/wedding03.swf"/>
+				<Clipart cHeight="45" cWidth="65" previewUrl="../clipart/previews/shapes/WeddingIcons/wedding04.png" url="shapes/wedding04.swf"/>
+				<Clipart cHeight="110" cWidth="135" previewUrl="../clipart/previews/shapes/WeddingIcons/wedding05.png" url="shapes/wedding05.swf"/>
+				<Clipart cHeight="55" cWidth="60" previewUrl="../clipart/previews/shapes/WeddingIcons/wedding06.png" url="shapes/wedding06.swf"/>
+				<Clipart cHeight="52" cWidth="54" previewUrl="../clipart/previews/shapes/WeddingIcons/wedding07.png" url="shapes/wedding07.swf"/>
+				<Clipart cHeight="47" cWidth="69" previewUrl="../clipart/previews/shapes/WeddingIcons/wedding08.png" url="shapes/wedding08.swf"/>
+				<Clipart cHeight="15" cWidth="35" previewUrl="../clipart/previews/shapes/WeddingIcons/wedding09.png" url="shapes/wedding09.swf"/>
+				<Clipart cHeight="15" cWidth="35" previewUrl="../clipart/previews/shapes/WeddingIcons/wedding10.png" url="shapes/wedding10.swf"/>
+				<Clipart cHeight="37" cWidth="61" previewUrl="../clipart/previews/shapes/WeddingIcons/wedding11.png" url="shapes/wedding11.swf"/>
+				<Clipart cHeight="84" cWidth="237" previewUrl="../clipart/previews/shapes/WeddingIcons/wedding12.png" url="shapes/wedding12.swf"/>
+			</Shapes>
+		</ShapeCategory>
+		<ShapeCategory id="Animals" numShapes="12" previewUrls="../clipart/previews/shapes/dz_tombats_4/Tombats_Four_082.png,../clipart/previews/shapes/dz_tombats_4/Tombats_Four_082.png,../clipart/previews/shapes/dz_tombats_4/Tombats_Four_082.png,../clipart/previews/shapes/dz_tombats_4/Tombats_Four_082.png" thumbUrl="../clipart/previews/shapes/dz_tombats_4/Tombats_Four_082.png" title="Animals">
+			<Shapes>
+				<Clipart authorName="Divide by Zero" authorUrl="http://fonts.tom7.com/" cHeight="100" cWidth="79" premium="true" previewUrl="../clipart/previews/shapes/dz_tombats_4/Tombats_Four_082.png" url="shapes/Tombats_Four_082.swf"/>
+				<Clipart authorName="Divide by Zero" authorUrl="http://fonts.tom7.com/" cHeight="100" cWidth="79" premium="true" previewUrl="../clipart/previews/shapes/dz_tombats_7/Tombats_7_105.png" url="shapes/Tombats_7_105.swf"/>
+				<Clipart authorName="Divide by Zero" authorUrl="http://fonts.tom7.com/" cHeight="100" cWidth="65" premium="true" previewUrl="../clipart/previews/shapes/dz_tombats_7/Tombats_7_104.png" url="shapes/Tombats_7_104.swf"/>
+				<Clipart authorName="Divide by Zero" authorUrl="http://fonts.tom7.com/" cHeight="100" cWidth="82" premium="true" previewUrl="../clipart/previews/shapes/dz_tombat_smilies/Tombats_Smilies_109.png" url="shapes/Tombats_Smilies_109.swf"/>
+				<Clipart authorName="Divide by Zero" authorUrl="http://fonts.tom7.com/" cHeight="77" cWidth="100" premium="true" previewUrl="../clipart/previews/shapes/dz_tombats_7/Tombats_7_097.png" url="shapes/Tombats_7_097.swf"/>
+				<Clipart authorName="Divide by Zero" authorUrl="http://fonts.tom7.com/" cHeight="83" cWidth="100" premium="true" previewUrl="../clipart/previews/shapes/dz_tombats_7/Tombats_7_065.png" url="shapes/Tombats_7_065.swf"/>
+				<Clipart authorName="Divide by Zero" authorUrl="http://fonts.tom7.com/" cHeight="82" cWidth="100" premium="true" previewUrl="../clipart/previews/shapes/dz_tombats_4/Tombats_Four_104.png" url="shapes/Tombats_Four_104.swf"/>
+				<Clipart authorName="Divide by Zero" authorUrl="http://fonts.tom7.com/" cHeight="100" cWidth="71" premium="true" previewUrl="../clipart/previews/shapes/dz_tombats_3/Tombats_Three_101.png" url="shapes/Tombats_Three_101.swf"/>
+				<Clipart authorName="Divide by Zero" authorUrl="http://fonts.tom7.com/" cHeight="65" cWidth="100" premium="true" previewUrl="../clipart/previews/shapes/dz_tombats_1/Tombats_087.png" url="shapes/Tombats_087.swf"/>
+				<Clipart authorName="Divide by Zero" authorUrl="http://fonts.tom7.com/" cHeight="100" cWidth="72" premium="true" previewUrl="../clipart/previews/shapes/dz_tombats_6/Tombats_6_113.png" url="shapes/Tombats_6_113.swf"/>
+				<Clipart authorName="Divide by Zero" authorUrl="http://fonts.tom7.com/" cHeight="82" cWidth="100" premium="true" previewUrl="../clipart/previews/shapes/dz_tombats_7/Tombats_7_071.png" url="shapes/Tombats_7_071.swf"/>
+				<Clipart authorName="Divide by Zero" authorUrl="http://fonts.tom7.com/" cHeight="75" cWidth="100" premium="true" previewUrl="../clipart/previews/shapes/dz_tombat_smilies/Tombats_Smilies_118.png" url="shapes/Tombats_Smilies_118.swf"/>
+			</Shapes>
+		</ShapeCategory>
+		<ShapeCategory id="mk_Floralia" numShapes="8" previewUrls="../clipart/previews/shapes/mk_Floralia/Floralia_110.png,../clipart/previews/shapes/mk_Floralia/Floralia_110.png,../clipart/previews/shapes/mk_Floralia/Floralia_110.png,../clipart/previews/shapes/mk_Floralia/Floralia_110.png" thumbUrl="../clipart/previews/shapes/mk_Floralia/Floralia_110.png" title="Floralia">
+			<Shapes>
+				<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="100" cWidth="55" premium="true" previewUrl="../clipart/previews/shapes/mk_Floralia/Floralia_110.png" url="shapes/Floralia_110.swf"/>
+				<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="55" cWidth="100" premium="true" previewUrl="../clipart/previews/shapes/mk_Floralia/Floralia_088.png" url="shapes/Floralia_088.swf"/>
+				<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="100" cWidth="64" premium="true" previewUrl="../clipart/previews/shapes/mk_Floralia/Floralia_113.png" url="shapes/Floralia_113.swf"/>
+				<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="73" cWidth="100" premium="true" previewUrl="../clipart/previews/shapes/mk_Floralia/Floralia_112.png" url="shapes/Floralia_112.swf"/>
+				<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="100" cWidth="65" premium="true" previewUrl="../clipart/previews/shapes/mk_Floralia/Floralia_117.png" url="shapes/Floralia_117.swf"/>
+				<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="100" cWidth="91" premium="true" previewUrl="../clipart/previews/shapes/mk_Floralia/Floralia_068.png" url="shapes/Floralia_068.swf"/>
+				<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="100" cWidth="94" premium="true" previewUrl="../clipart/previews/shapes/mk_Floralia/Floralia_115.png" url="shapes/Floralia_115.swf"/>
+				<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="94" cWidth="100" premium="true" previewUrl="../clipart/previews/shapes/mk_Floralia/Floralia_111.png" url="shapes/Floralia_111.swf"/>
+			</Shapes>
+		</ShapeCategory>
+		<ShapeCategory id="Smilies" numShapes="12" previewUrls="../clipart/previews/shapes/dz_tombats_3/Tombats_Three_109.png,../clipart/previews/shapes/dz_tombats_3/Tombats_Three_109.png,../clipart/previews/shapes/dz_tombats_3/Tombats_Three_109.png,../clipart/previews/shapes/dz_tombats_3/Tombats_Three_109.png" thumbUrl="../clipart/previews/shapes/dz_tombats_3/Tombats_Three_109.png" title="Smilies">
+			<Shapes>
+				<Clipart authorName="Divide by Zero" authorUrl="http://fonts.tom7.com/" cHeight="100" cWidth="87" premium="true" previewUrl="../clipart/previews/shapes/dz_tombats_3/Tombats_Three_109.png" url="shapes/Tombats_Three_109.swf"/>
+				<Clipart authorName="Divide by Zero" authorUrl="http://fonts.tom7.com/" cHeight="100" cWidth="76" premium="true" previewUrl="../clipart/previews/shapes/dz_tombats_3/Tombats_Three_108.png" url="shapes/Tombats_Three_108.swf"/>
+				<Clipart authorName="Divide by Zero" authorUrl="http://fonts.tom7.com/" cHeight="85" cWidth="100" premium="true" previewUrl="../clipart/previews/shapes/dz_tombat_smilies/Tombats_Smilies_087.png" url="shapes/Tombats_Smilies_087.swf"/>
+				<Clipart authorName="Divide by Zero" authorUrl="http://fonts.tom7.com/" cHeight="100" cWidth="84" premium="true" previewUrl="../clipart/previews/shapes/dz_tombats_3/Tombats_Three_107.png" url="shapes/Tombats_Three_107.swf"/>
+				<Clipart authorName="Divide by Zero" authorUrl="http://fonts.tom7.com/" cHeight="100" cWidth="80" premium="true" previewUrl="../clipart/previews/shapes/dz_tombats_3/Tombats_Three_073.png" url="shapes/Tombats_Three_073.swf"/>
+				<Clipart authorName="Divide by Zero" authorUrl="http://fonts.tom7.com/" cHeight="73" cWidth="100" premium="true" previewUrl="../clipart/previews/shapes/dz_tombats_6/Tombats_6_098.png" url="shapes/Tombats_6_098.swf"/>
+				<Clipart authorName="Divide by Zero" authorUrl="http://fonts.tom7.com/" cHeight="100" cWidth="80" premium="true" previewUrl="../clipart/previews/shapes/dz_tombats_1/Tombats_068.png" url="shapes/Tombats_068.swf"/>
+				<Clipart authorName="Divide by Zero" authorUrl="http://fonts.tom7.com/" cHeight="100" cWidth="80" premium="true" previewUrl="../clipart/previews/shapes/dz_tombats_1/Tombats_067.png" url="shapes/Tombats_067.swf"/>
+				<Clipart authorName="Divide by Zero" authorUrl="http://fonts.tom7.com/" cHeight="100" cWidth="86" premium="true" previewUrl="../clipart/previews/shapes/dz_tombats_4/Tombats_Four_088.png" url="shapes/Tombats_Four_088.swf"/>
+				<Clipart authorName="Divide by Zero" authorUrl="http://fonts.tom7.com/" cHeight="100" cWidth="92" premium="true" previewUrl="../clipart/previews/shapes/dz_tombat_smilies/Tombats_Smilies_071.png" url="shapes/Tombats_Smilies_071.swf"/>
+				<Clipart authorName="Divide by Zero" authorUrl="http://fonts.tom7.com/" cHeight="97" cWidth="100" premium="true" previewUrl="../clipart/previews/shapes/dz_tombat_smilies/Tombats_Smilies_068.png" url="shapes/Tombats_Smilies_068.swf"/>
+				<Clipart authorName="Divide by Zero" authorUrl="http://fonts.tom7.com/" cHeight="85" cWidth="100" premium="true" previewUrl="../clipart/previews/shapes/dz_tombats_1/Tombats_081.png" url="shapes/Tombats_081.swf"/>
+			</Shapes>
+		</ShapeCategory>
+		<ShapeCategory id="ld_loosydings_expert" numShapes="16" previewUrls="../clipart/previews/shapes/ld_loosydings_expert/Loosydings_Expert_113.png,../clipart/previews/shapes/ld_loosydings_expert/Loosydings_Expert_113.png,../clipart/previews/shapes/ld_loosydings_expert/Loosydings_Expert_113.png,../clipart/previews/shapes/ld_loosydings_expert/Loosydings_Expert_113.png" thumbUrl="../clipart/previews/shapes/ld_loosydings_expert/Loosydings_Expert_113.png" title="Loosy Design">
+			<Shapes>
+				<Clipart authorName="Loosy Design" authorUrl="http://www.loosydesign.com/" cHeight="52" cWidth="100" premium="true" previewUrl="../clipart/previews/shapes/ld_loosydings_expert/Loosydings_Expert_113.png" url="shapes/Loosydings_Expert_113.swf"/>
+				<Clipart authorName="Loosy Design" authorUrl="http://www.loosydesign.com/" cHeight="100" cWidth="87" premium="true" previewUrl="../clipart/previews/shapes/ld_loosydings_expert/Loosydings_Expert_058.png" url="shapes/Loosydings_Expert_058.swf"/>
+				<Clipart authorName="Loosy Design" authorUrl="http://www.loosydesign.com/" cHeight="100" cWidth="88" premium="true" previewUrl="../clipart/previews/shapes/ld_loosydings_expert/Loosydings_Expert_121.png" url="shapes/Loosydings_Expert_121.swf"/>
+				<Clipart authorName="Loosy Design" authorUrl="http://www.loosydesign.com/" cHeight="100" cWidth="76" premium="true" previewUrl="../clipart/previews/shapes/ld_loosydings_expert/Loosydings_Expert_088.png" url="shapes/Loosydings_Expert_088.swf"/>
+				<Clipart authorName="Loosy Design" authorUrl="http://www.loosydesign.com/" cHeight="80" cWidth="100" premium="true" previewUrl="../clipart/previews/shapes/ld_loosydings_expert/Loosydings_Expert_068.png" url="shapes/Loosydings_Expert_068.swf"/>
+				<Clipart authorName="Loosy Design" authorUrl="http://www.loosydesign.com/" cHeight="58" cWidth="100" premium="true" previewUrl="../clipart/previews/shapes/ld_loosydings_expert/Loosydings_Expert_081.png" url="shapes/Loosydings_Expert_081.swf"/>
+				<Clipart authorName="Loosy Design" authorUrl="http://www.loosydesign.com/" cHeight="100" cWidth="86" premium="true" previewUrl="../clipart/previews/shapes/ld_loosydings_expert/Loosydings_Expert_069.png" url="shapes/Loosydings_Expert_069.swf"/>
+				<Clipart authorName="Loosy Design" authorUrl="http://www.loosydesign.com/" cHeight="89" cWidth="100" premium="true" previewUrl="../clipart/previews/shapes/ld_loosydings_expert/Loosydings_Expert_114.png" url="shapes/Loosydings_Expert_114.swf"/>
+				<Clipart authorName="Loosy Design" authorUrl="http://www.loosydesign.com/" cHeight="100" cWidth="60" premium="true" previewUrl="../clipart/previews/shapes/ld_loosydings_expert/Loosydings_Expert_072.png" url="shapes/Loosydings_Expert_072.swf"/>
+				<Clipart authorName="Loosy Design" authorUrl="http://www.loosydesign.com/" cHeight="100" cWidth="40" premium="true" previewUrl="../clipart/previews/shapes/ld_loosydings_expert/Loosydings_Expert_075.png" url="shapes/Loosydings_Expert_075.swf"/>
+				<Clipart authorName="Loosy Design" authorUrl="http://www.loosydesign.com/" cHeight="80" cWidth="100" premium="true" previewUrl="../clipart/previews/shapes/ld_loosydings_expert/Loosydings_Expert_067.png" url="shapes/Loosydings_Expert_067.swf"/>
+				<Clipart authorName="Loosy Design" authorUrl="http://www.loosydesign.com/" cHeight="100" cWidth="73" premium="true" previewUrl="../clipart/previews/shapes/ld_loosydings_expert/Loosydings_Expert_071.png" url="shapes/Loosydings_Expert_071.swf"/>
+				<Clipart authorName="Loosy Design" authorUrl="http://www.loosydesign.com/" cHeight="75" cWidth="100" premium="true" previewUrl="../clipart/previews/shapes/ld_loosydings_expert/Loosydings_Expert_066.png" url="shapes/Loosydings_Expert_066.swf"/>
+				<Clipart authorName="Loosy Design" authorUrl="http://www.loosydesign.com/" cHeight="100" cWidth="68" premium="true" previewUrl="../clipart/previews/shapes/ld_loosydings_expert/Loosydings_Expert_077.png" url="shapes/Loosydings_Expert_077.swf"/>
+				<Clipart authorName="Loosy Design" authorUrl="http://www.loosydesign.com/" cHeight="93" cWidth="100" premium="true" previewUrl="../clipart/previews/shapes/ld_loosydings_expert/Loosydings_Expert_051.png" url="shapes/Loosydings_Expert_051.swf"/>
+				<Clipart authorName="Loosy Design" authorUrl="http://www.loosydesign.com/" cHeight="99" cWidth="100" premium="true" previewUrl="../clipart/previews/shapes/ld_loosydings_expert/Loosydings_Expert_054.png" url="shapes/Loosydings_Expert_054.swf"/>
+			</Shapes>
+		</ShapeCategory>
+		<ShapeCategory id="Symbols" numShapes="20" previewUrls="../clipart/previews/shapes/dz_tombats_1/Tombats_099.png,../clipart/previews/shapes/dz_tombats_1/Tombats_099.png,../clipart/previews/shapes/dz_tombats_1/Tombats_099.png,../clipart/previews/shapes/dz_tombats_1/Tombats_099.png" thumbUrl="../clipart/previews/shapes/dz_tombats_1/Tombats_099.png" title="Symbols">
+			<Shapes>
+				<Clipart authorName="Divide by Zero" authorUrl="http://fonts.tom7.com/" cHeight="87" cWidth="100" premium="true" previewUrl="../clipart/previews/shapes/dz_tombats_1/Tombats_099.png" url="shapes/Tombats_099.swf"/>
+				<Clipart authorName="Divide by Zero" authorUrl="http://fonts.tom7.com/" cHeight="87" cWidth="100" premium="true" previewUrl="../clipart/previews/shapes/dz_tombats_1/Tombats_098.png" url="shapes/Tombats_098.swf"/>
+				<Clipart authorName="Divide by Zero" authorUrl="http://fonts.tom7.com/" cHeight="87" cWidth="100" premium="true" previewUrl="../clipart/previews/shapes/dz_tombats_7/Tombats_7_102.png" url="shapes/Tombats_7_102.swf"/>
+				<Clipart authorName="Divide by Zero" authorUrl="http://fonts.tom7.com/" cHeight="100" cWidth="94" premium="true" previewUrl="../clipart/previews/shapes/dz_tombats_7/Tombats_7_082.png" url="shapes/Tombats_7_082.swf"/>
+				<Clipart authorName="Divide by Zero" authorUrl="http://fonts.tom7.com/" cHeight="94" cWidth="100" premium="true" previewUrl="../clipart/previews/shapes/dz_tombats_3/Tombats_Three_104.png" url="shapes/Tombats_Three_104.swf"/>
+				<Clipart authorName="Divide by Zero" authorUrl="http://fonts.tom7.com/" cHeight="100" cWidth="98" premium="true" previewUrl="../clipart/previews/shapes/dz_tombats_3/Tombats_Three_113.png" url="shapes/Tombats_Three_113.swf"/>
+				<Clipart authorName="Divide by Zero" authorUrl="http://fonts.tom7.com/" cHeight="28" cWidth="100" premium="true" previewUrl="../clipart/previews/shapes/dz_tombats_1/Tombats_114.png" url="shapes/Tombats_114.swf"/>
+				<Clipart authorName="Divide by Zero" authorUrl="http://fonts.tom7.com/" cHeight="100" cWidth="99" premium="true" previewUrl="../clipart/previews/shapes/dz_tombats_3/Tombats_Three_112.png" url="shapes/Tombats_Three_112.swf"/>
+				<Clipart authorName="Divide by Zero" authorUrl="http://fonts.tom7.com/" cHeight="100" cWidth="71" premium="true" previewUrl="../clipart/previews/shapes/dz_tombats_1/Tombats_103.png" url="shapes/Tombats_103.swf"/>
+				<Clipart authorName="Divide by Zero" authorUrl="http://fonts.tom7.com/" cHeight="100" cWidth="59" premium="true" previewUrl="../clipart/previews/shapes/dz_tombats_7/Tombats_7_085.png" url="shapes/Tombats_7_085.swf"/>
+				<Clipart authorName="Divide by Zero" authorUrl="http://fonts.tom7.com/" cHeight="100" cWidth="87" premium="true" previewUrl="../clipart/previews/shapes/dz_tombats_3/Tombats_Three_065.png" url="shapes/Tombats_Three_065.swf"/>
+				<Clipart authorName="Divide by Zero" authorUrl="http://fonts.tom7.com/" cHeight="100" cWidth="67" premium="true" previewUrl="../clipart/previews/shapes/dz_tombats_1/Tombats_078.png" url="shapes/Tombats_078.swf"/>
+				<Clipart authorName="Divide by Zero" authorUrl="http://fonts.tom7.com/" cHeight="89" cWidth="100" premium="true" previewUrl="../clipart/previews/shapes/dz_tombats_6/Tombats_6_083.png" url="shapes/Tombats_6_083.swf"/>
+				<Clipart authorName="Divide by Zero" authorUrl="http://fonts.tom7.com/" cHeight="100" cWidth="28" premium="true" previewUrl="../clipart/previews/shapes/dz_tombats_1/Tombats_084.png" url="shapes/Tombats_084.swf"/>
+				<Clipart authorName="Divide by Zero" authorUrl="http://fonts.tom7.com/" cHeight="100" cWidth="25" premium="true" previewUrl="../clipart/previews/shapes/dz_tombats_1/Tombats_082.png" url="shapes/Tombats_082.swf"/>
+				<Clipart authorName="Divide by Zero" authorUrl="http://fonts.tom7.com/" cHeight="100" cWidth="17" premium="true" previewUrl="../clipart/previews/shapes/dz_tombats_1/Tombats_083.png" url="shapes/Tombats_083.swf"/>
+				<Clipart authorName="Divide by Zero" authorUrl="http://fonts.tom7.com/" cHeight="100" cWidth="85" premium="true" previewUrl="../clipart/previews/shapes/dz_tombats_1/Tombats_070.png" url="shapes/Tombats_070.swf"/>
+				<Clipart authorName="Divide by Zero" authorUrl="http://fonts.tom7.com/" cHeight="100" cWidth="80" premium="true" previewUrl="../clipart/previews/shapes/dz_tombats_4/Tombats_Four_119.png" url="shapes/Tombats_Four_119.swf"/>
+				<Clipart authorName="Divide by Zero" authorUrl="http://fonts.tom7.com/" cHeight="100" cWidth="39" premium="true" previewUrl="../clipart/previews/shapes/dz_tombats_3/Tombats_Three_117.png" url="shapes/Tombats_Three_117.swf"/>
+				<Clipart authorName="Divide by Zero" authorUrl="http://fonts.tom7.com/" cHeight="100" cWidth="40" premium="true" previewUrl="../clipart/previews/shapes/dz_tombats_3/Tombats_Three_116.png" url="shapes/Tombats_Three_116.swf"/>
+			</Shapes>
+		</ShapeCategory>
+		<ShapeCategory id="mk_ZooWoodcutsM" numShapes="12" previewUrls="../clipart/previews/shapes/mk_ZooWoodcutsM/ZooWoodcutsM_100.png,../clipart/previews/shapes/mk_ZooWoodcutsM/ZooWoodcutsM_100.png,../clipart/previews/shapes/mk_ZooWoodcutsM/ZooWoodcutsM_100.png,../clipart/previews/shapes/mk_ZooWoodcutsM/ZooWoodcutsM_100.png" thumbUrl="../clipart/previews/shapes/mk_ZooWoodcutsM/ZooWoodcutsM_100.png" title="Zoo Woodcuts">
+			<Shapes>
+				<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="100" cWidth="96" premium="true" previewUrl="../clipart/previews/shapes/mk_ZooWoodcutsM/ZooWoodcutsM_100.png" url="shapes/ZooWoodcutsM_100.swf"/>
+				<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="100" cWidth="87" premium="true" previewUrl="../clipart/previews/shapes/mk_ZooWoodcutsM/ZooWoodcutsM_102.png" url="shapes/ZooWoodcutsM_102.swf"/>
+				<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="91" cWidth="100" premium="true" previewUrl="../clipart/previews/shapes/mk_ZooWoodcutsM/ZooWoodcutsM_120.png" url="shapes/ZooWoodcutsM_120.swf"/>
+				<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="100" cWidth="83" premium="true" previewUrl="../clipart/previews/shapes/mk_ZooWoodcutsM/ZooWoodcutsM_087.png" url="shapes/ZooWoodcutsM_087.swf"/>
+				<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="72" cWidth="100" premium="true" previewUrl="../clipart/previews/shapes/mk_ZooWoodcutsM/ZooWoodcutsM_109.png" url="shapes/ZooWoodcutsM_109.swf"/>
+				<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="53" cWidth="100" premium="true" previewUrl="../clipart/previews/shapes/mk_ZooWoodcutsM/ZooWoodcutsM_066.png" url="shapes/ZooWoodcutsM_066.swf"/>
+				<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="88" cWidth="100" premium="true" previewUrl="../clipart/previews/shapes/mk_ZooWoodcutsM/ZooWoodcutsM_099.png" url="shapes/ZooWoodcutsM_099.swf"/>
+				<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="100" cWidth="75" premium="true" previewUrl="../clipart/previews/shapes/mk_ZooWoodcutsM/ZooWoodcutsM_080.png" url="shapes/ZooWoodcutsM_080.swf"/>
+				<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="52" cWidth="100" premium="true" previewUrl="../clipart/previews/shapes/mk_ZooWoodcutsM/ZooWoodcutsM_054.png" url="shapes/ZooWoodcutsM_054.swf"/>
+				<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="69" cWidth="100" premium="true" previewUrl="../clipart/previews/shapes/mk_ZooWoodcutsM/ZooWoodcutsM_098.png" url="shapes/ZooWoodcutsM_098.swf"/>
+				<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="100" cWidth="97" premium="true" previewUrl="../clipart/previews/shapes/mk_ZooWoodcutsM/ZooWoodcutsM_076.png" url="shapes/ZooWoodcutsM_076.swf"/>
+				<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="92" cWidth="100" premium="true" previewUrl="../clipart/previews/shapes/mk_ZooWoodcutsM/ZooWoodcutsM_056.png" url="shapes/ZooWoodcutsM_056.swf"/>
+			</Shapes>
+		</ShapeCategory>
+		<ShapeCategory id="mk_ChildrensDarlings" numShapes="8" previewUrls="../clipart/previews/shapes/mk_ChildrensDarlings/ChildrensDarlings_109.png,../clipart/previews/shapes/mk_ChildrensDarlings/ChildrensDarlings_109.png,../clipart/previews/shapes/mk_ChildrensDarlings/ChildrensDarlings_109.png,../clipart/previews/shapes/mk_ChildrensDarlings/ChildrensDarlings_109.png" thumbUrl="../clipart/previews/shapes/mk_ChildrensDarlings/ChildrensDarlings_109.png" title="Childrens Darlings">
+			<Shapes>
+				<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="100" cWidth="64" premium="true" previewUrl="../clipart/previews/shapes/mk_ChildrensDarlings/ChildrensDarlings_109.png" url="shapes/ChildrensDarlings_109.swf"/>
+				<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="97" cWidth="100" premium="true" previewUrl="../clipart/previews/shapes/mk_ChildrensDarlings/ChildrensDarlings_084.png" url="shapes/ChildrensDarlings_084.swf"/>
+				<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="100" cWidth="83" premium="true" previewUrl="../clipart/previews/shapes/mk_ChildrensDarlings/ChildrensDarlings_055.png" url="shapes/ChildrensDarlings_055.swf"/>
+				<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="100" cWidth="72" premium="true" previewUrl="../clipart/previews/shapes/mk_ChildrensDarlings/ChildrensDarlings_102.png" url="shapes/ChildrensDarlings_102.swf"/>
+				<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="100" cWidth="70" premium="true" previewUrl="../clipart/previews/shapes/mk_ChildrensDarlings/ChildrensDarlings_046.png" url="shapes/ChildrensDarlings_046.swf"/>
+				<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="99" cWidth="100" premium="true" previewUrl="../clipart/previews/shapes/mk_ChildrensDarlings/ChildrensDarlings_050.png" url="shapes/ChildrensDarlings_050.swf"/>
+				<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="100" cWidth="98" premium="true" previewUrl="../clipart/previews/shapes/mk_ChildrensDarlings/ChildrensDarlings_091.png" url="shapes/ChildrensDarlings_091.swf"/>
+				<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="100" cWidth="77" premium="true" previewUrl="../clipart/previews/shapes/mk_ChildrensDarlings/ChildrensDarlings_066.png" url="shapes/ChildrensDarlings_066.swf"/>
+			</Shapes>
+		</ShapeCategory>
+		<ShapeCategory id="mk_AnimaliaScissored" numShapes="12" previewUrls="../clipart/previews/shapes/mk_AnimaliaScissored/AnimaliaScissored_069.png,../clipart/previews/shapes/mk_AnimaliaScissored/AnimaliaScissored_069.png,../clipart/previews/shapes/mk_AnimaliaScissored/AnimaliaScissored_069.png,../clipart/previews/shapes/mk_AnimaliaScissored/AnimaliaScissored_069.png" thumbUrl="../clipart/previews/shapes/mk_AnimaliaScissored/AnimaliaScissored_069.png" title="Animalia Scissored">
+			<Shapes>
+				<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="100" cWidth="53" premium="true" previewUrl="../clipart/previews/shapes/mk_AnimaliaScissored/AnimaliaScissored_069.png" url="shapes/AnimaliaScissored_069.swf"/>
+				<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="73" cWidth="100" premium="true" previewUrl="../clipart/previews/shapes/mk_AnimaliaScissored/AnimaliaScissored_067.png" url="shapes/AnimaliaScissored_067.swf"/>
+				<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="77" cWidth="100" premium="true" previewUrl="../clipart/previews/shapes/mk_AnimaliaScissored/AnimaliaScissored_090.png" url="shapes/AnimaliaScissored_090.swf"/>
+				<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="59" cWidth="100" premium="true" previewUrl="../clipart/previews/shapes/mk_AnimaliaScissored/AnimaliaScissored_066.png" url="shapes/AnimaliaScissored_066.swf"/>
+				<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="55" cWidth="100" premium="true" previewUrl="../clipart/previews/shapes/mk_AnimaliaScissored/AnimaliaScissored_074.png" url="shapes/AnimaliaScissored_074.swf"/>
+				<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="55" cWidth="100" premium="true" previewUrl="../clipart/previews/shapes/mk_AnimaliaScissored/AnimaliaScissored_070.png" url="shapes/AnimaliaScissored_070.swf"/>
+				<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="100" cWidth="87" premium="true" previewUrl="../clipart/previews/shapes/mk_AnimaliaScissored/AnimaliaScissored_111.png" url="shapes/AnimaliaScissored_111.swf"/>
+				<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="66" cWidth="100" premium="true" previewUrl="../clipart/previews/shapes/mk_AnimaliaScissored/AnimaliaScissored_086.png" url="shapes/AnimaliaScissored_086.swf"/>
+				<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="100" cWidth="80" premium="true" previewUrl="../clipart/previews/shapes/mk_AnimaliaScissored/AnimaliaScissored_097.png" url="shapes/AnimaliaScissored_097.swf"/>
+				<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="90" cWidth="100" premium="true" previewUrl="../clipart/previews/shapes/mk_AnimaliaScissored/AnimaliaScissored_082.png" url="shapes/AnimaliaScissored_082.swf"/>
+				<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="98" cWidth="100" premium="true" previewUrl="../clipart/previews/shapes/mk_AnimaliaScissored/AnimaliaScissored_078.png" url="shapes/AnimaliaScissored_078.swf"/>
+				<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="98" cWidth="100" premium="true" previewUrl="../clipart/previews/shapes/mk_AnimaliaScissored/AnimaliaScissored_092.png" url="shapes/AnimaliaScissored_092.swf"/>
+			</Shapes>
+		</ShapeCategory>
+		<ShapeCategory id="mk_MediaevalBats" numShapes="8" previewUrls="../clipart/previews/shapes/mk_MediaevalBats/MediaevalBats_033.png,../clipart/previews/shapes/mk_MediaevalBats/MediaevalBats_033.png,../clipart/previews/shapes/mk_MediaevalBats/MediaevalBats_033.png,../clipart/previews/shapes/mk_MediaevalBats/MediaevalBats_033.png" thumbUrl="../clipart/previews/shapes/mk_MediaevalBats/MediaevalBats_033.png" title="Mediaeval">
+			<Shapes>
+				<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="100" cWidth="57" premium="true" previewUrl="../clipart/previews/shapes/mk_MediaevalBats/MediaevalBats_033.png" url="shapes/MediaevalBats_033.swf"/>
+				<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="100" cWidth="35" premium="true" previewUrl="../clipart/previews/shapes/mk_MediaevalBats/MediaevalBats_045.png" url="shapes/MediaevalBats_045.swf"/>
+				<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="88" cWidth="100" premium="true" previewUrl="../clipart/previews/shapes/mk_MediaevalBats/MediaevalBats_050.png" url="shapes/MediaevalBats_050.swf"/>
+				<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="99" cWidth="100" premium="true" previewUrl="../clipart/previews/shapes/mk_MediaevalBats/MediaevalBats_068.png" url="shapes/MediaevalBats_068.swf"/>
+				<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="100" cWidth="81" premium="true" previewUrl="../clipart/previews/shapes/mk_MediaevalBats/MediaevalBats_090.png" url="shapes/MediaevalBats_090.swf"/>
+				<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="99" cWidth="100" premium="true" previewUrl="../clipart/previews/shapes/mk_MediaevalBats/MediaevalBats_093.png" url="shapes/MediaevalBats_093.swf"/>
+				<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="100" cWidth="98" premium="true" previewUrl="../clipart/previews/shapes/mk_MediaevalBats/MediaevalBats_123.png" url="shapes/MediaevalBats_123.swf"/>
+				<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="100" cWidth="67" premium="true" previewUrl="../clipart/previews/shapes/mk_MediaevalBats/MediaevalBats_082.png" url="shapes/MediaevalBats_082.swf"/>
+			</Shapes>
+		</ShapeCategory>
+		<ShapeCategory id="mk_KidsDrawings" numShapes="8" previewUrls="../clipart/previews/shapes/mk_KidsDrawings/KidsDrawings_050.png,../clipart/previews/shapes/mk_KidsDrawings/KidsDrawings_050.png,../clipart/previews/shapes/mk_KidsDrawings/KidsDrawings_050.png,../clipart/previews/shapes/mk_KidsDrawings/KidsDrawings_050.png" thumbUrl="../clipart/previews/shapes/mk_KidsDrawings/KidsDrawings_050.png" title="Kids Drawings">
+			<Shapes>
+				<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="100" cWidth="90" premium="true" previewUrl="../clipart/previews/shapes/mk_KidsDrawings/KidsDrawings_050.png" url="shapes/KidsDrawings_050.swf"/>
+				<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="100" cWidth="52" premium="true" previewUrl="../clipart/previews/shapes/mk_KidsDrawings/KidsDrawings_117.png" url="shapes/KidsDrawings_117.swf"/>
+				<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="100" cWidth="45" premium="true" previewUrl="../clipart/previews/shapes/mk_KidsDrawings/KidsDrawings_084.png" url="shapes/KidsDrawings_084.swf"/>
+				<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="100" cWidth="53" premium="true" previewUrl="../clipart/previews/shapes/mk_KidsDrawings/KidsDrawings_110.png" url="shapes/KidsDrawings_110.swf"/>
+				<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="63" cWidth="100" premium="true" previewUrl="../clipart/previews/shapes/mk_KidsDrawings/KidsDrawings_104.png" url="shapes/KidsDrawings_104.swf"/>
+				<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="58" cWidth="100" premium="true" previewUrl="../clipart/previews/shapes/mk_KidsDrawings/KidsDrawings_089.png" url="shapes/KidsDrawings_089.swf"/>
+				<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="72" cWidth="100" premium="true" previewUrl="../clipart/previews/shapes/mk_KidsDrawings/KidsDrawings_077.png" url="shapes/KidsDrawings_077.swf"/>
+				<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="64" cWidth="100" premium="true" previewUrl="../clipart/previews/shapes/mk_KidsDrawings/KidsDrawings_100.png" url="shapes/KidsDrawings_100.swf"/>
+			</Shapes>
+		</ShapeCategory>
+		<ShapeCategory id="SolarSystem" numShapes="8" previewUrls="../clipart/previews/shapes/dz_tombats_3/Tombats_Three_067.png,../clipart/previews/shapes/dz_tombats_3/Tombats_Three_067.png,../clipart/previews/shapes/dz_tombats_3/Tombats_Three_067.png,../clipart/previews/shapes/dz_tombats_3/Tombats_Three_067.png" thumbUrl="../clipart/previews/shapes/dz_tombats_3/Tombats_Three_067.png" title="Solar System">
+			<Shapes>
+				<Clipart authorName="Divide by Zero" authorUrl="http://fonts.tom7.com/" cHeight="100" cWidth="93" premium="true" previewUrl="../clipart/previews/shapes/dz_tombats_3/Tombats_Three_067.png" url="shapes/Tombats_Three_067.swf"/>
+				<Clipart authorName="Divide by Zero" authorUrl="http://fonts.tom7.com/" cHeight="91" cWidth="100" premium="true" previewUrl="../clipart/previews/shapes/dz_tombats_1/Tombats_071.png" url="shapes/Tombats_071.swf"/>
+				<Clipart authorName="Divide by Zero" authorUrl="http://fonts.tom7.com/" cHeight="100" cWidth="92" premium="true" previewUrl="../clipart/previews/shapes/dz_tombats_1/Tombats_073.png" url="shapes/Tombats_073.swf"/>
+				<Clipart authorName="Divide by Zero" authorUrl="http://fonts.tom7.com/" cHeight="100" cWidth="85" premium="true" previewUrl="../clipart/previews/shapes/dz_tombats_1/Tombats_076.png" url="shapes/Tombats_076.swf"/>
+				<Clipart authorName="Divide by Zero" authorUrl="http://fonts.tom7.com/" cHeight="100" cWidth="91" premium="true" previewUrl="../clipart/previews/shapes/dz_tombats_3/Tombats_Three_120.png" url="shapes/Tombats_Three_120.swf"/>
+				<Clipart authorName="Divide by Zero" authorUrl="http://fonts.tom7.com/" cHeight="100" cWidth="91" premium="true" previewUrl="../clipart/previews/shapes/dz_tombats_3/Tombats_Three_119.png" url="shapes/Tombats_Three_119.swf"/>
+				<Clipart authorName="Divide by Zero" authorUrl="http://fonts.tom7.com/" cHeight="100" cWidth="87" premium="true" previewUrl="../clipart/previews/shapes/dz_tombats_3/Tombats_Three_121.png" url="shapes/Tombats_Three_121.swf"/>
+				<Clipart authorName="Divide by Zero" authorUrl="http://fonts.tom7.com/" cHeight="100" cWidth="39" premium="true" previewUrl="../clipart/previews/shapes/dz_tombats_3/Tombats_Three_122.png" url="shapes/Tombats_Three_122.swf"/>
+			</Shapes>
+		</ShapeCategory>
+		<ShapeCategory id="mk_NowTheWeather" numShapes="8" previewUrls="../clipart/previews/shapes/mk_NowTheWeather/NowTheWeather_117.png,../clipart/previews/shapes/mk_NowTheWeather/NowTheWeather_117.png,../clipart/previews/shapes/mk_NowTheWeather/NowTheWeather_117.png,../clipart/previews/shapes/mk_NowTheWeather/NowTheWeather_117.png" thumbUrl="../clipart/previews/shapes/mk_NowTheWeather/NowTheWeather_117.png" title="Now The Weather">
+			<Shapes>
+				<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="99" cWidth="100" premium="true" previewUrl="../clipart/previews/shapes/mk_NowTheWeather/NowTheWeather_117.png" url="shapes/NowTheWeather_117.swf"/>
+				<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="99" cWidth="100" premium="true" previewUrl="../clipart/previews/shapes/mk_NowTheWeather/NowTheWeather_105.png" url="shapes/NowTheWeather_105.swf"/>
+				<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="87" cWidth="100" premium="true" previewUrl="../clipart/previews/shapes/mk_NowTheWeather/NowTheWeather_070.png" url="shapes/NowTheWeather_070.swf"/>
+				<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="89" cWidth="100" premium="true" previewUrl="../clipart/previews/shapes/mk_NowTheWeather/NowTheWeather_076.png" url="shapes/NowTheWeather_076.swf"/>
+				<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="92" cWidth="100" premium="true" previewUrl="../clipart/previews/shapes/mk_NowTheWeather/NowTheWeather_115.png" url="shapes/NowTheWeather_115.swf"/>
+				<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="100" cWidth="81" premium="true" previewUrl="../clipart/previews/shapes/mk_NowTheWeather/NowTheWeather_112.png" url="shapes/NowTheWeather_112.swf"/>
+				<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="100" cWidth="98" premium="true" previewUrl="../clipart/previews/shapes/mk_NowTheWeather/NowTheWeather_037.png" url="shapes/NowTheWeather_037.swf"/>
+				<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="100" cWidth="65" premium="true" previewUrl="../clipart/previews/shapes/mk_NowTheWeather/NowTheWeather_081.png" url="shapes/NowTheWeather_081.swf"/>
+			</Shapes>
+		</ShapeCategory>
+		<ShapeCategory id="dz_tombots" numShapes="12" previewUrls="../clipart/previews/shapes/dz_tombots/Tombots_065.png,../clipart/previews/shapes/dz_tombots/Tombots_065.png,../clipart/previews/shapes/dz_tombots/Tombots_065.png,../clipart/previews/shapes/dz_tombots/Tombots_065.png" thumbUrl="../clipart/previews/shapes/dz_tombots/Tombots_065.png" title="Tombots">
+			<Shapes>
+				<Clipart authorName="Divide by Zero" authorUrl="http://fonts.tom7.com/" cHeight="100" cWidth="69" premium="true" previewUrl="../clipart/previews/shapes/dz_tombots/Tombots_065.png" url="shapes/Tombots_065.swf"/>
+				<Clipart authorName="Divide by Zero" authorUrl="http://fonts.tom7.com/" cHeight="100" cWidth="52" premium="true" previewUrl="../clipart/previews/shapes/dz_tombots/Tombots_103.png" url="shapes/Tombots_103.swf"/>
+				<Clipart authorName="Divide by Zero" authorUrl="http://fonts.tom7.com/" cHeight="100" cWidth="89" premium="true" previewUrl="../clipart/previews/shapes/dz_tombots/Tombots_075.png" url="shapes/Tombots_075.swf"/>
+				<Clipart authorName="Divide by Zero" authorUrl="http://fonts.tom7.com/" cHeight="82" cWidth="100" premium="true" previewUrl="../clipart/previews/shapes/dz_tombots/Tombots_071.png" url="shapes/Tombots_071.swf"/>
+				<Clipart authorName="Divide by Zero" authorUrl="http://fonts.tom7.com/" cHeight="100" cWidth="46" premium="true" previewUrl="../clipart/previews/shapes/dz_tombots/Tombots_099.png" url="shapes/Tombots_099.swf"/>
+				<Clipart authorName="Divide by Zero" authorUrl="http://fonts.tom7.com/" cHeight="97" cWidth="100" premium="true" previewUrl="../clipart/previews/shapes/dz_tombots/Tombots_069.png" url="shapes/Tombots_069.swf"/>
+				<Clipart authorName="Divide by Zero" authorUrl="http://fonts.tom7.com/" cHeight="100" cWidth="68" premium="true" previewUrl="../clipart/previews/shapes/dz_tombots/Tombots_097.png" url="shapes/Tombots_097.swf"/>
+				<Clipart authorName="Divide by Zero" authorUrl="http://fonts.tom7.com/" cHeight="100" cWidth="77" premium="true" previewUrl="../clipart/previews/shapes/dz_tombots/Tombots_084.png" url="shapes/Tombots_084.swf"/>
+				<Clipart authorName="Divide by Zero" authorUrl="http://fonts.tom7.com/" cHeight="100" cWidth="27" premium="true" previewUrl="../clipart/previews/shapes/dz_tombots/Tombots_100.png" url="shapes/Tombots_100.swf"/>
+				<Clipart authorName="Divide by Zero" authorUrl="http://fonts.tom7.com/" cHeight="100" cWidth="74" premium="true" previewUrl="../clipart/previews/shapes/dz_tombots/Tombots_107.png" url="shapes/Tombots_107.swf"/>
+				<Clipart authorName="Divide by Zero" authorUrl="http://fonts.tom7.com/" cHeight="100" cWidth="69" premium="true" previewUrl="../clipart/previews/shapes/dz_tombots/Tombots_067.png" url="shapes/Tombots_067.swf"/>
+				<Clipart authorName="Divide by Zero" authorUrl="http://fonts.tom7.com/" cHeight="100" cWidth="25" premium="true" previewUrl="../clipart/previews/shapes/dz_tombots/Tombots_104.png" url="shapes/Tombots_104.swf"/>
+			</Shapes>
+		</ShapeCategory>
+		<ShapeCategory id="mk_BirthdayDigits" numShapes="10" previewUrls="../clipart/previews/shapes/mk_BirthdayDigits/BirthdayDigits_049.png,../clipart/previews/shapes/mk_BirthdayDigits/BirthdayDigits_049.png,../clipart/previews/shapes/mk_BirthdayDigits/BirthdayDigits_049.png,../clipart/previews/shapes/mk_BirthdayDigits/BirthdayDigits_049.png" thumbUrl="../clipart/previews/shapes/mk_BirthdayDigits/BirthdayDigits_049.png" title="Birthday">
+			<Shapes>
+				<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="100" cWidth="48" premium="true" previewUrl="../clipart/previews/shapes/mk_BirthdayDigits/BirthdayDigits_049.png" url="shapes/BirthdayDigits_049.swf"/>
+				<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="100" cWidth="92" premium="true" previewUrl="../clipart/previews/shapes/mk_BirthdayDigits/BirthdayDigits_050.png" url="shapes/BirthdayDigits_050.swf"/>
+				<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="100" cWidth="86" premium="true" previewUrl="../clipart/previews/shapes/mk_BirthdayDigits/BirthdayDigits_051.png" url="shapes/BirthdayDigits_051.swf"/>
+				<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="100" cWidth="92" premium="true" previewUrl="../clipart/previews/shapes/mk_BirthdayDigits/BirthdayDigits_052.png" url="shapes/BirthdayDigits_052.swf"/>
+				<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="100" cWidth="97" premium="true" previewUrl="../clipart/previews/shapes/mk_BirthdayDigits/BirthdayDigits_053.png" url="shapes/BirthdayDigits_053.swf"/>
+				<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="100" cWidth="84" premium="true" previewUrl="../clipart/previews/shapes/mk_BirthdayDigits/BirthdayDigits_054.png" url="shapes/BirthdayDigits_054.swf"/>
+				<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="100" cWidth="65" premium="true" previewUrl="../clipart/previews/shapes/mk_BirthdayDigits/BirthdayDigits_055.png" url="shapes/BirthdayDigits_055.swf"/>
+				<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="100" cWidth="78" premium="true" previewUrl="../clipart/previews/shapes/mk_BirthdayDigits/BirthdayDigits_056.png" url="shapes/BirthdayDigits_056.swf"/>
+				<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="98" cWidth="100" premium="true" previewUrl="../clipart/previews/shapes/mk_BirthdayDigits/BirthdayDigits_057.png" url="shapes/BirthdayDigits_057.swf"/>
+				<Clipart authorName="Manfred Klein" authorUrl="http://moorstation.org/typoasis/designers/klein/" cHeight="100" cWidth="85" premium="true" previewUrl="../clipart/previews/shapes/mk_BirthdayDigits/BirthdayDigits_048.png" url="shapes/BirthdayDigits_048.swf"/>
+			</Shapes>
+		</ShapeCategory>
+	</ShapeCategory>
+</ShapeCategory>

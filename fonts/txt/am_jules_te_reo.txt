@@ -1,0 +1,13 @@
+fileName: am_jules_te_reo.ttf
+name: jules-te-reo
+subfamilyDisplayName: Normal
+fullName: jules-te-reo
+displayName: jules-te-reo
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 0
+pkName: pkam0jules0te0reo
+authorName: Art Mama
+authorUrl: http://artmama.co.nz/
+

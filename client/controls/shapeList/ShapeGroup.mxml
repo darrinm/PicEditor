@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ExpandingVBox xmlns="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" expanded="false" xmlns:sectionList="containers.sectionList.*"
+	styleName="shapeGroupGradient" initialize="Init()"
+	rollOver="{mouseOver=true}" 
+	rollOut="{mouseOver=false}"
+	width="100%" verticalGap="0" xmlns:shapeList="controls.shapeList.*">
+<mx:Boolean id="mouseOver">false</mx:Boolean>
+<BackgroundGradientModes mode="{GetBGMode(expanded, mouseOver)}" modes="{['up','over','down']}" parent="{this}"/>
+<mx:Script>
+	<![CDATA[
+		import mx.binding.utils.ChangeWatcher;
+		import mx.utils.ObjectProxy;
+		[Bindable] public var thumbUrl:String; 
+		[Bindable] public var previewUrls:String; 
+		[Bindable] public var title:String;
+		[Bindable] public var premium:Boolean = false;
+		[Bindable] public var logid:String = "unknown";
+		[Bindable] public var author:String = "Picnik"; // default
+		
+		private function GetBGMode(fExpanded:Boolean, fMouseOver:Boolean): String {
+			if (fExpanded)
+				return 'down';
+			if (fMouseOver)
+				return 'over';
+			return 'up'; // default
+		}
+		
+		private var _acw:Array = [];
+		
+		private function Init(): void {
+			_acw.push(ChangeWatcher.watch(this, 'premium', UpdateVisibility));
+			_acw.push(ChangeWatcher.watch(PicnikBase.app, '_pas.googlePlusUI', UpdateVisibility));
+			UpdateVisibility();
+		}
+		
+		private function UpdateVisibility(evt:Event=null): void {
+			if (premium && PicnikBase.app._pas && PicnikBase.app._pas.googlePlusUI) {
+				visible = false;
+				includeInLayout = false;
+			}
+		}
+		
+		public override function set data(value:Object):void {
+			super.data = value;
+			var strPremiumKey:String = PicnikBase.app.freemiumModel ? "@flickrPremium" : "@picnikPremium";
+			if (value.hasOwnProperty(strPremiumKey)) premium = value[strPremiumKey] == "true";  
+			if (value.hasOwnProperty('@authorName')) author = value.@authorName;  
+			thumbUrl = value ? value.@thumbUrl : null;
+			previewUrls = value ? value.@previewUrls : null;
+			title = value ? value.@title : null;
+			logid = (value && value.hasOwnProperty("@id")) ? value.@id : "unknown";
+		}
+	]]>
+</mx:Script>		
+	<shapeList:ShapeGroupButton strImageSource="{thumbUrl}" strPreviewUrls="{previewUrls}" strTitle="{title}" id="_hdr"
+		premium="{premium}" logid="{logid}"
+		strAuthor="{author}"
+		expanded="{expanded}"/>
+	<shapeList:ShapeGroupChildren data="{data}" height="0" footerColor="0xcccccc"/>
+</ExpandingVBox>

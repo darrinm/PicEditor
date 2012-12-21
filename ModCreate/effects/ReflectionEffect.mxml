@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cnt:EffectCanvas xmlns="effects.*" xmlns:cnt="containers.*" xmlns:ctrl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml"
+		xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*"
+		width="100%" height="314" premium="true" urlid="Reflection">
+	<mx:Script>
+		import util.LocUtil;
+		import mx.resources.ResourceBundle;
+   		[Bindable] [ResourceBundle("ReflectionEffect")] private var rb:ResourceBundle;
+	</mx:Script>
+
+	<mx:Array id="_resetValues">
+		<!--<local:StoredValue target="_sldrReflectionAmount.value"/>-->
+		<!--<local:StoredValue target="_sldrReflectionScale.value"/>-->
+		<local:StoredValue target="_sldrBorderAmount.value"/>
+		<local:StoredValue target="_sldrReflectionAlpha.value"/>
+		<local:StoredValue target="_sldrBlur.value"/>
+		<local:StoredValue target="_sldrFrameThickness.value"/>
+		<local:StoredValue target="_cpkrBackground.selectedColor"/>
+		<local:StoredValue target="_cpkrFrame.selectedColor"/>
+		<local:StoredValue target="_opRasterize.rasterizedContainerId"/>
+	</mx:Array>
+
+	<mx:DropShadowFilter id="_fiWhiteShad" blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1" quality="3" angle="90"/>
+
+	<ctrl:EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='ReflectionEffect')"
+			strAuthor="@Resource(key='_efbtn_1', bundle='ReflectionEffect')"
+			strImageSource="../graphics/effects/Frames/reflection.jpg" premium="{premium}"/>
+	<mx:String id="_strHelpText">{Resource.getString('ReflectionEffect', '_strHelpText')}</mx:String>
+	
+	<mx:VBox x="10" y="70" verticalGap="0">
+		<mx:Spacer width="10" height="3"/>
+		
+		<!-- background color and gap -->
+		<mx:VBox paddingTop="5" paddingLeft="5" paddingRight="8" paddingBottom="6" width="190" horizontalScrollPolicy="off" verticalGap="0" filters="{[_fiWhiteShad]}"
+				cornerRadius="5" backgroundColor="#ffffff" borderColor="#d9d9d9" borderStyle="solid" backgroundAlpha=".4" verticalAlign="middle">
+			<!-- background color picker -->
+			<mx:HBox horizontalGap="5" width="100%" maxWidth="190">
+				<ctrl:ResizingLabel text="@Resource(key='_lbBackgroundColor', bundle='ReflectionEffect')" styleName="sliderTitle" paddingTop="2" width="100%" autoFontSizeGap="1"/>
+				<ctrl:HSBColorPicker id="_cpkrBackground" selectedColor="{0x000000 + zeroR}" liveColorChange="OnBufferedOpChange()" width="50"/>
+			</mx:HBox>
+			<!-- border thickness ? -->
+			<mx:HBox width="100%" paddingBottom="-5" paddingTop="7" maxWidth="190">
+				<ctrl:ResizingLabel autoFontSizeGap="1" text="@Resource(key='_lbBorderAmount', bundle='ReflectionEffect')" styleName="sliderTitle" maxWidth="140"/>
+				<mx:Label text="{LocUtil.pct(_sldrBorderAmount.value * 100)}" styleName="sliderValue" textAlign="right" width="100%"/>
+			</mx:HBox>
+			<ctrl:HSliderPlus width="176" minimum="0.0" maximum="0.5" value="0.1" id="_sldrBorderAmount" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+		</mx:VBox>
+		
+		<mx:Spacer height="10"/>
+		
+		<!-- frame color and thickness -->
+		<mx:VBox paddingTop="5" paddingLeft="5" paddingRight="8" paddingBottom="6" width="190" horizontalScrollPolicy="off" verticalGap="0" filters="{[_fiWhiteShad]}"
+				cornerRadius="5" backgroundColor="#ffffff" borderColor="#d9d9d9" borderStyle="solid" backgroundAlpha=".4" verticalAlign="middle">
+			<!-- frame color picker -->
+			<mx:HBox horizontalGap="5" width="100%">
+				<ctrl:ResizingLabel text="@Resource(key='_lbFrameColor', bundle='ReflectionEffect')" styleName="sliderTitle" paddingTop="2" width="100%" autoFontSizeGap="1"/>
+				<ctrl:HSBColorPicker id="_cpkrFrame" selectedColor="{0xffffff + zeroR}" liveColorChange="OnBufferedOpChange()" width="50"/>
+			</mx:HBox>
+			<!-- frame thickness -->
+			<mx:HBox width="100%" paddingBottom="-5" paddingTop="7">
+				<mx:Label text="@Resource(key='_lbFrameThickness', bundle='ReflectionEffect')" styleName="sliderTitle"/>
+				<mx:Label text="{_sldrFrameThickness.value}" styleName="sliderValue" textAlign="right" width="100%"/>
+			</mx:HBox>
+			<ctrl:HSliderPlus width="176" minimum="0" maximum="100" value="5" id="_sldrFrameThickness" change="OnOpChange()" liveDragging="true" showDataTip="false" snapInterval="1"/>
+		</mx:VBox>
+		
+		<!--
+		<mx:HBox width="190" paddingTop="5" paddingBottom="-5">
+			<mx:Label text="@Resource(key='_lbReflectionAmount', bundle='ReflectionEffect')" styleName="sliderTitle"/>
+			<mx:Label text="{LocUtil.pct(_sldrReflectionAmount.value * 100)}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<ctrl:HSliderPlus width="190" minimum="0.0" maximum="1.0" value="0.0" id="_sldrReflectionAmount" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+		-->
+
+		<!--
+		<mx:HBox width="190" paddingBottom="-5">
+			<mx:Label text="@Resource(key='_lbReflectionScale', bundle='ReflectionEffect')" styleName="sliderTitle"/>
+			<mx:Label text="{LocUtil.pct(_sldrReflectionScale.value * 100)}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<ctrl:HSliderPlus width="190" minimum="0.1" maximum="1.0" value=".75" id="_sldrReflectionScale" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+		-->
+
+		<!-- blur slider -->
+		<mx:HBox width="190" paddingBottom="-5" paddingTop="6">
+			<mx:Label text="@Resource(key='_lbBlur', bundle='ReflectionEffect')" styleName="sliderTitle"/>
+			<mx:Label text="{_sldrBlur.value}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<ctrl:HSliderPlus width="190" minimum="0" maximum="50" value="0" id="_sldrBlur" change="OnOpChange()" liveDragging="true" showDataTip="false" snapInterval="1"/>
+
+		<!-- fade slider -->
+		<mx:HBox width="190" paddingBottom="-5" paddingTop="3">
+			<mx:Label text="@Resource(key='_lbReflectionAlpha', bundle='ReflectionEffect')" styleName="sliderTitle"/>
+			<mx:Label text="{LocUtil.pct(_sldrReflectionAlpha.value * 100)}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<ctrl:HSliderPlus width="190" minimum="0.0" maximum="1.0" value="0.6" id="_sldrReflectionAlpha" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+
+		<ctrl:ApplyCancelEffectButtons addBoxPadding="true" premium="{premium}"/>
+	</mx:VBox>
+
+</cnt:EffectCanvas>

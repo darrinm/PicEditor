@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<EditCreateOptionsBase xmlns="*" xmlns:mx="http://www.adobe.com/2006/mxml" styleName="helpMenu">
+	<!--<mx:VBox id="_ctnr" verticalGap="0" paddingTop="3" paddingRight="3" paddingBottom="3" paddingLeft="3">-->
+	<mx:VBox id="_ctnr" verticalGap="0" styleName="helpMenuList">
+		<mx:LinkButton label="@Resource(key='help', bundle='PicnikLiteMenu')" id="help" width="100%" styleName="helpMenuItem" useHandCursor="false"
+					   visible="{PicnikBase.GetApp()._pas.googlePlusUI}" includeInLayout="{PicnikBase.GetApp()._pas.googlePlusUI}"/>
+		<mx:LinkButton label="@Resource(key='fullscreen', bundle='PicnikLiteMenu')" id="fullscreen" width="100%" styleName="helpMenuItem" useHandCursor="false"
+					   visible="{PicnikBase.GetApp()._pas.googlePlusUI}" includeInLayout="{PicnikBase.GetApp()._pas.googlePlusUI}"/>
+		<mx:LinkButton id="close" label="@Resource(key='close', bundle='EditCreateOptions')"
+				visible="{PicnikBase.GetApp().hasInBridge}" includeInLayout="{PicnikBase.GetApp().hasInBridge}"
+				toolTip="@Resource(key='closeTip', bundle='EditCreateOptions')"
+				width="100%" styleName="helpMenuItem" useHandCursor="false"/>
+		<mx:LinkButton id="flatten" label="@Resource(key='flatten', bundle='EditCreateOptions')"
+				toolTip="@Resource(key='flattenTip', bundle='EditCreateOptions')"
+				width="100%" styleName="helpMenuItem" useHandCursor="false"/>
+		<!--
+		<mx:LinkButton id="resizecanvas" label="@Resource(key='resizecanvas', bundle='EditCreateOptions')"
+				resizecanvasTip="@Resource(key='resizecanvasTip', bundle='EditCreateOptions')"
+				width="100%" height="20" styleName="helpMenuItem" useHandCursor="false"/>
+		-->
+	</mx:VBox>
+</EditCreateOptionsBase>

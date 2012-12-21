@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory flickrPremium="false" id="christmasHats" numShapes="8" picnikPremium="false" previewUrls="60|48|../clipart/bundles/VandalismHeadDecorArea_groupPreviews_christmasHats.png?ver=b54d5bd7" title="Christmas Hats">
+	<Shapes>
+		<Clipart cHeight="125" cWidth="97" flickrPremium="false" picnikPremium="false" previewUrl="40|40|0|../clipart/bundles/VandalismHeadDecorArea_shapes_christmasHats.png?ver=cb854c9c" url="shapes/xmas_cap1.swf"/>
+		<Clipart cHeight="132" cWidth="94" flickrPremium="false" picnikPremium="false" previewUrl="40|40|1|../clipart/bundles/VandalismHeadDecorArea_shapes_christmasHats.png?ver=cb854c9c" url="shapes/xmas_cap2.swf"/>
+		<Clipart cHeight="95" cWidth="107" flickrPremium="false" picnikPremium="false" previewUrl="40|40|2|../clipart/bundles/VandalismHeadDecorArea_shapes_christmasHats.png?ver=cb854c9c" url="shapes/xmas_cap3.swf"/>
+		<Clipart cHeight="85" cWidth="91" flickrPremium="false" picnikPremium="false" previewUrl="40|40|3|../clipart/bundles/VandalismHeadDecorArea_shapes_christmasHats.png?ver=cb854c9c" url="shapes/xmas_cap4.swf"/>
+		<Clipart cHeight="137" cWidth="98" flickrPremium="false" picnikPremium="false" previewUrl="40|40|4|../clipart/bundles/VandalismHeadDecorArea_shapes_christmasHats.png?ver=cb854c9c" url="shapes/xmas_cap5.swf"/>
+		<Clipart cHeight="52" cWidth="91" flickrPremium="false" picnikPremium="false" previewUrl="40|40|5|../clipart/bundles/VandalismHeadDecorArea_shapes_christmasHats.png?ver=cb854c9c" url="shapes/xmas_cap6.swf"/>
+		<Clipart cHeight="149" cWidth="160" flickrPremium="false" picnikPremium="false" previewUrl="40|40|6|../clipart/bundles/VandalismHeadDecorArea_shapes_christmasHats.png?ver=cb854c9c" url="shapes/xmas_cap7.swf"/>
+		<Clipart cHeight="236" cWidth="295" flickrPremium="false" picnikPremium="false" previewUrl="40|40|7|../clipart/bundles/VandalismHeadDecorArea_shapes_christmasHats.png?ver=cb854c9c" url="shapes/xmas_cap8.swf"/>
+	</Shapes>
+</ShapeCategory>

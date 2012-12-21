@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<!--
+Copyright 2011 Google Inc. All Rights Reserved.
+
+Use of this source code is governed by an Apache 2.0 License.
+See the COPYING file for details.
+-->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>Picnik: Oops! %(status)s</title>
+<link href="/main.css" rel="stylesheet" type="text/css" media="screen">
+<script type="text/javascript" src="/md5.js?rel=@REL@"></script>
+<script type="text/javascript" src="/util.js?rel=@REL@"></script>
+</head>
+<body>
+
+
+<form action="/auth/picnik/login" method="post" name="frmMain" onSubmit="md5_form(this); return true;">
+<div id="header"><a href="/"><img src="/graphics/picnik_logo.gif?rel=@REL@" alt="Picnik logo" width="83" height="34" border="0"></a></div>
+<div id="bar"><!-- --></div>
+
+<div id="horizon">
+	<div id="box">
+		<h1>Oops!</h1>
+        <h2>%(message)s</h2>
+        <pre id="traceback">%(traceback)s</pre>
+        <br/>
+        <div id="bigButton" style="text-align:left">
+			<a href="/app" rel="nofollow" style="margin:0; text-align:center;">Back to Picnik</a>
+		</div>
+        <br/>
+		<div style="display:none">%(status)s<br/></div>
+		<h3>Having problems?</h3>
+		<a href="http://www.google.com/support/picnik/?hl=$getVar('glocale','en')">Visit the Picnik Help Center!</a>
+	</div>
+</div>
+
+<!--
+<div id="login">
+	<label class="" for="userName">Username:</label>
+	<input type="text" name="login_userName" value="" class="loginField" size="15" tabindex="1" maxlength="30"
+		onkeypress="if (enter_key(event)) { module_md5_submit(this.form, 'Login'); return false;} else {return true;}">
+	<label class="" for="password">Password:</label>
+	<input type="password" name="login_password" value="" class="loginField" size="15" tabindex="2" maxlength="32"
+		onkeypress="if (enter_key(event)) { module_md5_submit(this.form, 'Login'); return false;} else {return true;}">
+	<input type="button" value="Sign in!" class="signInButton" tabindex="3"
+		onclick="module_md5_submit(this.form, 'Login'); return false;">
+</div>
+
+<div id="accountLinks">
+		<a href="/auth/picnik/register">Register for free</a> | <a href="/auth/picnik/forgotpassword">Forgot your password?</a>
+</div>
+-->
+
+<div id="footer">
+<p><a class="" href="/">Home</a> |
+<a class="" href="http://www.google.com/support/picnik/?hl=$glocale" target="_top">Help</a> |
+<a class="" href="http://www.google.com/support/forum/p/Picnik?hl=$glocale" target="_top">Forums</a> |
+<a class="" href="http://blog.mywebsite.com/">The Blog</a> |
+<a class="" href="/info/about">About Us</a> |
+<a class="" href="/info/privacypolicy" target="_top">Privacy Policy</a> |
+<a class="" href="/info/terms" target="_top">Terms and Policies</a></p>
+&copy;2010 Google</div>
+</form>
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-976678-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</body>
+</html>
+

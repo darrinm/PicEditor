@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<QoopPickerBase xmlns="bridges.qoop.*" xmlns:pk="*" xmlns:ctl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" 
+		verticalScrollPolicy="off" horizontalScrollPolicy="off" xmlns:flash="flash.filters.*" 
+		xmlns:util="util.*" xmlns:containers="containers.*">
+	<mx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import mx.resources.ResourceBundle;
+			import mx.utils.ObjectProxy;
+			[Bindable] [ResourceBundle("QoopPicker")] private var rb:ResourceBundle;
+			
+			protected function GetPrintProducts(): ArrayCollection {
+				var aop:Array = [];
+				for each (var obProduct:Object in _aobQoopProducts)
+					aop.push(new ObjectProxy(obProduct));
+				
+				return new ArrayCollection(aop);
+			}
+			
+		]]>
+	</mx:Script>
+	<mx:Script>
+	</mx:Script>
+
+	<flash:DropShadowFilter blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1"
+		quality="3" angle="90" id="_fiWhiteShad"/>
+
+	<mx:Array id="_aobQoopProducts">
+		<!--<mx:Object label="{Resource.getString('QoopPicker', 'qoop')}" data="" thumbnailurl="../graphics/qoop/qoop_logo.gif" visible="true"/>-->
+		<mx:Object label="{Resource.getString('QoopPicker', 'prints')}" data="prints" thumbnailurl="../graphics/qoop/qoop_prints.gif" visible="true"/>
+		<mx:Object label="{Resource.getString('QoopPicker', 'framedPrints')}" data="framed_print" thumbnailurl="../graphics/qoop/qoop_framedPrint.jpg" visible="true"/>
+		<mx:Object label="{Resource.getString('QoopPicker', 'mug')}" data="mug" thumbnailurl="../graphics/qoop/qoop_mug.jpg" visible="true"/>
+		<!-- Qoop has temporarily disabled support for clothing
+		<mx:Object label="{Resource.getString('QoopPicker', 'clothing')}" data="clothing" thumbnailurl="../graphics/qoop/qoop_shirts.jpg" visible="true"/>
+		-->
+		<!-- Qoop temporarily disabled this
+		<mx:Object label="{Resource.getString('QoopPicker', 'keychain')}" data="keychain" thumbnailurl="../graphics/qoop/qoop_keychain.gif" visible="true"/>
+		-->
+		<mx:Object label="{Resource.getString('QoopPicker', 'postcard')}" data="postcard" thumbnailurl="../graphics/qoop/qoop_postcards.jpg" visible="true"/>
+		
+		<!-- Qoop temporarily disabled this
+		<mx:Object label="{Resource.getString('QoopPicker', 'magnet')}" data="magnet" thumbnailurl="../graphics/qoop/qoop_magnets.gif" visible="true"/>
+		-->
+		<mx:Object label="{Resource.getString('QoopPicker', 'greetingcard')}" data="greetingcard" thumbnailurl="../graphics/qoop/qoop_cards.gif" visible="true"/>
+		<mx:Object label="{Resource.getString('QoopPicker', 'poster')}" data="poster" thumbnailurl="../graphics/qoop/qoop_posters.jpg" visible="true"/>
+		<mx:Object label="{Resource.getString('QoopPicker', 'minibook')}" data="minibook" thumbnailurl="../graphics/qoop/qoop_minibooks.jpg" visible="true"/>
+		<mx:Object label="{Resource.getString('QoopPicker', 'calendar')}" data="calendar" thumbnailurl="../graphics/qoop/qoop_calendar.jpg" visible="true"/>
+		<!-- Qoop temporarily disabled this
+		<mx:Object label="{Resource.getString('QoopPicker', 'luggage_tag')}" data="luggage_tag" thumbnailurl="../graphics/qoop/qoop_luggagetag.jpg" visible="true"/>
+		-->
+		<mx:Object label="{Resource.getString('QoopPicker', 'wrapping_paper')}" data="wrapping_paper" thumbnailurl="../graphics/qoop/qoop_wrappingpaper.gif" visible="true"/>
+		<mx:Object label="{Resource.getString('QoopPicker', 'book')}" data="book" thumbnailurl="../graphics/qoop/qoop_books.gif" visible="true"/>
+		<mx:Object label="{Resource.getString('QoopPicker', 'twosidedcard')}" data="twosidedcard" thumbnailurl="../graphics/qoop/qoop_dblsidecards.gif" visible="true"/>
+		<mx:Object label="{Resource.getString('QoopPicker', 'canvas_print')}" data="canvas_prints" thumbnailurl="../graphics/qoop/qoop_canvas.jpg" visible="true"/>
+		<mx:Object label="{Resource.getString('QoopPicker', 'stickers')}" data="stickers" thumbnailurl="../graphics/qoop/qoop_stickers.gif" visible="true"/>
+		<!-- removing disk in favor of framed print 
+		<mx:Object label="{Resource.getString('QoopPicker', 'disk')}" data="disk" thumbnailurl="../graphics/qoop/qoop_disk.jpg" visible="true"/>
+		-->
+		<!-- Qoop temporarily disabled this
+		<mx:Object label="{Resource.getString('QoopPicker', 'mousepad')}" data="mousepad" thumbnailurl="../graphics/qoop/qoop_mousepad.jpg" visible="true"/>
+		-->
+		<!-- Qoop temporarily disabled this
+		<mx:Object label="{Resource.getString('QoopPicker', 'puzzle')}" data="puzzle" thumbnailurl="../graphics/qoop/qoop_puzzle.jpg" visible="true"/>
+		-->
+		<!--<mx:Object label="{Resource.getString('QoopPicker', 'andmore')}" data="" thumbnailurl="../graphics/qoop/qoop_logo.gif" visible="true"/>-->
+	</mx:Array>
+
+	<!-- base filters -->
+    <flash:DropShadowFilter id="_fiInnerShadow" alpha=".10" blurX="1" blurY="1" angle="-90" distance="1" quality="3" inner="true"/>
+    <flash:DropShadowFilter id="_fiDropShadow" alpha=".3" blurX="5" blurY="5" angle="90" distance="1" quality="3"/>
+
+	<mx:TileList id="_tlQoop" dataProvider="{GetPrintProducts()}" itemRenderer="bridges.qoop.QoopItem" themeColor="#ffffff"
+	    horizontalScrollPolicy="off" verticalScrollPolicy="off" rowCount="2" columnCount="6" borderThickness="0" backgroundAlpha="0"
+	    columnWidth="128" width="100%" />
+
+</QoopPickerBase>

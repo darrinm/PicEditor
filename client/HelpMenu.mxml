@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<HelpMenuBase xmlns="*" xmlns:mx="http://www.adobe.com/2006/mxml" backgroundColor="#ffffff"
+		cornerRadius="8" dropShadowEnabled="true" dropShadowColor="#999999" shadowDistance="1"
+		 borderStyle="solid" borderThickness="0" borderColor="#FFFFFF" backgroundAlpha="0.95">
+	<states>
+		<mx:State name="Guest">
+		</mx:State>
+	</states>
+	<mx:Boolean id="_fShowGoogleMerge">{PicnikConfig.googleLoginEnabled &amp;&amp; AccountMgr.GetInstance().hasPicnikCredentials &amp;&amp; !AccountMgr.GetInstance().hasGoogleCredentials}</mx:Boolean>
+	<mx:Boolean id="_fShowPicnikMerge">{PicnikConfig.googleLoginEnabled &amp;&amp; AccountMgr.GetInstance().hasGoogleCredentials &amp;&amp; !AccountMgr.GetInstance().hasPicnikCredentials}</mx:Boolean>
+	<mx:VBox id="_ctnr" paddingTop="3" paddingBottom="3" paddingLeft="3" paddingRight="3" verticalGap="0">
+		<mx:LinkButton label="@Resource(key='myaccount', bundle='HelpMenu')" id="myaccount" width="100%" height="20" styleName="helpMenu" useHandCursor="false"/>
+		<mx:LinkButton label="@Resource(key='getHelp', bundle='HelpMenu')" id="helphub" width="100%" height="20" styleName="helpMenu" useHandCursor="false"/>
+		<mx:LinkButton label="@Resource(key='blog', bundle='HelpMenu')" id="blog" width="100%" height="20" styleName="helpMenu" useHandCursor="false"/>
+		<mx:LinkButton label="@Resource(key='tools', bundle='HelpMenu')" id="tools" width="100%" height="20" styleName="helpMenu" useHandCursor="false"/>
+		<mx:LinkButton id="googlemerge" width="100%" height="20" styleName="helpMenu" useHandCursor="false"
+					   visible="{_fShowGoogleMerge}" includeInLayout="{_fShowGoogleMerge}"
+					   label="Merge with Google"/><!-- NEEDS LOC -->
+		<mx:LinkButton id="googlemerge2" width="100%" height="20" styleName="helpMenu" useHandCursor="false"
+					   visible="{_fShowPicnikMerge}" includeInLayout="{_fShowPicnikMerge}"
+					   label="Merge with Picnik"/><!-- NEEDS LOC -->
+		<mx:Spacer height="2"/>
+		<mx:HRule strokeColor="#e5e5e5" strokeWidth="1" width="100%"/>
+		<mx:Spacer height="2"/>
+		<mx:LinkButton label="@Resource(key='give', bundle='HelpMenu')" id="give" width="100%" height="20" styleName="helpMenu" useHandCursor="false"/>
+		<mx:LinkButton label="@Resource(key='redeem', bundle='HelpMenu')" id="redeem" width="100%" height="20" styleName="helpMenu" useHandCursor="false"/>
+		<!-- <mx:LinkButton y="82" label="Settings" id="usersettings" width="100%" height="20" styleName="helpMenu" visible="{AccountMgr.GetInstance().isGuest?false:true}"  
+			includeInLayout="{AccountMgr.GetInstance().isGuest?false:true}" useHandCursor="false"/> -->		
+	</mx:VBox>
+</HelpMenuBase>

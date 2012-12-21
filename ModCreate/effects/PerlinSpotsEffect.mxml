@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cnt:PaintEffectCanvas xmlns="effects.*" xmlns:cnt="containers.*" xmlns:ctrl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%"
+	xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*" urlid="PerlinSpots">
+	<mx:Script>
+		<![CDATA[
+			import mx.utils.ObjectProxy;
+			import mx.collections.ArrayCollection;
+	
+			import util.LocUtil;
+			import mx.resources.ResourceBundle;
+	   		[Bindable] [ResourceBundle("BWEffect")] private var rb:ResourceBundle;
+	   		
+	   		private var _acColors:ArrayCollection = null;
+
+			[Bindable]	   		
+	   		protected function set colors(ac:ArrayCollection): void {
+	   		}
+	   		
+	   		private static const kclrDefault:Array = [0x485b41, 0xd9d187, 0x8c9557, 0x1e2e22];
+	   		private static const kaobColors:Array = [
+	   			{label:'Woodland', data:[0x4D704E, 0x705539, 0xBFB083, 0x302727]},
+	   			{label:'green 1', data:kclrDefault},
+	   			{label:'green 2', data:[0x7b8765, 0xaba667, 0x875a36, 0x4f5c46, 0x4f5c46, 0x292c2f, 0x292c2f]},
+	   			{label:'green 3', data:[0xC6BEA6, 0x858674, 0x5A6456, 0x3B3D43]},
+	   			{label:'snow', data:[0xF2F2F2, 0xDCDBDB, 0xC0C0BE, 0x333335]},
+	   			{label:'desert', data:[0x8E7C65, 0x76644A, 0xB2A497, 0x493B2C]},
+	   			{label:'pink', data:[0xF3A2C7, 0xFCDFE5, 0xF067A3, 0xD0215A]},
+	   			{label:'navy', data:[0x616D87, 0x2D3E5C, 0xCFD4EA, 0x151827]},
+	   		];
+	   		[Bindable] protected var selectedColors:Array = kclrDefault;
+	   		
+	   		protected function get colors(): ArrayCollection {
+	   			if (_acColors == null) {
+	   				_acColors = new ArrayCollection();
+	   				for each (var obColor:Object in kaobColors)
+	   					_acColors.addItem(new ObjectProxy(obColor));
+	   			}
+	   			return _acColors;
+	   		}
+	   		
+		]]>
+	</mx:Script>
+
+	<ctrl:EffectButton id="_efbtn" strTitle="Perlin Spots" strAuthor="@Resource(key='_efbtn_1', bundle='BWEffect')" strImageSource="../graphics/effects/Basics/bw.png"/>
+	<mx:String id="_strHelpText">{Resource.getString('BWEffect', '_strHelpText')}</mx:String>
+	
+	<mx:VBox x="0" y="70" verticalGap="0" paddingLeft="8" paddingRight="8">
+	    <mx:Label text="Colors" styleName="sliderTitle"/>
+		<mx:ComboBox dataProvider="{colors}" id="_cbColors" selectedIndex="0" change="selectedColors = _cbColors.selectedItem.data; OnOpChange()" height="26" width="190" rowCount="20" />
+
+		<ctrl:LabelHSlidePlus id="_sldrSeed" minimum="0" maximum="100" value="{zeroR}" label="Randomize" change="OnOpChange()" snapInterval="1" labelValueMultiplier="1"/>
+		<ctrl:LabelHSlidePlus id="_sldrXFreq" minimum="0.01" maximum="1" value="{zeroR + 0.13}" label="X Frequency" change="OnOpChange()" isPercent="true" labelValueMultiplier="100"/>
+		<ctrl:LabelHSlidePlus id="_sldrYFreq" minimum="0.01" maximum="1" value="{zeroR + 0.06}" label="Y Frequency" change="OnOpChange()" isPercent="true" labelValueMultiplier="100"/>
+		<ctrl:LabelHSlidePlus id="_sldrBottomThreshold" minimum="4" maximum="200" value="{zeroR + 136}" label="Bottom Threshold" change="OnOpChange()" labelValueMultiplier="1"/>
+		<ctrl:LabelHSlidePlus id="_sldrTopThreshold" minimum="4" maximum="200" value="{zeroR + 150}" label="Top Threshold" change="OnOpChange()" labelValueMultiplier="1"/>
+		<ctrl:LabelHSlidePlus id="_sldrTopScale" minimum="0.1" maximum="1" value="{zeroR + 0.8}" label="Top Scale" change="OnOpChange()" isPercent="true" labelValueMultiplier="100"/>
+		<ctrl:LabelHSlidePlus id="_sldrPixelation" minimum="0" maximum="20" value="{zeroR + 1}" snapInterval="1" label="Pixelation" change="OnOpChange()" labelValueMultiplier="1"/>
+		<ctrl:ResizingCheckbox id="_chkFractal" label="Fractal" selected="true" change="OnOpChange()"/>
+		<ctrl:LabelHSlidePlus id="_sldrOctaves" minimum="1" maximum="5" value="{zeroR + 2}" snapInterval="1" label="Octaves" change="OnOpChange()" labelValueMultiplier="1"/>
+		<ctrl:ResizingCheckbox id="_chkFrame" label="Frame" selected="false" change="OnOpChange()"/>
+		<ctrl:LabelHSlidePlus id="_sldrFrameSize" minimum="1" maximum="100" value="{zeroR + 20}" label="Frame Size" change="OnOpChange()" labelValueMultiplier="1"/>
+		<ctrl:LabelHSlidePlus id="_sldrFrameBleed" minimum="0" maximum="100" value="{zeroR + 100}" label="Frame Bleed" change="OnOpChange()" labelValueMultiplier="1"/>
+
+		<mx:Button id="_btnBrushPalette" width="30" height="30" selected="false" toggle="true" icon="@Embed('/assets/bitmaps/icon_paintTall.png')" paddingLeft="0"
+			toolTip="@Resource(key='_btnBrushPalette', bundle='BWEffect')"/>
+
+		<ctrl:ApplyCancelEffectButtons addBoxPadding="true" premium="{premium}"/>
+	</mx:VBox>
+
+	<!-- UNDONE: move these to a PaintEffectCanvas.mxml once we can figure how to get it to compile -->
+	<imageOperations:PerlinSpotsImageOperation id="_op" 
+			colors="{selectedColors}"
+			bottomThreshold="{_sldrBottomThreshold.value}"
+			topThreshold="{_sldrTopThreshold.value}"
+			frameSize="{_sldrFrameSize.value}"
+			frameBleed="{_sldrFrameBleed.value}"
+			isFrame="{_chkFrame.selected}"
+			xFrequency="{_sldrXFreq.value}"
+			yFrequency="{_sldrYFreq.value}"
+			seed="{_sldrSeed.value}"
+			fractal="{_chkFractal.selected}"
+			octaves="{_sldrOctaves.value}"
+			topScale="{_sldrTopScale.value}"
+			pixelation="{_sldrPixelation.value == 0 ? 0.5 : _sldrPixelation.value}"
+			dynamicFrameThresholdCachePriority="5"
+			dynamicScaleThresholdColorsCachePriority="3"
+			Mask="{_mctr.mask}" 
+			/>
+			
+</cnt:PaintEffectCanvas>

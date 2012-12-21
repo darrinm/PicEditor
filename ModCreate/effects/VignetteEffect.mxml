@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cnt:EffectCanvas xmlns:cnt="containers.*" xmlns="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="299"
+	xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*" urlid="Vignette">
+	<mx:Script>
+		import util.LocUtil;
+		import mx.resources.ResourceBundle;
+   		[Bindable] [ResourceBundle("VignetteEffect")] private var rb:ResourceBundle;
+	</mx:Script>
+
+	
+	<mx:Array id="_resetValues">
+		<local:StoredValue target="_clrsw.startThumbX"/>
+		<local:StoredValue target="_clrsw.startThumbY"/>
+		<local:StoredValue target="_clrsw.color"/>
+		<local:StoredValue target="_sldrBlur.value"/>
+		<local:StoredValue target="_sldrStr.value"/>
+		<local:StoredValue target="_sldrFade.value"/>
+	</mx:Array>
+	
+	<EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='VignetteEffect')" strAuthor="@Resource(key='_efbtn_1', bundle='VignetteEffect')" strImageSource="../graphics/effects/Basics/vignette.png"/>
+	<mx:String id="_strHelpText">{Resource.getString('VignetteEffect', '_strHelpText')}</mx:String>
+
+	<mx:Label x="8" y="70" text="@Resource(key='Label_1', bundle='VignetteEffect')" styleName="sliderTitle"/>
+	<mx:Label x="152" y="70" text="{Math.round(_sldrBlur.liveValue*2)}" styleName="sliderValue" textAlign="right" width="50"/>
+	<HSliderFastDrag updateSpeed="{updateSpeed}" x="9" y="85" width="190" minimum="0" maximum="50" value="35" id="_sldrBlur" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+	
+	<mx:Label x="8" y="110" text="@Resource(key='Label_2', bundle='VignetteEffect')" styleName="sliderTitle"/>
+	<mx:Label x="152" y="110" text="{LocUtil.pct(((_sldrStr.liveValue-1)*100))}" styleName="sliderValue" textAlign="right" width="50"/>
+	<HSliderFastDrag updateSpeed="{updateSpeed}" x="9" y="125" width="190" minimum="1" maximum="2" value="1.4" id="_sldrStr" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+
+	<mx:Label x="8" y="153" text="@Resource(key='Label_3', bundle='VignetteEffect')" styleName="sliderTitle"/>
+	<mx:Canvas x="170" y="173" width="30" height="40" id="_cnvColor" backgroundColor="{_clrsw.color}">
+	<mx:filters>
+		<flash.filters:DropShadowFilter angle="90" blurX="2" blurY="2" distance="1" color="0x000000" alpha=".3" quality="3" inner="true" />
+		<flash.filters:BevelFilter angle="90" blurX="1" blurY="1"
+			distance="1" highlightAlpha=".3" shadowAlpha="1" highlightColor="0x666666" shadowColor="0xFFFFFF" knockout="false" quality="3" />
+	</mx:filters>
+	</mx:Canvas>
+	<ImageColorSwatch x="10" y="173" height="40" width="155" id="_clrsw" source="@Embed('/assets/bitmaps/swatch_vignette.png')" color="0x000000" 
+		change="OnOpChange()" startThumbX="5" startThumbY="37"/>
+	<mx:Label x="8" y="218" text="@Resource(key='Label_4', bundle='VignetteEffect')" styleName="sliderTitle"/>
+	<mx:Label x="152" y="218" text="{LocUtil.pct((_sldrFade.value))}" styleName="sliderValue" textAlign="right" width="50"/>
+	<HSliderPlus x="9" y="233" width="190" minimum="0" maximum="100" value="0" id="_sldrFade" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+		
+	<ApplyCancelEffectButtons y="263" x="0" premium="{premium}"/>
+	
+	<imageOperations:GlowImageOperation id="_op" color="{_clrsw.color}" glowalpha="1"
+		dynamicAlphaCachePriority="1" 
+		xblur="{_sldrBlur.value*.02*Math.max(imagewidth, imageheight)/4}" yblur="{_sldrBlur.value*.02*Math.max(imagewidth, imageheight)/4}" 
+		strength="{_sldrStr.value}" quality="3" innerglow="true" knockout="false"
+		BlendAlpha="{1-(_sldrFade.value/100)}"/>
+</cnt:EffectCanvas>

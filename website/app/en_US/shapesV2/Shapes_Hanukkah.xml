@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/shape_hanukkah.png" flickrPremium="false" id="Hanukkah" numShapes="6" picnikPremium="false" previewUrls="60|48|../clipart/bundles/groupPreviews_Hanukkah.png?ver=04df0814" title="Hanukkah">
+	<Shapes>
+		<Clipart cHeight="121" cWidth="111" flickrPremium="false" picnikPremium="false" previewUrl="40|40|0|../clipart/bundles/shapes_Hanukkah.png?ver=5bdaf74e" url="shapes/Hanukkah_Ball.swf"/>
+		<Clipart cHeight="157" cWidth="118" flickrPremium="false" picnikPremium="false" previewUrl="40|40|1|../clipart/bundles/shapes_Hanukkah.png?ver=5bdaf74e" url="shapes/Hanukkah_Dradel.swf"/>
+		<Clipart cHeight="118" cWidth="135" flickrPremium="false" picnikPremium="false" previewUrl="40|40|2|../clipart/bundles/shapes_Hanukkah.png?ver=5bdaf74e" url="shapes/Hanukkah_Menorah.swf"/>
+		<Clipart cHeight="130" cWidth="184" flickrPremium="false" picnikPremium="false" previewUrl="40|40|3|../clipart/bundles/shapes_Hanukkah.png?ver=5bdaf74e" url="shapes/Hanukkah_Scroll.swf"/>
+		<Clipart cHeight="137" cWidth="121" flickrPremium="false" picnikPremium="false" previewUrl="40|40|4|../clipart/bundles/shapes_Hanukkah.png?ver=5bdaf74e" url="shapes/Hanukkah_StarDavid.swf"/>
+		<Clipart cHeight="125" cWidth="194" flickrPremium="false" picnikPremium="false" previewUrl="40|40|5|../clipart/bundles/shapes_Hanukkah.png?ver=5bdaf74e" url="shapes/Hanukkah_Torah.swf"/>
+	</Shapes>
+</ShapeCategory>

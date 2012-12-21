@@ -1,0 +1,23 @@
+/*
+ * Copyright 2011 Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an Apache 2.0 License.
+ * See the COPYING file for details.
+ */
+
+
+@font-face {
+    src:url("kg_It_Aint_Rocket_Science_fla.swf");
+    font-family: "It Ain\'t Rocket Science";
+    /* unicodeRange: U+0000-U+00FF; */
+    /* flashType: true; */
+    fontWeight: normal;
+    fontStyle: normal;
+}
+
+.pkkg0It0Aint0Rocket0Science
+{
+    font-family: "It Ain\'t Rocket Science";
+    fontWeight: normal;
+    fontStyle: normal;
+}

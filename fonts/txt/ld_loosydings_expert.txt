@@ -1,0 +1,12 @@
+fileName: ld_loosydings_expert.ttf
+name: Loosydings Expert
+subfamilyDisplayName: Regular
+fullName: Loosydings Expert
+displayName: Loosydings Expert
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 5
+pkName: pkld0loosydings0expert
+authorName: Loosy Design
+authorUrl: http://www.loosydesign.com/

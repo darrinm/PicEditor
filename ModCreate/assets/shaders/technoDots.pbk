@@ -1,0 +1,66 @@
+<languageVersion: 1.0;>
+kernel TechnoDots
+<
+    title: "Techno Dots";
+    namespace: "popforge::ImageProcessing";
+    vendor: "joa ebert";
+    version: 1;
+    description: "Like a pixelate filter but using nice dots with spacing. Smooth edges by Jan Van Coppenolle.";
+>
+{
+    parameter float radius
+    <
+        minValue: float(1.0);
+        maxValue: float(64.0);
+        defaultValue: float(4.0);
+        description: "radius of the dots";
+        snapInterval: 1;
+    >;
+    
+    parameter float spacing
+    <
+        minValue: float(0.0);
+        maxValue: float(16.0);
+        defaultValue: float(1.0);
+        description: "spacing between dots";
+        snapInterval: 1;
+    >;
+    
+    parameter pixel4 fillColor
+    <
+        defaultValue: float4(0, 0, 0, 0.5);
+    >;
+    
+    input image4 source;
+    output pixel4 result;
+    
+    void evaluatePixel()
+    {
+        // xy0 = origin
+        // xy1 = translated
+        float2 xy0 = outCoord();
+        float2 xy1 = xy0;
+        
+        // aabb of dot with spacing
+        float rs = radius * 2.0 + spacing;
+        
+        // shift into square
+        xy1 -= mod( xy1, float2( rs, rs ) );
+        
+        // put into the middle
+        xy1 += float2( radius );
+        
+        // use constants
+        float  a = length(xy0-xy1); // check if inside
+        float  b = radius;          // the radius
+        pixel4 c = fillColor;
+        pixel4 d = sampleNearest(source, xy1);
+        
+        // no flash error with constant selection
+//        result = ( a > b ) ? c : d;
+
+//      Smooth edges by Jan Van Coppenolle
+        float o = smoothStep(b, b - 1.0, a);
+        result = c - c * o + d * o;
+    }
+}

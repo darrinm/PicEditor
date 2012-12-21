@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox xmlns="dialogs.RegisterHelper.*" verticalGap="0" width="100%" height="100%"
+	xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:ctrl="controls.*" xmlns:cntr="containers.*" 
+	xmlns:ds="com.darronschall.effects.*" xmlns:vld="validators.*" >
+
+	<mx:Script>
+		<![CDATA[
+			import picnik.util.LocaleInfo;
+			[Bindable] public var text:String = "";
+		]]>
+	</mx:Script>
+
+	<mx:VBox width="100%" id="vbox2" height="100%" verticalAlign="bottom">
+		<ctrl:ImageEx source="../graphics/page_divider.png" scaleContent="true" width="100%" height="2" maintainAspectRatio="false"/>
+	</mx:VBox>
+	<mx:VBox height="45" width="480" id="vbox4" paddingTop="5" horizontalScrollPolicy="off" verticalScrollPolicy="off">
+		<ctrl:ResizingText width="480" condenseWhite="true" fontSize="13" paddingLeft="-3" fontWeight="{LocaleInfo.BoldWeight()}" color="#4d4d4d" leading="-1" htmlText="{text}"
+			height="45" autoFontSizeGap="1"/>
+	</mx:VBox>
+</mx:VBox>		

@@ -1,0 +1,12 @@
+fileName: lb_jandles.ttf
+name: Jandles
+subfamilyDisplayName: Regular
+fullName: Jandles
+displayName: Jandles
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 5
+pkName: pklb0jandles
+authorName: Ray Larabie
+authorUrl: http://www.larabiefonts.com/

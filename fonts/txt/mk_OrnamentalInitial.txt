@@ -1,0 +1,12 @@
+fileName: mk_OrnamentalInitial.ttf
+name: OrnamentalInitial
+subfamilyDisplayName: Regular
+fullName: OrnamentalInitial
+displayName: OrnamentalInitial
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 6
+pkName: pkmk0OrnamentalInitial
+authorName: Manfred Kelin
+authorUrl: http://moorstation.org/typoasis/designers/klein/

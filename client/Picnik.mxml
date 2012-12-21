@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PicnikBase	xmlns="*" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:flash="flash.filters.*" xmlns:ns1="dialogs.*" 
+		xmlns:bridges="bridges.*" preloader="PicnikPreloaderDisplay" xmlns:ctl="controls.*" xmlns:ctr="containers.*" 
+		xmlns:renaun="com.renaun.controls.*" xmlns:url="urlkit.rules.*" xmlns:basket="bridges.basket.*" 
+		layout="absolute" backgroundColor="#FFFFFF" frameRate="50" pageTitle="Picnik" initialize="initApp();" 
+		currentState="FirstRun" xmlns:projects="projects.*" xmlns:Purchase="dialogs.Purchase.*" xmlns:debug="debug.*">
+	<states>
+		<mx:State name="FirstRun">
+			<mx:RemoveChild target="{_btnTopUpgrade}"/>
+			<mx:RemoveChild target="{_hbGreyLiteHead}"/>
+			<mx:RemoveChild target="{_hrGreyLiteRule}"/>
+			<mx:RemoveChild target="{_hbLiteButtons}"/>
+			<mx:RemoveChild target="{_btnPicnikMenu}"/>
+			<mx:RemoveChild target="{_hbLiteSaveCancel}"/>
+			<!--<mx:RemoveChild target="{_pwndPopupInfo}"/> disabled -->
+			<mx:SetProperty target="{_tabn}" name="visible" value="false"/>
+			<mx:SetProperty target="{_hboxHeaderBar}" name="visible" value="false"/>
+			<mx:SetProperty target="{_wndc}" name="visible" value="false"/>
+			<mx:AddChild position="lastChild">
+				<mx:Canvas width="100%" height="100%" x="0" y="0" visible="{liteUI}" includeInLayout="{liteUI}">
+					<ctl:Gears horizontalCenter="0" id="_gearsSWF" verticalCenter="-20" width="100" height="60"/>
+				</mx:Canvas>
+			</mx:AddChild>
+			<mx:SetStyle target="{firstrun1}" name="top" value="63"/>
+		</mx:State>
+		<mx:State name="HandlingServiceCallbacks" basedOn="FirstRun">
+			<mx:AddChild relativeTo="{firstrun1}" position="after">
+				<!-- localized _lbConnecting.text is filled in by PicnikBase.as -->
+				<mx:Label id="_lbConnecting" y="100" horizontalCenter="0" fontSize="16" color="#333333"/>
+			</mx:AddChild>
+			<mx:AddChild relativeTo="{firstrun1}" position="after">
+				<ctl:Gears y="140" horizontalCenter="-4" id="image1"/>
+			</mx:AddChild>
+			<!-- UNDONE: probably should be cancellable
+			<mx:AddChild position="lastChild">
+				<mx:Button label="@Resource(key='_btnCancel', bundle='Picnik')" id="_btnCancel" horizontalCenter="0" width="90" 
+						styleName="smallDialogButton" height="20" y="120" click="OnLogInCancelClick(event)" />
+			</mx:AddChild>
+			-->
+		</mx:State>
+		<mx:State name="DialogMode">
+			<mx:AddChild position="firstChild">
+				<mx:Canvas width="100%" height="100%">
+					<ctl:ImageEx source="../graphics/bluegrad_short.gif" left="0" top="0" width="100%" height="702" maintainAspectRatio="false" includeInLayout="false"/> 
+					<ctl:ImageEx source="../graphics/clouds.jpg" horizontalCenter="0" top="0" width="983" height="177" includeInLayout="false" horizontalAlign="center"/>
+					<ctl:ImageEx source="../graphics/picnik_com.png" left="40" top="40"/> 
+				</mx:Canvas>
+			</mx:AddChild>
+			<mx:RemoveChild target="{_canvas1}"/>
+			<mx:RemoveChild target="{_vboxMainBody}"/>						
+		</mx:State>
+		<mx:State name="GuestDialogMode" basedOn="DialogMode">
+		</mx:State>
+		<mx:State name="8x6">
+			<mx:SetStyle target="{_brgcIn}" name="paddingLeft" value="0"/>
+		</mx:State>
+		<mx:State name="Guest"></mx:State>
+		<mx:State name="Export">
+			<mx:AddChild relativeTo="{firstrun1}" position="before">
+				<ctl:ButtonPlusUnicode id="_btnExport" label="{_pas.exportButtonTitle}" styleName="exportButton" height="26" fontSize="15" right="10" top="33" 
+					click="_pas.ExportClick()"
+					move="_tabn.tabBarRightPadding = width - _btnExport.x">
+					<ctl:filters>
+						<flash:DropShadowFilter alpha=".5" angle="90" blurX="2" blurY="2" color="#000000" distance="1"/>
+					</ctl:filters>
+				</ctl:ButtonPlusUnicode>
+			</mx:AddChild>
+		</mx:State>
+		<mx:State name="GuestExport" basedOn="Guest">
+			<mx:AddChild relativeTo="{firstrun1}" position="before">
+				<ctl:ButtonPlusUnicode id="_btnGuestExport" label="{_pas.exportButtonTitle}" styleName="exportButton" height="26" fontSize="15" right="10" top="33" 
+					click="_pas.ExportClick()" 
+					move="_tabn.tabBarRightPadding = width - _btnGuestExport.x">
+					<ctl:filters>
+						<flash:DropShadowFilter alpha=".5" angle="90" blurX="2" blurY="2" color="#000000" distance="1"/>
+					</ctl:filters>
+				</ctl:ButtonPlusUnicode>
+			</mx:AddChild>
+		</mx:State>
+	</states>
+	<mx:Script><![CDATA[
+		import mx.managers.PopUpManager;
+		import mx.core.Application;
+		import mx.core.UIComponent;
+		import dialogs.DialogManager;
+		import pages.WelcomeBits.UserGreeting;
+        import mx.managers.ToolTipManager;
+        import util.LocUtil;
+        private function initApp():void {
+            ToolTipManager.showDelay = 1000; 	// Display after 1 second
+            ToolTipManager.hideDelay = Infinity; 	// Hide after 10 seconds
+            ToolTipManager.scrubDelay = 200; 	// Give user 200 ms to move from item to item and keep tip up            
+        }
+    ]]>
+    </mx:Script>
+    
+    <url:UrlRuleSet id="_urs" type="any">
+        <url:UrlNavigatorRule id="_unr" tabNavigator="{_tabn}" urlFormat="/*" useChildLabelForTitle="false" 
+        		urlField="urlkit" matchUrlBeginning="true"/>
+        <url:UrlDelegateRule rule="{_unr.navigatorChildRule}"/>
+    </url:UrlRuleSet>
+    
+    <flash:DropShadowFilter alpha=".65" angle="90" blurX="2" blurY="2" color="#000000" distance="1" id="_dropShadow"/>
+	<flash:DropShadowFilter blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1" quality="3" angle="90" id="_fiWhiteShad"/>
+	<flash:DropShadowFilter blurX="4" blurY="4" distance="1" color="#000000" alpha=".5" quality="3" angle="-90" inner="true" id="_fiHeadShadow"/>
+	
+    <mx:String id="_strLongRegisterPrompt">{Resource.getString('Picnik', '_strLongRegisterPrompt')}</mx:String>
+    <mx:String id="_strShortRegisterPrompt">{Resource.getString('Picnik', '_strShortRegisterPrompt')}</mx:String>
+    
+    <!-- green header bar fade effects -->
+    <mx:AnimateProperty id="_efHeadFadeIn" isStyle="true" property="backgroundAlpha" fromValue="0" toValue=".2" duration="150"/>
+    <mx:AnimateProperty id="_efHeadFadeOut" isStyle="true" property="backgroundAlpha" fromValue=".2" toValue="0" duration="200"/>
+    
+    <mx:Canvas left="0" top="0" right="0" bottom="0" id="_canvas1" horizontalScrollPolicy="off" visible="{!liteUI}">
+    	<!-- <renaun:RepeatingImage source="@Embed('assets/bitmaps/topGrassFill.gif')" id="_imgGrass" repeatY="false" left="0" top="0" width="100%" height="64"/> -->
+    	<!--<renaun:RepeatingImage source="@Embed('assets/bitmaps/topPineNeedleFill.jpg')" id="_imgGrass" repeatY="false" left="0" top="0" width="100%" height="64"/>-->
+    	<!-- put the logo_underlay image back if we've got a holiday bg for the logo --> 
+		<ctl:ImageEx source="../graphics/halloween/logo_blackwash.png" left="0" top="0" width="490" height="64" maintainAspectRatio="false" alpha=".7"/>
+		<ctl:ImageEx source="../graphics/halloween/logo_cobweb.png" left="0" top="0" width="290" height="64" blendMode="screen" alpha="{AccountMgr.GetInstance().isPremium?.25:.6}"/>
+		
+		<mx:HBox id="_hboxTopBar" top="0" width="100%" paddingLeft="6" paddingRight="5" horizontalGap="0">
+			<mx:HBox horizontalGap="-5" horizontalScrollPolicy="off" buttonMode="true"
+					>
+				<!-- halloween brand--> 
+				<ctl:ImageVer id="_imgLogoPremium" source="@Embed('/assets/swfs/halloween_picnik_brand.swf')"
+					visible="{AccountMgr.GetInstance().isPremium}" includeInLayout="{AccountMgr.GetInstance().isPremium}" 
+					click="{PicnikBase.app.NavigateTo(PicnikBase.HOME_TAB, '_pagWelcome')}"/>
+				
+				<!-- valentine's brand 
+				<ctl:ImageVer id="_imgLogoPremium" source="@Embed('/assets/bitmaps/picnik_brand_premium_valentines.png')"
+					visible="{AccountMgr.GetInstance().isPremium}" includeInLayout="{AccountMgr.GetInstance().isPremium}" 
+					click="{PicnikBase.app.NavigateTo(PicnikBase.HOME_TAB, '_pagWelcome')}"/>
+				-->
+				<!-- bring this back post halloween -->
+				<!--<ctl:ImageVer id="_imgLogoPremium" source="@Embed('/assets/bitmaps/picnik_brand_premium_holiday.png')"
+							  visible="{AccountMgr.GetInstance().isPremium}" includeInLayout="{AccountMgr.GetInstance().isPremium}" 
+							  click="{PicnikBase.app.NavigateTo(PicnikBase.HOME_TAB, '_pagWelcome')}"/>-->
+				<!--<ctl:ImageVer id="_imgLogoPremium" source="@Embed('/assets/bitmaps/picnik_brand_premium.png')"
+					visible="{AccountMgr.GetInstance().isPremium}" includeInLayout="{AccountMgr.GetInstance().isPremium}" 
+					click="{PicnikBase.app.NavigateTo(PicnikBase.HOME_TAB, '_pagWelcome')}"/>-->
+				<!--<ctl:ImageVer id="_imgLogo" source="@Embed('assets/bitmaps/picnik_brand_main.png')"
+					visible="{!AccountMgr.GetInstance().isPremium}" includeInLayout="{!AccountMgr.GetInstance().isPremium}"
+					click="{PicnikBase.app.NavigateTo(PicnikBase.HOME_TAB, '_pagWelcome')}"/>-->
+				<ctl:ImageVer id="_imgCobrand" source="@Embed('theme/gifs/blank.gif')" minWidth="5" />
+			</mx:HBox>
+			<mx:HBox paddingLeft="6" width="100%" horizontalGap="10">
+				<mx:Spacer width="100%" id="spacer1"/>
+				<mx:Canvas>
+					<!-- bg box -->
+					<mx:HBox horizontalGap="8" height="31" verticalAlign="bottom" width="100%"
+							top="-7"
+							backgroundColor="#384a15" borderStyle="solid" borderColor="#384a15" cornerRadius="8" 
+							backgroundAlpha=".3" borderThickness="0" paddingRight="10" paddingLeft="8" paddingBottom="4"
+							filters="{[_fiHeadShadow]}"/>
+					<mx:HBox horizontalGap="8" id="_hboxHeaderBar" height="31" verticalAlign="bottom" width="100%"
+							top="-7" rollOverEffect="{_efHeadFadeIn}" rollOutEffect="{_efHeadFadeOut}"
+							backgroundColor="#384a15" borderStyle="solid" borderColor="#384a15" cornerRadius="8" 
+							backgroundAlpha="0" borderThickness="0" paddingRight="10" paddingLeft="8" paddingBottom="4">
+
+						<!-- My Account button (shows signed in user's name) -->
+						<ctl:ButtonPlusUnicode id="_btnMyAccount" enabled="true" height="18" styleName="greenButton" 
+								label="{LocUtil.rbSubst('Picnik', '_btnMyAccount', AccountMgr.GetInstance().displayName)}" 
+								filters="{[_dropShadow]}" paddingLeft="-12" mouseChildren="false" buttonMode="true"
+								visible="{showSignOutButton}" includeInLayout="{showSignOutButton}"/>
+						<ctl:ImageVer source="@Embed('theme/pngs/greenbutton/greenbuttonDivider.png')"
+								visible="{showSignOutButton}" includeInLayout="{showSignOutButton}"/>
+
+						<!--Language-->
+						<ctr:HBoxButton buttonMode="true" button="{_btnLanguage}" horizontalGap="-5" verticalCenter="0" height="18" verticalAlign="middle"
+								 rollOver="{_imgGlobe.alpha=1}" rollOut="{_imgGlobe.alpha=.9}" 
+								 visible="{canNavParentFrame &amp;&amp; !showSignOutButton}" 
+								 includeInLayout="{canNavParentFrame &amp;&amp; !showSignOutButton}">
+							<ctl:ImageVer id="_imgGlobe" source="@Embed('assets/bitmaps/icon_globe.png')" alpha=".9"/>
+							<ctl:ButtonPlus id="_btnLanguage" height="17" styleName="greenButton" paddingLeft="-6" paddingRight="-12" filters="{[_dropShadow]}"
+									 icon="@Embed('theme/pngs/greenbutton/greenbuttonArrow.png')" overIcon="@Embed('theme/pngs/greenbutton/greenbuttonArrowOver.png')"
+									 labelPlacement="left" label="{LocUtil.formattedCurrentLanguage()}" horizontalGap="3"/>
+						</ctr:HBoxButton>
+						<ctl:ImageVer source="@Embed('theme/pngs/greenbutton/greenbuttonDivider.png')"
+								 visible="{canNavParentFrame &amp;&amp; !showSignOutButton}" 
+								 includeInLayout="{canNavParentFrame &amp;&amp; !showSignOutButton}"/>
+						
+						<!-- TODO: uncomment next two lines to turn on SettingsTab 
+						<ctl:ImageVer source="@Embed('theme/pngs/greenbutton/greenbuttonDivider.png')" visible="{!AccountMgr.GetInstance().isGuest}" includeInLayout="{!AccountMgr.GetInstance().isGuest}"/> 
+						<ctl:ButtonPlus label="@Resource(key='_btnSettings', bundle='Picnik')" enabled="true" id="_btnSettings" height="17" styleName="greenButton" filters="{[_dropShadow]}" visible="{!AccountMgr.GetInstance().isGuest}" includeInLayout="{!AccountMgr.GetInstance().isGuest}"/> -->
+						
+						<!--Help Button-->
+						<ctl:ButtonPlus label="@Resource(key='_btnHelp', bundle='Picnik')" id="_btnHelp" height="18" styleName="greenButton" paddingLeft="-12" paddingRight="-12" filters="{[_dropShadow]}"
+							 icon="@Embed('theme/pngs/greenbutton/greenbuttonArrow.png')" overIcon="@Embed('theme/pngs/greenbutton/greenbuttonArrowOver.png')" 
+							 labelPlacement="left" horizontalGap="3"  buttonMode="true"/>
+	
+						<!--Upgrade Button-->
+						<ctl:ImageVer source="@Embed('theme/pngs/greenbutton/greenbuttonDivider.png')"
+							visible="{showTopUpgradeButton}" includeInLayout="{showTopUpgradeButton}"/>
+						<!-- _btnTopUpgrade's text and appearance is controlled by PicnikBase.UpdateTopUpgradeButton -->
+						<ctl:ButtonPlus enabled="true" height="18" styleName="greenButton"  id="_btnTopUpgrade"
+							icon="@Embed('assets/bitmaps/icon_miniSun.png')" horizontalGap="-2" paddingLeft="-17"
+							filters="{[_dropShadow]}" buttonMode="true"
+							visible="{showTopUpgradeButton}" includeInLayout="{showTopUpgradeButton}" />
+	
+						<!--Register-->
+						<ctl:ImageVer id="_divRegister" source="@Embed('theme/pngs/greenbutton/greenbuttonDivider.png')"
+							visible="{showRegisterButton}" includeInLayout="{showRegisterButton}"/>
+						<!-- _btnRegister's text and appearance is controlled by PicnikBase.UpdateRegisterButton -->
+						<ctl:ButtonPlus id="_btnRegister" label="@Resource(key='Register', bundle='Picnik')" enabled="true" height="18" styleName="greenButton" filters="{[_dropShadow]}" click="Register()"
+							paddingLeft="-12" visible="{showRegisterButton}" includeInLayout="{showRegisterButton}"  buttonMode="true"/>		
+
+						<!--Sign In-->
+						<ctl:ImageVer id="_divSignIn" source="@Embed('theme/pngs/greenbutton/greenbuttonDivider.png')"
+							visible="{showSignInButton}" includeInLayout="{showSignInButton}"/>
+						<!-- _btnSignIn's text and appearance is controlled by PicnikBase.UpdateSignInButton -->
+						<ctl:ButtonPlus id="_btnSignIn" label="@Resource(key='_btnSignIn', bundle='Picnik')" enabled="true" height="18" styleName="greenButton" filters="{[_dropShadow]}" click="SignIn()"
+							paddingLeft="-12" visible="{showSignInButton}" includeInLayout="{showSignInButton}"  buttonMode="true"/>		
+	
+						<ctl:ImageVer source="@Embed('theme/pngs/greenbutton/greenbuttonDivider.png')"
+							visible="{showSignOutButton}" includeInLayout="{showSignOutButton}"/>
+						<!-- _btnSignOut's text and appearance is controlled by PicnikBase.UpdateSignInButton -->
+						<ctl:ButtonPlus label="@Resource(key='_btnSignOut', bundle='Picnik')" enabled="true" id="_btnSignOut" height="18" styleName="greenButton" filters="{[_dropShadow]}" 
+							paddingLeft="-12" visible="{showSignOutButton}" includeInLayout="{showSignOutButton}" mouseChildren="false" buttonMode="true"/>
+					</mx:HBox>
+				</mx:Canvas>
+				
+				<!--Fullscreen Button-->
+				<mx:Canvas id="_cnvFullscreen">
+					<mx:HBox horizontalGap="8" height="31" verticalAlign="bottom" width="100%"
+						top="-7"
+						backgroundColor="#384a15" borderStyle="solid" borderColor="#384a15" cornerRadius="8" 
+						backgroundAlpha=".3" borderThickness="0" paddingRight="10" paddingLeft="10" paddingBottom="4"
+						filters="{[_fiHeadShadow]}"/>
+					<WindowControls top="-7" id="_wndc" rollOverEffect="{_efHeadFadeIn}" rollOutEffect="{_efHeadFadeOut}"/>
+				</mx:Canvas>
+			</mx:HBox>
+		</mx:HBox>
+		<FirstRun top="63" left="0" right="0" bottom="0" id="firstrun1"/>
+	</mx:Canvas>
+	
+	<!-- lite UI elements -->
+	<mx:Box id="_hbGreyLiteHead" width="100%" height="44" styleName="liteHeaderBackground" visible="{liteUI}"/>
+	<mx:HRule id="_hrGreyLiteRule" styleName="liteTabBaseLine" width="100%" top="44" visible="{liteUI}"/>
+	<mx:Button id="_btnPicnikMenu" x="25" y="21" height="17" label="{flickrlite?'Picnik':''}" styleName="litePicnikMenuButton"
+			labelPlacement="left" visible="{liteUI &amp;&amp; !IsGooglePlus()}" includeInLayout="{liteUI &amp;&amp; !IsGooglePlus()}"/>
+	<mx:HBox id="_hbLiteButtons" left="549" top="14" horizontalGap="0" visible="{flickrlite}" includeInLayout="{flickrlite}">
+	
+		<!-- premium upsell message -->
+		<mx:Box width="1" height="30" styleName="flickrHeadDivider"
+			visible="{!AccountMgr.GetInstance().isPaid}" includeInLayout="{!AccountMgr.GetInstance().isPaid}"/>
+		<mx:HBox id="_hbxPremiumSun" visible="{!AccountMgr.GetInstance().isPaid}" includeInLayout="{!AccountMgr.GetInstance().isPaid}" horizontalGap="0">
+			<ctl:ImageEx source="../graphics/premium_sun-small.png" autoLoad="false" />
+			<mx:VBox verticalGap="-7" paddingLeft="8" paddingRight="8" buttonMode="true" mouseChildren="false"
+					click="DialogManager.ShowUpgrade(navUpgradePath+'/lite_tabbar_buttons')">
+				<ctl:ResizingLabel htmlText="@Resource(key='getMore', bundle='Picnik')" fontSize="11" color="#666666" fontWeight="normal"/>
+				<ctl:ResizingLabel htmlText="@Resource(key='picnikPremiumBang', bundle='Picnik')" fontSize="12" styleName="liteUrlColor" paddingBottom="3"/>
+			</mx:VBox>
+		</mx:HBox>
+		<mx:Box width="1" height="30" styleName="flickrHeadDivider"
+			visible="{!AccountMgr.GetInstance().isPaid}" includeInLayout="{!AccountMgr.GetInstance().isPaid}"/>
+		
+		<!-- connect account message -->
+		<mx:VBox verticalGap="-7" paddingLeft="8" paddingRight="8" buttonMode="true" mouseChildren="false" click="DialogManager.ShowLogin(UIComponent(Application.application))"
+				visible="{!AccountMgr.GetInstance().hasCredentials}"
+				includeInLayout="{!AccountMgr.GetInstance().hasCredentials}">
+			<ctl:ResizingLabel htmlText="@Resource(key='havePremium', bundle='Picnik')" fontSize="11" color="#666666" fontWeight="normal"/>
+			<ctl:ResizingLabel htmlText="@Resource(key='connectBang', bundle='Picnik')" fontSize="12" styleName="liteUrlColor" paddingBottom="3"/>
+		</mx:VBox>
+		<mx:Box width="1" height="30" styleName="flickrHeadDivider"
+			visible="{!AccountMgr.GetInstance().hasCredentials}" includeInLayout="{!AccountMgr.GetInstance().hasCredentials}"/>
+		
+	</mx:HBox>
+	
+	<!-- navigation tabs -->
+	<mx:VBox id="_vboxMainBody" verticalGap="0" bottom="0" top="{IsGooglePlus()?-32:(liteUI ? 13 : 31)}" left="0" width="100%">
+		<ctr:TabNavigatorPlus id="_tabn" height="100%" width="100%" tabStyleName="{liteUI ? 'liteTab' : null}" 
+				tabHeight="33" horizontalAlign="left" paddingBottom="0" paddingLeft="0" paddingRight="0" paddingTop="0" 
+				borderThickness="0" creationPolicy="none" selectedIndex="-1" buttonTabId="{yahoomail ? '_brgcOut' : null}"
+				centerTabs="false" tabBarLeftPadding="{liteUI ? 94 : 0}" focusEnabled="false">
+		</ctr:TabNavigatorPlus>
+		
+		<mx:ViewStack id="_vstkTabHolder" visible="false" includeInLayout="false" creationPolicy="auto">
+			<!-- make this one be the default selection so that others aren't created unnecessarily -->
+			<EmptyTab urlkit="emptytab" label="empty"/>
+			
+			<!-- Home -->
+			<Home urlkit="home" label="@Resource(key='_pgcHome', bundle='Picnik')" id="_pgcHome" icon="@Embed('/assets/bitmaps/home_icon.png')"
+					toolTip="@Resource(key='_pgcHome_1', bundle='Picnik')" creationPolicy="none"/>
+			
+			<!-- Library -->
+			<InBridges urlkit="in" label="@Resource(key='_brgcIn', bundle='Picnik')" id="_brgcIn"
+					toolTip="@Resource(key='_brgcIn_1', bundle='Picnik')" creationPolicy="none"/>
+			
+			<!-- Collage -->
+			<!-- HACK: the new "_v2" leaves the old ModCreate.swf for old clients. A better solution is forthcoming. -->
+			<ctr:ActivatableModuleLoader urlkit="collage" label="@Resource(key='_cvsCollage', bundle='Picnik')" activatableId="collage" url="{GetLocModuleName('ModCreate')}" 
+					width="100%" height="100%" id="_cvsCollage" horizontalScrollPolicy="off" verticalScrollPolicy="off" creationPolicy="none"
+					toolTip="@Resource(key='_cvsCollage_tooltip', bundle='Picnik')"/>
+
+			<!-- Fancy Collage -->
+			<ctr:ActivatableModuleLoader urlkit="advancedcollage" label="@Resource(key='_cvsAdvancedCollage', bundle='Picnik')" activatableId="advancedcollage" url="{GetLocModuleName('ModCreate')}" 
+					width="100%" height="100%" id="_cvsAdvancedCollage" horizontalScrollPolicy="off" verticalScrollPolicy="off" creationPolicy="none"
+					toolTip="@Resource(key='_cvsAdvancedCollage_tooltip', bundle='Picnik')"/>
+			
+			<!-- TODO(darrinm): what is this for? There is no "greetingcard" in ModCreate.
+			<ctr:ActivatableModuleLoader urlkit="greetingcard" label="@Resource(key='_cvsGreetingCard', bundle='Picnik')" activatableId="greetingcard" url="{GetLocModuleName('ModCreate')}" 
+					width="100%" height="100%" id="_cvsGreetingCard" horizontalScrollPolicy="off" verticalScrollPolicy="off" creationPolicy="none"
+					toolTip="@Resource(key='_cvsGreetingCard_tooltip', bundle='Picnik')"/>
+			-->
+			
+			<!-- Combined Edit/Create -->
+			<CreativeToolsTab urlkit="edit" label="@Resource(key='_cvsAdjust', bundle='Picnik')" width="100%" height="100%" id="_cvsEditCreate"
+					toolTip="@Resource(key='_cvsEdit', bundle='Picnik')" creationPolicy="none"/>
+			
+			<!-- Save & Share -->
+			<OutBridges urlkit="out" label="@Resource(key='_brgcOut', bundle='Picnik')" width="100%" height="100%" id="_brgcOut" 
+					toolTip="@Resource(key='_brgcOut_1', bundle='Picnik')" creationPolicy="none"/>
+		</mx:ViewStack>		
+		
+		<!-- The Basket will be initialized when the Edit or Create tab is shown, crucially, _after_ the user is logged in -->
+		<basket:Basket id="basket" includeInLayout="false" visible="false" creationPolicy="none"/>
+	</mx:VBox>
+
+	<!-- more lite UI elements -->	
+	<mx:HBox id="_hbLiteSaveCancel" y="{_pas ? (25 - Math.round(_pas.exportButtonHeight/2)) : 15}" right="8" 
+			 visible="{liteUI &amp;&amp; !IsGooglePlus()}" includeInLayout="{liteUI &amp;&amp; !IsGooglePlus()}" verticalAlign="middle">
+		<ctl:ResizingButton id="_btnSave" label="{GetSaveButtonTitle(flickrlite, _pas.exportButtonTitle)}" styleName="liteSaveButton" height="{_pas.exportButtonHeight}" ignoreheight="true"/>
+		<ctl:ResizingButton id="_btnCancel" label="@Resource(key='_btnCancel2', bundle='Picnik')" styleName="liteCancelButton" visible="{!flickrlite}" includeInLayout="{!flickrlite}" height="{_pas.exportButtonHeight}" ignoreheight="true" />
+		<mx:Text id="_txtCancel" htmlText="@Resource(key='_btnClosePhoto', bundle='Picnik')" paddingTop="3" visible="{flickrlite}" includeInLayout="{flickrlite}" />
+	</mx:HBox>
+	<mx:Canvas id="_cvsDisableSaveCancel" y="{_hbLiteSaveCancel.y}" x="{_hbLiteSaveCancel.x}" 
+		visible="{flickrlite &amp;&amp; !activeDocument}" includeInLayout="{flickrlite &amp;&amp; !activeDocument}" 
+		backgroundColor="#f7f7f7" backgroundAlpha="0.75"
+		width="{_hbLiteSaveCancel.width}" height="{_hbLiteSaveCancel.height}"/>
+	
+	<!-- give picnik popup, may become messaging platform in the future?
+	<ctr:InfoWindow id="_pwndPopupInfo" isPopUp="true" layout="vertical" backgroundColor="#ffffff"
+			alpha=".95" showCloseButton="true" headerHeight="18" horizontalAlign="center"
+			verticalGap="4" title="@Resource(key='picnikNews', bundle='Picnik')" 
+			horizontalScrollPolicy="off" verticalScrollPolicy="off" serial="2007121802"
+			right="{liteUI?8:22}" top="{liteUI?82:100}" includeInLayout="false" visible="false" close="OnClosePopupInfo()">
+		<mx:HBox width="100%" verticalAlign="middle" horizontalGap="5" paddingTop="0">
+			<ctl:ImageEx source="../graphics/picnik_gift_sm.png" filters="{[_fiWhiteShad]}"/>
+			<mx:Text text="@Resource(key='giftHead',bundle='UpsellTab')" width="100%" color="#005580" fontSize="18" fontWeight="bold" leading="-3" filters="{[_fiWhiteShad]}"/>
+		</mx:HBox>
+		<mx:Button label="@Resource(key='feelingGenerous',bundle='UpsellTab')" click="{OnGivePicnikClick()}" height="26" fontSize="14" styleName="upgradeButton"/>
+	</ctr:InfoWindow>
+	-->
+	<Purchase:Balloons id="_blns"/>	
+	<debug:DebugConsole right="0" bottom="0" left="0" height="167" id="_dbgc" visible="false"/>
+</PicnikBase>

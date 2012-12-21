@@ -1,0 +1,12 @@
+fileName: sidewalk.ttf
+name: sidewalk
+subfamilyDisplayName: Normal
+fullName: sidewalk
+displayName: sidewalk
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 0
+pkName: pksidewalk
+authorName: Gyom.Typo
+authorUrl: http://gyom.nebullus.com/

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<EasyDialogBase xmlns="dialogs.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="450" 
+		layout="vertical" styleName="EasyDialogStyle"
+		defaultButton="{allowDefaultButton ? _btn1 : null}" horizontalScrollPolicy="off" verticalScrollPolicy="off"
+		xmlns:controls="controls.*" xmlns:ctr="containers.*" xmlns:flash="flash.filters.*"
+	    creationComplete="_btn1.setFocus()"
+		paddingTop="0">
+	<mx:Script>
+		<![CDATA[
+			static public const kIconNone:int = 0;
+			static public const kIconAlert:int = 1;
+			static public const kIconYes:int = 2;
+			static public const kIconNo:int = 3;
+
+			[Bindable] public var messageLeading:Number = -1;
+			[Bindable] public var messageHeadingGap:Number = 0;
+			[Bindable] public var iconId:Number = kIconNone;
+		]]>
+	</mx:Script>	
+	<mx:Style>
+		.EasyDialogStyle {
+			modalTransparency: .45;
+			modalTransparencyColor: #000000;
+			modalTransparencyDuration: 250;
+			modalTransparencyBlur: 2;
+		}		
+	</mx:Style>
+	
+	<flash:DropShadowFilter id="_fiInnerShadow" alpha=".15" blurX="4" blurY="4" angle="-90" distance="2" quality="3" inner="true"/>
+	<mx:Box width="100%" height="100%" paddingLeft="10" paddingRight="10" paddingTop="7">
+		<mx:VBox verticalGap="{messageHeadingGap}" width="100%" paddingBottom="20">
+			<mx:HBox width="100%" verticalAlign="middle">
+				<controls:ImageVer source="@Embed('../theme/pngs/alertIcon.png')"
+					visible="{iconId==kIconAlert}" includeInLayout="{iconId==kIconAlert}"/>
+				<controls:ImageVer source="@Embed('../theme/pngs/yesIcon.png')"
+					visible="{iconId==kIconYes}" includeInLayout="{iconId==kIconYes}"/>
+				<controls:ImageVer source="@Embed('../theme/pngs/noIcon.png')"
+					visible="{iconId==kIconNo}" includeInLayout="{iconId==kIconNo}"/>
+				<controls:ResizingLabel htmlText="{headline}" maxWidth="400" width="100%" fontSize="28" color="#005580"  
+						autoFontSizeGap="1" visible="{headline.length>0}" includeInLayout="{headline.length>0}"
+						paddingLeft="{iconId==kIconNone ? 0 : 32}" paddingTop="3"/>
+			</mx:HBox>
+			<mx:Text width="100%" fontSize="15" leading="{messageLeading}" condenseWhite="true" selectable="{hasLinks}" htmlText="{text}"
+				link="OnLink(event)"/>
+		</mx:VBox> 		
+		<mx:HBox width="100%" horizontalGap="10" verticalAlign="middle" horizontalAlign="right" height="{this.footerHeight}">
+			<controls:ResizingButton id="_btn1" label="{buttonLabels.length>0 ? buttonLabels.getItemAt(0):''}" styleName="basketButton"
+				paddingLeft="7" paddingRight="7" minWidth="90"
+				tabIndex="1" horizontalCenter="0" height="27" fontSize="14"
+				click="buttonClick(0)"
+				visible="{buttonLabels.length>0}" includeInLayout="{buttonLabels.length>0}"/>
+			<controls:ResizingButton id="_btn2"  label="{buttonLabels.length>1 ? buttonLabels.getItemAt(1):''}" styleName="basketButtonGrey"
+				paddingLeft="7" paddingRight="7" minWidth="90"
+				tabIndex="1" horizontalCenter="0" height="27" fontSize="14"
+				click="buttonClick(1)"
+				visible="{buttonLabels.length>1}" includeInLayout="{buttonLabels.length>1}"/>
+			<controls:ResizingButton id="_btn3" label="{buttonLabels.length>2 ? buttonLabels.getItemAt(2):''}" styleName="basketButtonGrey"
+				paddingLeft="7" paddingRight="7" minWidth="70"
+				tabIndex="2" horizontalCenter="0" height="27" fontSize="14"
+				click="buttonClick(2)"
+				visible="{buttonLabels.length>2}" includeInLayout="{buttonLabels.length>2}"/>
+		</mx:HBox>
+	</mx:Box>
+</EasyDialogBase>

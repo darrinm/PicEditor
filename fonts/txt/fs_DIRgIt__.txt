@@ -1,0 +1,12 @@
+fileName: fs_DIRgIt__.ttf
+name: DIN-RegularItalic
+subfamilyDisplayName: Regular
+fullName: DIN-RegularItalic
+displayName: DIN-RegularItalic
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 6
+pkName: pkfs0DIRgIt00
+authorName: FontShop
+authorUrl: http://www.fontshop.com/

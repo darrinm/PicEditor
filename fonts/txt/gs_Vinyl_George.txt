@@ -1,0 +1,12 @@
+fileName: gs_Vinyl_George.ttf
+name: Vinyl George
+subfamilyDisplayName: Normal
+fullName: Vinyl George
+displayName: Vinyl George
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 0
+pkName: pkgs0Vinyl0George
+authorName: Guillaume Seguin
+authorUrl: http://lastsoundtrack.fontspace.com/

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<bridges:BridgeItemBase xmlns:bridges="bridges.*" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:ctrl="controls.*"
+	cornerRadius="8" borderStyle="solid" borderThickness="0" clipContent="false"
+	horizontalAlign="center" verticalAlign="middle" currentState="NotSelected" 
+	initialize="OnInitialize()">
+    <bridges:states>
+        <mx:State name="Selected"></mx:State>
+        <mx:State name="NotSelected"></mx:State>
+        <mx:State name="Highlight"></mx:State>
+        <mx:State name="ReadOnly"></mx:State>
+        
+        <mx:State name="SelectedReadOnly" basedOn="ReadOnly">
+        </mx:State>
+        <mx:State name="NotSelectedReadOnly" basedOn="ReadOnly">
+        </mx:State>
+        <mx:State name="HighlightReadOnly" basedOn="ReadOnly">
+        </mx:State>
+        
+        <mx:State name="DisabledSelectedReadOnly" basedOn="ReadOnly">
+            <mx:SetProperty target="{_vbxThumbnail}" name="alpha" value="0.4"/>
+        </mx:State>
+        <mx:State name="DisabledNotSelectedReadOnly" basedOn="ReadOnly">
+            <mx:SetProperty target="{_vbxThumbnail}" name="alpha" value="0.4"/>
+        </mx:State>
+        <mx:State name="DisabledHighlightReadOnly" basedOn="ReadOnly">
+            <mx:SetProperty target="{_vbxThumbnail}" name="alpha" value="0.4"/>
+        </mx:State>
+    </bridges:states>
+    
+    <mx:Fade alphaFrom="0" alphaTo="1" duration="150" id="_efFadeIn"/>
+	<mx:DropShadowFilter id="_fiTileShadow" blurX="3" blurY="3" distance="1" color="#000000" alpha=".15" quality="3" angle="90"/>
+	<mx:Parallel id="_efGlowOver">
+		<mx:Glow blurXFrom="0" blurYFrom="0" blurXTo="15" blurYTo="10" color="#528013" alphaFrom="0" alphaTo=".4" duration="200" strength="2"/>	
+	</mx:Parallel>
+	<mx:Parallel id="_efGlowOut">
+		<mx:Glow blurXFrom="15" blurYFrom="10" blurXTo="0" blurYTo="0" color="#528013" alphaFrom=".4" alphaTo="0" duration="150" strength="2"/>
+	</mx:Parallel>
+	
+    <mx:VBox id="_vbxThumbnail" width="80" height="80" horizontalAlign="center" verticalAlign="middle"
+    		backgroundColor="#FFFFFF" backgroundAlpha="1.0" cornerRadius="8" borderStyle="solid" borderThickness="0"
+    		filters="{[_fiTileShadow]}" rollOverEffect="{_efGlowOver}" rollOutEffect="{_efGlowOut}"
+    		buttonMode="true">
+        <ctrl:ImagePreview id="_imgThumbnail" maxHeight="72" maxWidth="72" horizontalAlign="center" verticalAlign="middle"
+        	source="{data}"
+        	slowLoadCompleteEffect="{_efFadeIn}"/>
+    </mx:VBox>
+</bridges:BridgeItemBase>

@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory area="VandalismHeadDecor" id="root">
+	<ShapeCategory flickrPremium="false" id="vandalismHeadDecorSection" numShapes="0" picnikPremium="false" showHeader="false">
+		<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/shape_Beards.png" flickrPremium="false" id="Beards" numShapes="16" picnikPremium="false" previewUrls="60|48|../clipart/bundles/VandalismHeadDecorArea_groupPreviews_Beards.png?ver=4bde87f4" thumbUrl="66|54|0|../clipart/bundles/VandalismHeadDecorArea_groupThumbs.png?ver=2b461784" title="Beards"/>
+		<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/shape_crowns.png" flickrPremium="false" id="CrownsandTiaras" numShapes="8" picnikPremium="false" previewUrls="60|48|../clipart/bundles/VandalismHeadDecorArea_groupPreviews_CrownsandTiaras.png?ver=5659a875" thumbUrl="66|54|1|../clipart/bundles/VandalismHeadDecorArea_groupThumbs.png?ver=2b461784" title="Crowns &amp; Tiaras"/>
+		<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/shape_masks.png" flickrPremium="false" id="HalloweenMasks" numShapes="8" picnikPremium="false" previewUrls="60|48|../clipart/bundles/VandalismHeadDecorArea_groupPreviews_HalloweenMasks.png?ver=c4ea0ce0" thumbUrl="66|54|2|../clipart/bundles/VandalismHeadDecorArea_groupThumbs.png?ver=2b461784" title="Masks"/>
+		<ShapeCategory flickrPremium="false" id="christmasHats" numShapes="8" picnikPremium="false" previewUrls="60|48|../clipart/bundles/VandalismHeadDecorArea_groupPreviews_christmasHats.png?ver=b54d5bd7" thumbUrl="66|54|3|../clipart/bundles/VandalismHeadDecorArea_groupThumbs.png?ver=2b461784" title="Christmas Hats"/>
+	</ShapeCategory>
+</ShapeCategory>

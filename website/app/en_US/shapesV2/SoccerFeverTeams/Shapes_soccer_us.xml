@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory flickrPremium="false" id="soccer_us" numShapes="3" picnikPremium="false" previewUrls="60|48|../clipart/bundles/SoccerFeverTeamsArea_groupPreviews_soccer_us.png?ver=09ddfc06" title="USA Stickers">
+	<Shapes>
+		<Clipart cHeight="294" cWidth="463.2" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|0|../clipart/bundles/SoccerFeverTeamsArea_shapes_soccer_us.png?ver=f15acf26" url="shapes/SoccerFever/us/wavingflag_us.swf"/>
+		<Clipart cHeight="650" cWidth="1235" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|1|../clipart/bundles/SoccerFeverTeamsArea_shapes_soccer_us.png?ver=f15acf26" url="shapes/SoccerFever/us/flag_us.swf"/>
+		<Clipart cHeight="223.65" cWidth="95.7" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|2|../clipart/bundles/SoccerFeverTeamsArea_shapes_soccer_us.png?ver=f15acf26" url="shapes/SoccerFever/us/scarf_us.swf"/>
+	</Shapes>
+</ShapeCategory>

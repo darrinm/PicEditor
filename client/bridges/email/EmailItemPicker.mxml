@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<itempicker:ItemPicker xmlns="bridges.email.*" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:itempicker="controls.itempicker.*">
+<mx:Script>
+	<![CDATA[
+		override public function CreateItems( strText:String ):Array {
+			// check against an email validator regex
+			var re:RegExp = /\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b/ig;
+			var aMatches:Array = strText.match( re );
+			if (!aMatches)
+				return null;
+			var aFriends:Array = [];
+			for each (var strEmail:String in aMatches) {
+				aFriends.push( new EmailFriend( strEmail, strEmail ) ); 
+			}
+			// return a new object if it's okay
+			return aFriends; 
+		} 
+		
+		override public function GetItemFilterText( ob:Object ):String {
+			var ef:EmailFriend = ob as EmailFriend;
+			if (ef) return ef.email + ef.name;
+			return "";
+		}	
+		
+		override public function CompareItems( ob1:Object, ob2:Object ):Boolean {
+			return (ob1.email == ob2.email ? true: false);
+		} 
+		
+		
+	]]>
+</mx:Script>
+</itempicker:ItemPicker>

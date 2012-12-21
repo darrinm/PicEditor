@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/shape_autumn.png" flickrPremium="false" id="Autumn" numShapes="17" picnikPremium="false" previewUrls="60|48|../clipart/bundles/thanksgivingArea_groupPreviews_Autumn.png?ver=14c50cf8" title="Autumn">
+	<Shapes>
+		<Clipart cHeight="81" cWidth="40" flickrPremium="false" picnikPremium="false" previewUrl="40|40|0|../clipart/bundles/thanksgivingArea_shapes_Autumn.png?ver=9a7e0d35" url="shapes/autumn_leaf.swf"/>
+		<Clipart cHeight="40" cWidth="70" flickrPremium="false" picnikPremium="false" previewUrl="40|40|1|../clipart/bundles/thanksgivingArea_shapes_Autumn.png?ver=9a7e0d35" url="shapes/autumn_leaf2.swf"/>
+		<Clipart cHeight="100" cWidth="65" flickrPremium="false" picnikPremium="false" previewUrl="40|40|2|../clipart/bundles/thanksgivingArea_shapes_Autumn.png?ver=9a7e0d35" url="shapes/autumn_acorn.swf"/>
+		<Clipart cHeight="194" cWidth="147" flickrPremium="false" picnikPremium="false" previewUrl="40|40|3|../clipart/bundles/thanksgivingArea_shapes_Autumn.png?ver=9a7e0d35" url="shapes/autumn_acorn2.swf"/>
+		<Clipart cHeight="142" cWidth="207" flickrPremium="false" picnikPremium="false" previewUrl="40|40|4|../clipart/bundles/thanksgivingArea_shapes_Autumn.png?ver=9a7e0d35" url="shapes/autumn_acornpinecone.swf"/>
+		<Clipart cHeight="159" cWidth="172" flickrPremium="false" picnikPremium="false" previewUrl="40|40|5|../clipart/bundles/thanksgivingArea_shapes_Autumn.png?ver=9a7e0d35" url="shapes/autumn_pinecone.swf"/>
+		<Clipart cHeight="127" cWidth="131" flickrPremium="false" picnikPremium="false" previewUrl="40|40|6|../clipart/bundles/thanksgivingArea_shapes_Autumn.png?ver=9a7e0d35" url="shapes/autumn_pinecone2.swf"/>
+		<Clipart cHeight="95" cWidth="75" flickrPremium="false" picnikPremium="false" previewUrl="40|40|7|../clipart/bundles/thanksgivingArea_shapes_Autumn.png?ver=9a7e0d35" url="shapes/autumn_pineneedles.swf"/>
+		<Clipart cHeight="145" cWidth="113" flickrPremium="false" picnikPremium="false" previewUrl="40|40|8|../clipart/bundles/thanksgivingArea_shapes_Autumn.png?ver=9a7e0d35" url="shapes/autumn_corn1.swf"/>
+		<Clipart cHeight="189" cWidth="194" flickrPremium="false" picnikPremium="false" previewUrl="40|40|9|../clipart/bundles/thanksgivingArea_shapes_Autumn.png?ver=9a7e0d35" url="shapes/autumn_corn2.swf"/>
+		<Clipart cHeight="51.75" cWidth="64.3" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|10|../clipart/bundles/thanksgivingArea_shapes_Autumn.png?ver=9a7e0d35" url="shapes/thanksgivingFeast/yellowleafsmall.swf"/>
+		<Clipart cHeight="115.1" cWidth="76.45" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|11|../clipart/bundles/thanksgivingArea_shapes_Autumn.png?ver=9a7e0d35" url="shapes/thanksgivingFeast/yellowleafbig.swf"/>
+		<Clipart cHeight="36.1" cWidth="39.5" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|12|../clipart/bundles/thanksgivingArea_shapes_Autumn.png?ver=9a7e0d35" url="shapes/thanksgivingFeast/orangeleaftiny.swf"/>
+		<Clipart cHeight="63.05" cWidth="52.45" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|13|../clipart/bundles/thanksgivingArea_shapes_Autumn.png?ver=9a7e0d35" url="shapes/thanksgivingFeast/redleafsmall.swf"/>
+		<Clipart cHeight="126.9" cWidth="104" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|14|../clipart/bundles/thanksgivingArea_shapes_Autumn.png?ver=9a7e0d35" url="shapes/thanksgivingFeast/redleafbig.swf"/>
+		<Clipart cHeight="39.7" cWidth="30.05" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|15|../clipart/bundles/thanksgivingArea_shapes_Autumn.png?ver=9a7e0d35" url="shapes/thanksgivingFeast/redleaftiny.swf"/>
+		<Clipart cHeight="36.4" cWidth="36.4" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|16|../clipart/bundles/thanksgivingArea_shapes_Autumn.png?ver=9a7e0d35" url="shapes/thanksgivingFeast/acorn.swf"/>
+	</Shapes>
+</ShapeCategory>

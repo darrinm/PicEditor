@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/shape_Ribbons.png" flickrPremium="false" id="AwarenessRibbons" numShapes="9" picnikPremium="false" previewUrls="60|48|../clipart/bundles/groupPreviews_AwarenessRibbons.png?ver=ecabf658" title="Awareness Ribbons">
+	<Shapes>
+		<Clipart cHeight="200" cWidth="120" flickrPremium="false" picnikPremium="false" previewUrl="40|40|0|../clipart/bundles/shapes_AwarenessRibbons.png?ver=46eda2f5" url="shapes/ribbon_yellow.swf"/>
+		<Clipart cHeight="200" cWidth="120" flickrPremium="false" picnikPremium="false" previewUrl="40|40|1|../clipart/bundles/shapes_AwarenessRibbons.png?ver=46eda2f5" url="shapes/ribbon_red.swf"/>
+		<Clipart cHeight="200" cWidth="120" flickrPremium="false" picnikPremium="false" previewUrl="40|40|2|../clipart/bundles/shapes_AwarenessRibbons.png?ver=46eda2f5" url="shapes/ribbon_pink.swf"/>
+		<Clipart cHeight="200" cWidth="120" flickrPremium="false" picnikPremium="false" previewUrl="40|40|3|../clipart/bundles/shapes_AwarenessRibbons.png?ver=46eda2f5" url="shapes/ribbon_green.swf"/>
+		<Clipart cHeight="200" cWidth="120" flickrPremium="false" picnikPremium="false" previewUrl="40|40|4|../clipart/bundles/shapes_AwarenessRibbons.png?ver=46eda2f5" url="shapes/ribbon_white.swf"/>
+		<Clipart cHeight="200" cWidth="120" flickrPremium="false" picnikPremium="false" previewUrl="40|40|5|../clipart/bundles/shapes_AwarenessRibbons.png?ver=46eda2f5" url="shapes/ribbon_orange.swf"/>
+		<Clipart cHeight="200" cWidth="120" flickrPremium="false" picnikPremium="false" previewUrl="40|40|6|../clipart/bundles/shapes_AwarenessRibbons.png?ver=46eda2f5" url="shapes/ribbon_purple.swf"/>
+		<Clipart cHeight="200" cWidth="120" flickrPremium="false" picnikPremium="false" previewUrl="40|40|7|../clipart/bundles/shapes_AwarenessRibbons.png?ver=46eda2f5" url="shapes/ribbon_blue.swf"/>
+		<Clipart cHeight="200" cWidth="120" flickrPremium="false" picnikPremium="false" previewUrl="40|40|8|../clipart/bundles/shapes_AwarenessRibbons.png?ver=46eda2f5" url="shapes/ribbon_black.swf"/>
+	</Shapes>
+</ShapeCategory>

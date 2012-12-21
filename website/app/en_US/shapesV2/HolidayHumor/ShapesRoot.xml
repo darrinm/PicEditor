@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory area="HolidayHumor" id="root">
+	<ShapeCategory flickrPremium="false" id="HolidayHumorSection" numShapes="0" picnikPremium="false" showHeader="false">
+		<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/xmas_santahats.png" flickrPremium="false" id="ChristmasHats" numShapes="0" picnikPremium="false" previewUrls="60|48|../clipart/bundles/HolidayHumorArea_groupPreviews_ChristmasHats.png?ver=9f88d5fb" thumbUrl="66|54|0|../clipart/bundles/HolidayHumorArea_groupThumbs.png?ver=2d4fdde8" title="Christmas Hats">
+			<ShapeCategory flickrPremium="false" id="FreeChristmasHats" numShapes="8" picnikPremium="false" title="Free"/>
+			<ShapeCategory flickrPremium="true" id="PremiumChristmasHats" numShapes="4" picnikPremium="true" title="Premium"/>
+		</ShapeCategory>
+		<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/xmas_costume.png" flickrPremium="true" id="HolidayCostumes" numShapes="7" picnikPremium="true" previewUrls="60|48|../clipart/bundles/HolidayHumorArea_groupPreviews_HolidayCostumes.png?ver=2486fa30" thumbUrl="66|54|1|../clipart/bundles/HolidayHumorArea_groupThumbs.png?ver=2d4fdde8" title="Holiday Costumes"/>
+	</ShapeCategory>
+</ShapeCategory>

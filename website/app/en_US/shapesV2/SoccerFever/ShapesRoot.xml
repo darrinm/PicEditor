@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory area="SoccerFever" id="root">
+	<ShapeCategory flickrPremium="false" id="soccerFeverSection" numShapes="0" picnikPremium="false" showHeader="false">
+		<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/shapes_soccerFever.png" flickrPremium="false" id="soccerStickers" numShapes="23" picnikPremium="false" previewUrls="60|48|../clipart/bundles/SoccerFeverArea_groupPreviews_soccerStickers.png?ver=c996081d" thumbUrl="66|54|1|../clipart/bundles/SoccerFeverArea_groupThumbs.png?ver=4ebd6a9f" title="Soccer Stickers"/>
+		<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/shapes_soccerFever.png" flickrPremium="false" id="footballStickers" numShapes="23" picnikPremium="false" previewUrls="60|48|../clipart/bundles/SoccerFeverArea_groupPreviews_footballStickers.png?ver=c996081d" thumbUrl="66|54|1|../clipart/bundles/SoccerFeverArea_groupThumbs.png?ver=4ebd6a9f" title="Football Stickers"/>
+	</ShapeCategory>
+</ShapeCategory>

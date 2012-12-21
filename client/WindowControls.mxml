@@ -1,0 +1,43 @@
+<WindowControlsBase xmlns="*" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:flash="flash.filters.*" xmlns:ctl="controls.*"
+		height="31" verticalAlign="bottom"
+		backgroundColor="#384a15" borderStyle="solid" borderColor="#384a15" cornerRadius="8" 
+		backgroundAlpha="0" borderThickness="0" paddingRight="10" paddingLeft="10" paddingBottom="4" currentState="Fullscreen">
+	<mx:Script>
+		<![CDATA[
+			import util.LocUtil;
+			import mx.resources.ResourceBundle;
+			[Bindable] [ResourceBundle("WindowControls")] private var rb:ResourceBundle;
+		]]>
+	</mx:Script>
+	<states>
+		<mx:State name="FullscreenExpandClose"/>
+		<mx:State name="FullscreenExpand">
+			<mx:RemoveChild target="{_btnClose}"/>
+			<mx:RemoveChild target="{image2}"/>
+		</mx:State>
+		<mx:State name="FullscreenClose">
+			<mx:RemoveChild target="{_btnExpand}"/>
+			<mx:RemoveChild target="{image1}"/>
+		</mx:State>
+		<mx:State name="Fullscreen">
+			<mx:RemoveChild target="{_btnExpand}"/>
+			<mx:RemoveChild target="{_btnClose}"/>
+			<mx:RemoveChild target="{image1}"/>
+			<mx:RemoveChild target="{image2}"/>
+		</mx:State>
+	</states>
+	<flash:DropShadowFilter alpha=".65" angle="90" blurX="2" blurY="2" color="#000000" distance="1" id="_dropShadow"/>
+	<ctl:ButtonPlus id="_btnExpand" 
+		label="{LocUtil.iff('WindowControls', _btnExpand.selected, 'collapse', 'expand')}" 
+		enabled="true" height="17" styleName="greenButton" toggle="true" 
+		filters="{[_dropShadow]}" alpha="{_btnExpand.enabled?1:.5}" buttonMode="true"/>
+	<ctl:ImageVer source="@Embed('theme/pngs/greenbutton/greenbuttonDivider.png')" id="image1"/>
+	<ctl:ButtonPlus 
+		label="{LocUtil.iff('WindowControls', _btnFullscreen.selected, 'exit_fullscreen', 'fullscreen')}" 
+		enabled="true" id="_btnFullscreen" height="17" 
+		styleName="greenButton" toggle="true" filters="{[_dropShadow]}" buttonMode="true"/>
+	<ctl:ImageVer source="@Embed('theme/pngs/greenbutton/greenbuttonDivider.png')" id="image2"/>
+	<ctl:ButtonPlus id="_btnClose" label="{ closeTargetLabel ? closeTargetLabel : Resource.getString('WindowControls', '_btnClose')}" enabled="true" height="17" styleName="greenButton" 
+		icon="@Embed('theme/pngs/greenbutton/greenbuttonClose.png')" overIcon="@Embed('theme/pngs/greenbutton/greenbuttonCloseOver.png')" labelPlacement="left" horizontalGap="3"
+		filters="{[_dropShadow]}" paddingLeft="-12" paddingRight="-12" buttonMode="true"/>
+</WindowControlsBase>

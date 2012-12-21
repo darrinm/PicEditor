@@ -1,0 +1,13 @@
+The following API key has been deleted at your request.  
+
+contact name: $strContactName
+contact email: $strContactEmail
+site:	$strSite
+key:	$strApiKey
+comments: $strApiComments
+
+If you have any questions about this change, please let us know.
+
+Regards,
+Team Picnik
+

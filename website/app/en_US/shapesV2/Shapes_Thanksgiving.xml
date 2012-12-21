@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/shape_thanksgiving.png" flickrPremium="true" id="Thanksgiving" numShapes="16" picnikPremium="true" previewUrls="60|48|../clipart/bundles/groupPreviews_Thanksgiving.png?ver=27465da0" title="Thanksgiving">
+	<Shapes>
+		<Clipart cHeight="159" cWidth="137" flickrPremium="true" picnikPremium="true" previewUrl="40|40|0|../clipart/bundles/shapes_Thanksgiving.png?ver=cae5f872" url="shapes/thanksgiving_acorn.swf"/>
+		<Clipart cHeight="40" cWidth="120" flickrPremium="true" picnikPremium="true" previewUrl="40|40|1|../clipart/bundles/shapes_Thanksgiving.png?ver=cae5f872" url="shapes/thanksgiving_bread.swf"/>
+		<Clipart cHeight="80" cWidth="125" flickrPremium="true" picnikPremium="true" previewUrl="40|40|2|../clipart/bundles/shapes_Thanksgiving.png?ver=cae5f872" url="shapes/thanksgiving_cake1.swf"/>
+		<Clipart cHeight="80" cWidth="125" flickrPremium="true" picnikPremium="true" previewUrl="40|40|3|../clipart/bundles/shapes_Thanksgiving.png?ver=cae5f872" url="shapes/thanksgiving_cake2.swf"/>
+		<Clipart cHeight="75" cWidth="77" flickrPremium="true" picnikPremium="true" previewUrl="40|40|4|../clipart/bundles/shapes_Thanksgiving.png?ver=cae5f872" url="shapes/thanksgiving_cocoa.swf"/>
+		<Clipart cHeight="180" cWidth="350" flickrPremium="true" picnikPremium="true" previewUrl="40|40|5|../clipart/bundles/shapes_Thanksgiving.png?ver=cae5f872" url="shapes/thanksgiving_cornicoupia.swf"/>
+		<Clipart cHeight="262" cWidth="292" flickrPremium="true" picnikPremium="true" previewUrl="40|40|6|../clipart/bundles/shapes_Thanksgiving.png?ver=cae5f872" url="shapes/thanksgiving_cornicoupia2.swf"/>
+		<Clipart cHeight="86" cWidth="47" flickrPremium="true" picnikPremium="true" previewUrl="40|40|7|../clipart/bundles/shapes_Thanksgiving.png?ver=cae5f872" url="shapes/thanksgiving_eggnog.swf"/>
+		<Clipart cHeight="106" cWidth="138" flickrPremium="true" picnikPremium="true" previewUrl="40|40|8|../clipart/bundles/shapes_Thanksgiving.png?ver=cae5f872" url="shapes/thanksgiving_hat.swf"/>
+		<Clipart cHeight="135" cWidth="140" flickrPremium="true" picnikPremium="true" previewUrl="40|40|9|../clipart/bundles/shapes_Thanksgiving.png?ver=cae5f872" url="shapes/thanksgiving_leaf.swf"/>
+		<Clipart cHeight="121" cWidth="122" flickrPremium="true" picnikPremium="true" previewUrl="40|40|10|../clipart/bundles/shapes_Thanksgiving.png?ver=cae5f872" url="shapes/thanksgiving_pumpkin.swf"/>
+		<Clipart cHeight="102" cWidth="124" flickrPremium="true" picnikPremium="true" previewUrl="40|40|11|../clipart/bundles/shapes_Thanksgiving.png?ver=cae5f872" url="shapes/thanksgiving_pumpkinpie.swf"/>
+		<Clipart cHeight="93" cWidth="270" flickrPremium="true" picnikPremium="true" previewUrl="40|40|12|../clipart/bundles/shapes_Thanksgiving.png?ver=cae5f872" url="shapes/thanksgiving_sunflower.swf"/>
+		<Clipart cHeight="188" cWidth="205" flickrPremium="true" picnikPremium="true" previewUrl="40|40|13|../clipart/bundles/shapes_Thanksgiving.png?ver=cae5f872" url="shapes/thanksgiving_turkey.swf"/>
+		<Clipart cHeight="119" cWidth="181" flickrPremium="true" picnikPremium="true" previewUrl="40|40|14|../clipart/bundles/shapes_Thanksgiving.png?ver=cae5f872" url="shapes/thanksgiving_turkey1.swf"/>
+		<Clipart cHeight="110" cWidth="205" flickrPremium="true" picnikPremium="true" previewUrl="40|40|15|../clipart/bundles/shapes_Thanksgiving.png?ver=cae5f872" url="shapes/thanksgiving_turkey2.swf"/>
+	</Shapes>
+</ShapeCategory>

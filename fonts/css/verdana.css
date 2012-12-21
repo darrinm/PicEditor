@@ -1,0 +1,23 @@
+/*
+ * Copyright 2011 Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an Apache 2.0 License.
+ * See the COPYING file for details.
+ */
+
+
+@font-face {
+    src:local("Verdana");
+    font-family: "pkverdana";
+    unicodeRange: U+0000-U+00FF, U+0301-U+0301, U+0400-U+045F;
+    flashType: true;
+    fontWeight: normal;
+    fontStyle: normal;
+}
+
+.pkverdana
+{
+    font-family: "pkverdana";
+    fontWeight: normal;
+    fontStyle: normal;
+}

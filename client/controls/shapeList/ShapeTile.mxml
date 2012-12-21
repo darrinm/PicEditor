@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" verticalGap="0" backgroundAlpha="0">
+<mx:Script>
+	<![CDATA[
+		import containers.sectionList.ShapeVRule;
+		import containers.sectionList.ShapeHBox;
+		static public const kclShapeContainer:Class = ShapeHBox;
+		
+		// The divider to place between shapes
+		static public const kclShapeContainerDivider:Class = ShapeVRule;
+		
+		// This is the max number of items per container
+		static public const knShapesPerBox:Number = 4;
+
+		static public const knLineHeight:Number = 53;
+
+		private var _nExplicitNumShapes:Number = NaN;
+		
+		private var _xml:XML = null;
+		private var _fItemsInvalid:Boolean = false;
+		protected var _clItemRenderer:Class = null;
+
+		public function set dataProvider(xml:XML): void {
+			if (_xml == xml) return;
+			// Do something
+			_xml = xml;
+			_fItemsInvalid = true;
+			
+			invalidateProperties();
+		}
+		
+		public function set itemRenderer(cl:Class):void {
+			_clItemRenderer = cl;
+			_fItemsInvalid = true;
+			invalidateProperties();
+		}
+		
+		override protected function commitProperties():void {
+			super.commitProperties();
+			if (_fItemsInvalid) {
+				_fItemsInvalid = false;
+				removeAllChildren();
+				if (_clItemRenderer == null) return; // No item renderer.
+				if (_xml == null) return; // No items to render
+				
+				var dobc:DisplayObjectContainer;
+				
+				var i:Number = 0;
+				for each (var xmlShape:XML in _xml.children()) {
+					if (i % knShapesPerBox == 0)
+						dobc = null;
+					
+					if (dobc == null) {
+						dobc = new kclShapeContainer();
+						addChild(dobc);
+					}
+				
+					var obItem:Object = new _clItemRenderer();
+	
+					// localize the tooltip				
+					if (xmlShape.hasOwnProperty("@toolTipText")) {
+						xmlShape.@toolTip = xmlShape.@toolTipText;
+					}
+	
+					if (_xml.hasOwnProperty('@sectionId')) {
+						xmlShape.@sectionId = _xml.@sectionId;
+					}
+					
+					obItem["data"] = xmlShape;
+					var dobItem:DisplayObject = null;
+					if (obItem is IFactory)
+						dobItem = (obItem as IFactory).newInstance() as DisplayObject;
+					else
+						dobItem = obItem as DisplayObject;
+					dobc.addChild(dobItem);
+					if ((i % knShapesPerBox != (knShapesPerBox-1)) && kclShapeContainerDivider) {
+						dobc.addChild(new kclShapeContainerDivider() as DisplayObject);
+					}
+					i += 1;
+				}
+			}
+		}
+		
+		[Bindable]
+		public function set numShapes(n:Number): void {
+			_nExplicitNumShapes = n;
+			invalidateSize();
+		}
+		public function get numShapes(): Number {
+			return _nExplicitNumShapes;
+		}
+		
+		override protected function measure():void {
+			super.measure();
+			if (!isNaN(_nExplicitNumShapes))
+				measuredHeight = calculateHeight(_nExplicitNumShapes);
+		}
+		public static function calculateHeight(nNumShapes:Number): Number {
+			var nLines:Number = Math.ceil(nNumShapes / knShapesPerBox);
+			return nLines * knLineHeight;
+			
+		}
+	]]>
+</mx:Script>	
+</mx:VBox>

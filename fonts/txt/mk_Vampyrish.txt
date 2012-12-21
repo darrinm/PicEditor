@@ -1,0 +1,12 @@
+fileName: mk_Vampyrish.ttf
+name: Vampyrish
+subfamilyDisplayName: Regular
+fullName: Vampyrish
+displayName: Vampyrish
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 6
+pkName: pkmk0Vampyrish
+authorName: Manfred Kelin
+authorUrl: http://moorstation.org/typoasis/designers/klein/

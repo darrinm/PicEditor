@@ -1,0 +1,12 @@
+fileName: tm_one_constant.ttf
+name: One Constant
+subfamilyDisplayName: Regular
+fullName: One Constant
+displayName: One Constant
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 4
+pkName: pktm0one0constant
+authorName: Tom Murphy
+authorUrl: http://fonts.tom7.com/

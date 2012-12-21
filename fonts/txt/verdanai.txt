@@ -1,0 +1,12 @@
+fileName: verdanai.ttf
+name: Verdana
+subfamilyDisplayName: Cursiva
+fullName: Verdana Cursiva
+displayName: Verdana
+ital: 1
+bold: 0
+weight: 5
+panose.weight: 6
+pkName: pkverdanai
+authorName: Matthew Carter
+authorUrl: http://carterandcone.com/

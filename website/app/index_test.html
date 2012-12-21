@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<!--
+Copyright 2006 Google Inc. All Rights Reserved.
+
+Use of this source code is governed by an Apache 2.0 License.
+See the COPYING file for details.
+-->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="author" content="Google">
+<meta name="description" content="Picnik lets you edit all your photos online, from one easy place.">
+<meta name="keywords" content="photo, photograph, picture, edit, editing, adjustments, online, flickr, camera, digital, image, redeye, fix, photoshop">
+<meta name="robots" content="index, follow">
+<META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
+<META HTTP-EQUIV="PRAGMA" CONTENT="NO-CACHE">
+<META HTTP-EQUIV="EXPIRES" CONTENT="0">
+<!--  BEGIN URLKit required section -->
+<link rel="stylesheet" type="text/css" href="/urlkit.css" />
+<!--  END URLKit required section -->
+<title>Picnik</title>
+<!--  BEGIN URLKit required section -->
+<script src="/urlkit.js" language="javascript"></script>
+<!--  END URLKit required section -->
+<style type="text/css">
+body { margin: 0px; padding: 0px; overflow-y: hidden; }
+</style>
+<script language="javascript" type="text/javascript" src="/js/swfobject.js"></script>
+<script language="javascript" type="text/javascript">
+   function getUserAgent() {
+    	return navigator.userAgent;
+   }
+
+   function readCookie(name) {
+    	var nameEQ = name + "=";
+    	var ca = document.cookie.split(';');
+    	for(var i=0;i < ca.length;i++) {
+    		var c = ca[i];
+    		while (c.charAt(0)==' ') c = c.substring(1,c.length);
+    		if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+    	}
+    	return null;
+    }
+    
+    function writeCookie(name,value) {
+        document.cookie = name+"="+value+"; path=/";
+    }
+    
+    function removeCookie(name) {
+        document.cookie = name+'=; path=/; expires=Fri, 02-Jan-1970 00:00:00 GMT;';
+    }
+
+    if (!readCookie('token') || readCookie('token') == '') {
+		document.cookie = "Target=" + escape(document.location.pathname + document.location.search + document.location.hash) + ";path=/";
+		document.location.replace("/auth/picnik/register?deeplink=true");
+    }
+
+    function setTitle(value) {
+        document.title = value + "Picnik";
+    }
+	function loadHiddenPage(url) {
+		var iframe = window.frames['hiddenIFrame'];
+		if (iframe) iframe.location = url;
+	}
+    
+</script>
+</head>
+<body>
+<div id="flashcontent">
+Hey! You should be seeing Picnik here. Do you have Flash 9 or greater installed?
+</div>
+<iframe name="hiddenIFrame" src="/blank.html" style="width:0px;height:0px" frameborder="0"></iframe>
+<script type="text/javascript">
+/*
+ * This function parses ampersand-separated name=value argument pairs from
+ * the query string of the URL. The name/value pairs are returned as members
+ * of an Object instance.
+ *
+ * Based on http://www.oreilly.com/catalog/jscript3/chapter/ch13.html
+ */
+function ExtractArgs() {
+	var args = new Object();
+    var query = location.search.substring(1);  // Get query string.
+    var pairs = query.split("&");              // Break at ampersand.
+    for (var i = 0; i < pairs.length; i++) {
+		var pos = pairs[i].indexOf('=');       // Look for "name=value".
+		if (pos == -1) continue;               // If not found, skip.
+		var argname = pairs[i].substring(0,pos);  // Extract the name.
+		var value = pairs[i].substring(pos+1); // Extract the value.
+		args[argname] = unescape(value);
+    }
+	return args;
+}
+
+var args = ExtractArgs();
+var strSwf = args["debug"] == "true" ? "/app/Picnik-debug_test.swf" : "/app/Picnik_test.swf";
+var swfo = new SWFObject(strSwf, "picnik", "100%", "100%", "9", "#ffffff", true);
+swfo.addParam("allowFullScreen", "true");
+swfo.addParam("allowScriptAccess", "sameDomain");
+for (var argname in args)
+	swfo.addVariable(argname, args[argname]); // Store as a variable
+swfo.write("flashcontent");
+</script>
+<!--  BEGIN URLKit required section -->
+<div id="anchorDiv"></div>
+<div id="formDiv"></div>
+<iframe id="historyFrame" name="historyFrame" src="" height="100" width="100"/>
+<!--  END URLKit required section -->
+<script language="javascript" type="text/javascript" src="/js/awstats_misc_tracker.js" ></script>
+<noscript>
+Hey! You should be seeing Picnik here. Picnik requires JavaScript. Please use a browser with Javascript enabled to access Picnik.
+<img src="/js/awstats_misc_tracker.js?nojs=y" height="0" width="0" border="0" style="display: none" alt="">
+</noscript>
+
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-976678-1";
+urchinTracker();
+</script>
+
+</body>
+</html>

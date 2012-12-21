@@ -1,0 +1,48 @@
+<languageVersion:1.0;>
+kernel pixelBending
+< namespace : "pixel bending";
+vendor : "Petri Leskinen";
+version : 1;
+description : "some parabole maths";
+>
+{
+parameter float size
+<
+minValue:float(1.0);
+maxValue:float(200.0);
+defaultValue:float(100.0);
+>;
+parameter float focalDistance
+<
+minValue:float(0.01);
+maxValue:float(10.0);
+defaultValue:float(2.0);
+>;
+parameter float2 basepoint
+<
+minValue:float2(-200.0,-200.);
+maxValue:float2(500.0,500.0);
+defaultValue:float2(200.0,200.);
+>;
+parameter float2 imgSize
+<
+minValue:float2(-200.0,-200.);
+maxValue:float2(800.0,800.0);
+defaultValue:float2(400,414.);
+>;
+input image4 src;
+output pixel4 dst;
+
+void
+evaluatePixel()
+{
+float2 po = (outCoord()-basepoint)/ size;
+float d = sqrt(po.x*po.x+po.y*po.y) ;
+
+float2 z = float2( (d- po.y+focalDistance), (d+po.y-focalDistance) );
+dst = sample(src, float2( fract(z.x)*imgSize.x,
+fract(z.y)*imgSize.y ));
+
+
+}
+} 

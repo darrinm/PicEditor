@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory flickrPremium="false" id="soccer_dz" numShapes="3" picnikPremium="false" previewUrls="60|48|../clipart/bundles/SoccerFeverTeamsArea_groupPreviews_soccer_dz.png?ver=d48a11e6" title="Algeria Stickers">
+	<Shapes>
+		<Clipart cHeight="295.7" cWidth="463.7" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|0|../clipart/bundles/SoccerFeverTeamsArea_shapes_soccer_dz.png?ver=c243bcb5" url="shapes/SoccerFever/dz/wavingflag_dz.swf"/>
+		<Clipart cHeight="600" cWidth="900" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|1|../clipart/bundles/SoccerFeverTeamsArea_shapes_soccer_dz.png?ver=c243bcb5" url="shapes/SoccerFever/dz/flag_dz.swf"/>
+		<Clipart cHeight="223.55" cWidth="95.95" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|2|../clipart/bundles/SoccerFeverTeamsArea_shapes_soccer_dz.png?ver=c243bcb5" url="shapes/SoccerFever/dz/scarf_dz.swf"/>
+	</Shapes>
+</ShapeCategory>

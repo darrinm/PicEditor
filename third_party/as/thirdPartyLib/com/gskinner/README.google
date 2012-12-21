@@ -1,0 +1,15 @@
+URL:  http://www.gskinner.com/blog
+Version: Unknown
+License: The gskinner License
+License File: LICENSE
+
+Description:
+Various filters
+
+Local Modifications:
+SharpenFilter.as: 
+ - Updated from Flash8/as2 to as3
+
+ ColorMatrix.as:
+  - Changed function concat() to concatMatrix() to avoid name conflict
+

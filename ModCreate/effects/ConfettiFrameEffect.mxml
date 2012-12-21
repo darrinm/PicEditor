@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameEffectBase xmlns="effects.*" xmlns:cnt="containers.*" xmlns:ctrl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="193"
+	xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*" xmlns:objectOperations="imagine.objectOperations.*"
+	urlid="confettiframe">
+	<mx:Script>
+		<![CDATA[
+			import util.LocUtil;
+			
+			private function GetGlowBlur(nImageWidth:Number, nImageHight:Number): Number {
+				return 20;
+			}
+		]]>
+	</mx:Script>
+<mx:XML xmlns="" id="_xmlFrame">
+<frames>
+	<!--<backgroundFilters>
+		<DropShadowFilter alpha="1" angle="45"
+			blurX="{Math.min(imagewidth, imageheight) * 0.081578947 -3.157894737}"
+			blurY="{Math.min(imagewidth, imageheight) * 0.081578947 -3.157894737}"
+			color="0x193f0b" distance="0" quality="3" strength="3" inner="true"/>
+	</backgroundFilters>-->
+	<frame cornerRounding=".1" fillEndToEnd="false" density="20" size=".4" inset="-.2"
+		positionJitter=".3" positionJitterOrder="1.75" rotationJitter="4" rotationJitterOrder="1">
+        <Clipart url="shapes/newyear_confetti/c1.swf" cWidth="670" cHeight="729"/>
+        <Clipart url="shapes/newyear_confetti/c2.swf" cWidth="670" cHeight="729"/>
+        <Clipart url="shapes/newyear_confetti/c3.swf" cWidth="670" cHeight="729"/>
+        <Clipart url="shapes/newyear_confetti/c4.swf" cWidth="670" cHeight="729"/>
+	</frame>
+	
+</frames>
+</mx:XML>
+	<mx:DropShadowFilter id="_fiWhiteShad" blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1" quality="3" angle="90"/>
+
+	<ctrl:EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='ConfettiFrameEffect')" strAuthor="@Resource(key='_efbtn_1', bundle='ConfettiFrameEffect')"
+		strImageSource="../graphics/effects/Holiday/confettiframe.png" cornerRadius="0"/>
+	<mx:String id="_strHelpText">{Resource.getString('ConfettiFrameEffect', '_strHelpText')}</mx:String>
+
+	<mx:VBox x="0" y="72" verticalGap="0" paddingLeft="10" paddingRight="10">
+	<!-- .2 / 2 / -.1 -->
+		<!--<ctrl:LabelHSlidePlus id="_sldrSize" minimum=".05" maximum=".4" value=".3" label="@Resource(key='size', bundle='EffectCanvas')"
+			change="OnFrameParamChange()" labelValueMultiplier="{100/.2}" isPercent="true"/>-->
+		<!--<ctrl:LabelHSlidePlus id="_sldrDensity" minimum="30" maximum="40" value="7" label="@Resource(key='density', bundle='EffectCanvas')" change="OnFrameParamChange()" labelValueMultiplier="{100/7}" isPercent="true"/>-->
+		<!--<ctrl:LabelHSlidePlus id="_sldrInset" minimum="-.5" maximum=".5" value="0" label="inset" change="OnFrameParamChange()"/>
+		<ctrl:LabelHSlidePlus id="_sldrVignette" minimum="1" maximum="250" value="50" label="vignette" change="OnFrameParamChange()" labelValueMultiplier="1"/>
+		-->
+		
+		<ctrl:ApplyCancelEffectButtons addBoxPadding="true" premium="{premium}"/>
+	</mx:VBox>
+
+	<imageOperations:NestedImageOperation id="_op">
+		<imageOperations:children>
+			<objectOperations:CreateObjectOperation type="FrameObject" props="{{name:_strFrameName, layout:_strFrameLayout, x:imagewidth/2, y:imageheight/2, color:frameColor}}"/>
+
+		</imageOperations:children>
+	</imageOperations:NestedImageOperation>
+
+</FrameEffectBase>

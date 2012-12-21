@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:cnt="containers.*" xmlns="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" 
+	xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*" width="100%" height="57"
+	horizontalScrollPolicy="off" verticalScrollPolicy="off" styleName="effectButton" initialize="Init()">
+	<mx:Script>
+		<![CDATA[
+			import controls.BackgroundGradientModes;
+			
+			import creativeTools.NestedControlsCanvasBase;
+			
+			import errors.InvalidBitmapError;
+			
+			import imageUtils.Channel;
+			import imageUtils.Histogram;
+			
+			import imagine.ImageDocument;
+			import imagine.imageOperations.ColorMatrixImageOperation;
+			import imagine.imageOperations.ImageOperation;
+			
+			import mx.resources.ResourceBundle;
+			
+			[Bindable] public var parentCanvas:NestedControlsCanvasBase;
+			[ResourceBundle("Adjustments")] private var rb:ResourceBundle;
+			private var colorMatrix:Array;
+
+			private var _bkgmd:BackgroundGradientModes = null;
+			
+			private function Init(): void {
+				_bkgmd = new BackgroundGradientModes(this, ['up']);
+			}
+
+
+			public function OnClick(event:MouseEvent):void {
+				if (parentCanvas) {
+					parentCanvas.Deselect();
+				}
+				
+				try {
+					this.enabled = false;
+					var histogram:Histogram = new Histogram();
+					var imgd:ImageDocument = PicnikBase.app.activeDocument as ImageDocument;
+					histogram.Calculate(imgd.background, Channel.kichnlRGB, true, function () : void {
+						OnHistogramCalcDone(histogram);
+					});
+					PicnikBase.app.Notify(_strAutoFixNotifyMessage);
+					PicnikBase.app.LogNav("AutoFix");
+				} catch (e:InvalidBitmapError) {
+					this.enabled = true;
+					PicnikBase.app.OnMemoryError();		
+				}
+			}
+			private function OnHistogramCalcDone(histogram:Histogram): void {
+				this.enabled = true;
+				var anMin:Array = new Array();
+				var anMax:Array = new Array();
+
+				// Find the minimum and maximum used values for each color channel
+				Debug.Assert(Channel.kichnlRed == 0 && Channel.kichnlGreen == 1 && Channel.kichnlBlue == 2);
+				for (var chnl:Number = Channel.kichnlRed; chnl <= Channel.kichnlBlue; chnl++) {
+					var ob:Object = histogram.GetMinMax(chnl, 0.1, 0.1); // CONFIG:
+					anMin[chnl] = ob.min;
+					anMax[chnl] = ob.max;
+				}
+
+				var imgd:ImageDocument = PicnikBase.app.activeDocument as ImageDocument;
+				imgd.BeginUndoTransaction("AutoFix");
+				var anMatrix:Array = ColorMatrixImageOperation.CalcLevelsMatrix(anMin, anMax);
+				var op:ImageOperation = new ColorMatrixImageOperation(anMatrix);
+				if (!op.Do(imgd, true, false))
+					imgd.AbortUndoTransaction();
+				imgd.EndUndoTransaction();
+			}
+		]]>
+	</mx:Script>
+		<mx:HRule x="0" width="100%" top="0" height="1" strokeColor="#FFFFFF"/>
+		<mx:HRule x="0" width="100%" height="1" bottom="0" strokeColor="#d4d4d4"/>
+		<CenteredButtonPlus label="@Resource(key='_btnAutoFix', bundle='Adjustments')" labelPlacement="right"
+							top="7" left="10" right="10" height="40" paddingLeft="-8"
+							styleName="autoFixButtonRed"
+							click="OnClick(event)"/>
+	<mx:String id="_strAutoFixNotifyMessage">{Resource.getString('Adjustments', '_strAutoFixNotifyMessage')}</mx:String>
+</mx:Canvas>

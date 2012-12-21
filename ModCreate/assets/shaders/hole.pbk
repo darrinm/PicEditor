@@ -1,0 +1,56 @@
+<languageVersion : 1.0;>
+
+kernel Hole
+<   namespace : "net.Jerry.PixelBender";
+    vendor : "Jerry.net@gmail.com";
+    version : 4;
+    description : "A Hole Distortion Effect.";
+>
+{
+
+    parameter float radius
+    <
+        minValue:float(0.0);
+        maxValue:float(1000.0);
+        defaultValue:float(100.0);
+    >;
+
+    parameter float2 center
+    <
+        minValue:float2(-500,-500.0);
+        maxValue:float2(800.0,800.0);
+        defaultValue:float2(100.0,100.0);
+    >;
+
+    parameter float EdgeSmooth
+    <
+        minValue:float(0.0);
+        maxValue:float(3.0);
+        defaultValue:float(1.0);
+    >;
+
+    input image4 src;
+    output pixel4 dst;
+
+    void
+    evaluatePixel()
+    {
+        float2 Pos_from_cen = outCoord() - center;
+        float p_length = length(Pos_from_cen);
+        float fun = (radius*radius)/abs(p_length);
+        float m = fun/sqrt(Pos_from_cen[0]*Pos_from_cen[0] + Pos_from_cen[1]*Pos_from_cen[1]);
+        float2 pp = -float2(m*Pos_from_cen[0], m*Pos_from_cen[1]) + outCoord();
+        
+        pixel4 final = sampleLinear(src,pp);
+
+        if (p_length <= (radius+EdgeSmooth/2.0)){
+            //smooth the circle edge
+            if (p_length >= (radius-EdgeSmooth/2.0)){
+                final *= (p_length-radius+EdgeSmooth/2.0)/EdgeSmooth;
+            }else{
+                final *= 0.0;
+            }
+        }
+        dst = final;
+    }
+}

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cnt:CircularOverlayEffectCanvas xmlns="effects.*" xmlns:cnt="containers.*" xmlns:ctrl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="335" xmlns:local="*" 
+	xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*"
+	xFocus = "{zeroR + imagewidth/2}"
+	yFocus = "{zeroR + imageheight/2}"
+	liveUpdate="true"
+	urlid="jollyrednose"
+	>
+	<mx:Script>
+		import util.LocUtil;
+		import mx.resources.ResourceBundle;
+		import containers.NestedControlCanvasBase;
+		
+   		[Bindable] [ResourceBundle("JollyRedNoseEffect")] private var rb:ResourceBundle;
+   		
+   		private function OnSantaClick():void {
+   			_strBlendMode = "multiply";
+   			_coTint = 0xFF0000;
+   			_strNoseStyle = "Santa";
+   			OnOpChange();   			
+   		}
+   		
+   		private function OnRudolphClick():void {
+   			_strBlendMode = "normal";
+   			_coTint = 0xff2924; 
+   			_strNoseStyle = "Rudolph";
+   			OnOpChange();   			 
+   		}
+
+		public override function Select(efcnvCleanup:NestedControlCanvasBase): Boolean {
+			if (super.Select(efcnvCleanup)) {
+	   			OnSantaClick();
+				return true;
+			} else {
+				return false;
+			}
+		}
+
+	</mx:Script>
+	
+	<mx:HRule x="0" width="100%" top="0" height="1" strokeColor="#FFFFFF"/>
+	<mx:HRule x="0" width="100%" height="1" bottom="0" strokeColor="#d4d4d4"/>
+	
+	<mx:Array id="_resetValues">
+		<local:StoredValue target="_coTint"/>
+		<local:StoredValue target="_sldrSize.value"/>
+		<local:StoredValue target="_strBlendMode"/>
+		<local:StoredValue target="_strNoseStyle"/>
+	</mx:Array>
+	
+	<ctrl:EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='JollyRedNoseEffect')" strAuthor="@Resource(key='_efbtn_1', bundle='FocalZoomEffect')"
+		strImageSource="../graphics/effects/Holiday/jollyrednose.jpg" premium="{premium}"/>
+	<mx:String id="_strHelpText">{Resource.getString('JollyRedNoseEffect', '_strHelpText')}</mx:String>
+	
+	<mx:String id="_strBlendMode">normal</mx:String>
+	<mx:String id="_strNoseStyle">Santa</mx:String>
+	<mx:Number id="_coTint">0xFF0000</mx:Number>
+
+	<mx:VBox x="10" y="73" verticalGap="0" horizontalAlign="center">	
+		<mx:Canvas width="190" height="42" cornerRadius="5" backgroundColor="#ffffff" borderColor="#d9d9d9" borderStyle="solid" backgroundAlpha=".4">
+			<mx:HBox width="100%" horizontalGap="0" x="30" y="6">
+				<mx:Spacer width="21"/>
+				<ctrl:ImageVer source="../graphics/holiday/mannose_small.png" horizontalAlign="right"/>
+				<mx:Spacer width="44"/>
+				<ctrl:ImageVer source="../graphics/holiday/rudolphnose_small.png" horizontalAlign="right"/>
+			</mx:HBox>
+			<mx:HBox width="100%" verticalAlign="middle" horizontalGap="0" paddingTop="2" x="30" y="10">
+				<mx:RadioButton id="_rbtnSideBySide" label="  " width="52" selected="{_strNoseStyle=='Santa'}" groupName="split"
+						click="OnSantaClick();"/>
+				<mx:Spacer width="21"/>
+				<mx:RadioButton id="_rbtnSplit" label="  " width="59" groupName="split"  selected="{_strNoseStyle=='Rudolph'}" 
+						click="OnRudolphClick();"/>
+			</mx:HBox>
+		</mx:Canvas>
+	
+		<mx:HBox width="190" paddingBottom="-5" paddingTop="3">		
+			<mx:Label text="@Resource(key='Size', bundle='JollyRedNoseEffect')" styleName="sliderTitle"/>
+			<mx:Label text="{LocUtil.pct(Math.round(_sldrSize.liveValue))}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<ctrl:HSliderFastDrag updateSpeed="{updateSpeed}" x="9" y="85" width="190" minimum="1" maximum="100" value="{zeroR + 50}" id="_sldrSize" liveDragging="true" showDataTip="false"
+			thumbPress="ShowOverlay()" change="OnOpChange()" thumbRelease="HideOverlay()"/>
+		
+		<ctrl:ApplyCancelEffectButtons premium="{premium}" addBoxPadding="true"/>
+	</mx:VBox>
+	
+	<!-- we don't use the mask, but we need to create one so that the overlay gets shown -->
+	<imageOperations:CircularGradientImageMask 
+		width="{zeroR + imagewidth}" height="{zeroR + imageheight}" 
+		xCenter="{zeroR + xFocus}" yCenter="{zeroR + yFocus}" 
+		innerRadius="1" 
+		outerRadius="{_sldrSize.value * Math.min(imagewidth,imageheight)/200}" 
+		outerAlpha="1"
+		innerAlpha="0"
+		id="_msk"/>
+
+	<imageOperations:CircularGradientImageMask 
+		width="{zeroR + imagewidth}" height="{zeroR + imageheight}" 
+		xCenter="{zeroR + xFocus}" yCenter="{zeroR + yFocus}" 
+		innerRadius="1" 
+		outerRadius="{_sldrSize.value * Math.min(imagewidth,imageheight)/200 * 0.4 + 0.5}" 
+		outerAlpha="0"
+		innerAlpha="1"
+		id="_msk2"/>		
+			
+	<imageOperations:NestedImageOperation id="_op">
+		<imageOperations:children>
+			<imageOperations:FishEyeImageOperation 
+						x="{zeroR + Math.floor(xFocus)}" y="{zeroR + Math.floor(yFocus)}" strength="80"
+						size="{_sldrSize.value/2}" xSkew="50" ySkew="65" ignoreObjects="true"/>						
+			<imageOperations:TintImageOperation Color="{_coTint}" Mask="{_msk2}" BlendMode="{_strBlendMode}"/>
+		</imageOperations:children>
+		
+	</imageOperations:NestedImageOperation>
+</cnt:CircularOverlayEffectCanvas>

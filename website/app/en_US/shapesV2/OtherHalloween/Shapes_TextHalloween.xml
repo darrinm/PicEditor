@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/haunted_ghosts.png" flickrPremium="true" id="TextHalloween" numShapes="7" picnikPremium="true" title="Text">
+	<Shapes>
+		<Text autoSize="none" flickrPremium="true" picnikPremium="true" text="ABC">
+			
+	      
+			<PicnikFont altBold="false" altItalic="false" baseFileName="lb_GREENFUZ" fakeBold="false" familyName="pklb0GREENFUZ" isBold="false" isEmbeded="false" isItalic="false" leading="0" size="40559"/>
+			
+		
+		</Text>
+		<Text autoSize="none" flickrPremium="true" picnikPremium="true" text="ABC">
+			
+	      
+			<PicnikFont altBold="false" altItalic="false" baseFileName="lb_GROOVYGH" fakeBold="false" familyName="pklb0GROOVYGH" isBold="false" isEmbeded="false" isItalic="false" leading="0" size="40559"/>
+			
+		
+		</Text>
+		<Text autoSize="none" flickrPremium="true" picnikPremium="true" text="ABC">
+			
+	      
+			<PicnikFont altBold="false" altItalic="false" baseFileName="mk_HansFraktur" fakeBold="false" familyName="pkmk0HansFraktur" isBold="false" isEmbeded="false" isItalic="false" leading="0" size="40559"/>
+			
+		
+		</Text>
+		<Text autoSize="none" flickrPremium="true" picnikPremium="true" text="ABC">
+			
+	      
+			<PicnikFont altBold="false" altItalic="false" baseFileName="lb_nightpor" fakeBold="false" familyName="pklb0nightpor" isBold="false" isEmbeded="false" isItalic="false" leading="0" size="40559"/>
+			
+		
+		</Text>
+		<Text autoSize="none" flickrPremium="true" picnikPremium="true" text="ABC">
+			
+	      
+			<PicnikFont altBold="false" altItalic="false" baseFileName="lb_schlop" fakeBold="false" familyName="pklb0schlop" isBold="false" isEmbeded="false" isItalic="false" leading="0" size="40559"/>
+			
+		
+		</Text>
+		<Text autoSize="none" flickrPremium="true" picnikPremium="true" text="ABC">
+			
+	      
+			<PicnikFont altBold="false" altItalic="false" baseFileName="mk_TangoMacabre" fakeBold="false" familyName="pkmk0TangoMacabre" isBold="false" isEmbeded="false" isItalic="false" leading="0" size="40559"/>
+			
+		
+		</Text>
+		<Text autoSize="none" flickrPremium="true" picnikPremium="true" text="ABC">
+			
+	      
+			<PicnikFont altBold="false" altItalic="false" baseFileName="mk_Vampyrish" fakeBold="false" familyName="pkmk0Vampyrish" isBold="false" isEmbeded="false" isItalic="false" leading="0" size="40559"/>
+			
+		
+		</Text>
+	</Shapes>
+</ShapeCategory>

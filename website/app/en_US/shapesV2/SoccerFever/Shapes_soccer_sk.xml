@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory flickrPremium="false" id="soccer_sk" numShapes="3" picnikPremium="false" previewUrls="60|48|../clipart/bundles/SoccerFeverArea_groupPreviews_soccer_sk.png?ver=02c675de" title="Slovakia Stickers">
+	<Shapes>
+		<Clipart cHeight="300" cWidth="450" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|0|../clipart/bundles/SoccerFeverArea_shapes_soccer_sk.png?ver=aedb26a6" url="shapes/sk/flag_sk.swf"/>
+		<Clipart cHeight="223.55" cWidth="95.95" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|1|../clipart/bundles/SoccerFeverArea_shapes_soccer_sk.png?ver=aedb26a6" url="shapes/sk/scarf_sk.swf"/>
+		<Clipart cHeight="295.75" cWidth="464.2" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|2|../clipart/bundles/SoccerFeverArea_shapes_soccer_sk.png?ver=aedb26a6" url="shapes/sk/wavingflag_sk.swf"/>
+	</Shapes>
+</ShapeCategory>

@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory flickrPremium="false" id="soccer_br" numShapes="3" picnikPremium="false" previewUrls="60|48|../clipart/bundles/SoccerFeverTeamsArea_groupPreviews_soccer_br.png?ver=c03d86a4" title="Brazil Stickers">
+	<Shapes>
+		<Clipart cHeight="294.75" cWidth="464.2" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|0|../clipart/bundles/SoccerFeverTeamsArea_shapes_soccer_br.png?ver=f197fed8" url="shapes/SoccerFever/br/wavingflag_br.swf"/>
+		<Clipart cHeight="504" cWidth="738" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|1|../clipart/bundles/SoccerFeverTeamsArea_shapes_soccer_br.png?ver=f197fed8" url="shapes/SoccerFever/br/flag_br.swf"/>
+		<Clipart cHeight="223.55" cWidth="95.95" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|2|../clipart/bundles/SoccerFeverTeamsArea_shapes_soccer_br.png?ver=f197fed8" url="shapes/SoccerFever/br/scarf_br.swf"/>
+	</Shapes>
+</ShapeCategory>

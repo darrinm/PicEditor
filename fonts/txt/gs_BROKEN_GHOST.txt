@@ -1,0 +1,12 @@
+fileName: gs_BROKEN_GHOST.ttf
+name: BROKEN GHOST
+subfamilyDisplayName: Normal
+fullName: BROKEN GHOST
+displayName: BROKEN GHOST
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 0
+pkName: pkgs0BROKEN0GHOST
+authorName: Guillaume Seguin
+authorUrl: http://lastsoundtrack.fontspace.com/

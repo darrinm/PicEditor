@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CreateAlbumDialogBase xmlns="dialogs.*" xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" width="400"
+		defaultButton="{_btnCreate}" showCloseButton="true" xmlns:ctl="controls.*">
+	<states>
+		<mx:State name="NoParentAlbums">
+			<mx:RemoveChild target="{parentAlbumBox}"/>
+		</mx:State>		
+	</states>
+	
+	<mx:VBox width="100%" height="100%" verticalAlign="middle" id="vbox2">	
+	<mx:VBox width="100%" paddingTop="5" paddingLeft="20" paddingRight="20" horizontalAlign="left" verticalAlign="middle" id="vbox1" height="100%">	
+		<mx:Text id="_txtTitle" width="100%" fontSize="13" condenseWhite="true" selectable="false" textAlign="left" htmlText="@Resource(key='_txtTitle', bundle='CreateAlbumDialog')">
+		</mx:Text>
+		<mx:VBox width="100%" paddingBottom="20" id="parentAlbumBox">	
+			<mx:Label id="labelParentAlbum" text="@Resource(key='labelParentAlbum', bundle='CreateAlbumDialog')" styleName="publishForm" height="20"/>
+			<mx:ComboBox id="_cboxSets" rowCount="8" width="100%" height="26" styleName="deviceFonts">
+				<mx:itemRenderer>
+					<mx:Component>
+		            	<mx:HBox verticalAlign="middle">
+		                	<mx:Label text="{data.label}" fontSize="14" width="210" styleName="deviceFonts"/>
+							<mx:Spacer width="100%"/>
+		                	<ctl:ImageVer source="{data.icon}" height="36" width="36" verticalAlign="middle" horizontalAlign="center"/>
+		            	</mx:HBox>
+					</mx:Component>
+		        </mx:itemRenderer>
+			</mx:ComboBox>
+		</mx:VBox>		
+		<mx:VBox width="100%" paddingBottom="20">	
+			<mx:Label id="_lblSetName" text="@Resource(key='_lblSetName', bundle='CreateAlbumDialog')" styleName="publishForm" height="20"/>
+			<ctl:TextInputPlus width="100%" height="26" id="_tiTitle" styleName="publishFormField"
+							change="_tiTitle.errorString=(_tiTitle.text=='')?'Please enter a name.':''"/>
+		</mx:VBox>		
+		<mx:VBox width="100%" paddingBottom="20" visible="{_fShowDescription}" includeInLayout="{_fShowDescription}" >	
+			<mx:Label text="@Resource(key='Label_1', bundle='CreateAlbumDialog')" styleName="publishForm" height="20"/>
+			<ctl:TextAreaPlus width="100%" height="64" minHeight="64" maxHeight="142" styleName="publishFormField" id="_taDescription"/>
+		</mx:VBox>		
+		<mx:VBox width="100%" paddingBottom="20" horizontalAlign="center">	
+			<mx:HBox>
+				<mx:Button label="@Resource(key='_btnCreate', bundle='CreateAlbumDialog')" id="_btnCreate" width="100" styleName="BigButton" tabIndex="4" emphasized="true" height="25" enabled="{_tiTitle.text!=''}"/>
+				<mx:Button label="@Resource(key='_btnCancel', bundle='CreateAlbumDialog')" id="_btnCancel" width="80" styleName="dialogButton" tabIndex="5" height="25"/>
+			</mx:HBox>
+		</mx:VBox>		
+	</mx:VBox>
+	</mx:VBox>
+</CreateAlbumDialogBase>

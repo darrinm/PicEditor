@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DodgeAndBurnEffectBase xmlns="effects.*" xmlns:cnt="containers.*" xmlns:ctrl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="434" xmlns:local="*" 
+	xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*" area="{zeroR + 4}"
+	xmlns:flash.geom="flash.geom.*" premium="true"
+	 urlid="Dodging">
+	<mx:Script>
+		import util.LocUtil;
+		import mx.resources.ResourceBundle;
+   		[Bindable] [ResourceBundle("DodgeEffect")] private var rb:ResourceBundle;
+	</mx:Script>
+
+	<mx:HRule x="0" width="100%" top="0" height="1" strokeColor="#FFFFFF"/>
+	<mx:HRule x="0" width="100%" height="1" bottom="0" strokeColor="#d4d4d4"/>
+	
+	<ctrl:EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='DodgeEffect')" 
+		strAuthor="@Resource(key='byPicnik', bundle='EffectCanvas')" strImageSource="../graphics/effects/Touchup/lighten_kermit.png" 
+		premium="{premium}"/>
+	<mx:String id="_strHelpText">{Resource.getString('DodgeEffect', '_strHelpText')}</mx:String>
+
+	<mx:VBox x="9" y="70" verticalGap="0">
+		<mx:Spacer width="10" height="3"/>
+		
+		<mx:ComboBox id="_cbArea" selectedIndex="{zeroR + 1}" change="area = _cbArea.selectedIndex + 3"
+				height="26" width="190">
+			<mx:dataProvider>
+				<mx:String>@Resource(key='Highlights', bundle='DodgeEffect')</mx:String>
+				<mx:String>@Resource(key='Midtones', bundle='DodgeEffect')</mx:String>
+				<mx:String>@Resource(key='Shadows', bundle='DodgeEffect')</mx:String>
+			</mx:dataProvider>
+		</mx:ComboBox>
+		
+    	<!-- brush size / eraser toggle -->
+    	<ctrl:BrushSizeAndEraserButton id="_brshbtn" selected="{_fSelected}"
+    		imageWidth="{origImageWidth}" imageHeight="{origImageHeight}"
+    		change="OnOpChange()" thumbPress="ShowBrushPreview()" thumbDrag="UpdateBrushPreview()" thumbRelease="HideBrushPreview()"
+    		/>
+		
+		<ctrl:ApplyCancelEffectButtons premium="{premium}" addBoxPadding="true"/>
+	</mx:VBox>
+
+	<mx:Number id="_cxyBrush">{_brshbtn.value}</mx:Number>
+	
+</DodgeAndBurnEffectBase>

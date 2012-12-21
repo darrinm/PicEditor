@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory area="NewYears" id="root">
+	<ShapeCategory flickrPremium="false" id="NewYearsSection" numShapes="0" picnikPremium="false" showHeader="false">
+		<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/shape_NewYears.png" flickrPremium="false" id="NewYearsEve" numShapes="9" picnikPremium="false" previewUrls="60|48|../clipart/bundles/NewYearsArea_groupPreviews_NewYearsEve.png?ver=8c2af29e" thumbUrl="66|54|0|../clipart/bundles/NewYearsArea_groupThumbs.png?ver=dcdf050f" title="New Year&apos;s Eve"/>
+		<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/newyear_fireworks.png" flickrPremium="true" id="NewYears_Fireworks" numShapes="24" picnikPremium="true" previewUrls="60|48|../clipart/bundles/NewYearsArea_groupPreviews_NewYears_Fireworks.png?ver=f69cee64" thumbUrl="66|54|1|../clipart/bundles/NewYearsArea_groupThumbs.png?ver=dcdf050f" title="Fireworks"/>
+		<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/newyear_party.png" flickrPremium="true" id="NewYears_Party" numShapes="0" picnikPremium="true" previewUrls="60|48|../clipart/bundles/NewYearsArea_groupPreviews_NewYears_Party.png?ver=e654ad72" thumbUrl="66|54|2|../clipart/bundles/NewYearsArea_groupThumbs.png?ver=dcdf050f" title="New Year&apos;s Party">
+			<ShapeCategory flickrPremium="true" id="NewYears_Costumes" numShapes="7" picnikPremium="true" title="Costumes"/>
+			<ShapeCategory flickrPremium="true" id="NewYears_Decorations" numShapes="15" picnikPremium="true" title="Decorations"/>
+			<ShapeCategory flickrPremium="true" id="NewYears_Props" numShapes="5" picnikPremium="true" title="Props"/>
+		</ShapeCategory>
+	</ShapeCategory>
+</ShapeCategory>

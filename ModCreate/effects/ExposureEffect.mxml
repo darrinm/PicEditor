@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cnt:EffectCanvas xmlns:cnt="containers.*" xmlns="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="312"
+	xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*" premium="true" urlid="Exposure">
+	<mx:Script>
+		import util.LocUtil;
+		import mx.resources.ResourceBundle;
+   		[Bindable] [ResourceBundle("ExposureEffect")] private var rb:ResourceBundle;
+	</mx:Script>
+
+
+	<EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='ExposureEffect')" strAuthor="@Resource(key='_efbtn_1', bundle='ExposureEffect')" strImageSource="../graphics/effects/Camera/orton.png" premium="{premium}" booleanAdmin="true"/>
+	<mx:String id="_strHelpText">{Resource.getString('ExposureEffect', '_strHelpText')}</mx:String>
+
+	<mx:VBox x="8" y="67" verticalGap="0">
+		<cnt:ResizingHBox width="194" paddingBottom="-5" paddingTop="3" verticalAlign="bottom">
+			<ResizingLabel text="@Resource(key='exposure', bundle='ExposureEffect')" styleName="sliderTitle" autoFontSizeGap="1"/>
+			<ResizingLabel text="{Math.round(_sldrEx.value * 10)/10}" styleName="sliderValue" textAlign="right" width="100%" autoFontSizeGap="1"/>
+		</cnt:ResizingHBox>
+		<HSliderPlus width="191" minimum="-3" maximum="3" value="{0 + zeroR}" id="_sldrEx" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+	
+		<mx:HBox width="190" paddingBottom="-5" paddingTop="3">
+			<mx:Label text="@Resource(key='fill', bundle='ExposureEffect')" styleName="sliderTitle"/>
+			<mx:Label text="{LocUtil.pct(_sldrFill.value * 100)}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<HSliderPlus width="190" minimum="0" maximum="1" value="{0+zeroR}" id="_sldrFill" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+	
+		<mx:HBox width="190" paddingBottom="-5" paddingTop="3">
+			<mx:Label text="@Resource(key='blacks', bundle='ExposureEffect')" styleName="sliderTitle"/>
+			<mx:Label text="{LocUtil.pct(_sldrBlacks.value * 100)}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<HSliderPlus width="190" minimum="0" maximum="2" value="{0+zeroR}" id="_sldrBlacks" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+	
+		<mx:HBox width="190" paddingBottom="-5" paddingTop="3">
+			<mx:Label text="@Resource(key='contrast', bundle='ExposureEffect')" styleName="sliderTitle"/>
+			<mx:Label text="{LocUtil.pct(_sldrContrast.value * 100)}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<HSliderPlus width="190" minimum="-1" maximum="2" value="{0+zeroR}" id="_sldrContrast" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+	
+		<mx:HBox width="190" paddingBottom="-5" paddingTop="3">
+			<mx:Label text="@Resource(key='localContrast', bundle='ExposureEffect')" styleName="sliderTitle"/>
+			<mx:Label text="{LocUtil.pct(_sldrLocalContrast.value * 100)}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<HSliderPlus width="190" minimum="0" maximum="1" value="{0+zeroR}" id="_sldrLocalContrast" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+	
+		<ApplyCancelEffectButtons addBoxPadding="true" premium="{premium}"/>
+	</mx:VBox>
+
+
+</cnt:EffectCanvas>

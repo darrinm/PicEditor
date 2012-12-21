@@ -1,0 +1,12 @@
+fileName: danielbd.ttf
+name: Daniel
+subfamilyDisplayName: Bold
+fullName: Daniel Bold
+displayName: Daniel
+ital: 0
+bold: 1
+weight: 5
+panose.weight: 8
+pkName: pkdanielbd
+authorName: Daniel Midgley
+authorUrl: http://people.csse.uwa.edu.au/fontor/

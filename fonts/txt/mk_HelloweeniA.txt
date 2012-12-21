@@ -1,0 +1,12 @@
+fileName: mk_HelloweeniA.ttf
+name: HelloweeniA
+subfamilyDisplayName: Regular
+fullName: HelloweeniA
+displayName: HelloweeniA
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 6
+pkName: pkmk0HelloweeniA
+authorName: Manfred Kelin
+authorUrl: http://moorstation.org/typoasis/designers/klein/

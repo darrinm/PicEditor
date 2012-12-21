@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<OutBridgeContainer xmlns="containers.*" xmlns:bk="controls.*" xmlns:bridges="bridges.*" 
+		xmlns:postsave="bridges.postsave.*" 
+		xmlns:flickr="bridges.flickr.*" 
+		xmlns:gallery="bridges.gallery.*" 
+		xmlns:twitter="bridges.twitter.*"
+		xmlns:photobucket="bridges.photobucket.*" 
+		xmlns:facebook="bridges.facebook.*" 
+		xmlns:picasaweb="bridges.picasaweb.*"
+		xmlns:mycomputer="bridges.mycomputer.*"
+		xmlns:mypicnik="bridges.mypicnik.*" 
+		xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:url="urlkit.rules.*"
+		width="100%" height="100%" xmlns:email="bridges.email.*" xmlns:genericemail="bridges.genericemail.*" xmlns:printer="bridges.printer.*">
+	<url:UrlNavigatorRule id="urls" viewStack="{_vstk}" urlFormat="/*" useChildLabelForTitle="false" urlField="urlkit"/>
+	
+	<bk:ImageVer source="@Embed('assets/bitmaps/bar_bg_x30.png')" left="0" top="0" width="100%" scaleContent="true" maintainAspectRatio="false"/>
+	<bk:ThumbToggleButtonBar x="0" y="0" dataProvider="_vstk" id="_tbbar"
+			height="30" selectedButtonTextStyleName="buttonBarButtonSelectedText" focusEnabled="false">
+		<bk:selectedThumbSkin>@Embed('theme/pngs/buttonbar/pointerSelectedUp.png')</bk:selectedThumbSkin>
+	</bk:ThumbToggleButtonBar>
+	<bk:OverflowMenu id="_oflw" y="0" viewStack="{_vstk}" buttonBar="{_tbbar}" text="@Resource(key='_oflw', bundle='OutBridges')" 
+			fontSize="15" height="30" visible="false" styleName="buttonBarButton" verticalAlign="middle"/>
+	<mx:ViewStack id="_vstk" left="0" top="30" bottom="0" right="0">
+		<mycomputer:MyComputerOutBridge urlkit="download" label="@Resource(key='_brgMyComputerOut', bundle='OutBridges')" width="100%" height="100%" id="_brgMyComputerOut"
+			icon="@Embed('theme/gifs/blank.gif')"/>
+		<!--
+		<mypicnik:MyPicnikOutBridge urlkit="picnik" label="@Resource(key='_brgMyPicnikOut', bundle='OutBridges')" 
+			width="100%" height="100%" id="_brgPicnikOut" icon="@Embed('assets/bitmaps/thirdpartyfavicons/picnik.png')"/>
+		-->
+		<!--<gallery:GalleryOutBridge urlkit="show" serviceid="gallery" label="@Resource(key='_brgGalleryOut', bundle='OutBridges')" icon="@Embed('assets/bitmaps/icon_gallery.png')" 
+			width="100%" height="100%" id="_brgGalleryOut"/>-->
+		<!--
+		<tinypic:TinyPicOutBridge urlkit="tinypic" label="TinyPic" icon="@Embed('assets/bitmaps/thirdpartyfavicons/photobucket.png')"
+			width="100%" height="100%" id="_brgTinyPicOut"/>
+		-->
+		<ActivatableModuleLoader urlkit="picasaweb" icon="@Embed('assets/bitmaps/thirdpartyfavicons/picasa.png')"
+								 label="Picasa Web Albums" initParams="{{serviceid:'picasaweb'}}"
+								 activatableId="_brgPicasaWebOut" url="{PicnikBase.app.GetLocModuleName('ModBridges')}" 
+								 width="100%" height="100%" id="_brgPicasaWebOut" name="_brgPicasaWebOut"
+								 horizontalScrollPolicy="off" verticalScrollPolicy="off" creationPolicy="none"/>
+		<ActivatableModuleLoader urlkit="twitter" icon="@Embed('assets/bitmaps/thirdpartyfavicons/twitter.png')" 
+								 label="Twitter" initParams="{{serviceid:'twitter'}}"
+								 activatableId="_brgTwitterOut" url="{PicnikBase.app.GetLocModuleName('ModBridges')}" 
+								 width="100%" height="100%" id="_brgTwitterOut" name="_brgTwitterOut"
+								 horizontalScrollPolicy="off" verticalScrollPolicy="off" creationPolicy="none"/>
+		<ActivatableModuleLoader urlkit="flickr" icon="@Embed('assets/bitmaps/thirdpartyfavicons/flickr.png')" 
+								 label="Flickr" initParams="{{serviceid:'flickr'}}"
+								 activatableId="_brgFlickrOut" url="{PicnikBase.app.GetLocModuleName('ModBridges')}" 
+								 width="100%" height="100%" id="_brgFlickrOut" name="_brgFlickrOut"
+								 horizontalScrollPolicy="off" verticalScrollPolicy="off" creationPolicy="none"/>
+		<ActivatableModuleLoader urlkit="facebook" icon="@Embed('theme/gifs/blank.gif')"
+								 label="Facebook" initParams="{{serviceid:'facebook'}}"
+								 activatableId="_brgFacebookOut" url="{PicnikBase.app.GetLocModuleName('ModBridges')}" 
+								 width="100%" height="100%" id="_brgFacebookOut" name="_brgFacebookOut"
+								 horizontalScrollPolicy="off" verticalScrollPolicy="off" creationPolicy="none"/>
+		<ActivatableModuleLoader urlkit="photobucket" icon="@Embed('assets/bitmaps/thirdpartyfavicons/photobucket.png')"
+								 label="Photobucket" initParams="{{serviceid:'photobucket'}}"
+								 activatableId="_brgPhotobucketOut" url="{PicnikBase.app.GetLocModuleName('ModBridges')}" 
+								 width="100%" height="100%" id="_brgPhotobucketOut" name="_brgPhotobucketOut"
+								 horizontalScrollPolicy="off" verticalScrollPolicy="off" creationPolicy="none"/>
+		<email:EmailOutBridge urlkit="email" label="@Resource(key='_brgEmailOut', bundle='OutBridges')" width="100%" height="100%" id="_brgEmailOut"
+			icon="@Embed('theme/gifs/blank.gif')"/>
+		<ActivatableModuleLoader urlkit="print" icon="@Embed('theme/gifs/blank.gif')"
+								 label="@Resource(key='_brgPrinterOut', bundle='OutBridges')"
+								 activatableId="_brgPrinterOut" url="{PicnikBase.app.GetLocModuleName('ModBridges')}" 
+								 width="100%" height="100%" id="_brgPrinterOut" name="_brgPrinterOut"
+								 horizontalScrollPolicy="off" verticalScrollPolicy="off" creationPolicy="none"/>
+		<ActivatableModuleLoader icon="@Embed('theme/gifs/blank.gif')" NoNavBar="true"
+								 activatableId="_brgPostSave" url="{PicnikBase.app.GetLocModuleName('ModBridges')}" 
+								 width="100%" height="100%" id="_brgPostSave" name="_brgPostSave"
+								 horizontalScrollPolicy="off" verticalScrollPolicy="off" creationPolicy="none"/>
+	</mx:ViewStack>	
+	<bk:ImageVer x="0" source="@Embed('assets/bitmaps/panel_shadow.png')" width="100%" top="30" scaleContent="true" maintainAspectRatio="false"/>
+	<bk:Gears id="_grsBusy" y="2" width="45" height="24" right="5" visible="false"/>
+</OutBridgeContainer>

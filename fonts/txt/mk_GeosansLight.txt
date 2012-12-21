@@ -1,0 +1,12 @@
+fileName: mk_GeosansLight.ttf
+name: GeosansLight
+subfamilyDisplayName: Regular
+fullName: GeosansLight
+displayName: GeosansLight
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 6
+pkName: pkmk0GeosansLight
+authorName: Manfred Kelin
+authorUrl: http://moorstation.org/typoasis/designers/klein/

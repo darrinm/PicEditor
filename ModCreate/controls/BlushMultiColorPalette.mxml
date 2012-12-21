@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MultiColorPaletteBase xmlns="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" _cntButtons="{_bxButtons}" _cntPalettes="{_cnvPalettes}" verticalGap="7">
+	<mx:Script>
+		<![CDATA[
+			import icons.HueGradientIcon;
+			import icons.SolidColorIcon;
+		]]>
+	</mx:Script>
+<mx:HBox id="_bxButtons" width="190" horizontalGap="8">
+	<mx:Button width="58" height="27" icon="{icons.SolidColorIcon}" 
+		data="{{iconColor:0xfbbeaa, iconWidth:48, iconHeight:17}}" 
+		click="OnButtonClick(event)"
+		/>
+	<mx:Button width="58" height="27" icon="{icons.SolidColorIcon}" 
+		data="{{iconColor:0xefdfc5, iconWidth:48, iconHeight:17}}"
+		click="OnButtonClick(event)"
+		/>
+	<mx:Button width="58" height="27" icon="{icons.HueGradientIcon}" 
+		data="{{iconWidth:48, iconHeight:17}}" 
+		click="OnButtonClick(event)"
+		/>
+</mx:HBox>
+<mx:Canvas id="_cnvPalettes">
+	<BlushColorPalette colors="{[0xfbbeaa, 0xffc0d0, 0xe7a0ae, 0xd05167, 0x88424b]}"/>
+	<BlushColorPalette colors="{[0xefdfc5, 0xcfa87f, 0xc29369, 0x916342, 0x8a5e37]}"/>
+	<HSBColorSwatch width="190" height="67" hueStart="180"
+		topGray="255" grayscaleSize="5" color="0xee626a"/>
+</mx:Canvas>
+</MultiColorPaletteBase>

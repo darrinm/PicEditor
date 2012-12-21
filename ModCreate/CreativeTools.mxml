@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CreativeToolsBase xmlns="*" xmlns:mx="http://www.adobe.com/2006/mxml" label="@Resource(key='CreativeToolsBase_1', bundle='CreativeTools')"
+		width="100%" height="100%" resize="util.StateSize.UpdateState(this)"
+		xmlns:flash="flash.filters.*" xmlns:bk="controls.*" xmlns:ct="creativeTools.*"
+		xmlns:bkctr="containers.*" xmlns:ut="util.*"
+		horizontalScrollPolicy="off" verticalScrollPolicy="off">
+    <mx:Array id="_astszStateSizes">
+		<ut:StateSize state="FlickrSubset" />
+		<ut:StateSize state="8x6" maxwidth="910"/>
+		<ut:StateSize state="6x4" maxwidth="675"/>
+	</mx:Array>
+	
+	<states>
+		<mx:State name="FlickrSubset">
+		</mx:State>
+		<mx:State name="8x6" basedOn="FlickrSubset">
+			<mx:SetStyle target="{_btnUndo}" name="fontSize" value="12"/>
+			<mx:SetStyle target="{_btnRedo}" name="fontSize" value="12"/>
+			<mx:SetProperty target="{_btnUndo}" name="width"/>
+			<mx:SetProperty target="{_btnRedo}" name="width"/>
+			<mx:SetStyle target="{_btnUndo}" name="paddingLeft" value="-2"/>
+			<mx:SetStyle target="{_btnRedo}" name="paddingLeft" value="-2"/>
+			<mx:SetStyle target="{_btnUndo}" name="paddingRight" value="-2"/>
+			<mx:SetStyle target="{_btnRedo}" name="paddingRight" value="-2"/>
+			<mx:SetStyle target="{hbox1}" name="horizontalGap" value="5"/>
+			<mx:RemoveChild target="{image2}"/>
+		</mx:State>
+		<mx:State name="6x4" basedOn="8x6">
+			<mx:SetStyle target="{_btnUndo}" name="paddingLeft" value="-4"/>
+			<mx:SetStyle target="{_btnRedo}" name="paddingLeft" value="-4"/>
+			<mx:SetStyle target="{_btnUndo}" name="paddingRight" value="-4"/>
+			<mx:SetStyle target="{_btnRedo}" name="paddingRight" value="-4"/>
+		</mx:State>
+	</states>
+	<mx:Canvas left="226" top="30" right="0" bottom="0" id="_cvsTemplate"/>
+	<bk:ImageVer source="@Embed('assets/bitmaps/bar_bg_x30.png')" left="0" top="0" width="100%" scaleContent="true" maintainAspectRatio="false"/>
+	<bk:CreativeToolsResizingThumbToggleButtonBar left="0" y="0" dataProvider="_vstk" id="_tbbarOpen"
+		height="30" maxWidth="{width - 170}" selectedButtonTextStyleName="buttonBarButtonSelectedText" focusEnabled="false">
+		<bk:selectedThumbSkin>@Embed('theme/pngs/buttonbar/pointerSelectedUp.png')</bk:selectedThumbSkin>
+	</bk:CreativeToolsResizingThumbToggleButtonBar>
+	<mx:ViewStack id="_vstk" left="0" top="30" bottom="{PicnikBase.app.basket.visible ? 24 : 0}" right="0">
+		<!--<ct:Holiday id="_ctHoliday" top="30" left="0" bottom="0" label="@Resource(key='_ctValentinesSet', bundle='CreativeTools')" toolTip="@Resource(key='_ctSeasonalHoliday', bundle='CreativeTools')" 
+				urlkit="holiday" undoRedoSave="{_urs}"
+				backgroundSize="100%" width="226" icon="@Embed('assets/bitmaps/icon_valentines.png')"/>-->
+		<!-- 
+			 ************************* IMPORTANT ************************* 
+
+			 Please, if you make changes here, make the corresponding change
+			 in client/CreativeToolsTab.mxml (or tell bsharon what change needs
+			 to be made). Otherwise your change will disappear when the 
+			 edit/create tab goes live!
+
+			 ************************************************************* 
+		-->
+		<ct:Featured id="_ctFeatured" top="30" left="0" bottom="0" label="@Resource(key='_ctFeatured', bundle='CreativeTools')"
+				urlkit="featured" undoRedoSave="{_urs}"
+				backgroundSize="100%" width="226" icon="@Embed('assets/bitmaps/icon_star.png')"/>
+		<ct:SpecialEffectsCanvas id="_ctEffects" top="30" left="0" bottom="0" label="@Resource(key='_ctEffects', bundle='CreativeTools')" toolTip="@Resource(key='_ctEffects_1', bundle='CreativeTools')" 
+				urlkit="effects" undoRedoSave="{_urs}"
+				backgroundSize="100%" width="226" icon="@Embed('assets/bitmaps/icon_effects.png')"/>
+		<ct:TextTool id="_ctType" label="@Resource(key='_ctType', bundle='CreativeTools')" top="30" left="0" toolTip="@Resource(key='_ctType_1', bundle='CreativeTools')" 
+				urlkit="text" googlePlus="true"
+				backgroundSize="100%" width="226" icon="@Embed('assets/bitmaps/icon_text.png')" />
+		<ct:ShapeTool id="_ctShape" label="@Resource(key='_ctShape', bundle='CreativeTools')" top="30" left="0" toolTip="@Resource(key='_ctShape_1', bundle='CreativeTools')" 
+				urlkit="shapes"
+				backgroundSize="100%" width="226" icon="@Embed('assets/bitmaps/icon_smiley.png')"/>
+		<ct:Beauty id="_ctBeauty" top="30" left="0" bottom="0" label="@Resource(key='_ctBeauty', bundle='CreativeTools')" toolTip="@Resource(key='_ctBeauty_1', bundle='CreativeTools')" 
+				urlkit="touchup" undoRedoSave="{_urs}"
+				backgroundSize="100%" width="226" icon="@Embed('assets/bitmaps/icon_touchup2.png')"/>
+		<ct:Frames id="_ctFrames" top="30" left="0" bottom="0" label="@Resource(key='Frames_1', bundle='CreativeTools')" toolTip="@Resource(key='Frames_2', bundle='CreativeTools')" 
+				urlkit="frames" undoRedoSave="{_urs}"
+				backgroundSize="100%" width="226" icon="@Embed('assets/bitmaps/icon_frames.png')"/>
+		<ct:Advanced id="_ctAdvanced" top="30" left="0" bottom="0" label="@Resource(key='_ctAdvanced', bundle='CreativeTools')" toolTip="@Resource(key='_ctAdvanced_1', bundle='CreativeTools')" 
+				urlkit="advanced" undoRedoSave="{_urs}"
+				backgroundSize="100%" width="226" icon="@Embed('assets/bitmaps/icon_advanced.png')"/>
+		<ct:Seasonal id="_ctSeasonal" top="30" left="0" bottom="0" label="@Resource(key='_ctSeasonal', bundle='CreativeTools')"
+				urlkit="seasonal" undoRedoSave="{_urs}"
+				backgroundSize="100%" width="226" icon="@Embed('assets/bitmaps/icon_calendar.png')"/>
+		<ct:Admin id="_ctAdmin" top="30" left="0" bottom="0" label="@Resource(key='_ctAdmin', bundle='CreativeTools')" toolTip="@Resource(key='_ctAdmin_1', bundle='CreativeTools')" 
+				urlkit="admin" undoRedoSave="{_urs}"
+				backgroundSize="100%" width="226" icon="@Embed('assets/bitmaps/icon_admin.png')"/>
+	</mx:ViewStack>
+	<mx:Canvas id="_cvsDisable" left="0" top="30" bottom="0" width="226" backgroundColor="0xf8f8f8" backgroundAlpha=".55" visible="{!hasDocument}"/>
+	<bk:ImageVer x="0" source="@Embed('assets/bitmaps/panel_shadow.png')" width="100%" top="30" scaleContent="true" maintainAspectRatio="false"/>
+	<bk:ImageVer x="0" source="@Embed('assets/bitmaps/effects_panel_shadow.png')" height="100%" top="31" left="226" scaleContent="true" maintainAspectRatio="false"/>
+
+	<mx:Canvas x="0" y="0" width="100%" height="30" backgroundAlpha="0" horizontalScrollPolicy="off">
+		<bkctr:ResizingHBox x="0" width="100%" y="0"
+				paddingTop="0" paddingBottom="0" paddingLeft="5" paddingRight="5" verticalAlign="middle" id="hbox1" height="30">
+			<mx:Spacer width="100%"/>
+			<mx:Button width="32" height="24" icon="@Embed('theme/pngs/thumbMenuIcon.png')" id="_btnOptions"/>
+			<!--
+			<bk:ResizingButton fontSize_1="12" fontSize_7="11" fontSize_8="9" fontSize_9="10"
+					label="@Resource(key='options', bundle='LocUtil')" id="_btnOptions" styleName="clearButton" textRollOverColor="#000000" textSelectedColor="#000000"
+					icon="@Embed('theme/pngs/inlineDropDownArrowGreen.png')" overIcon="@Embed('theme/pngs/inlineDropDownArrowBlack.png')"
+					downIcon="@Embed('theme/pngs/inlineDropDownArrowBlack.png')"
+					labelPlacement="left" height="30" textAlign="right" horizontalGap="2" paddingRight="0"/>
+			-->
+			<bk:ImageVer source="@Embed('assets/bitmaps/divider_short.png')" id="image2"/>
+			<bkctr:ResizingHTile paddingLeft="0" paddingRight="0" paddingTop="0" paddingBottom="0" horizontalGap="0">
+				<bk:ResizingButton fontSize_1="12" paddingLeft_2="-2" paddingRight_2="-2" paddingLeft_3="-3" paddingRight_3="-3" paddingLeft_4="-4" paddingRight_4="-4" paddingLeft_5="-5" paddingRight_5="-5" paddingLeft_7="-6" paddingRight_7="-6" paddingLeft_8="-7" paddingRight_8="-7"  fontSize_7="11" fontSize_8="9" fontSize_9="10"
+				   label="@Resource(key='_btnUndo', bundle='CreativeTools')" id="_btnUndo" styleName="buttonLeft" height="24" width="100%" paddingLeft="-5" paddingRight="-5" maxWidth="58"/>
+				<bkctr:ResizingHBox paddingLeft="0" paddingRight="0" paddingTop="0" paddingBottom="0" horizontalGap="0" width="100%">
+					<bk:ResizingButton fontSize_1="12" paddingLeft_2="-2" paddingRight_2="-2" paddingLeft_3="-3" paddingRight_3="-3" paddingLeft_4="-4" paddingRight_4="-4" paddingLeft_5="-5" paddingRight_5="-5" paddingLeft_7="-6" paddingRight_7="-6" paddingLeft_8="-7" paddingRight_8="-7"  fontSize_7="11" fontSize_8="9" fontSize_9="10"
+				   label="@Resource(key='_btnRedo', bundle='CreativeTools')" id="_btnRedo" styleName="buttonRight" height="24" width="100%" paddingLeft="-5" paddingRight="-5"  maxWidth="58"/>
+				</bkctr:ResizingHBox>
+			</bkctr:ResizingHTile>
+			<bk:ResizingButton fontSize_1="12" paddingLeft_2="-2" paddingRight_2="-2" paddingLeft_3="-3" paddingRight_3="-3" paddingLeft_4="-4" paddingRight_4="-4" paddingLeft_5="-5" paddingRight_5="-5" paddingLeft_7="-6" paddingRight_7="-6" paddingLeft_8="-7" paddingRight_8="-7"  fontSize_7="11" fontSize_8="9" fontSize_9="10"
+				   label="@Resource(key='_btnSave', bundle='CreativeTools')" id="_btnSave" height="24" styleName="BigButton"
+				   visible="{PicnikBase.app.multiMode &amp;&amp; !PicnikBase.app.flickrlite}" includeInLayout="{PicnikBase.app.multiMode &amp;&amp; !PicnikBase.app.flickrlite}"/>
+		</bkctr:ResizingHBox>
+	</mx:Canvas>
+	
+	<mx:Resize duration="200" id="_efResize"/>
+	<mx:Fade id="_efFadeIn" duration="150" suspendBackgroundProcessing="true"/>
+	<mx:Fade id="_efFadeOut" duration="200" suspendBackgroundProcessing="true"/>
+	<mx:Fade id="_efSoftFadeIn" duration="300" alphaFrom=".95" alphaTo="1"/>
+	<mx:Fade id="_efSoftFadeOut" duration="500" alphaFrom="1" alphaTo=".95"/>
+	
+	<flash:DropShadowFilter id="_fiInnerShadow" alpha=".15" blurX="4" blurY="4" angle="-90" distance="2" quality="3" inner="true"/>
+	<bkctr:PaletteWindow id="_pwndInfo" isPopUp="true" visible="false" layout="vertical" backgroundColor="#ffffff"
+			includeInLayout="false"
+			resizeEffect="{_efResize}" x="237" y="102"
+			horizontalAlign="right" alpha=".95" showCloseButton="true" headerHeight="18"
+			horizontalScrollPolicy="off" verticalScrollPolicy="off" title="@Resource(key='_pwndInfo', bundle='CreativeTools')" paddingBottom="2"
+			rollOverEffect="{_efSoftFadeIn}" rollOutEffect="{_efSoftFadeOut}" showEffect="{_efFadeIn}" hideEffect="{_efFadeOut}"
+			filters="{[_fiInnerShadow]}">
+		<mx:Text id="_txtHelp" fontSize="12" condenseWhite="true" selectable="false" styleName="aboutText" width="250" htmlText="@Resource(key='_txtHelp', bundle='CreativeTools')">
+		</mx:Text>
+	</bkctr:PaletteWindow>
+	
+	<!-- EFFECTS PAINTING PALETTE -->
+	<ct:BrushPaletteWindow id="_pwndBrush" visible="false" x="237" y="105" priority="1"
+			includeInLayout="false"
+			creationComplete="{_pwndBrush.size=50}"/>
+</CreativeToolsBase>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PaintEffectBase xmlns="effects.*" xmlns:cnt="containers.*" xmlns:ctrl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="342" xmlns:local="*" 
+	xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*"
+	xmlns:flash.geom="flash.geom.*" premium="{PicnikBase.GetApp().freemiumModel}"
+	 urlid="Paint">
+	<mx:Script>
+		import util.LocUtil;
+		import mx.resources.ResourceBundle;
+   		[Bindable] [ResourceBundle("PaintEffect")] private var rb:ResourceBundle;
+	</mx:Script>
+
+
+	<mx:Array id="_resetValues">
+		<local:StoredValue target="_aapt" value="{null}"/>
+	</mx:Array>
+
+	<mx:HRule x="0" width="100%" top="0" height="1" strokeColor="#FFFFFF"/>
+	<mx:HRule x="0" width="100%" height="1" bottom="0" strokeColor="#d4d4d4"/>
+	
+	<ctrl:EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='PaintEffect')" strAuthor="@Resource(key='_efbtn_1', bundle='PaintEffect')" strImageSource="../graphics/effects/doodle.png" premium="{premium}" height="322"/>
+	<mx:String id="_strHelpText">{Resource.getString('PaintEffect', '_strHelpText')}</mx:String>
+
+	<mx:Canvas alpha=".4" y="73" height="171" left="10" right="26" cornerRadius="5" backgroundColor="#ffffff" borderColor="#999999" borderStyle="solid">
+		<mx:RadioButtonGroup id="rbtng"/>
+		<mx:RadioButton x="10" y="23" label="@Resource(key='_rbtnPaint', bundle='PaintEffect')" groupName="rbtng" id="_rbtnPaint" selected="true"/>
+		<mx:RadioButton x="99" y="23" label="@Resource(key='RadioButton_1', bundle='PaintEffect')" groupName="rbtng"/>
+		<ctrl:HSliderPlus x="10" y="131" width="122" minimum="1" maximum="255" value="60" id="_sldrStrength" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+		<mx:Label x="151" y="131" text="{Math.round(_sldrStrength.value)}" styleName="sliderValue" textAlign="right" width="50"/>
+		<ctrl:HSliderPlus x="10" y="77" width="122" minimum="1" maximum="200" value="10" id="_sldrBrushSize" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+		<mx:Label x="10" y="49" text="@Resource(key='Label_1', bundle='PaintEffect')" styleName="sliderTitle"/>
+		<mx:Label x="10" y="103" text="@Resource(key='Label_2', bundle='PaintEffect')" styleName="sliderTitle"/>
+		<mx:Label x="140" y="77" text="{Math.round(_sldrBrushSize.value)}" styleName="sliderValue" textAlign="right" width="50"/>
+	</mx:Canvas>
+
+
+	<mx:Label x="10" y="252" text="@Resource(key='Label_3', bundle='PaintEffect')" styleName="sliderTitle"/>
+	<mx:Label x="212" y="271" text="{LocUtil.pct((_sldrFade.value))}" styleName="sliderValue" textAlign="right" width="50"/>
+	<ctrl:HSliderPlus x="14" y="271" width="190" minimum="0" maximum="100" value="80" id="_sldrFade" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+
+	<ctrl:ApplyCancelEffectButtons y="297" premium="{premium}"/>	
+
+	<mx:Array id="_aapt"/>
+	
+	<imageOperations:PaintImageMask
+		width="{imagewidth}" height="{imageheight}" 
+		lines = "{_aapt}"
+		id="_msk"/>
+		
+	<imageOperations:BlurImageOperation id="_op" xblur="4" yblur="4" 
+		BlendMode="lighten" BlendAlpha="{1-(_sldrFade.value/100)}" quality="3" Mask="{_msk}"/>
+		
+	<!-- <imageOperations:BWImageOperation id="_op" filtercolor="{-1}" BlendAlpha="{100}" BlendMode="lighten" Mask="{_msk}"/>	
+	<imageOperations:TintImageOperation id="_op" Color="{-1}" BlendAlpha="{100}" BlendMode="lighten" Mask="{_msk}"/> -->
+	<!-- <imageOperations:SimpleColorMatrixImageOperation id="_op" Brightness="{_sldrFade.value * -20 / 50}" Saturation="{700}" Hue="{240}" BlendAlpha="100" Mask="{_msk}"/> -->
+</PaintEffectBase>

@@ -1,0 +1,65 @@
+<languageVersion: 1.0;>
+kernel Spherize
+<
+    namespace: "popforge::ImageProcessing";
+    vendor: "joa ebert";
+    version: 1;
+    description: "applies spherical displacement map to an image";
+>
+{
+    parameter float refractionIndex
+    <
+        minValue: 0.0;
+        maxValue: 1.0;
+        defaultValue: 1.0 / 1.8;
+        description: "refraction index of the sphere";
+    >;
+        
+    parameter float radius
+    <
+        minValue: 1.0;
+        maxValue: 2880.0;
+        defaultValue: 64.0;
+        description:"radius of the sphere";
+    >;
+    
+    parameter float2 center
+    <
+        minValue: float2(0.0,0.0);
+        maxValue: float2(2880.0,2880.0);
+        defaultValue: float2(200.0,200.0);
+        description: "center of the sphere";
+        controller: "mouseXY";
+    >;
+    input image4 source;
+    output pixel4 result;
+    
+    void evaluatePixel()
+    {
+        float2 coord = outCoord();
+        float2 dist = coord - center;
+        float radius2 = radius * radius;
+        float r2 = dist.x * dist.x + dist.y * dist.y; //maybe there is a function for this? remember its not |dist|
+        
+        // check if we actually want to displace or not
+        if ( r2 > 0.0 && r2 < radius2 )
+        {
+            // distance from radius
+            float z2 = radius2 - r2;
+            float z = sqrt(z2);
+            
+            // refraction
+            float xa = asin( dist.x / sqrt( dist.x * dist.x + z2 ) );
+            float xb = xa - xa * refractionIndex;
+            float ya = asin( dist.y / sqrt( dist.y * dist.y + z2 ) );
+			float yb = ya - ya * refractionIndex;
+            
+            // displace by refraction
+			coord.x -= z * tan( xb );
+            coord.y -= z * tan( yb );
+        }
+        
+        // sample with interpolation
+        result = sampleLinear(source,coord);
+    }
+}

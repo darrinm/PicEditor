@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ColorsEffectBase xmlns:ctl="controls.*" xmlns="effects.basic.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%"
+									xmlns:flash="flash.filters.*" xmlns:bkctr="containers.*" xmlns:ut="util.*" xmlns:imageOperations="imagine.imageOperations.*"
+									title="@Resource(key='_btnColors', bundle='Adjustments')" styleName="colorsEffect" help="{Resource.getString('ColorsOverlay', 'AboutColors')}">
+
+	<editControls>
+		<!-- auto-colors -->
+		<ctl:CenteredButtonPlus id="_btnAutoColors" styleName="autoFixButton" label="@Resource(key='_btnAutoColors', bundle='ColorsOverlay')" labelPlacement="right"
+							top="10" left="10" right="10" height="40" width="100%" paddingLeft="-8"
+							click="OnAutoColorsClick(event)"/>
+
+		<!-- neutral picker -->
+		<ctl:ColorPickerButton label="@Resource(key='_btnNeutralPicker', bundle='ColorsOverlay')" clrLeft="{_clrNeutralMouse}" clrRight="{_clrNeutral}" id="_btnNeutralPicker" labelPlacement="right" height="38" width="100%" toggle="true" styleName="neutralToggle"
+													 toolTip="@Resource(key='_btnNeutralPicker_1', bundle='ColorsOverlay')" horizontalGap="8" click="OnNeutralPickerClick(event)"/>
+
+		<!-- saturation -->
+		<mx:HBox width="100%" paddingBottom="-8">
+			<mx:Label width="50%" text="@Resource(key='label4', bundle='ColorsOverlay')" id="label4" styleName="sliderTitle"/>
+			<mx:Label width="50%" text="{Math.round(_sldrSaturation.value)}" id="_lbSaturation" styleName="sliderValue" textAlign="right"/>
+		</mx:HBox>
+		<ctl:HSliderFastDrag updateSpeed="{updateSpeed}" id="_sldrSaturation" minimum="-100" maximum="100" value="0" liveDragging="true" tickOffset="4" width="100%" showDataTip="false" change="OnHueSliderChange(event)"/>
+
+		<!-- hue -->
+		<mx:HBox width="100%" paddingTop="0" paddingBottom="-8">
+			<mx:Label width="50%" text="@Resource(key='label5', bundle='ColorsOverlay')" id="label5" styleName="sliderTitle"/>
+			<mx:Label width="50%" text="{Math.round(_sldrTemp.value)}" id="_lbHue" styleName="sliderValue" textAlign="right"/>
+		</mx:HBox>
+		<ctl:HSliderFastDrag updateSpeed="{updateSpeed}" id="_sldrTemp" minimum="-100" maximum="100" value="0" liveDragging="true" tickOffset="4" width="100%" showDataTip="false" change="OnHueSliderChange(event)" />
+	</editControls>
+
+<imageOperations:ColorMatrixImageOperation id="_op" />
+
+</ColorsEffectBase>

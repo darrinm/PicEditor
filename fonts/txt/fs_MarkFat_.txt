@@ -1,0 +1,12 @@
+fileName: fs_MarkFat_.ttf
+name: Marker-Fat
+subfamilyDisplayName: Regular
+fullName: Marker-Fat
+displayName: Marker-Fat
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 11
+pkName: pkfs0MarkFat0
+authorName: FontShop
+authorUrl: http://www.fontshop.com/

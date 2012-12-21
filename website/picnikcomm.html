@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml" > 
+<head></head>
+<body>
+	<script type="text/javascript">
+		document.domain = "mywebsite.com";
+		var PicnikComm = {
+
+			_nTimerId: -1,
+			_msDelay: 100,
+
+			_decodeArgs: function( query ) {
+				var args = new Object();
+				var pairs = query.split("&");
+				for (var i = 0; i < pairs.length; i++) {
+					var pos = pairs[i].indexOf('=');
+					if (pos == -1) continue;
+					var argname = pairs[i].substring(0,pos);
+					var value = pairs[i].substring(pos+1);
+					args[argname] = unescape(value);
+				}
+				return args;
+			},
+
+			_findFrame: function( strName ) {
+				var frameParent = window;
+				var frame = frameParent.frames[strName];
+				while (!frame && frameParent.parent != frameParent) {
+					// walk up the frame stack, looking for the given _frame name
+					frameParent = frameParent.parent;
+					frame = frameParent.frames[strName];
+				}
+				return frame;
+			},
+
+			_findPicnikScriptFrame: function() {
+				var frame = window;
+				while ( !("PicnikScript" in frame) && (frame.parent != frame)) {
+					// walk up the frame stack, looking for a PicnikScript frame
+					frame = frame.parent;
+				}
+				return frame;
+			},
+			
+			Main: function() {
+				// find the hash part of the URL
+				var strPathname = document.URL;
+				var nHashIndex = strPathname.indexOf('#');
+				if (nHashIndex < 0) {
+					return;
+				}
+
+				// convert the hash to a set of args
+				var strQuery = strPathname.substring(nHashIndex + 1);
+				var oArgs = PicnikComm._decodeArgs(strQuery);
+				var frame = null;
+				if ('_frame' in oArgs) {
+					frame = PicnikComm._findFrame(oArgs['_frame']);
+				}
+				if (!frame || !frame.PicnikScript) {
+					frame = PicnikComm._findPicnikScriptFrame();
+				}
+
+				// invoke the PicnikScript call with the args
+				if (frame && frame.PicnikScript && frame.PicnikScript.Remote) {
+					frame.PicnikScript.Remote( oArgs );
+					
+					// clear the timer so we don't call ourselves again
+					if(PicnikComm._nTimerId != -1) {
+						window.clearInterval(PicnikComm._nTimerId);
+						PicnikComm._nTimerId = -1;
+					}
+					
+					// clear out our URL so that we can be called again
+					location.replace("about:blank");
+					
+				} else {
+					// not available yet; probably (hopefully) still loading.  Wait and try again later
+					if(PicnikComm._nTimerId == -1) {
+						PicnikComm._nTimerId = window.setInterval(PicnikComm.Main, PicnikComm._msDelay);
+					}
+				}
+			}
+		}		
+		PicnikComm.Main();
+	</script>
+</body>
+</html>
+<!--
+Copyright 2011 Google Inc. All Rights Reserved.
+
+Use of this source code is governed by an Apache 2.0 License.
+See the COPYING file for details.
+-->

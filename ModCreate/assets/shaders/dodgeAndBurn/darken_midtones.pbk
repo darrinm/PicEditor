@@ -1,0 +1,198 @@
+// For use with dodge and burn effect
+
+<languageVersion : 1.0;>
+
+kernel HSLFilter
+<
+    title       : "darken midtones";
+    namespace   : "Picnik::Filters";
+    vendor      : "Brian Terry";
+    version     : 1;
+    description : "Darken midtones";
+    websiteURL: "http://www.picnik.com";
+>
+{
+    parameter   float       strength
+    <
+        minValue        :   0.0;
+        maxValue        :   2.0;
+        defaultValue    :   0.3;
+    >;
+    
+    input       image4      source;
+    output      pixel4      result;
+    
+    void evaluatePixel()
+    {
+        // Convert sampled pixel from RGB space to HSL space.
+        
+        float4 samp;
+        float4 clrOut;
+        float min1;
+        float mid1;
+        float max1;
+        float min2;
+        float mid2;
+        float s1;
+        float s2;
+        
+        float ds;
+        float ds1;
+        float midOff;
+        float nDist;
+        int hueArea;
+        
+        samp     = sampleNearest(source, outCoord());
+        
+        if (samp.r > samp.g) {
+            if (samp.g > samp.b) { // RGB
+                max1 = samp.r; // Custom
+                mid1 = samp.g; // Custom
+                min1 = samp.b; // Custom
+                hueArea = 0;
+            } else if (samp.r > samp.b) { // RBG
+                max1 = samp.r; // Custom
+                mid1 = samp.b; // Custom
+                min1 = samp.g; // Custom
+                hueArea = 1;
+            } else { // BRG
+                max1 = samp.b; // Custom
+                mid1 = samp.r; // Custom
+                min1 = samp.g; // Custom
+                hueArea = 2;
+            }
+        } else { // R is less than G or equal to G
+            if (samp.b > samp.g) { // BGR
+                max1 = samp.b; // Custom
+                mid1 = samp.g; // Custom
+                min1 = samp.r; // Custom
+                hueArea = 3;
+            } else if (samp.r > samp.b) { // GRB
+                max1 = samp.g; // Custom
+                mid1 = samp.r; // Custom
+                min1 = samp.b; // Custom
+                hueArea = 4;
+            } else { // GBR
+                max1 = samp.g; // Custom
+                mid1 = samp.b; // Custom
+                min1 = samp.r; // Custom
+                hueArea = 5;
+            }
+        }
+
+        // Apply a curve to calculate max2
+        float max2;
+        float a;
+        float b;
+
+        if (max1 < 0.5764705882352941) {
+            if (max1 < 0.3843137254901961) {
+                if (max1 < 0.10980392156862745) {
+                    a = (0.10980392156862745 - max1) / 0.10980392156862745;
+                    b = 1.0 - a;
+                    max2 = b * 0.10588235294117647 + ((b * b * b - b) * -3.2835006168331473) * 0.0020094835319748815;
+                } else { // max1 >= 0.10980392156862745
+                    a = (0.3843137254901961 - max1) / 0.27450980392156865;
+                    b = 1.0 - a;
+                    max2 = a * 0.10588235294117647 + b * 0.2784313725490196 + ((a * a * a - a) * -3.2835006168331473 + (b * b * b - b) * 1.8560466250919962) * 0.012559272074843012;
+                }
+            } else { // max1 >= 0.3843137254901961
+                a = (0.5764705882352941 - max1) / 0.19215686274509797;
+                b = 1.0 - a;
+                max2 = a * 0.2784313725490196 + b * 0.44313725490196076 + ((a * a * a - a) * 1.8560466250919962 + (b * b * b - b) * 2.812657798381866) * 0.00615404331667307;
+            }
+        } else { // max1 >= 0.5764705882352941
+            if (max1 < 0.7843137254901961) {
+                a = (0.7843137254901961 - max1) / 0.207843137254902;
+                b = 1.0 - a;
+                max2 = a * 0.44313725490196076 + b * 0.7098039215686275 + ((a * a * a - a) * 2.812657798381866 + (b * b * b - b) * -0.24789016987644866) * 0.007199794950660005;
+            } else { // max1 >= 0.7843137254901961
+                a = (1.0 - max1) / 0.21568627450980393;
+                b = 1.0 - a;
+                max2 = a * 0.7098039215686275 + b * 1.0 + ((a * a * a - a) * -0.24789016987644866) * 0.007753428168653083;
+            }
+        }
+        
+        max2 = max1 + (max2 - max1) * strength;
+        
+        if (max2 < 0.0) max2 = 0.0;
+        else if (max2 > 1.0) max2 = 1.0;
+        
+        if (min1 == max1) {
+            clrOut = float4(max2, max2, max2, samp.a);
+        } else {
+            s1 = (max1 - min1) / max1;
+            
+            // Calculate ds
+            midOff = min1 - (-0.842975207 * max1 + 0.766099498);
+            if (midOff > 0.0) {
+                // red area (+14)
+                // Calculate distance from 247,128.
+                nDist = (0.968627451-max1)*(0.968627451-max1) + (0.5-min1) * (0.5-min1);
+                
+                // If nDist == 103 * 103 => 0. If nDist == 0 => 1
+                ds = 1.0 - nDist / (0.163152634);
+                
+                // angled side
+                ds1 = (max1 - min1) / 0.325490196;
+                // if (ds1 < ds) ds = ds1; // min
+                if (ds1 < 1.0 && ds < 1.0) ds = ds * ds1;
+                else if (ds1 < ds) ds = ds1;
+                
+                if (ds < 0.0) ds = 0.0;
+                else if (ds > 1.0) ds = 1.0;
+                ds = 0.14 * ds;
+            } else {
+                // green area (-7)
+                // ds = 0 to 1 => -7
+                // Top side:
+                ds = min1 / 0.078431373;
+                
+                // angled side
+                ds1 = (max1 - min1) / 0.141176471;
+                
+                if (ds1 < 1.0 && ds < 1.0) ds = ds * ds1;
+                else if (ds1 < ds) ds = ds1;
+                
+                // Middle side
+                // at midOff == 0, ds = 0
+                // at midOff = -63.2, ds = 1
+                ds1 = midOff / -0.247058824;
+
+                if (ds1 < 1.0 && ds < 1.0) ds = ds * ds1;
+                else if (ds1 < ds) ds = ds1;
+                
+                
+                if (ds < 0.0) ds = 0.0;
+                else if (ds > 1.0) ds = 1.0;
+                ds = -0.07 * ds;
+            }
+            
+            s2 = s1 + ds * strength;
+            if (s2 < 0.0) s2 = 0.0;
+            else if (s2 > 1.0) s2 = 1.0;
+
+            min2 = max2 - s2 * max2;
+            mid2 = min2 + (max2 - min2) * (mid1 - min1) / (max1 - min1);
+            
+            if (hueArea < 3) {
+                if (hueArea == 0) {
+                    clrOut = float4(max2, mid2, min2, samp.a);
+                } else if (hueArea == 1) {
+                    clrOut = float4(max2, min2, mid2, samp.a);
+                } else if (hueArea == 2) {
+                    clrOut = float4(mid2, min2, max2, samp.a);
+                }
+            } else { // R is less than G or equal to G
+                if (hueArea == 3) {
+                    clrOut = float4(min2, mid2, max2, samp.a);
+                } else if (hueArea == 4) {
+                    clrOut = float4(mid2, max2, min2, samp.a);
+                } else if (hueArea == 5) {
+                    clrOut = float4(min2, max2, mid2, samp.a);
+                }
+            }
+        }
+        result = clrOut;
+    }
+}

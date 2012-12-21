@@ -1,0 +1,39 @@
+<languageVersion : 1.0;>
+
+kernel ScanLines
+<   namespace : "mesh";
+    vendor : "Mike Chambers";
+    version : 1;
+    description : "Generates a TV Scanline effect";
+>
+{
+    input image4 src;
+    output pixel4 dst;
+    parameter float lineSize;
+
+    void
+    evaluatePixel()
+    {
+/* Kevin Goldsmith variation
+        dst = sampleNearest(src, outCoord());
+        float temp = mod(outCoord().y, 1.5 * lineSize);
+        dst = dst * float4( temp, temp, temp, 1.0 );
+*/
+        dst = sampleNearest(src, outCoord());
+        //find out the vertical pixel size. In Flash this will always be 1
+        float pixelVSize = pixelSize(src).y;
+
+        //pixelVSize / 2.0 - outCoord() gives center of pixel, so we have to adjust to find
+        //center of our pixel
+        if( int(mod(((pixelVSize * outCoord().y) - pixelVSize / 2.0), 2.0 )) == 0)
+        {
+            //if on an even row, set the pixel to blackt
+            dst.r = 0.0;
+            dst.b = 0.0;
+            dst.g = 0.0;
+
+            //can also do
+            ////dst = float4(0.0,0.0,0.0, 1.0);
+        }
+    }
+}

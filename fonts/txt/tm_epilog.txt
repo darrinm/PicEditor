@@ -1,0 +1,12 @@
+fileName: tm_epilog.ttf
+name: Epilog
+subfamilyDisplayName: Normal
+fullName: Epilog
+displayName: Epilog
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 0
+pkName: pktm0epilog
+authorName: Tom Murphy
+authorUrl: http://fonts.tom7.com/

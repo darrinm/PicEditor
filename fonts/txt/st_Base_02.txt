@@ -1,0 +1,12 @@
+fileName: st_Base_02.ttf
+name: Base 02
+subfamilyDisplayName: Regular
+fullName: Base 02
+displayName: Base 02
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 4
+pkName: pkst0Base002
+authorName: Clément Nicolle
+authorUrl: http://www.stereo-type.net/

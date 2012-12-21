@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="250" height="54"
+		cornerRadius="10" backgroundColor="#79994c" borderColor="#b2cc8f" alpha="1" 
+		borderStyle="solid" borderThickness="2" backgroundAlpha=".85" dropShadowEnabled="true"  horizontalScrollPolicy="off"
+		dropShadowColor="#000000" shadowDistance="1" cacheAsBitmap="true" xmlns:controls="controls.*" xmlns:containers="containers.*">
+	<mx:Script>
+        import mx.effects.easing.*;
+    </mx:Script>
+	<mx:Label text="@Resource(key='_lblNotification', bundle='Notifier')" maxWidth="250" styleName="largeNotification" id="_lblNotification"
+		horizontalCenter="0" verticalCenter="0"/>
+	<mx:Parallel id="_effNotify" target="{this}">
+		<mx:Move yTo="{this.y - 30}" duration="{1400 + _nNotifierDelay}" easingFunction="{Linear.easeIn}"/>
+		<mx:Sequence>
+			<mx:Fade alphaFrom="0.0" alphaTo="1.0" duration="200" easingFunction="{Quadratic.easeOut}"/>
+			<mx:Pause duration="{_nNotifierDelay}"/>
+			<mx:Fade alphaFrom="1.0" alphaTo="0.0" duration="1200" easingFunction="{Quadratic.easeIn}"/>
+		</mx:Sequence>
+	</mx:Parallel>
+	<mx:Number id="_nNotifierDelay">100</mx:Number><!-- this will be modified by the caller -->
+</mx:Canvas>

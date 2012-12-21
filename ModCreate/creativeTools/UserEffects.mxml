@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ct:UserEffectsBase xmlns="*" xmlns:ct="creativeTools.*" xmlns:mx="http://www.adobe.com/2006/mxml" 
+		xmlns:eff="effects.*" xmlns:filters="flash.filters.*" xmlns:ctr="containers.*" 
+		width="100%" verticalLineScrollSize="38" horizontalScrollPolicy="off" verticalScrollPolicy="on" xmlns:controls="controls.*">
+<mx:Script>
+	<![CDATA[
+		private function GoToEffects(): void {
+			PicnikBase.app.NavigateTo(PicnikBase.CREATIVE_TOOLS_TAB,'_ctEffects');
+		}		
+	]]>
+</mx:Script>
+<filters:DropShadowFilter blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1"
+		quality="3" angle="90" id="_fiWhiteShad"/>
+<mx:VBox width="100%" height="100%" verticalGap="0" verticalScrollPolicy="off" horizontalAlign="center"
+		paddingLeft="10" paddingRight="10"
+		backgroundAlpha="1" backgroundColor="0xf5f5f5">
+	<mx:Spacer height="100%" maxHeight="156"/>
+	<mx:Text width="100%" fontSize="18" fontWeight="bold" color="0x303030" textAlign="center" filters="{[_fiWhiteShad]}"
+			text="@Resource(key='sandboxHasMoved', bundle='UserEffects')"/>
+	<mx:Text width="100%" fontSize="13" fontWeight="bold" color="0x606060" textAlign="center" filters="{[_fiWhiteShad]}"
+			text="@Resource(key='nowLocated', bundle='UserEffects')"/>
+	<mx:Spacer height="10"/>
+	<controls:ResizingButton label="@Resource(key='openEffectsNow', bundle='UserEffects')"  
+		height="24" styleName="basketButton" click="GoToEffects()" paddingLeft="10" paddingRight="10" />
+	<mx:Spacer height="100%" maxHeight="156"/>
+</mx:VBox>
+	
+</ct:UserEffectsBase>

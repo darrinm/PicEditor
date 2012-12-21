@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ct:ShapeToolBase xmlns="*" xmlns:ct="creativeTools.*" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:bkctr="containers.*"
+		xmlns:documentObjects="documentObjects.*" xmlns:ctl="controls.*" xmlns:flash.filters="flash.filters.*" 
+		xmlns:sectionList="containers.sectionList.*"
+		width="100%" horizontalScrollPolicy="off" verticalScrollPolicy="off">
+
+	<mx:Script>
+		<![CDATA[
+			import controls.UIDocumentObjectFactory;
+	
+			import util.LocUtil;
+			import mx.resources.ResourceBundle;
+   			
+   			[Bindable] [ResourceBundle("ShapeTool")] 
+   			private var rb:ResourceBundle;
+		]]>
+	</mx:Script>
+
+	<flash.filters:DropShadowFilter blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1"
+			quality="3" angle="90" id="_fiWhiteShad"/>
+	<mx:Canvas height="100%" width="100%" horizontalScrollPolicy="off" verticalScrollPolicy="off" >
+		<!-- vbox for shape browser, responsible for vert scrolling -->
+		<ctl:ShapeArea id="_saShapes" height="{height}" imgd="{_imgd}" imgv="{_imgv}"/>
+
+		<mx:Label horizontalCenter="0" y="30" text="@Resource(key='loading', bundle='ShapeTool')" fontSize="18" color="#999999" id="imgGears" hideEffect="_efFadeOut" 
+					visible="{!_saShapes.loaded}" includeInLayout="{!_saShapes.loaded}"/>		
+	</mx:Canvas>
+
+	<mx:Fade id="_efFadeOut" duration="500"/>
+		
+	<mx:Script>
+		<![CDATA[
+			import controls.UIDocumentObjectFactory;
+			import controls.UIDocumentObject;
+			import containers.sectionList.ShapeSection;
+			import imagine.documentObjects.Clipart;
+			import imagine.documentObjects.Star;
+			import imagine.documentObjects.Square;
+			import imagine.documentObjects.Circle;
+			import imagine.documentObjects.Polygon;
+			import imagine.documentObjects.Burst;
+			import imagine.documentObjects.PRectangle;
+			import imagine.documentObjects.RoundedRectangle;
+			import imagine.documentObjects.RoundedSquare;
+			import imagine.documentObjects.Ellipse;
+		]]>
+	</mx:Script>
+</ct:ShapeToolBase>

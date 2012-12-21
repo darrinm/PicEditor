@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<privacy:PrivacyDetourDialogBase xmlns="containers.*" xmlns:privacy="dialogs.Privacy.*" xmlns:mx="http://www.adobe.com/2006/mxml"	xmlns:controls="controls.*"
+	 width="600" height="220" footerHeight="70" styleName="PrivacyDialogStyle" creationComplete="_btnAccept.setFocus()">
+	
+	<mx:Script>
+		<![CDATA[
+			import util.LocUtil;
+			import flash.net.navigateToURL;
+			import com.adobe.utils.StringUtil;
+			import dialogs.DialogManager;
+			import mx.resources.ResourceBundle;
+			
+	  		[Bindable] [ResourceBundle("PrivacyDetourDialog")] protected var _rb:ResourceBundle;		 
+	  		
+							
+			protected function OnLink(evt:TextEvent): void {
+				if (StringUtil.beginsWith(evt.text.toLowerCase(), "showdialog=")) {
+					var strDialog:String = evt.text.substr("showdialog=".length);
+					PicnikBase.app.ShowDialog(strDialog);
+				}
+			}	  		
+   		]]>
+	</mx:Script>
+	
+	<mx:Style source="PrivacyDialog.css"/>
+	<mx:DropShadowFilter id="_fiWhiteShine" blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1" quality="3" angle="90"/>
+	<mx:DropShadowFilter id="_fiInnerShad" blurX="1" blurY="1" distance="1" color="#000000" alpha=".2" quality="3" angle="90" inner="true"/>
+	<mx:DropShadowFilter id="_fiDropShad" blurX="1" blurY="1" distance="1" color="#000000" alpha=".25" quality="3" angle="90"/>
+
+	<mx:Fade id="_efFadeIn" duration="300" alphaFrom="0" alphaTo="1"/>
+	<mx:Fade id="_efFadeOut" duration="200" alphaFrom="1" alphaTo="0"/>
+
+	<mx:Canvas width="100%" height="100%">
+		<!-- Header -->
+		<controls:ResizingLabel text="{LocUtil.rbSubst('PrivacyDetourDialog', 'head' + (freshUser ? 'Fresh' : ''))}"
+			styleName="dialogHead"
+			top="10" left="15" right="15"
+			width="100%" autoFontSizeGap="1" filters="{[_fiWhiteShine,_fiInnerShad]}" />
+		
+		<!-- Close button
+		<mx:Button width="22" height="22" right="4" top="4" click="Cancel()" styleName="dialogCloseButton"/>-->
+		
+		<!-- Main Content-->
+		<!-- Include an external MXML file - this will make it easier to swap later? -->
+		<mx:VBox top="45" right="15" left="15" horizontalAlign="center" verticalGap="10">
+			<mx:Text htmlText="{username ? LocUtil.rbSubst('PrivacyDetourDialog', 'privacyPolicyDetails', username) : LocUtil.rbSubst('PrivacyDetourDialog', 'privacyPolicyDetailsNoUsername')}" color="#333333" fontSize="15"
+				width="100%" filters="{[_fiWhiteShine,_fiInnerShad]}" selectable="true" leading="-1" link="OnLink(event)"/>		
+			<mx:Text htmlText="@Resource(key='doNotAccept',bundle='PrivacyDetourDialog')" color="#333333" fontSize="15"
+				width="100%" filters="{[_fiWhiteShine,_fiInnerShad]}" selectable="true" leading="-1"
+			    link="Reject()" visible="{!freshUser}"/>		
+		</mx:VBox>
+
+		<!-- Footer -->
+		<controls:ResizingLabel textAlign="center" width="100%" htmlText="@Resource(key='youAccept', bundle='PrivacyDetourDialog')"
+			horizontalCenter="0" bottom="44"
+			fontSize="13" color="#ffffff" autoFontSizeGap="1" selectable="false" filters="{[_fiDropShad]}"/>	
+		
+		<!-- accept button -->
+		<controls:ResizingButton id="_btnAccept" styleName="basketButton" label="@Resource(key='ido',bundle='PrivacyDetourDialog')"
+			minWidth="200" height="38" fontSize="22"
+			bottom="6" horizontalCenter="0"
+			click="Accept()"/>
+
+		<!-- cancel/sign out button -->
+		<controls:ResizingButton styleName="basketButtonDarkBlue" 
+			label="{LocUtil.rbSubst('PrivacyDetourDialog', 'cancel' + (freshUser ? 'Fresh' : ''))}"
+			click="Cancel()"
+			bottom="11" right="11" height="28" minWidth="97" paddingLeft="-9" paddingRight="-9"/>
+	
+
+		<!-- shadow dealies, drawn on top of all elements -->
+		<controls:ImageVer source="../graphics/upsellPremiumPanelShadow.png" bottom="70" left="0" right="0" scaleContent="true" maintainAspectRatio="false"/>
+	</mx:Canvas>
+</privacy:PrivacyDetourDialogBase>

@@ -1,0 +1,9 @@
+1. Git to a DOCROOT folder, e.g. C:\src\picnik_o\picnik_oss
+2. Download and install Flash Builder
+3. Create DOCROOT and THRID_PARTY linked resourcex in Flash Builder:
+  - Window, Prefs, General, Workspace, Linked Resources:
+     DOCROOT = <path to the root folder>, e.g. C:\src\picnik_o\picnik_oss
+	 THIRD_PARTY = <path to the third party folder>, e.g. C:\src\picnik_o\picnik_oss\third_party
+4. Download flex 3.2 sdk, uznip somewhere
+ - Install in Flash Builder: Window, Preferences, Flash Builder, Installed Fex SDKs, Add.... Enter path to sdk. Name Flex 3.2
+6. File, import, existing project. Use ${DOCROOT} as the root. Uncheck FontToPNG, ShapePreviews, ShapeManager

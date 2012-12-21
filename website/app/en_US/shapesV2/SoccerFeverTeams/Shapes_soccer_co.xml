@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory flickrPremium="false" id="soccer_co" numShapes="3" picnikPremium="false" previewUrls="60|48|../clipart/bundles/SoccerFeverTeamsArea_groupPreviews_soccer_co.png?ver=0ea77ccc" title="Colombia Stickers">
+	<Shapes>
+		<Clipart cHeight="294.55" cWidth="464.1" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|0|../clipart/bundles/SoccerFeverTeamsArea_shapes_soccer_co.png?ver=8d4a5735" url="shapes/co/wavingflag_co.swf"/>
+		<Clipart cHeight="316.9" cWidth="475.35" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|1|../clipart/bundles/SoccerFeverTeamsArea_shapes_soccer_co.png?ver=8d4a5735" url="shapes/co/flag_co.swf"/>
+		<Clipart cHeight="223.65" cWidth="95.1" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|2|../clipart/bundles/SoccerFeverTeamsArea_shapes_soccer_co.png?ver=8d4a5735" url="shapes/co/scarf_co.swf"/>
+	</Shapes>
+</ShapeCategory>

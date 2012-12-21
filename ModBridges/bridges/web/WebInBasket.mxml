@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WebInBridgeBase xmlns="bridges.web.*" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:url="urlkit.rules.*" 
+		xmlns:flash="flash.filters.*" xmlns:controls="controls.*" xmlns:basket="bridges.basket.*" xmlns:bridges="bridges.*"
+		width="100%" height="100%" horizontalScrollPolicy="off" verticalScrollPolicy="off">
+		
+	<url:UrlRuleSet id="urls" type="any">
+		<url:UrlValueRule id="_uvrUrl" urlFormat=";url=*" urlPattern=";url=(.*)"/>
+	</url:UrlRuleSet>
+	
+	<flash:DropShadowFilter id="_efEmboss" alpha="0.35" quality="3" blurX="0" blurY="0" angle="-90" color="#000000" distance="1"/>
+	<flash:DropShadowFilter id="_efEmbossSoft" alpha="0.35" quality="3" blurX="2" blurY="2" angle="-90" color="#000000" distance="1"/>
+	<flash:DropShadowFilter id="_efShine" alpha="0.9" quality="3" blurX="0" blurY="0" angle="90" inner="true" color="#ffffff" distance="1"/>
+	
+	<mx:HBox top="0" right="80" left="188" verticalAlign="middle" horizontalGap="0" paddingTop="3">
+		<mx:Label text="@Resource(key='Label_1', bundle='WebInBasket')" fontSize="12"
+			color="#f2ffd9" disabledColor="#bfd98d" filters="{[_efEmboss]}" paddingTop="2"/>
+		<mx:Canvas filters="{[_efShine,_efEmbossSoft]}" width="100%">
+			<bridges:URLTextInput width="100%" id="_tiURL" height="20" styleName="basketInput" fontSize="13"
+				backgroundColor="#e5ffb2" borderThickness="0" paddingLeft="2" filters="{[]}" focusAlpha="0"
+				mouseOver="{_tiURL.setStyle('backgroundColor','#ffffff')}" mouseOut="{_tiURL.setStyle('backgroundColor','#e5ffb2')}"/>
+		</mx:Canvas>
+		<mx:Spacer width="5"/>
+		<controls:ResizingButton label="@Resource(key='_btnOpen', bundle='WebInBasket')" id="_btnOpen" minWidth="80" height="24" styleName="basketButton"/>
+	</mx:HBox>
+	<basket:BasketItemTileList left="0" top="28" bottom="0" right="0" id="_tlst"/>
+</WebInBridgeBase>

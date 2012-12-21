@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<NewCanvasDialogBase xmlns="dialogs.*" xmlns:mx="http://www.adobe.com/2006/mxml" layout="vertical" horizontalAlign="center"
+		width="420" defaultButton="{_btnCancel}" xmlns:ns1="*" styleName="DialogNoCloseBox" verticalGap="8" xmlns:controls="controls.*" xmlns:validators="validators.*">
+	<mx:Script>
+		import mx.resources.ResourceBundle;
+		import picnik.util.LocaleInfo;
+   		[Bindable] [ResourceBundle("NewCanvasDialog")] private var rb:ResourceBundle;
+	</mx:Script>
+
+	<mx:String id="_strYours">{Resource.getString('NewCanvasDialog', '_strYours')}</mx:String>
+	<validators:PicnikNumberValidator id="_vldWidth" source="{_tiWidth}" property="text" 
+			integerError="@Resource(key='integerError', bundle='NewCanvasDialog')"
+			lowerThanMinError="@Resource(key='lowerThanMinError', bundle='NewCanvasDialog')"
+	        minValue="1" maxValue="{Util.GetMaxImageWidth(1)}" domain="int" 
+	        trigger="{_tiWidth}" triggerEvent="change"
+	        invalid="_btnOK.enabled=false" valid="_btnOK.enabled=true"/>
+	<validators:PicnikNumberValidator id="_vldHeight" source="{_tiHeight}" property="text" 
+			integerError="@Resource(key='integerError', bundle='NewCanvasDialog')"
+	        minValue="1" maxValue="{Util.GetMaxImageHeight(1)}" domain="int" 
+	        trigger="{_tiHeight}" triggerEvent="change"
+			lowerThanMinError="@Resource(key='lowerThanMinError', bundle='NewCanvasDialog')"
+	        invalid="_btnOK.enabled=false" valid="_btnOK.enabled=true"/>
+	
+	<mx:Text fontSize="13" condenseWhite="true" selectable="false" width="100%" leading="-1" htmlText="@Resource(key='_txtHeader', bundle='NewCanvasDialog')"/>
+ 	<mx:HBox width="100%" paddingTop="2" horizontalGap="8">
+		<controls:ResizingLabel text="@Resource(key='label2', bundle='NewCanvasDialog')" fontSize="14" color="#333333" paddingRight="0" id="label2"/>
+		<controls:TextInputPlus width="50" id="_tiWidth" fontSize="15" fontWeight="bold" styleName="numInput"  color="#354d13" height="24" restrict="0-9"/>
+		<controls:ResizingLabel text="@Resource(key='Label_1', bundle='NewCanvasDialog')" paddingLeft="0" paddingRight="0" height="20" fontSize="14"
+				fontWeight="{LocaleInfo.BoldWeight()}" textAlign="center" color="#333333"/>
+		<controls:TextInputPlus width="50" id="_tiHeight" fontSize="15" fontWeight="bold" styleName="numInput" color="#354d13" height="24" restrict="0-9"/>
+		<controls:ResizingComboBox width="100%" id="_cmboSizes" height="26" rowCount="8"
+				minWidth="200" styleName="comboUnpadded" dropdownWidth="250">
+	        <mx:ArrayCollection>
+	        	<!-- facebook, myspace, custom... -->
+	            <mx:Object label="{Resource.getString('NewCanvasDialog', 'Object_20')}" data="800,600,1"/>
+	            <mx:Object label="{Resource.getString('NewCanvasDialog', 'Object_21')}" data="1024,768,1"/>
+	            <mx:Object label="{Resource.getString('NewCanvasDialog', 'Object_22')}" data="1280,800,1"/>
+	            <mx:Object label="{Resource.getString('NewCanvasDialog', 'Object_23')}" data="1280,1024,1"/>
+	            <mx:Object label="{Resource.getString('NewCanvasDialog', 'Object_24')}" data="2800,2800,1"/>
+	            <mx:Object label="{Resource.getString('NewCanvasDialog', 'Object_10')}" data="48,48,1" icon="flickr.png" separator="true"/>
+	            <mx:Object label="{Resource.getString('NewCanvasDialog', 'Object_11')}" data="130,100,1" icon="youtube.gif"/>
+	            <mx:Object label="{Resource.getString('NewCanvasDialog', 'Object_12')}" data="170,170,1" icon="myspace.gif"/>
+	            <mx:Object label="{Resource.getString('NewCanvasDialog', 'Object_13')}" data="150,150,1" icon="blogger.gif"/>
+	            <mx:Object label="{Resource.getString('NewCanvasDialog', 'Object_14')}" data="96,96,1" icon="google.gif"/>
+	            <mx:Object label="{Resource.getString('NewCanvasDialog', 'Object_15')}" data="170,170,1" icon="xanga.gif"/>
+	            <mx:Object label="{Resource.getString('NewCanvasDialog', 'Object_16')}" data="160,160,1" icon="lastfm.gif"/>
+	            <mx:Object label="{Resource.getString('NewCanvasDialog', 'Object_17')}" data="100,100,1"/>
+	            <mx:Object label="{Resource.getString('NewCanvasDialog', 'Object_18')}" data="75,75,1"/>
+	            <mx:Object label="{Resource.getString('NewCanvasDialog', 'Object_19')}" data="64,64,1"/>
+	        </mx:ArrayCollection>
+			<controls:itemRenderer>
+				<mx:Component>
+					<mx:HBox height="24" dropShadowEnabled="false" verticalAlign="middle"
+						borderStyle="{data.separator?'solid':'none'}" borderSides="top" borderThickness="1" borderColor="#CCCCCC">
+	                	<mx:Label text="{data.label}" width="100%" fontSize="13" fontWeight="normal" color="#333333" minWidth="80" paddingTop="5"/>
+	                	<controls:ImageEx bundled="true" source="{data.icon?'../graphics/thirdpartylogos/favicons/'+data.icon:''}" />
+					</mx:HBox>
+				</mx:Component>
+	        </controls:itemRenderer>
+	 	</controls:ResizingComboBox>
+ 	</mx:HBox>
+ 	<mx:HBox width="100%">
+		<controls:ResizingLabel text="@Resource(key='background_color', bundle='NewCanvasDialog')" fontSize="14" color="#333333" paddingRight="0"/>
+		<controls:HSBColorPicker id="_cpkrBackground" selectedColor="0xffffff" width="80" />
+		<mx:Spacer width="10"/>
+		<mx:CheckBox id="_chkTransparent" label="@Resource(key='transparent', bundle='NewCanvasDialog')" fontSize="14" color="#333333" fontWeight="bold"/>
+ 	</mx:HBox>
+	<mx:HBox width="100%" paddingTop="5" horizontalGap="8" horizontalAlign="center">	
+		<mx:Button label="@Resource(key='_btnOK', bundle='NewCanvasDialog')" id="_btnOK" styleName="BigButton" width="100" height="25" tabIndex="1"
+				fontWeight="{LocaleInfo.BoldWeight()}" toolTip="@Resource(key='_btnOK_tip', bundle='NewCanvasDialog')"/>
+		<mx:Button label="@Resource(key='_btnCancel', bundle='NewCanvasDialog')" id="_btnCancel" styleName="dialogButton" tabIndex="2" width="100" height="25"/>
+	</mx:HBox>
+</NewCanvasDialogBase>

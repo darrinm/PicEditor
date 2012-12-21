@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/vampire_fangs.png" flickrPremium="false" id="VampireFangs" numShapes="8" picnikPremium="false" previewUrls="60|48|../clipart/bundles/VandalismMonstersArea_groupPreviews_VampireFangs.png?ver=996f5256" title="Fangs">
+	<Shapes>
+		<Clipart cHeight="220" cWidth="140" flickrPremium="false" picnikPremium="false" previewUrl="40|40|0|../clipart/bundles/VandalismMonstersArea_shapes_VampireFangs.png?ver=d6064a76" url="shapes/VampireFangs/Fang_Left.png"/>
+		<Clipart cHeight="220" cWidth="140" flickrPremium="false" picnikPremium="false" previewUrl="40|40|1|../clipart/bundles/VandalismMonstersArea_shapes_VampireFangs.png?ver=d6064a76" url="shapes/VampireFangs/Fang_Right.png"/>
+		<Clipart cHeight="172" cWidth="140" flickrPremium="false" picnikPremium="false" previewUrl="40|40|2|../clipart/bundles/VandalismMonstersArea_shapes_VampireFangs.png?ver=d6064a76" url="shapes/VampireFangs/Fang_Left_Cropped.png"/>
+		<Clipart cHeight="172" cWidth="140" flickrPremium="false" picnikPremium="false" previewUrl="40|40|3|../clipart/bundles/VandalismMonstersArea_shapes_VampireFangs.png?ver=d6064a76" url="shapes/VampireFangs/Fang_Right_Cropped.png"/>
+		<Clipart cHeight="194" cWidth="140" flickrPremium="false" picnikPremium="false" previewUrl="40|40|4|../clipart/bundles/VandalismMonstersArea_shapes_VampireFangs.png?ver=d6064a76" url="shapes/VampireFangs/Fang_Left_Bloody.png"/>
+		<Clipart cHeight="194" cWidth="140" flickrPremium="false" picnikPremium="false" previewUrl="40|40|5|../clipart/bundles/VandalismMonstersArea_shapes_VampireFangs.png?ver=d6064a76" url="shapes/VampireFangs/Fang_Right_Bloody.png"/>
+		<Clipart cHeight="194" cWidth="140" flickrPremium="false" picnikPremium="false" previewUrl="40|40|6|../clipart/bundles/VandalismMonstersArea_shapes_VampireFangs.png?ver=d6064a76" url="shapes/VampireFangs/Fang_Left_Cropped_Bloody.png"/>
+		<Clipart cHeight="194" cWidth="140" flickrPremium="false" picnikPremium="false" previewUrl="40|40|7|../clipart/bundles/VandalismMonstersArea_shapes_VampireFangs.png?ver=d6064a76" url="shapes/VampireFangs/Fang_Right_Cropped_Bloody.png"/>
+	</Shapes>
+</ShapeCategory>

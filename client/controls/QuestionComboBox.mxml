@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ctrl:QuestionBase xmlns:ctrl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml">
+	<mx:Label text="{Prompt(data)}"/>
+	<ctrl:ComboBoxPlus id="_cb" dataProvider="{OptionList(data)}" change="AnswerOption(_cb.selectedItem as XML)"/>
+</ctrl:QuestionBase>

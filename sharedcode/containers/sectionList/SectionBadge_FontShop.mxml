@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SectionBadgeBase xmlns="containers.sectionList.*" xmlns:mx="http://www.adobe.com/2006/mxml" 
+		backgroundImage="@Embed('/assets/bitmaps/fontshop_logo_bg.png')" xmlns:ctl="controls.*"
+		verticalAlign="middle" horizontalAlign="center" borderSides="bottom" verticalGap="0"
+		moreInfoUrl="http://www.fontshop.com/?utm_source=Picnik&amp;utm_medium=banner&amp;utm_campaign=Picnik&amp;utm_content=FSLogo" buttonMode="true"
+		borderStyle="solid" borderColor="#ffffff" width="100%" height="35" click="OnBadgeClick()">
+	<mx:Spacer height="1" />
+	<ctl:ImageVer source="@Embed('/assets/bitmaps/fontshop_logo.png')" />
+</SectionBadgeBase>

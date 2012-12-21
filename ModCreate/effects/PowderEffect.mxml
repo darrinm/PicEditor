@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PaintOnEffectBase xmlns="effects.*" xmlns:cnt="containers.*" xmlns:ctrl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="189"
+	premium="true"
+	xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*" urlid="Powder">
+<mx:Script>
+	<![CDATA[
+		import overlays.helpers.RGBColor;
+		import util.LocUtil;
+		
+		import mx.resources.ResourceBundle;
+   		[Bindable] [ResourceBundle("PowderEffect")] private var rb:ResourceBundle;
+	]]>
+</mx:Script>
+
+	
+	<mx:Array id="_resetValues">
+		<local:StoredValue target="_sldrBrushSize.value"/>
+		<local:StoredValue target="_btnEraser.selected" value="{false}"/>
+	</mx:Array>
+	
+	<ctrl:EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='PowderEffect')" strAuthor="@Resource(key='byPicnik', bundle='EffectCanvas')"
+		strImageSource="../graphics/effects/Halloween/zombify.png" premium="{premium}"/>
+	<mx:String id="_strHelpText">{Resource.getString('PowderEffect', '_strHelpText')}</mx:String>
+	
+	<mx:VBox x="8" y="70" verticalGap="0">
+		<mx:HBox width="190" paddingBottom="-5" paddingTop="3">
+			<mx:Label text="{_btnEraser.selected?'Eraser Size':'Brush Size'}" styleName="sliderTitle" width="100"/>
+			<mx:Label text="{_sldrBrushSize.value}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<ctrl:HSliderFastDrag id="_sldrBrushSize" width="190" snapInterval="1" thumbPress="ShowBrushPreview()" thumbDrag="UpdateBrushPreview()" thumbRelease="HideBrushPreview()"
+			globalShortcutsEnabled="{_fSelected}" globalShortcutKeys="[]" 
+			minimum="2" maximum="200" value="45" change="OnOpChange()" showDataTip="false"/>
+
+		<mx:Box width="190" horizontalAlign="center" paddingTop="5" paddingLeft="2">
+			<mx:Button label="@Resource(key='eraser', bundle='EffectCanvas')" id="_btnEraser" icon="@Embed('/assets/bitmaps/icon_eraser.png')" width="100" height="28"
+				textAlign="left" paddingLeft="20" styleName="applyStyle"
+				click="{_btnEraser.selected?_btnEraser.selected=false:_btnEraser.selected=true}" />
+		</mx:Box>
+
+		<!-- 
+		<mx:Label x="8" y="110" text="Strength" styleName="sliderTitle"/>
+		<mx:Label x="152" y="110" text="{LocUtil.pct((_sldrStrength.value))}" styleName="sliderValue" textAlign="right" width="50"/>
+		<ctrl:HSliderPlus x="9" y="115" width="190"  minimum="1" maximum="100" value="85" id="_sldrStrength" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+		-->
+		
+		<!-- Blur slider -->
+		<mx:HBox paddingBottom="-5" paddingTop="3" width="190">
+			<mx:Label text="Blur" styleName="sliderTitle"/>
+			<mx:Label text="{LocUtil.pct((_sldrBlur.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<ctrl:HSliderPlus width="190" minimum="0" maximum="200" value="50" id="_sldrBlur" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+		
+		
+		<!-- Fade label/percent/slider box -->
+		<mx:HBox paddingBottom="-5" paddingTop="3" width="190">
+			<mx:Label text="@Resource(key='fade', bundle='EffectCanvas')" styleName="sliderTitle"/>
+			<mx:Label text="{LocUtil.pct((_sldrFade.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<ctrl:HSliderPlus width="190" minimum="0" maximum="100" value="40" id="_sldrFade" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+
+		<!-- Foundation Fade label/percent/slider box -->
+		<mx:HBox verticalAlign="middle" horizontalGap="3">
+			<mx:Label text="Foundation Color" styleName="sliderTitle"/>
+			<ctrl:FoundationColorPicker id="_cpkrFoundation" selectedColor="{zeroR + 0xfbceba}" liveColorChange="OnOpChange()" width="50"/>
+		</mx:HBox>
+
+		<!-- Foundation Fade label/percent/slider box -->
+		<mx:HBox paddingBottom="-5" paddingTop="3" width="190">
+			<mx:Label text="Foundation Strength" styleName="sliderTitle"/>
+			<mx:Label text="{LocUtil.pct((_sldrFoundation.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<ctrl:HSliderPlus width="190" minimum="0" maximum="100" value="40" id="_sldrFoundation" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+
+		<ctrl:ApplyCancelEffectButtons addBoxPadding="true" premium="{premium}"/>
+	</mx:VBox>
+	
+	<mx:Number id="_cxyBrush">{_sldrBrushSize.value}</mx:Number>
+	
+	<!-- This is our default lighten blur (say at 50%). Slider adjusts from there -->
+	<mx:Number id="_nBlurSizeFactor">{40 * Math.max(150, Math.sqrt(origImageHeight * origImageWidth)) / 650}</mx:Number>
+	<mx:Number id="_nBlur">{_nBlurSizeFactor * _sldrBlur.value / 50}</mx:Number>
+	<mx:Number id="_clrFoundation">{_cpkrFoundation.liveColor}</mx:Number>
+	<mx:Number id="_nFoundationR">{RGBColor.RedFromUint(_clrFoundation)}</mx:Number>
+	<mx:Number id="_nFoundationG">{RGBColor.GreenFromUint(_clrFoundation)}</mx:Number>
+	<mx:Number id="_nFoundationB">{RGBColor.BlueFromUint(_clrFoundation)}</mx:Number>
+	
+	
+</PaintOnEffectBase>

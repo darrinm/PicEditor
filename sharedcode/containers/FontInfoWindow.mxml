@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ctr:InfoWindow xmlns:ctr="containers.*" xmlns:ctrl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" 
+			title="{LocUtil.rbSubst('TextTool', 'info_title',
+			fontFamily.name == '_sans' ? Resource.getString('FontList', 'universal_font') : fontFamily.name)}"
+			currentState="{fontFamily.rendererState}">
+	<mx:Script>
+		<![CDATA[
+			import dialogs.DialogManager;
+			
+			import mx.resources.ResourceBundle;
+			import mx.utils.StringUtil;
+			
+			import picnik.util.LocaleInfo;
+			
+			import util.FontFamily;
+			import util.LocUtil;
+			
+			[Bindable] [ResourceBundle("TextTool")] private var rb:ResourceBundle;
+			[Bindable] [ResourceBundle("FontList")] private var rbFontList:ResourceBundle;
+	   		[Bindable] public var fontFamily:FontFamily;
+	    ]]>
+	</mx:Script>
+	
+	<ctr:states>
+		<mx:State name="FontShop">				
+			<mx:SetStyle target="{_txtInfo}" name="paddingTop" value="0"/>
+			
+			<!-- add blurb text -->
+			<mx:AddChild relativeTo="{_txtInfo}" position="before">
+				<mx:Text id="_txtBlurb" fontSize="12" condenseWhite="true" selectable="true" 
+					width="250" color="#1a1a1a" fontWeight="{LocaleInfo.BoldWeight()}"
+					htmlText="{fontFamily.blurb}" />
+			</mx:AddChild>
+			
+			<!-- change moreinfo text -->
+			<mx:AddChild relativeTo="{_txtInfo}" position="after">
+				<mx:Text id="_txtInfo2" paddingTop="-4" fontSize="12" condenseWhite="true" selectable="true" styleName="aboutText" width="250" fontWeight="{LocaleInfo.BoldWeight()}"
+					htmlText="{StringUtil.substitute(Resource.getString('TextTool', 'FontShopMoreInfo'), fontFamily.authorUrl)}" />
+			</mx:AddChild>
+			<mx:RemoveChild target="{_txtInfo}"/>
+			
+			<!-- change upsell text -->
+			<mx:AddChild relativeTo="{_txtFontUpsell}" position="after">
+				<mx:Box width="100%">
+					<mx:Text id="_txtFontUpsell2" paddingTop="-4" fontSize="12" condenseWhite="true" selectable="true" styleName="aboutText" width="250" fontWeight="{LocaleInfo.BoldWeight()}"
+							htmlText="{StringUtil.substitute(Resource.getString('TextTool', 'FontShopPremiumInfo' + PicnikConfig.freeForAll? '1B':'' ), fontFamily.authorUrl)}" />
+				</mx:Box>
+			</mx:AddChild>
+			<mx:RemoveChild target="{_txtFontUpsell}"/>
+			
+			<!-- change preview img -->
+			<mx:AddChild relativeTo="{_imgFISmall}" position="after">
+				<mx:Box paddingLeft="3" paddingTop="4">
+					<ctrl:ImageEx id="_imgFIPreview" source="{fontFamily.bigPreviewUrl}" bundled="true"/>
+				</mx:Box>
+			</mx:AddChild>
+			<mx:RemoveChild target="{_imgFISmall}"/>
+		</mx:State>
+		
+		<mx:State name="DeviceFont">
+			<!-- TODO(darrinm): a nice preview more like what we have for the FontShop fonts -->
+			<mx:RemoveChild target="{_imgFISmall}"/>
+			<mx:RemoveChild target="{_txtInfo}"/>
+			<mx:AddChild relativeTo="{_box}" position="firstChild">
+				<mx:Label text="{fontFamily.name}" fontFamily="{fontFamily.name}" fontSize="24" color="#0"/>
+			</mx:AddChild>
+		</mx:State>
+		
+		<mx:State name="GlobalFont">
+			<mx:AddChild relativeTo="{_box}" position="firstChild">
+				<mx:Label text="{Resource.getString('FontList', 'universal_font')}" fontFamily="{fontFamily.name}" fontSize="24" color="#0"/>
+			</mx:AddChild>
+			
+			<!-- add blurb text -->
+			<mx:AddChild relativeTo="{_txtInfo}" position="before">
+				<mx:Text id="_txtBlurb1" fontSize="12" condenseWhite="true" selectable="true" 
+						 width="250" color="#1a1a1a" fontWeight="{LocaleInfo.BoldWeight()}"
+						 htmlText="{fontFamily.blurb}" />
+			</mx:AddChild>
+			
+			<mx:RemoveChild target="{_imgFISmall}"/>
+			<mx:RemoveChild target="{_txtInfo}"/>
+		</mx:State>
+	</ctr:states>
+	<mx:Canvas width="100%" height="100%" verticalScrollPolicy="off" horizontalScrollPolicy="off">			
+		<mx:VBox id="_box" paddingLeft="-3" paddingTop="-4">
+			<ctrl:ImageEx id="_imgFISmall" source="{fontFamily.smallPreviewUrl}" bundled="true"/>
+			<mx:HRule id="_hrFI" strokeColor="0xf0f0f0" height="1" width="100%"/>
+			<mx:Text paddingTop="-4" id="_txtInfo" fontSize="12" condenseWhite="true" selectable="true" styleName="aboutText" width="250" fontWeight="{LocaleInfo.BoldWeight()}"
+							htmlText="{StringUtil.substitute(LocUtil.getString('TextTool', 'designedby'), fontFamily.authorName, fontFamily.authorUrl)}" />			
+			<mx:VBox width="100%" horizontalAlign="center" verticalGap="0" 
+					visible="{fontFamily.premium &amp;&amp; !AccountMgr.GetInstance().isPremium}"
+					includeInLayout="{fontFamily.premium &amp;&amp; !AccountMgr.GetInstance().isPremium}">
+				<mx:HRule strokeColor="0xd9d9d9" height="1" width="100%"/>
+				<mx:Spacer height="5"/>
+				<mx:Text width="100%" fontSize="18" fontWeight="bold" color="#005580" text="{Resource.getString('TextTool', 'premiumFeatureLabel')}"/>
+				<mx:Text id="_txtFontUpsell" width="100%" htmlText="{Resource.getString('TextTool', 'PremiumInfo')}"/>
+				<mx:Spacer height="5"/>
+	 			<ctrl:ResizingButton id="_btnUpgrade" label="{PicnikConfig.freeForAll ? Resource.getString('TextTool', 'register') : Resource.getString('TextTool', 'upgrade')}"
+	 					click="{PicnikConfig.freeForAll ? DialogManager.ShowFreeForAllSignIn('/font/'+fontFamily.name) : DialogManager.ShowUpgrade('/font/' + fontFamily.name)}"
+						fontSize="18" width="100%" maxWidth="230" minWidth="180" height="34" styleName="BigButton" 
+						focusAlpha="0"
+						fontSize_1="17" fontSize_2="16" fontSize_3="15" fontSize_4="14" fontSize_5="13"/>
+			</mx:VBox> 
+		</mx:VBox>		
+	</mx:Canvas> 
+</ctr:InfoWindow>
+	

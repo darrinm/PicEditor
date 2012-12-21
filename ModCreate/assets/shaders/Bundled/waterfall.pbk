@@ -1,0 +1,50 @@
+<languageVersion : 1.0;>
+
+kernel Waterfall
+<   namespace : "Pixel Bender Sample";
+    vendor : "Adobe Systems, inc.";
+    author : "Kevin Goldsmith";
+    version : 1;
+    description : "inspired by Josh Buhler's flash waterfall bitmap effect. Rotation added by Team Picnik.";
+    iconURL: "../graphics/effects/waterfall.png";
+    canvasTip: "Click and drag on the photo to position the waterfall.";
+>
+{
+    parameter float2 center
+    <
+        minValue: float2(0.0, 0.0);
+        maxValue: float2(1000.0, 1000.0);
+        defaultValue: float2(320.0, 320.0);
+        controller: "mouseXY";
+        visible: "false";
+    >;
+    
+    parameter float rotation
+    <
+        minValue: 0.0;
+        maxValue: 270.0;
+        snapInterval: 90.0;
+    >;
+    
+    input image4 src;
+    output pixel4 dst;
+
+    void evaluatePixel()
+    {
+        float2 ptSample = outCoord();
+        if (rotation < 90.0) {
+            if (ptSample.y < center.y)
+                ptSample = float2(ptSample.x, center.y);
+        } else if (rotation < 180.0) {
+            if (ptSample.x >= center.x)
+                ptSample = float2(center.x, ptSample.y);
+        } else if (rotation < 270.0) {
+            if (ptSample.y >= center.y)
+                ptSample = float2(ptSample.x, center.y);
+        } else {
+            if (ptSample.x < center.x)
+                ptSample = float2(center.x, ptSample.y);
+        }
+        dst = sampleNearest(src, ptSample);
+    }
+}

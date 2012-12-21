@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MyAccountContentBase xmlns="*" xmlns:mx="http://www.adobe.com/2006/mxml" label="@Resource(key='CreativeToolsBase_1', bundle='CreativeTools')"
+		width="100%" height="100%"
+		xmlns:flash="flash.filters.*" xmlns:bk="controls.*"
+		xmlns:bkctr="containers.*"
+		horizontalScrollPolicy="off" verticalScrollPolicy="off">
+
+<mx:Script>
+	<![CDATA[
+		import mx.resources.ResourceBundle;
+		
+		import util.AutoResizeMode;
+		import util.CreditCardTransaction;
+		import util.LocUtil;
+		
+		[Bindable] [ResourceBundle("MyAccount")] private var rb:ResourceBundle;
+		
+		protected function GetMemberInfoText(fIsPaid:Boolean, fAutoRenew:Boolean, fIsExpired:Boolean, dtExpires:Date, strSkuId:String, fIsGift:Boolean): String {
+			var strKey:String;
+			if (fIsPaid) {
+				if (fAutoRenew) {
+					//PREMIUM_WILL_RENEW
+					strKey = 'premiumRenew'+MembershipStyle(strSkuId);
+				} else {
+					//PREMIUM_WONT_RENEW
+					if (fIsGift) { 
+						strKey = 'giftNoRenew';
+					} else {
+						strKey = 'premiumNoRenew';
+					}
+				}
+			} else {
+				if (fIsExpired) {
+					//REGISTERED_EXPIRED_PREMIUM
+					strKey = 'premiumExpired';
+				} else {
+					//REGISTERED_NEVER_PREMIUM;
+					strKey = 'notPremium';
+				}
+			}		
+			
+			var strPrice:String = "$" + CreditCardTransaction.GetPriceFromSkuId(strSkuId).toString();
+			return LocUtil.rbSubst('MyAccount', strKey, LocUtil.mediumDateNbsp(dtExpires), strPrice);
+		}
+		
+		protected function GetMemberInfoButtonLabel(fIsPaid:Boolean, fIsExpired:Boolean): String {
+			var strKey:String;
+			if (fIsPaid) {
+				//PREMIUM_WILL_RENEW or PREMIUM_WONT_RENEW 
+				strKey = 'changeMembership';					
+			} else {
+				if (fIsExpired) {
+					//REGISTERED_EXPIRED_PREMIUM
+					strKey = 'renewNow';
+				} else {
+					//REGISTERED_NEVER_PREMIUM;
+					strKey = 'upgradeNow';
+				}
+			}		
+			return Resource.getString('MyAccount', strKey);
+		}
+		
+		protected function GetMemberInfoSecondText(fIsPaid:Boolean, chCCType:String, strCardNumber:String, fPayPal:Boolean): String {
+			var strCardType:String = Resource.getString('MyAccount', 'creditCardType'+ chCCType);
+			if (fIsPaid && strCardNumber && strCardNumber.length) {
+				return Resource.getString('MyAccount', 'billToCard', [strCardType, strCardNumber]);
+			} else if (strCardNumber && strCardNumber.length) {
+				return Resource.getString('MyAccount', 'cardOnFile', [strCardType, strCardNumber]);
+			} else if (fPayPal) {
+				return Resource.getString('MyAccount', 'billToPaypal');				
+			}
+			return ""; // Default is no text
+		}
+
+		protected function GetMemberInfoSecondButtonLabel(fIsPaid:Boolean, strCardType:String, strCardNumber:String, fPayPal:Boolean): String {
+			if (fIsPaid && ((strCardNumber && strCardNumber.length) || fPayPal)) {
+				return Resource.getString('MyAccount', 'editPaymentMethod');
+			} else if (fIsPaid && !fPayPal && (!strCardNumber || !strCardNumber.length)) {
+				return Resource.getString('MyAccount', 'addCard');
+			} else if (!fIsPaid && strCardNumber && strCardNumber.length) {
+				return Resource.getString('MyAccount', 'deleteCard');
+			}
+			return ""; // Default is no button
+		}
+	]]>
+</mx:Script>
+
+	<mx:String id="urlkit"/> <!-- used by UrlKit to compose the URL including this 'page' -->
+
+	<mx:Canvas bottom="0" top="0" left="0" right="0" horizontalScrollPolicy="off" verticalLineScrollSize="38">
+		<bk:Gears width="28" height="17" right="11" top="11" visible="{!subscriptionInitialized}"/>
+		<mx:VBox horizontalAlign="center" width="100%" height="100%">
+			<mx:HBox width="100%" horizontalAlign="center" paddingTop="0" paddingLeft="15" paddingRight="25">
+				<mx:VBox verticalGap="5" minWidth="400" width="100%" maxWidth="670" verticalScrollPolicy="off" horizontalScrollPolicy="off" paddingBottom="15">
+					<!-- Membership Info -->
+					<!-- Registered, never paid -->
+					<bk:MyAccountInfoButtonBlock
+							header="@Resource(key='membershipInfo', bundle='MyAccount')"
+							bodyHtmlText="{GetMemberInfoText(AccountMgr.GetInstance().isPaid, AccountMgr.GetInstance().autoRenew, AccountMgr.GetInstance().isExpired, 
+								AccountMgr.GetInstance().dateSubscriptionExpires, subscriptionStatus.renewalSkuId, subscriptionStatus.isGift)}"
+							buttonEnabled="{subscriptionInitialized}"
+							buttonLabel="{GetMemberInfoButtonLabel(AccountMgr.GetInstance().isPaid, AccountMgr.GetInstance().isExpired)}"
+							buttonClick="ShowMembershipDialog()"
+							secondHtmlText="{GetMemberInfoSecondText(AccountMgr.GetInstance().isPaid, subscriptionStatus.renewalCard.chCCType, subscriptionStatus.renewalCard.strCCLast4, subscriptionStatus.payPalActive)}"
+							secondButtonLabel="{GetMemberInfoSecondButtonLabel(AccountMgr.GetInstance().isPaid, subscriptionStatus.renewalCard ? subscriptionStatus.renewalCard.chCCType : '', subscriptionStatus.renewalCard ? subscriptionStatus.renewalCard.strCCLast4 : '', subscriptionStatus.payPalActive)}"
+							secondButtonClick="EditPaymentMethod()"
+							/>					
+	
+					<!-- Email -->
+					<bk:MyAccountInfoButtonBlock header="@Resource(key='email', bundle='MyAccount')"
+												 visible="{AccountMgr.GetInstance().hasPicnikCredentials}"
+												 includeInLayout="{AccountMgr.GetInstance().hasPicnikCredentials}"
+												 bodyHtmlText="{AccountMgr.GetInstance().email}"
+												 buttonLabel="@Resource(key='changeEmail', bundle='MyAccount')"
+												 buttonClick="ChangeEmail()" />
+	
+					<!-- Password -->
+					<bk:MyAccountInfoButtonBlock header="@Resource(key='password', bundle='MyAccount')"
+												 visible="{AccountMgr.GetInstance().hasPicnikCredentials}"
+												 includeInLayout="{AccountMgr.GetInstance().hasPicnikCredentials}"
+												 bodyHtmlText="@Resource(key='stars', bundle='MyAccount')"
+												 buttonLabel="@Resource(key='changePassword', bundle='MyAccount')"
+												 buttonClick="ChangePassword()" />
+	
+					<!-- Performance -->
+					<bk:MyAccountInfoButtonBlock header="@Resource(key='performance', bundle='MyAccount')"
+												 bodyHtmlText="{Resource.getString('MyAccount', AccountMgr.GetInstance().autoResizeMode == AutoResizeMode.PRINT ? 'optimizedPrinting':'optimizedArchiving')}"
+												 buttonLabel="@Resource(key='changeOptions', bundle='MyAccount')"
+												 buttonClick="ChangePerformance()"/>
+	
+					<!-- Cancel Membership -->
+					<bk:MyAccountInfoButtonBlock
+						visible="{AccountMgr.GetInstance().isPaid &amp;&amp; AccountMgr.GetInstance().autoRenew}"
+						includeInLayout="{AccountMgr.GetInstance().isPaid &amp;&amp; AccountMgr.GetInstance().autoRenew}"
+						header="@Resource(key='cancelMembership', bundle='MyAccount')"
+						bodyHtmlText="{LocUtil.rbSubst('MyAccount', 'unhappy', subscriptionStatus.gracePeriodDays)}"
+						buttonEnabled="{subscriptionInitialized}"
+						buttonLabel="@Resource(key='cancelMembership', bundle='MyAccount')"
+						buttonClick="CancelMembership()" />
+
+					<!-- Delete my account -->
+					<bk:MyAccountInfoButtonBlock
+						visible="{(!AccountMgr.GetInstance().isPaid || !subscriptionStatus.isCancelable) &amp;&amp; !subscriptionStatus.payPalActive}"
+						includeInLayout="{(!AccountMgr.GetInstance().isPaid || !subscriptionStatus.isCancelable) &amp;&amp; !subscriptionStatus.payPalActive}"
+						header="@Resource(key='accountInfo', bundle='MyAccount')"
+						bodyHtmlText="{LocUtil.rbSubst('MyAccount', 'accountSince', LocUtil.mediumDateNbsp(AccountMgr.GetInstance().dateCreated))}"
+						buttonLabel="@Resource(key='deleteAccount', bundle='MyAccount')"
+						buttonEnabled="{subscriptionInitialized}"
+						buttonClick="DeleteAccount()"/>					
+</mx:VBox>
+			</mx:HBox>
+		</mx:VBox>
+	</mx:Canvas>
+</MyAccountContentBase>

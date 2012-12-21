@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<controls:EffectSetBase xmlns="*" xmlns:ct="creativeTools.*" xmlns:mx="http://www.adobe.com/2006/mxml" 
+						xmlns:eff="effects.*" xmlns:filters="flash.filters.*" xmlns:ctr="containers.*"
+						xmlns:controls="controls.*">
+	<mx:Style>
+		.promoTextBG {
+			border-style: solid;
+			border-thickness: 0;
+			border-skin: ClassReference("skins.GradientBackground");
+			gradient-fill-colors: #0e2451, #050d1d;
+			gradient-fill-alphas: .8,.8;
+			gradient-fill-ratios: 0,255;
+			gradient-rotation: 90;
+		}
+	</mx:Style>
+	<mx:Script>
+		<![CDATA[
+			import controls.InspirationTipBase;
+			
+			import dialogs.DialogManager;
+		]]>
+	</mx:Script>
+	
+	
+	<controls:ExpandingVBox id="_evbx1" expanded="{expanded}" width="100%" verticalGap="0" verticalScrollPolicy="off">
+	<mx:Spacer height="{_hsh.height}" />
+	<mx:Canvas height="{expanded?NaN:0}" width="100%" verticalScrollPolicy="off" horizontalScrollPolicy="off">
+	
+	<mx:VBox verticalGap="0" width="100%">		
+		<!-- Holiday Fun -->
+		<ctr:BoxPlus direction="horizontal" backgroundImage="{PicnikBase.StaticUrl('../graphics/holiday/bg_holidayhumor.jpg')}" verticalAlign="middle" id="_hbxHumor"
+				 horizontalScrollPolicy="off"
+				 urlType="header" urlid="holidayhumor"
+				 borderSides="bottom" borderStyle="solid" borderColor="#d1d1d1" width="210" height="30" paddingTop="1">
+			<controls:LabelPlus text="@Resource(key='HolidayHumor', bundle='Seasonal')" color="#ffffff" filters="{[_fiHeadShad]}" fontSize="17" paddingLeft="8" 
+					autoFontSizeGap="1" width="160"/>
+		</ctr:BoxPlus>
+		
+		<!-- Wrap the Send a Greeting EffectButton in a BoxPlus to get inspiration support -->
+		<ctr:BoxPlus urlType="promo" urlid="holidaysendgreeting">
+			<controls:EffectButton id="_efbtnSendGreeting" strTitle="@Resource(key='send_a_greeting', bundle='Seasonal')"
+					strAuthor="@Resource(key='_efbtn_1', bundle='FocalZoomEffect')"
+					strImageSource="../graphics/effects/Holiday/sendgreeting.png"
+					click="DialogManager.Show('SendGreetingDialog', null, null, { strSource: 'create', templateGroupId: 'holidayGreetings_picnik'})"/>
+		</ctr:BoxPlus>
+		<eff:JollyRedNoseEffect tags="effect,seasonal"/>
+		<!--<eff:HolidaySantaBeardBrushEffect tags="effect,seasonal"/>-->
+		<controls:ShapeArea imgd="{_imgd}" imgv="{_imgv}" area="HolidayHumor" verticalScrollPolicy="off" ignoreErrors="true" width="210"/>
+		
+		<!-- Promo Text-->
+		<ctr:BoxPlus id="_bxHolidayTextPromo" backgroundImage="{PicnikBase.StaticUrl('../graphics/holiday/promo_text.jpg')}" backgroundColor="#FFFFFF" width="210" height="73"
+				verticalAlign="middle" horizontalAlign="center"
+				borderSides="bottom" borderStyle="solid" borderColor="#CCCCCC" verticalGap="0"
+				horizontalScrollPolicy="off"
+				urlType="promo" urlid="holidaytext"
+				buttonMode="true" mouseChildren="false"
+				rollOverEffect="{_efBGdim}" rollOutEffect="{_efBGbrighten}"
+				click="{PicnikBase.app.NavigateTo(PicnikBase.EDIT_CREATE_TAB,'_ctType')}">
+			<mx:HBox id="_hbPromoText" width="95%" paddingLeft="8" paddingRight="8" cornerRadius="6" borderStyle="solid" borderThickness="0"
+					 horizontalScrollPolicy="off"
+					 verticalAlign="middle" styleName="promoTextBG"
+					 showEffect="{_efFadeFast}" hideEffect="{_efFadeSlow}">
+				<controls:ResizingLabel text="@Resource(key='promoTextHoliday', bundle='Seasonal')" fontSize="13" autoFontSizeGap="1"
+										width="100%" color="#ffffff" filters="{[_fiHeadShad]}" textAlign="center" paddingBottom="-2"/>
+				<controls:ImageEx source="../graphics/arrow_right_white.png" width="7" height="11" filters="{[_fiHeadShad]}"/>
+			</mx:HBox>
+		</ctr:BoxPlus>
+		
+		<!-- Winter Wonderland -->
+		<mx:HBox backgroundImage="{PicnikBase.StaticUrl('../graphics/holiday/bg_winterwonderland.jpg')}" verticalAlign="middle" id="_hbxWinter"
+				 borderSides="bottom" borderStyle="solid" borderColor="#d1d1d1" width="210" height="30" paddingTop="1">
+			<controls:LabelPlus text="@Resource(key='Winter', bundle='Seasonal')" color="#ffffff" filters="{[_fiHeadShad]}" fontSize="17" paddingLeft="8"
+								autoFontSizeGap="1" width="160"/>
+		</mx:HBox>
+		<eff:HolidayWinterizeEffect tags="effect,seasonal"/>
+		<eff:SnowEffect tags="effect,seasonal"/>
+		<!--<eff:SnowflakeFrameEffect tags="frame,seasonal"/>
+		<eff:FrostFrameEffect tags="frame,seasonal"/>-->
+		<controls:ShapeArea imgd="{_imgd}" imgv="{_imgv}" area="WinterWonderland" verticalScrollPolicy="off" ignoreErrors="true" width="210"/>
+		
+		<!-- promo collage -->
+		<ctr:BoxPlus id="_bxHolidayCollagePromo" backgroundImage="{PicnikBase.StaticUrl('../graphics/holiday/promo_fancycollage.jpg')}" backgroundColor="#ffffff" width="210" height="73"
+				verticalAlign="middle" horizontalAlign="center"
+				horizontalScrollPolicy="off"
+				borderSides="bottom" borderStyle="solid" borderColor="#d1d1d1"
+				buttonMode="true" mouseChildren="false"
+				urlType="promo" urlid="fancycollage"
+				rollOverEffect="{_efBGdim}" rollOutEffect="{_efBGbrighten}"
+				visible="{!PicnikBase.app.singleDocMode}" includeInLayout="{!PicnikBase.app.singleDocMode}"
+				click="{OnAdvancedCollageClick(null,'holiday')}">				
+			<mx:HBox id="_hbPromoCollages" width="95%" paddingLeft="8" paddingRight="8" cornerRadius="6" borderStyle="solid" borderThickness="0"
+					 horizontalScrollPolicy="off"
+					 verticalAlign="middle" styleName="promoTextBG"
+					 showEffect="{_efFadeFast}" hideEffect="{_efFadeSlow}">
+				<controls:ResizingLabel text="@Resource(key='promoFancyCollageHoliday', bundle='Seasonal')" fontSize="13" autoFontSizeGap="1"
+										width="100%" color="#ffffff" filters="{[_fiHeadShad]}" textAlign="center" paddingBottom="-2"/>
+				<controls:ImageEx source="../graphics/arrow_right_white.png" width="7" height="11" filters="{[_fiHeadShad]}"/>
+			</mx:HBox>
+		</ctr:BoxPlus>
+		
+		<!-- Home for the Holidays -->
+		<ctr:BoxPlus direction="horizontal" backgroundImage="{PicnikBase.StaticUrl('../graphics/holiday/bg_HomefortheHolidays.jpg')}" verticalAlign="middle" id="_hbxHomeHolidays"
+				 urlType="header" urlid="homefortheholidays"
+				 borderSides="bottom" borderStyle="solid" borderColor="#d1d1d1" width="210" height="30" paddingTop="1">
+			<controls:LabelPlus text="@Resource(key='HolidayHome', bundle='Seasonal')" color="#ffffff" filters="{[_fiHeadShad]}" fontSize="17" paddingLeft="8"
+								autoFontSizeGap="1" width="150"/>
+		</ctr:BoxPlus>
+		<!--<eff:HolidayTextureOverlayEffect tags="effect,seasonal,texture"/>-->
+		<eff:ChristmasLightsFrameEffect tags="frame,seasonal"/>
+		<eff:HollyFrameEffect tags="frame,seasonal"/>
+		<!--<eff:OrnamentFrameEffect tags="frame,seasonal"/>-->
+		<!--<eff:NutFrameEffect/>-->
+		<controls:ShapeArea imgd="{_imgd}" imgv="{_imgv}" area="HomeForTheHolidays" verticalScrollPolicy="off" ignoreErrors="true" width="210"/>
+		
+		<!--Promo Show-->
+		<ctr:BoxPlus id="_bxHolidayShowPromo" backgroundImage="{PicnikBase.StaticUrl('../graphics/holiday/promo_show.jpg')}" backgroundColor="#FFFFFF" width="210" height="73"
+				verticalAlign="middle" horizontalAlign="center"
+				horizontalScrollPolicy="off"
+				borderSides="bottom" borderStyle="solid" borderColor="#d1d1d1"
+				buttonMode="true" mouseChildren="false"
+				urlType="promo" urlid="holidayshow"
+				rollOverEffect="{_efBGdim}" rollOutEffect="{_efBGbrighten}"
+				visible="{!PicnikBase.app.singleDocMode}" includeInLayout="{!PicnikBase.app.singleDocMode}"
+				click="{OnShowClick()}">				
+			<mx:HBox id="_hbPromoShow" width="95%" paddingLeft="8" paddingRight="8" cornerRadius="6" borderStyle="solid" borderThickness="0"
+					 horizontalScrollPolicy="off"
+					 verticalAlign="middle" styleName="promoTextBG"
+					 showEffect="{_efFadeFast}" hideEffect="{_efFadeSlow}">
+				<controls:ResizingLabel text="@Resource(key='promoShowHoliday', bundle='Seasonal')" fontSize="13" autoFontSizeGap="1"
+										width="100%" color="#ffffff" filters="{[_fiHeadShad]}" textAlign="center" paddingBottom="-2"/>
+				<controls:ImageEx source="../graphics/arrow_right_white.png" width="7" height="11" filters="{[_fiHeadShad]}"/>
+			</mx:HBox>
+		</ctr:BoxPlus>
+		
+		
+	</mx:VBox>
+	
+	
+	<!-- Ornament Icon -->
+	<controls:ImageVer id="_imgBallIcon" right="1" y="0"
+					   includeInLayout="false"
+					   source="../graphics/holiday/icon_christmasball.png" mouseEnabled="false" mouseChildren="false"/>
+	
+	<!-- Snowflake Icon -->
+	<controls:ImageVer id="_imgSnowflakeIcon" right="0" y="{_hbxWinter.y}"
+					   includeInLayout="false" visible="{_hbxWinter != null &amp;&amp; _hbxWinter.y != 0}"
+					   source="../graphics/holiday/icon_snowflake.png" mouseEnabled="false" mouseChildren="false"/>
+	
+	<!-- Christmas Lights Icon -->
+	<controls:ImageVer id="_imgLightsIcon" right="0" y="{_hbxHomeHolidays.y}"
+					   includeInLayout="false" visible="{_hbxHomeHolidays != null &amp;&amp; _hbxHomeHolidays.y != 0}"
+					   source="../graphics/holiday/icon_lights.png" mouseEnabled="false" mouseChildren="false"/>
+	
+	
+	</mx:Canvas>
+	</controls:ExpandingVBox>
+	
+	
+	<!-- Holiday header -->
+	
+	<controls:EffectSetHeader id="_hsh" expanded="{_evbx1.expanded}" click="_evbx1.ToggleExpanded()" x="0" y="0"
+	headText="@Resource(key='holidayHeader', bundle='Seasonal')"
+	subHeadText="@Resource(key='holidaySubhead', bundle='Seasonal')" 
+	/>
+	
+</controls:EffectSetBase>

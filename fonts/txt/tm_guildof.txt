@@ -1,0 +1,12 @@
+fileName: tm_guildof.ttf
+name: Guild of Professional Actors
+subfamilyDisplayName: Regular
+fullName: Guild of Professional Actors
+displayName: Guild of Professional Actors
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 4
+pkName: pktm0guildof
+authorName: Tom Murphy
+authorUrl: http://fonts.tom7.com/

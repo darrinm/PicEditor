@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:filters="flash.filters.*" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:ctl="controls.*"
+		horizontalScrollPolicy="off" verticalScrollPolicy="off" paddingRight="10" xmlns:thumbnails="controls.thumbnails.*">
+	<mx:Script>
+		<![CDATA[
+			import dialogs.DialogManager;
+			import controls.TextPlus;
+			import controls.LabelPlus;
+			import mx.resources.ResourceBundle;
+			
+			[Bindable] [ResourceBundle("SendGreetingPromo")] protected var rb:ResourceBundle;
+		]]>
+	</mx:Script>
+	<mx:Style source="Welcome.css"/>
+	
+	<filters:DropShadowFilter blurX="7" blurY="7" distance="2" color="#000000" alpha=".35" quality="3" angle="90" id="_fiDropShad"/>
+	<filters:DropShadowFilter id="_efEmbossed" blurX="0" blurY="0" distance="1" color="#000000" alpha=".4" quality="3" angle="-90"/>
+	
+	<thumbnails:Thumbnail source="../graphics/holiday/sendgreeting/background.png" width="100%" height="95"
+			cornerRadius="8" bottomCornerRadius="8"/>
+	<mx:HBox horizontalScrollPolicy="off" verticalScrollPolicy="off" 
+			paddingLeft="10" paddingRight="10" width="100%" height="95" clipContent="false">
+		<!-- example photos -->
+		<mx:Canvas width="75%" height="100%" visible="{width &gt; 430}" includeInLayout="{width &gt; 430}"
+				horizontalScrollPolicy="off" verticalScrollPolicy="off" clipContent="false">
+			<ctl:ImagePlus source="../graphics/holiday/sendgreeting/example2.png" right="0" verticalCenter="-4" rotation="8"
+					maxWidth="90" width="100%" nobundle="true" filters="{[_fiDropShad]}"/>
+			<ctl:ImagePlus source="../graphics/holiday/sendgreeting/example1.png" left="-12" verticalCenter="4" rotation="-8"
+					maxWidth="90" width="100%" nobundle="true" filters="{[_fiDropShad]}"/>
+		</mx:Canvas>
+		
+		<!-- header & body text -->
+		<mx:VBox verticalGap="0" width="100%" height="100%" verticalAlign="middle">
+			<ctl:LabelPlus htmlText="@Resource(key='header', bundle='SendGreetingPromo')" styleName="h2" color="#d7efb5"
+					filters="{[_efEmbossed]}"/>
+			<ctl:TextPlus htmlText="@Resource(key='body', bundle='SendGreetingPromo')" styleName="subheadFeatured" 
+					paddingTop="-4" width="100%" filters="{[_efEmbossed]}" color="#ffffff"/>
+		</mx:VBox>
+		
+		<!-- try it now button -->
+		<mx:Canvas height="100%">
+			<ctl:ResizingButton bottom="12" autoFontSizeGap="1" label="@Resource(key='tryItNow', bundle='FeaturedFeatures')" 
+					styleName="basketButton" fontSize="20" height="36"
+					click="DialogManager.Show('SendGreetingDialog', null, null, { strSource: 'welcome', fUseOpenDocument: false })"/>
+		</mx:Canvas>
+	</mx:HBox>
+</mx:Canvas>

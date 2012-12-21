@@ -1,0 +1,12 @@
+fileName: tm_signal_to_noise.ttf
+name: Signal To Noise
+subfamilyDisplayName: Regular
+fullName: Signal To Noise
+displayName: Signal To Noise
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 4
+pkName: pktm0signal0to0noise
+authorName: Tom Murphy
+authorUrl: http://fonts.tom7.com/

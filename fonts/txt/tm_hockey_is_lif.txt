@@ -1,0 +1,12 @@
+fileName: tm_hockey_is_lif.ttf
+name: Hockey is Lif
+subfamilyDisplayName: Medium
+fullName: Hockey is Lif
+displayName: Hockey is Lif
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 6
+pkName: pktm0hockey0is0lif
+authorName: Tom Murphy
+authorUrl: http://fonts.tom7.com/

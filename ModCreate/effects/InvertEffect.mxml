@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cnt:EffectCanvas xmlns:cnt="containers.*" xmlns="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="111"
+	xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*" urlid="Invert">
+	<mx:Script>
+		import mx.resources.ResourceBundle;
+   		[Bindable] [ResourceBundle("InvertEffect")] private var rb:ResourceBundle;
+	</mx:Script>
+
+
+	<EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='InvertEffect')" strAuthor="@Resource(key='_efbtn_1', bundle='InvertEffect')"
+		strImageSource="../graphics/effects/Color/invert.png"/>
+	<mx:String id="_strHelpText">{Resource.getString('InvertEffect', '_strHelpText')}</mx:String>
+	
+	<mx:VBox x="8" y="65" verticalGap="0">
+		<ApplyCancelEffectButtons addBoxPadding="true" premium="{premium}"/>
+	</mx:VBox>
+	
+	<imageOperations:AdjustCurvesImageOperation id="_op" MasterCurve="{[{x:0, y:255}, {x:255, y:0}]}"/>
+</cnt:EffectCanvas>

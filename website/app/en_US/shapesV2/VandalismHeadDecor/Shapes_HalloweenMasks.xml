@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/shape_masks.png" flickrPremium="false" id="HalloweenMasks" numShapes="8" picnikPremium="false" previewUrls="60|48|../clipart/bundles/VandalismHeadDecorArea_groupPreviews_HalloweenMasks.png?ver=c4ea0ce0" title="Masks">
+	<Shapes>
+		<Clipart cHeight="1881" cWidth="2766" flickrPremium="false" isVector="false" picnikPremium="false" previewUrl="40|40|0|../clipart/bundles/VandalismHeadDecorArea_shapes_HalloweenMasks.png?ver=081ba95b" url="shapes/Halloween_Masks/GlassesNose.swf"/>
+		<Clipart cHeight="2022" cWidth="1685" flickrPremium="false" isVector="false" picnikPremium="false" previewUrl="40|40|1|../clipart/bundles/VandalismHeadDecorArea_shapes_HalloweenMasks.png?ver=081ba95b" url="shapes/Halloween_Masks/SlasherMask.swf"/>
+		<Clipart cHeight="666" cWidth="746" flickrPremium="false" isVector="false" picnikPremium="false" previewUrl="40|40|2|../clipart/bundles/VandalismHeadDecorArea_shapes_HalloweenMasks.png?ver=081ba95b" url="shapes/Halloween_Masks/mask_feather_02.swf"/>
+		<Clipart cHeight="259" cWidth="540" flickrPremium="false" isVector="false" picnikPremium="false" previewUrl="40|40|3|../clipart/bundles/VandalismHeadDecorArea_shapes_HalloweenMasks.png?ver=081ba95b" url="shapes/Halloween_Masks/mask_eyes.swf"/>
+		<Clipart cHeight="2022" cWidth="1685" flickrPremium="false" isVector="false" picnikPremium="false" previewUrl="40|40|4|../clipart/bundles/VandalismHeadDecorArea_shapes_HalloweenMasks.png?ver=081ba95b" url="shapes/Halloween_Masks/PirateMask.swf"/>
+		<Clipart cHeight="2022" cWidth="1685" flickrPremium="false" isVector="false" picnikPremium="false" previewUrl="40|40|5|../clipart/bundles/VandalismHeadDecorArea_shapes_HalloweenMasks.png?ver=081ba95b" url="shapes/Halloween_Masks/VampireMask.swf"/>
+		<Clipart cHeight="596" cWidth="499" flickrPremium="false" isVector="false" picnikPremium="false" previewUrl="40|40|6|../clipart/bundles/VandalismHeadDecorArea_shapes_HalloweenMasks.png?ver=081ba95b" url="shapes/Halloween_Masks/mask_frankenstein.swf"/>
+		<Clipart cHeight="599" cWidth="499" flickrPremium="false" isVector="false" picnikPremium="false" previewUrl="40|40|7|../clipart/bundles/VandalismHeadDecorArea_shapes_HalloweenMasks.png?ver=081ba95b" url="shapes/Halloween_Masks/mask_skull.swf"/>
+	</Shapes>
+</ShapeCategory>

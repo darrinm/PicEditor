@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cnt:CircularOverlayEffectCanvas xmlns="effects.*" xmlns:cnt="containers.*" xmlns:ctrl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="335" xmlns:local="*" 
+	xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*"
+	xFocus = "{zeroR + imagewidth/2}"
+	yFocus = "{zeroR + imageheight/2}"
+	liveUpdate="true" premium="{PicnikBase.GetApp().freemiumModel}"
+	 urlid="FocalZoom">
+	<mx:Script>
+		import util.LocUtil;
+		import mx.resources.ResourceBundle;
+   		[Bindable] [ResourceBundle("FocalZoomEffect")] private var rb:ResourceBundle;
+	</mx:Script>
+	
+	<mx:HRule x="0" width="100%" top="0" height="1" strokeColor="#FFFFFF"/>
+	<mx:HRule x="0" width="100%" height="1" bottom="0" strokeColor="#d4d4d4"/>
+	
+	<ctrl:EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='FocalZoomEffect')" strAuthor="@Resource(key='_efbtn_1', bundle='FocalZoomEffect')"
+		strImageSource="../graphics/effects/Area/focal_zoom.png" premium="{premium}"/>
+	<mx:String id="_strHelpText">{Resource.getString('FocalZoomEffect', '_strHelpText')}</mx:String>
+
+	<mx:Label x="8" y="70" text="@Resource(key='Label_1', bundle='FocalZoomEffect')" styleName="sliderTitle"/>
+	<mx:Label x="152" y="70" text="{LocUtil.pct(Math.round(_sldrImpact.liveValue))}" styleName="sliderValue" textAlign="right" width="50"/>
+	<ctrl:HSliderFastDrag updateSpeed="{updateSpeed}" x="9" y="85" width="190" minimum="1" maximum="100" value="{zeroR + 50}" id="_sldrImpact" liveDragging="true" showDataTip="false"
+		thumbPress="ShowOverlay()" change="OnOpChange()" thumbRelease="HideOverlay()"/>
+	
+	<mx:Canvas alpha=".4" y="115" height="88" left="10" right="10" cornerRadius="5" backgroundColor="#ffffff" borderColor="#999999" borderStyle="solid"/>
+	<mx:Label x="15" y="119" text="@Resource(key='Label_2', bundle='FocalZoomEffect')" styleName="sliderTitle"/>
+	<mx:Label x="144" y="119" text="{LocUtil.pct((100 * (_sldrRadius.liveValue-_sldrRadius.minimum)/(_sldrRadius.maximum-_sldrRadius.minimum)))}" styleName="sliderValue" textAlign="right" width="50"/>
+	<ctrl:HSliderFastDrag id="_sldrRadius" updateSpeed="{updateSpeed}" x="17" y="134" width="175" liveDragging="true" showDataTip="false"
+		minimum="10" maximum="{Math.min(imagewidth,imageheight)/2}" value="{zeroR + ((_sldrRadius.maximum - _sldrRadius.minimum) / 2) + _sldrRadius.minimum}"
+	    thumbPress="ShowOverlay()" change="OnOpChange()" thumbRelease="HideOverlay()"/>
+	<mx:Label x="15" y="159" text="@Resource(key='Label_3', bundle='FocalZoomEffect')" styleName="sliderTitle"/>
+	<mx:Label x="144" y="159" text="{LocUtil.pct((_sldrHardness.liveValue))}" styleName="sliderValue" textAlign="right" width="50"/>
+	<ctrl:HSliderFastDrag updateSpeed="{updateSpeed}" x="17" y="174" width="175" minimum="0" maximum="100" value="{zeroR+50}" id="_sldrHardness" liveDragging="true" showDataTip="false"
+	    thumbPress="ShowOverlay()" change="OnOpChange()" thumbRelease="HideOverlay()"/>
+
+	<mx:Script>
+        <![CDATA[
+            [Bindable]
+            public var aBlendModes:Array = [ 
+                {label:Resource.getString('FocalZoomEffect', 'blend_Normal'), data:"normal"}, 
+                {label:Resource.getString('FocalZoomEffect', 'blend_Add'), data:"add"}, 
+                {label:Resource.getString('FocalZoomEffect', 'blend_Darken'), data:"darken"}, 
+                {label:Resource.getString('FocalZoomEffect', 'blend_Difference'), data:"difference"}, 
+                {label:Resource.getString('FocalZoomEffect', 'blend_Hardlight'), data:"hardlight"}, 
+                {label:Resource.getString('FocalZoomEffect', 'blend_Lighten'), data:"lighten"}, 
+                {label:Resource.getString('FocalZoomEffect', 'blend_Multiply'), data:"multiply"}, 
+                {label:Resource.getString('FocalZoomEffect', 'blend_Overlay'), data:"overlay"}, 
+                {label:Resource.getString('FocalZoomEffect', 'blend_Screen'), data:"screen"}, 
+                {label:Resource.getString('FocalZoomEffect', 'blend_Subtract'), data:"subtract"}];
+        ]]>
+    </mx:Script>
+   	<mx:VBox x="8" y="208" verticalGap="-3" paddingBottom="5">
+	    <mx:Label text="@Resource(key='advanced', bundle='FocalZoomEffect')" styleName="sliderTitle"/>
+		<mx:ComboBox dataProvider="{aBlendModes}" id="_cbBlendMode" change="OnOpChange()" height="26" width="191" />
+    </mx:VBox>
+    
+
+	<mx:Label x="8" y="258" text="@Resource(key='Label_4', bundle='FocalZoomEffect')" styleName="sliderTitle"/>
+	<mx:Label x="152" y="258" text="{LocUtil.pct((_sldrFade.value))}" styleName="sliderValue" textAlign="right" width="50"/>
+	<ctrl:HSliderPlus x="9" y="273" width="190" minimum="0" maximum="100" value="0" id="_sldrFade" liveDragging="true" showDataTip="false"
+		thumbPress="ShowOverlay()" change="OnOpChange()" thumbRelease="HideOverlay()"/>
+
+	<ctrl:ApplyCancelEffectButtons y="299" premium="{premium}"/>
+	
+	<imageOperations:CircularGradientImageMask 
+		width="{zeroR + imagewidth}" height="{zeroR + imageheight}" 
+		xCenter="{zeroR + xFocus}" yCenter="{zeroR + yFocus}" 
+		innerRadius="{_sldrRadius.value * _sldrHardness.value/101}" 
+		outerRadius="{_sldrRadius.value * (2-(_sldrHardness.value/101))}" 
+		outerAlpha = "1"
+		innerAlpha = "0"
+		id="_msk"/>
+	
+	<imageOperations:NestedImageOperation id="_op" BlendAlpha="{1-(_sldrFade.value/100)}" BlendMode="{_cbBlendMode.value}" dynamicAlphaCachePriority="10">
+		<imageOperations:children>
+			<imageOperations:RadialBlurImageOperation Mask="{_msk}" x="{zeroR + xFocus}" y="{zeroR + yFocus}" amount="{_sldrImpact.value}" ignoreObjects="true"/>
+		</imageOperations:children>
+		
+	</imageOperations:NestedImageOperation>
+</cnt:CircularOverlayEffectCanvas>

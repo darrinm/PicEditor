@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Templates>
+	<!-- INSERT TEMPLATE TEXT HERE -->
+	
+	
+	
+	
+	
+<!-- FEATURED -->
+
+	<TemplateSection title="featured">
+
+		<TemplateGroup id="halloween_pdw" title="halloween" 
+				premium="true"
+				by="Picnik &amp; Plain Digital Wrapper"
+				attribIcon="pdw.jpg"
+				attribUrl="http://www.plaindigitalwrapper.com/"
+				attribLinkEntity = "Plain Digital Wrapper"/>
+				
+		<TemplateGroup id="halloween_pdw_2010" title="halloween2010" 
+				premium="true"
+				by="Picnik &amp; Plain Digital Wrapper"
+				attribIcon="pdw.jpg"
+				attribUrl="http://www.plaindigitalwrapper.com/"
+				attribLinkEntity = "Plain Digital Wrapper"/>
+				
+		<TemplateGroup id="autumn2010_pdw" title="autumn2" 
+				premium="false"
+				by="Picnik &amp; Plain Digital Wrapper"
+				attribIcon="pdw.jpg"
+				attribUrl="http://www.plaindigitalwrapper.com/"
+				attribLinkEntity = "Plain Digital Wrapper"/>
+				
+		<TemplateGroup id="autumn_pdw" title="autumn" 
+				premium="false"
+				by="Picnik &amp; Plain Digital Wrapper"
+				attribIcon="pdw.jpg"
+				attribUrl="http://www.plaindigitalwrapper.com/"
+				attribLinkEntity = "Plain Digital Wrapper"/>
+	
+	</TemplateSection>
+	
+	
+
+<!-- WEDDINGS -->
+
+<TemplateSection title="weddings">
+	
+		<TemplateGroup id="wedding_01" title="wedding1" defaultToHighQuality="true"/>
+		<TemplateGroup id="wedding_02" title="wedding2" defaultToHighQuality="true"/>
+		<TemplateGroup id="wedding_03" title="wedding3" defaultToHighQuality="true"/>
+		<TemplateGroup id="wedding_04" title="wedding4" defaultToHighQuality="true"/>
+		<TemplateGroup id="wedding_05" title="wedding5" defaultToHighQuality="true"/>
+		<TemplateGroup id="wedding_06" title="wedding6" defaultToHighQuality="true"/>
+		<TemplateGroup id="wedding_07" title="wedding7" defaultToHighQuality="true"/>
+		<TemplateGroup id="wedding_08" title="wedding8" defaultToHighQuality="true"/>
+		<TemplateGroup id="wedding_09" title="wedding9" defaultToHighQuality="true"/>
+		<TemplateGroup id="wedding_10" title="wedding10" defaultToHighQuality="true"/>
+		
+		</TemplateSection>
+	
+	
+	
+<!-- SCRAPBOOK -->
+
+	<TemplateSection title="scrapbook">
+	
+		<TemplateGroup id="vacation_epson" title="vacation" 
+			premium="true"
+			by="Epson"
+			attribIcon="epson.jpg"
+			attribUrl="http://www.epson.com/cgi-bin/Store/PrintLab/pl_home.jsp"
+			attribLinkEntity="Epson Creative Zone"/>
+			
+		<TemplateGroup id="vintage_epson" title="heritage"
+			by="Epson"
+			attribIcon="epson.jpg"
+			attribUrl="http://www.epson.com/cgi-bin/Store/PrintLab/pl_home.jsp"
+			attribLinkEntity="Epson Creative Zone"/>
+			
+		<TemplateGroup id="bragbook_epson" title="bragbook"
+			by="Epson"
+			attribIcon="epson.jpg"
+			attribUrl="http://www.epson.com/cgi-bin/Store/PrintLab/pl_home.jsp"
+			attribLinkEntity="Epson Creative Zone"/>
+		
+	</TemplateSection>
+	
+
+	
+<!-- FAMILY & FRIENDS -->
+
+	<TemplateSection title="familyAndFriends">
+		
+		<TemplateGroup id="birthday_pdw" title="birthday" 
+				premium="true"
+				by="Picnik &amp; Plain Digital Wrapper"
+				attribIcon="pdw.jpg"
+				attribUrl="http://www.plaindigitalwrapper.com/"
+				attribLinkEntity = "Plain Digital Wrapper"/>
+				
+					
+		<TemplateGroup id="mday_pdw" title="mothers" 
+				premium="false"
+				by="Picnik &amp; Plain Digital Wrapper"
+				attribIcon="pdw.jpg"
+				attribUrl = "http://www.plaindigitalwrapper.com/"
+				attribLinkEntity = "Plain Digital Wrapper"/>	
+				
+						
+		<TemplateGroup id="fday_pdw" title="fathers" 
+				premium="false"
+				by="Picnik &amp; Plain Digital Wrapper"
+				attribIcon="pdw.jpg"
+				attribUrl = "http://www.plaindigitalwrapper.com/"
+				attribLinkEntity = "Plain Digital Wrapper"/>
+		
+	</TemplateSection>
+
+
+
+<!-- SEASONAL -->
+	
+	<TemplateSection title="seasonal">	
+	
+		<TemplateGroup id="School2011" title="school2" 
+				premium="false"
+				by="Picnik &amp; Plain Digital Wrapper"
+				attribIcon="pdw.jpg"
+				attribUrl = "http://www.plaindigitalwrapper.com/"
+				attribLinkEntity = "Plain Digital Wrapper"/>
+				
+		<TemplateGroup id="school_pdw" title="school" 
+				premium="false"
+				by="Picnik &amp; Plain Digital Wrapper"
+				attribIcon="pdw.jpg"
+				attribUrl = "http://www.plaindigitalwrapper.com/"
+				attribLinkEntity = "Plain Digital Wrapper"/>
+				
+		<TemplateGroup id="summer_pdw" title="summer" 
+				premium="false"
+				by="Picnik &amp; Plain Digital Wrapper"
+				attribIcon="pdw.jpg"
+				attribUrl = "http://www.plaindigitalwrapper.com/"
+				attribLinkEntity = "Plain Digital Wrapper"/>
+					
+		<TemplateGroup id="July4th_pdw" title="july4th" 
+				premium="false"
+				by="Picnik &amp; Plain Digital Wrapper"
+				attribIcon="pdw.jpg"
+				attribUrl = "http://www.plaindigitalwrapper.com/"
+				attribLinkEntity = "Plain Digital Wrapper"/>
+	
+		<TemplateGroup id="easter_pdw" title="easter" 
+				premium="false"
+				by="Picnik &amp; Plain Digital Wrapper"
+				attribIcon="pdw.jpg"
+				attribUrl="http://www.plaindigitalwrapper.com/"
+				attribLinkEntity = "Plain Digital Wrapper"/>
+	
+		<TemplateGroup id="vday2011_pdw" title="valentinesPack4" 
+				premium="false"
+				by="Picnik &amp; Plain Digital Wrapper"
+				attribIcon="pdw.jpg"
+				attribUrl = "http://www.plaindigitalwrapper.com/"
+				attribLinkEntity = "Plain Digital Wrapper"/>
+			
+		<TemplateGroup id="vday_pdw" title="valentinesPack3" 
+				premium="false"
+				by="Picnik &amp; Plain Digital Wrapper"
+				attribIcon="pdw.jpg"
+				attribUrl = "http://www.plaindigitalwrapper.com/"
+				attribLinkEntity = "Plain Digital Wrapper"/>
+				
+		<TemplateGroup id="valentines_epson2" title="valentinesPack2" 
+				premium="true"
+				by="Epson"
+				attribIcon="epson.jpg"
+				attribUrl = "http://www.epson.com/cgi-bin/Store/PrintLab/pl_home.jsp"/>
+		
+		<TemplateGroup id="valentines_epson" title="valentinesPack1" 
+				premium="false"
+				by="Epson"
+				attribIcon="epson.jpg"
+				attribUrl = "http://www.epson.com/cgi-bin/Store/PrintLab/pl_home.jsp"/>
+	
+		<TemplateGroup id="holiday2010_pdw" title="holiday2" 
+				premium="false"
+				by="Picnik &amp; Plain Digital Wrapper"
+				attribIcon="pdw.jpg"
+				attribUrl="http://www.plaindigitalwrapper.com/"
+				attribLinkEntity = "Plain Digital Wrapper"/>
+				
+		<TemplateGroup id="holiday_pdw" title="holiday1" 
+				premium="false"
+				by="Picnik &amp; Plain Digital Wrapper"
+				attribIcon="pdw.jpg"
+				attribUrl="http://www.plaindigitalwrapper.com/"
+				attribLinkEntity = "Plain Digital Wrapper"/>
+				
+		<TemplateGroup id="christmas_pdw" title="christmas" 
+				premium="true"
+				by="Mish Gasser &amp; Betsy Tuma"
+				attribIcon="pdw.jpg"
+				attribUrl="http://www.plaindigitalwrapper.com/"
+				attribLinkEntity = "Plain Digital Wrapper"/>
+				
+		<TemplateGroup id="christmas_epson" title="christmasMemories" 
+				premium="true"
+				by="Epson"
+				attribIcon="epson.jpg"
+				attribUrl = "http://www.epson.com/cgi-bin/Store/PrintLab/pl_home.jsp"/>
+				
+		<TemplateGroup id="christmas_picnik" title="winterHolidays"/>
+
+	</TemplateSection>
+	
+	
+	
+<!-- ANNOUNCEMENTS -->	
+	
+	<TemplateSection title="announcements">
+		
+		<TemplateGroup id="babyBoy_epson" title="babyBoy" 
+			premium="true"
+			by="Epson"
+			attribIcon="epson.jpg"
+			attribUrl = "http://www.epson.com/cgi-bin/Store/PrintLab/pl_home.jsp"/>
+			
+		<TemplateGroup id="babyGirl_epson" title="babyGirl" 
+			premium="true"
+			by="Epson"
+			attribIcon="epson.jpg"
+			attribUrl = "http://www.epson.com/cgi-bin/Store/PrintLab/pl_home.jsp"/>
+		
+	</TemplateSection>
+	
+	<!-- Non public section - nothing in here ever goes live -->
+	<TemplateSection title="nonPublic" hidden="true">
+		<!-- default group (no groupid, groupid not found) -->
+		<TemplateGroup id="" title="uncategorized" icon="uncategorized.png" by="Designers Everywhere"/>
+		<TemplateGroup id="holidayGreetings_picnik" title="holidayGreetings"/>
+		<TemplateGroup id="vdayGreetings_picnik" title="vdayGreetings"/>
+	</TemplateSection>
+</Templates>

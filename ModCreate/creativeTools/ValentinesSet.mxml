@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<controls:EffectSetBase xmlns="*" xmlns:ct="creativeTools.*" xmlns:mx="http://www.adobe.com/2006/mxml" 
+		xmlns:eff="effects.*" xmlns:filters="flash.filters.*" xmlns:ctr="containers.*"
+		xmlns:controls="controls.*">
+	<mx:Style>
+		.promoTextBG {
+		   border-style: solid;
+		   border-thickness: 0;
+		   border-skin: ClassReference("skins.GradientBackground");
+		   gradient-fill-colors: #6b0b4a, #ae0173;
+		   gradient-fill-alphas: .8,.8;
+		   gradient-fill-ratios: 0,255;
+		   gradient-rotation: 90;
+		}
+	</mx:Style>
+
+	<mx:Script>
+		<![CDATA[
+			import dialogs.DialogManager;
+		]]>
+	</mx:Script>
+	<controls:ExpandingVBox id="_evbx1" expanded="{expanded}" width="100%" verticalGap="0" verticalScrollPolicy="off">
+		<mx:Spacer height="{_hsh.height}" />
+		<mx:Canvas height="0" width="100%" verticalScrollPolicy="off" horizontalScrollPolicy="off">
+		<!-- this expands and collapses -->
+			<mx:VBox verticalGap="0" width="100%">
+				<!-- Wrap the Send a Greeting EffectButton in a BoxPlus to get inspiration support -->
+				<!-- This is saved for next year.
+				<ctr:BoxPlus urlType="promo" urlid="vdaysendgreeting">
+					<controls:EffectButton id="_efbtnSendGreeting" strTitle="@Resource(key='send_a_vday_greeting', bundle='Seasonal')"
+							strAuthor="@Resource(key='_efbtn_1', bundle='FocalZoomEffect')"
+							strImageSource="../graphics/effects/ValentinesDay/sendgreeting.png"
+							click="DialogManager.Show('SendGreetingDialog', null, null, { strSource: 'create', templateGroupId: 'vdayGreetings_picnik'})"/>
+				</ctr:BoxPlus>
+				-->
+				
+				<!-- Valentines Projects -->
+				<mx:HBox backgroundImage="{PicnikBase.StaticUrl('../graphics/valentinesday/bg_valentinesprojects.jpg')}" verticalAlign="middle" id="_hbxValentinesProj"
+						borderSides="bottom" borderStyle="solid" borderColor="#d1d1d1" width="210" height="30" paddingTop="1">
+					<mx:Label text="@Resource(key='valentineProjHeader', bundle='Seasonal')" color="#ffffff" filters="{[_fiHeadShad]}" fontSize="15"
+						paddingLeft="8" paddingTop="2"/>
+				</mx:HBox>
+				
+				<eff:HeartStencilEffect tags="effect,seasonal"/>
+				<eff:HeartsDesireEffect tags="effect,seasonal"/>
+				<!--<eff:FocalHeartBWEffect/>-->
+				<!--<eff:HeartFrameEffect tags="frame,seasonal"/>-->
+				<!--<eff:HeartnocularsEffect tags="effect,seasonal"/>-->
+				<!--<eff:ValentineBokehEffect tags="effect,seasonal"/>-->
+				<eff:CandyHeartFrameEffect tags="frame,seasonal"/>
+				<!--<eff:RoseFrameEffect tags="effect,seasonal"/>-->
+				<!--<eff:RoseHeartFrameEffect tags="frame,seasonal"/>-->
+				
+				<!-- promo collage -->
+				<mx:Box backgroundImage="{PicnikBase.StaticUrl('../graphics/valentinesday/promo_fancycollage.jpg')}" backgroundColor="#ffffff" width="210" height="73"
+						verticalAlign="middle" horizontalAlign="center"
+						horizontalScrollPolicy="off"
+						borderSides="bottom" borderStyle="solid" borderColor="#d1d1d1"
+						buttonMode="true" mouseChildren="false"
+						rollOverEffect="{_efBGdim}" rollOutEffect="{_efBGbrighten}"
+						visible="{!PicnikBase.app.singleDocMode}" includeInLayout="{!PicnikBase.app.singleDocMode}"
+						click="{OnAdvancedCollageClick(null,'valentines')}">				
+					<mx:HBox id="_hbPromoCollages" width="95%" paddingLeft="8" paddingRight="8" cornerRadius="6" borderStyle="solid" borderThickness="0"
+							horizontalScrollPolicy="off"
+							verticalAlign="middle" styleName="promoTextBG"
+							showEffect="{_efFadeFast}" hideEffect="{_efFadeSlow}">
+						<controls:ResizingLabel text="@Resource(key='promoFancyCollageVal', bundle='Seasonal')" fontSize="13" autoFontSizeGap="1"
+							width="100%" color="#ffffff" filters="{[_fiHeadShad]}" textAlign="center" paddingBottom="-2"/>
+						<controls:ImageEx source="../graphics/arrow_right_white.png" width="7" height="11" filters="{[_fiHeadShad]}"/>
+					</mx:HBox>
+				</mx:Box>
+				
+		<mx:HBox backgroundImage="{PicnikBase.StaticUrl('../graphics/valentinesday/bg_valentinesstickers.jpg')}" verticalAlign="middle" id="_hbxValentinesShapes"
+				borderSides="bottom" borderStyle="solid" borderColor="#d1d1d1" width="210" height="30" paddingTop="1">
+			<mx:Label text="@Resource(key='valentineShapeHeader', bundle='Seasonal')" color="#ffffff" filters="{[_fiHeadShad]}" fontSize="15"
+				paddingLeft="8" paddingTop="2"/>
+		</mx:HBox>
+				<controls:ShapeArea imgd="{_imgd}" imgv="{_imgv}" area="Valentines" verticalScrollPolicy="off" ignoreErrors="true" width="210"/>
+			</mx:VBox>
+			<!--Valentines Projects Icons -->
+			<controls:ImageVer id="_imgValProjIcon" right="0" y="{_hbxValentinesProj.y}"
+					includeInLayout="false"
+					source="../graphics/valentinesday/icon_valentinesproj.png"/>
+		
+			<!-- Valentines Icon -->
+			<controls:ImageVer id="_imgValStickIcon" right="0" y="{_hbxValentinesShapes.y}"
+					includeInLayout="false"
+					source="../graphics/valentinesday/icon_valentinesstick.png"/>
+		</mx:Canvas>
+		</controls:ExpandingVBox>
+		
+	<!-- Holiday header -->
+	<controls:EffectSetHeader id="_hsh" expanded="{_evbx1.expanded}" click="_evbx1.ToggleExpanded()" x="0" y="0"
+		headText="@Resource(key='valentinesHeader', bundle='Seasonal')"
+		subHeadText="@Resource(key='valentinesSubhead', bundle='Seasonal')" 
+		/>
+		
+</controls:EffectSetBase>

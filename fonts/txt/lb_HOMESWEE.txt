@@ -1,0 +1,12 @@
+fileName: lb_HOMESWEE.ttf
+name: Home Sweet Home
+subfamilyDisplayName: Regular
+fullName: Home Sweet Home
+displayName: Home Sweet Home
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 4
+pkName: pklb0HOMESWEE
+authorName: Ray Larabie
+authorUrl: http://www.larabiefonts.com/

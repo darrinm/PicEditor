@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:VBox verticalGap="0" initialize="OnInitialize(event)"
+	xmlns:filters="flash.filters.*" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:ctl="controls.*" >
+	<mx:Style source="Welcome.css"/>
+	<mx:Script>
+		<![CDATA[
+			import mx.controls.Label;
+			import mx.containers.HBox;
+			import controls.TextPlus;
+			import controls.LabelPlus;
+			import flash.utils.*
+			import mx.collections.ArrayCollection;
+			import mx.effects.easing.*;
+			import mx.resources.ResourceBundle;
+			import util.FeedLoader;
+			import util.LocUtil;
+	
+			public var xmlStats:XML = 
+				<picnikstats>
+					<item label="photos_saved" timestamp="0430853" rate="0.1124" base="12312903"/>
+					<item label="effects_applied" timestamp="0430853" rate="0.1343" base="12312903"/>
+					<item label="redeyes_zapped" timestamp="0430853" rate="0.5121" base="12312903"/>
+					<item label="sandwiches_buttered" timestamp="0430853" rate="0.2321" base="12312903"/>
+				</picnikstats>;
+				
+			[Bindable] public var stats:ArrayCollection = new ArrayCollection([
+				{ label:"photos_saved", timestamp:"56356365", rate:"0.01", base:"12312903" },
+				{ label:"effects_applied", timestamp:"34563456", rate:"0.034528", base:"12312903" },
+				{ label:"redeyes_zapped", timestamp:"4356456745", rate:"0.014582", base:"12312903" },
+				{ label:"sandwiches_buttered", timestamp:"223423", rate:"0.021244", base:"12312903" } ]);
+		
+			private var _nIntervalId:uint = 0;
+	
+			private function OnInitialize(evt:FlexEvent):void {
+				_nIntervalId = setInterval( OnInterval, 1000 );
+				OnStatsLoaded();
+			}
+			
+			private function CalcStatValue( stat:Object ):Number {
+				var msNow:uint = (new Date).getTime();
+				var msDelta:uint = msNow - stat.timestamp;
+				return Math.floor(int(stat.base) + msDelta * stat.rate);
+			}
+			
+			private function UpdateStatItem( hbox:HBox ):void {
+				var stat:Object = hbox.data;
+				if (!stat) return;
+				
+				var lblValue:LabelPlus = hbox.getChildByName("stat.value." + stat.label) as LabelPlus;
+				if (lblValue) lblValue.text = LocUtil.bignum(CalcStatValue(stat));
+			}
+			
+			private function AddStatItem( stat:Object ):void {
+				var lblLabel:LabelPlus = new LabelPlus();
+				var lblValue:LabelPlus = new LabelPlus();
+				var hbox:HBox = new HBox();				
+				
+				lblLabel.text = rb.getString(stat.label);
+				lblLabel.styleName = "staticLabel";
+				lblLabel.name = "stat.label." + stat.label;
+
+				lblValue.text = LocUtil.bignum(CalcStatValue(stat));
+				lblValue.styleName = "dynamicContent";
+				lblValue.name = "stat.value." + stat.label;
+				
+				hbox.setStyle( "horizontalGap", 0 );
+				hbox.filters = [_fiWhiteShad];
+				hbox.addChild(lblLabel);
+				hbox.addChild(lblValue);
+				hbox.data = stat;
+
+				_statsBox.addChild(hbox);			
+			}
+			
+			private function OnStatsLoaded():void {
+				_statsBox.removeAllChildren();
+				for (var i:uint=0; i < stats.length; i++) {
+					AddStatItem(stats.getItemAt(i));
+				}
+			}
+			
+			private function OnInterval():void {
+				if (!stats) return;				
+				var aKids:Array = _statsBox.getChildren();
+				for (var i:uint=0; i < aKids.length; i++) {
+					UpdateStatItem(aKids[i]);
+				}
+			}
+			
+	   		[Bindable] [ResourceBundle("StatsBox")] private var rb:ResourceBundle;	   		
+   		]]>
+	</mx:Script>
+	<filters:DropShadowFilter id="_fiWhiteShad" blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1" quality="3" angle="90"/>
+
+	<mx:HBox horizontalGap="2" verticalAlign="middle" paddingLeft="3">
+		<ctl:ImageVer source="/graphics/icon_barChart.png" />
+		<ctl:LabelPlus text="@Resource(key='title', bundle='StatsBox')" styleName="h2" filters="{[_fiWhiteShad]}"/> 
+	</mx:HBox>
+	<ctl:LabelPlus text="@Resource(key='loading', bundle='StatsBox')" visible="{!stats.length}" includeInLayout="{!stats.length}"/>
+	<mx:VBox id="_statsBox">		
+	</mx:VBox>
+	<mx:Repeater id="rpStats" dataProvider="{stats}">
+	</mx:Repeater>
+</mx:VBox>

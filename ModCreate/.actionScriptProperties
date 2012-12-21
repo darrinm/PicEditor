@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<actionScriptProperties analytics="false" mainApplicationPath="ModCreate.mxml" projectUUID="34231ac6-1b10-458d-8555-5d6ea3eeb466" version="10">
+  <compiler additionalCompilerArguments="-locale en_US -source-path=../client/loc/{locale} -allow-source-path-overlap -load-externs=../website/app/picnik-link-report.xml -link-report=ModCreate-link-report.xml --compatibility-version=2.0.1 -o /src/picnik_o/picnik_oss/website/app/ModCreate.swf -define+=CONFIG::locale,&quot;'en_US'&quot; -define+=CONFIG::timestamp,&quot;'200806181258'&quot;" autoRSLOrdering="false" copyDependentFiles="false" flexSDK="Flex 3.2" fteInMXComponents="false" generateAccessible="false" htmlExpressInstall="true" htmlGenerate="false" htmlHistoryManagement="true" htmlPlayerVersionCheck="true" includeNetmonSwc="false" outputFolderPath="bin" removeUnusedRSL="true" rootURL="http://local.mywebsite.com/app" strict="true" targetPlayerVersion="10.0.0" useApolloConfig="false" useDebugRSLSwfs="true" verifyDigests="true" warn="true">
+    <compilerSourcePath>
+      <compilerSourcePathEntry kind="1" linkType="1" path="${DOCROOT}/client"/>
+      <compilerSourcePathEntry kind="1" linkType="1" path="${DOCROOT}/sharedcode"/>
+    </compilerSourcePath>
+    <libraryPath defaultLinkType="3">
+      <libraryPathEntry kind="3" linkType="2" path="${FLEX_3_2}/frameworks/libs/player/10/playerglobal.swc" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="4" path="">
+        <excludedEntries>
+          <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/qtp.swc" useDefaultLinkType="false"/>
+          <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/automation.swc" useDefaultLinkType="false"/>
+          <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/automation_dmv.swc" useDefaultLinkType="false"/>
+          <libraryPathEntry kind="3" linkType="1" path="${PROJECT_FRAMEWORKS}/libs/automation_agent.swc" useDefaultLinkType="false"/>
+        </excludedEntries>
+      </libraryPathEntry>
+      <libraryPathEntry kind="3" linkType="1" path="/coreLib/bin/coreLib.swc" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="1" path="/thirdPartyLib/bin/thirdPartyLib.swc" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="1" path="/utilLib/bin/utilLib.swc" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="1" path="/basicControlsLib/bin/basicControlsLib.swc" useDefaultLinkType="false"/>
+    </libraryPath>
+    <sourceAttachmentPath/>
+  </compiler>
+  <applications>
+    <application path="ModCreate.mxml"/>
+  </applications>
+  <modules/>
+  <buildCSSFiles/>
+  <flashCatalyst validateFlashCatalystCompatibility="false"/>
+</actionScriptProperties>

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TwitterOutBridgeBase xmlns="bridges.twitter.*" xmlns:pk="*" xmlns:ctrl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml"
+		width="100%" height="100%" fontSize="14" xmlns:flash="flash.filters.*" horizontalScrollPolicy="off" xmlns:dialogs="dialogs.*">
+	<mx:Script>
+		<![CDATA[
+			import util.LocUtil;
+			import mx.resources.ResourceBundle;
+	   		[Bindable] [ResourceBundle("TwitterOutBridge")] private var rb:ResourceBundle;
+		]]>
+	</mx:Script>
+	<states>
+		<mx:State name="NeedAuthorization">
+			<mx:RemoveChild target="{headline}"/>
+			<mx:RemoveChild target="{mainBox}"/>
+			<mx:AddChild position="lastChild">
+				<TwitterAccount id="_ssa" _tpa="{_tpa}" horizontalCenter="0" paddingBottom="10" top="15"/>
+			</mx:AddChild>
+			<mx:SetProperty target="{_imgLogoCrop}" name="alpha" value="1"/>
+			<mx:SetProperty name="verticalScrollPolicy" value="off"/>
+		</mx:State>
+		<mx:State name="AccountTypePro">
+		</mx:State>
+		<mx:State name="AccountTypeProWithImageID" basedOn="AccountTypePro"/>
+	</states>
+	<mx:Parallel id="_efslideopen" duration="200">
+		<mx:Fade alphaFrom="0" alphaTo="1"/>
+	</mx:Parallel>
+
+	<flash:DropShadowFilter id="_fiWhiteShad" blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1" quality="3" angle="90"/>
+	<flash:DropShadowFilter id="_fiDropShad" distance="1" angle="90" blurX="4" blurY="4" alpha=".2" quality="3"/>
+	<flash:DropShadowFilter id="_fiSoftShad" distance="0" angle="90" blurX="6" blurY="6" alpha=".15" quality="3"/>
+	<flash:DropShadowFilter id="_fiPreviewDropShad" distance="1" angle="90" blurX="4" blurY="4" alpha=".5" quality="3"/>
+	
+	<flash:DropShadowFilter id="_fiInnerShad" blurX="1" blurY="1" distance="1" color="#000000" alpha=".2" quality="3" angle="90" inner="true"/>
+	
+	<mx:Fade id="_efFadeIn" duration="300" alphaFrom="0" alphaTo="1"/>
+	<mx:Fade id="_efFadeOut" duration="200" alphaFrom="1" alphaTo="0"/>
+
+	<ctrl:ImageEx source="../graphics/bluegrad_short.gif" left="0" top="0" width="100%" height="260" maintainAspectRatio="false" includeInLayout="false" alpha=".3"/>
+	<mx:Binding source="_taTweet.text" destination="_strTweet"/>
+	
+	<ctrl:ImageEx id="_imgLogoCrop" left="0" top="0" source="../graphics/thirdpartylogos/twitter_crop.png" width="285" height="106" alpha=".15"/>
+	
+	<ctrl:ResizingLabel text="@Resource(key='twitterHead', bundle='TwitterOutBridge')" color="#005580" fontWeight="bold" fontSize="30" styleName="publishForm"
+		filters="{[_fiWhiteShad,_fiInnerShad]}" width="100%" autoFontSizeGap="1"
+		id="headline"
+		top="13" x="29" paddingRight="29"/>
+	<!-- main contents -->
+	<mx:HBox width="100%" height="100%" top="13" paddingRight="30" paddingLeft="30" x="0" horizontalGap="30" id="mainBox">
+		<!-- left column, form contents vbox -->
+  		<mx:VBox width="60%" height="100%" paddingTop="42" verticalGap="0" maxWidth="450" paddingBottom="10">
+			
+			<!-- button bar for modes -->
+			<mx:HBox width="100%" horizontalGap="0" paddingTop="5" paddingBottom="15" visible="true" includeInLayout="true">
+				<ctrl:ResizingButton label="@Resource(key='twitterPost', bundle='TwitterOutBridge')" width="100%" styleName="buttonLeft" toggle="true" height="30"
+						selected="{saveMode == 'tweet'}" click="saveMode = 'tweet'" paddingLeft="0" paddingRight="0"/>
+				<ctrl:ResizingButton label="@Resource(key='profilePicture', bundle='TwitterOutBridge')" width="100%" height="30" styleName="buttonMiddle"
+						selected="{saveMode == 'picture'}" click="saveMode = 'picture'" paddingLeft="0" paddingRight="0"/>
+				<ctrl:ResizingButton label="@Resource(key='twitterBackground', bundle='TwitterOutBridge')" width="100%" styleName="buttonRight" height="30"
+						selected="{saveMode == 'background'}" click="saveMode = 'background'" paddingLeft="0" paddingRight="0"/>
+			</mx:HBox>
+			
+			<ctrl:ImageVer source="@Embed('/assets/bitmaps/saveshad_top.png')" scaleContent="true" width="100%" height="3" maintainAspectRatio="false"/>
+
+			<!-- TWEET BOX -->
+			<mx:VBox id="_vboxTweet" visible="{saveMode == 'tweet'}" includeInLayout="{saveMode == 'tweet'}" width="100%">
+				<mx:VBox id="vbox1" verticalGap="0" width="100%" verticalAlign="top" paddingTop="12" paddingBottom="10">
+					<mx:HBox width="100%">
+						<mx:Label text="@Resource(key='Label_1', bundle='TwitterOutBridge')" width="100%" color="#618430"
+							fontWeight="bold" fontSize="21" styleName="publishForm" filters="{[_fiWhiteShad]}"/>
+						<mx:Label text="" id="_lblCharCount" fontSize="21" color="#666666" visible="true" includeInLayout="true" textAlign="right"
+							filters="{[_fiWhiteShad]}"/>
+					</mx:HBox>
+					<ctrl:TextAreaPlus width="100%" height="64" minHeight="64" maxHeight="142" styleName="publishFormField" id="_taTweet" text="{_strTweet}"/>
+					<ctrl:ResizingLabel htmlText="@Resource(key='lengthFootnote', bundle='TwitterOutBridge')" width="100%" textAlign="center" paddingTop="5"
+						fontWeight="normal" color="#666666" fontSize="13" filters="{[_fiWhiteShad]}"/>
+				</mx:VBox>
+				<!-- protected tweets warning, now with built in padding -->
+				<mx:HBox width="100%" id="_hbWarning" visible="false" includeInLayout="false" paddingBottom="10">
+					<mx:HBox width="100%" paddingTop="6" paddingRight="8" paddingBottom="6" paddingLeft="6" horizontalGap="2"
+							backgroundColor="#ffffb2" backgroundAlpha=".75" cornerRadius="8" borderStyle="solid" borderThickness="0"
+							horizontalScrollPolicy="off" verticalScrollPolicy="off" verticalAlign="middle">
+						<ctrl:ImageEx source="@Embed('/theme/pngs/alertIcon.png')" />
+						<mx:Text htmlText="@Resource(key='protectedWarning', bundle='TwitterOutBridge')" width="100%" selectable="false"/>
+					</mx:HBox>
+				</mx:HBox>
+				<!-- big button vbox -->
+				<mx:VBox verticalGap="10" paddingTop="5" width="100%" horizontalAlign="center">			
+					<ctrl:ResizingButton label="@Resource(key='_btnSend', bundle='TwitterOutBridge')" minWidth="200" height="34" fontSize="18" id="_btnSave" styleName="BigButton"	enabled="true"/>
+				</mx:VBox>
+				<!-- powered by twitgoo -->
+				<mx:HBox width="100%" horizontalAlign="center" horizontalGap="0" verticalAlign="middle" paddingTop="8" paddingBottom="10">
+					<ctrl:ResizingLabel text="@Resource(key='powered_by',bundle='LocUtil')" color="#999999" fontSize="12" filters="{[_fiInnerShad]}"/>
+					<ctrl:ImagePlus source="../graphics/thirdpartylogos/twitgoo_logo.png" filters="{[_fiSoftShad]}" width="71" height="22"
+						buttonMode="true" click="OnTwitGooClick()"/>
+				</mx:HBox>
+			</mx:VBox>
+
+			<!-- PROFILE PICTURE -->
+			<mx:VBox id="_vboxProfilePicture" visible="{saveMode == 'picture'}" includeInLayout="{saveMode == 'picture'}" width="100%"
+					 activate="OnProfilePic()">
+				<ctrl:ResizingLabel text="@Resource(key='iconPreviews', bundle='TwitterOutBridge')" width="100%" textAlign="center" paddingTop="15"
+					styleName="publishForm" filters="{[_fiWhiteShad]}"/>
+				<mx:HBox width="100%" horizontalAlign="center" verticalAlign="middle" horizontalGap="20">
+					
+					<mx:Canvas width="73" height="73" backgroundColor="#ffffff" filters="{[_fiDropShad]}" id="_cnvLarge">
+						<ctrl:ImageVer width="73" height="73" mouseChildren="false" mouseEnabled="false"
+							verticalCenter="0" horizontalCenter="0" id="_imgLarge"/>
+					</mx:Canvas>
+					
+					<mx:Canvas width="48" height="48" backgroundColor="#ffffff" filters="{[_fiDropShad]}" id="_cnvMedium">
+						<ctrl:ImageVer width="48" height="48" mouseChildren="false" mouseEnabled="false"
+							verticalCenter="0" horizontalCenter="0" id="_imgMedium"/>
+					</mx:Canvas>
+					
+					<mx:Canvas width="31" height="31" backgroundColor="#ffffff" filters="{[_fiDropShad]}" id="_cnvSmall">
+						<ctrl:ImageVer width="31" height="31" mouseChildren="false" mouseEnabled="false"
+							verticalCenter="0" horizontalCenter="0" id="_imgSmall"/>
+					</mx:Canvas>
+					
+					<mx:Canvas width="24" height="24" backgroundColor="#ffffff" filters="{[_fiDropShad]}" id="_cnvSmallest">
+						<ctrl:ImageVer width="24" height="24" mouseChildren="false" mouseEnabled="false"
+							verticalCenter="0" horizontalCenter="0" id="_imgSmallest"/>
+					</mx:Canvas>
+				</mx:HBox>
+				<!-- big button vbox -->
+				<mx:VBox verticalGap="10" paddingTop="15" paddingBottom="18" width="100%" horizontalAlign="center">			
+					<ctrl:ResizingButton label="@Resource(key='savePicture', bundle='TwitterOutBridge')" minWidth="220" height="34" fontSize="18"
+						id="_btnSaveProfilePicture" styleName="BigButton" enabled="true"/>
+				</mx:VBox>
+			</mx:VBox>				
+				
+			<!-- TWITTER BACKGROUND -->
+			<mx:VBox id="_vboxBackgroundImage" visible="{saveMode == 'background'}" includeInLayout="{saveMode == 'background'}" width="100%">
+				<mx:VBox verticalGap="0" width="100%" horizontalAlign="center" paddingTop="15" paddingBottom="10">
+					<mx:CheckBox id="_chkbTileBackground" label="@Resource(key='_chkbTileBackground', bundle='TwitterOutBridge')"
+						fontSize="14"/>
+				</mx:VBox>
+				<!-- big button vbox -->
+				<mx:VBox verticalGap="10" paddingTop="5" paddingBottom="18" width="100%" horizontalAlign="center">			
+					<ctrl:ResizingButton label="@Resource(key='saveBackground', bundle='TwitterOutBridge')" minWidth="220" height="34" fontSize="18"
+						id="_btnSaveProfileBackground" styleName="BigButton" enabled="true"/>
+				</mx:VBox>
+			</mx:VBox>
+			
+			<ctrl:ImageVer source="@Embed('/assets/bitmaps/saveshad_bot.png')" scaleContent="true" width="100%" height="3" maintainAspectRatio="false"/>
+		</mx:VBox>
+		
+		<!-- right column, image view vbox (drop shadow applied to contents) -->
+		<mx:VBox width="40%" height="100%" paddingTop="5" paddingBottom="20">
+			<!-- user presence -->
+			<mx:HBox verticalAlign="middle" paddingBottom="10" horizontalGap="2" id="_hbUserPresence" visible="false" includeInLayout="false">
+				<ctrl:ImagePlus id="_ipUserIcon" source="http://s3.amazonaws.com/twitter_production/profile_images/64520123/6a_mini.jpg"
+					filters="{[_fiDropShad]}" width="24" height="24" click="OnTwitterIdClick()"/>
+				<ctrl:ResizingLabel id="_lblScreenName" htmlText="@Resource(key='loggedInAs', bundle='TwitterOutBridge')"
+					color="#666666" fontSize="13" filters="{[_fiWhiteShad]}" paddingTop="2" click="OnTwitterIdClick()"/>
+				<ctrl:ResizingButton label="@Resource(key='disconnect', bundle='TwitterOutBridge')" useHandCursor="true"
+					id="_btnDisconnect" click="Logout()"
+					fontSize="13" styleName="clearButton" filters="{[_fiWhiteShad]}"/>
+			</mx:HBox>
+			<!-- preview -->
+			<pk:ImageView id="_imgvPreview" width="100%" height="100%" verticalAlign="top" horizontalAlign="left" minWidth="75" minHeight="75"
+				filters="{[_fiPreviewDropShad]}"/>
+		</mx:VBox>
+	</mx:HBox>
+</TwitterOutBridgeBase>

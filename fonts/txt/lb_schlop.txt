@@ -1,0 +1,12 @@
+fileName: lb_schlop.ttf
+name: Shlop
+subfamilyDisplayName: Regular
+fullName: Shlop
+displayName: Shlop
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 0
+pkName: pklb0schlop
+authorName: Ray Larabie
+authorUrl: http://www.larabiefonts.com/

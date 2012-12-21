@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cnt:EffectCanvas xmlns:cnt="containers.*" xmlns="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="156"
+	xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*" urlid="Fireside">
+	<mx:Script>
+		import util.LocUtil;
+		import mx.resources.ResourceBundle;
+   		[Bindable] [ResourceBundle("FiresideEffect")] private var rb:ResourceBundle;
+	</mx:Script>
+
+
+	<mx:Array id="_resetValues">
+		<local:StoredValue target="_sldrFade.value"/>
+	</mx:Array>
+	
+	<EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='FiresideEffect')" strAuthor="@Resource(key='_efbtn_1', bundle='FiresideEffect')"
+		strImageSource="../graphics/effects/Holiday/fireside.jpg" premium="{premium}"/>
+	<mx:String id="_strHelpText">{Resource.getString('FiresideEffect', '_strHelpText')}</mx:String>
+	
+	<mx:VBox x="8" y="70" verticalGap="0">
+		<mx:HBox width="190" paddingBottom="-5" paddingTop="3">
+			<mx:Label text="@Resource(key='fade', bundle='SpecialEffectsCanvas')" styleName="sliderTitle"/>
+			<mx:Label text="{LocUtil.pct((_sldrFade.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<HSliderPlus width="190" minimum="0" maximum="100" value="0" id="_sldrFade" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+
+		<ApplyCancelEffectButtons addBoxPadding="true" premium="{premium}"/>
+	</mx:VBox>
+	
+	<imageOperations:NestedImageOperation id="_op" BlendAlpha="{1-(_sldrFade.value/100)}">
+		<imageOperations:children>
+			<imageOperations:AdjustCurvesImageOperation BlendAlpha=".5"
+				RedCurve="{[{x:0, y:0}, {x:18, y:9}, {x:134, y:214}, {x:180, y:239}, {x:200,y:249}, {x:255,y:255}]}"
+				GreenCurve="{[{x:0, y:0}, {x:48, y:24}, {x:147, y:167}, {x:189, y:225}, {x:253, y:255}]}"
+				BlueCurve="{[{x:0, y:0}, {x:53, y:15}, {x:211, y:237}, {x:250, y:255}]}"
+			/>
+			<imageOperations:BlurImageOperation xblur="25" yblur="25" quality="3"
+				BlendAlpha=".5" BlendMode="overlay"/>
+		</imageOperations:children>
+	</imageOperations:NestedImageOperation>
+<!-- 
+data:[[0,0,255,255],
+[0, 0,18, 9,134, 214,180, 239,200, 249,255, 255],
+[0, 0,48, 24,147, 167,189, 225,253, 255],
+[0, 0,53, 15,211, 237,250, 255]]});
+
+-->
+</cnt:EffectCanvas>

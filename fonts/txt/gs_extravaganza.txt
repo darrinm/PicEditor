@@ -1,0 +1,12 @@
+fileName: gs_extravaganza.ttf
+name: extravaganza-
+subfamilyDisplayName: Normal
+fullName: extravaganza-
+displayName: extravaganza-
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 0
+pkName: pkgs0extravaganza
+authorName: Guillaume Seguin
+authorUrl: http://lastsoundtrack.fontspace.com/

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ctr:ActivatableModuleLoaderBase xmlns:ctr="containers.*" xmlns:ctrl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:url="urlkit.rules.*" >
+	<mx:Script>
+		import util.LocUtil;
+	</mx:Script>
+	<url:UrlNavigatorRule id="urls" viewStack="{_vstk}" urlFormat="/*" useChildLabelForTitle="false" urlField="urlkit"/>
+    
+	<mx:String id="urlkit"/>
+	<ctr:states>
+		<mx:State name="Preloading">
+			<mx:AddChild position="lastChild">
+				<mx:Canvas width="100%" height="100%" x="0" y="0">
+				</mx:Canvas>
+			</mx:AddChild>
+		</mx:State>
+		<mx:State name="Loading">
+			<mx:AddChild position="lastChild">
+				<mx:Canvas width="100%" height="100%" x="0" y="0">
+					<ctrl:Gears horizontalCenter="0" id="_gearsSWF" verticalCenter="-20" width="100" height="60"/>
+					<mx:ProgressBar maximum="100" minimum="0" id="_pb" mode="manual" 
+							trackHeight="20" label="" height="20" width="180" visible="false" includeInLayout="false" 
+							horizontalCenter="0" verticalCenter="+28"/>
+					<ctrl:ImageEx source="{'../graphics/' +PicnikBase.Locale()+ '/loadingPhrases.swf'}"
+							horizontalCenter="0" verticalCenter="+50"/>											
+				</mx:Canvas>
+			</mx:AddChild>
+		</mx:State>
+		<mx:State name="LoadingWithProgress" basedOn="Loading">
+			<mx:SetProperty target="{_pb}" name="visible" value="true"/>
+			<mx:SetProperty target="{_pb}" name="includeInLayout" value="true"/>
+		</mx:State>
+		<mx:State name="LoadingError">
+			<mx:AddChild position="lastChild">
+				<mx:Canvas width="100%" height="100%" x="0" y="0">
+					<mx:VBox horizontalCenter="0" verticalCenter="-50" horizontalAlign="center">
+						<mx:Text htmlText="@Resource(key='error_on_load', bundle='ActivatableModuleLoader')" textAlign="center" fontSize="14" color="#333333"/>
+						<mx:Button label="@Resource(key='reload', bundle='ActivatableModuleLoader')" fontSize="18" styleName="BigButton" click="OnReloadClick()"/>
+					</mx:VBox>
+				</mx:Canvas>
+			</mx:AddChild>
+		</mx:State>
+		<mx:State name="VersionMismatch">
+			<mx:AddChild position="lastChild">
+				<mx:Canvas width="100%" height="100%" x="0" y="0">
+					<mx:VBox horizontalCenter="0" verticalCenter="-50" width="100%" horizontalAlign="center">
+						<mx:Text htmlText="@Resource(key='version_mismatch', bundle='ActivatableModuleLoader')" textAlign="center" fontSize="14" color="#333333"/>
+						<mx:Button label="@Resource(key='refresh', bundle='ActivatableModuleLoader')" fontSize="18" styleName="BigButton" click="OnRefreshClick()"
+							 visible="{PicnikBase.app.canNavParentFrame}" includeInLayout="{PicnikBase.app.canNavParentFrame}"/>
+						<mx:Text paddingTop="8" htmlText="@Resource(key='version_mismatch2', bundle='ActivatableModuleLoader')" width="100%" textAlign="center" fontSize="12" color="#666666"/>
+					</mx:VBox>
+				</mx:Canvas>
+			</mx:AddChild>
+		</mx:State>
+	</ctr:states>
+</ctr:ActivatableModuleLoaderBase>

@@ -1,0 +1,12 @@
+fileName: tm_geodesic.ttf
+name: Geodesic
+subfamilyDisplayName: Regular
+fullName: Geodesic
+displayName: Geodesic
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 4
+pkName: pktm0geodesic
+authorName: Tom Murphy
+authorUrl: http://fonts.tom7.com/

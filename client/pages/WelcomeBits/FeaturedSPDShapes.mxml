@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas width="100%" height="100%" horizontalScrollPolicy="off" verticalScrollPolicy="off"
+		xmlns:filters="flash.filters.*" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:ctl="controls.*" xmlns:thumbnails="controls.thumbnails.*">
+	<mx:Boolean id="_fShowTryIt">{AccountMgr.GetInstance().isPremium}</mx:Boolean>
+	<mx:Script>
+		<![CDATA[
+			import dialogs.DialogManager;
+			import util.LocUtil;
+			import util.Navigation;
+
+			private function FeatureClick(): void {
+				// UNDONE:
+				//	Better sample image
+				// 	can we open directly to Stars and/or Hearts?
+				//	does ShowUpgrade()'s argument need a more shapely suffix than 'featuredpremium'?
+				if (_fShowTryIt || AccountMgr.GetInstance().isPremium) {
+					Navigation.DispatchNavEvent(this, PicnikBase.CREATIVE_TOOLS_TAB, '_ctFeatured', null);
+				} else {
+					DialogManager.ShowUpgrade('/home_welcome/featured/SPD_shapes');					
+				}
+			}
+		]]>
+	</mx:Script>
+	
+	<mx:Style>
+		.barGradientWhite {
+   border-style: solid;
+   border-thickness: 0;
+   border-skin: ClassReference("skins.GradientBackground");
+   gradient-fill-colors: #FFFFFF, #FFFFFF;
+   gradient-fill-alphas: .8,.6;
+   gradient-fill-ratios: 0,400;
+   gradient-rotation: 0;
+}
+	</mx:Style>
+
+	<filters:DropShadowFilter id="_fiDropShad" blurX="2" blurY="2" distance="1" color="#000000" alpha=".35" quality="3" angle="90"/>
+	<filters:DropShadowFilter id="_fiWhiteShad" blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1" quality="3" angle="90"/>
+	<filters:DropShadowFilter id="_fiTextShad" blurX="1" blurY="1" distance="1" color="#000000" alpha=".3" quality="3" angle="90"/>
+	<filters:GlowFilter id="_fiGlow" alpha=".2" blurX="6" blurY="6" color="#ffffff"/>
+	<filters:GlowFilter id="_bluGlow" alpha=".4" blurX="20" blurY="20" color="#005580"/>
+	
+	<!-- contents -->
+	<mx:VBox width="100%" height="100%" horizontalAlign="center">
+		
+		<mx:Canvas  cornerRadius="8" width="100%" height="100%" clipContent="true" bottom="0" left="0" horizontalScrollPolicy="off" verticalScrollPolicy="off">
+			<thumbnails:Thumbnail source="/graphics/welcome/featured/SPD_shapes.jpg" width="100%" height="100%"
+				left="0" maxWidth="615" maxHeight="230" cornerRadius="8" bottomCornerRadius="0"/>
+				<mx:Box styleName="barGradientWhite" width="100%" height="46" bottom="0" left="0" />
+			
+			<!-- try it button goes in here, only shown to premium folk -->
+			<mx:VBox bottom="7" right="10"
+					verticalAlign="middle" verticalGap="0" horizontalScrollPolicy="off" verticalScrollPolicy="off"
+					includeInLayout="{_fShowTryIt}" visible="{_fShowTryIt}">
+				<ctl:ResizingButton autoFontSizeGap="1"
+					label="@Resource(key='tryItNow', bundle='FeaturedFeatures')" 
+					styleName="basketButton" 
+					fontSize="20" height="36" minWidth="130" click="FeatureClick()"/>
+			</mx:VBox>
+			
+			<!-- upgrade / try it now button goes in here, shown to non-premium folk -->
+			<mx:VBox bottom="6" right="7" verticalGap="0" horizontalScrollPolicy="off" verticalScrollPolicy="off"
+					includeInLayout="{!_fShowTryIt}" visible="{!_fShowTryIt}">
+				<ctl:ResizingButton autoFontSizeGap="1"
+					label="@Resource(key='upgradeNow', bundle='FeaturedFeatures')" 
+					styleName="basketButtonBlue" 
+					fontSize="20" height="36" minWidth="150"
+					click="FeatureClick()"/>
+				<mx:Label htmlText="@Resource(key='tryItNow', bundle='FeaturedFeatures')" width="100%" styleName="subheadSmall" textAlign="center"
+					color="#002a40" filters="{[_fiWhiteShad]}" fontSize="16"
+					buttonMode="true" selectable="true" mouseEnabled="true"
+					mouseChildren="false" click="Navigation.DispatchNavEvent(this, PicnikBase.CREATIVE_TOOLS_TAB, '_ctShape', null);"/>
+			</mx:VBox>
+			
+			<mx:VBox bottom="3" left="10" verticalGap="0">
+				<ctl:TextPlus color="#002a40" fontSize="17" fontWeight="bold" htmlText="@Resource(key='SPDShapesIntro', bundle='FeaturedFeatures')" filters="{[_fiWhiteShad]}"/>
+				<ctl:TextPlus color="#005580" fontSize="15" fontWeight="bold" htmlText="@Resource(key='SPDShapesSubhead', bundle='FeaturedFeatures')" 
+					selectable="false" paddingTop="-6" width="400" paddingRight="10" leading="-2" filters="{[_fiWhiteShad]}"/>
+			</mx:VBox>
+		
+		</mx:Canvas>
+	</mx:VBox>
+
+</mx:Canvas>

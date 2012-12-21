@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cnt:EffectCanvas xmlns="effects.*" xmlns:cnt="containers.*" xmlns:ctrl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="193"
+	xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*" premium="{PicnikBase.GetApp().freemiumModel}" urlid="LocalContrast">
+	<mx:Script>
+		import util.LocUtil;
+		import mx.resources.ResourceBundle;
+   		[Bindable] [ResourceBundle("LocalContrastEffect")] private var rb:ResourceBundle;
+	</mx:Script>
+
+	
+	<mx:Array id="_resetValues">
+		<local:StoredValue target="_sldrRadius.value"/>
+		<local:StoredValue target="_sldrContrast.value"/>
+	</mx:Array>
+	
+	<ctrl:EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='LocalContrastEffect')" strAuthor="@Resource(key='_efbtn_1', bundle='LocalContrastEffect')" strImageSource="../graphics/effects/local_contrast.png" premium="{premium}"/>
+	<mx:String id="_strHelpText">{Resource.getString('LocalContrastEffect', '_strHelpText')}</mx:String>
+
+	<mx:Label x="8" y="70" text="@Resource(key='Label_1', bundle='LocalContrastEffect')" styleName="sliderTitle"/>
+	<mx:Label x="152" y="70" text="{Math.round(_sldrRadius.liveValue)}" styleName="sliderValue" textAlign="right" width="50"/>
+	<ctrl:HSliderFastDrag x="9" y="75" width="190" minimum="1.3" maximum="40" value="15" id="_sldrRadius" change="OnOpChange()" updateSpeed="{updateSpeed}" showDataTip="false"/>
+
+	<mx:Label x="8" y="110" text="@Resource(key='Label_2', bundle='LocalContrastEffect')" styleName="sliderTitle"/>
+	<mx:Label x="152" y="110" text="{LocUtil.pct(((_sldrContrast.value-1)*100))}" styleName="sliderValue" textAlign="right" width="50"/>
+	<ctrl:HSliderPlus x="9" y="115" width="190"  minimum="1" maximum="3" value="1.5" id="_sldrContrast" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+
+	<ctrl:ApplyCancelEffectButtons y="157" premium="{premium}"/>
+
+	<imageOperations:NestedImageOperation id="_op">
+		<imageOperations:children>
+			<!-- imageOperations:SimpleColorMatrixImageOperation Contrast="{-50/8*_sldrContrast.value}"/ -->
+			<imageOperations:SetVar Name="orig"/>
+			<imageOperations:BlurImageOperation xblur="{_sldrRadius.value}" yblur="{_sldrRadius.value}" quality="3"/>
+			<imageOperations:SetVar Name="blur"/>
+			<imageOperations:NestedImageOperation BlendMode="subtract">
+				<imageOperations:children>
+					<!-- imageOperations:GetVarImageOperation Name="blur"/ -->
+					<imageOperations:GetVarImageOperation Name="orig" BlendMode="subtract"/>
+					<imageOperations:MultiplyColorMatrixImageOperation Multiplier="{_sldrContrast.value}"/>
+				</imageOperations:children>
+			</imageOperations:NestedImageOperation>
+			<imageOperations:NestedImageOperation BlendMode="add">
+				<imageOperations:children>
+					<imageOperations:GetVarImageOperation Name="orig"/>
+					<imageOperations:GetVarImageOperation Name="blur" BlendMode="subtract"/>
+					<imageOperations:MultiplyColorMatrixImageOperation Multiplier="{_sldrContrast.value}"/>
+				</imageOperations:children>
+			</imageOperations:NestedImageOperation>
+		</imageOperations:children>
+	</imageOperations:NestedImageOperation>	
+</cnt:EffectCanvas>

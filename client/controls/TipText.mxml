@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+selectable must be "true" even though we don't want it to be selectable because
+otherwise <a href=""> links don't work.
+--> 
+<controls:TextPlus xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:controls="controls.*"
+		fontSize="13" color="#FFFFFF" paddingTop="-5" selectable="true" leading="-1"/>

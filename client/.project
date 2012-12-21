@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>Picnik</name>
+	<comment></comment>
+	<projects>
+		<project>basicControlsLib</project>
+		<project>thirdPartyLib</project>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>com.adobe.flexbuilder.project.flexbuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>com.adobe.flexbuilder.project.flexnature</nature>
+		<nature>com.adobe.flexbuilder.project.actionscriptnature</nature>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>[source path] sharedcode</name>
+			<type>2</type>
+			<locationURI>DOCROOT/sharedcode</locationURI>
+		</link>
+		<link>
+			<name>bin-debug</name>
+			<type>2</type>
+			<locationURI>DOCROOT/website/app</locationURI>
+		</link>
+	</linkedResources>
+</projectDescription>

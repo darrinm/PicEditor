@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml" width="190" xmlns:controls="controls.*" horizontalGap="5"
+	xmlns:flash.filters="flash.filters.*">
+<mx:Metadata>
+	[Event(name="change", type="flash.events.Event")]
+</mx:Metadata>
+<mx:Style>
+.ColorSlider
+{
+	thumbUpSkin: Embed(source="/assets/bitmaps/slider/colorThumbUp.png");
+	thumbOverSkin: Embed(source="/assets/bitmaps/slider/colorThumbUp.png");
+	thumbDownSkin: Embed(source="/assets/bitmaps/slider/colorThumbUp.png");
+	thumbDisabledSkin: Embed(source="/assets/bitmaps/slider/colorThumbUp.png");
+}
+</mx:Style>
+<mx:Script>
+	<![CDATA[
+		import skins.ValueSliderTrack;
+		import overlays.helpers.RGBColor;
+		
+		private var _clr:Number;
+		private var _clrInternal:Number;
+		private var _fUpdating:Boolean = false;
+		
+		[Bindable] 
+		private function set internalColor(n:Number): void {
+			_clrInternal = n;
+		}
+		
+		private function get internalColor(): Number {
+			return _clrInternal;
+		} 
+		
+		private function GetVal(clr:Number): Number {
+			return RGBColor.Uint2HSV(clr).v;
+		} 
+		
+		[Bindable] 
+		public function get color(): Number {
+			return _clr;
+		}
+		
+		public function set color(clr:Number): void {
+			if (_clr == clr) return;
+			_clr = clr;
+			if (_clrsw != null) _clrsw.thumbColor = clr;
+			if (_fUpdating) 
+				_clrInternal = _clr;
+			else
+				internalColor = _clr;
+			dispatchEvent(new Event(Event.CHANGE));
+		}
+		
+		private function SetColorWithoutUpdate(clr:Number): void {
+			var fUpdatingPrev:Boolean = _fUpdating;
+			_fUpdating = true;
+			color = clr;
+			_fUpdating = fUpdatingPrev;
+		} 
+		
+		private function UpdateColor(): void {
+			var obHSV:Object = RGBColor.Uint2HSV(_clrsw.color);
+			if (_sldrValue != null) obHSV.v = _sldrValue.value;
+			if (obHSV.h == undefined) obHSV.h = 0;
+			SetColorWithoutUpdate(RGBColor.HSVtoUint(obHSV.h, obHSV.s, obHSV.v));
+		}
+	]]>
+</mx:Script>
+	<mx:VBox verticalGap="1">
+		<!-- make sure the default preset color matches this color -->
+		<controls:HSBColorSwatch height="50" width="165" id="_clrsw" 
+			topGray="{_sldrValue.value * 255 / 100}"
+			hueStart="180"
+			saturationOnlyMode="true"
+			grayscaleSize="5" color="{internalColor}" 
+			change="UpdateColor()"/>
+		<mx:Canvas clipContent="false">
+			<controls:HSliderPlus x="-1" width="165" minimum="0" maximum="100" value="{GetVal(internalColor)}" id="_sldrValue" liveDragging="true" showDataTip="false"
+				styleName="ColorSlider"
+				sliderThumbClass="{controls.ShadowedSliderThumb}"
+				trackInfo="{_clrsw.color}" change="UpdateColor()"
+				trackSkin="skins.ValueSliderTrack"
+				/>
+		</mx:Canvas>
+	</mx:VBox>
+	<!-- selected color -->
+	<mx:Canvas width="20" height="68" id="_cnvColor" backgroundColor="{color}">
+		<mx:filters>
+			<flash.filters:DropShadowFilter angle="90" blurX="1.8" blurY="1.8" distance="1" color="0x000000" alpha=".4" quality="3" inner="true" />
+			<flash.filters:DropShadowFilter angle="90" blurX="1" blurY="1" distance="1" color="0xffffff" alpha="1" quality="3"/>
+		</mx:filters>
+	</mx:Canvas>
+</mx:HBox>

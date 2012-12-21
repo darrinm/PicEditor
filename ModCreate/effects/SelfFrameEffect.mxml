@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cnt:EffectCanvas xmlns="effects.*" xmlns:cnt="containers.*" xmlns:ctrl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml"
+		xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*"
+		width="100%" height="305" premium="true" urlid="MirroredFrame">
+	<mx:Script>
+		import util.LocUtil;
+		import mx.resources.ResourceBundle;
+   		[Bindable] [ResourceBundle("SelfFrameEffect")] private var rb:ResourceBundle;
+	</mx:Script>
+
+	<mx:Array id="_resetValues">
+		<local:StoredValue target="_cpkrTint.selectedColor"/>
+		<local:StoredValue target="_sldrThickness.value"/>
+		<local:StoredValue target="_sldrDetail.value"/>
+		<local:StoredValue target="_sldrShadow.value"/>
+	</mx:Array>
+	
+	<ctrl:EffectButton id="_efbtn" cornerRadius="0" strTitle="@Resource(key='_efbtn', bundle='SelfFrameEffect')" strAuthor="@Resource(key='_efbtn_1', bundle='SelfFrameEffect')"
+		strImageSource="../graphics/effects/Frames/mirrored_frame.png" premium="{premium}"/>
+	<mx:String id="_strHelpText">{Resource.getString('SelfFrameEffect', '_strHelpText')}</mx:String>
+
+	<mx:VBox x="10" y="67" verticalGap="0">
+		<mx:HBox width="194" paddingBottom="-5" paddingTop="3">
+			<mx:Label text="@Resource(key='Thickness', bundle='SelfFrameEffect')" styleName="sliderTitle"/>
+			<mx:Label text="{Math.round(_sldrThickness.value)}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<ctrl:HSliderPlus width="191" minimum="0" maximum="200" value="100" snapInterval="1" 
+				id="_sldrThickness" change="OnOpChange()" liveDragging="true" showDataTip="false"/>		
+
+		<mx:HBox width="194" paddingBottom="-5" paddingTop="3">
+			<mx:Label text="@Resource(key='Polish', bundle='SelfFrameEffect')" styleName="sliderTitle"/>
+			<mx:Label text="{Math.round(_sldrDetail.liveValue)}%" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<ctrl:HSliderFastDrag updateSpeed="{updateSpeed}" width="191" minimum="0" maximum="100" value="75" snapInterval="1" 
+				id="_sldrDetail" change="OnOpChange()" liveDragging="true" showDataTip="false"/>		
+
+		<mx:HBox width="194" paddingBottom="-5" paddingTop="3">
+			<mx:Label text="@Resource(key='Shadow', bundle='SelfFrameEffect')" styleName="sliderTitle"/>
+			<mx:Label text="{Math.round(_sldrShadow.liveValue)}%" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<ctrl:HSliderFastDrag updateSpeed="{updateSpeed}" width="191" minimum="0" maximum="100" value="20" snapInterval="1" 
+				id="_sldrShadow" change="OnOpChange()" liveDragging="true" showDataTip="false"/>		
+		
+		<mx:Spacer height="5"/>
+		<mx:HBox paddingTop="5" paddingLeft="5" paddingRight="8" paddingBottom="5" horizontalGap="5" width="190" horizontalScrollPolicy="off"
+				cornerRadius="5" backgroundColor="#ffffff" borderColor="#d9d9d9" borderStyle="solid" backgroundAlpha=".4" verticalAlign="middle">
+			<ctrl:ResizingLabel text="@Resource(key='Tint', bundle='SelfFrameEffect')" styleName="sliderTitle" paddingTop="2" width="100%" autoFontSizeGap="1"/>
+			<ctrl:HSBColorPicker id="_cpkrTint" selectedColor="{0xFFFCCC + zeroR}" liveColorChange="OnBufferedOpChange()" width="50"/>
+		</mx:HBox>
+
+		<ctrl:ApplyCancelEffectButtons addBoxPadding="true" premium="{premium}"/>
+	</mx:VBox>
+	
+</cnt:EffectCanvas>

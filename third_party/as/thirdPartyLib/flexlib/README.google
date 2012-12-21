@@ -1,0 +1,17 @@
+URL: http://code.google.com/p/flexlib/downloads/list
+Version: 2.4
+License: MIT
+License File: LICENSE
+
+Description:
+This is a library of flex widgets.
+
+Local Modifications:
+baseClasses.SliderBase.loadResources():
+ - Changes paths to resources to explicitly reference resource bundle name ("SharedResources")
+
+containers.utilityClasses.FlowLayout:
+ - Added lastUnscaledWidth private member
+ - Implemented TODO in measure(): 
+    o do delayed updates if we are not ready to update yet
+ - updateDislayList() does not measure on first call

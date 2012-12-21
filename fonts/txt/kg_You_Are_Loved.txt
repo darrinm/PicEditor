@@ -1,0 +1,12 @@
+fileName: kg_You_Are_Loved.ttf
+name: You Are Loved
+subfamilyDisplayName: Normal
+fullName: You Are Loved
+displayName: You Are Loved
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 0
+pkName: pkkg0You0Are0Loved
+authorName: Kimberly Geswein
+authorUrl: http://www.dafont.com/kimberly-geswein.d1468

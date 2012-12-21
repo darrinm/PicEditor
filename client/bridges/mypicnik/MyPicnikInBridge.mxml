@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MyPicnikInBridgeBase xmlns="bridges.mypicnik.*" xmlns:bridges="bridges.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%"
+		horizontalScrollPolicy="off" verticalScrollPolicy="off"  xmlns:flash="flash.filters.*" xmlns:ctrl="controls.*">
+	<mx:Script>
+		<![CDATA[
+			import dialogs.DialogManager;
+			import skins.GreyButtonSkin;
+			import mx.resources.ResourceBundle;
+	   		[Bindable] [ResourceBundle("MyPicnikInBridge")] private var rb:ResourceBundle;
+		]]>
+	</mx:Script>
+
+	<mx:Number id="_cPhotos">-1</mx:Number>
+	<mx:Number id="_cPhotoSets">-1</mx:Number>
+	<mx:Boolean id="_fIsPro">false</mx:Boolean>
+	<mx:String id="kstrSearchPrompt">{Resource.getString('MyPicnikInBridge', 'kstrSearchPrompt')}</mx:String>
+	
+	<states>
+		<mx:State name="NeedAuthorization">
+			<mx:RemoveChild target="{_tlst}"/>
+			<mx:RemoveChild target="{hbox1}"/>
+			<mx:RemoveChild target="{_hrShine}"/>
+			<mx:AddChild position="lastChild">
+				<!-- My Picnik upsell -->
+				<mx:VBox paddingTop="15" paddingRight="10" paddingLeft="10" verticalGap="28" horizontalCenter="0"
+						horizontalAlign="center" width="100%" maxWidth="550">
+					<mx:Text htmlText="@Resource(key='myPicnikAbout', bundle='MyPicnikInBridge')" width="100%" fontSize="20" color="#000000" textAlign="center" leading="0" paddingBottom="5"/>
+					<mx:HBox horizontalGap="10" width="100%" verticalAlign="middle">
+						<ctrl:ResizingButton label="@Resource(key='registerButton', bundle='MyPicnikInBridge')" minWidth="180" maxWidth="180" height="30"
+							fontSize="16" autoFontSizeGap="1" click="DialogManager.ShowRegister(PicnikBase.app);"/>
+						<mx:Text htmlText="@Resource(key='registerMessage', bundle='MyPicnikInBridge')" width="100%" fontSize="16" color="#000000" leading="0"/>
+					</mx:HBox>
+					<mx:HBox horizontalGap="10" width="100%" verticalAlign="middle">
+						<ctrl:ResizingButton label="@Resource(key='upgradeButton', bundle='MyPicnikInBridge')" minWidth="180" maxWidth="180" height="34" styleName="BigButton"
+							fontSize="16" autoFontSizeGap="1" click="DialogManager.ShowUpgrade( '/mypicnik', PicnikBase.app);"/>
+						<mx:Text htmlText="@Resource(key='upgradeMessage', bundle='MyPicnikInBridge')" width="100%" fontSize="16" color="#000000" leading="0"/>
+					</mx:HBox>
+				</mx:VBox>
+			</mx:AddChild>
+		</mx:State>
+		<mx:State name="NoImages">
+			<mx:RemoveChild target="{_tlst}"/>
+			<mx:AddChild relativeTo="{image1}" position="before">
+				<mx:HBox x="0" y="81" width="100%" horizontalAlign="center" paddingTop="20">
+					<mx:Text width="600" textAlign="center" condenseWhite="true" selectable="false" id="text1" htmlText="@Resource(key='text1', bundle='MyPicnikInBridge')" filters="{[_fiWhiteShad]}"/>
+				</mx:HBox>
+			</mx:AddChild>
+		</mx:State>
+		<mx:State name="NoImagesWithSearch">
+			<mx:RemoveChild target="{_tlst}"/>
+			<mx:AddChild position="lastChild">
+				<mx:HBox x="0" y="81" width="100%" horizontalAlign="center" paddingTop="20">
+					<mx:Text width="500" textAlign="center" condenseWhite="true" selectable="false" id="text2" htmlText="@Resource(key='text2', bundle='MyPicnikInBridge')" filters="{[_fiWhiteShad]}"/>
+				</mx:HBox>
+			</mx:AddChild>
+		</mx:State>
+	</states>
+	
+	<flash:DropShadowFilter id="_fiWhiteShad" blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha=".8" quality="3" angle="90"/>
+	
+	<ctrl:ImageVer source="../graphics/bluegrad_short.gif" left="0" top="0" width="100%" height="420" maintainAspectRatio="false" includeInLayout="false" alpha=".3"/>
+	<ctrl:ImageEx left="0" top="0" source="../graphics/thirdpartylogos/flickr_crop.png" alpha=".4"  id="image1"/>
+	<mx:HBox top="12" right="15" left="15" verticalAlign="middle" horizontalGap="0" id="hbox1">
+		<!--
+		<ctrl:ImageVer id="_imgUserThumbnail" useHandCursor="true" buttonMode="true" width="48" height="48">
+			<mx:filters>
+				<flash:DropShadowFilter distance="1" angle="90" blurX="4" blurY="4" alpha=".5" quality="3"/>
+	  		</mx:filters>
+  		</ctrl:ImageVer>
+  		-->
+		<mx:VBox verticalGap="0" paddingLeft="10" paddingRight="20" width="70%">
+			<mx:HBox verticalAlign="bottom" horizontalGap="3">
+				<ctrl:LabelPlus id="_lbGreeting" text="@Resource(key='_lbGreeting', bundle='MyPicnikInBridge')" useHandCursor="true" buttonMode="true" mouseChildren="false"
+					fontSize="21" fontWeight="bold" color="#000000" paddingBottom="-7" filters="{[_fiWhiteShad]}"/>
+				<ctrl:ImageVer id="_imgPro" source="@Embed('/assets/bitmaps/flickr_pro_badge.gif')" visible="{_fIsPro}" height="15"/>				
+			</mx:HBox>
+			<mx:HBox horizontalGap="10">
+				<!-- only option at the moment is Disconect which we don't need for MyPicnik
+				<mx:HBox horizontalGap="-1" verticalAlign="middle" id="_hbxOptions" filters="{[_fiWhiteShad]}">
+					<mx:Label text="@Resource(key='_lbOptions', bundle='MyPicnikInBridge')" id="_lbOptions" fontSize="14" color="#666666" height="21"/>
+					<ctrl:ImageVer source="@Embed('/theme/pngs/inlineDropDownArrow.png')"/>
+				</mx:HBox>
+				-->
+				<mx:Label text="{GetPhotosAndSets(_cPhotos, _cPhotoSets)}" id="_lbPhotoSummary" fontSize="14" color="#666666" height="21" maxWidth="200"/>				
+			</mx:HBox>
+		</mx:VBox>
+		<mx:HBox horizontalAlign="right" width="100%" horizontalGap="0" verticalAlign="middle" horizontalScrollPolicy="off" visible="false">
+			<mx:VBox verticalGap="0" paddingRight="20" width="100%" maxWidth="220" id="_vbxSearch" visible="false">
+				<mx:Label text="@Resource(key='Label_1', bundle='MyPicnikInBridge')" fontSize="14" paddingBottom="-5" paddingTop="10" paddingLeft="-2" enabled="{_cboxSets.selectedIndex == 0}"
+					filters="{[_fiWhiteShad]}"/>
+				<mx:Canvas width="100%" minWidth="140">
+					<ctrl:TextInputPlus width="100%" id="_tiFilter" height="26" minWidth="140" maxWidth="220" x="0" y="0"
+						enabled="{_cboxSets.selectedIndex==0}" enter="RefreshItemList()"/>
+					<mx:Button icon="@Embed('/theme/pngs/greenbutton/greenbuttonClose.png')" width="16" height="15" right="5" top="6" paddingLeft="0"
+						upSkin="{GreyButtonSkin}" overSkin="{GreyButtonSkin}" downSkin="{GreyButtonSkin}" disabledSkin="{GreyButtonSkin}"
+						visible="{_tiFilter.text?true:false}"
+						enabled="{_cboxSets.selectedIndex==0}"
+						click="_tiFilter.text='',RefreshItemList()"/>
+				</mx:Canvas>
+			</mx:VBox>
+			<mx:VBox verticalGap="5" paddingRight="5" horizontalAlign="right">
+				<mx:Label text="@Resource(key='Label_2', bundle='MyPicnikInBridge')" fontSize="14" height="26" paddingTop="2" filters="{[_fiWhiteShad]}"/>
+				<mx:Label text="@Resource(key='Label_3', bundle='MyPicnikInBridge')" fontSize="14" enabled="{_cboxSets.selectedIndex == 0}" height="26" paddingTop="1" filters="{[_fiWhiteShad]}"/>	
+			</mx:VBox>
+			<mx:VBox verticalGap="5" paddingRight="10" width="100%" maxWidth="300">
+				<ctrl:ComboBoxPlus id="_cboxSets" rowCount="8" width="100%" height="26" fontSize="14" color="#333333" minWidth="180" styleName="deviceFonts">
+					<ctrl:itemRenderer>
+						<mx:Component>
+			            	<mx:HBox verticalAlign="middle">
+			                	<mx:Label text="{data.label}" fontSize="14" width="100%" minWidth="90" paddingRight="5" styleName="deviceFonts"/>
+			                	<ctrl:ImageVer source="{data.icon}" height="36" width="36"/>
+			            	</mx:HBox>
+						</mx:Component>
+		            </ctrl:itemRenderer>
+				</ctrl:ComboBoxPlus>
+				<ctrl:ComboBoxPlus id="_cboxOrderBy" rowCount="8" width="180" height="26" fontSize="14" color="#333333" styleName="deviceFonts"
+						enabled="{_cboxSets.selectedIndex == 0}" selectedIndex="0" editable="{_cboxSets.selectedIndex == -2}">
+				       <mx:ArrayCollection>
+				           <mx:Object label="{Resource.getString('MyPicnikInBridge', 'Object_1')}" data="recently_updated"/>
+				           <mx:Object label="{Resource.getString('MyPicnikInBridge', 'Object_2')}" data="date-posted-desc"/>
+				           <mx:Object label="{Resource.getString('MyPicnikInBridge', 'Object_3')}" data="date-posted-asc"/>
+				           <mx:Object label="{Resource.getString('MyPicnikInBridge', 'Object_4')}" data="date-taken-desc"/>
+				           <mx:Object label="{Resource.getString('MyPicnikInBridge', 'Object_5')}" data="date-taken-asc"/>
+				           <mx:Object label="{Resource.getString('MyPicnikInBridge', 'Object_6')}" data="interestingness-desc"/>
+				           <mx:Object label="{Resource.getString('MyPicnikInBridge', 'Object_7')}" data="interestingness-asc"/>
+				       </mx:ArrayCollection>
+				</ctrl:ComboBoxPlus>
+			</mx:VBox>
+			<ctrl:ImageVer id="_imgPhotoSet" source="{_cboxSets.selectedItem.icon}" width="48" height="48" useHandCursor="true" buttonMode="true">
+				<mx:filters>
+					<flash:DropShadowFilter distance="1" angle="90" blurX="4" blurY="4" alpha=".5" quality="3"/>
+				</mx:filters>
+			</ctrl:ImageVer>
+		</mx:HBox>
+	</mx:HBox>
+	<mx:VBox id="_hrShine" top="79" width="100%" verticalGap="0">
+		<mx:HRule width="100%" strokeColor="#acd2e5" strokeWidth="1"/>
+		<mx:HRule width="100%" strokeColor="#ffffff" strokeWidth="1" alpha=".75"/>	
+	</mx:VBox>
+	<bridges:InBridgeTileList left="0" top="80" bottom="0" right="0" id="_tlst"/>
+</MyPicnikInBridgeBase>

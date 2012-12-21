@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PostSaveBase xmlns:local="*" xmlns="bridges.postsave.*" xmlns:mx="http://www.adobe.com/2006/mxml" 
+		xmlns:filters="flash.filters.*" xmlns:RegisterHelper="dialogs.RegisterHelper.*" xmlns:containers="containers.*"
+		xmlns:ctl="controls.*" xmlns:w="pages.WelcomeBits.*" 
+		width="100%" height="100%" verticalScrollPolicy="off" horizontalScrollPolicy="off"
+		xmlns:thumbnails="controls.thumbnails.*" xmlns:bridges="bridges.*">
+	<mx:Style source="PostSave.css"/>
+	<mx:Script>
+		<![CDATA[
+			import picnik.util.LocaleInfo;
+			import util.NextNavigationTracker;
+			import controls.TextPlus;
+			import controls.LabelPlus;
+			import dialogs.DialogManager;
+			import flash.net.navigateToURL;
+			import mx.collections.ArrayCollection;
+			import mx.collections.XMLListCollection;
+			import mx.effects.easing.*;
+			import mx.resources.ResourceBundle;
+			import mx.utils.ObjectProxy;
+			import util.LocUtil;
+			import imagine.ImageDocument;
+
+			[Bindable] private var _aobpLinks:ArrayCollection = new ArrayCollection([
+					new ObjectProxy({ label:"picnikTools", url: "tools" }),
+					new ObjectProxy({ label:"theBlog", url: "blog" }),
+					new ObjectProxy({ label:"developers", url: "api" }),
+					new ObjectProxy({ label:"badges", url: "badges" })
+				]);		
+   		]]>
+	</mx:Script>
+
+	<mx:Boolean id="isGuestMode">{AccountMgr.GetInstance().isGuest}</mx:Boolean>
+	<mx:Boolean id="isRegisteredMode">{!AccountMgr.GetInstance().isGuest &amp;&amp; !AccountMgr.GetInstance().isPaid}</mx:Boolean>
+	<mx:Boolean id="isPaidMode">{AccountMgr.GetInstance().isPaid}</mx:Boolean>
+	
+	<filters:DropShadowFilter id="_fiDropShad" blurX="7" blurY="7" distance="2" color="#000000" alpha=".35" quality="3" angle="90"/>
+	<filters:DropShadowFilter id="_fiModuleShine" blurX="0" blurY="0" distance="1" color="#FFFFFF" alpha="1" inner="true" quality="3" angle="90"/>
+	<filters:DropShadowFilter id="_fiModuleShadow" blurX="3" blurY="3" distance="1" color="#000000" alpha=".15" quality="3" angle="90" knockout="true"/>
+	<filters:DropShadowFilter id="_fiWhiteShad" blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1" quality="3" angle="90"/>
+	<filters:DropShadowFilter id="_fiStripeShadow" blurX="4" blurY="4" distance="1" color="#000000" alpha=".2" quality="3" angle="90"/>
+	<filters:DropShadowFilter id="_fiTileShadow" blurX="3" blurY="3" distance="1" color="#000000" alpha=".15" quality="3" angle="90"/>
+	<filters:DropShadowFilter id="_efEmbossed" blurX="0" blurY="0" distance="1" color="#000000" alpha=".4" quality="3" angle="-90"/>
+	<filters:DropShadowFilter id="_fiPremShadow" blurX="3" blurY="3" distance="1" color="#000000" alpha=".25" quality="3" angle="90"/>
+	<filters:DropShadowFilter id="_fiPremShine" blurX="0" blurY="0" distance="1" color="#FFFFFF" alpha=".9" inner="true" quality="3" angle="90"/>
+	
+	<mx:Fade id="_efFadeIn" duration="300" alphaFrom="0" alphaTo="1"/>
+	<mx:Fade id="_efFadeOut" duration="200" alphaFrom="1" alphaTo="0"/>
+	
+	<!-- green glow -->
+	<mx:Parallel id="_efGlowOver">
+		<mx:Glow blurXFrom="0" blurYFrom="0" blurXTo="15" blurYTo="15" color="#528013" alphaFrom="0" alphaTo=".4" duration="200" strength="2"/>	
+	</mx:Parallel>
+	<mx:Parallel id="_efGlowOut">
+		<mx:Glow blurXFrom="15" blurYFrom="15" blurXTo="0" blurYTo="0" color="#528013" alphaFrom=".4" alphaTo="0" duration="150" strength="2"/>
+	</mx:Parallel>
+	
+	<ctl:ImageEx source="../graphics/bluegrad_short.gif" left="0" top="0" width="100%" height="702" maintainAspectRatio="false" includeInLayout="false"/>
+	<ctl:ImageEx source="../graphics/clouds.jpg" horizontalCenter="0" top="0" width="983" height="177" includeInLayout="false" horizontalAlign="center"/>
+	<!-- this canvas generates the scroll bars, allowing the above images to stay pinned to the top of the page -->
+	<mx:Canvas id="mainCanvas" bottom="0" top="0" left="0" right="0" verticalLineScrollSize="38" horizontalScrollPolicy="off">
+		
+		<!-- master vbox, aligned center and top, bumped down 50px if message is showing -->
+		<mx:VBox top="0" horizontalCenter="0" height="100%" width="667" horizontalAlign="center" paddingLeft="26" paddingRight="26" verticalGap="15">
+			<!-- currently open photo -->
+			<mx:HBox width="100%" verticalAlign="middle" horizontalAlign="left" horizontalGap="15" paddingTop="15" paddingBottom="5">
+			</mx:HBox>
+
+			<!-- edit the gallery button -->
+			<!-- Hiding this for now, will replace with a full module
+			that covers all options not just show-->
+			<!--<mx:HBox width="100%" verticalAlign="middle" horizontalAlign="center"
+					visible="{infoGallery != null}" includeInLayout="{infoGallery != null}"
+					click="DoEditGallery()" rollOverEffect="{_efGlowOver}" rollOutEffect="{_efGlowOut}">
+				<ctl:ResizingLabel autoFontSizeGap="1" text="@Resource(key='openGallery', bundle='PostSave')" 
+						paddingBottom="3" fontSize="14" fontWeight="normal" filters="{[_fiWhiteShad]}" buttonMode="true"/>
+				<mx:VBox width="80" height="80" horizontalAlign="center" verticalAlign="middle" rotation="2"
+						backgroundColor="#FFFFFF" backgroundAlpha="1.0" cornerRadius="8" borderStyle="solid" borderColor="#f7f7f7"
+						filters="{[_fiTileShadow]}" buttonMode="true">
+					<ctl:ImageVer width="100%" height="100%" maxHeight="70" maxWidth="70" horizontalCenter="0" verticalAlign="center"
+					    source="{infoGallery.thumbnailurl}" mouseChildren="false" mouseEnabled="false"/>
+				</mx:VBox>				
+			</mx:HBox>-->
+
+			
+			<!-- photo is saved module, show to registered and paid users -->
+			<mx:VBox width="100%" styleName="premiumGradient" cornerRadius="8" filters="{[_fiPremShine,_fiPremShadow]}" verticalGap="0" verticalAlign="middle">
+				<!-- saved message -->
+				<mx:HBox width="100%" horizontalGap="10" verticalCenter="0" verticalAlign="middle"
+						paddingTop="16" paddingRight="10" paddingBottom="10" paddingLeft="10" clipContent="false">
+					<!-- currently open image-->
+					<mx:Canvas width="110" height="110" clipContent="false">
+						<mx:VBox width="160" height="160" horizontalAlign="center" verticalAlign="middle" rotation="-3"
+								verticalCenter="0" horizontalCenter="-20"
+								backgroundColor="#FFFFFF" backgroundAlpha="1.0" cornerRadius="8" borderStyle="solid" borderColor="#f7f7f7"
+								filters="{[_fiTileShadow]}" click="PicnikBase.app.ResumeEditing()"
+								buttonMode="true"
+								rollOverEffect="{_efGlowOver}" rollOutEffect="{_efGlowOut}">
+							<local:ImageView id="_imgvPreview" width="100%" height="100%" maxHeight="138" maxWidth="138" horizontalCenter="0" verticalAlign="center"
+									imageDocument="{PicnikBase.app.activeDocument as ImageDocument}" mouseChildren="false" mouseEnabled="false"/>
+						</mx:VBox>
+					</mx:Canvas>
+							
+					<mx:Canvas width="100%" height="100%">
+						<mx:HBox width="100%" horizontalGap="0" verticalAlign="top">
+							<mx:VBox verticalGap="0" width="100%" paddingLeft="30">
+								<ctl:ResizingLabel id="_lblPhotoSavedTo" text="{GetPhotoSavedText()}" width="100%"
+										styleName="h1" color="#ffffff" fontThickness="100" autoFontSizeGap="1"
+										filters="{[_efEmbossed]}" paddingBottom="-7"/>
+								<ctl:TextPlus id="_txtPhotoHistorySavedSubhead" htmlText="{photoHistorySavedSubhead}" width="100%" paddingBottom="4"
+										filters="{[_efEmbossed]}" styleName="subheadPrem" selectable="false" fontSize="15" fontWeight="bold" leading="-2" 
+										paddingRight="30" visible="{isRegisteredMode || isPaidMode}" includeInLayout="{isRegisteredMode || isPaidMode}"
+										link="OnLink(event)"/>
+								<ctl:TextPlus htmlText="@Resource(key='guestSaveSubhead', bundle='PostSave')" width="100%" paddingBottom="4"
+										filters="{[_efEmbossed]}" styleName="subheadPrem" selectable="false" fontSize="15" fontWeight="bold" leading="-2" 
+										 paddingRight="30" visible="{isGuestMode}" includeInLayout="{isGuestMode}"/>
+								<containers:ResizingHBox width="100%" horizontalGap="10" paddingTop="10" paddingBottom="10" horizontalAlign="left" maxWidth="445">
+									<ctl:ResizingButton label="@Resource(key='closePhoto', bundle='PostSave')" fontSize="16" minWidth="180" height="32"
+											styleName="basketButton" 
+											click="PicnikBase.app.CloseActiveDocument()"/>
+									<ctl:ResizingButton autoFontSizeGap="1" label="@Resource(key='continueEditing', bundle='PostSave')" fontSize="16" 
+											minWidth="180" height="32" styleName="basketButtonGrey" click="PicnikBase.app.ResumeEditing()"/>
+								</containers:ResizingHBox>
+							</mx:VBox>
+						</mx:HBox>
+					</mx:Canvas>
+				</mx:HBox>
+				
+				<!-- footer upsell, shown to free registered users -->
+				<mx:VBox verticalGap="0" width="100%" visible="{isRegisteredMode}" includeInLayout="{isRegisteredMode}" horizontalAlign="right">
+					<mx:HRule width="485" strokeWidth="1" strokeColor="#000000" alpha=".2"/>
+					<mx:HRule width="485" strokeWidth="1" strokeColor="#ffffff" alpha=".2"/>
+					<mx:HBox width="100%" horizontalGap="0" paddingTop="7" paddingRight="9" paddingBottom="7" paddingLeft="5" verticalAlign="middle">
+						<ctl:ImageEx source="../graphics/premium_sun.png"/>
+						<mx:VBox width="100%" verticalGap="0" paddingLeft="-5" clipContent="false" paddingRight="5">
+							<ctl:ResizingLabel text="@Resource(key='getUnlimHistory', bundle='PostSave')" width="100%" styleName="h2Prem" paddingBottom="-8"
+								filters="{[_efEmbossed]}" fontSize="15" autoFontSizeGap="1"/>
+							<ctl:TextPlus text="@Resource(key='superStarPowers', bundle='PremiumModule')" selectable="false"
+								width="100%" styleName="subheadPrem" filters="{[_efEmbossed]}"/>
+						</mx:VBox>
+						<ctl:ResizingButton label="@Resource(key='findOutMore', bundle='PremiumModule')" maxWidth="145" width="100%" height="32"
+							styleName="basketButton" fontSize="16" autoFontSizeGap="1" 
+							click="DialogManager.ShowUpgrade('/postsave/learnmore',PicnikBase.app)"/>
+					</mx:HBox>
+				</mx:VBox>
+			</mx:VBox>
+			
+			<!--BEFORE & AFTER images taken out of the old History module-->
+			<!--<mx:Canvas width="190" minHeight="100">
+								<mx:VBox width="90" height="90" horizontalAlign="center" verticalAlign="middle" rotation="3"
+										right="0" verticalCenter="0"
+										backgroundColor="#FFFFFF" backgroundAlpha="1.0" cornerRadius="8" borderStyle="solid" borderColor="#f7f7f7"
+										filters="{[_fiDropShad]}">
+									<local:ImageView id="_imgvAfter" width="100%" height="100%" maxHeight="80" maxWidth="80" horizontalCenter="0" verticalAlign="center"
+										imageDocument="{PicnikBase.app.activeDocument as ImageDocument}" mouseChildren="false" mouseEnabled="false"/>
+								</mx:VBox>
+								<ctl:ImageEx source="../graphics/arrow_white.png" verticalCenter="0" horizontalCenter="-10" filters="{[_fiDropShad]}"/>
+								<mx:VBox width="90" height="90" horizontalAlign="center" verticalAlign="middle" rotation="-3"
+										left="0" verticalCenter="0"
+										backgroundColor="#FFFFFF" backgroundAlpha="1.0" cornerRadius="8" borderStyle="solid" borderColor="#f7f7f7"
+										filters="{[_fiDropShad]}">
+									<local:ImageView showOriginal="true" id="_imgvBefore" width="100%" height="100%" maxHeight="80" maxWidth="80" horizontalCenter="0" verticalAlign="center"
+										imageDocument="{PicnikBase.app.activeDocument as ImageDocument}" mouseChildren="false" mouseEnabled="false"/>
+								</mx:VBox>
+							</mx:Canvas>-->
+
+			<!-- print promo module -->
+			<mx:HBox width="100%" paddingTop="12">
+				<ctl:ImageEx source="../graphics/page_divider.png" scaleContent="true" width="100%" maxWidth="760" height="2" maintainAspectRatio="false"/>
+			</mx:HBox>
+			<mx:Canvas width="100%" horizontalScrollPolicy="off" verticalScrollPolicy="off">
+					<mx:HBox width="100%" paddingTop="12" paddingBottom="9" verticalAlign="top" horizontalGap="5" id="_tst4" horizontalScrollPolicy="off" verticalScrollPolicy="off">
+						<mx:VBox width="100%" verticalGap="0" paddingRight="15" horizontalScrollPolicy="off" verticalScrollPolicy="off">
+							<ctl:ResizingLabel text="@Resource(key='printPhoto', bundle='PostSave')" styleName="h2" fontSize="22" fontThickness="100" paddingBottom="-7"
+								filters="{[_fiWhiteShad]}" maxWidth="376"/>
+							<ctl:TextPlus htmlText="@Resource(key='printPhotoSubhead', bundle='PostSave')" styleName="subhead" fontSize="16" width="100%" paddingBottom="18"
+								filters="{[_fiWhiteShad]}" selectable="false" maxWidth="376"/>
+							<ctl:ResizingButton label="@Resource(key='startPrinting', bundle='PostSave')" styleName="BigButton" minWidth="210" maxWidth="220"
+								fontSize="20" height="40" click="NextNavigationTracker.OnClick('/start_printing'); PicnikBase.app.NavigateTo(PicnikBase.OUT_BRIDGES_TAB,'_brgPrinterOut')"/>
+						</mx:VBox>
+						<ctl:ImageEx source="../graphics/qoop/Print_Icon.png"/>
+					</mx:HBox>
+					<!-- qoop december '09 promo splat
+					<ctl:ImageEx source="../graphics/qoop/qoop_sale_splat_large.png" top="0" right="105"
+						visible="{LocaleInfo.IsEnglish()}" includeInLayout="{LocaleInfo.IsEnglish()}"/>
+					-->
+			</mx:Canvas>
+			<mx:HBox width="100%" paddingBottom="22">
+				<ctl:ImageEx source="../graphics/page_divider.png" scaleContent="true" width="100%" maxWidth="760" height="2" maintainAspectRatio="false"/>
+			</mx:HBox>
+			<!-- register module -->
+			<mx:Canvas width="100%" visible="{isGuestMode}" includeInLayout="{isGuestMode}">
+				<mx:Box width="100%" height="100%" filters="{[_fiModuleShadow]}" backgroundColor="#FFFFFF" borderStyle="solid" cornerRadius="8" borderThickness="0" x="0" y="0"/>
+				<mx:Canvas width="100%" styleName="moduleGradient" cornerRadius="8" filters="{[_fiModuleShine]}" x="0" y="0"
+						horizontalScrollPolicy="off" verticalScrollPolicy="off">
+					<!-- registration enticement bullet list -->
+					<!-- UNDONE: this should hide the moment a user starts typing into a reg form field -->
+					<mx:VBox visible="{!_tabRegister.formIsDirty}" width="300" right="10" verticalCenter="-6" verticalGap="-3"
+							hideEffect="{_efFadeOut}" showEffect="{_efFadeIn}">
+						<ctl:ResizingLabel text="@Resource(key='enticeHead', bundle='RegisterTab')" fontSize="15" color="#005580" maxWidth="300" autoFontSizeGap="1"/>
+						<mx:HBox horizontalGap="-12" width="100%" maxWidth="300">
+							<mx:Label text="•" fontSize="15" paddingTop="-1"/>
+							<ctl:TextPlus htmlText="@Resource(key='entice1', bundle='RegisterTab')" styleName="subhead" width="100%"/>
+						</mx:HBox>
+						<mx:HBox horizontalGap="-12" width="100%" maxWidth="300">
+							<mx:Label text="•" fontSize="15" paddingTop="-1"/>
+							<ctl:TextPlus htmlText="@Resource(key='entice2', bundle='RegisterTab')" styleName="subhead" width="100%"/>
+						</mx:HBox>
+						<mx:HBox horizontalGap="-12" width="100%" maxWidth="300">
+							<mx:Label text="•" fontSize="15" paddingTop="-1"/>
+							<ctl:TextPlus htmlText="@Resource(key='entice3', bundle='RegisterTab')" styleName="subhead" width="100%"/>
+						</mx:HBox>
+						<mx:HBox horizontalGap="-12" width="100%" maxWidth="300">
+							<mx:Label text="•" fontSize="15" paddingTop="-1"/>
+							<ctl:TextPlus htmlText="@Resource(key='entice4', bundle='RegisterTab')" styleName="subhead" width="100%"/>
+						</mx:HBox>
+						<mx:HBox horizontalGap="-12" width="100%" maxWidth="300">
+							<mx:Label text="•" fontSize="15" paddingTop="-1"/>
+							<ctl:TextPlus htmlText="@Resource(key='entice5', bundle='RegisterTab')" styleName="subhead" width="100%" fontWeight="bold"/>
+						</mx:HBox>
+					</mx:VBox>
+					<!-- main content, form -->
+					<mx:VBox verticalGap="0" width="100%" height="100%">
+						<mx:HBox width="100%" horizontalGap="7" verticalAlign="middle" paddingTop="9" paddingRight="10" paddingBottom="8" paddingLeft="10">
+							<ctl:ImageEx source="../graphics/history_icon_large.png" width="52" height="53" />
+							<mx:VBox verticalGap="0" width="100%">
+								<ctl:ResizingLabel text="@Resource(key='keepCopy', bundle='PostSave')" styleName="h2" fontThickness="100"
+									filters="{[_fiWhiteShad]}" paddingBottom="-7"/>
+								<ctl:TextPlus htmlText="@Resource(key='keepCopySubhead', bundle='PostSave')" width="100%" styleName="subhead"
+									link="OnLink(event)"/>
+							</mx:VBox>
+						</mx:HBox>
+						<mx:HRule strokeColor="#005580" strokeWidth="1" width="100%" alpha=".2"/>
+						<mx:HRule strokeColor="#ffffff" strokeWidth="1" width="100%"/>
+						<RegisterHelper:RegisterTab id="_tabRegister" currentState="Inline" paddingTop="7" width="100%" height="280"/>
+					</mx:VBox>
+				</mx:Canvas>
+				<containers:HideRemoveCanvas id="_cnvWorking" width="100%" height="100%"
+						showEffect="{_efFadeIn}" hideEffect="{_efFadeOut}"
+						backgroundColor="#e8f4fd" cornerRadius="9" borderStyle="solid" borderThickness="0" backgroundAlpha=".75"
+						horizontalScrollPolicy="off" verticalScrollPolicy="off" visible="{_tabRegister.working}">
+					<ctl:Gears horizontalCenter="0" verticalCenter="0" visible="{_tabRegister.working}"/>
+				</containers:HideRemoveCanvas>
+				
+			</mx:Canvas>
+
+		<!-- premium module -->
+			<mx:HBox paddingTop="20" width="100%">
+				<w:PremiumModule visible="{isGuestMode}" includeInLayout="{isGuestMode}" width="100%" upgradeSource="/postsave/premiummodule"/>
+			</mx:HBox>
+
+			<!-- third party bubbles box -->
+			<!-- UNDONE: should only show if the photo was being saved to computer -->
+			<!--taken out for print elevation modifications--> 
+			<!--<mx:HBox id="_hboxBubbles" width="100%" horizontalAlign="center" verticalAlign="middle">
+				<ctl:TextPlus htmlText="@Resource(key='didYouKnowThirdParty', bundle='PostSave')" styleName="subhead"
+					width="100%" maxWidth="260" textAlign="right" filters="{[_fiWhiteShad]}" selectable="false"/>-->
+				<!-- bubbles! -->
+				<!--<ctl:ThirdPartyBubbleBox tab="{PicnikBase.OUT_BRIDGES_TAB}"/>
+			</mx:HBox>-->
+			
+			<!-- footer -->
+			<mx:Canvas width="100%" height="100%" minHeight="110" clipContent="false">
+				<mx:VBox bottom="0" width="470" verticalGap="0" paddingBottom="15" paddingTop="25">
+					<!-- links -->
+					<mx:HBox horizontalGap="0" filters="{[_fiWhiteShad]}">
+						<mx:Repeater id="rpLinks" dataProvider="{_aobpLinks}">
+							<ctl:LabelPlus text="·" fontSize="13" color="#999999" visible="{rpLinks.currentIndex}" includeInLayout="{rpLinks.currentIndex}"/>
+							<ctl:LabelPlus text="{Resource.getString('WelcomeNew',rpLinks.currentItem.label)}" color="#618430" fontSize="13"
+								buttonMode="true" useHandCursor="true" mouseChildren="false" data="{rpLinks.currentItem.url}"
+								rollOver="{(event.target as LabelPlus).setStyle('color','#2d4006')}" rollOut="{(event.target as LabelPlus).setStyle('color','#618430')}"
+								click="PicnikBase.app.ShowDialog(event.target.data)"/>
+						</mx:Repeater>
+					</mx:HBox>
+					<!-- languages -->
+					<w:Languages width="100%"/>
+					<mx:Label htmlText="©2009 Picnik, Inc." fontSize="11" color="#999999"/>
+				</mx:VBox>
+				
+				<!-- dandelions -->
+				<mx:Canvas bottom="0" right="-55" width="180">
+					<ctl:ImageEx bundled="true" source="/graphics/dandelions/dandelion3.png" bottom="0" right="33" width="73" height="108"/>
+					<ctl:ImageEx bundled="true" source="/graphics/dandelions/dandelion1.png" bottom="0" right="94" width="53" height="84"/>
+					<ctl:ImageEx bundled="true" source="/graphics/dandelions/dandelion4.png" bottom="0" right="0" width="66" height="77"/>
+					<ctl:ImageEx bundled="true" source="/graphics/dandelions/dandelion2.png" bottom="0" right="49" width="57" height="59"/>
+				</mx:Canvas>
+			
+			</mx:Canvas>
+
+		</mx:VBox>
+	</mx:Canvas>
+	<mx:Script>
+		<![CDATA[
+			import bridges.Bridge;
+		]]>
+	</mx:Script>
+</PostSaveBase>

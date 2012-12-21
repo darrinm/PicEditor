@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ct:SpecialEffectsCanvasBase xmlns="*" xmlns:ct="creativeTools.*" xmlns:mx="http://www.adobe.com/2006/mxml" 
+		xmlns:eff="effects.*" xmlns:filters="flash.filters.*" xmlns:ctr="containers.*"
+		width="100%" verticalLineScrollSize="38" horizontalScrollPolicy="off" verticalScrollPolicy="on" xmlns:controls="controls.*">
+	<mx:Script>
+		<![CDATA[
+			import picnik.util.LocaleInfo;
+		]]>
+	</mx:Script>
+	<filters:DropShadowFilter blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1"
+		quality="3" angle="90" id="_fiWhiteShad"/>
+	
+	<ctr:IncrementalInitVBox verticalGap="0" width="100%" x="0" id="_vb">
+		<mx:HBox backgroundImage="@Embed('/theme/pngs/effects_bg_header.png')" backgroundSize="100%"
+				 borderSides="bottom" borderStyle="solid" borderColor="#d1d1d1" width="100%" paddingLeft="8" height="20" paddingTop="1">
+			<mx:Label text="@Resource(key='Label_10', bundle='SpecialEffectsCanvas')" color="#354d13" filters="{[_fiWhiteShad]}" fontWeight="{LocaleInfo.BoldWeight()}"/>
+		</mx:HBox>
+		
+		
+		
+		<!--Exclusive Here-->
+		<eff:ColorGradient/>
+		<ct:BWSet _imgd="{_imgd}" _imgv="{_imgv}"/>
+		<mx:HBox backgroundImage="@Embed('/theme/pngs/effects_bg_header.png')" backgroundSize="100%"
+				borderSides="bottom" borderStyle="solid" borderColor="#d1d1d1" width="100%" paddingLeft="8" height="20" paddingTop="1">
+			<mx:Label text="@Resource(key='teamPicks', bundle='CreativeTools')" color="#354d13" filters="{[_fiWhiteShad]}"/>
+		</mx:HBox>
+		<!--<eff:PastelPaintEffect/>-->
+		<!--<eff:HueClampEffect tags="admin,effect"/>-->
+		<eff:GooToneEffect tags="admin,effect"/>
+		<eff:PopArtEffect tags="admin,effect"/>
+		<!--<eff:RouletteEffect tags="admin,effect"/>-->
+		
+		<!-- not quite right -->
+		<mx:HBox backgroundImage="@Embed('/theme/pngs/effects_bg_header.png')" backgroundSize="100%"
+				borderSides="bottom" borderStyle="solid" borderColor="#d1d1d1" width="100%" paddingLeft="8" height="20" paddingTop="1">
+			<mx:Label text="@Resource(key='Label_1', bundle='Admin')" color="#354d13" filters="{[_fiWhiteShad]}"/>
+		</mx:HBox>
+		<eff:BokehEffect tags="admin,effect"/>
+		<!--<eff:StretchAndSqueezeEffect tags="admin,effect"/>-->
+		<eff:SilverScreenEffect tags="admin,effect"/>
+		<eff:FiresideEffect tags="admin,effect"/>
+		<eff:GlitterEffect tags="admin,effect"/>
+		<!--<eff:ButterflyFrameEffect tags="admin,frame"/>-->
+		<eff:ArtsyBrushEffect tags="admin,effect"/>
+		<!--<eff:WatermarkEffect tags="admin,effect"/>-->
+		<!--<eff:AdvancedBWEffect tags="admin,effect"/>-->
+		<eff:TiltShiftEffect tags="admin,effect"/>
+
+		<eff:BlurEffect tags="admin,effect"/>
+		<eff:NoiseEffect tags="admin,effect"/>
+		<!--<eff:SplitToneEffect tags="admin,effect"/>-->
+		<!-- internal use only 
+		<mx:HBox backgroundImage="@Embed('/theme/pngs/effects_bg_header.png')" backgroundSize="100%"
+				borderSides="bottom" borderStyle="solid" borderColor="#d1d1d1" width="100%" paddingLeft="8" height="20" paddingTop="1">
+			<mx:Label text="@Resource(key='Label_2', bundle='Admin')" color="#354d13" filters="{[_fiWhiteShad]}"/>
+		</mx:HBox>
+		<eff:GraphicNovelEffect/>
+		<eff:TelevisionEffect/>
+		<eff:ScanLineEffect/>
+		<eff:NoiseEffect/>
+		<eff:EdgeDetectionEffect/>
+		<eff:DodgeEffect/>
+		<eff:BurnEffect/>
+		<eff:ExposureEffect/>
+		
+		-->
+	</ctr:IncrementalInitVBox>
+</ct:SpecialEffectsCanvasBase>

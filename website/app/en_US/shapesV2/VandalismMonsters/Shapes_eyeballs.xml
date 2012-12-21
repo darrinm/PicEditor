@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/shape_eyeballs.png" flickrPremium="false" id="eyeballs" numShapes="4" picnikPremium="false" previewUrls="60|48|../clipart/bundles/VandalismMonstersArea_groupPreviews_eyeballs.png?ver=79965f3f" title="Eyeballs">
+	<Shapes>
+		<Clipart cHeight="1454" cWidth="1470" flickrPremium="false" isVector="false" picnikPremium="false" previewUrl="40|40|0|../clipart/bundles/VandalismMonstersArea_shapes_eyeballs.png?ver=a79348fe" url="shapes/Halloween_Eyeball/Eyeball_01.swf"/>
+		<Clipart cHeight="1516" cWidth="1523" flickrPremium="false" isVector="false" picnikPremium="false" previewUrl="40|40|1|../clipart/bundles/VandalismMonstersArea_shapes_eyeballs.png?ver=a79348fe" url="shapes/Halloween_Eyeball/Eyeball_02.swf"/>
+		<Clipart cHeight="1592" cWidth="1584" flickrPremium="false" isVector="false" picnikPremium="false" previewUrl="40|40|2|../clipart/bundles/VandalismMonstersArea_shapes_eyeballs.png?ver=a79348fe" url="shapes/Halloween_Eyeball/Eyeball_03.swf"/>
+		<Clipart cHeight="1530" cWidth="1512" flickrPremium="false" isVector="false" picnikPremium="false" previewUrl="40|40|3|../clipart/bundles/VandalismMonstersArea_shapes_eyeballs.png?ver=a79348fe" url="shapes/Halloween_Eyeball/Eyeball_04.swf"/>
+	</Shapes>
+</ShapeCategory>

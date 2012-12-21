@@ -1,0 +1,12 @@
+fileName: georgiaz.ttf
+name: Georgia
+subfamilyDisplayName: Negreta cursiva
+fullName: Georgia Negreta cursiva
+displayName: Georgia
+ital: 1
+bold: 1
+weight: 5
+panose.weight: 8
+pkName: pkgeorgiaz
+authorName: Matthew Carter
+authorUrl: http://carterandcone.com/

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PickedItemBase xmlns="controls.itempicker.*" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:controls="controls.*"	 
+	 backgroundColor="#ebfad5" backgroundAlpha="1" cornerRadius="4" borderColor="#bbe57f" borderStyle="solid" horizontalGap="0" 
+	 verticalAlign="middle" focusEnabled="true" maxWidth="390" paddingLeft="1" paddingRight="2" paddingBottom="1" >
+
+	<mx:Glow id="_efGlowIn" alphaFrom="0" alphaTo=".5" blurXFrom="0" blurYFrom="0" blurXTo="5" blurYTo="5" color="#618430" duration="150"/>
+	<mx:Glow id="_efGlowOut" alphaFrom=".5" alphaTo="0" blurXFrom="5" blurYFrom="5" blurXTo="0" blurYTo="0" color="#618430" duration="300"/>
+	
+	<mx:Sequence id="_effHighlight" target="{this}">
+		<mx:Parallel duration="200">
+			<mx:Glow alphaFrom="0" alphaTo="1.0" blurXFrom="0" blurYFrom="0" blurXTo="8" blurYTo="8" color="#618530"/>
+		</mx:Parallel>
+		<mx:Pause duration="100"/>
+		<mx:Parallel duration="400">
+			<mx:Glow alphaFrom="1.0" alphaTo="0" blurXFrom="8" blurYFrom="8" blurXTo="0" blurYTo="0" color="#618530"/>
+		</mx:Parallel>
+	</mx:Sequence>
+
+	<mx:Text selectable="true" height="18" useHandCursor="true" buttonMode="true" width="100%" truncateToFit="true" 
+		text="{data.email}" fontSize="13" color="#333333"/>
+	<controls:ImageVer useHandCursor="true" buttonMode="true" source="@Embed('/theme/pngs/closeIcon2.png')" 
+			height="16" width="16" click="Remove()"
+		    rollOutEffect="{_efGlowOut}" rollOverEffect="{_efGlowIn}"/>
+</PickedItemBase>

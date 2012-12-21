@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/hanukkah_dreidels.png" flickrPremium="true" id="Dreidels" numShapes="4" picnikPremium="true" previewUrls="60|48|../clipart/bundles/HomeForTheHolidaysArea_groupPreviews_Dreidels.png?ver=32d1382e" title="Dreidels">
+	<Shapes>
+		<Clipart cHeight="1286" cWidth="697" flickrPremium="true" isVector="false" picnikPremium="true" previewUrl="40|40|0|../clipart/bundles/HomeForTheHolidaysArea_shapes_Dreidels.png?ver=8640ebd3" url="shapes/Holiday_Dreidels/Dreidel1.swf"/>
+		<Clipart cHeight="1285" cWidth="675" flickrPremium="true" isVector="false" picnikPremium="true" previewUrl="40|40|1|../clipart/bundles/HomeForTheHolidaysArea_shapes_Dreidels.png?ver=8640ebd3" url="shapes/Holiday_Dreidels/Dreidel2.swf"/>
+		<Clipart cHeight="1291" cWidth="701" flickrPremium="true" isVector="false" picnikPremium="true" previewUrl="40|40|2|../clipart/bundles/HomeForTheHolidaysArea_shapes_Dreidels.png?ver=8640ebd3" url="shapes/Holiday_Dreidels/Dreidel3.swf"/>
+		<Clipart cHeight="1298" cWidth="679" flickrPremium="true" isVector="false" picnikPremium="true" previewUrl="40|40|3|../clipart/bundles/HomeForTheHolidaysArea_shapes_Dreidels.png?ver=8640ebd3" url="shapes/Holiday_Dreidels/Dreidel4.swf"/>
+	</Shapes>
+</ShapeCategory>

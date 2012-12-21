@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<HelpDialogContentBase xmlns="dialogs.*" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:ctr="containers.*" xmlns:flash="flash.filters.*"
+		xmlns:dlgc="dialogs.DialogContent.*" width="660" height="460" horizontalScrollPolicy="off" verticalScrollPolicy="off"
+		xmlns:controls="controls.*">
+
+	<flash:DropShadowFilter id="_fiWhiteShad" blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1" quality="3" angle="90"/>
+	<flash:DropShadowFilter id="_fiModShadow" blurX="2" blurY="2" distance="1" color="#005580" alpha=".3" quality="3" angle="90"/>
+	<flash:DropShadowFilter id="_fiModuleShine" blurX="0" blurY="0" distance="1" color="#FFFFFF" alpha="1" inner="true" quality="3" angle="90"/>
+	<flash:GlowFilter id="_efEmboss" alpha="0.3" quality="3" blurX="1.5" blurY="1.5" color="#618430"/>
+	
+	<!-- grey box bg for tabs -->
+	<mx:Box width="100%" height="43" backgroundColor="#f5f5f5" x="0" top="0" cornerRadius="10" borderStyle="solid" borderThickness="0"/>
+	<mx:Box width="100%" height="23" backgroundColor="#f5f5f5" x="0" top="20"/>
+	<mx:HRule strokeColor="#dedede" strokeWidth="1" width="100%" top="41"/>
+	
+	<!-- header text -->
+	<mx:Box width="360" height="41" top="0" left="9" verticalAlign="bottom" paddingBottom="-2">
+		<controls:ResizingLabel id="_lblHelpTitle" text="@Resource(key='helpTitle', bundle='HelpDialogContent')" maxWidth="360" fontSize="28" color="#005580" filters="{[_fiWhiteShad]}" autoFontSizeGap="1"/>
+	</mx:Box>
+	
+	<mx:Canvas id="helptab" label="@Resource(key='help', bundle='HelpDialogContent')"  width="100%" height="100%" 
+			horizontalScrollPolicy="off" verticalScrollPolicy="off"
+			top="42" bottom="42">
+		<dlgc:HelpHubContent dialogMode="true" id="_helpHub" navigateParent="{this}"
+			width="100%" height="100%" horizontalScrollPolicy="off" verticalScrollPolicy="off"/>
+	</mx:Canvas>
+
+	<mx:VBox verticalGap="8" horizontalAlign="center" width="100%" bottom="8" paddingTop="5">
+		<mx:Button label="@Resource(key='_btnCancel', bundle='HelpDialogContent')" id="_btnCancel" height="27" fontSize="15"
+			paddingLeft="15" paddingRight="15" styleName="smallDialogButton" click="dispatchEvent(new Event('canceled'))"
+			tabIndex="100" horizontalCenter="0"/>			
+	</mx:VBox>
+</HelpDialogContentBase>

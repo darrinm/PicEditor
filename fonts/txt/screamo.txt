@@ -1,0 +1,12 @@
+fileName: screamo.ttf
+name: screamo
+subfamilyDisplayName: Normal
+fullName: screamo
+displayName: screamo
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 0
+pkName: pkscreamo
+authorName: Gyom.Typo
+authorUrl: http://gyom.nebullus.com/

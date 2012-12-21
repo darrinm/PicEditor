@@ -1,0 +1,12 @@
+fileName: mk_MediaevalBats.ttf
+name: MediaevalBats
+subfamilyDisplayName: Regular
+fullName: MediaevalBats
+displayName: MediaevalBats
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 6
+pkName: pkmk0MediaevalBats
+authorName: Manfred Kelin
+authorUrl: http://moorstation.org/typoasis/designers/klein/

@@ -1,0 +1,12 @@
+fileName: vtks_andana.ttf
+name: VTKS Bandana
+subfamilyDisplayName: Regular
+fullName: VTKS Bandana
+displayName: VTKS Bandana
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 0
+pkName: pkvtks0andana
+authorName: Douglas Vitkauskas
+authorUrl: http://www.vtks.com.br/

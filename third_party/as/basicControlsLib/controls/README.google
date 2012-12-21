@@ -1,0 +1,19 @@
+URL: http://flexorg.wip3.adobe.com/flexsdk/3.2.0.3958/flex_sdk_3.2.0.3958.zip
+Version: 3.2.0.3958
+License: Adobe Flex SDK and MPL v1.1
+License File: LICENSE
+
+Description:
+The Adobe Flex SDK contains tools, source code and libraries to build and
+deploy Flash and AIR applications.
+
+Local Modifications:
+ResizingTextBase.as a copy of Flex 3.2 mx.controls.Text.as with a 
+modification of the private measure function to support resizing text.
+
+ResizingTextBase differes from Text in the following ways:
+ - Change the class, file, and constructor name
+ - Change some includes to get it to compile in a new location
+ - Override getMinimumText() to return "" instead of null
+ - Tweak measureUsingWidth() to include padding and set word wrap to true
+ 

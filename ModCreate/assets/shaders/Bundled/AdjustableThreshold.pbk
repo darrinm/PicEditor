@@ -1,0 +1,50 @@
+<languageVersion : 1.0;>
+
+kernel AdjustableThreshold
+<
+    title : "Adjustable Threshold";
+    namespace : "Zeh Fernando";
+    vendor : "Zeh Fernando";
+    version : 1;
+    description : "Creates adjustable threshold";
+    iconURL: "../graphics/effects/adjustable_threshold.png";
+>
+{
+    input image4 src;
+    output pixel4 dst;
+
+    parameter float blackThreshold < 
+        minValue:float(0);
+        maxValue:float(1);
+        defaultValue:float(0.4);
+	title: "Black Threshold";
+    >;
+
+    parameter float whiteThreshold < 
+        minValue:float(0);
+        maxValue:float(1);
+        defaultValue:float(0.5);
+	title: "White Threshold";
+    >;
+
+
+    void
+    evaluatePixel()
+    {
+        float4 inputColor = sampleNearest(src, outCoord());
+        float brightness = (inputColor.r + inputColor.g + inputColor.b) / 3.0;
+        
+        dst = inputColor;
+
+        if (brightness < blackThreshold) {
+            // Below threshold
+            dst.r = dst.g = dst.b = 0.0;
+        } else if (brightness > whiteThreshold) {
+            // Above threshold
+            dst.r = dst.g = dst.b = 1.0;
+        } else {
+            // Between the threshold
+            dst.r = dst.g = dst.b = (brightness - blackThreshold) / (whiteThreshold - blackThreshold);
+        }
+    }
+}

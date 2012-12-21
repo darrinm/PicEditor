@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--http://www.mywebsite.com/crossdomain.xml-->
+<!DOCTYPE cross-domain-policy SYSTEM "http://www.macromedia.com/xml/dtds/cross-domain-policy.dtd">
+<cross-domain-policy>
+   <allow-access-from domain="*.mywebsite.com" secure="false" />
+   <allow-http-request-headers-from domain="*.mywebsite.com" headers="*"/>
+   <allow-access-from domain="*.gstatic.com" secure="false" />
+   <allow-http-request-headers-from domain="*.gstatic.com" headers="*"/>
+
+   <allow-access-from domain="l.yimg.com" secure="false" />
+   <allow-http-request-headers-from domain="l.yimg.com" headers="*"/>
+   <allow-access-from domain="staging.flickr.com" secure="false" />
+   <allow-http-request-headers-from domain="staging.flickr.com" headers="*"/>
+   <allow-access-from domain="backstage.flickr.com" secure="false" />
+   <allow-http-request-headers-from domain="backstage.flickr.com" headers="*"/>
+</cross-domain-policy>

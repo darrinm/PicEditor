@@ -1,0 +1,12 @@
+fileName: lb_Pupcat.ttf
+name: Pupcat
+subfamilyDisplayName: Regular
+fullName: Pupcat
+displayName: Pupcat
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 5
+pkName: pklb0Pupcat
+authorName: Ray Larabie
+authorUrl: http://www.larabiefonts.com/

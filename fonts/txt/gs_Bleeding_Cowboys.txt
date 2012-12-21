@@ -1,0 +1,12 @@
+fileName: gs_Bleeding_Cowboys.ttf
+name: Bleeding Cowboys
+subfamilyDisplayName: Normal
+fullName: Bleeding Cowboys
+displayName: Bleeding Cowboys
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 0
+pkName: pkgs0Bleeding0Cowboys
+authorName: Guillaume Seguin
+authorUrl: http://lastsoundtrack.fontspace.com/

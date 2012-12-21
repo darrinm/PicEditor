@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<bkctr:EffectCanvasBase xmlns="effects.basic.*" xmlns:effects="effects.*" xmlns:bk="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%"
+	xmlns:vld="validators.*"
+	xmlns:flash="flash.filters.*" xmlns:bkctr="containers.*" xmlns:ut="util.*">
+	<mx:Metadata>
+		[DefaultProperty("editControls")]
+		[Style(name="effectIcon", type="Class", inherit="no")]
+	</mx:Metadata>
+	<mx:Script>
+		<![CDATA[
+			import containers.NestedControlCanvasBase;
+			
+			import mx.effects.Resize;
+
+			[Bindable] public var title:String;
+			[Bindable] public var iconSource:Object;
+			[Bindable] public var help:String;
+			
+			private var editControlArray:Array = [];
+			private var currentIconStyle:Object = null;	
+			
+			[Bindable]
+			public function get editControls() : Array {
+				return editControlArray;
+			}
+			public function set editControls(value:Array) : void {
+				for each (var item:Object in (value as Array)) {
+					editControlArray.push(item);
+				}
+			}
+			
+			override public function styleChanged(strStyleProp:String):void
+			{
+				updateIcon();
+			}
+			
+			private function updateIcon(): void {
+				var newIconStyle:Object = getStyle("effectIcon");
+				if (newIconStyle == currentIconStyle)
+					return;
+				currentIconStyle = newIconStyle;
+				this.iconSource = currentIconStyle;
+			}
+			
+			protected override function OnAllStagesCreated():void {
+				// Before calling the superclass, add all of the edit controls
+				if (editControlArray.length > 0) {
+					for each (var control:Object in editControlArray) {
+						if (control is DisplayObject) {
+							innerControlContainer.addChild(DisplayObject(control));
+						}
+					}
+					editControlArray = [];
+					innerControlContainer.invalidateSize();
+					innerControlContainer.invalidateProperties();
+					innerControlContainer.validateNow();
+				}
+				super.OnAllStagesCreated();
+			}
+			
+			public override function OnSelectedEffectReallyDone():void {
+				super.OnSelectedEffectReallyDone();
+				// This fallback is here to insure that we animate to our final size
+				UpdateHeight();
+				if (this.height != this.fullHeight) {
+					trace("hitting resize fallback path");
+					var resize:Resize = new Resize(this);
+					resize.heightFrom = this.height;
+					resize.heightTo = this.fullHeight;
+					resize.duration = 200;
+					resize.play();
+				}
+			}
+		]]>
+	</mx:Script>
+	<mx:Style>
+		.basicEffectVBox {
+			border-style: solid;
+			border-thickness: 1;
+			border-color: #cdcdcd;
+			background-color: #FFFFFF;
+			backgroundAlpha: 0.4;
+			cornerRadius: 5;
+		}
+	</mx:Style>
+	
+	
+	<bk:BasicEffectButton id="_efbtn" strTitle="{title}" strImageSource="{iconSource}"/>
+	<mx:String id="_strHelpText">{help}</mx:String>
+
+	<mx:Canvas y="{_nCollapsedHeight + 2}" width="100%" horizontalScrollPolicy="off" verticalScrollPolicy="off">
+		<mx:constraintRows>
+			<mx:ConstraintRow id="row1" />
+			<mx:ConstraintRow id="row1_5" height="7"/>
+			<mx:ConstraintRow id="row2" />
+		</mx:constraintRows>
+		<mx:VBox id="innerControlContainer" styleName="basicEffectVBox" width="100%" top="row1:0" left="9" right="9" paddingTop="7" paddingBottom="7" paddingLeft="7" paddingRight="7" horizontalScrollPolicy="off" verticalScrollPolicy="off">
+		</mx:VBox>
+		<bk:ApplyCancelEffectButtons width="100%" bottom="row2:2" addBoxPadding="false"/>
+	</mx:Canvas>
+</bkctr:EffectCanvasBase>

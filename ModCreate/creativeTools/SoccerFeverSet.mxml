@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ctrl:EffectSetBase xmlns="*" xmlns:ct="creativeTools.*" xmlns:mx="http://www.adobe.com/2006/mxml" 
+		xmlns:eff="effects.*" xmlns:filters="flash.filters.*" xmlns:ctr="containers.*" initialize="OnInit()"
+		xmlns:ctrl="controls.*">
+	<mx:Style>
+		.promoTextBG {
+		   border-style: solid;
+		   border-thickness: 0;
+		   border-skin: ClassReference("skins.GradientBackground");
+		   gradient-fill-colors: #6b0b4a, #ae0173;
+		   gradient-fill-alphas: .8,.8;
+		   gradient-fill-ratios: 0,255;
+		   gradient-rotation: 90;
+		}
+	</mx:Style>
+<mx:Script>
+	<![CDATA[
+		import util.KeyVault;
+		import util.LocUtil;
+		import mx.collections.ArrayCollection;
+		import mx.collections.Sort;
+		import mx.collections.SortField;
+		import mx.resources.ResourceBundle;
+		import mx.utils.ObjectProxy;
+
+   		[Bindable] [ResourceBundle("SoccerFever")] private var rb:ResourceBundle;
+
+		
+		[Bindable] private var _aobpTeams:ArrayCollection = new ArrayCollection([
+				new ObjectProxy({ id:"au", label:Resource.getString('SoccerFever', 'Australia')}),
+				new ObjectProxy({ id:"jp", label:Resource.getString('SoccerFever', 'Japan')}),
+				new ObjectProxy({ id:"kp", label:Resource.getString('SoccerFever', 'KoreaDPR')}),
+				new ObjectProxy({ id:"kr", label:Resource.getString('SoccerFever', 'KoreaRepublic')}),
+				new ObjectProxy({ id:"dz", label:Resource.getString('SoccerFever', 'Algeria')}),
+				new ObjectProxy({ id:"cm", label:Resource.getString('SoccerFever', 'Cameroon')}),
+				new ObjectProxy({ id:"ci", label:Resource.getString('SoccerFever', 'IvoryCoast')}),
+				new ObjectProxy({ id:"gh", label:Resource.getString('SoccerFever', 'Ghana')}),
+				
+				new ObjectProxy({ id:"ng", label:Resource.getString('SoccerFever', 'Nigeria')}),
+				new ObjectProxy({ id:"za", label:Resource.getString('SoccerFever', 'SouthAfrica')}),
+				new ObjectProxy({ id:"hn", label:Resource.getString('SoccerFever', 'Honduras')}),
+				new ObjectProxy({ id:"mx", label:Resource.getString('SoccerFever', 'Mexico')}),
+				new ObjectProxy({ id:"us", label:Resource.getString('SoccerFever', 'UnitedStates')}),
+				new ObjectProxy({ id:"ar", label:Resource.getString('SoccerFever', 'Argentina')}),
+				new ObjectProxy({ id:"br", label:Resource.getString('SoccerFever', 'Brazil')}),
+				new ObjectProxy({ id:"cl", label:Resource.getString('SoccerFever', 'Chile')}),
+				
+				new ObjectProxy({ id:"py", label:Resource.getString('SoccerFever', 'Paraguay')}),
+				new ObjectProxy({ id:"uy", label:Resource.getString('SoccerFever', 'Uraguay')}),
+				new ObjectProxy({ id:"nz", label:Resource.getString('SoccerFever', 'NewZealand')}),
+				new ObjectProxy({ id:"dk", label:Resource.getString('SoccerFever', 'Denmark')}),
+				new ObjectProxy({ id:"england", label:Resource.getString('SoccerFever', 'England')}), 
+				new ObjectProxy({ id:"fr", label:Resource.getString('SoccerFever', 'France')}),
+				new ObjectProxy({ id:"de", label:Resource.getString('SoccerFever', 'Germany')}),
+				new ObjectProxy({ id:"gr", label:Resource.getString('SoccerFever', 'Greece')}),
+				
+				new ObjectProxy({ id:"it", label:Resource.getString('SoccerFever', 'Italy')}),
+				new ObjectProxy({ id:"nl", label:Resource.getString('SoccerFever', 'Netherlands')}),
+				new ObjectProxy({ id:"pt", label:Resource.getString('SoccerFever', 'Portugal')}),
+				new ObjectProxy({ id:"rs", label:Resource.getString('SoccerFever', 'Serbia')}),
+				new ObjectProxy({ id:"sk", label:Resource.getString('SoccerFever', 'Slovakia')}),
+				new ObjectProxy({ id:"si", label:Resource.getString('SoccerFever', 'Slovenia')}),
+				new ObjectProxy({ id:"es", label:Resource.getString('SoccerFever', 'Spain')}),
+				new ObjectProxy({ id:"ch", label:Resource.getString('SoccerFever', 'Switzerland')})
+			]);		
+			
+		private function OnInit():void {	
+
+			var sort:Sort = new Sort();
+			sort.fields = [ new SortField("label") ];
+			var oldSort:Sort = _aobpTeams.sort;
+			_aobpTeams.sort = sort;
+			_aobpTeams.refresh();
+			_aobpTeams.sort = oldSort;
+			_cmboTeamSelect.dataProvider = _aobpTeams;
+			
+			var nIndex:int = 0;
+			if ('geoip' in KeyVault.GetInstance() && 'country' in KeyVault.GetInstance().geoip) {
+				for (var i:int = 0; i < _aobpTeams.length; i++) {
+					if (_aobpTeams.getItemAt(i).id == KeyVault.GetInstance().geoip.country ||
+						(_aobpTeams.getItemAt(i).id == 'england' && KeyVault.GetInstance().geoip.country == 'uk')) {
+						nIndex = i;
+						break;
+					}
+				}
+			}
+			_cmboTeamSelect.selectedIndex = nIndex;
+		}
+					
+	]]>
+</mx:Script>				
+
+	<ctrl:ExpandingVBox id="_evbx1" expanded="{expanded}" width="100%" verticalGap="0" verticalScrollPolicy="off">
+		<mx:Spacer height="{_hsh.height}" />
+		<mx:Canvas height="0" width="100%" verticalScrollPolicy="off" horizontalScrollPolicy="off">
+
+	<!-- this expands and collapses -->
+	<mx:VBox verticalGap="0" width="100%">
+		<mx:HBox backgroundImage="{PicnikBase.StaticUrl('../graphics/soccerFever/bg_soccerFever.jpg')}" verticalAlign="middle" id="_hbxSoccerFeverProj"
+				borderSides="bottom" borderStyle="solid" borderColor="#d1d1d1" width="210" height="30" paddingTop="1">
+			<mx:Label text="{LocUtil.rbSubst('Seasonal',(_cmboTeamSelect.selectedItem.id != 'us' &amp;&amp; PicnikBase.Locale() == 'en_US') ? 'FootballFeverProjHeader' : 'SoccerFeverProjHeader')}" color="#ffffff" filters="{[_fiHeadShad]}" fontSize="15"
+				paddingLeft="8" paddingTop="2"/>
+		</mx:HBox>
+		
+		<mx:VBox verticalGap="-3" paddingTop="5" paddingBottom="8" paddingLeft="8">
+			<mx:Label text="@Resource(key='teamSelect', bundle='Seasonal')" styleName="sliderTitle"/>
+			<mx:Canvas width="190" height="26" horizontalScrollPolicy="off" verticalScrollPolicy="off">
+				<ctrl:ComboBoxPlus id="_cmboTeamSelect" top="0" left="0" rowCount="10" width="190" height="26">
+					<ctrl:itemRenderer>
+						<mx:Component>
+			            	<mx:HBox verticalAlign="middle" width="100%">
+			                	<mx:Label text="{data.label}" fontSize="13" width="100%" minWidth="90" paddingRight="5" styleName="deviceFonts"/>
+			                	<ctrl:ImageVer source="{'../graphics/flags/'+data.id+'.png'}" verticalAlign="middle"/>
+			            	</mx:HBox>
+						</mx:Component>
+	            	</ctrl:itemRenderer>	
+	            </ctrl:ComboBoxPlus>
+	            <ctrl:ImageVer source="{'../graphics/flags/'+_cmboTeamSelect.selectedItem.id+'.png'}" right="33" verticalCenter="-1" width="16" height="11" />				
+			</mx:Canvas>
+		</mx:VBox>
+
+		<mx:HRule width="100%" strokeColor="#d4d4d4" strokeWidth="1"/>
+
+				<eff:SoccerFacePaintEffect team="{_cmboTeamSelect.selectedItem.id}" tags="effect,seasonal"/>
+				<eff:SoccerFlagEffect team="{_cmboTeamSelect.selectedItem.id}" tags="effect,seasonal"/>
+				<ctrl:ShapeArea sectionFilter="{'.*_'+_cmboTeamSelect.selectedItem.id}" 
+							imgd="{_imgd}" imgv="{_imgv}" area="SoccerFeverTeams" verticalScrollPolicy="off" ignoreErrors="true" width="210"/>
+				<ctrl:ShapeArea sectionFilter="{(_cmboTeamSelect.selectedItem.id != 'us' &amp;&amp; PicnikBase.Locale() == 'en_US') ? 'footballStickers' : 'soccerStickers'}" 
+							imgd="{_imgd}" imgv="{_imgv}" area="SoccerFever" verticalScrollPolicy="off" ignoreErrors="true" width="210"/>
+			
+			</mx:VBox>
+			
+			
+			<!--Header icon -->
+			<ctrl:ImageVer id="_imgSoccerFeverIcon" right="0" y="{_hbxSoccerFeverProj.y}"
+					includeInLayout="true"
+					source="../graphics/soccerFever/icon_soccerFever.png"/>
+			</mx:Canvas>	
+				
+	</ctrl:ExpandingVBox>
+	
+	<!-- Holiday header -->
+	<ctrl:EffectSetHeader id="_hsh" expanded="{_evbx1.expanded}" click="_evbx1.ToggleExpanded()" x="0" y="0"
+		headText="@Resource(key='SoccerFeverProjHeader', bundle='Seasonal')"
+		subHeadText="@Resource(key='SoccerFeverSubhead', bundle='Seasonal')" 
+		/>		
+
+</ctrl:EffectSetBase>
+
+<!-- Promo Text-->
+			

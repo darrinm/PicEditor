@@ -1,0 +1,12 @@
+fileName: tm_antiblue.ttf
+name: Antimony Blue
+subfamilyDisplayName: Regular
+fullName: Antimony Blue
+displayName: Antimony Blue
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 4
+pkName: pktm0antiblue
+authorName: Tom Murphy
+authorUrl: http://fonts.tom7.com/

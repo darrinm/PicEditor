@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<eff:PaintOnEffectBase xmlns:eff="effects.*" xmlns:cnt="containers.*" xmlns="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="269" _nBrushHardness="0.35"
+	xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*" premium="true" urlid="EyeColor">
+<mx:Script>
+	<![CDATA[
+		import util.BlendModeMath;
+		import util.LocUtil;
+	]]>
+</mx:Script>
+	
+	<mx:Array id="_resetValues">
+		<local:StoredValue target="_clrsw.color"/>
+	</mx:Array>
+	
+	<EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='EyeColorEffect')" strAuthor="@Resource(key='byPicnik', bundle='EffectCanvas')"
+		strImageSource="../graphics/effects/Touchup/eye_color.jpg" premium="{premium}"/>
+	<mx:String id="_strHelpText">{Resource.getString('EyeColorEffect', '_strHelpText')}</mx:String>
+
+	<mx:VBox x="10" y="70" verticalGap="0">
+		<!-- eye color buttons -->
+		<mx:HBox width="100%" horizontalGap="6" paddingTop="3" paddingBottom="6">
+			<ResizingButton width="43" height="29" icon="@Embed('/assets/bitmaps/eye_color/blue.png')" offsetDown="1"
+				click="_clrsw.color = 0x64c4ff"/>
+			<ResizingButton width="43" height="29" icon="@Embed('/assets/bitmaps/eye_color/green.png')" offsetDown="1"
+				click="_clrsw.color = 0x9dff64"/>
+			<ResizingButton width="43" height="29" icon="@Embed('/assets/bitmaps/eye_color/brown.png')" offsetDown="1"
+				click="_clrsw.color = 0x7b4f00"/>
+			<ResizingButton width="43" height="29" icon="@Embed('/assets/bitmaps/eye_color/grey.png')" offsetDown="1"
+				click="_clrsw.color = 0x808080"/>
+		</mx:HBox>
+
+		<mx:VBox verticalGap="0" paddingTop="2">
+			<mx:HBox horizontalGap="5">
+				<!-- make sure the default preset color matches this color -->
+				<HSBColorSwatch height="50" width="165" id="_clrsw" topGray="255" bottomGray="0" grayscaleSize="5" color="0x64c4ff" 
+					change="OnOpChange()"/>
+				<mx:Canvas width="20" height="50" id="_cnvColor" backgroundColor="{_clrsw.color}">
+					<mx:filters>
+						<flash.filters:DropShadowFilter angle="90" blurX="2" blurY="2" distance="1" color="0x000000" alpha=".3" quality="3" inner="true" />
+						<flash.filters:BevelFilter angle="90" blurX="1" blurY="1"
+							distance="1" highlightAlpha=".3" shadowAlpha="1" highlightColor="0x666666" shadowColor="0xFFFFFF" knockout="false" quality="3" />
+					</mx:filters>
+				</mx:Canvas>
+			</mx:HBox>
+			
+		    <mx:VBox verticalGap="-3" paddingTop="5" paddingBottom="5">
+			    <mx:Label text="@Resource(key='AdvancedModes', bundle='EffectCanvas')" styleName="sliderTitle"/>
+				<ComboBoxPlus id="_cbBlendMode" liveChange="OnOpChange()" height="26" width="191" selectedIndex="0">
+					<dataProvider>
+				        <mx:ArrayCollection id="_acBlendModes">
+			                <mx:Object label="{Resource.getString('EffectCanvas', 'blend_Normal')}" data="normal"/> 
+			                <mx:Object label="{Resource.getString('EffectCanvas', 'blend_Add')}" data="add"/> 
+			                <mx:Object label="{Resource.getString('EffectCanvas', 'blend_Darken')}" data="darken"/> 
+			                <mx:Object label="{Resource.getString('EffectCanvas', 'blend_Hardlight')}" data="hardlight"/> 
+			                <mx:Object label="{Resource.getString('EffectCanvas', 'blend_Lighten')}" data="lighten"/> 
+			                <mx:Object label="{Resource.getString('EffectCanvas', 'blend_Overlay')}" data="overlay"/> 
+			                <mx:Object label="{Resource.getString('EffectCanvas', 'blend_Screen')}" data="screen"/>
+				        </mx:ArrayCollection>
+					</dataProvider>
+				</ComboBoxPlus>
+		    </mx:VBox>
+		</mx:VBox>
+    
+    	<!-- brush size / eraser toggle -->
+    	<BrushSizeAndEraserButton id="_brshbtn" selected="{_fSelected}"
+    		startValueFactor="0.03"
+    		maximumFactor="0.2"
+    		imageWidth="{origImageWidth}" imageHeight="{origImageHeight}"
+    		change="OnOpChange()" thumbPress="ShowBrushPreview()" thumbDrag="UpdateBrushPreview()" thumbRelease="HideBrushPreview()"
+    		/>
+    		
+		<!-- Fade label/percent/slider box -->
+		<mx:HBox paddingBottom="-5" paddingTop="3" width="190">
+			<mx:Label text="@Resource(key='fade', bundle='EffectCanvas')" styleName="sliderTitle"/>
+			<mx:Label text="{LocUtil.pct((_sldrFade.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<HSliderPlus width="190" minimum="0" maximum="100" value="{zeroR}" id="_sldrFade" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+
+		<mx:HBox paddingBottom="-5" paddingTop="3" width="190">
+			<mx:Label text="@Resource(key='contrast', bundle='EffectCanvas')" styleName="sliderTitle"/>
+			<mx:Label text="{LocUtil.pct((_sldrContrast.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<HSliderPlus width="190" minimum="0" maximum="100" value="{zeroR + 70}" id="_sldrContrast" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+
+		<ApplyCancelEffectButtons addBoxPadding="true" premium="{premium}"/>
+	</mx:VBox>
+
+	<mx:Number id="_cxyBrush">{_brshbtn.value}</mx:Number>
+</eff:PaintOnEffectBase>

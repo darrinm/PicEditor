@@ -1,0 +1,12 @@
+fileName: vtks_Revolt.ttf
+name: Vtks Revolt
+subfamilyDisplayName: Regular
+fullName: Vtks Revolt
+displayName: Vtks Revolt
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 0
+pkName: pkvtks0Revolt
+authorName: Douglas Vitkauskas
+authorUrl: http://www.vtks.com.br/

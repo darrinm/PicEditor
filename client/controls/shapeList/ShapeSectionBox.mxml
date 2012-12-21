@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ExpandingVBox xmlns="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" expanded="true" xmlns:sectionList="containers.sectionList.*"
+		width="100%" verticalGap="0">
+<mx:Style>
+.shapeGroupGradient
+{
+	border-style: solid;
+	border-thickness: 0;
+	border-skin: ClassReference("skins.GradientBackground");
+	gradient-fill-colors: #f0f0f0, #ffffff;
+	gradient-fill-alphas: 1,1; 
+	gradient-fill-ratios: 0,255;
+	gradient-fixed-size: 60; 
+	gradient-rotation: 270; 
+}
+
+</mx:Style>
+<mx:Script>
+	<![CDATA[
+		import mx.collections.XMLListCollection;
+		import mx.utils.ObjectProxy;
+		[Bindable] public var _obpHeader:ObjectProxy = new ObjectProxy();
+		[Bindable] public var showHeader:Boolean = true;
+		public override function set data(value:Object):void {
+			super.data = value;
+			_obpHeader.title = _obpHeader.title1 = String(value.@title);
+			if (value.hasOwnProperty('@showHeader'))
+				showHeader = String(value.@showHeader).toLowerCase() == 'true';
+		}
+		
+		public function CloseAllGroups(): void {
+			for (var i:Number = 0; i < _vbxr.numChildren; i++) {
+				var shgrp:ShapeGroup = _vbxr.getChildAt(i) as ShapeGroup;
+				shgrp.expanded = false;
+			}
+		}
+	]]>
+</mx:Script>
+	<sectionList:SectionHeader data="{_obpHeader}" id="_hdr" expanded="{expanded}" visible="{showHeader}" includeInLayout="{showHeader}"/>
+	<VBoxRepeater id="_vbxr" childStyleName="shapeGroupGradient" dataProvider="{new XMLListCollection(data.ShapeCategory)}" itemRenderer="controls.shapeList.ShapeGroup" horizontalScrollPolicy="off" verticalScrollPolicy="off" width="100%"/>
+</ExpandingVBox>

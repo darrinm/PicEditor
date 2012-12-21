@@ -1,0 +1,12 @@
+fileName: mk_AnimaliaScissored.ttf
+name: AnimaliaScissored
+subfamilyDisplayName: Regular
+fullName: AnimaliaScissored
+displayName: AnimaliaScissored
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 6
+pkName: pkmk0AnimaliaScissored
+authorName: Manfred Kelin
+authorUrl: http://moorstation.org/typoasis/designers/klein/

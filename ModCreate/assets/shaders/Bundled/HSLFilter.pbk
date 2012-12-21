@@ -1,0 +1,190 @@
+// *****************************************************************************************
+// HSLFilter.pbk
+// 
+// Copyright (c) 2008 Ryan Taylor | http://www.boostworthy.com
+// 
+// Permission is hereby granted, free of charge, to any person
+// obtaining a copy of this software and associated documentation
+// files (the "Software"), to deal in the Software without
+// restriction, including without limitation the rights to use,
+// copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the
+// Software is furnished to do so, subject to the following
+// conditions:
+//
+// The above copyright notice and this permission notice shall be
+// included in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+// EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+// OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+// HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+// WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+// OTHER DEALINGS IN THE SOFTWARE.
+// *****************************************************************************************
+// 
+// +          +          +          +          +          +          +          +          +
+// 
+// *****************************************************************************************
+
+// 10/06/08 - DWM - Some Picnik-ification
+
+<languageVersion : 1.0;>
+
+kernel HSLFilter
+<
+    title       : "HSL Filter";
+    namespace   : "Boostworthy::Filters";
+    vendor      : "Ryan Taylor";
+    version     : 1;
+    description : "Basic filter for adjusting the hue, saturation, and lightness of an image.";
+    iconURL: "../graphics/effects/hslfilter.png";
+    websiteURL: "http://www.boostworthy.com";
+    canvasTip: "Adjust the hue slider for dramatic color shifts.";
+>
+{
+    parameter   float       hue
+    <
+        minValue        :  -180.0;
+        maxValue        :   180.0;
+        defaultValue    :   180.0;
+    >;
+    
+    parameter   float       saturation
+    <
+        minValue        :  -100.0;
+        maxValue        :   100.0;
+        defaultValue    :   0.0;
+    >;
+    
+    parameter   float       lightness
+    <
+        minValue        :  -100.0;
+        maxValue        :   100.0;
+        defaultValue    :   0.0;
+    >;
+    
+    input       image4      source;
+    output      pixel4      result;
+    
+    void evaluatePixel()
+    {
+        // Convert sampled pixel from RGB space to HSL space.
+        
+        float4 samp;
+        float  sampMin;
+        float  sampMax;
+        float  sampDiff;
+        float  sampSum;
+        float  sampH;
+        float  sampS;
+        float  sampL;
+        
+        samp     = sampleNearest(source, outCoord());
+        sampMin  = samp.r < samp.g ? samp.r : samp.g;
+        sampMin  = sampMin < samp.b ? sampMin : samp.b;
+        sampMax  = samp.r > samp.g ? samp.r : samp.g;
+        sampMax  = sampMax > samp.b ? sampMax : samp.b;
+        sampDiff = sampMax - sampMin;
+        sampSum  = sampMax + sampMin;
+        sampL    = sampSum * 0.5;
+        
+        if(sampMin == sampMax)
+            sampH = 0.0;
+        else if(sampMax == samp.r) {
+            sampH = mod(60.0 * ((samp.g - samp.b) / sampDiff), 360.0);
+        } else if(sampMax == samp.g)
+            sampH = 60.0 * ((samp.b - samp.r) / sampDiff) + 120.0;
+        else if(sampMax == samp.b)
+            sampH = 60.0 * ((samp.r - samp.g) / sampDiff) + 240.0;
+        else
+            sampH = 0.0;
+        
+        if(sampMin == sampMax)
+            sampS = 0.0;
+        else if(sampL > 0.5)
+            sampS = sampDiff / (2.0 - sampSum);
+        else
+            sampS = sampDiff / sampSum;
+        
+        // Transform the sampled HSL values by the amounts specified
+        // by the hue, saturation, and lightness parameters.
+        
+        float outH;
+        float outS;
+        float outL;
+        
+        outH  = sampH - hue;
+        outS  = sampS * (saturation / 100.0 + 1.0);
+        outL  = sampL - (1.0 - (lightness / 100.0 + 1.0));
+    
+        // Convert the transformed HSL values back to RGB space.
+        
+        float q;
+        float p;
+        float h;
+        
+        if(outL < 0.5)
+            q = outL * (1.0 + outS);
+        else
+            q = outL + outS - outL * outS;
+        
+        p = 2.0 * outL - q;
+        h = outH / 360.0;
+        
+        const float  oneOverThree = 1.0 / 3.0;
+        const float  twoOverThree = 2.0 / 3.0;
+        const float  oneOverSix   = 1.0 / 6.0;
+        float3 t = float3(h + oneOverThree, h, h - oneOverThree);
+        
+        if(t.r < 0.0)
+            t.r += 1.0;
+        else if(t.r > 1.0)
+            t.r -= 1.0;
+        
+        if(t.g < 0.0)
+            t.g += 1.0;
+        else if(t.g > 1.0)
+            t.g -= 1.0;
+        
+        if(t.b < 0.0)
+            t.b += 1.0;
+        else if(t.b > 1.0)
+            t.b -= 1.0;
+        
+        float4 c = float4(0.0, 0.0, 0.0, samp.a);
+
+        if(t.r < oneOverSix)
+            c.r = p + (q - p) * 6.0 * t.r;
+        else if(t.r < 0.5)
+            c.r = q;
+        else if(t.r < twoOverThree)
+            c.r = p + (q - p) * 6.0 * (twoOverThree - t.r);
+        else
+            c.r = p;
+
+        if(t.g < oneOverSix)
+            c.g = p + (q - p) * 6.0 * t.g;
+        else if(t.g < 0.5)
+            c.g = q;
+        else if(t.g < twoOverThree)
+            c.g = p + (q - p) * 6.0 * (twoOverThree - t.g);
+        else
+            c.g = p;
+        
+        if(t.b < oneOverSix)
+            c.b = p + (q - p) * 6.0 * t.b;
+        else if(t.b < 0.5)
+            c.b = q;
+        else if(t.b < twoOverThree)
+            c.b = p + (q - p) * 6.0 * (twoOverThree - t.b);
+        else
+            c.b = p;
+
+        // Apply the final ARGB color to the pixel.
+        
+        result = c;
+    }
+}

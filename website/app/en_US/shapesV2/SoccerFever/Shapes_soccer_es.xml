@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory flickrPremium="false" id="soccer_es" numShapes="3" picnikPremium="false" previewUrls="60|48|../clipart/bundles/SoccerFeverArea_groupPreviews_soccer_es.png?ver=369e2586" title="Spain Stickers">
+	<Shapes>
+		<Clipart cHeight="500" cWidth="750" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|0|../clipart/bundles/SoccerFeverArea_shapes_soccer_es.png?ver=f56d13a3" url="shapes/es/flag_es.swf"/>
+		<Clipart cHeight="220.9" cWidth="95.95" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|1|../clipart/bundles/SoccerFeverArea_shapes_soccer_es.png?ver=f56d13a3" url="shapes/es/scarf_es.swf"/>
+		<Clipart cHeight="295.05" cWidth="463.3" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|2|../clipart/bundles/SoccerFeverArea_shapes_soccer_es.png?ver=f56d13a3" url="shapes/es/wavingflag_es.swf"/>
+	</Shapes>
+</ShapeCategory>

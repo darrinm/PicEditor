@@ -1,0 +1,12 @@
+fileName: mk_HalloWien.ttf
+name: HalloWien
+subfamilyDisplayName: Regular
+fullName: HalloWien
+displayName: HalloWien
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 6
+pkName: pkmk0HalloWien
+authorName: Manfred Kelin
+authorUrl: http://moorstation.org/typoasis/designers/klein/

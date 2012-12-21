@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory flickrPremium="true" id="RemembranceDay" numShapes="4" picnikPremium="true" previewUrls="60|48|../clipart/bundles/groupPreviews_RemembranceDay.png?ver=9cefc1e2" title="Remembrance Day">
+	<Shapes>
+		<Clipart cHeight="263" cWidth="95" flickrPremium="true" picnikPremium="true" previewUrl="40|40|0|../clipart/bundles/shapes_RemembranceDay.png?ver=06be0685" url="shapes/poppy_1.swf"/>
+		<Clipart cHeight="250" cWidth="350" flickrPremium="true" picnikPremium="true" previewUrl="40|40|1|../clipart/bundles/shapes_RemembranceDay.png?ver=06be0685" url="shapes/poppy_2.swf"/>
+		<Clipart cHeight="135" cWidth="124" flickrPremium="true" picnikPremium="true" previewUrl="40|40|2|../clipart/bundles/shapes_RemembranceDay.png?ver=06be0685" url="shapes/poppy_3.swf"/>
+		<Clipart cHeight="104" cWidth="95" flickrPremium="true" picnikPremium="true" previewUrl="40|40|3|../clipart/bundles/shapes_RemembranceDay.png?ver=06be0685" url="shapes/poppy_4.swf"/>
+	</Shapes>
+</ShapeCategory>

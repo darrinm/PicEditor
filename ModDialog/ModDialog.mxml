@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModDialogBase xmlns="*" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:projects="projects.*">
+	<mx:Box width="1" height="1" visible="false" includeInLayout="false" id="stupidBoxToMakeTheBuildWork">
+	</mx:Box>
+</ModDialogBase>

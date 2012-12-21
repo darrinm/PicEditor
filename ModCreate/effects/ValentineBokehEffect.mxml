@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cnt:PaintEffectCanvas xmlns:cnt="containers.*" xmlns="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="151" 
+		xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" premium="true" urlid="BokehHearts">
+	<mx:Script>
+		import mx.utils.ObjectProxy;
+		import util.LocUtil;
+		import imagine.imageOperations.bokeh.BokehLensType;
+		import imagine.imageOperations.bokeh.BokehStyle;
+		import mx.resources.ResourceBundle;
+   		[Bindable] [ResourceBundle("ValentineBokehEffect")] private var rb:ResourceBundle;
+   		
+   		// Declare the styles this way to prevent runtime binding warnings, e.g.
+   		// warning: unable to bind to property 'mode' on class 'Object' (class is not an IEventDispatcher)
+   		
+		/* Valid BokehImageOperation parameter values
+		style = 0:sharp, 1:creamy, 2:vivid
+		mode = "wet" | "real"
+		threshold = 0 - 255
+		lensType = 0:circular, 3-9:N-sided polygon, 10:heart, 11:diamond, 12:star, 13:star2, 14:sparkle, 15:sparkle2
+		intensity = 0.0 - 1.0
+		lensRotation = -180 - 180
+		*/
+	</mx:Script>
+
+	<mx:Array id="_resetValues">
+		<local:StoredValue target="_cboxStyles.selectedIndex"/>
+		<local:StoredValue target="_sldrRadius.value"/>
+	</mx:Array>
+
+	<EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='ValentineBokehEffect')" strAuthor="@Resource(key='_efbtn_1', bundle='ValentineBokehEffect')"
+		strImageSource="../graphics/effects/ValentinesDay/valentinesBokeh.jpg" premium="{premium}"/>
+	<mx:String id="_strHelpText">{Resource.getString('ValentineBokehEffect', '_strHelpText')}</mx:String>
+
+	<mx:VBox x="0" y="70" verticalGap="0" paddingLeft="10" paddingRight="10">
+		<!-- Fade label/percent/slider box -->
+		<mx:VBox verticalGap="0" width="100%" horizontalScrollPolicy="off">
+			<!-- Style dropdown -->
+			<mx:Label text="@Resource(key='styleDropdown', bundle='ValentineBokehEffect')" styleName="sliderTitle" paddingBottom="-3"/>
+			<mx:ComboBox id="_cboxStyles" rowCount="4" width="100%" height="26" dataProvider="{adctStyles}" change="OnOpChange()"/>
+					
+			<!-- radius -->		
+			<mx:HBox horizontalGap="5" paddingTop="5" verticalAlign="middle">
+				<!-- radius/effect paint button -->
+				<mx:VBox verticalGap="0" width="157" horizontalScrollPolicy="off">
+					<mx:HBox width="100%" paddingBottom="-5">
+						<mx:Label text="@Resource(key='radius', bundle='ValentineBokehEffect')" styleName="sliderTitle"/>
+						<mx:Label text="{Math.round(_sldrRadius.value)}" styleName="sliderValue" textAlign="right" width="100%"/>
+					</mx:HBox>
+					<HSliderFastDrag id="_sldrRadius" width="157" minimum="0" maximum="100" value="30" change="OnOpChange()"
+						liveDragging="true" showDataTip="false" updateSpeed="{updateSpeed}"/>
+				</mx:VBox>
+				<mx:Button id="_btnBrushPalette" width="30" height="30" selected="false" toggle="true" icon="@Embed('/assets/bitmaps/icon_paintTall.png')" paddingLeft="0"
+					toolTip="@Resource(key='_btnBrushPalette', bundle='ValentineBokehEffect')"/>
+			</mx:HBox>
+		</mx:VBox>
+
+		<ApplyCancelEffectButtons addBoxPadding="true" premium="{premium}"/>
+	</mx:VBox>
+	
+</cnt:PaintEffectCanvas>

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dialogs:AskForPremiumDialogBase 
+		xmlns:containers="containers.*" 
+		xmlns:dialogs="dialogs.*" 
+		xmlns:upsell="dialogs.Upsell.*" 
+ 	 	xmlns:mx="http://www.adobe.com/2006/mxml"	
+ 	 	xmlns:controls="controls.*" 
+ 	 	xmlns:renaun="com.renaun.controls.*"
+ 	 	xmlns:thumbs="controls.thumbnails.*" 
+ 	 	xmlns:bridgesemail="bridges.email.*" 
+	 width="{PicnikBase.app.yahoomail?640:690}" height="500" styleName="ShareContentDialogStyle">
+	
+	<mx:Script>
+		<![CDATA[
+			import dialogs.DialogManager;
+			import bridges.email.*;
+			import mx.resources.ResourceBundle;		
+			
+			private const kMinSize:int = 350;
+			private const kMaxSize:int = 500;	
+			override protected function OnResize(evt:Event): void {
+				height = Math.max(Math.min(kMaxSize, parentHeight), kMinSize);
+				super.OnResize(evt);
+			}
+   		]]>
+	</mx:Script>
+	
+	<mx:Style source="ShareContentDialog.css"/>
+	<mx:DropShadowFilter id="_fiWhiteShine" blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1" quality="3" angle="90"/>
+	<mx:DropShadowFilter id="_fiInnerShad" blurX="1" blurY="1" distance="1" color="#000000" alpha=".2" quality="3" angle="90" inner="true"/>
+	<mx:DropShadowFilter blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1"
+		quality="3" angle="90" id="_fiWhiteShad"/>
+	<mx:DropShadowFilter id="_fiDropShad" blurX="7" blurY="7" distance="2" color="#000000" alpha=".2" quality="3" angle="90"/>
+
+	<mx:Fade id="_efFadeIn" duration="300" alphaFrom="0" alphaTo="1"/>
+	<mx:Fade id="_efFadeOut" duration="200" alphaFrom="1" alphaTo="0"/>
+
+	<containers:AutoShrinkCanvas id="_asCanvas" width="100%" height="100%" cornerRadius="8" clipContent="true" color="#ff6600" horizontalScrollPolicy="off" verticalScrollPolicy="off">
+		<controls:ResizingLabel text="@Resource(key='title', bundle='AskForPremiumDialogBase')" left="23" width="100%" top="12" fontSize="30" color="#005580"
+			filters="{[_fiWhiteShad,_fiInnerShad]}"/>
+
+		<mx:Canvas left="0" right="0" top="60" bottom="50" horizontalScrollPolicy="off" >
+			<mx:HBox x="0" width="100%" height="100%" clipContent="true" horizontalGap="20"
+					horizontalScrollPolicy="off" verticalScrollPolicy="auto">
+				<!-- left column image privew -->
+				<mx:Box width="45%" paddingTop="4" paddingLeft="23" horizontalScrollPolicy="off" verticalScrollPolicy="off">
+					<controls:ImageVer source="../graphics/AskForPicnikPreview.jpg" filters="{[_fiDropShad]}"/>						
+				</mx:Box>		
+				<!-- right column, controls -->		
+		  		<mx:Box width="55%" paddingRight="30" height="100%" verticalGap="0" horizontalScrollPolicy="off">
+		  			<mx:VBox verticalGap="0" height="100%" width="100%">
+						<!-- email to field -->
+						<mx:Label text="@Resource(key='recipientEmail', bundle='AskForPremiumDialogBase')" styleName="publishForm" paddingBottom="-5"/>
+						<bridgesemail:EmailItemPicker oneItem="true" width="100%" prompt="@Resource(key='emailPrompt', bundle='AskForPremiumDialogBase')" id="_itemPicker"
+							listItemRenderer="{EmailListItem}" pickedItemRenderer="{EmailPickedItem}">		
+						</bridgesemail:EmailItemPicker>
+						
+						<!-- email from field -->
+						<mx:Label text="@Resource(key='yourEmail', bundle='AskForPremiumDialogBase')" styleName="publishForm" paddingTop="10" paddingBottom="-3"/>
+						<mx:HBox>
+							<controls:TextInputPlus width="160" id="_tiFromEmail" height="26" styleName="publishFormField"/>
+							<mx:CheckBox label="@Resource(key='ccMe', bundle='AskForPremiumDialogBase')" id="_chkCcMe" selected="true" enabled="{_tiFromEmail.text != ''}"/>
+						</mx:HBox>
+						
+						<!-- subject field -->
+						<mx:HBox>					
+							<mx:Text styleName="publishForm" condenseWhite="true" selectable="false" htmlText="@Resource(key='subject', bundle='AskForPremiumDialogBase')"
+								paddingTop="10" paddingBottom="-3"/>
+							<mx:Text styleName="publishForm" condenseWhite="true" selectable="false" htmlText="@Resource(key='optional', bundle='AskForPremiumDialogBase')"
+								paddingTop="10" paddingBottom="-3" color="0xBBBBBB"/>
+						</mx:HBox>
+						<controls:TextInputPlus paddingBottom="10" width="100%" maxWidth="430" id="_tiSubject" height="26" styleName="publishFormField"/>
+						
+						<mx:Spacer>
+							
+						</mx:Spacer>
+							 			
+						<!--<mx:VBox width="100%" paddingTop="20" cornerRadius="8" borderStyle="solid" borderColor="#FFFFFF" borderThickness="0" backgroundColor="#FFFFFF" backgroundAlpha="0">-->						
+							<mx:VBox paddingTop="16" paddingRight="10" width="100%" verticalGap="0">						
+								<mx:HBox>
+								
+									<!-- dear -->
+									<mx:Text styleName="publishForm" condenseWhite="true" selectable="false" htmlText="@Resource(key='dear', bundle='AskForPremiumDialogBase')" 
+										paddingTop="2" paddingBottom="-3" paddingRight="-3"/>
+									<mx:VBox verticalGap="0">
+										<!-- recipient name field
+										<mx:Text styleName="publishForm" condenseWhite="true" selectable="false" htmlText="@Resource(key='recipientName', bundle='AskForPremiumDialogBase')" 
+											paddingTop="10" paddingBottom="-3"/> -->
+										<controls:TextInputPlus prompt="@Resource(key='recipientName', bundle='AskForPremiumDialogBase')" width="160" id="_tiToName" height="26" styleName="publishFormField"/>													
+									</mx:VBox>
+									<!-- comma -->
+									<mx:Text styleName="publishForm" condenseWhite="true" selectable="false" htmlText="@Resource(key='comma', bundle='AskForPremiumDialogBase')" 
+										paddingTop="1" paddingLeft="-7" paddingBottom="-3"/>
+								</mx:HBox>
+												
+								<!-- message box -->
+								<mx:HBox paddingTop="8" >					
+									<mx:Text styleName="publishForm" condenseWhite="true" selectable="false" htmlText="@Resource(key='message', bundle='AskForPremiumDialogBase')"
+										paddingBottom="0"/>
+								</mx:HBox>
+								<controls:TextAreaPlus width="100%" maxWidth="430" height="86" minHeight="64" maxHeight="142" styleName="publishFormField" id="_taMessage" maxChars="1200"
+									text="@Resource(key='defaultEmailBody', bundle='AskForPremiumDialogBase')"/>
+									
+								<mx:HBox paddingTop="16">
+									<!-- sincerely -->
+									<mx:Text styleName="publishForm" condenseWhite="true" selectable="false" htmlText="@Resource(key='sincerely', bundle='AskForPremiumDialogBase')" 
+										paddingTop="2" paddingBottom="-2" paddingRight="-7"/>
+									<mx:VBox verticalGap="0">
+										<!-- recipient from field
+										<mx:Text styleName="publishForm" condenseWhite="true" selectable="false" htmlText="@Resource(key='yourName', bundle='AskForPremiumDialogBase')" 
+											paddingTop="10" paddingBottom="-3"/> -->
+										<controls:TextInputPlus width="160" prompt="@Resource(key='yourName', bundle='AskForPremiumDialogBase')" id="_tiFromName" height="26" styleName="publishFormField"/>													
+									</mx:VBox>
+								</mx:HBox>		
+							</mx:VBox>
+						</mx:VBox>							
+		  			<!--</mx:VBox>-->
+				</mx:Box>			
+			</mx:HBox>
+		</mx:Canvas>
+					
+		<!-- Close button-->
+		<mx:Button width="22" height="22" right="4" top="4" click="Hide()" styleName="dialogCloseButton"/>		
+
+		<!-- continue editing button -->
+		<controls:ResizingButton styleName="basketButton" label="@Resource(key='sendRequest',bundle='AskForPremiumDialogBase')"
+			id = "_btnSend" enabled="{_itemPicker.pickedItems.length > 0}" fontSize="18" bottom="8" horizontalCenter="0" height="35" minWidth="204" paddingLeft="-9" paddingRight="-9"/>
+
+		<!-- shadow dealies, drawn on top of all elements -->
+		<controls:ImageVer source="../graphics/upsellPremiumPanelShadow.png" bottom="50" left="0" right="0" scaleContent="true" maintainAspectRatio="false"/>
+	</containers:AutoShrinkCanvas>
+	
+</dialogs:AskForPremiumDialogBase>

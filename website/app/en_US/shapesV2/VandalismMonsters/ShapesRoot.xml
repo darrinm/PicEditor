@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory area="VandalismMonsters" id="root">
+	<ShapeCategory flickrPremium="false" id="newCategory" numShapes="0" picnikPremium="false" showHeader="false">
+		<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/vampire_fangs.png" flickrPremium="false" id="VampireFangs" numShapes="8" picnikPremium="false" previewUrls="60|48|../clipart/bundles/VandalismMonstersArea_groupPreviews_VampireFangs.png?ver=996f5256" thumbUrl="66|54|0|../clipart/bundles/VandalismMonstersArea_groupThumbs.png?ver=3d602577" title="Fangs"/>
+		<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/reanimated_wounds.png" flickrPremium="false" id="GhostsHalloween" numShapes="12" picnikPremium="false" previewUrls="60|48|../clipart/bundles/VandalismMonstersArea_groupPreviews_GhostsHalloween.png?ver=c53414ec" thumbUrl="66|54|1|../clipart/bundles/VandalismMonstersArea_groupThumbs.png?ver=3d602577" title="Wounds"/>
+		<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/shape_eyeballs.png" flickrPremium="false" id="eyeballs" numShapes="4" picnikPremium="false" previewUrls="60|48|../clipart/bundles/VandalismMonstersArea_groupPreviews_eyeballs.png?ver=79965f3f" thumbUrl="66|54|2|../clipart/bundles/VandalismMonstersArea_groupThumbs.png?ver=3d602577" title="Eyeballs"/>
+	</ShapeCategory>
+</ShapeCategory>

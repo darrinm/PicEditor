@@ -1,0 +1,12 @@
+fileName: lb_GROOVYGH.TTF
+name: GroovyGhosties
+subfamilyDisplayName: Regular
+fullName: GroovyGhosties
+displayName: GroovyGhosties
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 4
+pkName: pklb0GROOVYGH
+authorName: Ray Larabie
+authorUrl: http://www.larabiefonts.com/

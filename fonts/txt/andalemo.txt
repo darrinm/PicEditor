@@ -1,0 +1,12 @@
+fileName: andalemo.ttf
+name: Andale Mono
+subfamilyDisplayName: Normal
+fullName: Andale Mono
+displayName: Andale Mono
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 5
+pkName: pkandalemo
+authorName: Steve Matteson
+authorUrl: http://www.ascendercorp.com/stevepage.html

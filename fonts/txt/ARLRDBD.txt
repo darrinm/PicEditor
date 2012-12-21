@@ -1,0 +1,12 @@
+fileName: ARLRDBD.TTF
+name: Arial Rounded MT Bold
+subfamilyDisplayName: Normal
+fullName: Arial Rounded MT Bold
+displayName: Arial Rounded MT Bold
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 7
+pkName: pkARLRDBD
+authorName: Robin Nicholas
+authorUrl: http://www.microsoft.com/typography/fonts/font.aspx?FID=194&FNAME=Arial+Rounded+MT+Bold&FVER=1.51

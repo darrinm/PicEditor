@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CloudyResizingDialog xmlns="dialogs.*" xmlns:filters="flash.filters.*"
+		xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:ctrl="controls.*" xmlns:ctnr="containers.*" xmlns:ds="com.darronschall.effects.*"
+		width="525" height="350" styleName="TargetedUpsellDialogStyle">
+		
+	<mx:Script>
+		<![CDATA[
+			import mx.resources.ResourceBundle;
+			import dialogs.DialogManager;
+			
+			import util.LocUtil;
+	   		[Bindable] [ResourceBundle("UpsellTab")] private var rb:ResourceBundle;
+			
+			private function OnGivePicnikClick():void {
+				var obDefaults:Object = {
+						strSourceEvent: "???"
+					};
+				
+				var fnComplete:Function = function(obResult:Object): void {
+						// ?
+					}
+				
+				DialogManager.Show( 'PurchaseGiftDialog', null, fnComplete, obDefaults );					
+				Hide();
+			}
+		]]>
+	</mx:Script>
+	<mx:Fade alphaFrom="0" alphaTo="1" duration="500" id="_efFadeIn"/>
+	<mx:Fade alphaFrom="1" alphaTo="0" duration="500" id="_efFadeOut"/>
+
+	<filters:DropShadowFilter blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1"
+		quality="3" angle="90" id="_fiWhiteShad"/>
+
+	<mx:Style source="TargetedUpsellDialog.css"/>
+	<mx:Canvas width="100%" height="100%" horizontalScrollPolicy="off" verticalScrollPolicy="off">
+
+		<!-- Close button-->
+		<mx:Button width="22" height="22" top="4" right="4" click="Hide()" styleName="dialogCloseButton"/>
+		
+		<!-- contents -->	
+		<mx:VBox width="100%" verticalGap="0" paddingTop="10" horizontalAlign="center" height="100%">
+			<mx:VBox verticalGap="-8" paddingBottom="5" width="100%" paddingLeft="12" paddingRight="10">
+				<ctrl:ResizingLabel fontSize="30" fontSize_0="28" fontSize_1="26" fontSize_2="24" fontSize_3="22" fontSize_4="20" fontSize_5="18" fontSize_6="16" color="#005580" filters="{[_fiWhiteShad]}" condenseWhite="true" fontWeight="bold" width="100%" 
+					text="@Resource(key='giftHead', bundle='GiftUpsellDialog')"/>
+				<mx:Text fontSize="15" color="#000000" width="100%" paddingRight="140"
+					leading="-1" selectable="false" condenseWhite="true" htmlText="@Resource(key='giftSubHead', bundle='GiftUpsellDialog')" fontWeight="normal"/>
+			</mx:VBox>
+			<mx:Box width="100%" horizontalAlign="left" paddingLeft="14" paddingBottom="10">
+				<ctrl:ImageEx source="../graphics/card_folding_instructions-short.png"/>
+			</mx:Box>
+			<mx:Spacer height="10" width="10" />
+			<mx:Spacer height="10" width="10" />
+		</mx:VBox>
+		
+		<ctrl:ImageEx bundled="true" source="../graphics/dandelions/dandelion2.png" bottom="50" left="45"/>
+		<ctrl:ImageEx bundled="true" source="../graphics/dandelions/dandelion4.png" bottom="50" right="45"/>
+		<ctrl:ImageEx source="../graphics/card_beautyshot_noarrow.png" right="10" y="60"/>
+		
+		<!-- Footer -->
+		<mx:HBox width="100%" paddingTop="{height-45}" horizontalAlign="center" verticalAlign="middle">
+			<mx:Button height="39" fontSize="18" paddingLeft="5" paddingRight="5" horizontalCenter="0" styleName="basketButton"
+					   mouseFocusEnabled="false" click="OnGivePicnikClick()"
+					   label="@Resource(key='givePicnik', bundle='GiftUpsellDialog')"/>
+		</mx:HBox>
+		
+		<!-- cancel -->
+		<ctrl:ResizingButton styleName="basketButtonDarkBlue" label="@Resource(key='cancel',bundle='GiftUpsellDialog')"
+							 click="Hide()"
+							 bottom="11" right="11" height="28" minWidth="97" paddingLeft="-9" paddingRight="-9"/>
+
+		<!-- shadow dealies, drawn on top of all elements -->
+		<ctrl:ImageVer source="../graphics/upsellPremiumPanelShadow.png" bottom="50" left="0" right="0" scaleContent="true" maintainAspectRatio="false"/>	
+		
+			
+	</mx:Canvas>
+</CloudyResizingDialog>

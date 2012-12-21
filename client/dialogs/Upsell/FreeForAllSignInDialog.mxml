@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<upsell:FreeForAllSignInDialogBase xmlns="containers.*" xmlns:upsell="dialogs.Upsell.*" xmlns:mx="http://www.adobe.com/2006/mxml"	xmlns:controls="controls.*"
+	 width="{PicnikBase.app.yahoomail?640:690}" height="390" styleName="TargetedUpsellDialogStyle"
+	 >
+	
+	<mx:Script>
+		<![CDATA[
+			import dialogs.DialogManager;
+			import mx.resources.ResourceBundle;
+   		]]>
+	</mx:Script>
+	
+	<mx:Style source="TargetedUpsellDialog.css"/>
+	<mx:DropShadowFilter id="_fiWhiteShine" blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1" quality="3" angle="90"/>
+	<mx:DropShadowFilter id="_fiInnerShad" blurX="1" blurY="1" distance="1" color="#000000" alpha=".2" quality="3" angle="90" inner="true"/>
+	<mx:DropShadowFilter id="_fiEmboss" blurX="1" blurY="1" distance="1" color="#000000" alpha=".25" quality="3" angle="-90"/>
+
+	<mx:Fade id="_efFadeIn" duration="300" alphaFrom="0" alphaTo="1"/>
+	<mx:Fade id="_efFadeOut" duration="200" alphaFrom="1" alphaTo="0"/>
+
+	<mx:Canvas width="100%" height="100%" clipContent="false">
+		<!-- Close button-->
+		<mx:Button width="22" height="22" right="4" top="4" click="Hide()" styleName="dialogCloseButton"/>
+		
+		<!-- Main Content-->
+		<mx:Image source="../graphics/billion/one_billion_guest.swf" bottom="50" left="0" includeInLayout="{PicnikConfig.freeForAll &amp;&amp; AccountMgr.GetInstance().isGuest}" visible="{PicnikConfig.freeForAll &amp;&amp; AccountMgr.GetInstance().isGuest}"/>
+		
+		<mx:Image source="../graphics/billion/one_billion_registered.swf" bottom="50" left="0" includeInLayout="{PicnikConfig.freeForAll &amp;&amp; AccountMgr.GetInstance().isPremium &amp;&amp; !AccountMgr.GetInstance().isPaid}" visible="{PicnikConfig.freeForAll &amp;&amp; AccountMgr.GetInstance().isPremium &amp;&amp; !AccountMgr.GetInstance().isPaid}"/>
+		
+		<mx:Image source="../graphics/billion/one_billion_prem.swf" bottom="50" left="0" includeInLayout="{PicnikConfig.freeForAll &amp;&amp; AccountMgr.GetInstance().isPaid}" visible="{PicnikConfig.freeForAll &amp;&amp; AccountMgr.GetInstance().isPaid}"/>
+		
+		<mx:Image source="../graphics/welcome/1billion/balloon_yellow.png" top="-50" left="-10"/>
+		
+		<!-- Footer -->
+		<mx:HBox horizontalGap="8" verticalAlign="middle" bottom="6" horizontalCenter="0">
+
+			<!-- Upgrade button -->
+			<controls:ResizingButton styleName="basketButton" label="Register for Free"
+				minWidth="220" height="38" fontSize="22" includeInLayout="{PicnikConfig.freeForAll &amp;&amp; AccountMgr.GetInstance().isGuest}" visible="{PicnikConfig.freeForAll &amp;&amp; AccountMgr.GetInstance().isGuest}"
+				click="ShowRegister()"/>
+				
+				
+			<!-- Share Buttons -->
+			<mx:HBox includeInLayout="{PicnikConfig.freeForAll &amp;&amp; AccountMgr.GetInstance().isPaid || !AccountMgr.GetInstance().isGuest}" visible="{PicnikConfig.freeForAll &amp;&amp; AccountMgr.GetInstance().isPaid || !AccountMgr.GetInstance().isGuest}">
+				<mx:Text text="Share On:" fontSize="22" color="#FFFFFF" selectable="false" fontWeight="bold" filters="{[_fiEmboss]}"/>
+				<controls:ImagePlus source="../graphics/billion/facebook_button.png" click="{PicnikBase.app.ShareOnFacebook1Billion()}" buttonMode="true"/>
+				<controls:ImagePlus source="../graphics/billion/twitter_button.png" click="{PicnikBase.app.ShareOnTwitter1Billion()}" buttonMode="true"/>
+			</mx:HBox>
+						
+		</mx:HBox>
+
+		<!-- sign in button, shown only to guests -->
+		<controls:ResizingButton styleName="basketButtonDarkBlue" label="@Resource(key='orSignIn',bundle='TargetedUpsellDialog')"
+			visible="{!AccountMgr.GetInstance().hasCredentials}" includeInLayout="{!AccountMgr.GetInstance().hasCredentials}"
+			click="ShowLogIn()"
+			bottom="11" right="11" height="28" minWidth="97" paddingLeft="-9" paddingRight="-9"/>
+
+		<!-- shadow dealies, drawn on top of all elements -->
+		<controls:ImageVer source="../graphics/upsellPremiumPanelShadow.png" bottom="50" left="0" right="0" scaleContent="true" maintainAspectRatio="false"/>
+		<!--<controls:ImageVer top="71" horizontalCenter="0" source="../graphics/upsellShadowDivider.png" width="{PicnikBase.app.yahoomail?640:690}" height="9" />-->
+	</mx:Canvas>
+</upsell:FreeForAllSignInDialogBase>

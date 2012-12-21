@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cnt:EffectCanvas xmlns:cnt="containers.*" xmlns="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="195"
+	xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*" premium="{PicnikBase.GetApp().freemiumModel}" urlid="1960s">
+	<mx:Script>
+		import util.LocUtil;
+		import mx.resources.ResourceBundle;
+   		[Bindable] [ResourceBundle("SixtiesEffect")] private var rb:ResourceBundle;
+	</mx:Script>
+
+	<mx:Array id="_resetValues">
+		<local:StoredValue target="_sldrFade.value"/>
+		<local:StoredValue target="_chkbxRounded.selected"/>
+		<local:StoredValue target="_cpkrOuter.selectedColor"/>
+	</mx:Array>
+	
+	<EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='SixtiesEffect')" strAuthor="@Resource(key='_efbtn_1', bundle='SixtiesEffect')"
+		strImageSource="../graphics/effects/Camera/1960.png" premium="{premium}"/>
+	<mx:String id="_strHelpText">{Resource.getString('SixtiesEffect', '_strHelpText')}</mx:String>
+	
+	<mx:VBox x="8" y="70" verticalGap="0">
+		<mx:Spacer width="10" height="3"/>
+		<mx:HBox paddingTop="5" paddingLeft="5" paddingRight="5" paddingBottom="5" horizontalGap="5" width="190" horizontalScrollPolicy="off"
+				cornerRadius="5" backgroundColor="#ffffff" borderColor="#d9d9d9" borderStyle="solid" backgroundAlpha=".4">
+			<mx:CheckBox label="@Resource(key='_chkbxRounded', bundle='SixtiesEffect')" selected="true" id="_chkbxRounded" change="OnOpChange()"/>
+			<HSBColorPicker id="_cpkrOuter" selectedColor="0xffffff" liveColorChange="OnBufferedOpChange()" width="50" enabled="{_chkbxRounded.selected}"/>
+		</mx:HBox>
+
+		<mx:HBox width="190" paddingBottom="-5" paddingTop="5">
+			<mx:Label text="@Resource(key='Label_1', bundle='SixtiesEffect')" styleName="sliderTitle"/>
+			<mx:Label text="{LocUtil.pct((_sldrFade.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<HSliderPlus width="190" minimum="0" maximum="100" value="20" id="_sldrFade" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+		
+		<ApplyCancelEffectButtons addBoxPadding="true" premium="{premium}"/>
+	</mx:VBox>
+	
+	<imageOperations:NestedImageOperation id="_op">
+		<imageOperations:children>
+			<imageOperations:NestedImageOperation BlendAlpha="{1-(_sldrFade.value/100)}" dynamicAlphaCachePriority="10">
+				<imageOperations:children>
+					<imageOperations:AutoFixImageOperation />
+					<imageOperations:AdjustCurvesImageOperation
+						MasterCurve="{[{x:0, y:0}, {x:150, y:104}, {x:243, y:255}]}"
+						RedCurve="{[{x:0, y:59}, {x:96, y:156}, {x:210, y:255}]}"
+						GreenCurve="{[{x:0, y:22}, {x:150, y:166}, {x:255, y:216}]}"
+						BlueCurve="{[{x:0, y:9}, {x:126, y:98}, {x:255, y:231}]}"
+					/>
+					<imageOperations:NoiseImageOperation randomSeed="5" 
+						low="235" high="255" channelOptions="7"
+						grayScale="true" BlendAlpha=".6" BlendMode="multiply"/>
+				</imageOperations:children>
+			</imageOperations:NestedImageOperation>
+			<imageOperations:BorderImageOperation outercolor="{0xff000000 + _cpkrOuter.liveColor}" innercolor="0" BlendAlpha="1"
+				dynamicParamsCachePriority="5"
+				outerthickness="0" innerthickness="0" cornerradius="{_chkbxRounded.selected?Math.min(imagewidth, imageheight)/14:0}" />
+		</imageOperations:children>
+	</imageOperations:NestedImageOperation>
+
+</cnt:EffectCanvas>

@@ -1,0 +1,12 @@
+fileName: tm_prefix.ttf
+name: Prefix
+subfamilyDisplayName: Endangered
+fullName: Prefix
+displayName: Prefix
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 0
+pkName: pktm0prefix
+authorName: Tom Murphy
+authorUrl: http://fonts.tom7.com/

@@ -1,0 +1,12 @@
+fileName: OLYMPIQUES.ttf
+name: OLYMPIQUES
+subfamilyDisplayName: Normal
+fullName: OLYMPIQUES
+displayName: OLYMPIQUES
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 0
+pkName: pkOLYMPIQUES
+authorName: Gyom.Typo
+authorUrl: http://gyom.nebullus.com/

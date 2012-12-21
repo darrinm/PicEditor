@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SurveyTabBase xmlns="dialogs.RegisterHelper.*" 
+	xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:ctrl="controls.*" xmlns:cntr="containers.*" xmlns:ds="com.darronschall.effects.*"
+	xmlns:vld="validators.*" logEventBase="">
+
+	<mx:Script>
+	<![CDATA[
+        import mx.effects.easing.*;
+		import util.LocUtil;
+		import picnik.util.LocaleInfo;
+	]]>
+	</mx:Script>
+	
+	<mx:String id="_strSuccessFeedbackMessage">{Resource.getString('SurveyTab', 'account_created')}</mx:String>
+	
+	<vld:AlwaysValidValidator id="_vldAge" source="{_cboxAge}" property="selectedIndex" required="false"/>
+	<vld:AlwaysValidValidator id="_vldGender" source="{_rbgGender}" property="selection" required="false"/>
+    <vld:AlwaysValidValidator id="_vldZip" source="{_tiZip}" property="text" required="false"/>
+	<DataModel id="_dtmFormFields">
+		<DataField name="age" validator="{_vldAge}" def_value="0"/>
+		<DataField name="gender" validator="{_vldGender}" def_value="{null}"/>
+		<DataField name="zipcode" validator="{_vldZip}"/>
+	</DataModel>
+	
+	<mx:Fade alphaFrom="0" alphaTo="1" duration="500" id="_efFadeIn" />
+	<mx:Fade alphaFrom="1" alphaTo="0" duration="500" id="_efFadeOut" />
+	<mx:Fade alphaFrom="0" alphaTo=".75" duration="300" id="_efQuarterFadeIn" />
+	<mx:Fade alphaFrom=".75" alphaTo="0" duration="150" id="_efQuarterFadeOut" />
+	<!-- dandelion effects -->
+	<mx:Parallel id="_efDandelionFadeIn" duration="200">
+		<mx:Fade alphaFrom="0" alphaTo="1" easingFunction="{Quadratic.easeOut}"/>
+		<mx:Zoom zoomHeightFrom=".9" zoomHeightTo="1" easingFunction="{Quadratic.easeOut}"/>
+	</mx:Parallel>
+	<mx:Parallel id="_efDandelionFadeOut" duration="300">
+		<mx:Fade alphaFrom="1" alphaTo="0" easingFunction="{Quadratic.easeIn}"/>
+		<mx:Zoom zoomHeightFrom="1" zoomHeightTo=".9" easingFunction="{Quadratic.easeIn}"/>
+	</mx:Parallel>
+	<!-- These effects set focus when they complete, thus avoiding the "double focus change on tab" bug -->
+	<mx:Fade alphaFrom="0" alphaTo=".75" duration="300" id="_efQuarterFadeInPwConfirmed" />
+	<mx:Fade alphaFrom="0" alphaTo=".75" duration="300" id="_efQuarterFadeInEmConfirmed" />
+		
+	<mx:Sequence id="_effError" targets="{[_lblZipError]}">
+		<mx:Parallel duration="200">
+			<mx:Glow alphaFrom="0" alphaTo=".4" blurXFrom="0" blurYFrom="0" blurXTo="8" blurYTo="8" color="#005580"/>
+			<ds:AnimateColor isStyle="true" property="color" toValue="0xCC0000"/>
+		</mx:Parallel>
+		<mx:Pause duration="100"/>
+		<mx:Parallel duration="400">
+			<mx:Glow alphaFrom=".4" alphaTo="0" blurXFrom="8" blurYFrom="8" blurXTo="0" blurYTo="0" color="#005580"/>
+			<ds:AnimateColor isStyle="true" property="color" toValue="0x618430"/>
+		</mx:Parallel>
+	</mx:Sequence>
+	
+	<mx:Canvas id="_cvsRoot" width="100%" height="100%" horizontalScrollPolicy="off" verticalScrollPolicy="off">
+		<!-- clouds & gradient background -->
+		<mx:VBox height="100%" width="100%" verticalGap="0" id="_vbBG">
+			<ctrl:ImageEx source="../app/graphics/dialog_head.png" />
+			<ctrl:ImageEx source="../app/graphics/dialog_middle.png" height="100%" width="100%" scaleContent="true" maintainAspectRatio="false"/>
+			<ctrl:ImageEx source="../app/graphics/dialog_foot.png" />
+		</mx:VBox>
+		<!-- contents -->
+		<mx:HBox width="100%" right="0" top="0" horizontalAlign="right" horizontalGap="0" id="_hboxClose">
+			<ctrl:ImageVer source="@Embed('/assets/bitmaps/reghead_left.png')" width="59" height="27"/>
+			<mx:HBox width="26" height="27" backgroundImage="@Embed('/assets/bitmaps/reghead_right.png')" paddingLeft="6" paddingTop="4">
+				<mx:Button click="SurveyClose()" height="16" width="16" icon="@Embed('/theme/pngs/closeIcon.png')" paddingLeft="0"/>
+			</mx:HBox>
+		</mx:HBox>		
+		<mx:VBox id="_vbMainForm" verticalGap="0" paddingLeft="15" clipContent="false">
+			<cntr:ResizingVBox verticalGap="-10" paddingLeft="-3" paddingTop="10" width="300" id="_headerBox">
+				<ctrl:ResizingLabel text="@Resource(key='tell_us', bundle='SurveyTab')" fontSize="26" color="#005580" id="label1" autoFontSizeGap="1"/>
+			</cntr:ResizingVBox>	
+			<ctrl:ResizingText height="25" condenseWhite="true" fontSize="13" paddingLeft="-3" paddingTop="-10" color="#333333" 
+				width="480" leading="-1" id="_txtSubhead" htmlText="@Resource(key='subhead', bundle='SurveyTab')" autoFontSizeGap="1" fontWeight="{LocaleInfo.BoldWeight()}"/>
+			
+			<mx:Text htmlText="{LocUtil.rbSubst('SurveyTab', 'under_13', min_year+1)}" width="100%" color="#333333" fontSize="13"
+				paddingLeft="-3" paddingBottom="5"/>
+			<ctrl:ImageEx source="../graphics/page_divider.png" scaleContent="true" width="450" height="2" maintainAspectRatio="false"/>
+			<!-- age -->
+			<mx:HBox id="_vbAge" paddingTop="8" width="100%" verticalAlign="middle">
+				<mx:Label text="@Resource(key='year', bundle='SurveyTab')" styleName="publishForm" paddingBottom="-2"/>
+				<mx:ComboBox id="_cboxAge" rowCount="6" height="26" fontSize="13" color="#333333" minWidth="60" styleName="deviceFonts">
+					<mx:itemRenderer>
+						<mx:Component>
+		                	<mx:Label text="{data.label}" fontSize="13" width="100%" paddingRight="5" styleName="deviceFonts"/>
+						</mx:Component>
+		            </mx:itemRenderer>
+				</mx:ComboBox>
+			</mx:HBox>
+			
+			<!-- gender -->
+			<mx:HBox id="_vbGender" paddingTop="9" verticalGap="0" width="200" clipContent="false" verticalAlign="middle">
+				<mx:Label text="@Resource(key='gender', bundle='SurveyTab')" styleName="publishForm" paddingRight="5" paddingBottom="-2"/>
+				<mx:RadioButtonGroup id="_rbgGender"/>
+				<mx:RadioButton groupName="_rbgGender" id="_rbFemale" value="female" label="@Resource(key='female', bundle='SurveyTab')"/>
+				<mx:RadioButton groupName="_rbgGender" id="_rbMale" value="male" label="@Resource(key='male', bundle='SurveyTab')"/>
+			</mx:HBox>
+			
+			<!-- zip code -->
+			<mx:HBox id="_vbZip" paddingTop="12" width="100%" verticalAlign="middle">
+				<mx:Label text="@Resource(key='zip', bundle='SurveyTab')" styleName="publishForm" paddingBottom="-2"/>
+				<mx:HBox width="100%" verticalAlign="middle">
+					<ctrl:NoTipTextInput id="_tiZip" height="26" styleName="publishFormField" width="120" maxChars="10" enter="SurveyComplete()" restrict="0-9,a-z,A-Z,' ',\-" />
+					<mx:Text styleName="formError"  id="_lblZipError" width="100%"
+						text="{_tiZip.errorString}" showEffect="{_efFadeIn}"
+						visible="{_tiZip.errorString.length > 0}" includeInLayout="{_tiZip.errorString.length > 0}"/>
+				</mx:HBox>
+			</mx:HBox>
+
+		</mx:VBox>
+		<!-- notification images & errortips go on top (dandelions, checks, etc) -->
+		<!-- dandelions -->
+		<ctrl:ImageEx bundled="true" source="../graphics/dandelions/dandelion1.png" x="12" visible="{_cboxAge.selectedIndex>0}"
+			showEffect="{_efDandelionFadeIn}" hideEffect="{_efDandelionFadeOut}" bottom="0"/>
+		<ctrl:ImageEx bundled="true" source="../graphics/dandelions/dandelion2.png" x="66" visible="{_rbgGender.selectedValue != null}"
+			showEffect="{_efDandelionFadeIn}" hideEffect="{_efDandelionFadeOut}" bottom="0"/>
+		<ctrl:ImageEx bundled="true" source="../graphics/dandelions/dandelion3.png" visible="{_tiZip.text.length > 0}"
+			showEffect="{_efDandelionFadeIn}" hideEffect="{_efDandelionFadeOut}" bottom="0" right="63"/>
+			
+		<!-- enter button floats over everything -->
+		<mx:VBox width="100%" horizontalAlign="center" verticalGap="3" bottom="10">
+			<mx:Button id="_btnCreate" label="@Resource(key='onwards', bundle='SurveyTab')" minWidth="200" fontSize="18" styleName="BigButton" paddingLeft="10" paddingRight="10" click="SurveyComplete()" keyDown="SurveyCompleteKeyEvent(event)" height="34" />
+			<mx:Box backgroundAlpha="0.7" backgroundColor="#FFFFFF" borderStyle="solid" borderThickness="0" cornerRadius="5"
+					paddingTop="2" paddingRight="2" paddingBottom="2" paddingLeft="2">
+				<mx:Text id="_lblPrivacy" textAlign="center" width="480" htmlText="@Resource(key='privacy', bundle='SurveyTab')" fontSize="12" color="#333333" link="OnSurveyTabLink(event);"/>
+			</mx:Box>
+		</mx:VBox>
+
+	</mx:Canvas>
+	<mx:Script>
+		<![CDATA[
+			import util.UsernameDictionary;
+			import util.UserEmailDictionary;
+		]]>
+	</mx:Script>
+</SurveyTabBase>

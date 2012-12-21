@@ -1,0 +1,12 @@
+fileName: vtks_Sonho.ttf
+name: Vtks Sonho
+subfamilyDisplayName: Regular
+fullName: Vtks Sonho
+displayName: Vtks Sonho
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 0
+pkName: pkvtks0Sonho
+authorName: Douglas Vitkauskas
+authorUrl: http://www.vtks.com.br/

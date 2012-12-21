@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RegisterTabBase xmlns="dialogs.RegisterHelper.*" xmlns:fc="dialogs.RegisterHelper.FormControls.*"
+	xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:ctrl="controls.*" xmlns:cntr="containers.*" xmlns:ds="com.darronschall.effects.*"
+	xmlns:vld="validators.*" logEventBase="Register">
+
+	<states>
+		<mx:State name="Upgrading">
+			<mx:SetProperty target="{_stdTitle}" name="text" value="{Resource.getString('RegisterTab', 'first_create_an_account')}"/>
+			<mx:SetProperty target="{_btnCreate}" name="label" value="{Resource.getString('RegisterTab', 'onwards')}"/>
+			<mx:SetProperty target="{_btnCreate}" name="width" value="180"/>
+			<mx:SetProperty target="{_txtSubhead}" name="htmlText" value="{Resource.getString('RegisterTab', 'already_have_an_account')}"/>
+			<mx:SetProperty target="{_stdCloseBox}" name="width" value="400"/>
+			<mx:SetProperty target="{_stdCloseBox}" name="text" value=""/>
+		</mx:State>		
+		<mx:State name="UpgradingFlickr" basedOn="Upgrading">
+			<mx:SetProperty target="{_txtSubhead}" name="htmlText" value="{Resource.getString('RegisterTab', 'already_have_an_account_flickr')}"/>
+			<mx:SetProperty target="{_txtSubhead}" name="height" value="30"/>
+			
+			<mx:SetProperty target="{_stdTitle}" name="text" value="{Resource.getString('RegisterTab', 'first_create_a_picnik_account')}"/>
+		</mx:State>				
+		<mx:State name="RedeemingGift" basedOn="Upgrading">
+			<mx:SetProperty target="{_stdTitle}" name="text" value="{Resource.getString('RegisterTab', 'gift_create_an_account')}"/>
+		</mx:State>
+		<mx:State name="HelpHub" basedOn="Upgrading">
+			<mx:SetProperty target="{_stdTitle}" name="text" value="{Resource.getString('RegisterTab', 'gift_create_an_account')}"/>
+		</mx:State>
+		<mx:State name="Headless">
+		</mx:State>
+		<mx:State name="Inline">
+			<mx:RemoveChild target="{_stdBackground}" />
+			<mx:RemoveChild target="{_stdTitle}" />
+			<mx:RemoveChild target="{_stdCloseBox}" />
+			<mx:RemoveChild target="{_txtSubhead}" />
+			<mx:RemoveChild target="{_hbxGoogleLogIn}"/>
+			<!-- tighten left overall padding -->
+			<!--<mx:SetStyle target="{_vbMainForm}" name="paddingLeft" value="0"/>-->
+			<!-- tighten bottom padding to fit w/o scrolling -->
+			<mx:SetProperty target="{_cbWantsMail}" name="height" value="20"/>
+			<!-- widen up the input fields -->
+			<mx:SetProperty target="{_vbUsername}" name="width" value="230"/>
+			<mx:SetProperty target="{_vbPassword}" name="width" value="265"/>
+			<mx:SetProperty target="{_vbPasswordAgain}" name="width" value="265"/>
+			<mx:SetProperty target="{_vbEmail}" name="width" value="265"/>
+			<mx:SetProperty target="{_vbEmailAgain}" name="width" value="265"/>
+			<!-- move the error tips to the right -->
+			<mx:SetProperty target="{_etUsername}" name="x" value="247"/>
+			<mx:SetProperty target="{_etEmail}" name="x" value="282"/>
+			<!--<mx:SetStyle target="{_vbGbox}" name="top" value="45"/>-->
+		</mx:State>
+	</states>
+	<mx:Script>
+        import mx.effects.easing.*;
+        
+        import picnik.util.LocaleInfo;
+        
+        import util.LocUtil;
+    </mx:Script>
+	
+	<!-- dynamic variables -->
+	<mx:String id="_strSuccessFeedbackMessage">{Resource.getString('RegisterTab', '_strSuccessFeedbackMessage')}</mx:String>
+	<mx:Boolean id="showGoogleLogIn">{PicnikConfig.googleLoginEnabled &amp;&amp; (_tiUsername.text.length == 0) &amp;&amp; (_tiEmail.length == 0) &amp;&amp; (_tiPassword.length == 0) &amp;&amp; !fShowEmailAgain &amp;&amp; !fShowPasswordAgain }</mx:Boolean>
+	<mx:Boolean id="_fPwFocus">false</mx:Boolean>
+	<mx:Boolean id="_fEmFocus">false</mx:Boolean>
+	<mx:Boolean id="_fPwConfirmed">false</mx:Boolean>
+	<mx:Boolean id="_fEmConfirmed">false</mx:Boolean>
+	<mx:Boolean id="fShowPasswordAgain">{and(!_fPwConfirmed, or( _fPwFocus, _tiPassword.text.length > 0))}</mx:Boolean>
+	<mx:Boolean id="fShowEmailAgain">{and(!_fEmConfirmed, or( _fEmFocus, _tiEmail.text.length > 0))}</mx:Boolean>
+	<mx:Boolean id="fRegularEmailError">{_tiEmail.errorString == Resource.getString('RegisterTab', '_vldUsername_2')}</mx:Boolean>
+	<mx:Boolean id="fGoogleEmailError">{_tiEmail.errorString == Resource.getString('RegisterTab', 'googleAccount')}</mx:Boolean>
+	<mx:Boolean id="fShowEmailErrorTip">{fGoogleEmailError || fRegularEmailError}</mx:Boolean>
+	<mx:String id="strEmailErrorTipText">{Resource.getString('RegisterTab', fRegularEmailError ? 'email_unavailable' : 'knownEmailSignInWithGoogle')}</mx:String>
+	
+	<mx:Binding source="and(_tiPassword.text.length > 0, _tiPassword.errorString.length == 0, _tiPassword.text == _tiPasswordAgain.text)" destination="_fPwConfirmed"/>
+	<mx:Binding source="and(_tiEmail.text.length > 0, _tiEmail.errorString.length == 0, _tiEmail.text.toLowerCase() == _tiEmailAgain.text.toLowerCase())" destination="_fEmConfirmed"/>
+	<mx:Binding source="or(_tiPassword.text.length > 0, _tiEmail.text.length > 0, _tiUsername.text.length > 0 )" destination="formIsDirty"/>
+	<!--<mx:Binding source="!or(fShowEmailAgain, fShowPasswordAgain)" destination="showGBox"/>-->
+	
+	<!-- validators -->
+	<vld:UsernameValidator id="_vldUsername" required="true" source="{_tiUsername}" property="text" dictCheck="prohibit">
+		<vld:userNameTooShort>{Resource.getString('RegisterTab', '_vldUsername')}</vld:userNameTooShort>
+		<vld:requiredFieldError>{Resource.getString('RegisterTab', '_vldUsername_1')}</vld:requiredFieldError>
+		<vld:userExistsError>{Resource.getString('RegisterTab', '_vldUsername_2')}</vld:userExistsError>
+	</vld:UsernameValidator>
+	<vld:PasswordValidator id="_vldPassword" required="true" source="{_tiPassword}" property="text" username="{_tiUsername.text}">
+		<vld:requiredFieldError>{Resource.getString('RegisterTab', '_vldUsername_1')}</vld:requiredFieldError>
+		<vld:passwordTooShort>{Resource.getString('RegisterTab', '_vldPassword')}</vld:passwordTooShort>
+		<vld:passwordTooCloseToUsername>{Resource.getString('RegisterTab', '_vldPassword_1')}</vld:passwordTooCloseToUsername>
+	</vld:PasswordValidator>
+	<vld:EqualToValidator id="_vldPasswordAgain" required="true" source="{_tiPasswordAgain}" property="text"  equalTo="{_tiPassword.text}">
+		<vld:valuesNotEqual>{Resource.getString('RegisterTab', '_vldPasswordAgain')}</vld:valuesNotEqual>
+		<vld:requiredFieldError>{Resource.getString('RegisterTab', '_vldUsername_1')}</vld:requiredFieldError>
+	</vld:EqualToValidator>
+	<vld:EmailValidatorPlus id="_vldEmail" required="true" source="{_tiEmail}" property="text" dictCheck="prohibit"
+			alsoValid="{AccountMgr.GetInstance().GetUserAttribute('email')}">
+		<vld:requiredFieldError>{Resource.getString('RegisterTab', '_vldUsername_1')}</vld:requiredFieldError>
+		<vld:emailExistsError>{Resource.getString('RegisterTab', '_vldUsername_2')}</vld:emailExistsError>
+		<vld:emailExistsAndIsSpecialError>{Resource.getString('RegisterTab', 'googleAccount')}</vld:emailExistsAndIsSpecialError>
+		<vld:charError>{Resource.getString('RegisterTab', '_vldEmail')}</vld:charError>
+	</vld:EmailValidatorPlus>
+	<vld:EqualToValidator id="_vldEmailAgain" required="true" source="{_tiEmailAgain}" property="text"  equalTo="{_tiEmail.text}">
+		<vld:valuesNotEqual>{Resource.getString('RegisterTab', '_vldPasswordAgain')}</vld:valuesNotEqual>
+		<vld:requiredFieldError>{Resource.getString('RegisterTab', '_vldUsername_1')}</vld:requiredFieldError>
+	</vld:EqualToValidator>
+	
+	<!-- data model -->
+	<DataModel id="_dtmFormFields">
+		<DataField name="username" validator="{_vldUsername}" def_value="{AccountMgr.GetInstance().displayName == 'Guest' ? '' : AccountMgr.GetInstance().displayName}"/>
+		<DataField name="password" validator="{_vldPassword}"/>
+		<DataField name="passwordagain" validator="{_vldPasswordAgain}"/>
+		<DataField name="email" validator="{_vldEmail}" def_value="{AccountMgr.GetInstance().email}"/>
+		<DataField name="emailagain" validator="{_vldEmailAgain}" def_value="{AccountMgr.GetInstance().email}"/>
+		<DataField name="wantsmail" value="{_cbWantsMail.selected}" source="{_cbWantsMail}" def_value="{true}"/>
+	</DataModel>
+	
+	<!-- effects and dandelions -->
+	<mx:Parallel id="_efDandelionFadeIn" duration="200">
+		<mx:Fade alphaFrom="0" alphaTo="1" easingFunction="{Quadratic.easeOut}"/>
+		<mx:Zoom zoomHeightFrom=".9" zoomHeightTo="1" easingFunction="{Quadratic.easeOut}"/>
+	</mx:Parallel>
+	<mx:Parallel id="_efDandelionFadeOut" duration="300">
+		<mx:Fade alphaFrom="1" alphaTo="0" easingFunction="{Quadratic.easeIn}"/>
+		<mx:Zoom zoomHeightFrom="1" zoomHeightTo=".9" easingFunction="{Quadratic.easeIn}"/>
+	</mx:Parallel>
+
+	<mx:Fade alphaFrom="0" alphaTo=".75" duration="300" id="_efQuarterFadeInPwConfirmed" effectEnd="_tiEmail.setFocus()"/>
+	<mx:Fade alphaFrom="0" alphaTo=".75" duration="300" id="_efQuarterFadeInEmConfirmed" effectEnd="_btnCreate.setFocus()"/>
+	
+	
+	
+	<mx:Fade id="_efFadeOut" alphaFrom="1" alphaTo="0" duration="200"/>
+	<mx:Fade id="_efFadeIn" alphaFrom="0" alphaTo="1" duration="500"/>
+	
+	<mx:Script>
+		<![CDATA[
+		/*
+			private var _fShowingGBox:Boolean = true;
+			
+			[Bindable]
+			public function set showGBox(f:Boolean): void {
+				if (_fShowingGBox == f)
+					return;
+					
+				_fShowingGBox = f;
+				if (_fShowingGBox)
+					UpdateGBoxStateLater();
+				else
+					UpdateGBoxState();
+			}
+			
+			private function UpdateGBoxStateLater(): void {
+				var tmr:Timer = new Timer(200, 1);
+				tmr.addEventListener(TimerEvent.TIMER, function(evt:Event): void {
+					tmr.stop();
+					UpdateGBoxState();
+				});
+				tmr.start();
+			}
+			
+			
+			private function UpdateGBoxState(): void {
+				var nAlpha:Number = _vbGbox.alpha;
+					
+				_efFadeIn.alphaFrom = nAlpha;
+				_efFadeOut.alphaFrom = nAlpha;
+				_vbGbox.endEffectsStarted();
+				if (_fShowingGBox) {
+					_efFadeIn.play([_vbGbox]);
+				} else {
+					_efFadeOut.play([_vbGbox]);
+				}
+				_vbGbox.alpha = nAlpha;
+			}
+			public function get showGBox(): Boolean {
+				return _fShowingGBox;
+			}
+			*/
+		]]>
+	</mx:Script>
+	
+	
+	<fc:StandardEffects id="effects" errorTargets="{[_lblUnError, _lblPwError, _lblPwAgainError, _lblEmError, _lblEmAgainError]}"/>
+	
+	<mx:Style>
+		.gBox {
+			border-style: solid;
+			border-thickness: 0;
+			border-skin: ClassReference("skins.GradientBackground");
+			gradient-fill-colors: #9ec33e, #7caf2e;
+			gradient-fill-ratios: 0,255;
+			gradient-rotation: 90;
+		}
+	</mx:Style>
+	<mx:DropShadowFilter id="_fiTxtShad" blurX="3" blurY="3" distance="1" angle="90" alpha=".3" color="#000000" />
+	<mx:DropShadowFilter id="_fiWhiteShine" blurX="0" blurY="0" distance="1" angle="90" alpha="1" color="#ffffff" />
+	<mx:DropShadowFilter id="_fiInnerShad" blurX="2" blurY="2" distance="1" angle="90" alpha=".25" color="#000000" inner="true" />
+	
+	<!-- main canvas -->
+	<mx:Canvas id="_cvsRoot" width="100%" height="100%" horizontalScrollPolicy="off" verticalScrollPolicy="off">
+		<fc:StandardBackground id="_stdBackground"/>
+		<fc:StandardCloseBox id="_stdCloseBox" text="@Resource(key='_lbHeadtext', bundle='RegisterTab')" fnClose="{Hide}" />
+
+		<!-- g announce box 
+		<mx:VBox right="-8" top="110" width="224" styleName="gBox" cornerRadius="8"
+				id="_vbGbox"
+				filters="{[_fiInnerShad,_fiWhiteShine]}"
+				paddingTop="6" paddingLeft="10" paddingBottom="8" paddingRight="10" verticalAlign="middle" verticalGap="-4">
+			<ctrl:ResizingText text="@Resource(key='gAnnounce', bundle='WelcomeNew')"
+				width="190" height="75" filters="{[_fiTxtShad]}" selectable="false"
+				fontSize="20" fontWeight="bold" color="#ffffff" leading="-2" autoFontSizeGap="1"/>
+			<ctrl:ResizingButton label="@Resource(key='learnMore', bundle='WelcomeNew')" fontSize="15" styleName="clearButton" filters="{[_fiTxtShad]}" color="#ddff99"
+				textRollOverColor="#ffffff" textSelectedColor="#ffffff" useHandCursor="true" buttonMode="true"
+				click="PicnikBase.app.NavigateToURL(new URLRequest('http://blog.mywebsite.com/2010/03/google-acquires-picnik'),'_new')"/>
+		</mx:VBox>
+		-->
+
+		<!-- Google Login Parts -->
+		
+		<!-- start content -->
+		<mx:VBox id="_vbMainForm" verticalGap="0" paddingLeft="15" clipContent="false">
+			<fc:StandardTitle id="_stdTitle" text="@Resource(key='label1', bundle='RegisterTab')" titleWidth="400" />
+			<ctrl:ResizingText height="15" condenseWhite="true" fontSize="13" paddingLeft="-3" paddingTop="-10" fontWeight="{LocaleInfo.BoldWeight()}" color="#4d4d4d" 
+				width="480" leading="-1" id="_txtSubhead" htmlText="@Resource(key='_txtSubhead', bundle='RegisterTab')" autoFontSizeGap="1"/>
+				
+			<!-- central content -->
+			<mx:Canvas>
+				<!-- Google Login -->
+				<mx:HBox width="{_cvsRoot.width * 0.5 - 20}" right="0" height="100%" verticalAlign="middle" horizontalGap="0" id="_hbxGoogleLogIn" visible="{showGoogleLogIn}" 
+						 showEffect="{effects.effFadeIn}" hideEffect="{effects.effFadeOut}" paddingBottom="15">
+					<!-- or -->
+					<mx:VBox height="100%" horizontalAlign="center" id="_vbxOR" verticalGap="0">
+						<ctrl:FadingVRule height="50%" shadowColor="#ffffff" strokeColor="#cee5f5" topFadeSize="25%"/>
+						<mx:Label text="@Resource(key='or', bundle='LoginTab')" color="#005580" fontSize="16"/>
+						<ctrl:FadingVRule height="50%" shadowColor="#ffffff" strokeColor="#cee5f5" bottomFadeSize="25%"/>
+					</mx:VBox>
+					<mx:Spacer width="15" id="_sp1"/>
+					<ctrl:MultiLineButton label="@Resource(key='SignInWithAGoogleAccount', bundle='LoginTab')"
+										  width="{_hbxGoogleLogIn.width - _vbxOR.width - _sp1.width - _sp2.width}"
+										  fontSize="20" styleName="BigButton" click="DoGoogleLogIn()"/>
+					<mx:Spacer width="10" id="_sp2"/>
+				</mx:HBox>
+				<mx:VBox verticalGap="0" paddingLeft="0" clipContent="false">
+					<!-- username -->
+					<mx:VBox id="_vbUsername" verticalGap="0" width="200" clipContent="false">
+						<mx:Label text="@Resource(key='Label_1', bundle='RegisterTab')" styleName="publishForm" paddingBottom="-4" paddingTop="0" width="100%"/>
+						<mx:Canvas id="cvsUsername" width="100%" height="26" clipContent="false">
+							<ctrl:NoTipTextInput id="_tiUsername" height="26" styleName="publishFormField" width="100%" maxChars="32"
+												 text="{AccountMgr.GetInstance().displayName == 'Guest' ? '' : AccountMgr.GetInstance().displayName}"					
+												 restrict="{UsernameDictionary.textInputRestrictChars}" enter="CreateAccount()"/>
+							<ctrl:ImageVer source="@Embed('/theme/pngs/yesIcon.png')" visible="{_vldUsername.passedDeepValidation}" 
+										   showEffect="{effects.effQuarterFadeIn}" hideEffect="{effects.effQuarterFadeOut}" y="4" right="3" alpha=".75"/>
+						</mx:Canvas>
+						<mx:Label textAlign="right" width="100%" styleName="formError" paddingBottom="-3" paddingTop="-1"
+								  id="_lblUnError" text="{_tiUsername.errorString}" showEffect="{effects.effFadeIn}" fontSize="11" visible="{_tiUsername.errorString.length > 0}"/>
+					</mx:VBox>
+					
+					<!-- password -->
+					<mx:HBox paddingTop="-7" horizontalGap="10" clipContent="false">
+						<mx:VBox id="_vbPassword" verticalGap="0" width="235" clipContent="false">
+							<mx:Label text="@Resource(key='Label_2', bundle='RegisterTab')" styleName="publishForm" paddingBottom="-4" paddingTop="5" width="100%"/>
+							<mx:Canvas id="cvsPassword" width="100%" height="26" clipContent="false">
+								<ctrl:NoTipTextInput id="_tiPassword" displayAsPassword="true" height="26" styleName="publishFormField" width="100%" maxChars="32"
+													 focusIn="_fPwFocus=true" focusOut="_fPwFocus=false" fontSize="16" letterSpacing="2" fontWeight="bold" fontSharpness="-200"
+													 change="_tiPasswordAgain.text = '', _tiPasswordAgain.errorString = ''" enter="CreateAccount()" fontFamily="trebuchetMS"/>
+								<ctrl:ImageVer source="@Embed('/theme/pngs/yesIcon.png')" visible="{_fPwConfirmed}" 
+											   showEffect="{_efQuarterFadeInPwConfirmed}" hideEffect="{effects.effQuarterFadeOut}" y="4" right="3" alpha=".75"/>
+							</mx:Canvas>
+							<mx:Label textAlign="right" width="100%" styleName="formError" paddingBottom="-3" paddingTop="-1"
+									  id="_lblPwError" text="{_tiPassword.errorString}" showEffect="{effects.effFadeIn}" fontSize="11" visible="{_tiPassword.errorString.length > 0}"/>
+						</mx:VBox>
+						<mx:VBox id="_vbPasswordAgain" verticalGap="0" width="235" showEffect="{effects.effFadeIn}" paddingTop="3"
+								 visible="{fShowPasswordAgain}">
+							<mx:Label text="@Resource(key='Label_3', bundle='RegisterTab')" styleName="publishForm" paddingBottom="-4" paddingTop="5" fontWeight="normal"
+									  enabled="{_tiPasswordAgain.enabled}" fontSize="12" width="100%"/>
+							<ctrl:NoTipTextInput id="_tiPasswordAgain" width="100%" displayAsPassword="true" height="26" styleName="publishFormField"
+												 enabled="{and(_tiPassword.text.length > 0, _tiPassword.errorString.length == 0)}" maxChars="32"
+												 fontSize="16" letterSpacing="2" fontWeight="bold" fontSharpness="-200" fontFamily="trebuchetMS"/>
+							<mx:Label textAlign="right" width="100%" styleName="formError" paddingBottom="-3" paddingTop="-1"
+									  id="_lblPwAgainError" text="{_tiPasswordAgain.errorString}" showEffect="{effects.effFadeIn}" fontSize="11" 
+									  visible="{and(_tiPasswordAgain.errorString.length > 0, _tiPasswordAgain.enabled)}"/>
+						</mx:VBox>
+					</mx:HBox>
+					
+					<!-- email -->			
+					<mx:HBox paddingTop="-7" horizontalGap="10" clipContent="false">
+						<mx:VBox id="_vbEmail" verticalGap="0" width="235" clipContent="false">
+							<mx:Label text="@Resource(key='Label_4', bundle='RegisterTab')" styleName="publishForm" paddingBottom="-4" paddingTop="5" width="100%"/>
+							<mx:Canvas id="cvsEmail" width="100%" height="26" clipContent="false">
+								<ctrl:NoTipTextInput id="_tiEmail" height="26" styleName="publishFormField" width="100%"
+													 focusIn="_fEmFocus=true" focusOut="_fEmFocus=false" maxChars="255"
+													 change="_tiEmailAgain.text = '', _tiEmailAgain.errorString = ''"
+													 text="{AccountMgr.GetInstance().email}"
+													 restrict="{UserEmailDictionary.textInputRestrictChars}" enter="CreateAccount()"/>
+								<ctrl:ImageVer source="@Embed('/theme/pngs/yesIcon.png')" visible="{_fEmConfirmed}" 
+											   showEffect="{_efQuarterFadeInEmConfirmed}" hideEffect="{effects.effQuarterFadeOut}" y="4" right="3" alpha=".75"/>
+							</mx:Canvas>
+							<mx:Label textAlign="right" width="100%" styleName="formError" paddingBottom="-3" paddingTop="-1"
+									  id="_lblEmError" text="{_tiEmail.errorString}" showEffect="{effects.effFadeIn}" fontSize="11" visible="{_tiEmail.errorString.length > 0}"/>
+						</mx:VBox>
+						<mx:VBox id="_vbEmailAgain" verticalGap="0" showEffect="{effects.effFadeIn}" width="235"
+								 visible="{fShowEmailAgain}">
+							<ctrl:ResizingLabel text="@Resource(key='Label_5', bundle='RegisterTab')" styleName="publishForm" paddingBottom="-4" paddingTop="8" fontWeight="normal"
+												enabled="{_tiEmailAgain.enabled}" fontSize="12" width="235" autoFontSizeGap="1"/>
+							<ctrl:NoTipTextInput id="_tiEmailAgain" width="100%" height="26" styleName="publishFormField"
+												 enabled="{and(_tiEmail.text.length > 0, _tiEmail.errorString.length == 0)}" maxChars="255"
+												 text="{AccountMgr.GetInstance().email}"
+												 restrict="{UserEmailDictionary.textInputRestrictChars}"/>
+							<mx:Label textAlign="right" width="100%" styleName="formError" paddingBottom="-3" paddingTop="-1"
+									  id="_lblEmAgainError" text="{_tiEmailAgain.errorString}" showEffect="{effects.effFadeIn}"
+									  visible="{and(_tiEmailAgain.errorString.length > 0, _tiEmailAgain.enabled)}"/>
+						</mx:VBox>
+					</mx:HBox>
+					<mx:HBox paddingLeft="-1" paddingTop="-10" clipContent="false">
+						<mx:CheckBox id="_cbWantsMail" label="@Resource(key='_cbWantsMail', bundle='RegisterTab')" labelPlacement="right" selected="true" height="40"/>				
+					</mx:HBox>
+				</mx:VBox>
+			</mx:Canvas>
+		</mx:VBox>
+		<!-- notification images & errortips go on top (dandelions, checks, etc) -->
+		<!-- dandelions -->
+		<ctrl:ImageEx bundled="true" source="../graphics/dandelions/dandelion1.png" x="12" visible="{_cbWantsMail.selected}"
+			showEffect="{_efDandelionFadeIn}" hideEffect="{_efDandelionFadeOut}" bottom="0"/>
+		<ctrl:ImageEx bundled="true" source="../graphics/dandelions/dandelion2.png" x="66" visible="{_fEmConfirmed}"
+			showEffect="{_efDandelionFadeIn}" hideEffect="{_efDandelionFadeOut}" bottom="0"/>
+		<ctrl:ImageEx bundled="true" source="../graphics/dandelions/dandelion3.png" visible="{_fPwConfirmed}"
+			showEffect="{_efDandelionFadeIn}" hideEffect="{_efDandelionFadeOut}" bottom="0" right="63"/>
+		<ctrl:ImageEx bundled="true" source="../graphics/dandelions/dandelion4.png" visible="{_vldUsername.passedDeepValidation}"
+			showEffect="{_efDandelionFadeIn}" hideEffect="{_efDandelionFadeOut}" bottom="0" right="8"/>
+			
+		<!-- enter button floats over everything -->
+		<mx:VBox width="100%" horizontalAlign="center" verticalGap="3" bottom="10">
+			<mx:Box paddingTop="2" paddingRight="2" paddingBottom="2" paddingLeft="2">
+				<ctrl:ResizingText height="34" textAlign="center" maxWidth="450" htmlText="{LocUtil.rbSubst('RegisterTab', 'acceptPrivacyPolicy', PicnikBase.Locale())}" fontSize="11" color="#666666" autoFontSizeGap="1" selectable="true"/>
+			</mx:Box>
+			<mx:Button id="_btnCreate" label="{LocUtil.rbSubst('RegisterTab', '_btnCreateAccept')}" fontSize="18" styleName="BigButton" paddingLeft="10" paddingRight="10" click="CreateAccount()" keyDown="CreateAccountKeyEvent(event)" height="34" />
+		</mx:VBox>
+
+		<!-- y position for error tips is set in the .as file -->
+		<ctrl:ResizingErrorTip id="_etUsername" visible="{_tiUsername.errorString == Resource.getString('RegisterTab', '_vldUsername_2')}" styleName="helpTip" 
+			autoFontSizeGap="1"
+			maxWidth="275" width="275" x="217" text="@Resource(key='username_unavailable', bundle='RegisterTab')"/>						
+		<ctrl:ResizingErrorTip id="_etEmail" styleName="helpTip" visible="{fShowEmailErrorTip}" autoFontSizeGap="1"
+			maxWidth="240" width="240" x="252" text="{strEmailErrorTipText}"/>
+		
+	</mx:Canvas>
+	<mx:Script>
+		<![CDATA[
+			import util.UsernameDictionary;
+			import util.UserEmailDictionary;
+		]]>
+	</mx:Script>
+</RegisterTabBase>

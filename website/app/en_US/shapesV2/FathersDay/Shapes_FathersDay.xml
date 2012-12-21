@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/shape_fathers_day.png" flickrPremium="true" id="FathersDay" numShapes="12" picnikPremium="true" previewUrls="60|48|../clipart/bundles/FathersDayArea_groupPreviews_FathersDay.png?ver=dc1e8070" title="Father&apos;s Day">
+	<Shapes>
+		<Clipart cHeight="595" cWidth="205" flickrPremium="true" picnikPremium="true" previewUrl="40|40|0|../clipart/bundles/FathersDayArea_shapes_FathersDay.png?ver=8f8c93a9" url="shapes/fathersday_tie1.swf"/>
+		<Clipart cHeight="595" cWidth="205" flickrPremium="true" picnikPremium="true" previewUrl="40|40|1|../clipart/bundles/FathersDayArea_shapes_FathersDay.png?ver=8f8c93a9" url="shapes/fathersday_tie2.swf"/>
+		<Clipart cHeight="595" cWidth="205" flickrPremium="true" picnikPremium="true" previewUrl="40|40|2|../clipart/bundles/FathersDayArea_shapes_FathersDay.png?ver=8f8c93a9" url="shapes/fathersday_tie3.swf"/>
+		<Clipart cHeight="595" cWidth="205" flickrPremium="true" picnikPremium="true" previewUrl="40|40|3|../clipart/bundles/FathersDayArea_shapes_FathersDay.png?ver=8f8c93a9" url="shapes/fathersday_tie4.swf"/>
+		<Clipart cHeight="590" cWidth="208" flickrPremium="true" picnikPremium="true" previewUrl="40|40|4|../clipart/bundles/FathersDayArea_shapes_FathersDay.png?ver=8f8c93a9" url="shapes/fathersday_tie5.swf"/>
+		<Clipart cHeight="77" cWidth="100" flickrPremium="true" picnikPremium="true" previewUrl="40|40|5|../clipart/bundles/FathersDayArea_shapes_FathersDay.png?ver=8f8c93a9" url="shapes/fathersday_toolbox.swf"/>
+		<Clipart cHeight="106" cWidth="124" flickrPremium="true" picnikPremium="true" previewUrl="40|40|6|../clipart/bundles/FathersDayArea_shapes_FathersDay.png?ver=8f8c93a9" url="shapes/fathersday_drill.swf"/>
+		<Clipart cHeight="104" cWidth="53" flickrPremium="true" picnikPremium="true" previewUrl="40|40|7|../clipart/bundles/FathersDayArea_shapes_FathersDay.png?ver=8f8c93a9" url="shapes/fathersday_hammer.swf"/>
+		<Clipart cHeight="105" cWidth="24" flickrPremium="true" picnikPremium="true" previewUrl="40|40|8|../clipart/bundles/FathersDayArea_shapes_FathersDay.png?ver=8f8c93a9" url="shapes/fathersday_screwdriver.swf"/>
+		<Clipart cHeight="280" cWidth="150" flickrPremium="true" picnikPremium="true" previewUrl="40|40|9|../clipart/bundles/FathersDayArea_shapes_FathersDay.png?ver=8f8c93a9" url="shapes/spd_beer2.swf"/>
+		<Clipart cHeight="280" cWidth="150" flickrPremium="true" picnikPremium="true" previewUrl="40|40|10|../clipart/bundles/FathersDayArea_shapes_FathersDay.png?ver=8f8c93a9" url="shapes/spd_beer3.swf"/>
+		<Clipart cHeight="280" cWidth="150" flickrPremium="true" picnikPremium="true" previewUrl="40|40|11|../clipart/bundles/FathersDayArea_shapes_FathersDay.png?ver=8f8c93a9" url="shapes/spd_beer4.swf"/>
+	</Shapes>
+</ShapeCategory>

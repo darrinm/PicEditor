@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cnt:EffectCanvas xmlns:cnt="containers.*" xmlns="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="156"
+	xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*" urlid="CrossProcess">
+	<mx:Script>
+		import util.LocUtil;
+		import mx.resources.ResourceBundle;
+   		[Bindable] [ResourceBundle("CrossProcessEffect")] private var rb:ResourceBundle;
+	</mx:Script>
+
+
+	<mx:Array id="_resetValues">
+		<local:StoredValue target="_sldrFade.value"/>
+	</mx:Array>
+	
+	<EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='CrossProcessEffect')" strAuthor="@Resource(key='_efbtn_1', bundle='CrossProcessEffect')"
+		strImageSource="../graphics/effects/Color/cross_process.png" premium="{premium}"/>
+	<mx:String id="_strHelpText">{Resource.getString('CrossProcessEffect', '_strHelpText')}</mx:String>
+	
+	<mx:VBox x="8" y="70" verticalGap="0">
+		<mx:HBox width="190" paddingBottom="-5" paddingTop="3">
+			<mx:Label text="@Resource(key='Label_1', bundle='CrossProcessEffect')" styleName="sliderTitle"/>
+			<mx:Label text="{LocUtil.pct((_sldrFade.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<HSliderPlus width="190" minimum="0" maximum="100" value="0" id="_sldrFade" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+
+		<ApplyCancelEffectButtons addBoxPadding="true" premium="{premium}"/>
+	</mx:VBox>
+	
+	<imageOperations:NestedImageOperation id="_op" BlendAlpha="{1-(_sldrFade.value/100)}" dynamicAlphaCachePriority="10">
+		<imageOperations:children>
+			<imageOperations:AdjustCurvesImageOperation
+				RedCurve="{[{x:0, y:0}, {x:60, y:30}, {x:210, y:255}, {x:255, y:255}]}"
+				GreenCurve="{[{x:0, y:0}, {x:47, y:38}, {x:101, y:111}, {x:187, y:206}, {x:255, y:255}]}"
+				BlueCurve="{[{x:0, y:32}, {x:255, y:216}]}"
+			/>
+			<imageOperations:SimpleColorMatrixImageOperation Contrast="10" Brightness="10"/>
+			<imageOperations:TintImageOperation Color="0xfcff00" BlendAlpha=".2" BlendMode="multiply"/>
+		</imageOperations:children>
+	</imageOperations:NestedImageOperation>
+
+</cnt:EffectCanvas>

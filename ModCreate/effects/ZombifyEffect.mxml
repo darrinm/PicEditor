@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PaintOnEffectBase xmlns="effects.*" xmlns:cnt="containers.*" xmlns:ctrl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" 
+		width="100%" height="189" premium="true"
+		xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" 
+		xmlns:flash.filters="flash.filters.*" urlid="Zombify20">
+	<mx:Script>
+		<![CDATA[
+			import imagine.imageOperations.BlendImageOperation;
+			import com.gskinner.geom.ColorMatrix;
+			import util.LocUtil;
+			import mx.resources.ResourceBundle;
+	   		[Bindable] [ResourceBundle("ZombifyEffect")] private var rb:ResourceBundle;
+	   		
+	   		
+	   		// nInVal goes from 0 to 100. Map that into a value in our array
+	   		private function Map(nInVal:Number, anOutVals:Array): Number {
+	   			// Find the position in the array
+	   			var nIndex:Number = nInVal * (anOutVals.length - 1) / 100;
+	   			if (nIndex > (anOutVals.length - 1)) 
+	   				nIndex = (anOutVals.length - 1);
+	   			else if (nIndex < 0)
+	   				nIndex = 0; 
+	   			
+	   			var iPrev:Number = Math.floor(nIndex);
+	   			var iNext:Number = Math.ceil(nIndex);
+	   			
+	   			if (iPrev == iNext)
+	   				return anOutVals[iPrev];
+	   				
+	   			var nPercentToNext:Number = nIndex - iPrev;
+	   			
+	   			return anOutVals[iPrev] + (anOutVals[iNext] - anOutVals[iPrev]) * nPercentToNext;
+	   		}
+	   		
+	   		private function GetHDRAlpha(nSliderVal:Number): Number {
+	   			return Map(nSliderVal, kanHDRAlphas);
+	   		}
+	   		
+	   		private function GetContrastAdjustment(nSliderVal:Number): Number {
+	   			return Map(nSliderVal, kanContrasts);
+	   		}
+	   		
+	   		private static const kanIdentityMatrix:Array = [
+	   				1, 0, 0, 0, 0,
+	   				0, 1, 0, 0, 0,
+	   				0, 0, 1, 0, 0,
+	   				0, 0, 0, 1, 0];
+	   		
+	   		private static const kanDesatMatrix:Array = [
+					0, 0, 7/8, 0, 0,
+					0, 0, 1, 0, 0, 
+					0, 0, 1, 0, 0,
+					0, 0, 0, 1, 0]; 	   			
+	   		
+	   		// Desaturate, add contrast matrix.
+	   		private function GetContrastDesatMatrix(nSliderVal:Number): Array {
+	   			var anOut:Array = [];
+	   			var nDesatPercent:Number = Map(nSliderVal, kanDesatPercents);
+	   			for (var i:Number = 0; i < kanIdentityMatrix.length; i++)
+	   				anOut.push(kanIdentityMatrix[i] + (kanDesatMatrix[i] - kanIdentityMatrix[i]) * nDesatPercent);
+	   				
+	   				
+	   			var cmat:ColorMatrix = new ColorMatrix(anOut);
+	   			cmat.adjustContrast(GetContrastAdjustment(nSliderVal));
+				return	cmat;
+	   		}
+		]]>
+	</mx:Script>
+
+	<ctrl:EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='ZombifyEffect')" strAuthor="@Resource(key='_efbtn_1', bundle='ZombifyEffect')"
+		strImageSource="../graphics/effects/Halloween/zombify.png" premium="{premium}"/>
+	<mx:String id="_strHelpText">{Resource.getString('ZombifyEffect', '_strHelpText')}</mx:String>
+	
+	<mx:VBox x="10" y="70" verticalGap="0">
+		<mx:Spacer height="3"/>
+		<!-- Blush style color picker, not hooked up yet -->
+		<mx:Canvas>
+			<ctrl:BlushColorPalette id="_clrsw"  
+					numSwatches="6"
+					colors="{[0x8AC3A9, 0xC6E0B8, 0xBCB983, 0x999B71, 0xC9CCBF, 0x6C785C]}" 
+					change="OnOpChange()" 
+					selected="{_fSelected}"/>
+			<ctrl:ImageVer source="../graphics/effects/Halloween/resources/reanimated_flesh_palette_stains.png"
+				x="5" y="5"
+				mouseChildren="false" mouseEnabled="false" mouseFocusEnabled="false"/> 
+		</mx:Canvas>
+
+		<!-- paint brush and eraser -->
+		<ctrl:BrushSizeAndEraserButton id="_brshbtn" selected="{_fSelected}" paddingTop="2"
+    		imageWidth="{origImageWidth}" imageHeight="{origImageHeight}"
+    		change="OnOpChange()" thumbPress="ShowBrushPreview()" thumbDrag="UpdateBrushPreview()" thumbRelease="HideBrushPreview()"
+    		/>
+
+		<!-- Contrast label/amount/slider box -->
+		<mx:HBox paddingBottom="-5" paddingTop="5" width="190">
+			<mx:Label text="@Resource(key='decay', bundle='ZombifyEffect')" styleName="sliderTitle"/>
+			<mx:Label text="{LocUtil.pct((_sldrContrast.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<ctrl:HSliderPlus width="190" minimum="0" maximum="100" value="{65 + zeroR}" id="_sldrContrast" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+
+		<!-- Fade label/percent/slider box -->
+		<mx:HBox paddingBottom="-5" paddingTop="3" width="190">
+			<mx:Label text="@Resource(key='fade', bundle='EffectCanvas')" styleName="sliderTitle"/>
+			<mx:Label text="{LocUtil.pct((_sldrFade.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<ctrl:HSliderPlus width="190" minimum="0" maximum="100" value="{0 + zeroR}" id="_sldrFade" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+
+		<ctrl:ApplyCancelEffectButtons addBoxPadding="true" premium="{premium}"/>
+	</mx:VBox>
+	
+	<mx:Number id="_cxyBrush">{_brshbtn.value}</mx:Number>
+	
+	
+</PaintOnEffectBase>

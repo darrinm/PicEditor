@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cnt:EffectCanvas xmlns:cnt="containers.*" xmlns="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml"
+		xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*"
+		width="100%" height="392" premium="{PicnikBase.GetApp().freemiumModel}" urlid="Noise">
+	<mx:Script>
+		import util.LocUtil;
+		import mx.resources.ResourceBundle;
+   		[Bindable] [ResourceBundle("NoiseEffect")] private var rb:ResourceBundle;
+	</mx:Script>
+
+
+	<mx:Array id="_resetValues">
+		<local:StoredValue target="_sldrRandomSeed.value"/>
+		<local:StoredValue target="_sldrLow.value"/>
+		<local:StoredValue target="_sldrHigh.value"/>
+		<local:StoredValue target="_sldrChannelOptions.value"/>
+		<local:StoredValue target="_sldrGrayScale.value"/>
+		<local:StoredValue target="_sldrFade.value"/>
+	</mx:Array>
+	
+	<EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='NoiseEffect')" strAuthor="@Resource(key='_efbtn_1', bundle='NoiseEffect')"
+		strImageSource="../graphics/effects/Camera/holga.png" premium="{premium}"
+		booleanAdmin="true"/>
+	<mx:String id="_strHelpText">{Resource.getString('NoiseEffect', '_strHelpText')}</mx:String>
+
+	<mx:VBox x="8" y="67" verticalGap="0">
+		<mx:HBox width="194" paddingBottom="-5" paddingTop="3">
+			<mx:Label text="@Resource(key='Label_1', bundle='NoiseEffect')" styleName="sliderTitle"/>
+			<mx:Label text="{LocUtil.pct((_sldrRandomSeed.liveValue))}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<HSliderFastDrag updateSpeed="{updateSpeed}" width="191" minimum="0" maximum="100" value="0" snapInterval="1" 
+				id="_sldrRandomSeed" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+	
+		<mx:HBox width="194" paddingBottom="-5" paddingTop="3">
+			<mx:Label text="@Resource(key='Label_2', bundle='NoiseEffect')" styleName="sliderTitle"/>
+			<mx:Label text="{LocUtil.pct((_sldrLow.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<HSliderPlus width="191" minimum="0" maximum="255" value="0" snapInterval="1" id="_sldrLow" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+	
+		<mx:HBox width="194" paddingBottom="-5" paddingTop="3">
+			<mx:Label text="@Resource(key='Label_3', bundle='NoiseEffect')" styleName="sliderTitle"/>
+			<mx:Label text="{LocUtil.pct((_sldrHigh.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<HSliderPlus width="191" minimum="0" maximum="255" value="255" snapInterval="1" id="_sldrHigh" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+	
+		<mx:HBox width="194" paddingBottom="-5" paddingTop="3">
+			<mx:Label text="@Resource(key='Label_4', bundle='NoiseEffect')" styleName="sliderTitle"/>
+			<mx:Label text="{LocUtil.pct((_sldrChannelOptions.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<HSliderPlus width="191" minimum="0" maximum="15" value="7" snapInterval="1" id="_sldrChannelOptions" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+	
+		<mx:HBox width="194" paddingBottom="-5" paddingTop="3">
+			<mx:Label text="@Resource(key='Label_5', bundle='NoiseEffect')" styleName="sliderTitle"/>
+			<mx:Label text="{LocUtil.pct((_sldrGrayScale.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<HSliderPlus width="191" minimum="0" maximum="1" value="1" snapInterval="1" id="_sldrGrayScale" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+	
+		<mx:Script>
+	        <![CDATA[
+	            [Bindable]
+	            public var aBlendModes:Array = [ 
+	                {label:"Normal", data:"normal"}, 
+	                {label:"Add", data:"add"}, 
+	                {label:"Darken", data:"darken"}, 
+	                {label:"Difference", data:"difference"}, 
+	                {label:"Hardlight", data:"hardlight"}, 
+	                {label:"Lighten", data:"lighten"}, 
+	                {label:"Multiply", data:"multiply"}, 
+	                {label:"Overlay", data:"overlay"}, 
+	                {label:"Screen", data:"screen"}, 
+	                {label:"Subtract", data:"subtract"}];
+	        ]]>
+	    </mx:Script>
+	    <mx:VBox verticalGap="-3" paddingTop="5" paddingBottom="5">
+		    <mx:Label text="@Resource(key='Label_6', bundle='NoiseEffect')" styleName="sliderTitle"/>
+			<mx:ComboBox dataProvider="{aBlendModes}" id="_cbBlendMode" change="OnOpChange()" height="26" width="190" />
+	    </mx:VBox>
+	
+		<mx:HBox width="194" paddingBottom="-5" paddingTop="3">
+			<mx:Label text="@Resource(key='Label_7', bundle='NoiseEffect')" styleName="sliderTitle"/>
+			<mx:Label text="{LocUtil.pct((_sldrFade.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<HSliderPlus width="191" minimum="0" maximum="100" value="0" id="_sldrFade" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+	
+		<ApplyCancelEffectButtons addBoxPadding="true" premium="{premium}"/>
+	</mx:VBox>
+
+	<imageOperations:NestedImageOperation id="_op" BlendAlpha="{1-(_sldrFade.value/100)}" BlendMode="{_cbBlendMode.value}">
+		<imageOperations:children>
+			<imageOperations:NoiseImageOperation randomSeed="{_sldrRandomSeed.value}" 
+					low="{_sldrLow.value}" high="{_sldrHigh.value}" channelOptions="{_sldrChannelOptions.value}"
+					grayScale="{_sldrGrayScale.value == 1}"/>
+<!--			<imageOperations:BlurImageOperation xblur="20" yblur="1" quality="3"/>
+			<imageOperations:RotateImageOperation radAngle="{Math.PI/4}"/>
+			<imageOperations:ResizeImageOperation width="{imagewidth}" height="{imageheight}" />-->
+		</imageOperations:children>
+	</imageOperations:NestedImageOperation>
+
+</cnt:EffectCanvas>

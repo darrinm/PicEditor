@@ -1,0 +1,12 @@
+fileName: st_Marcsc.ttf
+name: Marcelle Script
+subfamilyDisplayName: Regular
+fullName: Marcelle Script
+displayName: Marcelle Script
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 6
+pkName: pkst0Marcsc
+authorName: Clément Nicolle
+authorUrl: http://www.stereo-type.net/

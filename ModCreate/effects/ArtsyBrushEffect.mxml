@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArtsyBrushEffectBase xmlns="effects.*" xmlns:cnt="containers.*" xmlns:ctrl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="434" xmlns:local="*" 
+	xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*"
+	xmlns:flash.geom="flash.geom.*" premium="false"
+	 urlid="ArtsyBrush">
+	<mx:Script>
+		import imagine.imageOperations.paintMask.DisplayObjectBrush;
+		import util.LocUtil;
+		import mx.resources.ResourceBundle;
+   		[Bindable] [ResourceBundle("ArtsyBrushEffect")] private var rb:ResourceBundle;
+	</mx:Script>
+
+	<mx:HRule x="0" width="100%" top="0" height="1" strokeColor="#FFFFFF"/>
+	<mx:HRule x="0" width="100%" height="1" bottom="0" strokeColor="#d4d4d4"/>
+	
+	<ctrl:EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='ArtsyBrushEffect')" strAuthor="@Resource(key='byPicnik', bundle='EffectCanvas')" strImageSource="../graphics/effects/Misc/doodle.png" premium="{premium}"/>
+	<mx:String id="_strHelpText">{Resource.getString('ArtsyBrushEffect', '_strHelpText')}</mx:String>
+
+	<mx:VBox x="9" y="70" verticalGap="0">
+		<mx:Spacer width="10" height="3"/>
+		<mx:HBox paddingTop="5" paddingLeft="5" paddingRight="8" paddingBottom="5" horizontalGap="5" width="190" horizontalScrollPolicy="off"
+				cornerRadius="5" backgroundColor="#ffffff" borderColor="#d9d9d9" borderStyle="solid" backgroundAlpha=".4" verticalAlign="middle">
+			<ctrl:ResizingLabel text="@Resource(key='brushColor', bundle='EffectCanvas')" styleName="sliderTitle" paddingTop="2" width="100%" autoFontSizeGap="1"
+					enabled="{_btnEraser.selected == false}"/>
+			<ctrl:HSBColorPicker id="_cpkrBrush" selectedColor="0x000000" width="50" enabled="{_btnEraser.selected == false}"/>
+		</mx:HBox>
+		
+		<!-- brush combox box -->
+   	    <mx:VBox verticalGap="-3" paddingTop="5" paddingBottom="5">
+		    <mx:Label text="@Resource(key='brush', bundle='ArtsyBrushEffect')" styleName="sliderTitle"/>
+			<ctrl:ComboBoxPlus id="_cboxBrushes" rowCount="10" width="190" height="26"
+					dataProvider="{GetBrushes(DisplayObjectBrush.kastrBrushes)}" change="SelectBrush(_cboxBrushes.selectedItem)" selectedIndex="0">
+				<ctrl:itemRenderer>
+					<mx:Component>
+						<mx:HBox height="24" dropShadowEnabled="false" verticalAlign="middle"
+							borderStyle="{data.separator?'solid':'none'}" borderSides="top" borderThickness="1" borderColor="#CCCCCC">
+		                	<mx:Label text="{data.label}" width="100%" fontSize="13" fontWeight="normal" color="#333333" minWidth="80" paddingTop="5"/>
+		                	<ctrl:ImageEx bundled="true" source="{data.icon ? data.icon : ''}" width="24" height="24" maintainAspectRatio="true"/>
+						</mx:HBox>
+					</mx:Component>
+	            </ctrl:itemRenderer>
+			</ctrl:ComboBoxPlus>
+		</mx:VBox>
+		
+		<!-- brush size -->
+		<mx:HBox width="190" paddingBottom="-5" paddingTop="5">
+			<mx:Label text="{LocUtil.iff('EffectCanvas', _btnEraser.selected, 'eraserSize', 'brushSize')}" styleName="sliderTitle" width="100"/>
+			<mx:Label text="{Math.round(SliderToBrushSize(_sldrBrushSize.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<ctrl:HSliderFastDrag id="_sldrBrushSize" width="190" thumbPress="ShowBrushPreview()" thumbDrag="UpdateBrushPreview()" thumbRelease="HideBrushPreview()"
+				globalShortcutsEnabled="{_fSelected}" globalShortcutKeys="[]" 
+				minimum="0" maximum="100" value="{BrushSizeToSlider(45+zeroR)}" change="OnOpChange()" showDataTip="false"/>
+
+		<!-- brush spacing, from 0.1% to 100% -->
+		<mx:HBox width="190" paddingBottom="-5" paddingTop="5">
+			<mx:Label text="@Resource(key='spacing', bundle='ArtsyBrushEffect')" styleName="sliderTitle"/>
+			<mx:Label text="{LocUtil.pct(100*_sldrHardness.value)}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<ctrl:HSliderFastDrag id="_sldrHardness" width="190" 
+				minimum="0.01" maximum="1" value="{0.1+zeroR}" liveDragging="true" snapInterval="0.01" showDataTip="false"/>
+
+		<!-- brush strength/alpha, from 0 to 1 --> 
+		<mx:HBox width="190" paddingBottom="-5" paddingTop="5">
+			<mx:Label text="@Resource(key='strength', bundle='EffectCanvas')" styleName="sliderTitle"/>
+			<mx:Label text="{LocUtil.pct((_sldrStrength.value * 100))}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<ctrl:HSliderFastDrag id="_sldrStrength" width="190" thumbPress="ShowBrushPreview()" thumbDrag="UpdateBrushPreview()" thumbRelease="HideBrushPreview()" 
+				minimum="0" maximum="1" value="{1+zeroR}" liveDragging="true" snapInterval="0.01" showDataTip="false"/>
+		
+		<!-- brush rotation, from -360 to +360 --> 
+		<mx:HBox width="190" paddingBottom="-5" paddingTop="5">
+			<mx:Label text="@Resource(key='rotation', bundle='ArtsyBrushEffect')" styleName="sliderTitle"/>
+			<mx:Label text="{LocUtil.deg(_sldrRotation.value)}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<ctrl:HSliderFastDrag id="_sldrRotation" width="190" thumbPress="ShowBrushPreview()" thumbDrag="UpdateBrushPreview()" thumbRelease="HideBrushPreview()" 
+				minimum="-180" maximum="180" value="{0+zeroR}" liveDragging="true" snapInterval="1" showDataTip="false"/>
+
+		<mx:Box width="100%" horizontalAlign="left" paddingTop="8">
+			<mx:CheckBox id="_chkbAutoRotate" label="@Resource(key='autoorient', bundle='ArtsyBrushEffect')" 
+					selected="false" paddingRight="-5"/>
+		</mx:Box>
+<!--		
+		<mx:Box width="100%" horizontalAlign="left" paddingTop="4">
+			<mx:CheckBox id="_chkbAirbrush" label="@Resource(key='airbrush', bundle='ArtsyBrushEffect')" 
+					selected="false" paddingRight="-5"/>
+		</mx:Box>
+-->
+
+		<mx:Script>
+	        <![CDATA[
+	            [Bindable]
+	            public var aBlendModes:Array = [ 
+	                {label:"Normal", data:"normal"}, 
+	                {label:"Impression", data:"impression"}, 
+	                {label:"Add", data:"add"}, 
+	                {label:"Darken", data:"darken"}, 
+	                {label:"Difference", data:"difference"}, 
+	                {label:"Hardlight", data:"hardlight"}, 
+	                {label:"Lighten", data:"lighten"}, 
+	                {label:"Multiply", data:"multiply"}, 
+	                {label:"Overlay", data:"overlay"}, 
+	                {label:"Screen", data:"screen"}, 
+	                {label:"Subtract", data:"subtract"}];
+	        ]]>
+	    </mx:Script>
+	    <mx:VBox x="8" y="135" verticalGap="-3" paddingTop="5" paddingBottom="5">
+		    <mx:Label text="@Resource(key='Label_3', bundle='BlurEffect')" styleName="sliderTitle"/>
+			<ctrl:ComboBoxPlus dataProvider="{aBlendModes}" id="_cbBlendMode" height="26" width="190" selectedIndex="{zeroR}" rowCount="10" liveChange="OnOpChange()"/>
+	    </mx:VBox>
+
+		<!-- fade, from 0 to 1 --> 
+		<mx:HBox width="190" paddingBottom="-5" paddingTop="5">
+			<mx:Label text="@Resource(key='fade', bundle='EffectCanvas')" styleName="sliderTitle"/>
+			<mx:Label text="{LocUtil.pct((_sldrFade.value * 100))}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<ctrl:HSliderFastDrag id="_sldrFade" width="190" change="OnOpChange()" 
+				minimum="0" maximum="1" value="{zeroR}" liveDragging="true" snapInterval="0.01" showDataTip="false"/>
+		
+		<!-- eraser button -->
+		<mx:Box width="190" horizontalAlign="center" paddingTop="5" paddingLeft="2">
+			<ctrl:ResizingButton label="@Resource(key='eraser', bundle='EffectCanvas')" id="_btnEraser" icon="@Embed('/assets/bitmaps/icon_eraser.png')"
+					height="28"	horizontalGap="3" styleName="applyStyle" selected="{zeroR!=0}"
+					click="{_btnEraser.selected?_btnEraser.selected=false:_btnEraser.selected=true}" />
+			</mx:Box>
+		
+		<ctrl:ApplyCancelEffectButtons premium="{premium}" addBoxPadding="true"/>
+	</mx:VBox>
+
+	<mx:Number id="_nSpacing">{_sldrHardness.value}</mx:Number>
+	<mx:Number id="_cxyBrush">{Math.round(SliderToBrushSize(_sldrBrushSize.value))}</mx:Number>
+	<mx:Number id="brushAlpha">{_sldrStrength.value}</mx:Number>
+	<mx:Number id="brushRotation">{_sldrRotation.value}</mx:Number>
+
+	<imageOperations:DoodlePlusImageOperation id="_op" strokes="{doodleStrokes}" BlendAlpha="{1-_sldrFade.value}"/>
+	<!--
+	<imageOperations:NestedImageOperation id="_op">
+		<imageOperations:children>
+			<imageOperations:FillColorImageOperation color="0xffffffff"/>
+			<imageOperations:DoodlePlusImageOperation strokes="{doodleStrokes}"/>
+		</imageOperations:children>
+	</imageOperations:NestedImageOperation>
+	-->	
+</ArtsyBrushEffectBase>

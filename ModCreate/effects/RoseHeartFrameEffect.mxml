@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameEffectBase xmlns="effects.*" xmlns:cnt="containers.*" xmlns:ctrl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="343"
+	xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*" premium="true" xmlns:objectOperations="imagine.objectOperations.*" urlid="HeartofRoses">
+	<mx:XML xmlns="" id="_xmlFrame">
+<frames> <!-- Daisy Frame -->
+	<frame svgPath="{strHeartPath}" svgFillMode="outer" fillEndToEnd="false" density="1.3" size="{_sldrSize.value}" inset="0"
+			rotationJitter="1" rotationJitterOrder="1"
+			sizeJitter="0.1" sizeJitterOrder="2"
+			noDoubles="true">
+		<Clipart url="shapes/Roses/01x.swf" cWidth="700" cHeight="700"/>
+		<Clipart url="shapes/Roses/02x.swf" cWidth="700" cHeight="700"/>
+		<Clipart url="shapes/Roses/03x.swf" cWidth="700" cHeight="700"/>
+		<Clipart url="shapes/Roses/04x.swf" cWidth="700" cHeight="700"/>
+		<Clipart url="shapes/Roses/05x.swf" cWidth="700" cHeight="700"/>
+		<Clipart url="shapes/Roses/06x.swf" cWidth="700" cHeight="700"/>
+		<Clipart url="shapes/Roses/07x.swf" cWidth="700" cHeight="700"/>
+		<Clipart url="shapes/Roses/08x.swf" cWidth="700" cHeight="700"/>
+		<Clipart url="shapes/Roses/09x.swf" cWidth="700" cHeight="700"/>
+		<Clipart url="shapes/Roses/10x.swf" cWidth="700" cHeight="700"/>
+		<Clipart url="shapes/Roses/11x.swf" cWidth="700" cHeight="700"/>
+		<Clipart url="shapes/Roses/12x.swf" cWidth="700" cHeight="700"/>
+		<Clipart url="shapes/Roses/13x.swf" cWidth="700" cHeight="700"/>
+		<Clipart url="shapes/Roses/14x.swf" cWidth="700" cHeight="700"/>
+		<Clipart url="shapes/Roses/15x.swf" cWidth="700" cHeight="700"/>
+		<Clipart url="shapes/Roses/16x.swf" cWidth="700" cHeight="700"/>
+		<Clipart url="shapes/Roses/17x.swf" cWidth="700" cHeight="700"/>
+		<Clipart url="shapes/Roses/18x.swf" cWidth="700" cHeight="700"/>
+		<Clipart url="shapes/Roses/19x.swf" cWidth="700" cHeight="700"/>
+		<Clipart url="shapes/Roses/20x.swf" cWidth="700" cHeight="700"/>
+		<Clipart url="shapes/Roses/21x.swf" cWidth="700" cHeight="700"/>
+		<Clipart url="shapes/Roses/22x.swf" cWidth="700" cHeight="700"/>
+		<Clipart url="shapes/Roses/23x.swf" cWidth="700" cHeight="700"/>
+		<Clipart url="shapes/Roses/24x.swf" cWidth="700" cHeight="700"/>
+	</frame>
+
+	<frame svgPath="{strHeartPath}" fillEndToEnd="false" density="1.3" size="{_sldrSize.value}" inset="0.1"
+			rotationJitter="1" rotationJitterOrder="1"
+			sizeJitter="0.1" sizeJitterOrder="2"
+			noDoubles="true">
+		<Clipart url="shapes/Roses/01x.swf" cWidth="700" cHeight="700"/>
+		<Clipart url="shapes/Roses/02x.swf" cWidth="700" cHeight="700"/>
+		<Clipart url="shapes/Roses/03x.swf" cWidth="700" cHeight="700"/>
+		<Clipart url="shapes/Roses/04x.swf" cWidth="700" cHeight="700"/>
+		<Clipart url="shapes/Roses/05x.swf" cWidth="700" cHeight="700"/>
+		<Clipart url="shapes/Roses/06x.swf" cWidth="700" cHeight="700"/>
+		<Clipart url="shapes/Roses/07x.swf" cWidth="700" cHeight="700"/>
+		<Clipart url="shapes/Roses/08x.swf" cWidth="700" cHeight="700"/>
+		<Clipart url="shapes/Roses/09x.swf" cWidth="700" cHeight="700"/>
+		<Clipart url="shapes/Roses/10x.swf" cWidth="700" cHeight="700"/>
+		<Clipart url="shapes/Roses/11x.swf" cWidth="700" cHeight="700"/>
+		<Clipart url="shapes/Roses/12x.swf" cWidth="700" cHeight="700"/>
+		<Clipart url="shapes/Roses/13x.swf" cWidth="700" cHeight="700"/>
+		<Clipart url="shapes/Roses/14x.swf" cWidth="700" cHeight="700"/>
+		<Clipart url="shapes/Roses/15x.swf" cWidth="700" cHeight="700"/>
+		<Clipart url="shapes/Roses/16x.swf" cWidth="700" cHeight="700"/>
+		<Clipart url="shapes/Roses/17x.swf" cWidth="700" cHeight="700"/>
+		<Clipart url="shapes/Roses/18x.swf" cWidth="700" cHeight="700"/>
+		<Clipart url="shapes/Roses/19x.swf" cWidth="700" cHeight="700"/>
+		<Clipart url="shapes/Roses/20x.swf" cWidth="700" cHeight="700"/>
+		<Clipart url="shapes/Roses/21x.swf" cWidth="700" cHeight="700"/>
+		<Clipart url="shapes/Roses/22x.swf" cWidth="700" cHeight="700"/>
+		<Clipart url="shapes/Roses/23x.swf" cWidth="700" cHeight="700"/>
+		<Clipart url="shapes/Roses/24x.swf" cWidth="700" cHeight="700"/>
+	</frame>
+</frames>
+	</mx:XML>
+	<mx:Script>
+		<![CDATA[
+			import util.SVGPaths;
+			[Bindable] public var strHeartPath:String = SVGPaths.HEART;
+		]]>
+	</mx:Script>
+	<ctrl:EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='RoseHeartFrameEffect')" strAuthor="@Resource(key='byPicnik', bundle='EffectCanvas')"
+		strImageSource="../graphics/effects/Frames/roseframe.png" premium="{premium}" cornerRadius="0"/>
+	<mx:String id="_strHelpText">{Resource.getString('RoseHeartFrameEffect', '_strHelpText')}</mx:String>
+	
+	<mx:VBox x="10" y="70" verticalGap="0">
+		<mx:HBox width="194" paddingBottom="-5" paddingTop="3">
+			<mx:Label text="@Resource(key='size', bundle='EffectCanvas')" styleName="sliderTitle"/>
+			<mx:Label text="{Math.round(_sldrSize.value * 100)}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<ctrl:HSliderPlus width="191" minimum="0.05" maximum="0.2" value="0.1" id="_sldrSize" change="OnFrameParamChange()" liveDragging="true" showDataTip="false"/>
+		<ctrl:ApplyCancelEffectButtons addBoxPadding="true" premium="{premium}"/>
+	</mx:VBox>
+
+</FrameEffectBase>

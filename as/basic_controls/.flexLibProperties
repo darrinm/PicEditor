@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<flexLibProperties includeAllClasses="false" useMultiPlatformConfig="false" version="1">
+  <includeClasses>
+    <classEntry path="containers.HTile"/>
+    <classEntry path="containers.ResizingBox"/>
+    <classEntry path="containers.ResizingCanvas"/>
+    <classEntry path="containers.ResizingDialog"/>
+    <classEntry path="containers.ResizingHBox"/>
+    <classEntry path="containers.ResizingHTile"/>
+    <classEntry path="containers.ResizingTab"/>
+    <classEntry path="containers.ResizingTile"/>
+    <classEntry path="containers.ResizingVBox"/>
+    <classEntry path="containers.TabPlus"/>
+    <classEntry path="controls.ButtonPlus"/>
+    <classEntry path="controls.ComboBoxPlus"/>
+    <classEntry path="controls.ErrorTip"/>
+    <classEntry path="controls.NoTipCheckBox"/>
+    <classEntry path="controls.ResizingButton"/>
+    <classEntry path="controls.ResizingButtonBarButton"/>
+    <classEntry path="controls.ResizingCheckbox"/>
+    <classEntry path="controls.ResizingComboBox"/>
+    <classEntry path="controls.ResizingErrorTip"/>
+    <classEntry path="controls.ResizingHSlider"/>
+    <classEntry path="controls.ResizingImage"/>
+    <classEntry path="controls.ResizingLabel"/>
+    <classEntry path="controls.ResizingNoTipCheckBox"/>
+    <classEntry path="controls.ResizingRadio"/>
+    <classEntry path="controls.ResizingSpacer"/>
+    <classEntry path="controls.ResizingText"/>
+    <classEntry path="controls.TextInputPlusBase"/>
+    <classEntry path="controls.ToolTipPlus"/>
+    <classEntry path="dialogs.DialogContent.IDialogContent"/>
+    <classEntry path="dialogs.DialogContent.IDialogContentContainer"/>
+    <classEntry path="skins.ToolTipBorderPlus"/>
+    <classEntry path="util.smartresize.ISmartResizeComponent"/>
+    <classEntry path="util.smartresize.Measurements"/>
+    <classEntry path="util.smartresize.SmartResizeHelper"/>
+  </includeClasses>
+  <includeResources/>
+  <namespaceManifests/>
+</flexLibProperties>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SharpenEffectBase xmlns:ctl="controls.*" xmlns="effects.basic.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%" 
+				   xmlns:flash="flash.filters.*" xmlns:bkctr="containers.*" xmlns:ut="util.*" xmlns:imageOperations="imagine.imageOperations.*" 
+				   xmlns:effects="mx.effects.*"
+				   title="@Resource(key='_btnSharpen', bundle='Adjustments')" styleName="sharpenEffect"  help="{LocUtil.getString('SharpenOverlay', 'AboutSharpen')}">
+	<mx:Script>
+		import mx.resources.ResourceBundle;
+		
+		import util.LocUtil;
+		[Bindable] [ResourceBundle("ExposureOverlay")] private var rb:ResourceBundle;
+	</mx:Script>
+
+	<effects:Fade id="fadeIn" duration="200" alphaFrom="0.0" alphaTo="1.0" />
+	<effects:Fade id="fadeOut" duration="200" alphaFrom="1.0" alphaTo="0.0" />
+	<effects:Resize id="resize" duration="200" />
+
+	<editControls>
+		<!-- Sharpness -->
+		<mx:VBox id="basicControls" visible="{!_btnUnsharp.selected}" includeInLayout="{!_btnUnsharp.selected}" width="100%">
+			<mx:HBox width="100%" paddingBottom="-8">
+				<mx:Label width="50%" text="@Resource(key='label2', bundle='SharpenOverlay')" id="label2" styleName="sliderTitle"/>
+				<mx:Label width="50%" text="{Math.round(_sldrSharpness.value)}" id="_lbSharpness" styleName="sliderValue" textAlign="right"/>
+			</mx:HBox>
+			<ctl:HSliderPlus id="_sldrSharpness" change="updateCurrentOperation()" minimum="0" maximum="40" value="0" liveDragging="true" tickOffset="4" showDataTip="false" width="100%"/>
+		</mx:VBox>
+		
+		<!-- unsharp mask -->
+		<mx:VBox id="advancedControls" visible="{_btnUnsharp.selected}" includeInLayout="{_btnUnsharp.selected}" width="100%">
+			<mx:HBox width="100%" paddingBottom="-8">
+				<mx:Label width="50%" text="@Resource(key='label3', bundle='SharpenOverlay')" id="label3" styleName="sliderTitle"/>
+				<mx:Label width="50%" text="{Math.round(_sldrRadius.value*10)/10}" id="_lbRadius" styleName="sliderValue" textAlign="right"/>
+			</mx:HBox>
+			<ctl:HSliderPlus id="_sldrRadius" change="updateCurrentOperation()" minimum="0" maximum="6" value="1" liveDragging="true" tickOffset="4" showDataTip="false" width="100%"/>
+			<mx:HBox width="100%" paddingBottom="-8">
+				<mx:Label width="50%" text="@Resource(key='label4', bundle='SharpenOverlay')" id="label4" styleName="sliderTitle"/>
+				<mx:Label width="50%" text="{LocUtil.pct((_sldrStrength.value*100))}" id="_lbStrength" styleName="sliderValue" textAlign="right"/>
+			</mx:HBox>
+			<ctl:HSliderPlus id="_sldrStrength" change="updateCurrentOperation()" minimum="0" maximum="2" value="0" liveDragging="true" tickOffset="4" showDataTip="false" width="100%"/>
+		</mx:VBox>
+
+		<!-- Local contrast -->
+		<mx:HBox width="100%" paddingBottom="-8">
+			<mx:Label width="50%" text="@Resource(key='clarity', bundle='ExposureOverlay')" styleName="sliderTitle"/>
+			<mx:Label width="50%" text="{LocUtil.pct((_sldrClarity.value))}" styleName="sliderValue" textAlign="right"/>
+		</mx:HBox>
+		<ctl:HSliderPlus id="_sldrClarity" minimum="0" maximum="100" value="0" liveDragging="true" width="100%" showDataTip="false" change="updateCurrentOperation()"/>
+		
+		<!-- Advanced settings -->
+		<mx:Box paddingTop="4" width="100%">
+			<mx:Button label="@Resource(key='_btnUnsharp', bundle='SharpenOverlay')" id="_btnUnsharp" toggle="true" 
+					   width="100%"
+					   change="toggleAdvanced()"/>	
+		</mx:Box>
+
+	</editControls>
+
+
+	<imageOperations:LocalContrastImageOperation id="_opClarity" Radius="64" Strength="{_sldrClarity.value/100}" />
+	<imageOperations:LocalContrastImageOperation id="_opUnsharpMask" Radius="{_sldrRadius.value+0.1}" Strength="{_sldrStrength.value}" dynamicRadiusCachePriority="10" dynamicStrengthCachePriority="10"/>
+	<imageOperations:SharpenImageOperation id="_opSharpen" sharpness="{_sldrSharpness.value}"/>
+	<imageOperations:NestedImageOperation id="_op" />
+</SharpenEffectBase>

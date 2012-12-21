@@ -1,0 +1,40 @@
+<languageVersion : 1.0;>
+
+kernel Waterfall2
+<
+    namespace : "com.picnik";
+    vendor : "Bitnik, Inc";
+    author : "Picnik";
+    version : 1;
+    description : "inspired by Kevin Goldsmith's waterfall bitmap effect";
+    iconURL: "../graphics/effects/waterfall.png";
+>
+{
+    input image4 src;
+    output pixel4 dst;
+
+    void evaluatePixel()
+    {
+        float2 A = float2(0, 100);
+        float2 B = float2(1500, 1000);
+        
+        float2 AP = outCoord() - A;
+        float2 AB = B - A;
+        float side = AP.x * AB.y - AB.x * AP.y;
+        float2 ptSample;
+
+        if (side > 0.0) {
+            float ab2 = AB.x * AB.x + AB.y * AB.y;
+            float ap_ab = AP.x * AB.x + AP.y * AB.y;
+            float t = ap_ab / ab2;
+            if (t < 0.0)
+                t = 0.0;
+            else if (t > 1.0)
+                t = 1.0;
+            ptSample = A + AB * t;
+        } else {
+            ptSample = outCoord();
+        }
+        dst = sampleNearest(src, ptSample);
+    }
+}

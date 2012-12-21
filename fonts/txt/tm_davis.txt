@@ -1,0 +1,12 @@
+fileName: tm_davis.ttf
+name: Davis
+subfamilyDisplayName: Regular
+fullName: Davis
+displayName: Davis
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 4
+pkName: pktm0davis
+authorName: Tom Murphy
+authorUrl: http://fonts.tom7.com/

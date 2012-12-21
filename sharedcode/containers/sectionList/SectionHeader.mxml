@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SectionHeaderBase xmlns="containers.sectionList.*" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:filters="flash.filters.*" 
+		backgroundSize="100%" backgroundImage="{GetBgHeader()}" 
+		backgroundAlpha="1"
+		borderSides="bottom" borderStyle="solid" borderColor="#d1d1d1" width="100%" height="{knHeight}" 
+		rollOver="{this.setStyle('backgroundImage', GetBgOver()),_lbTitle1.setStyle('color',GetRollOverColor())}" 
+		rollOut="{this.setStyle('backgroundImage', GetBgHeader()),_lbTitle1.setStyle('color',GetRollOutColor())}" 
+		paddingLeft="8" paddingTop="1" paddingBottom="0"
+		mouseDown="parentExpanded = !parentExpanded;this.setStyle('backgroundImage', GetBgDown())"
+		mouseUp="this.setStyle('backgroundImage', GetBgHeader())"
+		xmlns:controls="controls.*" xmlns:containers="containers.*">
+		
+		<!--rollOver="{this.setStyle('backgroundAlpha', 0.6)}" rollOut="{this.setStyle('backgroundAlpha', 1)}"-->
+		
+	<mx:Script>
+        <![CDATA[
+			import picnik.util.LocaleInfo;
+			
+			import util.GooglePlusUtil;
+        
+			public static const knHeight:Number = 20;
+			
+			public static function GetRollOverColor(): Number {
+				return PicnikBase.IsGooglePlus() ? 0x202020 : 0x25330a;
+			}
+			
+			public static function GetRollOutColor(): Number {
+				return PicnikBase.IsGooglePlus() ? 0x202020 : 0x354d13;
+			}
+			
+			public function GetBgHeader(): Class {
+				return _imgbgHeader;
+			}
+			
+			public function GetBgOver(): Class {
+				return _imgbgOver;
+			}
+			
+			public function GetBgDown(): Class {
+				return _imgbgDown;
+			}
+			
+            [Embed(source="/theme/pngs/effects_bg_header.png")] 
+            [Bindable] public var _imgbgHeader:Class;
+            
+            [Embed(source="/theme/pngs/effects_bg_header_over.png")] 
+            [Bindable] public var _imgbgOver:Class;
+
+            [Embed(source="/theme/pngs/effects_bg_header_down.png")] 
+            [Bindable] public var _imgbgDown:Class;
+			
+			// fontshop header graphics
+			[Embed(source="/assets/bitmaps/fontshop_head_bg.png")] 
+            [Bindable] public var _imgbgFSHeader:Class;
+
+            [Embed(source="/assets/bitmaps/fontshop_head_bg_over.png")] 
+            [Bindable] public var _imgbgFSOver:Class;
+            
+			[Embed(source="/assets/bitmaps/fontshop_head_bg_down.png")] 
+			[Bindable] public var _imgbgFSDown:Class;
+
+			[Embed(source="/assets/bitmaps/dropDownArrowGreen.png")] 
+			[Bindable] public var _clDropDownArrowGreen:Class;
+			
+			[Embed(source="/assets/bitmaps/dropDownArrowGray.png")] 
+			[Bindable] public var _clDropDownArrowGray:Class;
+			
+			private function GetDropDownArrow(): Class {
+				if (GooglePlusUtil.UsingGooglePlusAPIKey(PicnikBase.app.parameters)) {
+					return _clDropDownArrowGray;
+				} else {
+					return _clDropDownArrowGreen;
+				}
+			}
+        ]]>
+    </mx:Script>
+    		
+	<states>
+		<mx:State name="FontShop">
+			<mx:SetStyle target="{_lbTitle1}" name="color" value="#FFFFFF" />
+			<mx:SetStyle target="{_lbTitle2}" name="color" value="#b2e5ff" />
+			<mx:SetStyle target="{_lbTitle2}" name="fontSize" value="13" />
+			<mx:SetStyle name="borderStyle" value="none" />
+			<mx:SetProperty target="{_lbTitle1}" name="filters" value="{[_fiBlueShad]}" />
+			<mx:SetProperty target="{_lbTitle2}" name="filters" value="{[_fiBlueShad]}" />
+			<mx:SetProperty target="{_imgDropDownArrow}" name="filters" value="{[_fiBlueShad]}" />
+			<mx:SetProperty target="{_imgDropDownArrow}" name="source" value="@Embed('/assets/bitmaps/dropDownArrowWhite.png')" />
+			<mx:SetEventHandler name="rollOver" handler="{setStyle('backgroundImage', _imgbgFSOver),_lbTitle1.setStyle('color','#ffffff')}" />
+			<mx:SetEventHandler name="rollOut" handler="{setStyle('backgroundImage', _imgbgFSHeader),_lbTitle1.setStyle('color','#ffffff')}" />
+			<mx:SetEventHandler name="mouseDown" handler="{this.setStyle('backgroundImage', _imgbgFSDown)}" />
+			<mx:SetEventHandler name="mouseUp" handler="{this.setStyle('backgroundImage', _imgbgFSHeader)}" />
+			<mx:SetStyle name="backgroundImage" value="@Embed('/assets/bitmaps/fontshop_head_bg.png')" />
+		</mx:State>
+	</states>
+					
+	<filters:DropShadowFilter blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1"
+			quality="3" angle="90" id="_fiWhiteShad"/>
+	<filters:DropShadowFilter blurX="1" blurY="1" distance="1" color="#005580" alpha="0.5"
+			quality="3" angle="-90" id="_fiBlueShad"/>
+	<containers:ResizingHBox width="{width-14}" horizontalGap="0" verticalAlign="middle">
+		<controls:ResizingLabel width="100%" id="_lbTitle1" text="{dataProxy.title1}" color="{GetRollOutColor()}" filters="{[_fiWhiteShad]}" mouseEnabled="false" autoFontSizeGap="1"
+				textAlign="left" paddingRight="-2" verticalCenter="0"/>
+		<controls:ResizingLabel id="_lbTitle2" maxWidth="80" text="{dataProxy.title2}" color="#005580" filters="{[_fiWhiteShad]}" 
+				textAlign="right" paddingLeft="-2" paddingRight="6" verticalCenter="0"
+				fontSize="{LocaleInfo.SmallFontSize(11)}" autoFontSizeGap="1"
+				paddingTop="1" visible="{dataProxy.premium}">
+		</controls:ResizingLabel>
+		<mx:Canvas height="8" width="6" clipContent="false">
+			<controls:ImageVer x="0" y="-1" height="8" width="6" id="_imgDropDownArrow" source="{GetDropDownArrow()}" filters="{[_fiWhiteShad]}" />				
+		</mx:Canvas>					
+	</containers:ResizingHBox>
+</SectionHeaderBase>

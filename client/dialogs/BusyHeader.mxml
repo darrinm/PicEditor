@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dialogs:BusyHeaderBase xmlns:dialogs="dialogs.*" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:flash="flash.filters.*"
+		xmlns:ctrl="controls.*" backgroundColor="0x000000" backgroundAlpha="1" alpha="0">
+
+	<!-- When this dialog comes up, we start by playing this event -->
+	<mx:Fade duration="400" id="_efBefore" alphaFrom="0" alphaTo="1" target="{this}" suspendBackgroundProcessing="true"
+		effectEnd="LoadAd(); _efBefore2.play()"/>
+	<mx:Pause duration="300" id="_efBefore2" target="{this}" suspendBackgroundProcessing="true"
+		effectEnd="ShowAd(); _efAfter.play()"/>
+	<!-- Next, we show the ad -->
+	<!-- Finally, we play this effect -->
+	<mx:Fade duration="600" id="_efAfter" alphaFrom="0" alphaTo="1" target="{_cnvProgress}" suspendBackgroundProcessing="true"/>
+	
+	<flash:DropShadowFilter id="_fiInnerShadow" alpha=".15" blurX="4" blurY="4" angle="-90" distance="2" quality="3" inner="true"/>
+	<flash:DropShadowFilter blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1" quality="3" angle="90" id="_fiWhiteShad"/>
+	
+	<mx:Canvas id="_cnvProgress" width="100%" height="70" backgroundImage="{PicnikBase.StaticUrl('../graphics/interstitial_head_bg.png')}" backgroundSize="100%"
+			backgroundColor="0xffffff" backgroundAlpha="1" alpha="0" filters="{[_fiInnerShadow]}">
+		<mx:HBox paddingLeft="16" paddingTop="10" horizontalGap="5" width="100%">
+			<mx:VBox verticalGap="-10">
+				<ctrl:ImageEx source="../graphics/picnik_logo_green.png"/>
+				<!-- UNDONE: Move this text to a .properties file -->
+				<mx:Label text="Brought to you by..." paddingLeft="12" fontSize="12" color="#666666" filters="{[_fiWhiteShad]}"/>
+			</mx:VBox>
+			<mx:Spacer width="100%"/>
+			<mx:HBox horizontalGap="5" visible="{!progressComplete}"  includeInLayout="{!progressComplete}">
+				<mx:Label text="{message}"/>
+				<ctrl:Gears horizontalCenter="0" id="_gearsSWF" verticalCenter="-18" width="100" height="60"/>
+				<mx:ProgressBar width="195" maximum="100" minimum="0" id="_pb" mode="manual" trackHeight="24" label="" height="24"/>
+				<mx:Label text="{percentComplete}"/>
+			</mx:HBox>
+			<mx:HBox horizontalGap="10" visible="{progressComplete}" includeInLayout="{progressComplete}" paddingRight="10" verticalAlign="middle">
+				<mx:VBox horizontalAlign="right" verticalGap="-7">
+					<mx:Label text="Finished!" fontSize="15" color="#000000" filters="{[_fiWhiteShad]}"/>
+					<!-- UNDONE: Move this text to a .properties file -->
+					<mx:Text textAlign="right" height="100%" width="260" fontSize="13" color="#666666" filters="{[_fiWhiteShad]}" leading="-1"
+						text="We won't show you another one of these ads for the next 10 photos."/>
+				</mx:VBox>
+				<!-- UNDONE: Move this text to a .properties file -->
+				<mx:Button click="ReallyHide()" label="Skip this ad »" height="31" minWidth="130" styleName="BigButton"/>
+			</mx:HBox>
+		</mx:HBox>
+		<mx:HRule width="100%" strokeColor="#b3b3b3" strokeWidth="1" bottom="0" left="0"/>
+	</mx:Canvas>
+</dialogs:BusyHeaderBase>

@@ -1,0 +1,12 @@
+fileName: vtks_ROCK_GARAGE_BAND.ttf
+name: VTKS ROCK GARAGE BAND
+subfamilyDisplayName: Regular
+fullName: VTKS ROCK GARAGE BAND
+displayName: VTKS ROCK GARAGE BAND
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 0
+pkName: pkvtks0ROCK0GARAGE0BAND
+authorName: Douglas Vitkauskas
+authorUrl: http://www.vtks.com.br/

@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GalleryOutBridgeBase xmlns="bridges.gallery.*" xmlns:pk="*" xmlns:ctrl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml"
+		width="100%" height="100%" fontSize="14" xmlns:flash="flash.filters.*" horizontalScrollPolicy="off">
+		
+	<flash:DropShadowFilter id="_fiBannerShadow" blurX="7" blurY="7" distance="2" color="#000000" alpha=".35" quality="3" angle="90"/>
+	
+	<states>
+		<mx:State name="AccountTypeUnknown">
+			<mx:AddChild relativeTo="{gridRow1}" position="after">
+				<mx:GridRow width="100%" height="100%">
+					<mx:GridItem width="100%" height="100%" horizontalAlign="center" paddingBottom="5">
+						<mx:Text condenseWhite="true" fontSize="13" htmlText="@Resource(key='Text_1', bundle='GalleryOutBridge')">
+						</mx:Text>
+					</mx:GridItem>
+				</mx:GridRow>
+			</mx:AddChild>
+			<mx:SetStyle target="{griditem1}" name="paddingBottom" value="5"/>
+		</mx:State>
+		<mx:State name="AccountTypePro"/>
+		<mx:State name="AccountTypeProWithImageID" basedOn="AccountTypePro">
+			<mx:AddChild relativeTo="{gridRow1}" position="before">
+				<mx:GridRow width="100%" height="100%" paddingTop="5">
+					<mx:GridItem width="100%" height="100%" horizontalAlign="center">
+						<mx:HBox width="100%" horizontalAlign="center">
+							<mx:RadioButton label="@Resource(key='_rbtnSaveNew', bundle='GalleryOutBridge')" id="_rbtnSaveNew" selected="true" groupName="grpSaveType"/>
+							<mx:RadioButton label="@Resource(key='_rbtnReplace', bundle='GalleryOutBridge')" id="_rbtnReplace" selected="false" groupName="grpSaveType"/>
+						</mx:HBox>
+					</mx:GridItem>
+				</mx:GridRow>
+			</mx:AddChild>
+		</mx:State>
+		<mx:State name="AccountTypeNonPro">
+			<mx:AddChild relativeTo="{gridRow1}" position="after">
+				<mx:GridRow width="100%" height="100%">
+					<mx:GridItem width="100%" height="100%" horizontalAlign="center" paddingBottom="5" id="griditem2">
+						<mx:Text id="_txtUpgrade1" condenseWhite="true" textAlign="center" color="#333333" fontSize="13" selectable="true" width="350" htmlText="@Resource(key='_txtUpgrade1', bundle='GalleryOutBridge')">
+						</mx:Text>
+					</mx:GridItem>
+				</mx:GridRow>
+			</mx:AddChild>
+			<!-- to be eventually changed to a visual indicator
+			<mx:AddChild relativeTo="{gridRow2}" position="after">
+				<mx:GridRow width="100%" height="100%">
+					<mx:GridItem width="100%" height="100%" horizontalAlign="center">
+						<mx:Text text="Upload bandwidth remaining: {_strBandwidthLeft}"/>
+						<mx:Text text="Upload bandwidth remaining: {_strBandwidthUsed}"/>
+					</mx:GridItem>
+				</mx:GridRow>
+			</mx:AddChild>
+			-->
+		<!--
+			<mx:SetStyle target="{griditem1}" name="paddingBottom" value="5"/>
+			<mx:SetEventHandler target="{_txtUpgrade1}" name="link" handlerFunction="OnUpgradeLinkClick"/>
+		-->
+		</mx:State>
+		
+		<!-- required by StorageServiceBridgeBase -->
+		<mx:State name="NeedAuthorization"/>
+		
+		<mx:State name="PremiumPreview">
+			<mx:SetProperty target="{grid1}" name="enabled" value="false"/>
+			<mx:AddChild position="lastChild">
+				<mx:VBox x="0" y="31" width="100%" styleName="premiumPreviewBar" horizontalAlign="center" 
+						paddingTop="3" paddingBottom="12" filters="{[_fiBannerShadow]}" >
+					<mx:Text width="500" textAlign="center" condenseWhite="true" selectable="false" htmlText="@Resource(key='PremiumPreview', bundle='GalleryInBridge')"/>
+					<ctrl:ResizingButton label="@Resource(key='upgradeButton', bundle='GalleryInBridge')" minWidth="180" maxWidth="180" height="34" styleName="upgradeButton"
+						fontSize="16" autoFontSizeGap="1" click="DialogManager.ShowUpgrade( '/out_gallery/prempreview', PicnikBase.app);"/>
+				</mx:VBox>
+			</mx:AddChild>
+			<!-- Add this back in when we have a sort order drop down:
+			<mx:SetStyle target="{label1}" name="color" value="#999999"/>
+			<mx:SetProperty target="{_cboxOrderBy}" name="enabled" value="false"/>
+			-->
+		</mx:State>		
+	</states>
+	<mx:Script>
+		<![CDATA[
+			import dialogs.DialogManager;
+		]]>
+	</mx:Script>
+	<controls:ImageVer source="@Embed('/assets/bitmaps/page_blueGrad.png')" left="0" top="0" width="100%" scaleContent="true" maintainAspectRatio="false"/>
+	<mx:Binding source="_taTitle.text" destination="_imgd.properties.title"/>
+<!--
+	<mx:Binding source="_taDescription.text" destination="_imgd.properties.description"/>
+	<mx:Binding source="_taTags.text" destination="_imgd.properties.tags"/>
+	<mx:Binding source="_rbtnPublic.selected" destination="_imgd.properties.flickr_ispublic"/>
+	<mx:Binding source="_chkbFriends.selected" destination="_imgd.properties.flickr_isfriend"/>
+	<mx:Binding source="_chkbFamily.selected" destination="_imgd.properties.flickr_isfamily"/>
+-->
+	<mx:Grid width="100%" height="100%" paddingTop="20" paddingBottom="20" paddingLeft="20" paddingRight="26" id="grid1" y="0" x="0">
+		<mx:GridRow width="100%" height="100%">
+			<mx:GridItem width="50%" height="100%" horizontalAlign="center" paddingRight="20">
+				<pk:ImageView id="_imgvPreview" width="100%" height="100%" verticalAlign="top" minWidth="75" minHeight="75"/>
+				<mx:filters>
+					<flash:DropShadowFilter distance="1" angle="90" blurX="4" blurY="4" alpha=".5" quality="3"/>
+  				</mx:filters>
+			</mx:GridItem>
+			<mx:GridItem width="50%" height="100%">
+				<mx:Grid verticalGap="0" id="grid3">
+					<mx:GridRow width="100%" height="100%" paddingBottom="10" id="gridrow2">
+						<mx:GridItem width="100%" height="100%">
+							<mx:VBox verticalGap="-5">
+								<mx:Label text="@Resource(key='Label_1', bundle='GalleryOutBridge')" color="#618430" fontWeight="bold" fontSize="21" styleName="publishForm"/>
+								<mx:Label text="@Resource(key='Label_2', bundle='GalleryOutBridge')" color="#6f6f6f" fontSize="16" styleName="publishForm"/>
+							</mx:VBox>
+						</mx:GridItem>
+					</mx:GridRow>
+					<mx:GridRow width="100%" height="100%" id="gridrow1">
+						<mx:GridItem width="100%" height="100%">
+							<mx:Label text="@Resource(key='label1', bundle='GalleryOutBridge')" styleName="publishForm" height="20" id="label1"/>
+						</mx:GridItem>
+					</mx:GridRow>
+					<mx:GridRow width="100%" height="100%" paddingBottom="12">
+						<mx:GridItem>
+							<ctrl:TextAreaPlus width="320" id="_taTitle" height="26" maxHeight="142" styleName="publishFormField" text="{_imgd.properties.title}"/>
+						</mx:GridItem>
+					</mx:GridRow>
+<!-- This is the description field.  Should be reintroduced when we actually support non-title descriptions/captions
+					<mx:GridRow width="100%" height="100%">
+						<mx:GridItem width="100%" height="100%">
+							<mx:Label text="@Resource(key='label2', bundle='GalleryOutBridge')" styleName="publishForm" height="20" id="label2"/>
+						</mx:GridItem>
+					</mx:GridRow>
+					<mx:GridRow width="100%" height="100%" paddingBottom="12">
+						<mx:GridItem width="100%" height="100%">
+							<ctrl:TextAreaPlus width="390" height="64" minHeight="64" maxHeight="142" styleName="publishFormField" id="_taDescription" text="{_imgd.properties.description}"/>
+						</mx:GridItem>
+					</mx:GridRow>
+-->
+
+<!--
+					<mx:GridRow width="100%" height="100%">
+						<mx:GridItem width="100%" height="100%">
+							<mx:Label text="@Resource(key='label3', bundle='GalleryOutBridge')" styleName="publishForm" height="20" id="label3"/>
+						</mx:GridItem>
+					</mx:GridRow>
+					<mx:GridRow width="100%" height="100%" paddingBottom="12">
+						<mx:GridItem>
+							<ctrl:TextAreaPlus width="390" id="_taTags" height="26" maxHeight="142" styleName="publishFormField" text="{_imgd.properties.tags}"/>
+						</mx:GridItem>
+					</mx:GridRow>
+					<mx:GridRow width="100%" height="100%" paddingBottom="12">
+						<mx:GridItem>
+							<mx:CheckBox label="@Resource(key='_chkbPicnikTag', bundle='GalleryOutBridge')" id="_chkbPicnikTag" enabled="true">
+							</mx:CheckBox>
+						</mx:GridItem>
+					</mx:GridRow>
+-->
+					<mx:GridRow width="100%" height="100%">
+						<mx:GridItem>
+							<mx:VBox verticalGap="4">
+								<mx:Label id="label123" text="@Resource(key='label123', bundle='GalleryOutBridge')" styleName="publishForm"/>
+								<mx:HBox horizontalGap="10" verticalAlign="middle">
+									<ctrl:ComboBoxPlus id="_cboxSets" rowCount="8" width="300" height="26" styleName="deviceFonts">
+										<ctrl:itemRenderer>
+											<mx:Component>
+								            	<mx:HBox verticalAlign="middle">
+								                	<mx:Label text="{data.label}" fontSize="14" width="210" styleName="deviceFonts"/>
+													<mx:Spacer width="100%"/>
+								                	<controls:ImageVer source="{data.icon}" height="36" width="36"/>
+								            	</mx:HBox>
+											</mx:Component>
+							            </ctrl:itemRenderer>
+									</ctrl:ComboBoxPlus>
+								</mx:HBox>
+								<ctrl:GalleryPreview id="_imgPhotoSet" itemInfo="{_cboxSets.selectedItem.iteminfo}" width="300" height="225"
+									visible="{_cboxSets.selectedItem.iteminfo &amp;&amp;_cboxSets.selectedItem.iteminfo.id != null}"
+									includeInLayout="{_cboxSets.selectedItem.iteminfo &amp;&amp;_cboxSets.selectedItem.iteminfo.id != null}"/>
+								<mx:Label id="_lbUpsell" text="{GetShowDetails(_cboxSets.selectedIndex)}" 
+										fontSize="12" color="#666666" paddingBottom="16"/>
+							</mx:VBox>
+						</mx:GridItem>
+					</mx:GridRow>
+<!--
+					<mx:GridRow paddingBottom="20">
+						<mx:GridItem>
+							<mx:HBox width="100%" horizontalGap="20">
+								<mx:Grid verticalGap="0" width="60%">
+									<mx:GridRow>
+										<mx:GridItem paddingBottom="2">
+											<mx:Label text="@Resource(key='label4', bundle='GalleryOutBridge')" styleName="publishForm" height="20" id="label4"/>
+										</mx:GridItem>
+									</mx:GridRow>
+									<mx:GridRow>
+										<mx:GridItem paddingBottom="2">
+											<mx:RadioButton label="@Resource(key='_rbtnPrivate', bundle='GalleryOutBridge')" id="_rbtnPrivate" labelPlacement="right" groupName="grpPrivacy"/>
+										</mx:GridItem>
+									</mx:GridRow>
+									<mx:GridRow>
+										<mx:GridItem paddingLeft="20" paddingBottom="2">
+											<mx:CheckBox label="@Resource(key='_chkbFriends', bundle='GalleryOutBridge')" id="_chkbFriends" enabled="{!_imgd.properties.flickr_ispublic}" selected="{_imgd.properties.flickr_isfriend}"/>
+										</mx:GridItem>
+									</mx:GridRow>
+									<mx:GridRow>
+										<mx:GridItem paddingLeft="20" paddingBottom="7">
+											<mx:CheckBox label="@Resource(key='_chkbFamily', bundle='GalleryOutBridge')" id="_chkbFamily" enabled="{!_imgd.properties.flickr_ispublic}" selected="{_imgd.properties.flickr_isfamily}"/>
+										</mx:GridItem>
+									</mx:GridRow>
+									<mx:GridRow>
+										<mx:GridItem>
+											<mx:RadioButton label="@Resource(key='_rbtnPublic', bundle='GalleryOutBridge')" id="_rbtnPublic" labelPlacement="right"  groupName="grpPrivacy"/>
+										</mx:GridItem>
+									</mx:GridRow>
+								</mx:Grid>								
+							</mx:HBox>			
+-->
+<!--
+							<mx:VBox visible="{LocaleInfo.IsEnglish()}" rotation="4" paddingTop="8" paddingRight="10" paddingBottom="8" paddingLeft="10" verticalGap="0"
+									backgroundColor="#ffffb2" backgroundAlpha=".75" cornerRadius="8" borderStyle="solid" borderThickness="0"
+									horizontalScrollPolicy="off" verticalScrollPolicy="off">
+								<mx:Label styleName="publishForm" width="100%" text="@Resource(key='picnikersTitle', bundle='GalleryOutBridge')" paddingLeft="0"/>									
+								<mx:Text width="100%" htmlText="@Resource(key='picnikersBody', bundle='GalleryOutBridge')" paddingTop="-6" paddingBottom="4"/>
+								<mx:Button height="28" label="@Resource(key='picnikersButton', bundle='GalleryOutBridge')" 
+									styleName="clearButton" fontSize="13" paddingLeft="0" textAlign="left"
+									click="PicnikBase.app.NavigateToURL(new URLRequest('http://www.mywebsite.com/groups/picnikers/'), '_blank')"/>
+							</mx:VBox>
+						</mx:GridItem>
+					</mx:GridRow>
+-->
+					<mx:GridRow width="100%" height="100%">
+						<mx:GridItem width="100%" height="100%" horizontalAlign="center">
+							<mx:Grid id="grid2" verticalGap="0">
+								<mx:GridRow width="100%" height="100%">
+									<mx:GridItem width="100%" height="100%">
+										<controls:ImageVer source="@Embed('/assets/bitmaps/saveshad_top.png')"/>
+									</mx:GridItem>
+								</mx:GridRow>
+								<mx:GridRow width="100%" height="100%" 
+										visible="{!canCreateSets &amp;&amp; _cboxSets.selectedIndex == 0 &amp;&amp; !AccountMgr.GetInstance().isPremium}"
+										includeInLayout="{!canCreateSets &amp;&amp; _cboxSets.selectedIndex == 0 &amp;&amp; !AccountMgr.GetInstance().isPremium}">
+									<mx:GridItem width="100%" height="100%" horizontalAlign="center">
+										<mx:Text text="@Resource(key='free_shows_limit', bundle='GalleryOutBridge')" 
+												fontSize="13" fontWeight="bold" selectable="false" paddingTop="6"/>
+									</mx:GridItem>
+								</mx:GridRow>
+								<mx:GridRow width="100%" height="100%" id="gridRow1">
+									<mx:GridItem width="100%" height="100%" horizontalAlign="center" paddingTop="10" paddingBottom="10" id="griditem1">
+										<!-- when the Save button is disabled it is hidden and the Upgrade button is shown -->
+										<mx:Button id="_btnSave" label="@Resource(key='_btnSave', bundle='GalleryOutBridge')" 
+												width="200" height="34" fontSize="18" styleName="BigButton"
+		                                        visible="{AccountMgr.GetInstance().isPremium ||
+															(	_imgd != null &amp;&amp; 
+																_cboxSets.dataProvider.length > 0 &amp;&amp;
+																(	(_cboxSets.selectedIndex == 0 &amp;&amp; canCreateSets) || 
+																	(_cboxSets.selectedItem.setinfo.itemcount &lt; GalleryDocument.maxAllowedImageCount)
+																)
+															)}"
+												includeInLayout="{_btnSave.visible}"
+												enabled="{_imgd != null &amp;&amp; (!AccountMgr.GetInstance().isPremium ||
+													_cboxSets.selectedIndex == 0 || 
+													_cboxSets.selectedItem.setinfo.itemcount &lt; GalleryDocument.maxAllowedImageCount)}"/>
+										<mx:Button id="_btnUpgrade" label="@Resource(key='GoPremium', bundle='MyComputerInBridge')"
+												styleName="upgradeButton" fontSize="18" height="34" 
+												click="DialogManager.ShowUpgrade('/out_show/' + (canCreateSets ? 'maxphotos' : 'maxshows'))"
+												visible="{!_btnSave.visible}" includeInLayout="{!_btnSave.visible}"/>
+									</mx:GridItem>
+								</mx:GridRow>
+								<mx:GridRow width="100%" height="100%" id="gridRow2">
+									<mx:GridItem width="100%" height="100%">
+										<controls:ImageVer source="@Embed('/assets/bitmaps/saveshad_bot.png')"/>
+									</mx:GridItem>
+								</mx:GridRow>
+							</mx:Grid>
+						</mx:GridItem>
+					</mx:GridRow>
+				</mx:Grid>
+			</mx:GridItem>
+		</mx:GridRow>
+	</mx:Grid>
+<!--<controls:ImageVer source="../graphics/beta_banner_big.png" left="0" top="0"/>-->
+</GalleryOutBridgeBase>

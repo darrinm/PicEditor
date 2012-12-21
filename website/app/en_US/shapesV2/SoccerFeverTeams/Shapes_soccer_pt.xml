@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory flickrPremium="false" id="soccer_pt" numShapes="3" picnikPremium="false" previewUrls="60|48|../clipart/bundles/SoccerFeverTeamsArea_groupPreviews_soccer_pt.png?ver=642e3ae7" title="Portugal Stickers">
+	<Shapes>
+		<Clipart cHeight="295.7" cWidth="463.3" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|0|../clipart/bundles/SoccerFeverTeamsArea_shapes_soccer_pt.png?ver=b2f0ad58" url="shapes/SoccerFever/pt/wavingflag_pt.swf"/>
+		<Clipart cHeight="400" cWidth="600" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|1|../clipart/bundles/SoccerFeverTeamsArea_shapes_soccer_pt.png?ver=b2f0ad58" url="shapes/SoccerFever/pt/flag_pt.swf"/>
+		<Clipart cHeight="223.55" cWidth="95.95" flickrPremium="false" isVector="true" picnikPremium="false" previewUrl="40|40|2|../clipart/bundles/SoccerFeverTeamsArea_shapes_soccer_pt.png?ver=b2f0ad58" url="shapes/SoccerFever/pt/scarf_pt.swf"/>
+	</Shapes>
+</ShapeCategory>

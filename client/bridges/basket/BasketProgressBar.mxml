@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:ProgressBar xmlns:mx="http://www.adobe.com/2006/mxml" maximum="1" minimum="0" mode="manual" label=""
+	verticalCenter="0" 
+	trackHeight="14" height="14" right="5" left="5" paddingLeft="5" paddingRight="5">
+</mx:ProgressBar>

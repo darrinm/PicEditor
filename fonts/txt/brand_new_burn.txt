@@ -1,0 +1,12 @@
+fileName: brand_new_burn.ttf
+name: brand new burn
+subfamilyDisplayName: Normal
+fullName: brand new burn
+displayName: brand new burn
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 0
+pkName: pkbrand0new0burn
+authorName: Gyom.Typo
+authorUrl: http://gyom.nebullus.com/

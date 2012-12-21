@@ -1,0 +1,12 @@
+fileName: vtks_untitled.ttf
+name: vtks untitled
+subfamilyDisplayName: Regular
+fullName: vtks untitled
+displayName: vtks untitled
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 0
+pkName: pkvtks0untitled
+authorName: Douglas Vitkauskas
+authorUrl: http://www.vtks.com.br/

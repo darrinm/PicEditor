@@ -1,0 +1,12 @@
+fileName: kg_Love_Ya_Like_A_Sister.ttf
+name: Love Ya Like A Sister
+subfamilyDisplayName: Normal
+fullName: Love Ya Like A Sister
+displayName: Love Ya Like A Sister
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 0
+pkName: pkkg0Love0Ya0Like0A0Sister
+authorName: Kimberly Geswein
+authorUrl: http://www.dafont.com/kimberly-geswein.d1468

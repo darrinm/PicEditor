@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<EffectSetHeaderBase xmlns="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml"
+	xmlns:filters="flash.filters.*"
+
+ 	rotateAngleCollapsed="0"
+ 	rotateAngleExpanded="{90}"
+ 	rotateDuration="300"
+ 	rotateOriginXPercent="{1/2}"
+ 	rotateOriginYPercent="{1/2}"
+ 	rotateTarget="{_svgp}"
+ 	
+	styleName="headerGradient" filters="{[_fiHeadShine,_fiHeadShad]}">
+	<mx:Script>
+		<![CDATA[
+			[Bindable] public var headText:String = "";
+			[Bindable] public var subHeadText:String = "";
+		]]>
+	</mx:Script>
+	<mx:Style>
+		.headerGradient {
+			border-style: solid;
+			border-thickness: 0;
+			border-skin: ClassReference("skins.GradientBackground");
+			gradient-fill-colors: #f6ffe5, #d5f59e;
+			gradient-fill-ratios: 0,255;
+			gradient-rotation: 90;
+		}
+		.headerGradientOver {
+			border-style: solid;
+			border-thickness: 0;
+			border-skin: ClassReference("skins.GradientBackground");
+			gradient-fill-colors: #f6ffe7, #fcfff5, #e6ffba;
+			gradient-fill-ratios: 0,51,255;
+			gradient-rotation: 90;
+		}
+	</mx:Style>
+	<filters:DropShadowFilter blurX="7" blurY="7" distance="2" color="#000000" alpha=".2" quality="3" angle="90" id="_fiHeadShad"/>
+	<filters:DropShadowFilter blurX="0" blurY="0" distance="1" color="#FFFFFF" alpha="1" quality="3" angle="90" id="_fiHeadShine" inner="true"/>
+	<filters:DropShadowFilter blurX="1" blurY="1" distance="1" color="#000000" alpha=".25" quality="3" angle="90" id="_fiTxtInnerShad" inner="true"/>
+	<filters:DropShadowFilter blurX="5" blurY="5" distance="1" color="#FFFFFF" alpha=".2" quality="3" angle="-90" id="_fiArrowInnerShad" inner="true"/>
+	<filters:DropShadowFilter blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1" quality="3" angle="90" id="_fiWhiteShad"/>
+	
+	<mx:Fade id="_efFadeFast" duration="150" />
+	<mx:Fade id="_efFadeSlow" duration="300" />
+	
+	<mx:HBox id="_hbxBG" styleName="headerGradientOver" width="100%" height="100%" visible="false" showEffect="_efFadeFast" hideEffect="_efFadeSlow"/>
+	
+	<mx:HBox width="100%" horizontalGap="0" verticalAlign="middle" paddingLeft="8" paddingRight="10" paddingTop="6" paddingBottom="6"
+			rollOver="_hbxBG.visible=true" rollOut="_hbxBG.visible=false">
+		<mx:VBox width="100%" verticalGap="-7" paddingRight="5">
+			<ResizingLabel text="{headText}" fontSize="15" color="#384a15" autoFontSizeGap="1" width="100%" filters="{[_fiTxtInnerShad,_fiWhiteShad]}"/>
+			<mx:Text htmlText="{subHeadText}" fontSize="12" color="#618430" width="175" leading="-1" fontWeight="bold"
+				filters="{[_fiTxtInnerShad,_fiWhiteShad]}"
+				selectable="false" />	
+		</mx:VBox>
+		
+		<SVGShape svgPath="M0,0 L0,12 L8,6 Z" shapeMaxWidth="8" id="_svgp"
+			fillColor="#4d6728"	fillAlpha="1" filters="{[_fiArrowInnerShad,_fiTxtInnerShad,_fiWhiteShad]}"/>
+	</mx:HBox>
+	
+</EffectSetHeaderBase>

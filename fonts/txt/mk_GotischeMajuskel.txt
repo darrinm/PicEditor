@@ -1,0 +1,12 @@
+fileName: mk_GotischeMajuskel.ttf
+name: GotischeMajuskel
+subfamilyDisplayName: Regular
+fullName: GotischeMajuskel
+displayName: GotischeMajuskel
+ital: 0
+bold: 0
+weight: 5
+panose.weight: 0
+pkName: pkmk0GotischeMajuskel
+authorName: Manfred Kelin
+authorUrl: http://moorstation.org/typoasis/designers/klein/

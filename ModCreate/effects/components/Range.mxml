@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Key properties: label, minimum, maximum, value, type -->
+<mx:VBox xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:controls="controls.*"
+		width="194" horizontalScrollPolicy="off" verticalScrollPolicy="off">
+	<mx:Metadata>
+        [Event(name="change", type="flash.events.Event")]
+    </mx:Metadata>
+
+	<mx:String id="type"/>
+	<mx:Number id="minimum"/>
+	<mx:Number id="maximum"/>
+	<mx:Number id="value">{_sldr.value}</mx:Number>
+	<mx:Number id="defaultValue"/>
+	<mx:Number id="snapInterval"/>
+	
+	<mx:HBox width="100%" paddingBottom="-5" paddingTop="3">
+		<mx:Label text="{label}" styleName="sliderTitle"/>
+		<mx:Label text="{type == 'int' ? Math.round(_sldr.value) : Math.round(_sldr.value * 100) / 100}" styleName="sliderValue"
+				textAlign="right" width="100%"/>
+	</mx:HBox>
+	<controls:HSliderPlus id="_sldr" width="191" minimum="{minimum}" maximum="{maximum}" value="{defaultValue}" 
+			snapInterval="{snapInterval ? snapInterval : (type == 'int' ? 1 : 0.01)}"
+			change="{dispatchEvent(new Event(Event.CHANGE))}" liveDragging="true" showDataTip="false"/>
+</mx:VBox>

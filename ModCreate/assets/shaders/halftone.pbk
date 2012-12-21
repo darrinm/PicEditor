@@ -1,0 +1,48 @@
+// Filter by Justin Everett-Church
+// http://justin.everett-church.com
+// October 2007
+
+<languageVersion : 1.0;>
+kernel halftone
+<
+    namespace: "whatever";
+    vendor: "Justin Everett-Church";
+    version: 1;
+    description: "";
+>
+{
+    parameter int radius    
+    <   minValue:int(0);
+        maxValue:int(50); 
+        defaultValue:int(4); >;
+    parameter int offset
+    <   minValue:int(0);
+        maxValue:int(10); 
+        defaultValue:int(2); >;
+    const pixel4 blank = pixel4(0,0,0,0);
+    
+    input image4 src;
+    output pixel4 outputPixel;
+    
+    void evaluatePixel()
+    {
+        int fullOffset = offset*radius;
+
+        //what color should go out?
+        float2 gridWidth = float2((radius)*2 +offset);
+        float2 sampledPixelLocation = floor(float2(outCoord().x,outCoord().y+float(offset)) / gridWidth) * gridWidth;
+        pixel4 sampledPixel = sampleNearest(src, sampledPixelLocation);
+
+        //find center
+        float2 centerPixel = floor(outCoord() / gridWidth) * gridWidth + (gridWidth/2.0);
+        centerPixel.y-=float(offset)*.5;
+        //how far from center?
+        float dist = distance(centerPixel, outCoord());
+        //halftoning
+        pixel4 white = pixel4(1,1,1,1);
+        float radius2 = float(radius)*(sampledPixel.r+sampledPixel.g+sampledPixel.b+sampledPixel.a)/4.0;
+        white.a =1.0-(dist-radius2);
+        outputPixel = white;
+        
+    }
+}

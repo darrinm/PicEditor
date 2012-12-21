@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cnt:EffectCanvas xmlns:cnt="containers.*" xmlns="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml"
+		xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*"
+		width="100%" height="179" xmlns:util="util.*" premium="{PicnikBase.GetApp().freemiumModel}" urlid="FilmGrain">
+	<mx:Script>
+		import util.LocUtil;
+		import mx.resources.ResourceBundle;
+		import picnik.util.LocaleInfo;		
+   		[Bindable] [ResourceBundle("GrainEffect")] private var rb:ResourceBundle;
+	</mx:Script>
+
+
+	<mx:Array id="_resetValues">
+		<local:StoredValue target="_sldrGrain.value"/>
+		<local:StoredValue target="_radioLighten.selected"/>
+		<local:StoredValue target="_radioDarken.selected"/>
+	</mx:Array>
+	
+	<util:NumberPlus id="grain" val="{_radioLighten.selected?2.55*_sldrGrain.value:255-2.55*_sldrGrain.value}"/>
+	
+	<EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='GrainEffect')" strAuthor="@Resource(key='_efbtn_1', bundle='GrainEffect')"
+		strImageSource="../graphics/effects/Misc/grain.png" premium="{premium}"/>
+	<mx:String id="_strHelpText">{Resource.getString('GrainEffect', '_strHelpText')}</mx:String>
+
+	<mx:VBox x="8" y="67" verticalGap="0">
+		<mx:HBox width="194" paddingBottom="-5" paddingTop="6">
+			<mx:Label text="@Resource(key='Label_1', bundle='GrainEffect')" styleName="sliderTitle"/>
+			<mx:Label text="{LocUtil.pct((_sldrGrain.value*2))}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<HSliderPlus width="191" minimum="0" maximum="50" value="10" snapInterval="1" id="_sldrGrain" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+
+	    <mx:HBox horizontalGap="10" paddingTop="5" horizontalAlign="center" width="100%">
+			<mx:RadioButton id="_radioDarken" label="@Resource(key='_radioDarkenShort', bundle='GrainEffect')" selected="true" groupName="_rGroup" change="OnOpChange()"
+				horizontalGap="-2" fontSize="12" fontWeight="{LocaleInfo.BoldWeight()}" paddingRight="-5"/>
+			<mx:RadioButton id="_radioLighten" label="@Resource(key='_radioLightenShort', bundle='GrainEffect')" groupName="_rGroup" change="OnOpChange()"
+				horizontalGap="-2" fontSize="12" fontWeight="{LocaleInfo.BoldWeight()}" paddingRight="-5"/>
+	    </mx:HBox>
+
+		<ApplyCancelEffectButtons addBoxPadding="true" premium="{premium}"/>
+	</mx:VBox>
+
+	<imageOperations:NestedImageOperation id="_op" BlendAlpha="1" BlendMode="{_radioLighten.selected?'screen':'multiply'}"
+			maskWithSourceAlpha="true">
+		<imageOperations:children>
+			<imageOperations:NoiseImageOperation randomSeed="1"
+				low="{_radioLighten.selected?0:grain.val}"
+				high="{_radioDarken.selected?255:grain.val}"
+				channelOptions="7" grayScale="true"/>
+		</imageOperations:children>
+	</imageOperations:NestedImageOperation>
+
+</cnt:EffectCanvas>

@@ -1,0 +1,31 @@
+<languageVersion: 1.0;>
+kernel Water
+<   namespace: "popforge::ImageProcessing";
+    vendor: "joa ebert";
+    version: 1;
+    description: "simple convolution to generate a water map";
+>
+{
+    parameter float damp;
+    
+    input image3 lastMap;
+    input image3 energyMap;
+    
+    output pixel3 waveMap;
+    
+    void evaluatePixel()
+    {
+        float2 point = outCoord();
+        
+        pixel3 n = ( sampleLinear(lastMap, point+float2(-1, 0)) +
+                     sampleLinear(lastMap, point+float2( 1, 0)) +
+                     sampleLinear(lastMap, point+float2( 0,-1)) +
+                     sampleLinear(lastMap, point+float2( 0, 1)) ) * 0.5;
+                    
+        n -= sampleLinear( energyMap, point );
+      
+        n -= ( n * damp );
+        
+        waveMap = n;
+    }
+}

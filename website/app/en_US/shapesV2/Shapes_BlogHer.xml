@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory flickrPremium="false" id="BlogHer" numShapes="8" picnikPremium="false" previewUrls="60|48|../clipart/bundles/groupPreviews_BlogHer.png?ver=64430c10" title="BlogHer">
+	<Shapes>
+		<Clipart cHeight="89" cWidth="129" flickrPremium="false" picnikPremium="false" previewUrl="40|40|0|../clipart/bundles/shapes_BlogHer.png?ver=741a83ea" url="shapes/BlogHer09/color_2009_image.swf"/>
+		<Clipart cHeight="26" cWidth="26" flickrPremium="false" picnikPremium="false" previewUrl="40|40|1|../clipart/bundles/shapes_BlogHer.png?ver=741a83ea" url="shapes/BlogHer09/color_logo.swf"/>
+		<Clipart cHeight="28" cWidth="128" flickrPremium="false" picnikPremium="false" previewUrl="40|40|2|../clipart/bundles/shapes_BlogHer.png?ver=741a83ea" url="shapes/BlogHer09/color_logo_and_wordmark.swf"/>
+		<Clipart cHeight="28" cWidth="101" flickrPremium="false" picnikPremium="false" previewUrl="40|40|3|../clipart/bundles/shapes_BlogHer.png?ver=741a83ea" url="shapes/BlogHer09/color_wordmark.swf"/>
+		<Clipart cHeight="89" cWidth="129" color="16777215" flickrPremium="false" picnikPremium="false" previewUrl="40|40|4|../clipart/bundles/shapes_BlogHer.png?ver=741a83ea" url="shapes/BlogHer09/black_2009_image.swf"/>
+		<Clipart cHeight="26" cWidth="26" color="16777215" flickrPremium="false" picnikPremium="false" previewUrl="40|40|5|../clipart/bundles/shapes_BlogHer.png?ver=741a83ea" url="shapes/BlogHer09/black_logo.swf"/>
+		<Clipart cHeight="28" cWidth="128" color="16777215" flickrPremium="false" picnikPremium="false" previewUrl="40|40|6|../clipart/bundles/shapes_BlogHer.png?ver=741a83ea" url="shapes/BlogHer09/black_logo_and_wordmark.swf"/>
+		<Clipart cHeight="28" cWidth="101" color="16777215" flickrPremium="false" picnikPremium="false" previewUrl="40|40|7|../clipart/bundles/shapes_BlogHer.png?ver=741a83ea" url="shapes/BlogHer09/black_wordmark.swf"/>
+	</Shapes>
+</ShapeCategory>

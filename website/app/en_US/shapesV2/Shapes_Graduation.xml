@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/shape_graduation.png" flickrPremium="true" id="Graduation" numShapes="8" picnikPremium="true" previewUrls="60|48|../clipart/bundles/groupPreviews_Graduation.png?ver=f3aa1751" title="Graduation">
+	<Shapes>
+		<Clipart cHeight="190" cWidth="309" flickrPremium="true" picnikPremium="true" previewUrl="40|40|0|../clipart/bundles/shapes_Graduation.png?ver=91e87d64" url="shapes/grad_icons_cap.swf"/>
+		<Clipart cHeight="161" cWidth="352" flickrPremium="true" picnikPremium="true" previewUrl="40|40|1|../clipart/bundles/shapes_Graduation.png?ver=91e87d64" url="shapes/grad_icons_diploma.swf"/>
+		<Clipart cHeight="145" cWidth="151" flickrPremium="true" picnikPremium="true" previewUrl="40|40|2|../clipart/bundles/shapes_Graduation.png?ver=91e87d64" url="shapes/grad_icons_seal.swf"/>
+		<Clipart cHeight="175" cWidth="177" flickrPremium="true" picnikPremium="true" previewUrl="40|40|3|../clipart/bundles/shapes_Graduation.png?ver=91e87d64" url="shapes/grad_icons_congratulations.swf"/>
+		<Clipart cHeight="89" cWidth="253" flickrPremium="true" picnikPremium="true" previewUrl="40|40|4|../clipart/bundles/shapes_Graduation.png?ver=91e87d64" url="shapes/grad_icons_congrats.swf"/>
+		<Clipart cHeight="245" cWidth="139" flickrPremium="true" picnikPremium="true" previewUrl="40|40|5|../clipart/bundles/shapes_Graduation.png?ver=91e87d64" url="shapes/grad_icons_badge.swf"/>
+		<Clipart cHeight="215" cWidth="250" flickrPremium="true" picnikPremium="true" previewUrl="40|40|6|../clipart/bundles/shapes_Graduation.png?ver=91e87d64" url="shapes/grad_icons_confetti.swf"/>
+		<Clipart cHeight="350" cWidth="125" flickrPremium="true" picnikPremium="true" previewUrl="40|40|7|../clipart/bundles/shapes_Graduation.png?ver=91e87d64" url="shapes/grad_icons_streamers.swf"/>
+	</Shapes>
+</ShapeCategory>

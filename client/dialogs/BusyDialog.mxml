@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<BusyDialogBase xmlns="dialogs.*" xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" xmlns:flash="flash.filters.*"
+		width="210" height="110" title="@Resource(key='BusyDialogBase_1', bundle='BusyDialog')" defaultButton="{_btnCancel}"
+		verticalScrollPolicy="off" horizontalScrollPolicy="off"
+		filters="{[_fiInnerShadow,_fiShadow]}" dropShadowEnabled="false"
+		headerHeight="0" backgroundAlpha=".95" borderAlpha=".95" xmlns:controls="controls.*">
+<mx:Script>
+	<![CDATA[
+		public static const knFP10VSpace:Number = 28; // Add space for the label
+	]]>
+</mx:Script>
+
+	<states>
+		<mx:State name="ProgressWithCancel">
+			<mx:SetStyle name="autoFontSizeGap" value="0"/>
+			<mx:SetProperty name="x" value="{this.x-((250-190)/2)}"/>
+			<mx:SetProperty name="width" value="250"/>
+			<mx:SetProperty name="height" value="90"/>
+
+			<mx:SetProperty target="{_pb}" name="visible" value="true"/>
+			<mx:SetStyle target="{_pb}" name="left" value="70"/>
+
+			<mx:SetProperty target="{_lbStatus}" name="width" value="186"/>			
+			<mx:SetStyle target="{_lbStatus}" name="verticalCenter" value="8"/>
+			<mx:SetStyle target="{_lbStatus}" name="horizontalCenter"/>
+			
+			<mx:SetProperty target="{_lbPercent}" name="alpha" value="1.0"/>
+			<mx:SetStyle target="{_lbPercent}" name="verticalCenter" value="8"/>
+			<mx:SetProperty target="{_lbPercent}" name="width" value="50"/>
+
+			<mx:SetProperty target="{_gearsSWF}" name="width" value="60"/>
+			<mx:SetProperty target="{_gearsSWF}" name="height" value="34"/>
+			<mx:SetStyle target="{_gearsSWF}" name="horizontalCenter" value="-88"/>
+			<mx:SetStyle target="{_gearsSWF}" name="verticalCenter" value="-19"/>
+			<mx:SetStyle target="{_lbStatus}" name="textAlign" value="left"/>
+			<mx:SetStyle target="{_lbStatus}" name="left" value="3"/>
+		</mx:State>
+		<mx:State basedOn="ProgressWithCancel" name="ProgressWithCancelAndFlashUpgradeText">
+			<!-- Re-layout the contents of this dialog. Ugh! Why not use a vbox? -->
+			<!-- Add space for the upgrade text -->
+			
+			<!-- Shift centers down by knFP10VSpace/2 -->
+			<mx:SetProperty name="height" value="{90 + knFP10VSpace}"/>
+			<mx:SetProperty name="visible" target="{_txUpgradeToFlash10}" value="true"/>
+			
+			<mx:SetStyle target="{_pb}" name="verticalCenter" value="{-18 + knFP10VSpace/2}"/>
+			<mx:SetStyle target="{_gearsSWF}" name="verticalCenter" value="{-19 + knFP10VSpace/2}"/>
+			<mx:SetStyle target="{_lbPercent}" name="verticalCenter" value="{8 + knFP10VSpace/2}"/>
+			<mx:SetStyle target="{_lbStatus}" name="verticalCenter" value="{8 + knFP10VSpace/2}"/>
+			<mx:SetProperty target="{_imgDivider}" name="visible" value="true" />
+			<mx:SetProperty name="y" target="{_imgDivider}" value="{knFP10VSpace}"/>
+		</mx:State>
+		<mx:State name="IndeterminateNoCancel">
+			<mx:RemoveChild target="{_btnCancel}"/>
+
+			<mx:SetStyle target="{_lbStatus}" name="textAlign" value="center"/>
+			<mx:SetProperty name="height" value="90"/>
+			<mx:SetStyle target="{_gearsSWF}" name="verticalCenter" value="-8"/>
+			<mx:SetStyle target="{_lbStatus}" name="verticalCenter"/>
+			<mx:SetStyle target="{_lbStatus}" name="bottom" value="0"/>
+			<!--
+			<mx:SetProperty target="{_lbPercent}" name="enabled" value="false"/>
+			<mx:SetProperty target="{_lbPercent}" name="includeInLayout" value="false"/>
+			<mx:SetProperty target="{_imgDivider}" name="visible" value="false"/>
+			<mx:SetProperty target="{_imgDivider}" name="includeInLayout" value="false"/> -->
+		</mx:State>
+	</states>
+	
+	<transitions>
+		<mx:Transition id="_trn" fromState="*" toState="ProgressWithCancel">
+            <mx:Parallel targets="{[this, _btnCancel, _pb, _lbStatus, _lbPercent, _gearsSWF]}" suspendBackgroundProcessing="true">
+                <mx:Move duration="200"/>
+                <mx:Resize duration="200"/>
+                <mx:Fade duration="300" targets="{[_imgDivider, _lbPercent]}" />
+                <mx:Fade duration="300" target="{_lbPercent}" />
+			</mx:Parallel>
+        </mx:Transition>
+    </transitions>
+	<mx:Script>
+		<![CDATA[
+			import util.Navigation;
+		]]>
+	</mx:Script>
+    
+    <flash:DropShadowFilter id="_fiInnerShadow" alpha=".15" blurX="4" blurY="4" angle="-90" distance="2" quality="3" inner="true"/>
+    <flash:DropShadowFilter id="_fiShadow" alpha=".60" blurX="12" blurY="12" angle="90" distance="2" quality="3"/>
+     
+	<mx:ProgressBar maximum="100" minimum="0" id="_pb" mode="manual" trackHeight="24" label="" right="5" left="140" height="24" visible="false" includeInLayout="false" verticalCenter="-18"/>
+	<mx:Label verticalCenter="20" textAlign="right" width="50" right="5" fontSize="13" color="#333333" id="_lbPercent" alpha="0"/>
+	<mx:Button label="@Resource(key='_btnCancel', bundle='BusyDialog')" id="_btnCancel" horizontalCenter="0" width="90" styleName="smallDialogButton" bottom="0" height="20"/>
+	<controls:Gears horizontalCenter="0" id="_gearsSWF" verticalCenter="-18" width="100" height="60"/>
+	<controls:ResizingLabel id="_lbStatus" text=" " fontSize="13" autoFontSizeGap="1" color="#333333" horizontalCenter="0" verticalCenter="20" width="100%" textAlign="center"/>
+	<controls:ImageVer source="@Embed('../assets/bitmaps/divider_230wide.png')" y="58" horizontalCenter="0" id="_imgDivider" visible="false" includeInLayout="false"/>
+	<controls:ResizingLabel id="_txUpgradeToFlash10" color="#618430" buttonMode="true" 
+		top="5" fontWeight="normal" horizontalCenter="0" selectable="true"
+		autoFontSizeGap="1" htmlText="@Resource(key='UpgradeToFlash10', bundle='BusyDialog')"
+		click="Navigation.NavigateToFlashUpgrade('uploadBusy')" visible="false"/>
+</BusyDialogBase>

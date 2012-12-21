@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<BlueCloudsDialog xmlns="containers.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="450" xmlns:filters="flash.filters.*" xmlns:controls="controls.*">
+	<filters:DropShadowFilter id="_fiWhiteShad" blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha=".8" quality="3" angle="90"/>
+	<filters:BlurFilter id="_efDOFBlur" blurX="3" blurY="3" quality="3"/>
+		<!-- dandy lions -->
+		<controls:ImageEx bundled="true" source="../graphics/dandelions/dandelion1.png" bottom="0" left="35" alpha=".3" filters="{[_efDOFBlur]}"/>
+		<controls:ImageEx bundled="true" source="../graphics/dandelions/dandelion2.png" bottom="0" right="85" alpha=".4" filters="{[_efDOFBlur]}"/>
+		<controls:ImageEx bundled="true" source="../graphics/dandelions/dandelion4.png" bottom="0" right="45" alpha=".3" filters="{[_efDOFBlur]}"/>
+	<states>
+		<mx:State name="Paid">
+			<mx:SetProperty target="{this}" name="bodyKey" value="BodyPaid"/>
+			<mx:RemoveChild target="{_btnUpgrade}"/>
+		</mx:State>
+		<mx:State name="Show">
+			<mx:SetProperty target="{this}" name="bodyKey" value="BodyFreeShow"/>
+		</mx:State>
+		<mx:State name="PaidShow">
+			<mx:SetProperty target="{this}" name="bodyKey" value="BodyPaidShow"/>
+			<mx:RemoveChild target="{_btnUpgrade}"/>
+		</mx:State>
+	</states>
+	<mx:Script>
+		<![CDATA[
+			import bridges.mycomputer.UploadInterface;
+			import containers.ResizingDialog;
+			import mx.core.UIComponent;
+			import bridges.mycomputer.MyComputerInBridgeBase;
+			import mx.utils.StringUtil;
+			import util.LocUtil;
+			import mx.resources.ResourceBundle;
+			
+			[Bindable] public var fileLimit:Number = UploadInterface.knRegisteredFileListLimit;
+			[Bindable] public var paidFileLimit:Number = UploadInterface.knPaidFileListLimit;
+
+	   		[Bindable] [ResourceBundle("UploadLimitExceededDialog")] private var rb:ResourceBundle;
+	   		
+			public static function Show(uicParent:UIComponent, nFileLimit:Number, fIsShow:Boolean=false): UploadLimitExceededDialog {
+				var dlg:UploadLimitExceededDialog = new UploadLimitExceededDialog();
+				dlg.fileLimit = nFileLimit;
+				if (AccountMgr.GetInstance().isPaid)
+					dlg.currentState = "Paid";
+				
+				if (fIsShow) {
+					dlg.currentState = AccountMgr.GetInstance().isPaid ? "PaidShow" : "Show";
+				} 
+
+				ResizingDialog.Show(dlg, uicParent);
+				return dlg;
+			}
+			
+			private function DoUpgrade(): void {
+				Hide();
+				callLater(DialogManager.ShowUpgrade, ['/in_upload/limit']);
+			}
+	   		
+		]]>
+	</mx:Script>
+	<mx:String id="bodyKey">BodyFree</mx:String>
+	
+	<mx:VBox width="100%" height="100%" horizontalAlign="center" verticalGap="0" paddingBottom="10" paddingLeft="10" paddingRight="10">
+		<controls:ResizingLabel text="{LocUtil.rbSubst('UploadLimitExceededDialog', 'Title', fileLimit)}" width="100%" fontSize="25" paddingTop="10" paddingRight="90"
+			selectable="false" textAlign="left" fontWeight="bold" filters="{[_fiWhiteShad]}" autoFontSizeGap="1"
+			color="#005580"/>
+		<mx:Text text="{StringUtil.substitute(Resource.getString('UploadLimitExceededDialog', bodyKey), fileLimit, paidFileLimit)}" fontSize="14" paddingTop="-8" leading="-2"
+			width="100%" textAlign="left" filters="{[_fiWhiteShad]}" paddingBottom="10"/>
+		<mx:VBox width="100%" verticalAlign="middle" horizontalAlign="center" verticalGap="5">
+			<controls:ResizingButton label="@Resource(key='OK', bundle='UploadLimitExceededDialog')" click="Hide();" fontSize="18" paddingTop="5" paddingRight="10" paddingBottom="5" paddingLeft="10"/>
+			<mx:Button id="_btnUpgrade" styleName="clearButton" label="@Resource(key='Upgrade', bundle='UploadLimitExceededDialog')" 
+				width="100%" fontSize="13" color="#005580" textRollOverColor="#002A40" click="DoUpgrade();" useHandCursor="true" filters="{[_fiWhiteShad]}"/>
+		</mx:VBox>
+	</mx:VBox>
+</BlueCloudsDialog>

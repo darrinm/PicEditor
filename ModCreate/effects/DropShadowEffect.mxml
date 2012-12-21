@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cnt:EffectCanvas xmlns="effects.*" xmlns:cnt="containers.*" xmlns:ctrl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="343"
+	xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*" premium="{PicnikBase.GetApp().freemiumModel}" urlid="DropShadow">
+	<mx:Script>
+		import util.LocUtil;
+		import mx.resources.ResourceBundle;
+   		[Bindable] [ResourceBundle("DropShadowEffect")] private var rb:ResourceBundle;
+	</mx:Script>
+
+
+	<mx:Array id="_resetValues">
+		<local:StoredValue target="_cpkrShadow.selectedColor"/>
+		<local:StoredValue target="_cpkrBackground.selectedColor"/>
+		<local:StoredValue target="_sldrDistance.value"/>
+		<local:StoredValue target="_sldrAngle.value"/>
+		<local:StoredValue target="_sldrBlur.value"/>
+		<local:StoredValue target="_sldrFade.value"/>
+		<local:StoredValue target="_chkTransparentBackground.selected"/>
+	</mx:Array>
+
+	<ctrl:EffectButton id="_efbtn" cornerRadius="0" strTitle="@Resource(key='_efbtn', bundle='DropShadowEffect')" strAuthor="@Resource(key='_efbtn_1', bundle='DropShadowEffect')" strImageSource="../graphics/effects/Frames/drop_shadow.png" premium="{premium}"/>
+	<mx:String id="_strHelpText">{Resource.getString('DropShadowEffect', '_strHelpText')}</mx:String>
+	
+	<mx:VBox x="8" y="73" verticalGap="0">
+		<mx:HBox verticalAlign="middle" horizontalGap="3">
+			<mx:Label text="@Resource(key='Label_1', bundle='DropShadowEffect')" styleName="sliderTitle"/>
+			<ctrl:HSBColorPicker id="_cpkrShadow" selectedColor="0x000000" liveColorChange="OnBufferedOpChange()" width="50"/>
+		</mx:HBox>
+		
+		<mx:HBox width="194" paddingBottom="-5" paddingTop="3">
+			<mx:Label text="@Resource(key='Label_2', bundle='DropShadowEffect')" styleName="sliderTitle"/>
+			<mx:Label text="{Math.round(_sldrDistance.liveValue)}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<ctrl:HSliderFastDrag updateSpeed="{updateSpeed}" width="191" minimum="0" maximum="30" value="4" id="_sldrDistance" change="OnOpChange()" liveDragging="true" showDataTip="false" snapInterval="1"/>
+	
+		<mx:HBox width="194" paddingBottom="-5" paddingTop="3">
+			<mx:Label x="15" y="185" text="@Resource(key='Label_3', bundle='DropShadowEffect')" styleName="sliderTitle"/>
+			<mx:Label x="144" y="185" text="{LocUtil.deg(_sldrAngle.liveValue)}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<ctrl:HSliderFastDrag updateSpeed="{updateSpeed}" width="191" minimum="0" maximum="360" value="90" id="_sldrAngle" change="OnOpChange()" liveDragging="true" showDataTip="false" snapInterval="5"/>
+	
+		<mx:HBox width="194" paddingBottom="-5" paddingTop="3">
+			<mx:Label x="8" y="233" text="@Resource(key='Label_4', bundle='DropShadowEffect')" styleName="sliderTitle"/>
+			<mx:Label x="152" y="233" text="{Math.round(_sldrBlur.liveValue)}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<ctrl:HSliderFastDrag updateSpeed="{updateSpeed}" width="191" minimum="0" maximum="100" value="10" id="_sldrBlur" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+	
+		<mx:HBox width="194" paddingBottom="-5" paddingTop="3">
+			<mx:Label text="@Resource(key='Label_5', bundle='DropShadowEffect')" styleName="sliderTitle"/>
+			<mx:Label text="{LocUtil.pct((_sldrFade.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<ctrl:HSliderPlus y="286" width="191" minimum="0" maximum="100" value="30" id="_sldrFade" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+
+		<mx:Box paddingTop="10" paddingBottom="8">
+			<ctrl:ImageVer source="../graphics/page_divider_grey.png" scaleContent="true" width="191" height="2" maintainAspectRatio="false"/>
+		</mx:Box>
+		
+		<cnt:ResizingHBox verticalAlign="middle" horizontalGap="3" width="191" horizontalAlign="center">
+			<ctrl:ResizingLabel text="@Resource(key='Label_6', bundle='DropShadowEffect')" text_5="@Resource(key='Label_6_short', bundle='DropShadowEffect')" styleName="sliderTitle"/>
+			<ctrl:HSBColorPicker id="_cpkrBackground" selectedColor="0xffffff" liveColorChange="OnBufferedOpChange()" width="50"/>
+		</cnt:ResizingHBox>
+		
+		<mx:Box width="100%" paddingTop="4" horizontalAlign="center" visible="{!PicnikBase.app.flickrlite}" includeInLayout="{!PicnikBase.app.flickrlite}">
+			<ctrl:ResizingCheckbox id="_chkTransparentBackground" label="@Resource(key='transparent_background', bundle='DropShadowEffect')" selected="false" change="OnOpChange()"/>
+		</mx:Box>
+
+		<ctrl:ApplyCancelEffectButtons addBoxPadding="true" premium="{premium}"/>
+	</mx:VBox>
+
+	<imageOperations:DropShadowImageOperation id="_op" shadowColor="{0xff000000 + _cpkrShadow.liveColor}" 
+			backgroundColor="{(_chkTransparentBackground.selected ? 0x00000000 : 0xff000000) + _cpkrBackground.liveColor}"
+			shadowAlpha="{1-(_sldrFade.value/100)}"
+			distance="{_sldrDistance.value}" angle="{_sldrAngle.value}" 
+			blurX="{_sldrBlur.value}" blurY="{_sldrBlur.value}" strength="1" quality="{BitmapFilterQuality.HIGH}"/>
+</cnt:EffectCanvas>

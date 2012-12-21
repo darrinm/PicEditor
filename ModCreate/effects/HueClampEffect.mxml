@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cnt:PaintEffectCanvas xmlns:cnt="containers.*" xmlns="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="193" 
+	xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" flash10="true" premium="true" urlid="HueClamp">
+	<mx:Script>
+		<![CDATA[
+			import imagine.imageOperations.ShaderImageOperation;
+			import util.LocUtil;
+			import mx.resources.ResourceBundle;
+		   	
+	   		[Bindable] [ResourceBundle("HueClampEffect")] private var rb:ResourceBundle;
+
+			[Embed("/assets/shaders/Effects/HueClamp.pbj", mimeType="application/octet-stream")]
+			private static var _clsHueClamp:Class;
+
+		]]>
+	</mx:Script>
+
+
+	<mx:Array id="_resetValues">
+		<local:StoredValue target="_sldrRed.value"/>
+		<local:StoredValue target="_sldrGreen.value"/>
+		<local:StoredValue target="_sldrBlue.value"/>
+		<local:StoredValue target="_sldrCyan.value"/>
+		<local:StoredValue target="_sldrMagenta.value"/>
+		<local:StoredValue target="_sldrYellow.value"/>
+		<local:StoredValue target="_sldrBleed.value"/>
+		<local:StoredValue target="_sldrGrayBlend.value"/>
+		<local:StoredValue target="_sldrCutoff.value"/>
+	</mx:Array>
+	
+	<EffectButton id="_efbtn" strTitle="@Resource(key='HueClamp', bundle='HueClampEffect')" strAuthor="@Resource(key='_efbtn_1', bundle='HueClampEffect')"
+		strImageSource="../graphics/effects/vibrance.jpg" premium="{premium}"/>
+	<mx:String id="_strHelpText">{Resource.getString('HueClampEffect', '_strHelpText')}</mx:String>
+
+	<mx:VBox x="0" y="67" verticalGap="0" paddingLeft="8" paddingRight="8">
+		<mx:VBox horizontalGap="5" paddingTop="5" verticalAlign="middle">
+			<mx:VBox verticalGap="0" width="157" horizontalScrollPolicy="off">
+				<mx:HBox width="100%" paddingBottom="-5">
+					<mx:Label text="@Resource(key='Red', bundle='HueClampEffect')" styleName="sliderTitle"/>
+					<mx:Label text="{LocUtil.pct((_sldrRed.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+				</mx:HBox>
+				<HSliderPlus width="157" minimum="0" maximum="100" value="50" id="_sldrRed" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+			</mx:VBox>
+			<mx:VBox verticalGap="0" width="157" horizontalScrollPolicy="off">
+				<mx:HBox width="100%" paddingBottom="-5">
+					<mx:Label text="@Resource(key='Green', bundle='HueClampEffect')" styleName="sliderTitle"/>
+					<mx:Label text="{LocUtil.pct((_sldrGreen.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+				</mx:HBox>
+				<HSliderPlus width="157" minimum="0" maximum="100" value="50" id="_sldrGreen" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+			</mx:VBox>
+			<mx:VBox verticalGap="0" width="157" horizontalScrollPolicy="off">
+				<mx:HBox width="100%" paddingBottom="-5">
+					<mx:Label text="@Resource(key='Blue', bundle='HueClampEffect')" styleName="sliderTitle"/>
+					<mx:Label text="{LocUtil.pct((_sldrBlue.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+				</mx:HBox>
+				<HSliderPlus width="157" minimum="0" maximum="100" value="50" id="_sldrBlue" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+			</mx:VBox>
+			<mx:VBox verticalGap="0" width="157" horizontalScrollPolicy="off">
+				<mx:HBox width="100%" paddingBottom="-5">
+					<mx:Label text="@Resource(key='Cyan', bundle='HueClampEffect')" styleName="sliderTitle"/>
+					<mx:Label text="{LocUtil.pct((_sldrCyan.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+				</mx:HBox>
+				<HSliderPlus width="157" minimum="0" maximum="100" value="50" id="_sldrCyan" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+			</mx:VBox>
+			<mx:VBox verticalGap="0" width="157" horizontalScrollPolicy="off">
+				<mx:HBox width="100%" paddingBottom="-5">
+					<mx:Label text="@Resource(key='Magenta', bundle='HueClampEffect')" styleName="sliderTitle"/>
+					<mx:Label text="{LocUtil.pct((_sldrMagenta.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+				</mx:HBox>
+				<HSliderPlus width="157" minimum="0" maximum="100" value="50" id="_sldrMagenta" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+			</mx:VBox>
+			<mx:VBox verticalGap="0" width="157" horizontalScrollPolicy="off">
+				<mx:HBox width="100%" paddingBottom="-5">
+					<mx:Label text="@Resource(key='Yellow', bundle='HueClampEffect')" styleName="sliderTitle"/>
+					<mx:Label text="{LocUtil.pct((_sldrYellow.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+				</mx:HBox>
+				<HSliderPlus width="157" minimum="0" maximum="100" value="50" id="_sldrYellow" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+			</mx:VBox>
+			<mx:VBox verticalGap="0" width="157" horizontalScrollPolicy="off">
+				<mx:HBox width="100%" paddingBottom="-5">
+					<mx:Label text="@Resource(key='Bleed', bundle='HueClampEffect')" styleName="sliderTitle"/>
+					<mx:Label text="{LocUtil.pct((_sldrBleed.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+				</mx:HBox>
+				<HSliderPlus width="157" minimum="0" maximum="30" value="5" id="_sldrBleed" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+			</mx:VBox>
+			<mx:VBox verticalGap="0" width="157" horizontalScrollPolicy="off">
+				<mx:HBox width="100%" paddingBottom="-5">
+					<mx:Label text="@Resource(key='GrayBlend', bundle='HueClampEffect')" styleName="sliderTitle"/>
+					<mx:Label text="{LocUtil.pct((_sldrGrayBlend.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+				</mx:HBox>
+				<HSliderPlus width="157" minimum="0" maximum="100" value="50" id="_sldrGrayBlend" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+			</mx:VBox>
+			<mx:VBox verticalGap="0" width="157" horizontalScrollPolicy="off">
+				<mx:HBox width="100%" paddingBottom="-5">
+					<mx:Label text="@Resource(key='Cutoff', bundle='HueClampEffect')" styleName="sliderTitle"/>
+					<mx:Label text="{LocUtil.pct((_sldrCutoff.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+				</mx:HBox>
+				<HSliderPlus width="157" minimum="0" maximum="100" value="50" id="_sldrCutoff" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+			</mx:VBox>
+			
+			<mx:Button id="_btnBrushPalette" width="30" height="30" selected="false" toggle="true" icon="@Embed('/assets/bitmaps/icon_paintTall.png')" paddingLeft="0"
+				toolTip="@Resource(key='_btnBrushPalette', bundle='BWEffect')"/>
+				
+		</mx:VBox>
+		<ApplyCancelEffectButtons addBoxPadding="true" premium="{premium}"/>
+	</mx:VBox>
+		    
+		    
+</cnt:PaintEffectCanvas>

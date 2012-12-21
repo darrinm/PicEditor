@@ -1,0 +1,23 @@
+/*
+ * Copyright 2011 Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an Apache 2.0 License.
+ * See the COPYING file for details.
+ */
+
+
+@font-face {
+    src:local("Comic Sans MS");
+    font-family: "pkcomicbd";
+    unicodeRange: U+0000-U+00FF, U+0301-U+0301, U+0400-U+045F;
+    flashType: true;
+    fontWeight: bold;
+    fontStyle: normal;
+}
+
+.pkcomicbd
+{
+    font-family: "pkcomicbd";
+    fontWeight: bold;
+    fontStyle: normal;
+}

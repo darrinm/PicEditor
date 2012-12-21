@@ -1,0 +1,12 @@
+fileName: verdanaz.ttf
+name: Verdana
+subfamilyDisplayName: Negreta cursiva
+fullName: Verdana Negreta cursiva
+displayName: Verdana
+ital: 1
+bold: 1
+weight: 5
+panose.weight: 8
+pkName: pkverdanaz
+authorName: Matthew Carter
+authorUrl: http://carterandcone.com/

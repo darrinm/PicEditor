@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory area="July4th" id="root">
+	<ShapeCategory flickrPremium="false" id="july4thSection" numShapes="0" picnikPremium="false" showHeader="false">
+		<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/shape_independence_day.png" flickrPremium="true" id="IndependenceDay" numShapes="0" picnikPremium="true" previewUrls="60|48|../clipart/bundles/July4thArea_groupPreviews_IndependenceDay.png?ver=2c07b5be" thumbUrl="66|54|0|../clipart/bundles/July4thArea_groupThumbs.png?ver=75ee2a8d" title="Independence Day">
+			<ShapeCategory flickrPremium="true" id="IndependenceDayIcons" numShapes="10" picnikPremium="true" title="Independence Day Icons"/>
+			<ShapeCategory flickrPremium="true" id="IndependenceDay" numShapes="20" picnikPremium="true" title="Independence Day"/>
+		</ShapeCategory>
+		<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/newyear_fireworks.png" flickrPremium="true" id="NewYears_Fireworks" numShapes="24" picnikPremium="true" previewUrls="60|48|../clipart/bundles/July4thArea_groupPreviews_NewYears_Fireworks.png?ver=f69cee64" thumbUrl="66|54|1|../clipart/bundles/July4thArea_groupThumbs.png?ver=75ee2a8d" title="Fireworks"/>
+		<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/shape_stars.png" flickrPremium="true" id="SketchyStars" numShapes="16" picnikPremium="true" previewUrls="60|48|../clipart/bundles/July4thArea_groupPreviews_SketchyStars.png?ver=4ce4711d" thumbUrl="66|54|2|../clipart/bundles/July4thArea_groupThumbs.png?ver=75ee2a8d" title="Sketchy Stars"/>
+	</ShapeCategory>
+</ShapeCategory>

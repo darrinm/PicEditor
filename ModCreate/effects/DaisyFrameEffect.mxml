@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameEffectBase xmlns="effects.*" xmlns:cnt="containers.*" xmlns:ctrl="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="343"
+	xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*" premium="false" xmlns:objectOperations="imagine.objectOperations.*" urlid="DaisyFrame">
+	<mx:XML xmlns="" id="_xmlFrame">
+<frames> <!-- Daisy Frame -->
+	<frame cornerRounding="0" fillEndToEnd="false" density="1.3" size="{_sldrSize.value}" inset="0.1"
+			rotationJitter="1" rotationJitterOrder="1"
+			sizeJitter="0.1" sizeJitterOrder="2"
+			noDoubles="true">
+		<Clipart url="shapes/daisies/01daisy.swf" cWidth="800" cHeight="800"/>
+		<Clipart url="shapes/daisies/02daisy.swf" cWidth="800" cHeight="800"/>
+		<Clipart url="shapes/daisies/03daisy.swf" cWidth="800" cHeight="800"/>
+		<Clipart url="shapes/daisies/04daisy.swf" cWidth="800" cHeight="800"/>
+		<Clipart url="shapes/daisies/05daisy.swf" cWidth="800" cHeight="800"/>
+		<Clipart url="shapes/daisies/06daisy.swf" cWidth="800" cHeight="800"/>
+		<Clipart url="shapes/daisies/07daisy.swf" cWidth="800" cHeight="800"/>
+		<Clipart url="shapes/daisies/08daisy.swf" cWidth="800" cHeight="800"/>
+		<Clipart url="shapes/daisies/09daisy.swf" cWidth="800" cHeight="800"/>
+		<Clipart url="shapes/daisies/10daisy.swf" cWidth="800" cHeight="800"/>
+		<Clipart url="shapes/daisies/11daisy.swf" cWidth="800" cHeight="800"/>
+		<Clipart url="shapes/daisies/12daisy.swf" cWidth="800" cHeight="800"/>
+		<Clipart url="shapes/daisies/13daisy.swf" cWidth="800" cHeight="800"/>
+		<Clipart url="shapes/daisies/14daisy.swf" cWidth="800" cHeight="800"/>
+		<Clipart url="shapes/daisies/15daisy.swf" cWidth="800" cHeight="800"/>
+		<Clipart url="shapes/daisies/16daisy.swf" cWidth="800" cHeight="800"/>
+	</frame>
+</frames>
+	</mx:XML>
+
+	<ctrl:EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='DaisyFrameEffect')" strAuthor="@Resource(key='byPicnik', bundle='EffectCanvas')"
+		strImageSource="../graphics/effects/Frames/daisy_frame.jpg" premium="{premium}" cornerRadius="0"/>
+	<mx:String id="_strHelpText">{Resource.getString('DaisyFrameEffect', '_strHelpText')}</mx:String>
+	
+	<mx:VBox x="10" y="70" verticalGap="0">
+		<mx:HBox width="194" paddingBottom="-5" paddingTop="3">
+			<mx:Label text="@Resource(key='size', bundle='EffectCanvas')" styleName="sliderTitle"/>
+			<mx:Label text="{Math.round(_sldrSize.value * 100)}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<ctrl:HSliderPlus width="191" minimum="0.1" maximum="0.5" value="0.2" id="_sldrSize" change="OnFrameParamChange()" liveDragging="true" showDataTip="false"/>
+	
+		<ctrl:ApplyCancelEffectButtons addBoxPadding="true" premium="{premium}"/>
+	</mx:VBox>
+
+	<objectOperations:CreateObjectOperation id="_op" type="FrameObject" props="{{name:_strFrameName, layout:_strFrameLayout, x:imagewidth/2, y:imageheight/2, interactiveMode:true}}"/>
+</FrameEffectBase>

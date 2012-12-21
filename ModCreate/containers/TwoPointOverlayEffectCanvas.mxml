@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cnt:TwoPointOverlayEffectCanvasBase xmlns:cnt="containers.*" xmlns:mx="http://www.adobe.com/2006/mxml" 
+		width="200" verticalScrollPolicy="off"  horizontalScrollPolicy="off"
+		borderThickness="1" borderColor="black">
+	<mx:Number id="_nCollapsedHeight">73</mx:Number>
+	<mx:Metadata>
+		[Event(name="changeFocus", type="flash.events.Event")]
+	</mx:Metadata>
+</cnt:TwoPointOverlayEffectCanvasBase>

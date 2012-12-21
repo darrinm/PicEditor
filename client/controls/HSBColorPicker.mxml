@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<HSBColorPickerBase xmlns="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" swatchBorderSize="0" swatchPanelStyleName="hsbColorPickerPanel">
+<mx:Style>
+	.hsbColorPickerPanel {
+		swatchWidth: 8;
+		swatchHeight: 8;
+		columnCount: 32;
+		swatchBorderSize: 0;
+	}
+</mx:Style>
+</HSBColorPickerBase>

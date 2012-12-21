@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RedEyeEffectBase xmlns:bkctr="containers.*" xmlns="effects.basic.*" xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%"
+		xmlns:flash="flash.filters.*" xmlns:controls="controls.*" xmlns:imageOperations="imagine.imageOperations.*">
+	<mx:Script>
+		import mx.resources.ResourceBundle;
+		import picnik.util.LocaleInfo;
+		import util.LocUtil;
+   		[Bindable] [ResourceBundle("RedEyeOverlay")] private var rb:ResourceBundle;
+	</mx:Script>
+
+	<controls:EffectButton id="_efbtn" strTitle="@Resource(key='_btnRedEye', bundle='Adjustments')"
+		strImageSource="../graphics/effects/Touchup/eye_redeye.png"/>
+	<mx:String id="_strHelpText">{Resource.getString('RedEyeOverlay', 'Text_1')}</mx:String>
+
+	<mx:VBox x="10" y="{_nCollapsedHeight + 2}">
+		<!-- human/pet toggle -->
+		<mx:HBox horizontalGap="0">
+				<controls:ResizingButton id="_btnHumanEyeType" toggle="true" selected="{_fHumanEyes}" label="@Resource(key='humanEyes', bundle='RedEyeOverlay')"
+					styleName="buttonLeft" width="95" height="28" autoFontSizeGap="1"
+					click="_fHumanEyes = _btnHumanEyeType.selected"/>
+				<controls:ResizingButton id="_btnPetEyeType" toggle="false" selected="{!_fHumanEyes}" label="@Resource(key='petEyes', bundle='RedEyeOverlay')"
+					styleName="buttonRight" width="95" height="28" autoFontSizeGap="1"
+					click="_fHumanEyes = _btnPetEyeType.selected"/>
+		</mx:HBox>
+		<mx:Text text="@Resource(key='toggleInstructions', bundle='RedEyeOverlay')" width="190"/>
+		<controls:ApplyCancelEffectButtons addBoxPadding="true" premium="{false}"/>
+	</mx:VBox>
+	
+	<mx:Number id="_nFeedbackSecs">0.5</mx:Number>
+	<mx:Number id="_cxyMinFeedbackDim">50</mx:Number>
+	<controls:ImageVer id="_imgFeedback" visible="false"/>
+	
+	<imageOperations:NestedImageOperation id="_op" />
+</RedEyeEffectBase>

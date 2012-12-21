@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ShapeCategory area="WinterWonderland" id="root">
+	<ShapeCategory flickrPremium="false" id="WinterWonderlandSection" numShapes="0" picnikPremium="false" showHeader="false">
+		<ShapeCategory customGroupThumbUrl="../clipart/largePreviews/custom/shape_snowflakes.png" flickrPremium="true" id="Snowflakes" numShapes="20" picnikPremium="true" previewUrls="60|48|../clipart/bundles/WinterWonderlandArea_groupPreviews_Snowflakes.png?ver=a4c144ee" thumbUrl="66|54|0|../clipart/bundles/WinterWonderlandArea_groupThumbs.png?ver=2396f663" title="Snowflakes"/>
+	</ShapeCategory>
+</ShapeCategory>

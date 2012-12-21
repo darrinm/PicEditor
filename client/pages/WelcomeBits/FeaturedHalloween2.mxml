@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas width="100%" height="100%" horizontalScrollPolicy="off" verticalScrollPolicy="off"
+		xmlns:filters="flash.filters.*" xmlns:mx="http://www.adobe.com/2006/mxml" xmlns:ctl="controls.*" xmlns:thumbnails="controls.thumbnails.*">
+	<mx:Boolean id="_fShowTryIt">{AccountMgr.GetInstance().isPremium}</mx:Boolean>
+	<mx:Script>
+		<![CDATA[
+			import dialogs.DialogManager;
+			import util.LocUtil;
+			import util.Navigation;
+
+			private function FeatureClick(): void {
+				// UNDONE:
+				//	Better sample image
+				// 	can we open directly to Stars and/or Hearts?
+				//	does ShowUpgrade()'s argument need a more shapely suffix than 'featuredpremium'?
+				if (_fShowTryIt || AccountMgr.GetInstance().isPremium) {
+					Navigation.DispatchNavEvent(this, PicnikBase.ADVANCED_COLLAGE_TAB, null, PicnikBase.StaticUrl('/graphics/testimages/picnik_eyecolor_demo_photo.jpg'));
+				} else {
+					DialogManager.ShowUpgrade('/home_welcome/halloween_tour/halloween_fancyCollage');					
+				}
+			}
+		]]>
+	</mx:Script>
+
+	<filters:DropShadowFilter id="_fiDropShad" blurX="2" blurY="2" distance="1" color="#000000" alpha=".35" quality="3" angle="90"/>
+	<filters:DropShadowFilter id="_fiWhiteShad" blurX="1" blurY="1" distance="1" color="#FFFFFF" alpha="1" quality="3" angle="90"/>
+	<filters:GlowFilter id="_fiGlow" alpha=".2" blurX="3" blurY="3" color="#ffffff"/>
+	<filters:GlowFilter id="_bluGlow" alpha=".4" blurX="20" blurY="20" color="#005580"/>
+	
+	<!-- contents -->
+	<mx:VBox width="100%" height="100%" horizontalAlign="center">
+		<!-- right col copy -->
+		<!--<mx:VBox width="100%" verticalGap="0" clipContent="false" horizontalScrollPolicy="off" verticalScrollPolicy="off">
+			
+		</mx:VBox>-->
+		<!-- photos -->
+		<mx:Canvas  cornerRadius="8" width="100%" height="100%" clipContent="true" bottom="0" left="0" horizontalScrollPolicy="off" verticalScrollPolicy="off">
+			<thumbnails:Thumbnail source="/graphics/welcome/featured/halloween_fc.jpg" width="100%" height="100%"
+				left="0" maxWidth="615" maxHeight="230" cornerRadius="8" bottomCornerRadius="0"/>
+			<mx:VBox bottom="12" right="16" horizontalAlign="center" verticalGap="0" horizontalScrollPolicy="off" verticalScrollPolicy="off">
+				<ctl:ResizingButton autoFontSizeGap="1"
+					label="{LocUtil.iff('FeaturedFeatures', _fShowTryIt, 'tryItNow', 'Halloween2Button')}" 
+					styleName="{_fShowTryIt ? 'basketButton' : 'basketButtonBlue'}" 
+					fontSize="20" height="36" minWidth="130"
+					click="FeatureClick()"/>
+			</mx:VBox>
+			<ctl:LabelPlus top="5" left="10" htmlText="@Resource(key='Halloween2Intro', bundle='FeaturedFeatures')" filters="{[_fiDropShad, _fiGlow]}" fontSize="22" width="600"/>
+			<ctl:TextPlus top="36" left="10" htmlText="@Resource(key='Halloween2Subhead', bundle='FeaturedFeatures')" filters="{[_fiDropShad, _fiGlow]}" paddingTop="-6" width="605" leading="-3"/>
+		</mx:Canvas>
+	</mx:VBox>
+
+</mx:Canvas>

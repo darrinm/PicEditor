@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PicnikMenuBase xmlns="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml" 
+		backgroundColor="#ffffff" cornerRadius="8" dropShadowEnabled="true" dropShadowColor="#CCCCCC" shadowDistance="1"
+		borderStyle="solid" borderColor="#e5e5e5" autoLayout="true" 
+		paddingLeft="2" paddingTop="2" paddingRight="2" paddingBottom="2" backgroundAlpha="0.95" verticalGap="0">
+
+	<mx:Repeater id="rep" dataProvider="{_acobMenuItems}"> 
+		<mx:LinkButton label="{rep.currentItem.strLabel}" width="100%" height="20" styleName="helpMenu" color="#000000" textRollOverColor="#000000"/>
+	</mx:Repeater>
+
+</PicnikMenuBase>

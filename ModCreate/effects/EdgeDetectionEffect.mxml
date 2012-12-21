@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cnt:EffectCanvas xmlns:cnt="containers.*" xmlns="controls.*" xmlns:mx="http://www.adobe.com/2006/mxml"
+		xmlns:local="*" xmlns:imageOperations="imagine.imageOperations.*" xmlns:flash.filters="flash.filters.*"
+		width="100%" height="395" premium="{PicnikBase.GetApp().freemiumModel}" urlid="FindEdges">
+	<mx:Script>
+		import util.LocUtil;
+		import mx.resources.ResourceBundle;
+   		[Bindable] [ResourceBundle("EdgeDetectionEffect")] private var rb:ResourceBundle;
+	</mx:Script>
+
+
+	<mx:Array id="_resetValues">
+		<local:StoredValue target="_clrsw.color"/>
+		<local:StoredValue target="_clrsw.startThumbX"/>
+		<local:StoredValue target="_clrsw.startThumbY"/>
+		<local:StoredValue target="_sldrDetail.value"/>
+		<local:StoredValue target="_sldrContrast.value"/>
+		<local:StoredValue target="_sldrOriginal.value"/>
+		<local:StoredValue target="_sldrFade.value"/>
+	</mx:Array>
+	
+	<EffectButton id="_efbtn" strTitle="@Resource(key='_efbtn', bundle='EdgeDetectionEffect')" strAuthor="@Resource(key='_efbtn_1', bundle='EdgeDetectionEffect')"
+		strImageSource="../graphics/effects/Camera/holga.png" premium="{premium}"
+		booleanAdmin="true"/>
+	<mx:String id="_strHelpText">{Resource.getString('EdgeDetectionEffect', '_strHelpText')}</mx:String>
+
+	<mx:VBox x="8" y="67" verticalGap="0">
+		<mx:HBox width="194" paddingBottom="-5" paddingTop="3">
+			<mx:Label text="@Resource(key='Label_2', bundle='EdgeDetectionEffect')" styleName="sliderTitle"/>
+			<mx:Label text="{Math.round(_sldrDetail.liveValue)}%" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<HSliderFastDrag updateSpeed="{updateSpeed}" width="191" minimum="0" maximum="100" value="0" snapInterval="1" 
+				id="_sldrDetail" change="OnOpChange()" liveDragging="true" showDataTip="false"/>		
+
+		<mx:HBox width="194" paddingBottom="-5" paddingTop="3">
+			<mx:Label text="@Resource(key='Label_3', bundle='EdgeDetectionEffect')" styleName="sliderTitle"/>
+			<mx:Label text="{LocUtil.pct((_sldrContrast.liveValue))}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<HSliderFastDrag updateSpeed="{updateSpeed}" width="191" minimum="0" maximum="100" value="50" snapInterval="1" 
+				id="_sldrContrast" change="OnOpChange()" liveDragging="true" showDataTip="false"/>			
+
+		<mx:HBox width="194" paddingBottom="-5" paddingTop="3">
+			<mx:Label text="@Resource(key='Label_4', bundle='EdgeDetectionEffect')" styleName="sliderTitle"/>
+			<mx:Label text="{LocUtil.pct((_sldrOriginal.liveValue))}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<HSliderFastDrag updateSpeed="{updateSpeed}" width="191" minimum="0" maximum="100" value="50" snapInterval="1" 
+				id="_sldrOriginal" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+							
+		<mx:Label paddingTop="3" text="@Resource(key='Label_5', bundle='EdgeDetectionEffect')" styleName="sliderTitle"/>
+		<mx:HBox horizontalGap="5" paddingLeft="8">
+			<ImageColorSwatch height="58" width="175" id="_clrsw" source="@Embed('/assets/bitmaps/swatch_full.png')" color="0x000000" 
+				change="OnOpChange()" startThumbX="0" startThumbY="40"/>
+		</mx:HBox>
+		
+		<mx:HBox width="194" paddingBottom="-5" paddingTop="3">
+			<mx:Label text="@Resource(key='Label_6', bundle='EdgeDetectionEffect')" styleName="sliderTitle"/>
+			<mx:Label text="{LocUtil.pct((_sldrFade.value))}" styleName="sliderValue" textAlign="right" width="100%"/>
+		</mx:HBox>
+		<HSliderPlus width="191" minimum="0" maximum="100" value="0" id="_sldrFade" change="OnOpChange()" liveDragging="true" showDataTip="false"/>
+		
+		<ApplyCancelEffectButtons addBoxPadding="true" premium="{premium}"/>
+	</mx:VBox>
+
+	<imageOperations:NestedImageOperation id="_op" BlendAlpha="{1-(_sldrFade.value/100)}">	
+		<imageOperations:children>				
+			<imageOperations:SetVar Name="edgedetecteffect_orig"/>
+			<imageOperations:EdgeDetectionBImageOperation detail="50" BlendAlpha="1"/>
+
+			<imageOperations:AdjustCurvesImageOperation MasterCurve="{[{x:0,y:0}, {x:53+_sldrDetail.value+_sldrContrast.value,y:155}, {x:154+_sldrDetail.value,y:255}, {x:255,y:255}]}"/>
+			<imageOperations:AlphaMapImageOperation Color="{_clrsw.color}"/>
+			<imageOperations:SetVar Name="edgedetecteffect_edge"/>
+			
+			<!-- yes, we need to do this color matrix op twice -->
+			<imageOperations:ColorMatrixImageOperation  UseAlpha="false" Matrix="{[0,0,0,0,255, 0,0,0,0,255, 0,0,0,0,255, 0,0,0,0,0]}" />
+			<imageOperations:ColorMatrixImageOperation  UseAlpha="false" Matrix="{[0,0,0,0,255, 0,0,0,0,255, 0,0,0,0,255, 0,0,0,0,0]}" />
+						
+			<imageOperations:GetVarImageOperation Name="edgedetecteffect_orig" BlendAlpha="{1-(_sldrOriginal.value/100)}"/>
+			<imageOperations:GetVarImageOperation Name="edgedetecteffect_edge" BlendMode="normal"/>
+		</imageOperations:children>					
+	</imageOperations:NestedImageOperation>
+</cnt:EffectCanvas>
